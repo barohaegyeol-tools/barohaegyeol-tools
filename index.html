@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>주식 평단가 계산기｜추가매수 후 평균단가 바로 계산</title>
+  <meta name="description" content="기존 보유 수량, 기존 평균단가, 추가 매수 수량, 추가 매수가를 입력하면 새 주식 평단가와 총 매입금액을 바로 계산할 수 있습니다." />
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      margin: 0;
+      padding: 0;
+      color: #222;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 24px 16px 50px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: 28px;
+      line-height: 1.35;
+      margin: 0 0 14px;
+      color: #111827;
+    }
+
+    h2 {
+      font-size: 21px;
+      margin-top: 8px;
+      color: #111827;
+    }
+
+    p {
+      line-height: 1.7;
+      font-size: 15.5px;
+      color: #374151;
+    }
+
+    .notice {
+      background: #eef6ff;
+      border-left: 5px solid #2563eb;
+      padding: 14px 16px;
+      border-radius: 12px;
+      margin: 18px 0;
+      font-size: 15px;
+      color: #1f2937;
+    }
+
+    label {
+      display: block;
+      margin-top: 14px;
+      font-weight: bold;
+      color: #111827;
+    }
+
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 13px;
+      margin-top: 7px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 22px;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    .result {
+      display: none;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 14px;
+      padding: 18px;
+      margin-top: 22px;
+    }
+
+    .result strong {
+      color: #15803d;
+      font-size: 20px;
+    }
+
+    .result-row {
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    .small {
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    .link-box {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      border-radius: 14px;
+      padding: 16px;
+      margin-top: 18px;
+    }
+
+    ul {
+      line-height: 1.8;
+      padding-left: 20px;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 13px;
+      color: #6b7280;
+      margin-top: 28px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="card">
+      <h1>주식 평단가 계산기</h1>
+      <p>
+        주식 추가매수 후 평균단가가 얼마로 바뀌는지 바로 계산할 수 있는 평단가 계산기입니다.
+        기존 보유 수량, 기존 평균단가, 추가 매수 수량, 추가 매수가만 입력하면 새 평균단가와 총 매입금액을 확인할 수 있습니다.
+      </p>
+
+      <div class="notice">
+        예: 10,000원에 10주 보유 중이고 8,000원에 10주를 추가 매수하면 새 평단가는 9,000원입니다.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>평단가 계산하기</h2>
+
+      <label for="oldQty">기존 보유 수량</label>
+      <input type="number" id="oldQty" placeholder="예: 10" />
+
+      <label for="oldPrice">기존 평균단가</label>
+      <input type="number" id="oldPrice" placeholder="예: 10000" />
+
+      <label for="newQty">추가 매수 수량</label>
+      <input type="number" id="newQty" placeholder="예: 10" />
+
+      <label for="newPrice">추가 매수가</label>
+      <input type="number" id="newPrice" placeholder="예: 8000" />
+
+      <button onclick="calculateAverage()">평단가 계산하기</button>
+
+      <div class="result" id="resultBox">
+        <div class="result-row">총 보유 수량: <strong id="totalQty"></strong> 주</div>
+        <div class="result-row">총 매입금액: <strong id="totalAmount"></strong> 원</div>
+        <div class="result-row">새 평균단가: <strong id="averagePrice"></strong> 원</div>
+      </div>
+
+      <p class="small">
+        ※ 본 계산기는 단순 평균단가 계산용입니다. 세금, 수수료, 환율, 배당, 권리락 등은 반영하지 않습니다.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>계산 공식</h2>
+      <p>
+        새 평균단가는 기존 매입금액과 추가 매입금액을 더한 뒤, 총 보유 수량으로 나누어 계산합니다.
+      </p>
+
+      <div class="notice">
+        새 평단가 = (기존 수량 × 기존 평단가 + 추가 수량 × 추가 매수가) ÷ 총 보유 수량
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>주의사항</h2>
+      <ul>
+        <li>증권사 실제 평단가는 수수료, 세금, 환율 등에 따라 다를 수 있습니다.</li>
+        <li>해외주식은 환율과 환전 수수료에 따라 체감 평단이 달라질 수 있습니다.</li>
+        <li>무리한 물타기는 손실을 키울 수 있으므로 매수 전 손절가와 비중을 먼저 정하는 것이 좋습니다.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>자주 묻는 질문</h2>
+
+      <p><strong>Q. 물타기하면 무조건 좋은가요?</strong><br>
+      아닙니다. 주가가 계속 하락하면 손실 금액이 더 커질 수 있습니다. 추가매수 전에는 종목 재료, 실적, 차트 위치를 같이 봐야 합니다.</p>
+
+      <p><strong>Q. 증권앱 평단과 계산기 결과가 다를 수 있나요?</strong><br>
+      네. 증권앱은 수수료와 세금 등을 반영할 수 있어 단순 계산기와 차이가 날 수 있습니다.</p>
+
+      <div class="link-box">
+        <strong>바로해결랩</strong><br>
+        신청·조회·가격·시간표·계산기까지 바로 필요한 정보를 정리합니다.
+      </div>
+    </div>
+
+    <div class="footer">
+      © 바로해결랩 · 바로해결툴즈
+    </div>
+
+  </div>
+
+  <script>
+    function formatNumber(num) {
+      return Math.round(num).toLocaleString('ko-KR');
+    }
+
+    function calculateAverage() {
+      const oldQty = Number(document.getElementById('oldQty').value);
+      const oldPrice = Number(document.getElementById('oldPrice').value);
+      const newQty = Number(document.getElementById('newQty').value);
+      const newPrice = Number(document.getElementById('newPrice').value);
+
+      if (!oldQty || !oldPrice || !newQty || !newPrice) {
+        alert('모든 값을 입력해 주세요.');
+        return;
+      }
+
+      if (oldQty <= 0 || oldPrice <= 0 || newQty <= 0 || newPrice <= 0) {
+        alert('0보다 큰 숫자를 입력해 주세요.');
+        return;
+      }
+
+      const totalQty = oldQty + newQty;
+      const totalAmount = (oldQty * oldPrice) + (newQty * newPrice);
+      const averagePrice = totalAmount / totalQty;
+
+      document.getElementById('totalQty').textContent = formatNumber(totalQty);
+      document.getElementById('totalAmount').textContent = formatNumber(totalAmount);
+      document.getElementById('averagePrice').textContent = formatNumber(averagePrice);
+
+      document.getElementById('resultBox').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
