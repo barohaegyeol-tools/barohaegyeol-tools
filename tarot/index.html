@@ -435,22 +435,44 @@
       box-shadow: 0 16px 42px rgba(245,201,107,.18);
     }
 
+    .pick-note {
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      color: var(--gold2);
+      background: rgba(245,201,107,.08);
+      border: 1px solid rgba(245,201,107,.22);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
     .tarot-table {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin-top: 26px;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      margin-top: 22px;
     }
 
     .tarot-card {
       display: block;
       width: 100%;
-      height: 310px;
+      height: 260px;
       padding: 0;
       border: 0;
-      border-radius: 28px;
+      border-radius: 26px;
       background: transparent;
       perspective: 1000px;
+    }
+
+    .tarot-card.locked {
+      opacity: .48;
+      cursor: not-allowed;
+      filter: grayscale(.25);
+    }
+
+    .tarot-card.chosen {
+      opacity: 1;
+      filter: none;
     }
 
     .card-inner {
@@ -474,7 +496,7 @@
       justify-content: center;
       align-items: center;
       backface-visibility: hidden;
-      border-radius: 28px;
+      border-radius: 26px;
       overflow: hidden;
       border: 1px solid rgba(255,255,255,.22);
       box-shadow: 0 24px 70px rgba(0,0,0,.32);
@@ -489,8 +511,8 @@
     .card-back::before {
       content: "";
       position: absolute;
-      inset: 16px;
-      border-radius: 22px;
+      inset: 14px;
+      border-radius: 20px;
       border: 1px solid rgba(245,201,107,.42);
     }
 
@@ -512,21 +534,21 @@
     .symbol {
       position: relative;
       z-index: 2;
-      width: 96px;
-      height: 96px;
+      width: 76px;
+      height: 76px;
       border-radius: 50%;
       display: grid;
       place-items: center;
       background: rgba(245,201,107,.10);
       border: 1px solid rgba(245,201,107,.40);
       color: var(--gold);
-      font-size: 46px;
+      font-size: 36px;
       text-shadow: 0 0 28px rgba(245,201,107,.48);
     }
 
     .card-front {
       transform: rotateY(180deg);
-      padding: 22px;
+      padding: 18px;
       color: #15111c;
       background:
         radial-gradient(circle at 50% 5%, rgba(255,241,183,.22), transparent 34%),
@@ -536,27 +558,27 @@
     }
 
     .card-front .arcana {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 900;
       color: #6f4d13;
-      letter-spacing: .09em;
+      letter-spacing: .08em;
       text-transform: uppercase;
     }
 
     .card-front .icon {
       text-align: center;
-      font-size: 78px;
-      margin: 16px 0;
+      font-size: 54px;
+      margin: 12px 0;
     }
 
     .card-front strong {
-      font-size: 26px;
+      font-size: 22px;
       letter-spacing: -.04em;
     }
 
     .card-front span:last-child {
       color: #4b3b21;
-      font-size: 13px;
+      font-size: 12px;
       line-height: 1.5;
     }
 
@@ -718,6 +740,12 @@
       transform: translateX(-50%) translateY(0);
     }
 
+    @media (max-width: 980px) {
+      .tarot-table {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
     @media (max-width: 860px) {
       .hero {
         grid-template-columns: 1fr;
@@ -742,11 +770,11 @@
       }
 
       .tarot-table {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
       }
 
       .tarot-card {
-        height: 260px;
+        height: 250px;
       }
 
       .result-grid {
@@ -806,6 +834,14 @@
 
       .panel {
         padding: 20px;
+      }
+
+      .tarot-table {
+        grid-template-columns: 1fr;
+      }
+
+      .tarot-card {
+        height: 240px;
       }
 
       .hero-actions {
@@ -877,7 +913,7 @@
           <h2 class="section-title">오늘 보고 싶은 운세를 선택하세요</h2>
           <p class="section-sub">
             운세 카테고리를 고른 뒤, 마음이 가는 카드 1장을 선택하세요.
-            같은 카드라도 선택한 주제에 따라 해석이 달라집니다.
+            이번 버전은 메이저 아르카나 22장의 해석을 기반으로 오늘의 흐름을 보여줍니다.
           </p>
 
           <div class="fortune-tabs" role="tablist" aria-label="운세 카테고리 선택">
@@ -885,6 +921,10 @@
             <button class="tab" data-type="money">금전운</button>
             <button class="tab" data-type="love">연애운</button>
             <button class="tab" data-type="work">일/직장운</button>
+          </div>
+
+          <div class="pick-note" id="pickNote">
+            한 카테고리에서는 카드 1장만 열 수 있습니다. 다른 운세가 궁금하면 위 카테고리를 변경하세요.
           </div>
 
           <div class="tarot-table" id="cards">
@@ -923,6 +963,30 @@
                 </span>
               </span>
             </button>
+
+            <button class="tarot-card" data-pick="3" aria-label="네 번째 카드 선택">
+              <span class="card-inner">
+                <span class="card-face card-back"><span class="symbol">☀</span></span>
+                <span class="card-face card-front">
+                  <span class="arcana">Major Arcana</span>
+                  <span class="icon">☀️</span>
+                  <strong>카드 공개</strong>
+                  <span>오늘의 에너지를 확인합니다</span>
+                </span>
+              </span>
+            </button>
+
+            <button class="tarot-card" data-pick="4" aria-label="다섯 번째 카드 선택">
+              <span class="card-inner">
+                <span class="card-face card-back"><span class="symbol">✧</span></span>
+                <span class="card-face card-front">
+                  <span class="arcana">Major Arcana</span>
+                  <span class="icon">✨</span>
+                  <strong>카드 공개</strong>
+                  <span>오늘의 조언이 열립니다</span>
+                </span>
+              </span>
+            </button>
           </div>
 
           <div class="result" id="result">
@@ -954,7 +1018,7 @@
             </div>
 
             <div class="cta-row">
-              <button class="btn-primary" id="againBtn" type="button">다시 뽑기</button>
+              <button class="btn-primary" id="reloadBtn" type="button">새로고침해서 다시 뽑기</button>
               <button class="btn-ghost" id="shareBtn" type="button">결과 문구 복사</button>
               <a class="btn-ghost" href="https://barohaegyeollab.blogspot.com" target="_blank" rel="noopener">바로해결랩 글 보기</a>
             </div>
@@ -1008,14 +1072,218 @@
   <script>
     const readings = [
       {
+        name: "The Fool",
+        ko: "바보",
+        icon: "🪶",
+        keywords: ["시작", "가벼움", "가능성"],
+        flow: "오늘은 완벽한 계획보다 첫걸음이 중요한 날입니다. 너무 많은 계산으로 움직임을 멈추기보다, 작게라도 시작하면 흐름이 열립니다.",
+        money: "금전적으로는 충동 결제만 조심하면 새로운 절약법이나 수입 아이디어를 발견하기 좋습니다. 큰돈보다 작은 테스트가 유리합니다.",
+        love: "관계에서는 너무 무겁게 의미를 부여하지 않는 태도가 좋습니다. 가벼운 대화나 자연스러운 연락이 분위기를 부드럽게 만듭니다.",
+        work: "일에서는 새로운 방식이나 도구를 시도하기 좋습니다. 완벽하지 않아도 초안을 만들고 피드백을 받으면 속도가 붙습니다.",
+        advice: "오늘은 시작이 답입니다. 완벽하게 준비되기를 기다리지 말고 가볍게 한 걸음 움직이세요.",
+        avoid: "준비 부족을 핑계로 아무것도 하지 않는 것, 즉흥적으로 큰 결정을 내리는 것을 피하세요."
+      },
+      {
+        name: "The Magician",
+        ko: "마법사",
+        icon: "✨",
+        keywords: ["실행", "집중", "기술"],
+        flow: "오늘은 가진 자원을 활용해 결과를 만들기 좋은 날입니다. 흩어진 생각을 하나로 모으면 예상보다 빠르게 성과가 보입니다.",
+        money: "금전운은 실행력과 연결됩니다. 새 수익 아이디어나 부업 계획이 있다면 조사와 작은 테스트부터 시작하기 좋습니다.",
+        love: "관계에서는 표현력이 좋아지는 흐름입니다. 마음을 정리해 말하면 상대에게 더 분명하게 전달될 수 있습니다.",
+        work: "업무에서는 도구와 기술을 활용할수록 효율이 올라갑니다. 반복 업무를 줄이거나 새로운 방식을 시도하기 좋습니다.",
+        advice: "오늘은 말보다 실행입니다. 손에 있는 도구를 제대로 써서 결과물을 하나 만들어보세요.",
+        avoid: "말만 많고 행동이 없는 상태, 너무 많은 선택지를 동시에 벌리는 것을 피하세요."
+      },
+      {
+        name: "The High Priestess",
+        ko: "여사제",
+        icon: "🌌",
+        keywords: ["직감", "비밀", "관찰"],
+        flow: "오늘은 겉으로 드러난 정보보다 숨은 흐름을 보는 감각이 중요합니다. 바로 결론 내리기보다 한 발 물러서 관찰하면 답이 보입니다.",
+        money: "금전적으로는 조건을 꼼꼼히 읽어야 합니다. 좋아 보이는 제안일수록 숨은 비용이나 제한을 확인하세요.",
+        love: "연애와 관계에서는 말보다 분위기가 중요합니다. 상대의 반응을 재촉하지 말고 자연스럽게 흐름을 지켜보세요.",
+        work: "일에서는 아직 공개하기 이른 아이디어를 조용히 다듬기 좋습니다. 자료 조사와 전략 정리에 유리합니다.",
+        advice: "오늘은 조용히 보는 힘이 필요합니다. 말하기보다 듣고, 결정하기보다 확인하세요.",
+        avoid: "확실하지 않은 이야기를 퍼뜨리거나, 직감만 믿고 단정하는 것을 피하세요."
+      },
+      {
+        name: "The Empress",
+        ko: "여황제",
+        icon: "🌷",
+        keywords: ["풍요", "돌봄", "성장"],
+        flow: "오늘은 급하게 밀어붙이는 것보다 키우고 돌보는 흐름이 좋습니다. 관계, 일, 돈 모두 천천히 쌓는 쪽이 유리합니다.",
+        money: "금전운은 안정적입니다. 필요한 곳에 쓰되, 나를 성장시키는 소비와 단순 충동 소비를 구분하면 좋습니다.",
+        love: "관계에서는 따뜻한 표현이 힘을 발휘합니다. 작은 배려가 상대에게 크게 전달될 수 있습니다.",
+        work: "업무에서는 결과물을 다듬고 완성도를 높이기 좋습니다. 이미 만든 것을 키우는 데 집중하세요.",
+        advice: "오늘은 키우는 날입니다. 사람과 일, 내 컨디션을 무리 없이 돌보세요.",
+        avoid: "무리한 지출, 감정적 집착, 상대를 지나치게 챙기다 내 리듬을 잃는 것을 피하세요."
+      },
+      {
+        name: "The Emperor",
+        ko: "황제",
+        icon: "👑",
+        keywords: ["질서", "책임", "기준"],
+        flow: "오늘은 감정보다 기준을 세워야 흐름이 안정됩니다. 정리되지 않은 일을 구조화하면 주도권을 되찾을 수 있습니다.",
+        money: "금전적으로는 예산과 원칙이 중요합니다. 지출 한도를 정하고 계획대로 움직이면 불필요한 손실을 줄일 수 있습니다.",
+        love: "관계에서는 책임 있는 태도가 신뢰를 만듭니다. 다만 너무 통제하려 들면 부담을 줄 수 있습니다.",
+        work: "일에서는 리더십과 결정력이 필요한 날입니다. 기준을 명확히 제시하면 주변도 따라오기 쉽습니다.",
+        advice: "오늘은 기준을 세우세요. 애매한 상태를 정리하고 책임질 수 있는 선택을 하세요.",
+        avoid: "고집, 권위적인 말투, 상대 의견을 무시하는 태도를 피하세요."
+      },
+      {
+        name: "The Hierophant",
+        ko: "교황",
+        icon: "🕯️",
+        keywords: ["조언", "전통", "배움"],
+        flow: "오늘은 혼자 답을 찾기보다 검증된 방법이나 조언을 참고하는 것이 좋습니다. 기본으로 돌아가면 막힌 흐름이 풀립니다.",
+        money: "금전적으로는 검증되지 않은 정보보다 공식 자료와 전문가 의견을 확인하는 편이 안전합니다.",
+        love: "관계에서는 진지한 대화가 필요할 수 있습니다. 가벼운 말보다 신뢰를 주는 태도가 중요합니다.",
+        work: "업무에서는 규칙, 절차, 문서 확인이 도움이 됩니다. 기본을 지키는 사람이 좋은 평가를 받을 수 있습니다.",
+        advice: "오늘은 배움과 조언을 받아들이세요. 혼자 버티기보다 좋은 기준을 참고하세요.",
+        avoid: "근거 없는 조언을 맹신하거나, 낡은 방식만 고집하는 것을 피하세요."
+      },
+      {
+        name: "The Lovers",
+        ko: "연인",
+        icon: "💞",
+        keywords: ["선택", "관계", "조화"],
+        flow: "오늘은 선택과 관계가 핵심입니다. 마음이 끌리는 방향과 현실적인 조건 사이에서 균형을 잡아야 합니다.",
+        money: "금전적으로는 함께 쓰는 돈이나 약속된 지출을 확인하세요. 감정에 휩쓸린 소비는 줄이는 것이 좋습니다.",
+        love: "연애운은 따뜻합니다. 솔직한 표현과 서로의 선택을 존중하는 태도가 관계를 부드럽게 만듭니다.",
+        work: "업무에서는 협업과 파트너십이 중요합니다. 혼자 해결하려 하지 말고 맞는 사람과 연결하세요.",
+        advice: "오늘은 무엇을 선택할지보다 왜 선택하는지가 중요합니다. 마음과 조건을 함께 보세요.",
+        avoid: "우유부단함, 감정적 선택, 상대에게 결정을 떠넘기는 태도를 피하세요."
+      },
+      {
+        name: "The Chariot",
+        ko: "전차",
+        icon: "🏹",
+        keywords: ["돌파", "의지", "속도"],
+        flow: "오늘은 마음을 정하면 빠르게 밀고 나갈 수 있는 날입니다. 다만 방향이 정리되지 않으면 에너지가 흩어질 수 있습니다.",
+        money: "금전적으로는 목표를 정하고 움직이면 좋습니다. 다만 급한 수익 욕심으로 무리한 선택을 하지 않도록 주의하세요.",
+        love: "관계에서는 적극성이 장점이 됩니다. 단, 상대의 속도도 함께 고려해야 좋은 흐름이 됩니다.",
+        work: "일에서는 추진력이 필요합니다. 미뤄둔 일을 정해진 시간 안에 끝내는 데 유리합니다.",
+        advice: "오늘은 한 방향으로 집중하세요. 에너지를 분산시키지 말고 끝까지 밀고 가세요.",
+        avoid: "성급함, 경쟁심 과열, 상대를 밀어붙이는 태도를 피하세요."
+      },
+      {
+        name: "Strength",
+        ko: "힘",
+        icon: "🦁",
+        keywords: ["인내", "용기", "부드러운 힘"],
+        flow: "오늘은 강하게 부딪히기보다 부드럽게 버티는 힘이 필요합니다. 감정을 다스리면 상황을 유리하게 이끌 수 있습니다.",
+        money: "금전운은 절제와 인내가 중요합니다. 바로 결과가 보이지 않아도 계획을 유지하는 편이 좋습니다.",
+        love: "관계에서는 따뜻한 인내가 필요합니다. 상대를 이기려 하지 말고 이해하려는 태도가 흐름을 바꿉니다.",
+        work: "업무에서는 압박 속에서도 침착함을 유지하는 것이 강점이 됩니다. 어려운 일을 차분히 처리하면 신뢰를 얻습니다.",
+        advice: "오늘의 힘은 부드러움입니다. 감정을 다스리고 차분히 대응하세요.",
+        avoid: "분노 표현, 자존심 싸움, 즉각적인 반응을 피하세요."
+      },
+      {
+        name: "The Hermit",
+        ko: "은둔자",
+        icon: " lantern",
+        keywords: ["성찰", "거리두기", "집중"],
+        flow: "오늘은 바깥의 소음보다 내 생각을 정리하는 시간이 필요합니다. 잠시 거리를 두면 핵심이 보입니다.",
+        money: "금전적으로는 소비보다 점검이 유리합니다. 가계부, 구독료, 자동결제를 확인하면 새는 돈을 찾을 수 있습니다.",
+        love: "관계에서는 혼자만의 시간이 필요할 수 있습니다. 무리하게 대화하려 하기보다 생각을 정리한 뒤 말하는 편이 좋습니다.",
+        work: "일에서는 깊이 있는 집중이 성과를 만듭니다. 혼자 처리할 수 있는 분석, 기획, 정리 작업에 유리합니다.",
+        advice: "오늘은 잠깐 멈추고 생각하세요. 혼자 있는 시간이 오히려 답을 줍니다.",
+        avoid: "고립감에 빠지는 것, 필요한 소통까지 끊어버리는 것을 피하세요."
+      },
+      {
+        name: "Wheel of Fortune",
+        ko: "운명의 수레바퀴",
+        icon: "🔮",
+        keywords: ["전환", "타이밍", "기회"],
+        flow: "오늘은 작은 변화가 예상보다 큰 흐름으로 이어질 수 있습니다. 평소와 다른 제안이나 연락이 온다면 가능성을 확인해보세요.",
+        money: "금전적으로는 기회와 변동이 함께 들어오는 흐름입니다. 단기 이익보다 손실 가능성까지 함께 계산하는 태도가 필요합니다.",
+        love: "관계에서는 우연한 대화나 만남이 분위기를 바꿀 수 있습니다. 다만 성급한 기대보다는 자연스러운 흐름을 유지하세요.",
+        work: "일에서는 타이밍이 중요합니다. 준비해둔 일이 있다면 오늘은 작게라도 실행에 옮기기 좋은 날입니다.",
+        advice: "기회는 준비된 쪽으로 옵니다. 오늘은 작은 실행 하나를 만들어보세요.",
+        avoid: "준비 없이 큰 판을 벌이거나, 운만 믿고 움직이는 것을 피하세요."
+      },
+      {
+        name: "Justice",
+        ko: "정의",
+        icon: "⚖️",
+        keywords: ["균형", "판단", "책임"],
+        flow: "오늘은 감정보다 사실과 기준이 중요합니다. 명확한 근거를 보고 판단하면 후회가 줄어듭니다.",
+        money: "금전적으로는 계약, 결제, 조건 확인에 유리한 날입니다. 숫자와 약관을 꼼꼼히 보세요.",
+        love: "관계에서는 공정함이 중요합니다. 내 입장만 말하기보다 상대가 느끼는 균형도 확인하세요.",
+        work: "일에서는 보고, 검토, 정산, 계약 관련 업무에 집중하기 좋습니다. 실수를 줄이는 태도가 성과가 됩니다.",
+        advice: "오늘은 기준을 확인하세요. 감보다 자료와 사실을 우선하세요.",
+        avoid: "한쪽 말만 듣고 판단하는 것, 책임을 회피하는 태도를 피하세요."
+      },
+      {
+        name: "The Hanged Man",
+        ko: "매달린 사람",
+        icon: "🌀",
+        keywords: ["멈춤", "관점 전환", "기다림"],
+        flow: "오늘은 억지로 밀어붙이기보다 관점을 바꾸는 것이 좋습니다. 잠시 멈추면 답이 다른 방향에서 보입니다.",
+        money: "금전적으로는 큰 결정보다 보류가 유리합니다. 지금 당장 움직여야 한다는 압박에서 벗어나세요.",
+        love: "관계에서는 기다림이 필요합니다. 상대를 설득하려 하기보다 상황이 자연스럽게 풀릴 시간을 주세요.",
+        work: "업무에서는 기존 방식이 막혔다면 다른 관점으로 접근하세요. 잠깐의 지연이 더 나은 해결책을 만듭니다.",
+        advice: "오늘은 멈춤이 손해가 아닙니다. 한 번 뒤집어 생각하세요.",
+        avoid: "조급함, 억지 추진, 당장 답을 내야 한다는 압박을 피하세요."
+      },
+      {
+        name: "Death",
+        ko: "죽음",
+        icon: "🕊️",
+        keywords: ["종료", "정리", "새출발"],
+        flow: "오늘은 끝낼 것은 끝내야 새 흐름이 들어옵니다. 오래 붙잡던 습관이나 미련을 정리하기 좋은 날입니다.",
+        money: "금전적으로는 낡은 소비 패턴을 끊기 좋습니다. 필요 없는 구독, 반복 지출, 손실 습관을 정리하세요.",
+        love: "관계에서는 애매한 감정을 정리해야 할 수 있습니다. 끝이 아니라 새 기준을 세우는 과정으로 보세요.",
+        work: "일에서는 비효율적인 방식을 버리고 새 시스템을 만들기 좋습니다. 정리가 곧 시작입니다.",
+        advice: "오늘은 비워야 채워집니다. 더 이상 맞지 않는 것을 정리하세요.",
+        avoid: "끝난 일을 계속 붙잡거나, 변화 자체를 두려워하는 태도를 피하세요."
+      },
+      {
+        name: "Temperance",
+        ko: "절제",
+        icon: "🍵",
+        keywords: ["균형", "조율", "회복"],
+        flow: "오늘은 극단적인 선택보다 균형을 맞추는 데 운이 따릅니다. 일과 휴식, 말과 침묵 사이의 중간점을 찾으세요.",
+        money: "금전적으로는 안정 관리가 핵심입니다. 크게 벌려는 생각보다 새는 돈을 줄이는 쪽이 더 좋은 결과를 만듭니다.",
+        love: "관계에서는 속도를 맞추는 것이 중요합니다. 내 마음만 앞서가지 말고 상대의 리듬도 함께 보세요.",
+        work: "업무에서는 협업과 조율이 성과를 만듭니다. 혼자 해결하려 하기보다 역할을 나누는 편이 효율적입니다.",
+        advice: "오늘은 균형이 답입니다. 급하게 몰아붙이지 말고 리듬을 회복하세요.",
+        avoid: "모 아니면 도 식의 판단, 감정적인 압박, 무리한 일정을 피하세요."
+      },
+      {
+        name: "The Devil",
+        ko: "악마",
+        icon: "⛓️",
+        keywords: ["집착", "유혹", "습관"],
+        flow: "오늘은 나를 묶고 있는 습관을 알아차리기 좋은 날입니다. 끌리는 것과 필요한 것을 구분해야 합니다.",
+        money: "금전적으로는 충동 지출과 과한 욕심을 조심하세요. 특히 즉시 만족을 주는 소비를 한 번 더 확인하세요.",
+        love: "관계에서는 집착이나 기대가 커질 수 있습니다. 상대의 반응에 지나치게 흔들리지 않는 것이 중요합니다.",
+        work: "일에서는 편한 방식에 머물고 싶은 마음이 강해질 수 있습니다. 하지만 반복되는 문제를 정면으로 봐야 합니다.",
+        advice: "오늘은 유혹을 알아차리는 날입니다. 당장 끌리는 것보다 장기적으로 필요한 것을 선택하세요.",
+        avoid: "중독성 소비, 감정적 집착, 쉬운 이익만 좇는 태도를 피하세요."
+      },
+      {
+        name: "The Tower",
+        ko: "탑",
+        icon: "⚡",
+        keywords: ["충격", "해체", "재정비"],
+        flow: "오늘은 예상 밖의 변화가 생길 수 있습니다. 불편한 변화라도 오래된 문제를 드러내는 계기가 될 수 있습니다.",
+        money: "금전적으로는 위험 관리가 필요합니다. 무리한 투자, 과한 지출, 불확실한 약속은 줄이세요.",
+        love: "관계에서는 숨겨둔 감정이 드러날 수 있습니다. 격하게 반응하기보다 사실을 확인하는 태도가 필요합니다.",
+        work: "업무에서는 갑작스러운 일정 변경이나 문제 발견 가능성이 있습니다. 빠른 인정과 수정이 손실을 줄입니다.",
+        advice: "오늘은 무너진 것을 탓하기보다 다시 세울 기준을 찾으세요.",
+        avoid: "문제를 덮어두는 것, 자존심 때문에 수정을 미루는 것을 피하세요."
+      },
+      {
         name: "The Star",
         ko: "별",
         icon: "🌟",
         keywords: ["회복", "희망", "정리"],
-        flow: "오늘은 흐름을 억지로 바꾸기보다, 이미 진행 중인 일을 차분히 정리하는 데 유리한 날입니다. 작은 신호를 놓치지 않으면 다음 선택이 더 선명해집니다.",
-        money: "금전적으로는 큰 결정보다 지출 구조를 정리하는 쪽이 좋습니다. 급하게 움직이기보다 필요한 것과 불필요한 것을 나누는 데 집중하세요.",
-        love: "관계에서는 부드러운 말투가 흐름을 바꿉니다. 먼저 다가가기 어렵다면 짧은 안부나 가벼운 표현부터 시작해도 충분합니다.",
-        work: "일에서는 장기적으로 도움이 될 정리 작업이 빛을 봅니다. 미뤄둔 문서, 일정, 자료를 정리하면 예상보다 큰 힌트를 얻을 수 있습니다.",
+        flow: "오늘은 흐름을 억지로 바꾸기보다, 이미 진행 중인 일을 차분히 정리하는 데 유리한 날입니다. 작은 신호를 놓치지 마세요.",
+        money: "금전적으로는 큰 결정보다 지출 구조를 정리하는 쪽이 좋습니다. 필요한 것과 불필요한 것을 나누는 데 집중하세요.",
+        love: "관계에서는 부드러운 말투가 흐름을 바꿉니다. 짧은 안부나 가벼운 표현부터 시작해도 충분합니다.",
+        work: "일에서는 장기적으로 도움이 될 정리 작업이 빛을 봅니다. 미뤄둔 자료를 정리하면 힌트를 얻을 수 있습니다.",
         advice: "오늘은 속도보다 방향입니다. 급하게 답을 내기보다 한 번 더 확인하고 움직이세요.",
         avoid: "확인하지 않은 정보에 바로 반응하는 것, 감정적으로 결정하는 것을 피하세요."
       },
@@ -1024,60 +1292,48 @@
         ko: "달",
         icon: "🌙",
         keywords: ["직감", "혼란", "관찰"],
-        flow: "오늘은 겉으로 보이는 것과 실제 흐름이 다를 수 있습니다. 확신이 부족하다면 바로 판단하지 말고 상황을 조금 더 관찰하는 편이 좋습니다.",
+        flow: "오늘은 겉으로 보이는 것과 실제 흐름이 다를 수 있습니다. 확신이 부족하다면 바로 판단하지 말고 상황을 조금 더 관찰하세요.",
         money: "금전운은 충동 지출에 주의가 필요합니다. 할인이나 제안이 좋아 보여도 실제 조건을 다시 확인하는 습관이 도움이 됩니다.",
-        love: "연애와 관계에서는 오해가 생기기 쉬운 날입니다. 상대의 말보다 전체 상황을 보고, 섣부른 해석은 잠시 보류하세요.",
+        love: "연애와 관계에서는 오해가 생기기 쉬운 날입니다. 상대의 말보다 전체 상황을 보고 섣부른 해석은 보류하세요.",
         work: "업무에서는 불명확한 지시나 일정 변경이 있을 수 있습니다. 기록을 남기고 확인 질문을 하는 것이 실수를 줄입니다.",
         advice: "오늘은 직감을 참고하되, 최종 판단은 근거를 확인한 뒤 내리세요.",
         avoid: "분위기에 휩쓸려 약속하거나, 확인 없이 돈과 시간을 쓰는 것을 피하세요."
-      },
-      {
-        name: "Wheel of Fortune",
-        ko: "운명의 수레바퀴",
-        icon: "🔮",
-        keywords: ["전환", "타이밍", "기회"],
-        flow: "오늘은 작은 변화가 예상보다 큰 흐름으로 이어질 수 있습니다. 평소와 다른 제안이나 연락이 온다면 무조건 넘기지 말고 가능성을 확인해보세요.",
-        money: "금전적으로는 기회와 변동이 함께 들어오는 흐름입니다. 단기 이익보다 손실 가능성까지 함께 계산하는 태도가 필요합니다.",
-        love: "관계에서는 우연한 대화나 만남이 분위기를 바꿀 수 있습니다. 다만 성급한 기대보다는 자연스러운 흐름을 유지하세요.",
-        work: "일에서는 타이밍이 중요합니다. 준비해둔 일이 있다면 오늘은 작게라도 실행에 옮기기 좋은 날입니다.",
-        advice: "기회는 준비된 쪽으로 옵니다. 오늘은 작은 실행 하나를 만들어보세요.",
-        avoid: "준비 없이 큰 판을 벌이거나, 운만 믿고 움직이는 것을 피하세요."
       },
       {
         name: "The Sun",
         ko: "태양",
         icon: "☀️",
         keywords: ["활력", "성과", "표현"],
-        flow: "오늘은 생각을 숨기기보다 분명하게 표현할 때 좋은 반응을 얻기 쉽습니다. 분위기를 밝게 만드는 말과 행동이 운을 끌어올립니다.",
-        money: "금전운은 비교적 밝습니다. 다만 좋은 흐름일수록 계획 없는 소비를 줄이고, 남는 금액을 관리하는 것이 좋습니다.",
+        flow: "오늘은 생각을 숨기기보다 분명하게 표현할 때 좋은 반응을 얻기 쉽습니다. 밝은 말과 행동이 운을 끌어올립니다.",
+        money: "금전운은 비교적 밝습니다. 다만 좋은 흐름일수록 계획 없는 소비를 줄이고 남는 금액을 관리하는 것이 좋습니다.",
         love: "관계에서는 솔직함이 장점이 됩니다. 무겁게 접근하기보다 긍정적인 표현으로 마음을 전달해보세요.",
         work: "일에서는 결과를 보여주기 좋은 날입니다. 완벽하지 않아도 진행 상황을 공유하면 좋은 평가로 이어질 수 있습니다.",
-        advice: "오늘은 숨기기보다 보여주는 날입니다. 자신 있게 말하고, 필요한 도움도 요청하세요.",
+        advice: "오늘은 숨기기보다 보여주는 날입니다. 자신 있게 말하고 필요한 도움도 요청하세요.",
         avoid: "과한 자신감으로 상대의 말을 끊거나, 세부사항을 대충 넘기는 것을 피하세요."
       },
       {
-        name: "Temperance",
-        ko: "절제",
-        icon: "⚖️",
-        keywords: ["균형", "조율", "회복"],
-        flow: "오늘은 극단적인 선택보다 균형을 맞추는 데 운이 따릅니다. 일과 휴식, 말과 침묵, 소비와 저축 사이의 중간점을 찾으세요.",
-        money: "금전적으로는 안정 관리가 핵심입니다. 크게 벌려는 생각보다 새는 돈을 줄이는 쪽이 더 좋은 결과를 만듭니다.",
-        love: "관계에서는 속도를 맞추는 것이 중요합니다. 내 마음만 앞서가지 말고 상대의 리듬도 함께 보세요.",
-        work: "업무에서는 협업과 조율이 성과를 만듭니다. 혼자 해결하려 하기보다 역할을 나누는 편이 효율적입니다.",
-        advice: "오늘은 균형이 답입니다. 급하게 몰아붙이지 말고 리듬을 회복하세요.",
-        avoid: "모 아니면 도 식의 판단, 감정적인 압박, 무리한 일정을 피하세요."
+        name: "Judgement",
+        ko: "심판",
+        icon: "📯",
+        keywords: ["결정", "각성", "정리"],
+        flow: "오늘은 미뤄둔 판단을 정리하기 좋은 날입니다. 과거의 흐름을 돌아보면 지금 선택해야 할 방향이 분명해집니다.",
+        money: "금전적으로는 기존 선택을 점검할 때입니다. 손익, 지출, 계획을 다시 보면 조정할 부분이 보입니다.",
+        love: "관계에서는 지나간 일에 대한 대화가 필요할 수 있습니다. 비난보다 정리가 핵심입니다.",
+        work: "업무에서는 평가, 피드백, 마감 정리에 유리합니다. 이전 결과를 바탕으로 다음 전략을 세우세요.",
+        advice: "오늘은 회피하지 말고 판단하세요. 정리된 결정이 다음 단계를 엽니다.",
+        avoid: "과거를 반복하거나, 결정을 계속 미루는 태도를 피하세요."
       },
       {
-        name: "The Magician",
-        ko: "마법사",
-        icon: "✨",
-        keywords: ["시작", "집중", "실행"],
-        flow: "오늘은 아이디어를 실제 행동으로 옮기기 좋은 날입니다. 이미 가진 자원을 활용하면 생각보다 빠르게 첫 결과를 만들 수 있습니다.",
-        money: "금전운은 실행력과 연결됩니다. 새 수익 아이디어나 부업 계획이 있다면 조사와 작은 테스트부터 시작해보세요.",
-        love: "관계에서는 표현력이 좋아지는 흐름입니다. 마음을 정리해 말하면 상대에게 더 잘 전달될 수 있습니다.",
-        work: "일에서는 도구와 기술을 활용할수록 효율이 올라갑니다. 반복 업무를 줄이거나 새로운 방식을 시도하기 좋습니다.",
-        advice: "완벽한 준비보다 작은 실행이 필요합니다. 오늘은 하나라도 시작하세요.",
-        avoid: "말만 많고 행동이 없는 상태, 너무 많은 선택지를 동시에 벌리는 것을 피하세요."
+        name: "The World",
+        ko: "세계",
+        icon: "🌍",
+        keywords: ["완성", "확장", "통합"],
+        flow: "오늘은 하나의 흐름을 마무리하고 다음 단계로 넘어가기 좋은 날입니다. 흩어진 것들을 하나로 묶으면 성취감이 커집니다.",
+        money: "금전적으로는 전체 구조를 보는 시야가 필요합니다. 수입, 지출, 목표를 한눈에 정리하면 다음 계획이 보입니다.",
+        love: "관계에서는 안정감과 완성의 흐름이 있습니다. 함께 쌓아온 것을 인정하고 다음 방향을 이야기하기 좋습니다.",
+        work: "일에서는 마무리와 확장에 유리합니다. 완료한 일을 정리해 포트폴리오나 결과물로 남기세요.",
+        advice: "오늘은 마무리를 제대로 하세요. 끝낸 것을 기록하면 다음 기회로 연결됩니다.",
+        avoid: "마지막 정리를 대충 넘기거나, 성과를 제대로 기록하지 않는 것을 피하세요."
       }
     ];
 
@@ -1088,12 +1344,24 @@
       work: "일/직장운"
     };
 
+    const backSymbols = ["✦", "☾", "♢", "☀", "✧"];
+    const defaultFronts = [
+      ["🌟", "카드 공개", "오늘의 흐름이 열립니다"],
+      ["🌙", "카드 공개", "마음의 방향을 확인합니다"],
+      ["🔮", "카드 공개", "오늘의 메시지를 전합니다"],
+      ["☀️", "카드 공개", "오늘의 에너지를 확인합니다"],
+      ["✨", "카드 공개", "오늘의 조언이 열립니다"]
+    ];
+
     let selectedType = "overall";
+    let selectedSpread = [];
+    let hasPicked = false;
     let lastMessage = "";
 
     const tabs = document.querySelectorAll(".tab");
     const cards = document.querySelectorAll(".tarot-card");
     const result = document.getElementById("result");
+    const pickNote = document.getElementById("pickNote");
 
     const cardTitle = document.getElementById("cardTitle");
     const keywords = document.getElementById("keywords");
@@ -1103,38 +1371,48 @@
     const adviceText = document.getElementById("adviceText");
     const avoidText = document.getElementById("avoidText");
 
-    const againBtn = document.getElementById("againBtn");
+    const reloadBtn = document.getElementById("reloadBtn");
     const shareBtn = document.getElementById("shareBtn");
     const toast = document.getElementById("toast");
+
+    initSpread();
 
     tabs.forEach(tab => {
       tab.addEventListener("click", () => {
         tabs.forEach(t => t.classList.remove("active"));
         tab.classList.add("active");
         selectedType = tab.dataset.type;
-        resetCards(false);
+        initSpread();
+        resetCards(true);
+        showToast(`${typeNames[selectedType]}으로 변경했습니다. 새 카드 1장을 선택하세요.`);
       });
     });
 
     cards.forEach(card => {
       card.addEventListener("click", () => {
-        if (card.classList.contains("revealed")) return;
+        if (hasPicked) {
+          showToast("이번 카테고리에서는 이미 카드 1장을 열었습니다. 다른 운세는 카테고리를 변경하세요.");
+          return;
+        }
 
-        resetCards(false);
+        const pick = Number(card.dataset.pick);
+        const reading = selectedSpread[pick];
 
-        const seed = new Date().toISOString().slice(0, 10) + selectedType + card.dataset.pick;
-        const idx = hashToIndex(seed, readings.length);
-        const reading = readings[idx];
+        if (!reading) return;
 
-        const frontIcon = card.querySelector(".card-front .icon");
-        const frontTitle = card.querySelector(".card-front strong");
-        const frontSub = card.querySelector(".card-front span:last-child");
+        setCardFront(card, reading);
+        card.classList.add("revealed", "chosen");
 
-        if (frontIcon) frontIcon.textContent = reading.icon;
-        if (frontTitle) frontTitle.textContent = reading.ko;
-        if (frontSub) frontSub.textContent = reading.name;
+        cards.forEach(other => {
+          if (other !== card) {
+            other.classList.add("locked");
+            other.setAttribute("aria-disabled", "true");
+          }
+        });
 
-        card.classList.add("revealed");
+        hasPicked = true;
+        pickNote.textContent = "카드가 열렸습니다. 같은 카테고리에서는 다른 카드를 추가로 열 수 없습니다. 다른 운세는 카테고리를 변경하세요.";
+
         renderReading(reading);
         result.classList.add("show");
 
@@ -1144,8 +1422,8 @@
       });
     });
 
-    againBtn.addEventListener("click", () => {
-      resetCards(true);
+    reloadBtn.addEventListener("click", () => {
+      window.location.reload();
     });
 
     shareBtn.addEventListener("click", async () => {
@@ -1158,6 +1436,57 @@
         showToast("복사가 제한되었습니다. 문구를 직접 선택해 복사해주세요.");
       }
     });
+
+    function initSpread() {
+      selectedSpread = getDailySpread(selectedType, 5);
+      hasPicked = false;
+      pickNote.textContent = "한 카테고리에서는 카드 1장만 열 수 있습니다. 다른 운세가 궁금하면 위 카테고리를 변경하세요.";
+    }
+
+    function getDailySpread(type, count) {
+      const today = new Date().toISOString().slice(0, 10);
+      const picked = [];
+      const used = new Set();
+
+      for (let i = 0; i < count; i++) {
+        let idx = hashToIndex(`${today}|${type}|${i}|barohaegyeol-tarot`, readings.length);
+        let guard = 0;
+
+        while (used.has(idx) && guard < readings.length) {
+          idx = (idx + 1) % readings.length;
+          guard++;
+        }
+
+        used.add(idx);
+        picked.push(readings[idx]);
+      }
+
+      return picked;
+    }
+
+    function setCardFront(card, reading) {
+      const frontIcon = card.querySelector(".card-front .icon");
+      const frontTitle = card.querySelector(".card-front strong");
+      const frontSub = card.querySelector(".card-front span:last-child");
+
+      if (frontIcon) frontIcon.textContent = reading.icon;
+      if (frontTitle) frontTitle.textContent = reading.ko;
+      if (frontSub) frontSub.textContent = reading.name;
+    }
+
+    function resetCardFronts() {
+      cards.forEach((card, index) => {
+        const symbol = card.querySelector(".symbol");
+        const frontIcon = card.querySelector(".card-front .icon");
+        const frontTitle = card.querySelector(".card-front strong");
+        const frontSub = card.querySelector(".card-front span:last-child");
+
+        if (symbol) symbol.textContent = backSymbols[index] || "✦";
+        if (frontIcon) frontIcon.textContent = defaultFronts[index][0];
+        if (frontTitle) frontTitle.textContent = defaultFronts[index][1];
+        if (frontSub) frontSub.textContent = defaultFronts[index][2];
+      });
+    }
 
     function renderReading(reading) {
       const topic = selectedType === "overall" ? reading.flow : reading[selectedType];
@@ -1181,12 +1510,18 @@
       lastMessage =
         `오늘의 AI 타로｜${reading.ko} (${reading.name})\n` +
         `키워드: ${reading.keywords.join(", ")}\n` +
+        `${typeNames[selectedType]}: ${topic}\n` +
         `오늘의 조언: ${reading.advice}\n\n` +
         `바로해결랩 오늘의 타로`;
     }
 
     function resetCards(scrollToCards) {
-      cards.forEach(card => card.classList.remove("revealed"));
+      cards.forEach(card => {
+        card.classList.remove("revealed", "locked", "chosen");
+        card.removeAttribute("aria-disabled");
+      });
+
+      resetCardFronts();
       result.classList.remove("show");
 
       if (scrollToCards) {
@@ -1209,7 +1544,7 @@
 
       setTimeout(() => {
         toast.classList.remove("show");
-      }, 1800);
+      }, 2000);
     }
   </script>
 </body>
