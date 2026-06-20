@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>오늘의 AI 타로 운세｜바로해결랩</title>
+  <meta name="description" content="오늘의 AI 타로 운세를 카드 1장으로 가볍게 확인해보세요. 전체운, 금전운, 연애운, 일/직장운을 바로 확인할 수 있는 무료 타로 미니사이트입니다." />
+  <meta name="keywords" content="오늘의 타로, AI 타로, 무료 타로, 오늘의 운세, 금전운, 연애운, 직장운, 바로해결랩" />
+  <meta property="og:title" content="오늘의 AI 타로 운세｜바로해결랩" />
+  <meta property="og:description" content="카드 1장으로 보는 오늘의 흐름. 무료 AI 타로 운세를 확인해보세요." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#0b1026" />
+
+  <style>
+    :root {
+      --bg: #070914;
+      --bg2: #0b1026;
+      --card: rgba(255, 255, 255, 0.08);
+      --card2: rgba(255, 255, 255, 0.12);
+      --gold: #f5c96b;
+      --gold2: #ffd98e;
+      --blue: #6da8ff;
+      --purple: #a37cff;
+      --text: #f7f1df;
+      --muted: #b9b4c7;
+      --danger: #ff8fa3;
+      --line: rgba(255,255,255,.16);
+      --shadow: 0 24px 80px rgba(0,0,0,.45);
+      --radius: 28px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(109, 168, 255, .22), transparent 28%),
+        radial-gradient(circle at 84% 20%, rgba(163, 124, 255, .22), transparent 28%),
+        radial-gradient(circle at 50% 90%, rgba(245, 201, 107, .10), transparent 30%),
+        linear-gradient(180deg, #070914 0%, #0b1026 42%, #111735 100%);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,.55) 1px, transparent 1.5px),
+        radial-gradient(circle, rgba(255,255,255,.24) 1px, transparent 1.5px);
+      background-size: 90px 90px, 140px 140px;
+      background-position: 0 0, 30px 60px;
+      opacity: .25;
+      animation: starDrift 30s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes starDrift {
+      from { transform: translateY(0); }
+      to { transform: translateY(90px); }
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    header {
+      padding: 28px 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(245,201,107,.95), rgba(109,168,255,.85));
+      box-shadow: 0 12px 36px rgba(109,168,255,.25);
+      color: #071022;
+      font-weight: 900;
+      font-size: 22px;
+    }
+
+    .brand strong {
+      display: block;
+      font-size: 18px;
+      letter-spacing: -.02em;
+    }
+
+    .brand span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    .top-link {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 13px;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      backdrop-filter: blur(14px);
+    }
+
+    .hero {
+      padding: 36px 0 26px;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(245, 201, 107, .35);
+      background: rgba(245, 201, 107, .08);
+      color: var(--gold2);
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(42px, 7vw, 78px);
+      line-height: 1.02;
+      letter-spacing: -.07em;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #fff4c8, #f5c96b 38%, #8bbcff 78%, #d6c4ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .lead {
+      margin: 20px 0 0;
+      font-size: clamp(16px, 2.2vw, 21px);
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 640px;
+      word-break: keep-all;
+    }
+
+    .hero-actions {
+      margin-top: 28px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    button, .btn {
+      border: 0;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 800;
+      letter-spacing: -.02em;
+    }
+
+    .btn-primary {
+      padding: 15px 20px;
+      border-radius: 18px;
+      color: #081023;
+      background: linear-gradient(135deg, var(--gold), #fff1b7);
+      box-shadow: 0 18px 46px rgba(245,201,107,.22);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-ghost {
+      padding: 15px 20px;
+      border-radius: 18px;
+      color: var(--text);
+      background: rgba(255,255,255,.07);
+      border: 1px solid var(--line);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-card {
+      position: relative;
+      min-height: 500px;
+      border-radius: 36px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.13), rgba(255,255,255,.04)),
+        radial-gradient(circle at 50% 10%, rgba(245,201,107,.18), transparent 34%);
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      padding: 28px;
+      backdrop-filter: blur(22px);
+    }
+
+    .moon {
+      position: absolute;
+      right: 38px;
+      top: 34px;
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 34% 30%, #fff5c9 0 18%, #f5c96b 42%, #9b6b2c 100%);
+      box-shadow: 0 0 54px rgba(245,201,107,.35);
+      opacity: .9;
+    }
+
+    .cat-oracle {
+      position: absolute;
+      left: 28px;
+      bottom: 30px;
+      width: 170px;
+      height: 170px;
+      border-radius: 42px;
+      background: linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.05));
+      border: 1px solid rgba(255,255,255,.18);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 18px 60px rgba(0,0,0,.24);
+    }
+
+    .cat {
+      position: relative;
+      width: 110px;
+      height: 112px;
+    }
+
+    .cat .head {
+      position: absolute;
+      left: 11px;
+      top: 16px;
+      width: 88px;
+      height: 82px;
+      border-radius: 42px 42px 36px 36px;
+      background: #1e2c45;
+      border: 3px solid #d9e8ff;
+    }
+
+    .cat .ear {
+      position: absolute;
+      top: 2px;
+      width: 36px;
+      height: 40px;
+      background: #1e2c45;
+      border: 3px solid #d9e8ff;
+      transform: rotate(45deg);
+      border-radius: 10px;
+    }
+
+    .cat .ear.left { left: 14px; }
+    .cat .ear.right { right: 14px; }
+
+    .cat .eye {
+      position: absolute;
+      top: 42px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #fff;
+      border: 2px solid #071022;
+    }
+
+    .cat .eye::after {
+      content: "";
+      position: absolute;
+      left: 8px;
+      top: 5px;
+      width: 8px;
+      height: 10px;
+      border-radius: 50%;
+      background: #071022;
+    }
+
+    .cat .eye.left { left: 28px; }
+    .cat .eye.right { right: 28px; }
+
+    .cat .muzzle {
+      position: absolute;
+      left: 42px;
+      top: 62px;
+      width: 28px;
+      height: 20px;
+      border-radius: 50%;
+      background: #fff;
+    }
+
+    .cat .body {
+      position: absolute;
+      left: 25px;
+      top: 88px;
+      width: 60px;
+      height: 40px;
+      border-radius: 26px 26px 14px 14px;
+      background: #16233b;
+      border: 3px solid #d9e8ff;
+    }
+
+    .floating-card {
+      position: absolute;
+      width: 126px;
+      height: 190px;
+      border-radius: 22px;
+      background:
+        linear-gradient(145deg, rgba(245,201,107,.25), rgba(109,168,255,.15)),
+        linear-gradient(180deg, #161d3d, #0d132b);
+      border: 1px solid rgba(255,255,255,.22);
+      box-shadow: 0 24px 70px rgba(0,0,0,.34);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      animation: floatCard 5s ease-in-out infinite;
+    }
+
+    .floating-card::before {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(245,201,107,.35);
+    }
+
+    .floating-card::after {
+      content: "✦";
+      color: var(--gold);
+      font-size: 42px;
+      text-shadow: 0 0 18px rgba(245,201,107,.55);
+    }
+
+    .fc1 { right: 100px; top: 130px; transform: rotate(-8deg); }
+    .fc2 { right: 236px; top: 210px; transform: rotate(8deg); animation-delay: -.8s; }
+    .fc3 { right: 54px; top: 280px; transform: rotate(5deg); animation-delay: -1.4s; }
+
+    @keyframes floatCard {
+      0%, 100% { translate: 0 0; }
+      50% { translate: 0 -16px; }
+    }
+
+    .section {
+      padding: 44px 0;
+    }
+
+    .panel {
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.075);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(20px);
+      padding: 28px;
+    }
+
+    .section-title {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 4vw, 44px);
+      letter-spacing: -.05em;
+    }
+
+    .section-sub {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      word-break: keep-all;
+    }
+
+    .fortune-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .tab {
+      padding: 14px 12px;
+      border-radius: 18px;
+      color: var(--text);
+      background: rgba(255,255,255,.07);
+      border: 1px solid var(--line);
+      transition: .22s ease;
+    }
+
+    .tab.active {
+      color: #081023;
+      background: linear-gradient(135deg, var(--gold), #fff1b7);
+      box-shadow: 0 16px 42px rgba(245,201,107,.18);
+    }
+
+    .tarot-table {
+      margin-top: 26px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .tarot-card {
+      height: 310px;
+      perspective: 1000px;
+    }
+
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform .75s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .tarot-card.revealed .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,.22);
+      overflow: hidden;
+      box-shadow: 0 24px 70px rgba(0,0,0,.32);
+    }
+
+    .card-back {
+      background:
+        radial-gradient(circle at 50% 22%, rgba(245,201,107,.20), transparent 27%),
+        linear-gradient(145deg, #17204a, #090d22);
+      display: grid;
+      place-items: center;
+    }
+
+    .card-back::before {
+      content: "";
+      position: absolute;
+      inset: 16px;
+      border-radius: 22px;
+      border: 1px solid rgba(245,201,107,.42);
+    }
+
+    .card-back .symbol {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(245,201,107,.10);
+      border: 1px solid rgba(245,201,107,.40);
+      color: var(--gold);
+      font-size: 46px;
+      text-shadow: 0 0 28px rgba(245,201,107,.48);
+    }
+
+    .card-front {
+      transform: rotateY(180deg);
+      background:
+        radial-gradient(circle at 50% 5%, rgba(255,241,183,.16), transparent 32%),
+        linear-gradient(180deg, #f7eed4, #d8c087);
+      color: #15111c;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card-front .arcana {
+      font-size: 14px;
+      font-weight: 900;
+      color: #6f4d13;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .card-front .icon {
+      text-align: center;
+      font-size: 78px;
+      margin: 16px 0;
+    }
+
+    .card-front strong {
+      font-size: 26px;
+      letter-spacing: -.04em;
+    }
+
+    .card-front span {
+      color: #4b3b21;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .result {
+      display: none;
+      margin-top: 28px;
+      animation: rise .55s ease both;
+    }
+
+    .result.show {
+      display: block;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .reading-main {
+      grid-column: 1 / -1;
+      padding: 26px;
+      border-radius: 26px;
+      background: linear-gradient(145deg, rgba(245,201,107,.14), rgba(109,168,255,.08));
+      border: 1px solid rgba(245,201,107,.26);
+    }
+
+    .reading-main h3 {
+      margin: 0;
+      font-size: 30px;
+      letter-spacing: -.04em;
+    }
+
+    .keywords {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 14px 0 0;
+    }
+
+    .chip {
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      border: 1px solid var(--line);
+      color: var(--gold2);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .reading-box {
+      padding: 22px;
+      border-radius: 24px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid var(--line);
+    }
+
+    .reading-box h4 {
+      margin: 0 0 10px;
+      color: var(--gold2);
+      letter-spacing: -.02em;
+      font-size: 18px;
+    }
+
+    .reading-box p, .reading-main p {
+      margin: 0;
+      color: #e6e0ef;
+      line-height: 1.75;
+      word-break: keep-all;
+    }
+
+    .cta-row {
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .notice {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .content-grid {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .mini {
+      padding: 20px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.065);
+      border: 1px solid var(--line);
+    }
+
+    .mini strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--gold2);
+    }
+
+    .mini p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    footer {
+      padding: 42px 0 56px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+      text-align: center;
+    }
+
+    .footer-links {
+      margin-top: 12px;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--gold2);
+      text-decoration: none;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      transform: translateX(-50%) translateY(30px);
+      opacity: 0;
+      transition: .25s ease;
+      z-index: 20;
+      padding: 12px 16px;
+      border-radius: 999px;
+      background: rgba(7,9,20,.88);
+      border: 1px solid rgba(245,201,107,.32);
+      color: var(--gold2);
+      box-shadow: 0 14px 44px rgba(0,0,0,.36);
+      font-size: 14px;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 860px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 20px;
+      }
+
+      .hero-card {
+        min-height: 420px;
+      }
+
+      .fc1 { right: 64px; top: 104px; }
+      .fc2 { right: 180px; top: 184px; }
+      .fc3 { right: 36px; top: 250px; }
+
+      .floating-card {
+        width: 108px;
+        height: 164px;
+      }
+
+      .fortune-tabs {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .tarot-table {
+        grid-template-columns: 1fr;
+      }
+
+      .tarot-card {
+        height: 260px;
+      }
+
+      .result-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 520px) {
+      header {
+        padding-top: 20px;
+      }
+
+      .top-link {
+        display: none;
+      }
+
+      .wrap {
+        width: min(100% - 22px, 1120px);
+      }
+
+      .hero-card {
+        min-height: 370px;
+        padding: 18px;
+      }
+
+      .cat-oracle {
+        width: 134px;
+        height: 134px;
+        left: 18px;
+        bottom: 20px;
+      }
+
+      .cat {
+        scale: .78;
+      }
+
+      .moon {
+        width: 62px;
+        height: 62px;
+        right: 24px;
+        top: 24px;
+      }
+
+      .floating-card {
+        width: 88px;
+        height: 134px;
+        border-radius: 18px;
+      }
+
+      .fc1 { right: 48px; top: 92px; }
+      .fc2 { right: 150px; top: 160px; }
+      .fc3 { right: 32px; top: 218px; }
+
+      .panel {
+        padding: 20px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .btn-primary, .btn-ghost {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="../" aria-label="바로해결랩 홈으로 이동">
+        <div class="logo">✓</div>
+        <div>
+          <strong>바로해결랩</strong>
+          <span>AI 운세 · 생활정보 · 미니툴</span>
+        </div>
+      </a>
+      <a class="top-link" href="https://barohaegyeollab.blogspot.com" target="_blank" rel="noopener">블로그 바로가기</a>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <div class="badge">✦ 오늘의 무료 운세 테스트</div>
+          <h1>
+            카드 1장으로 보는<br />
+            <span class="gradient-text">오늘의 AI 타로</span>
+          </h1>
+          <p class="lead">
+            복잡한 가입 없이, 오늘 하루의 흐름을 가볍게 확인해보세요.
+            전체운·금전운·연애운·일/직장운 중 하나를 고르고 카드를 선택하면
+            바로해결랩 스타일의 오늘 조언을 확인할 수 있습니다.
+          </p>
+          <div class="hero-actions">
+            <a class="btn-primary" href="#tarot">지금 카드 뽑기</a>
+            <a class="btn-ghost" href="#guide">어떻게 보나요?</a>
+          </div>
+        </div>
+
+        <div class="hero-card" aria-hidden="true">
+          <div class="moon"></div>
+          <div class="floating-card fc1"></div>
+          <div class="floating-card fc2"></div>
+          <div class="floating-card fc3"></div>
+          <div class="cat-oracle">
+            <div class="cat">
+              <div class="ear left"></div>
+              <div class="ear right"></div>
+              <div class="head"></div>
+              <div class="eye left"></div>
+              <div class="eye right"></div>
+              <div class="muzzle"></div>
+              <div class="body"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="tarot">
+        <div class="panel">
+          <h2 class="section-title">오늘 보고 싶은 운세를 선택하세요</h2>
+          <p class="section-sub">
+            운세 카테고리를 고른 뒤, 마음이 가는 카드 1장을 선택하세요.
+            같은 카드라도 선택한 주제에 따라 해석이 달라집니다.
+          </p>
+
+          <div class="fortune-tabs" role="tablist">
+            <button class="tab active" data-type="overall">전체운</button>
+            <button class="tab" data-type="money">금전운</button>
+            <button class="tab" data-type="love">연애운</button>
+            <button class="tab" data-type="work">일/직장운</button>
+          </div>
+
+          <div class="tarot-table" id="cards">
+            <button class="tarot-card" data-pick="0" aria-label="첫 번째 카드 선택">
+              <span class="card-inner">
+                <span class="card-face card-back"><span class="symbol">✦</span></span>
+                <span class="card-face card-front">
+                  <span class="arcana">Major Arcana</span>
+                  <span class="icon">🌟</span>
+                  <strong>카드 공개</strong>
+                  <span>오늘의 흐름이 열립니다</span>
+                </span>
+              </span>
+            </button>
+
+            <button class="tarot-card" data-pick="1" aria-label="두 번째 카드 선택">
+              <span class="card-inner">
+                <span class="card-face card-back"><span class="symbol">☾</span></span>
+                <span class="card-face card-front">
+                  <span class="arcana">Major Arcana</span>
+                  <span class="icon">🌙</span>
+                  <strong>카드 공개</strong>
+                  <span>마음의 방향을 확인합니다</span>
+                </span>
+              </span>
+            </button>
+
+            <button class="tarot-card" data-pick="2" aria-label="세 번째 카드 선택">
+              <span class="card-inner">
+                <span class="card-face card-back"><span class="symbol">♢</span></span>
+                <span class="card-face card-front">
+                  <span class="arcana">Major Arcana</span>
+                  <span class="icon">🔮</span>
+                  <strong>카드 공개</strong>
+                  <span>오늘의 메시지를 전합니다</span>
+                </span>
+              </span>
+            </button>
+          </div>
+
+          <div class="result" id="result">
+            <div class="result-grid">
+              <div class="reading-main">
+                <h3 id="cardTitle">오늘의 카드</h3>
+                <div class="keywords" id="keywords"></div>
+              </div>
+
+              <div class="reading-box">
+                <h4>오늘의 흐름</h4>
+                <p id="flowText"></p>
+              </div>
+
+              <div class="reading-box">
+                <h4 id="topicTitle">선택 운세</h4>
+                <p id="topicText"></p>
+              </div>
+
+              <div class="reading-box">
+                <h4>오늘의 조언</h4>
+                <p id="adviceText"></p>
+              </div>
+
+              <div class="reading-box">
+                <h4>피하면 좋은 것</h4>
+                <p id="avoidText"></p>
+              </div>
+            </div>
+
+            <div class="cta-row">
+              <button class="btn-primary" id="againBtn">다시 뽑기</button>
+              <button class="btn-ghost" id="shareBtn">결과 문구 복사</button>
+              <a class="btn-ghost" href="https://barohaegyeollab.blogspot.com" target="_blank" rel="noopener">바로해결랩 글 보기</a>
+            </div>
+
+            <p class="notice">
+              ※ 이 타로 결과는 재미와 자기점검을 위한 참고용 콘텐츠입니다.
+              중요한 금전·투자·건강·법률·관계 판단은 실제 상황과 전문가 의견을 함께 확인하세요.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="guide">
+        <div class="panel">
+          <h2 class="section-title">오늘의 AI 타로는 이렇게 봅니다</h2>
+          <p class="section-sub">
+            운세를 맞히는 도구라기보다, 하루를 정리하고 방향을 점검하는 가벼운 체크리스트로 활용하세요.
+          </p>
+
+          <div class="content-grid">
+            <div class="mini">
+              <strong>1. 주제 선택</strong>
+              <p>전체운, 금전운, 연애운, 일/직장운 중 지금 가장 궁금한 주제를 고릅니다.</p>
+            </div>
+            <div class="mini">
+              <strong>2. 카드 선택</strong>
+              <p>복잡하게 생각하지 말고, 첫눈에 끌리는 카드 1장을 선택하세요.</p>
+            </div>
+            <div class="mini">
+              <strong>3. 메시지 확인</strong>
+              <p>결과를 정답으로 믿기보다 오늘의 행동 힌트로 가볍게 참고하세요.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <strong>바로해결랩 · 오늘의 AI 타로</strong><br />
+      이 페이지는 무료 정보·재미형 콘텐츠입니다. 결과는 참고용이며 실제 의사결정을 보장하지 않습니다.
+      <div class="footer-links">
+        <a href="../">바로해결툴즈</a>
+        <a href="https://barohaegyeollab.blogspot.com" target="_blank" rel="noopener">Blogger</a>
+        <a href="https://blog.naver.com/barohaegyeollab" target="_blank" rel="noopener">Naver Blog</a>
+      </div>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast">결과 문구를 복사했습니다.</div>
+
+  <script>
+    const readings = [
+      {
+        name: "The Star",
+        ko: "별",
+        icon: "🌟",
+        keywords: ["회복", "희망", "정리"],
+        flow: "오늘은 흐름을 억지로 바꾸기보다, 이미 진행 중인 일을 차분히 정리하는 데 유리한 날입니다. 작은 신호를 놓치지 않으면 다음 선택이 더 선명해집니다.",
+        money: "금전적으로는 큰 결정보다 지출 구조를 정리하는 쪽이 좋습니다. 급하게 움직이기보다 필요한 것과 불필요한 것을 나누는 데 집중하세요.",
+        love: "관계에서는 부드러운 말투가 흐름을 바꿉니다. 먼저 다가가기 어렵다면 짧은 안부나 가벼운 표현부터 시작해도 충분합니다.",
+        work: "일에서는 장기적으로 도움이 될 정리 작업이 빛을 봅니다. 미뤄둔 문서, 일정, 자료를 정리하면 예상보다 큰 힌트를 얻을 수 있습니다.",
+        advice: "오늘은 속도보다 방향입니다. 급하게 답을 내기보다 한 번 더 확인하고 움직이세요.",
+        avoid: "확인하지 않은 정보에 바로 반응하는 것, 감정적으로 결정하는 것을 피하세요."
+      },
+      {
+        name: "The Moon",
+        ko: "달",
+        icon: "🌙",
+        keywords: ["직감", "혼란", "관찰"],
+        flow: "오늘은 겉으로 보이는 것과 실제 흐름이 다를 수 있습니다. 확신이 부족하다면 바로 판단하지 말고 상황을 조금 더 관찰하는 편이 좋습니다.",
+        money: "금전운은 충동 지출에 주의가 필요합니다. 할인이나 제안이 좋아 보여도 실제 조건을 다시 확인하는 습관이 도움이 됩니다.",
+        love: "연애와 관계에서는 오해가 생기기 쉬운 날입니다. 상대의 말보다 전체 상황을 보고, 섣부른 해석은 잠시 보류하세요.",
+        work: "업무에서는 불명확한 지시나 일정 변경이 있을 수 있습니다. 기록을 남기고 확인 질문을 하는 것이 실수를 줄입니다.",
+        advice: "오늘은 직감을 참고하되, 최종 판단은 근거를 확인한 뒤 내리세요.",
+        avoid: "분위기에 휩쓸려 약속하거나, 확인 없이 돈과 시간을 쓰는 것을 피하세요."
+      },
+      {
+        name: "Wheel of Fortune",
+        ko: "운명의 수레바퀴",
+        icon: "🔮",
+        keywords: ["전환", "타이밍", "기회"],
+        flow: "오늘은 작은 변화가 예상보다 큰 흐름으로 이어질 수 있습니다. 평소와 다른 제안이나 연락이 온다면 무조건 넘기지 말고 가능성을 확인해보세요.",
+        money: "금전적으로는 기회와 변동이 함께 들어오는 흐름입니다. 단기 이익보다 손실 가능성까지 함께 계산하는 태도가 필요합니다.",
+        love: "관계에서는 우연한 대화나 만남이 분위기를 바꿀 수 있습니다. 다만 성급한 기대보다는 자연스러운 흐름을 유지하세요.",
+        work: "일에서는 타이밍이 중요합니다. 준비해둔 일이 있다면 오늘은 작게라도 실행에 옮기기 좋은 날입니다.",
+        advice: "기회는 준비된 쪽으로 옵니다. 오늘은 작은 실행 하나를 만들어보세요.",
+        avoid: "준비 없이 큰 판을 벌이거나, 운만 믿고 움직이는 것을 피하세요."
+      },
+      {
+        name: "The Sun",
+        ko: "태양",
+        icon: "☀️",
+        keywords: ["활력", "성과", "표현"],
+        flow: "오늘은 생각을 숨기기보다 분명하게 표현할 때 좋은 반응을 얻기 쉽습니다. 분위기를 밝게 만드는 말과 행동이 운을 끌어올립니다.",
+        money: "금전운은 비교적 밝습니다. 다만 좋은 흐름일수록 계획 없는 소비를 줄이고, 남는 금액을 관리하는 것이 좋습니다.",
+        love: "관계에서는 솔직함이 장점이 됩니다. 무겁게 접근하기보다 긍정적인 표현으로 마음을 전달해보세요.",
+        work: "일에서는 결과를 보여주기 좋은 날입니다. 완벽하지 않아도 진행 상황을 공유하면 좋은 평가로 이어질 수 있습니다.",
+        advice: "오늘은 숨기기보다 보여주는 날입니다. 자신 있게 말하고, 필요한 도움도 요청하세요.",
+        avoid: "과한 자신감으로 상대의 말을 끊거나, 세부사항을 대충 넘기는 것을 피하세요."
+      },
+      {
+        name: "Temperance",
+        ko: "절제",
+        icon: "⚖️",
+        keywords: ["균형", "조율", "회복"],
+        flow: "오늘은 극단적인 선택보다 균형을 맞추는 데 운이 따릅니다. 일과 휴식, 말과 침묵, 소비와 저축 사이의 중간점을 찾으세요.",
+        money: "금전적으로는 안정 관리가 핵심입니다. 크게 벌려는 생각보다 새는 돈을 줄이는 쪽이 더 좋은 결과를 만듭니다.",
+        love: "관계에서는 속도를 맞추는 것이 중요합니다. 내 마음만 앞서가지 말고 상대의 리듬도 함께 보세요.",
+        work: "업무에서는 협업과 조율이 성과를 만듭니다. 혼자 해결하려 하기보다 역할을 나누는 편이 효율적입니다.",
+        advice: "오늘은 균형이 답입니다. 급하게 몰아붙이지 말고 리듬을 회복하세요.",
+        avoid: "모 아니면 도 식의 판단, 감정적인 압박, 무리한 일정을 피하세요."
+      },
+      {
+        name: "The Magician",
+        ko: "마법사",
+        icon: "✨",
+        keywords: ["시작", "집중", "실행"],
+        flow: "오늘은 아이디어를 실제 행동으로 옮기기 좋은 날입니다. 이미 가진 자원을 활용하면 생각보다 빠르게 첫 결과를 만들 수 있습니다.",
+        money: "금전운은 실행력과 연결됩니다. 새 수익 아이디어나 부업 계획이 있다면 조사와 작은 테스트부터 시작해보세요.",
+        love: "관계에서는 표현력이 좋아지는 흐름입니다. 마음을 정리해 말하면 상대에게 더 잘 전달될 수 있습니다.",
+        work: "일에서는 도구와 기술을 활용할수록 효율이 올라갑니다. 반복 업무를 줄이거나 새로운 방식을 시도하기 좋습니다.",
+        advice: "완벽한 준비보다 작은 실행이 필요합니다. 오늘은 하나라도 시작하세요.",
+        avoid: "말만 많고 행동이 없는 상태, 너무 많은 선택지를 동시에 벌리는 것을 피하세요."
+      }
+    ];
+
+    const typeNames = {
+      overall: "전체운",
+      money: "금전운",
+      love: "연애운",
+      work: "일/직장운"
+    };
+
+    let selectedType = "overall";
+    let lastMessage = "";
+
+    const tabs = document.querySelectorAll(".tab");
+    const cards = document.querySelectorAll(".tarot-card");
+    const result = document.getElementById("result");
+    const cardTitle = document.getElementById("cardTitle");
+    const keywords = document.getElementById("keywords");
+    const flowText = document.getElementById("flowText");
+    const topicTitle = document.getElementById("topicTitle");
+    const topicText = document.getElementById("topicText");
+    const adviceText = document.getElementById("adviceText");
+    const avoidText = document.getElementById("avoidText");
+    const againBtn = document.getElementById("againBtn");
+    const shareBtn = document.getElementById("shareBtn");
+    const toast = document.getElementById("toast");
+
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        tabs.forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+        selectedType = tab.dataset.type;
+        resetCards(false);
+      });
+    });
+
+    cards.forEach(card => {
+      card.addEventListener("click", () => {
+        if (card.classList.contains("revealed")) return;
+        resetCards(false);
+        const seed = new Date().toISOString().slice(0, 10) + selectedType + card.dataset.pick;
+        const idx = hashToIndex(seed, readings.length);
+        const reading = readings[idx];
+
+        card.classList.add("revealed");
+        renderReading(reading);
+        result.classList.add("show");
+        setTimeout(() => result.scrollIntoView({ behavior: "smooth", block: "start" }), 260);
+      });
+    });
+
+    againBtn.addEventListener("click", () => {
+      resetCards(true);
+    });
+
+    shareBtn.addEventListener("click", async () => {
+      if (!lastMessage) return;
+      try {
+        await navigator.clipboard.writeText(lastMessage);
+        showToast("결과 문구를 복사했습니다.");
+      } catch (e) {
+        showToast("복사가 제한되었습니다. 문구를 직접 선택해 복사해주세요.");
+      }
+    });
+
+    function renderReading(reading) {
+      const topic = selectedType === "overall" ? reading.flow : reading[selectedType];
+
+      cardTitle.textContent = `오늘의 카드: ${reading.ko} (${reading.name})`;
+      keywords.innerHTML = "";
+      reading.keywords.forEach(k => {
+        const chip = document.createElement("span");
+        chip.className = "chip";
+        chip.textContent = k;
+        keywords.appendChild(chip);
+      });
+
+      flowText.textContent = reading.flow;
+      topicTitle.textContent = typeNames[selectedType];
+      topicText.textContent = topic;
+      adviceText.textContent = reading.advice;
+      avoidText.textContent = reading.avoid;
+
+      lastMessage = `오늘의 AI 타로｜${reading.ko} (${reading.name})\n키워드: ${reading.keywords.join(", ")}\n오늘의 조언: ${reading.advice}\n\n바로해결랩 오늘의 타로`;
+    }
+
+    function resetCards(scrollToCards) {
+      cards.forEach(c => c.classList.remove("revealed"));
+      result.classList.remove("show");
+      if (scrollToCards) {
+        document.getElementById("tarot").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+
+    function hashToIndex(str, max) {
+      let hash = 0;
+      for (let i = 0; i < str.length; i++) {
+        hash = ((hash << 5) - hash) + str.charCodeAt(i);
+        hash |= 0;
+      }
+      return Math.abs(hash) % max;
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 1800);
+    }
+  </script>
+</body>
+</html>
