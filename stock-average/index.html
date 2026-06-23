@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>주식 평단가 계산기｜물타기 후 평균단가 바로 계산｜바로해결랩</title>
+  <meta name="description" content="기존 보유 수량, 기존 평균단가, 추가 매수 수량, 추가 매수가, 현재가를 입력하면 새 주식 평단가와 총 투자금, 평단 인하폭, 손익률을 바로 계산할 수 있는 바로해결랩 주식 평단가 계산기입니다." />
+  <meta name="keywords" content="주식 평단가 계산기, 물타기 계산기, 주식 평균단가 계산, 추가매수 평단가, 주식 물타기, 바로해결랩, 바로해결툴즈" />
+
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/stock-average/" />
+
+  <meta property="og:title" content="주식 평단가 계산기｜바로해결랩" />
+  <meta property="og:description" content="물타기 전에 새 평단부터 확인하세요. 기존 평단과 추가매수 가격을 입력하면 새 평균단가와 손익률을 바로 계산합니다." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/stock-average/" />
+  <meta name="theme-color" content="#1238ff" />
+
+  <style>
+    :root {
+      --bg: #f3f7ff;
+      --bg2: #eef4ff;
+      --card: #ffffff;
+      --card2: #f8fbff;
+      --text: #111827;
+      --muted: #64748b;
+      --line: #dbe7f5;
+      --blue: #2563eb;
+      --blue2: #1238ff;
+      --navy: #0f172a;
+      --green: #16a34a;
+      --red: #ef4444;
+      --orange: #f97316;
+      --yellow: #fff4ca;
+      --mint: #e9fff4;
+      --shadow: 0 24px 70px rgba(37, 99, 235, .14);
+      --shadow2: 0 16px 50px rgba(15, 23, 42, .08);
+      --radius: 28px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", system-ui, sans-serif;
+      background:
+        radial-gradient(circle at 10% 8%, rgba(37, 99, 235, .16), transparent 28%),
+        radial-gradient(circle at 88% 8%, rgba(22, 163, 74, .12), transparent 26%),
+        linear-gradient(180deg, #f3f7ff 0%, #f8fbff 48%, #eef4ff 100%);
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .wrap {
+      width: min(1140px, calc(100% - 30px));
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 24px 0 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .logo {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-weight: 950;
+      font-size: 21px;
+      background: linear-gradient(135deg, var(--blue), var(--navy));
+      box-shadow: 0 14px 35px rgba(37, 99, 235, .24);
+    }
+
+    .brand strong {
+      display: block;
+      font-size: 18px;
+      letter-spacing: -.03em;
+    }
+
+    .brand span {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .top-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .top-links a {
+      padding: 10px 13px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.78);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 800;
+      color: #24415f;
+    }
+
+    .hero {
+      padding: 34px 0 30px;
+      display: grid;
+      grid-template-columns: 1.04fr .96fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: var(--blue2);
+      background: rgba(37,99,235,.09);
+      border: 1px solid rgba(37,99,235,.18);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    h1 {
+      margin: 18px 0 0;
+      font-size: clamp(40px, 6vw, 74px);
+      line-height: 1.05;
+      letter-spacing: -.075em;
+    }
+
+    .gradient-text {
+      color: transparent;
+      background: linear-gradient(90deg, #1238ff, #2563eb 42%, #16a34a);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .lead {
+      margin: 18px 0 0;
+      max-width: 650px;
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: clamp(16px, 2vw, 20px);
+      word-break: keep-all;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .btn,
+    button {
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .btn {
+      min-height: 50px;
+      padding: 14px 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 17px;
+      text-decoration: none;
+      font-weight: 950;
+      letter-spacing: -.025em;
+      transition: .18s ease;
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      box-shadow: 0 18px 44px rgba(37,99,235,.26);
+    }
+
+    .btn-ghost {
+      color: #183a5c;
+      background: rgba(255,255,255,.78);
+      border: 1px solid var(--line);
+    }
+
+    .btn-primary:hover,
+    .btn-ghost:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 450px;
+      border-radius: 38px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 20%, rgba(255,255,255,.86), transparent 34%),
+        linear-gradient(145deg, #dfeaff, #ffffff 46%, #e9fff4);
+      border: 1px solid rgba(255,255,255,.92);
+      box-shadow: var(--shadow);
+    }
+
+    .chart-panel {
+      position: absolute;
+      inset: 28px;
+      border-radius: 30px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,255,255,.34)),
+        radial-gradient(circle at 25% 18%, rgba(37,99,235,.18), transparent 34%);
+      border: 1px solid rgba(255,255,255,.86);
+      overflow: hidden;
+    }
+
+    .chart-line {
+      position: absolute;
+      left: 34px;
+      right: 34px;
+      top: 120px;
+      height: 120px;
+    }
+
+    .chart-line svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .stock-card {
+      position: absolute;
+      left: 34px;
+      top: 34px;
+      width: 220px;
+      padding: 18px;
+      border-radius: 24px;
+      background: rgba(255,255,255,.9);
+      border: 1px solid rgba(219,231,245,.95);
+      box-shadow: var(--shadow2);
+    }
+
+    .stock-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .stock-card strong {
+      display: block;
+      margin-top: 8px;
+      color: var(--blue2);
+      font-size: 28px;
+      letter-spacing: -.04em;
+    }
+
+    .average-card {
+      position: absolute;
+      right: 34px;
+      top: 70px;
+      width: 210px;
+      padding: 18px;
+      border-radius: 24px;
+      color: #fff;
+      background: linear-gradient(135deg, #1238ff, #0f172a);
+      box-shadow: 0 22px 60px rgba(18,56,255,.25);
+    }
+
+    .average-card span {
+      display: block;
+      opacity: .82;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .average-card strong {
+      display: block;
+      margin-top: 8px;
+      font-size: 28px;
+      letter-spacing: -.04em;
+    }
+
+    .cat {
+      position: absolute;
+      left: 52px;
+      bottom: 32px;
+      width: 165px;
+      height: 165px;
+      display: grid;
+      place-items: center;
+      border-radius: 40px;
+      background: rgba(255,255,255,.62);
+      border: 1px solid rgba(255,255,255,.86);
+    }
+
+    .cat-face {
+      width: 110px;
+      height: 92px;
+      position: relative;
+      border-radius: 46px 46px 35px 35px;
+      background: #fff4dc;
+      border: 3px solid #543927;
+      box-shadow: inset 0 -9px 0 rgba(255,204,134,.38);
+    }
+
+    .cat-face::before,
+    .cat-face::after {
+      content: "";
+      position: absolute;
+      top: -18px;
+      width: 36px;
+      height: 36px;
+      background: #fff4dc;
+      border-left: 3px solid #543927;
+      border-top: 3px solid #543927;
+      transform: rotate(45deg);
+      border-radius: 8px;
+    }
+
+    .cat-face::before { left: 15px; }
+    .cat-face::after { right: 15px; }
+
+    .eye {
+      position: absolute;
+      top: 37px;
+      width: 17px;
+      height: 21px;
+      border-radius: 50%;
+      background: #211816;
+    }
+
+    .eye.left { left: 30px; }
+    .eye.right { right: 30px; }
+
+    .nose {
+      position: absolute;
+      left: 50%;
+      top: 62px;
+      width: 11px;
+      height: 8px;
+      border-radius: 50%;
+      transform: translateX(-50%);
+      background: #ef7b71;
+    }
+
+    .memo {
+      position: absolute;
+      right: 44px;
+      bottom: 54px;
+      width: 210px;
+      padding: 17px;
+      border-radius: 24px;
+      background: #fff;
+      border: 1px solid #dbe7f5;
+      box-shadow: var(--shadow2);
+      color: #17324b;
+    }
+
+    .memo b {
+      display: block;
+      font-size: 18px;
+      letter-spacing: -.04em;
+    }
+
+    .memo small {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .section {
+      padding: 26px 0;
+    }
+
+    .grid-main {
+      display: grid;
+      grid-template-columns: .92fr 1.08fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .panel {
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.9);
+      border: 1px solid rgba(219,231,245,.96);
+      box-shadow: var(--shadow);
+    }
+
+    .calculator {
+      padding: 26px;
+      position: sticky;
+      top: 14px;
+    }
+
+    .panel-title {
+      margin: 0;
+      font-size: 30px;
+      letter-spacing: -.055em;
+    }
+
+    .panel-sub {
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.65;
+      word-break: keep-all;
+    }
+
+    .form {
+      display: grid;
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: 950;
+      color: #172a45;
+      letter-spacing: -.02em;
+    }
+
+    input {
+      width: 100%;
+      min-height: 54px;
+      padding: 14px 15px;
+      border: 1px solid #cfdded;
+      border-radius: 16px;
+      outline: none;
+      background: #fbfdff;
+      color: var(--text);
+      font-size: 18px;
+      font-weight: 850;
+      transition: .15s ease;
+    }
+
+    input:focus {
+      border-color: rgba(37,99,235,.76);
+      box-shadow: 0 0 0 4px rgba(37,99,235,.11);
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .preset-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .preset {
+      border: 1px solid #d6e4f3;
+      background: #fff;
+      color: #1e3a5f;
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .calc-btn {
+      width: 100%;
+      min-height: 58px;
+      border: 0;
+      border-radius: 18px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      font-size: 18px;
+      font-weight: 950;
+      letter-spacing: -.03em;
+      box-shadow: 0 18px 44px rgba(37,99,235,.25);
+      transition: .18s ease;
+    }
+
+    .calc-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .result {
+      display: none;
+      padding: 24px;
+      margin-top: 18px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #f1f7ff, #effff7);
+      border: 1px solid #d3e6f8;
+    }
+
+    .result.show {
+      display: block;
+      animation: rise .35s ease both;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .result-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .result-head h3 {
+      margin: 0;
+      font-size: 23px;
+      letter-spacing: -.045em;
+    }
+
+    .status {
+      padding: 8px 11px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 950;
+      background: #e6f0ff;
+      color: #1238ff;
+    }
+
+    .result-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .r-card {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.86);
+      border: 1px solid #d8e6f5;
+    }
+
+    .r-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .r-card strong {
+      display: block;
+      margin-top: 6px;
+      font-size: 22px;
+      letter-spacing: -.04em;
+      color: #0f253d;
+    }
+
+    .r-card.highlight {
+      color: #fff;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      border-color: transparent;
+    }
+
+    .r-card.highlight span,
+    .r-card.highlight strong {
+      color: #fff;
+    }
+
+    .r-card.profit {
+      background: #edfff4;
+      border-color: #c8f7d9;
+    }
+
+    .r-card.loss {
+      background: #fff1f1;
+      border-color: #ffd0d0;
+    }
+
+    .analysis-box {
+      margin-top: 12px;
+      padding: 16px;
+      border-radius: 18px;
+      background: #fff;
+      border: 1px solid #d8e6f5;
+      color: #2c4661;
+      line-height: 1.68;
+      font-size: 14px;
+      word-break: keep-all;
+    }
+
+    .risk-box {
+      margin-top: 12px;
+      padding: 16px;
+      border-radius: 18px;
+      background: #fff8df;
+      border: 1px solid #ffe1a0;
+      color: #6b4700;
+      line-height: 1.66;
+      font-size: 14px;
+      word-break: keep-all;
+    }
+
+    .content {
+      display: grid;
+      gap: 18px;
+    }
+
+    .content-card {
+      padding: 26px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.9);
+      border: 1px solid rgba(219,231,245,.96);
+      box-shadow: var(--shadow2);
+    }
+
+    .content-card h2 {
+      margin: 0 0 12px;
+      font-size: 28px;
+      letter-spacing: -.052em;
+    }
+
+    .content-card h3 {
+      margin: 20px 0 8px;
+      font-size: 20px;
+      letter-spacing: -.035em;
+    }
+
+    .content-card p {
+      margin: 0 0 12px;
+      color: #40566e;
+      line-height: 1.78;
+      word-break: keep-all;
+    }
+
+    .tip-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .tip {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 15px;
+      border-radius: 18px;
+      background: #f8fbff;
+      border: 1px solid #dbe7f5;
+    }
+
+    .tip-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: #e6f0ff;
+      font-size: 22px;
+    }
+
+    .tip strong {
+      display: block;
+      margin-bottom: 4px;
+      color: #15283f;
+      letter-spacing: -.025em;
+    }
+
+    .tip span {
+      display: block;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 14px;
+      word-break: keep-all;
+    }
+
+    .formula {
+      padding: 16px;
+      border-radius: 18px;
+      background: #f8fbff;
+      border: 1px solid #dbe7f5;
+      color: #355067;
+      line-height: 1.75;
+      font-size: 14px;
+      overflow-x: auto;
+    }
+
+    .cta-band {
+      padding: 22px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #1238ff, #0f172a);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .cta-band strong {
+      display: block;
+      font-size: 22px;
+      letter-spacing: -.04em;
+    }
+
+    .cta-band span {
+      display: block;
+      margin-top: 4px;
+      opacity: .9;
+      line-height: 1.55;
+    }
+
+    .cta-band .btn {
+      color: var(--blue2);
+      background: #fff;
+      box-shadow: none;
+    }
+
+    .related {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .related a {
+      display: block;
+      padding: 16px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: #f8fbff;
+      border: 1px solid #dbe7f5;
+      color: #214260;
+      font-weight: 900;
+      line-height: 1.5;
+    }
+
+    .notice {
+      color: #6b7f92;
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    footer {
+      padding: 42px 0 58px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .footer-links {
+      margin-top: 12px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-links a {
+      color: var(--blue2);
+      text-decoration: none;
+      font-weight: 900;
+    }
+
+    @media (max-width: 940px) {
+      .hero,
+      .grid-main {
+        grid-template-columns: 1fr;
+      }
+
+      .calculator {
+        position: static;
+      }
+
+      .hero-visual {
+        min-height: 380px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .wrap {
+        width: min(100% - 22px, 1140px);
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .top-links {
+        justify-content: flex-start;
+      }
+
+      .hero {
+        padding-top: 20px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .hero-visual {
+        min-height: 350px;
+        border-radius: 28px;
+      }
+
+      .stock-card {
+        left: 18px;
+        top: 24px;
+        width: 160px;
+        padding: 14px;
+      }
+
+      .stock-card strong {
+        font-size: 22px;
+      }
+
+      .average-card {
+        right: 18px;
+        top: 50px;
+        width: 150px;
+        padding: 14px;
+      }
+
+      .average-card strong {
+        font-size: 22px;
+      }
+
+      .cat {
+        width: 126px;
+        height: 126px;
+        left: 20px;
+        bottom: 24px;
+      }
+
+      .cat-face {
+        transform: scale(.76);
+      }
+
+      .memo {
+        width: 160px;
+        right: 18px;
+        bottom: 28px;
+      }
+
+      .result-cards,
+      .related {
+        grid-template-columns: 1fr;
+      }
+
+      .content-card,
+      .calculator {
+        padding: 20px;
+        border-radius: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="https://barohaegyeol-tools.pages.dev/" aria-label="바로해결툴즈 메인으로 이동">
+        <div class="logo">✓</div>
+        <div>
+          <strong>바로해결랩</strong>
+          <span>금융 계산기 · 생활비 절약 · 바로 확인</span>
+        </div>
+      </a>
+
+      <div class="top-links">
+        <a href="#calculator">계산하기</a>
+        <a href="#guide">물타기 주의</a>
+        <a href="https://barohaegyeol-tools.pages.dev/aircon-bill/">에어컨 전기요금</a>
+        <a href="https://barohaegyeol-tools.pages.dev/tarot/">AI 타로</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <div class="badge">💹 물타기 전 필수 확인</div>
+          <h1>
+            추가매수 전에<br />
+            <span class="gradient-text">새 평단부터 계산하세요</span>
+          </h1>
+          <p class="lead">
+            물타기를 하면 평단이 낮아질 수 있지만, 총 투자금과 손실 규모도 함께 커집니다.
+            기존 보유 수량, 기존 평단, 추가 매수 수량, 추가 매수가를 넣고 새 평균단가와 손익률을 먼저 확인하세요.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#calculator">평단가 바로 계산하기</a>
+            <a class="btn btn-ghost" href="#guide">물타기 전 체크포인트</a>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="chart-panel">
+            <div class="stock-card">
+              <span>기존 평균단가</span>
+              <strong id="visualOld">?</strong>
+            </div>
+
+            <div class="average-card">
+              <span>새 평균단가</span>
+              <strong id="visualNew">?</strong>
+            </div>
+
+            <div class="chart-line">
+              <svg viewBox="0 0 420 130" preserveAspectRatio="none">
+                <path d="M5 105 C70 70, 90 80, 135 56 C185 28, 210 48, 248 37 C300 22, 340 48, 416 18"
+                  fill="none" stroke="rgba(37,99,235,.35)" stroke-width="8" stroke-linecap="round"/>
+                <path d="M5 105 C70 70, 90 80, 135 56 C185 28, 210 48, 248 37 C300 22, 340 48, 416 18"
+                  fill="none" stroke="#1238ff" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </div>
+
+            <div class="cat">
+              <div class="cat-face">
+                <span class="eye left"></span>
+                <span class="eye right"></span>
+                <span class="nose"></span>
+              </div>
+            </div>
+
+            <div class="memo">
+              <b>평단만 보지 말기</b>
+              <small>추가매수는 총 비중과 리스크까지 같이 봐야 합니다.</small>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="calculator">
+        <div class="grid-main">
+          <section class="panel calculator">
+            <h2 class="panel-title">주식 평단가 계산기</h2>
+            <p class="panel-sub">
+              기존 보유분과 추가매수분을 합산해 새 평균단가, 총 투자금, 평단 인하폭, 현재가 기준 손익률을 계산합니다.
+            </p>
+
+            <div class="form">
+              <div class="field">
+                <label for="oldQty">기존 보유 수량</label>
+                <input id="oldQty" type="number" inputmode="decimal" value="10" min="0" step="1" />
+                <div class="hint">현재 보유 중인 주식 수량을 입력하세요.</div>
+              </div>
+
+              <div class="field">
+                <label for="oldPrice">기존 평균단가</label>
+                <input id="oldPrice" type="number" inputmode="decimal" value="10000" min="0" step="1" />
+                <div class="hint">증권앱에 표시된 현재 평균단가를 입력하세요.</div>
+              </div>
+
+              <div class="field">
+                <label for="newQty">추가 매수 수량</label>
+                <input id="newQty" type="number" inputmode="decimal" value="10" min="0" step="1" />
+                <div class="hint">새로 매수하려는 수량을 입력하세요.</div>
+              </div>
+
+              <div class="field">
+                <label for="newPrice">추가 매수가</label>
+                <input id="newPrice" type="number" inputmode="decimal" value="8000" min="0" step="1" />
+                <div class="hint">추가로 매수할 예상 가격을 입력하세요.</div>
+              </div>
+
+              <div class="field">
+                <label for="currentPrice">현재가 또는 목표 매도가</label>
+                <input id="currentPrice" type="number" inputmode="decimal" value="9000" min="0" step="1" />
+                <div class="hint">선택 입력값입니다. 입력하면 현재가 기준 손익률을 같이 계산합니다.</div>
+              </div>
+
+              <div class="preset-row">
+                <button class="preset" type="button" data-oldqty="10" data-oldprice="10000" data-newqty="10" data-newprice="8000" data-current="9000">예시: 1만원→8천원</button>
+                <button class="preset" type="button" data-oldqty="20" data-oldprice="50000" data-newqty="10" data-newprice="45000" data-current="47000">예시: 대형주 추매</button>
+                <button class="preset" type="button" data-oldqty="100" data-oldprice="2500" data-newqty="100" data-newprice="2000" data-current="2200">예시: 저가주 추매</button>
+              </div>
+
+              <button class="calc-btn" type="button" id="calcBtn">평단가 계산하기</button>
+            </div>
+
+            <div class="result show" id="result">
+              <div class="result-head">
+                <h3>계산 결과</h3>
+                <span class="status" id="statusText">예상 계산</span>
+              </div>
+
+              <div class="result-cards">
+                <div class="r-card">
+                  <span>총 보유 수량</span>
+                  <strong id="totalQty">-</strong>
+                </div>
+                <div class="r-card">
+                  <span>총 매입금액</span>
+                  <strong id="totalAmount">-</strong>
+                </div>
+                <div class="r-card highlight">
+                  <span>새 평균단가</span>
+                  <strong id="avgPrice">-</strong>
+                </div>
+                <div class="r-card">
+                  <span>평단 인하폭</span>
+                  <strong id="downAmount">-</strong>
+                </div>
+                <div class="r-card">
+                  <span>평단 인하율</span>
+                  <strong id="downRate">-</strong>
+                </div>
+                <div class="r-card" id="profitCard">
+                  <span>현재가 기준 손익률</span>
+                  <strong id="profitRate">-</strong>
+                </div>
+              </div>
+
+              <div class="analysis-box" id="analysisText">
+                계산 결과 해석이 표시됩니다.
+              </div>
+
+              <div class="risk-box" id="riskText">
+                물타기는 평균단가를 낮출 수 있지만, 총 투자금과 손실 위험도 함께 커질 수 있습니다.
+              </div>
+            </div>
+          </section>
+
+          <section class="content">
+            <div class="content-card">
+              <h2>물타기 전에 봐야 할 건 새 평단만이 아닙니다</h2>
+              <p>
+                주가가 내려오면 “조금 더 사서 평단을 낮출까?”라는 생각이 먼저 듭니다.
+                실제로 추가매수를 하면 평균단가는 낮아질 수 있습니다.
+              </p>
+              <p>
+                하지만 평균단가가 낮아지는 대신 총 투자금도 늘어납니다.
+                그래서 추가매수 전에는 새 평단, 총 보유금액, 현재가 기준 손익률을 같이 확인해야 합니다.
+              </p>
+
+              <div class="cta-band">
+                <div>
+                  <strong>추가매수 전 10초 계산</strong>
+                  <span>기존 평단과 추가 매수가만 넣으면 새 평균단가가 바로 나옵니다.</span>
+                </div>
+                <a class="btn" href="#calculator">계산기로 이동</a>
+              </div>
+            </div>
+
+            <div class="content-card" id="guide">
+              <h2>물타기 전 체크포인트</h2>
+              <p>
+                평단가 계산기는 숫자를 확인하는 도구입니다.
+                실제 매수 판단은 종목의 재료, 실적, 차트 위치, 시장 흐름, 본인 비중을 함께 봐야 합니다.
+              </p>
+
+              <div class="tip-list">
+                <div class="tip">
+                  <div class="tip-icon">📉</div>
+                  <div>
+                    <strong>하락 이유가 일시적인지 확인</strong>
+                    <span>단순 조정인지, 실적 악화·악재·섹터 약세인지에 따라 추가매수 판단이 달라집니다.</span>
+                  </div>
+                </div>
+
+                <div class="tip">
+                  <div class="tip-icon">💰</div>
+                  <div>
+                    <strong>총 투자금이 얼마나 늘어나는지 확인</strong>
+                    <span>평단은 낮아져도 비중이 과도하게 커지면 한 종목 리스크가 커질 수 있습니다.</span>
+                  </div>
+                </div>
+
+                <div class="tip">
+                  <div class="tip-icon">🎯</div>
+                  <div>
+                    <strong>손절가와 반등 목표가를 먼저 정하기</strong>
+                    <span>계획 없는 물타기는 손실을 키울 수 있습니다. 추가매수 전 대응 가격을 먼저 정하세요.</span>
+                  </div>
+                </div>
+
+                <div class="tip">
+                  <div class="tip-icon">📊</div>
+                  <div>
+                    <strong>현재가 기준 손익률까지 같이 보기</strong>
+                    <span>새 평단만 보고 안심하지 말고, 현재가 기준으로 얼마나 회복해야 하는지도 확인해야 합니다.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="content-card">
+              <h2>계산 공식</h2>
+              <p>
+                새 평균단가는 기존 매입금액과 추가 매입금액을 합산한 뒤, 총 보유 수량으로 나누어 계산합니다.
+              </p>
+
+              <div class="formula">
+                <strong>새 평균단가</strong><br />
+                = (기존 보유 수량 × 기존 평균단가 + 추가 매수 수량 × 추가 매수가) ÷ 총 보유 수량<br /><br />
+
+                <strong>총 매입금액</strong><br />
+                = 기존 보유 수량 × 기존 평균단가 + 추가 매수 수량 × 추가 매수가<br /><br />
+
+                <strong>현재가 기준 손익률</strong><br />
+                = (현재가 - 새 평균단가) ÷ 새 평균단가 × 100
+              </div>
+            </div>
+
+            <div class="content-card">
+              <h2>자주 묻는 질문</h2>
+
+              <h3>Q. 물타기하면 무조건 좋은가요?</h3>
+              <p>
+                아닙니다. 주가가 계속 하락하면 손실 금액이 더 커질 수 있습니다.
+                추가매수는 평균단가를 낮추는 효과가 있지만, 동시에 총 투자금도 늘리는 결정입니다.
+              </p>
+
+              <h3>Q. 증권앱 평단과 계산기 결과가 다를 수 있나요?</h3>
+              <p>
+                네. 증권앱은 수수료, 세금, 환율, 권리락, 배당 조정 등을 반영할 수 있습니다.
+                이 계산기는 단순 평균단가 확인용입니다.
+              </p>
+
+              <h3>Q. 해외주식도 계산할 수 있나요?</h3>
+              <p>
+                숫자 계산 자체는 가능합니다. 다만 해외주식은 환율과 환전 수수료가 영향을 줄 수 있으므로
+                실제 증권앱 평단과 차이가 날 수 있습니다.
+              </p>
+            </div>
+
+            <div class="content-card">
+              <h2>주의사항</h2>
+              <p class="notice">
+                이 계산기는 단순 평균단가 계산용입니다. 투자 판단, 매수 추천, 매도 추천을 제공하지 않습니다.
+                실제 증권사 평단가는 수수료, 세금, 환율, 권리락, 배당, 체결 방식 등에 따라 달라질 수 있습니다.
+                투자 결정은 본인의 책임이며, 추가매수 전에는 손실 가능성과 비중 관리까지 함께 검토해야 합니다.
+              </p>
+            </div>
+
+            <div class="content-card">
+              <h2>바로해결랩 관련 도구</h2>
+              <p>
+                바로해결랩은 금융 계산기, 생활비 절약 계산기, 운세형 미니툴을 하나씩 쌓아가고 있습니다.
+              </p>
+
+              <div class="related">
+                <a href="https://barohaegyeol-tools.pages.dev/" target="_blank" rel="noopener">바로해결툴즈 메인</a>
+                <a href="https://barohaegyeol-tools.pages.dev/aircon-bill/" target="_blank" rel="noopener">에어컨 전기요금 계산기</a>
+                <a href="https://barohaegyeol-tools.pages.dev/tarot/" target="_blank" rel="noopener">오늘의 AI 타로 운세</a>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <strong>바로해결랩 · 주식 평단가 계산기</strong><br />
+      계산 결과는 참고용이며 투자 판단을 보장하지 않습니다. 실제 증권사 평단과 차이가 날 수 있습니다.
+      <div class="footer-links">
+        <a href="https://barohaegyeol-tools.pages.dev/">바로해결툴즈</a>
+        <a href="https://barohaegyeollab.blogspot.com" target="_blank" rel="noopener">Blogger</a>
+        <a href="https://blog.naver.com/barohaegyeollab" target="_blank" rel="noopener">Naver Blog</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const oldQtyEl = document.getElementById("oldQty");
+    const oldPriceEl = document.getElementById("oldPrice");
+    const newQtyEl = document.getElementById("newQty");
+    const newPriceEl = document.getElementById("newPrice");
+    const currentPriceEl = document.getElementById("currentPrice");
+    const calcBtn = document.getElementById("calcBtn");
+
+    const result = document.getElementById("result");
+    const totalQtyEl = document.getElementById("totalQty");
+    const totalAmountEl = document.getElementById("totalAmount");
+    const avgPriceEl = document.getElementById("avgPrice");
+    const downAmountEl = document.getElementById("downAmount");
+    const downRateEl = document.getElementById("downRate");
+    const profitRateEl = document.getElementById("profitRate");
+    const profitCard = document.getElementById("profitCard");
+    const statusText = document.getElementById("statusText");
+    const analysisText = document.getElementById("analysisText");
+    const riskText = document.getElementById("riskText");
+    const visualOld = document.getElementById("visualOld");
+    const visualNew = document.getElementById("visualNew");
+
+    document.querySelectorAll(".preset").forEach(button => {
+      button.addEventListener("click", () => {
+        oldQtyEl.value = button.dataset.oldqty;
+        oldPriceEl.value = button.dataset.oldprice;
+        newQtyEl.value = button.dataset.newqty;
+        newPriceEl.value = button.dataset.newprice;
+        currentPriceEl.value = button.dataset.current;
+        calculate();
+      });
+    });
+
+    [oldQtyEl, oldPriceEl, newQtyEl, newPriceEl, currentPriceEl].forEach(el => {
+      el.addEventListener("input", calculate);
+      el.addEventListener("change", calculate);
+    });
+
+    calcBtn.addEventListener("click", () => {
+      calculate();
+      result.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    calculate();
+
+    function calculate() {
+      const oldQty = safeNumber(oldQtyEl.value);
+      const oldPrice = safeNumber(oldPriceEl.value);
+      const newQty = safeNumber(newQtyEl.value);
+      const newPrice = safeNumber(newPriceEl.value);
+      const currentPrice = safeNumber(currentPriceEl.value);
+
+      const oldAmount = oldQty * oldPrice;
+      const newAmount = newQty * newPrice;
+      const totalQty = oldQty + newQty;
+      const totalAmount = oldAmount + newAmount;
+
+      if (totalQty <= 0 || totalAmount <= 0) {
+        renderEmpty();
+        return;
+      }
+
+      const averagePrice = totalAmount / totalQty;
+      const downAmount = oldPrice > 0 ? oldPrice - averagePrice : 0;
+      const downRate = oldPrice > 0 ? (downAmount / oldPrice) * 100 : 0;
+
+      const profitRate = currentPrice > 0 ? ((currentPrice - averagePrice) / averagePrice) * 100 : null;
+      const profitAmount = currentPrice > 0 ? (currentPrice * totalQty) - totalAmount : null;
+
+      totalQtyEl.textContent = `${formatNumber(totalQty)}주`;
+      totalAmountEl.textContent = `${formatWon(totalAmount)}`;
+      avgPriceEl.textContent = `${formatWon(averagePrice)}`;
+      downAmountEl.textContent = `${downAmount >= 0 ? formatWon(downAmount) : "+" + formatWon(Math.abs(downAmount))}`;
+      downRateEl.textContent = `${formatPercent(downRate)}`;
+
+      visualOld.textContent = oldPrice > 0 ? formatWonShort(oldPrice) : "?";
+      visualNew.textContent = formatWonShort(averagePrice);
+
+      if (profitRate === null) {
+        profitRateEl.textContent = "현재가 미입력";
+        profitCard.classList.remove("profit", "loss");
+        statusText.textContent = "평단 계산";
+      } else {
+        profitRateEl.textContent = `${profitRate >= 0 ? "+" : ""}${formatPercent(profitRate)}`;
+        profitCard.classList.toggle("profit", profitRate >= 0);
+        profitCard.classList.toggle("loss", profitRate < 0);
+        statusText.textContent = profitRate >= 0 ? "수익 구간" : "손실 구간";
+      }
+
+      analysisText.innerHTML = makeAnalysis({
+        oldPrice,
+        newPrice,
+        averagePrice,
+        downAmount,
+        downRate,
+        totalAmount,
+        totalQty,
+        currentPrice,
+        profitRate,
+        profitAmount
+      });
+
+      riskText.innerHTML = makeRiskText({
+        oldAmount,
+        newAmount,
+        totalAmount,
+        oldQty,
+        newQty,
+        oldPrice,
+        averagePrice,
+        downRate
+      });
+
+      result.classList.add("show");
+    }
+
+    function renderEmpty() {
+      totalQtyEl.textContent = "-";
+      totalAmountEl.textContent = "-";
+      avgPriceEl.textContent = "-";
+      downAmountEl.textContent = "-";
+      downRateEl.textContent = "-";
+      profitRateEl.textContent = "-";
+      analysisText.textContent = "값을 입력하면 계산 결과가 표시됩니다.";
+      riskText.textContent = "추가매수 전에는 총 투자금과 비중을 같이 확인하세요.";
+      visualOld.textContent = "?";
+      visualNew.textContent = "?";
+    }
+
+    function makeAnalysis(data) {
+      let text = "";
+
+      if (data.downAmount > 0) {
+        text += `추가매수 후 새 평균단가는 <strong>${formatWon(data.averagePrice)}</strong>입니다. `;
+        text += `기존 평단보다 <strong>${formatWon(data.downAmount)}</strong>, 약 <strong>${formatPercent(data.downRate)}</strong> 낮아지는 계산입니다. `;
+      } else if (data.downAmount < 0) {
+        text += `추가 매수가가 기존 평단보다 높아 새 평균단가는 <strong>${formatWon(data.averagePrice)}</strong>로 올라갑니다. `;
+      } else {
+        text += `추가매수 후 평균단가는 기존 평단과 거의 같습니다. `;
+      }
+
+      text += `총 보유 수량은 <strong>${formatNumber(data.totalQty)}주</strong>, 총 매입금액은 <strong>${formatWon(data.totalAmount)}</strong>입니다. `;
+
+      if (data.profitRate !== null) {
+        if (data.profitRate >= 0) {
+          text += `현재가 기준으로는 약 <strong>${formatPercent(data.profitRate)}</strong> 수익 구간이며, 평가손익은 약 <strong>${formatWon(data.profitAmount)}</strong>입니다.`;
+        } else {
+          text += `현재가 기준으로는 약 <strong>${formatPercent(data.profitRate)}</strong> 손실 구간이며, 평가손익은 약 <strong>${formatWon(data.profitAmount)}</strong>입니다.`;
+        }
+      } else {
+        text += `현재가를 입력하면 지금 기준 손익률까지 함께 확인할 수 있습니다.`;
+      }
+
+      return text;
+    }
+
+    function makeRiskText(data) {
+      const addedRatio = data.totalAmount > 0 ? (data.newAmount / data.totalAmount) * 100 : 0;
+
+      let text = `이번 추가매수 금액은 전체 투자금의 약 <strong>${formatPercent(addedRatio)}</strong>입니다. `;
+
+      if (addedRatio >= 50) {
+        text += `추가매수 비중이 큰 편입니다. 평단은 낮아질 수 있지만, 종목이 더 하락하면 손실 규모도 빠르게 커질 수 있습니다.`;
+      } else if (addedRatio >= 25) {
+        text += `추가매수 비중이 적지 않습니다. 반등 시 효과는 있지만, 손절 기준과 목표가를 먼저 정하는 것이 좋습니다.`;
+      } else {
+        text += `추가매수 비중은 비교적 낮은 편입니다. 다만 물타기 자체가 리스크를 없애는 것은 아니므로 종목의 재료와 차트를 함께 확인하세요.`;
+      }
+
+      return text;
+    }
+
+    function safeNumber(value) {
+      const n = Number(value);
+      return Number.isFinite(n) && n >= 0 ? n : 0;
+    }
+
+    function formatNumber(value) {
+      return Number(value).toLocaleString("ko-KR", {
+        maximumFractionDigits: 2
+      });
+    }
+
+    function formatWon(value) {
+      const rounded = Math.round(value);
+      return `${rounded.toLocaleString("ko-KR")}원`;
+    }
+
+    function formatWonShort(value) {
+      const rounded = Math.round(value);
+
+      if (rounded >= 100000000) {
+        return `${(rounded / 100000000).toFixed(1)}억`;
+      }
+
+      if (rounded >= 10000) {
+        return `${Math.round(rounded / 1000).toLocaleString("ko-KR")}천원`;
+      }
+
+      return `${rounded.toLocaleString("ko-KR")}원`;
+    }
+
+    function formatPercent(value) {
+      return `${Number(value).toFixed(2)}%`;
+    }
+  </script>
+</body>
+</html>
