@@ -4,255 +4,915 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>주식 평단가 계산기｜추가매수 후 평균단가 바로 계산</title>
-  <meta name="description" content="기존 보유 수량, 기존 평균단가, 추가 매수 수량, 추가 매수가를 입력하면 새 주식 평단가와 총 매입금액을 바로 계산할 수 있습니다." />
+  <title>바로해결툴즈｜무료 계산기·생활 미니툴 모음</title>
+  <meta name="description" content="바로해결툴즈는 주식 평단가 계산기, 에어컨 전기요금 계산기, AI 타로 운세 등 생활에 바로 필요한 무료 계산기와 미니툴을 모아 제공하는 바로해결랩의 도구 플랫폼입니다." />
+  <meta name="keywords" content="바로해결툴즈, 바로해결랩, 무료 계산기, 주식 평단가 계산기, 에어컨 전기요금 계산기, AI 타로 운세, 생활 미니툴, 전기요금 계산기, 물타기 계산기" />
+
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/" />
+
+  <meta property="og:title" content="바로해결툴즈｜무료 계산기·생활 미니툴 모음" />
+  <meta property="og:description" content="필요할 때 바로 쓰는 계산기와 생활 미니툴. 주식 평단가, 에어컨 전기요금, 오늘의 AI 타로까지 한 곳에서 확인하세요." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/" />
+  <meta name="theme-color" content="#2563eb" />
 
   <style>
+    :root {
+      --bg: #f4f8ff;
+      --bg2: #eef5ff;
+      --card: #ffffff;
+      --text: #111827;
+      --muted: #64748b;
+      --line: #dbe7f5;
+      --blue: #2563eb;
+      --blue2: #1238ff;
+      --navy: #0f172a;
+      --mint: #13b486;
+      --green: #16a34a;
+      --orange: #f97316;
+      --purple: #7c3aed;
+      --pink: #ec4899;
+      --red: #ef4444;
+      --yellow: #facc15;
+      --shadow: 0 22px 70px rgba(37, 99, 235, .12);
+      --shadow2: 0 14px 46px rgba(15, 23, 42, .08);
+      --radius: 28px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #f5f7fb;
       margin: 0;
-      padding: 0;
-      color: #222;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", system-ui, sans-serif;
+      background:
+        radial-gradient(circle at 8% 6%, rgba(37, 99, 235, .15), transparent 28%),
+        radial-gradient(circle at 92% 10%, rgba(19, 180, 134, .13), transparent 28%),
+        radial-gradient(circle at 50% 0%, rgba(124, 58, 237, .08), transparent 32%),
+        linear-gradient(180deg, #f4f8ff 0%, #f9fcff 52%, #eef5ff 100%);
+      overflow-x: hidden;
     }
 
-    .container {
-      max-width: 760px;
+    a {
+      color: inherit;
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 30px));
       margin: 0 auto;
-      padding: 24px 16px 50px;
     }
 
-    .card {
-      background: #ffffff;
-      border-radius: 18px;
-      padding: 24px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-      margin-bottom: 18px;
+    header {
+      padding: 22px 0 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 17px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-weight: 950;
+      font-size: 22px;
+      background: linear-gradient(135deg, var(--blue), var(--mint));
+      box-shadow: 0 14px 36px rgba(37, 99, 235, .25);
+    }
+
+    .brand strong {
+      display: block;
+      font-size: 19px;
+      letter-spacing: -.035em;
+    }
+
+    .brand span {
+      display: block;
+      margin-top: 2px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav a {
+      padding: 10px 13px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.78);
+      border-radius: 999px;
+      text-decoration: none;
+      color: #24415f;
+      font-size: 13px;
+      font-weight: 850;
+      transition: .16s ease;
+    }
+
+    .nav a:hover {
+      transform: translateY(-2px);
+      border-color: rgba(37,99,235,.32);
+      color: var(--blue2);
+    }
+
+    .hero {
+      text-align: center;
+      padding: 54px 0 38px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 13px;
+      border-radius: 999px;
+      background: rgba(37,99,235,.08);
+      border: 1px solid rgba(37,99,235,.16);
+      color: var(--blue2);
+      font-size: 13px;
+      font-weight: 950;
     }
 
     h1 {
-      font-size: 28px;
-      line-height: 1.35;
-      margin: 0 0 14px;
-      color: #111827;
+      margin: 18px auto 0;
+      max-width: 900px;
+      font-size: clamp(38px, 6vw, 72px);
+      line-height: 1.06;
+      letter-spacing: -.075em;
     }
 
-    h2 {
-      font-size: 21px;
-      margin-top: 8px;
-      color: #111827;
+    .gradient-text {
+      color: transparent;
+      background: linear-gradient(90deg, #1238ff, #2563eb 42%, #13b486);
+      -webkit-background-clip: text;
+      background-clip: text;
     }
 
-    p {
-      line-height: 1.7;
-      font-size: 15.5px;
-      color: #374151;
+    .lead {
+      margin: 18px auto 0;
+      max-width: 760px;
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: clamp(16px, 2vw, 20px);
+      word-break: keep-all;
     }
 
-    .notice {
-      background: #eef6ff;
-      border-left: 5px solid #2563eb;
-      padding: 14px 16px;
-      border-radius: 12px;
-      margin: 18px 0;
-      font-size: 15px;
-      color: #1f2937;
+    .search-box {
+      margin: 28px auto 0;
+      max-width: 720px;
+      background: rgba(255,255,255,.9);
+      border: 1px solid rgba(219,231,245,.96);
+      border-radius: 25px;
+      box-shadow: var(--shadow);
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    label {
-      display: block;
-      margin-top: 14px;
-      font-weight: bold;
-      color: #111827;
+    .search-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      background: #eef5ff;
+      color: var(--blue2);
+      font-size: 22px;
+      flex: 0 0 auto;
     }
 
-    input {
+    .search-box input {
       width: 100%;
-      box-sizing: border-box;
-      padding: 13px;
-      margin-top: 7px;
-      border: 1px solid #d1d5db;
-      border-radius: 10px;
-      font-size: 16px;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--text);
+      font-size: 18px;
+      font-weight: 800;
+      min-height: 44px;
     }
 
-    button {
-      width: 100%;
-      margin-top: 22px;
-      padding: 15px;
-      border: none;
-      border-radius: 12px;
-      background: #2563eb;
-      color: #ffffff;
-      font-size: 17px;
-      font-weight: bold;
+    .search-box input::placeholder {
+      color: #94a3b8;
+      font-weight: 750;
+    }
+
+    .quick-tags {
+      margin: 16px auto 0;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      border: 1px solid #dbe7f5;
+      background: rgba(255,255,255,.82);
+      color: #31506b;
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 850;
       cursor: pointer;
+      transition: .15s ease;
     }
 
-    button:hover {
-      background: #1d4ed8;
+    .chip:hover,
+    .chip.active {
+      background: var(--blue);
+      color: #fff;
+      border-color: var(--blue);
+      transform: translateY(-1px);
     }
 
-    .result {
+    .section {
+      padding: 26px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 30px;
+      letter-spacing: -.055em;
+    }
+
+    .section-head p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      line-height: 1.55;
+      word-break: keep-all;
+    }
+
+    .count-pill {
+      flex: 0 0 auto;
+      padding: 10px 13px;
+      border-radius: 999px;
+      color: var(--blue2);
+      background: rgba(37,99,235,.08);
+      border: 1px solid rgba(37,99,235,.15);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .tool-card {
+      position: relative;
+      display: block;
+      min-height: 238px;
+      padding: 22px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.9);
+      border: 1px solid rgba(219,231,245,.96);
+      text-decoration: none;
+      color: var(--text);
+      box-shadow: var(--shadow2);
+      overflow: hidden;
+      transition: .18s ease;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+      border-color: rgba(37,99,235,.28);
+    }
+
+    .tool-card::after {
+      content: "";
+      position: absolute;
+      right: -38px;
+      top: -42px;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(37,99,235,.16), transparent 65%);
+      pointer-events: none;
+    }
+
+    .tool-card.green::after {
+      background: radial-gradient(circle, rgba(19,180,134,.18), transparent 65%);
+    }
+
+    .tool-card.purple::after {
+      background: radial-gradient(circle, rgba(124,58,237,.16), transparent 65%);
+    }
+
+    .tool-card.orange::after {
+      background: radial-gradient(circle, rgba(249,115,22,.14), transparent 65%);
+    }
+
+    .tool-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: flex-start;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tool-icon {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      background: #eef5ff;
+      font-size: 26px;
+    }
+
+    .tool-card.green .tool-icon {
+      background: #e9fff4;
+    }
+
+    .tool-card.purple .tool-icon {
+      background: #f1e9ff;
+    }
+
+    .tool-card.orange .tool-icon {
+      background: #fff4e8;
+    }
+
+    .label {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: #eef5ff;
+      color: var(--blue2);
+      font-size: 12px;
+      font-weight: 950;
+      white-space: nowrap;
+    }
+
+    .tool-card.green .label {
+      background: #e9fff4;
+      color: #087c4f;
+    }
+
+    .tool-card.purple .label {
+      background: #f1e9ff;
+      color: #6d28d9;
+    }
+
+    .tool-card.orange .label {
+      background: #fff4e8;
+      color: #c2410c;
+    }
+
+    .tool-card h3 {
+      position: relative;
+      z-index: 1;
+      margin: 22px 0 0;
+      font-size: 24px;
+      letter-spacing: -.05em;
+      line-height: 1.25;
+    }
+
+    .tool-card p {
+      position: relative;
+      z-index: 1;
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 14px;
+      word-break: keep-all;
+    }
+
+    .tool-footer {
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      bottom: 20px;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      color: #31506b;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .go {
+      color: var(--blue2);
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .category-card {
+      padding: 20px;
+      border-radius: 24px;
+      background: rgba(255,255,255,.9);
+      border: 1px solid rgba(219,231,245,.96);
+      box-shadow: 0 12px 34px rgba(15,23,42,.06);
+    }
+
+    .category-card strong {
+      display: block;
+      font-size: 18px;
+      letter-spacing: -.035em;
+    }
+
+    .category-card span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 13px;
+      word-break: keep-all;
+    }
+
+    .mini-list {
+      margin-top: 14px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .mini-list a,
+    .mini-list div {
+      padding: 10px 11px;
+      border-radius: 14px;
+      background: #f8fbff;
+      border: 1px solid #e3edf8;
+      text-decoration: none;
+      color: #24415f;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .mini-list .ready {
+      color: #94a3b8;
+    }
+
+    .notice-panel {
+      padding: 26px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.9);
+      border: 1px solid rgba(219,231,245,.96);
+      box-shadow: var(--shadow2);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .notice-panel h2 {
+      margin: 0 0 10px;
+      font-size: 26px;
+      letter-spacing: -.052em;
+    }
+
+    .notice-panel p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+      word-break: keep-all;
+    }
+
+    .link-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .link-grid a {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      padding: 14px 15px;
+      border-radius: 18px;
+      background: #f8fbff;
+      border: 1px solid #e3edf8;
+      text-decoration: none;
+      color: #24415f;
+      font-weight: 900;
+    }
+
+    .empty {
       display: none;
-      background: #f0fdf4;
-      border: 1px solid #bbf7d0;
-      border-radius: 14px;
-      padding: 18px;
-      margin-top: 22px;
-    }
-
-    .result strong {
-      color: #15803d;
-      font-size: 20px;
-    }
-
-    .result-row {
-      margin: 10px 0;
-      font-size: 16px;
-    }
-
-    .small {
-      font-size: 13px;
-      color: #6b7280;
-    }
-
-    .link-box {
-      background: #fff7ed;
-      border: 1px solid #fed7aa;
-      border-radius: 14px;
-      padding: 16px;
-      margin-top: 18px;
-    }
-
-    ul {
-      line-height: 1.8;
-      padding-left: 20px;
-    }
-
-    .footer {
+      margin-top: 20px;
+      padding: 28px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.9);
+      border: 1px dashed #bfd1e5;
       text-align: center;
+      color: var(--muted);
+      line-height: 1.65;
+      font-weight: 750;
+    }
+
+    footer {
+      padding: 42px 0 58px;
+      text-align: center;
+      color: var(--muted);
       font-size: 13px;
-      color: #6b7280;
-      margin-top: 28px;
+      line-height: 1.7;
+    }
+
+    .footer-links {
+      margin-top: 12px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-links a {
+      color: var(--blue2);
+      text-decoration: none;
+      font-weight: 900;
+    }
+
+    @media (max-width: 980px) {
+      .tool-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .category-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .notice-panel {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .wrap {
+        width: min(100% - 22px, 1180px);
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav {
+        justify-content: flex-start;
+      }
+
+      .hero {
+        padding-top: 34px;
+        text-align: left;
+      }
+
+      .search-box {
+        border-radius: 20px;
+      }
+
+      .quick-tags {
+        justify-content: flex-start;
+      }
+
+      .section-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .tool-grid,
+      .category-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tool-card {
+        min-height: 230px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <div class="container">
+  <div class="wrap">
+    <header>
+      <a class="brand" href="https://barohaegyeol-tools.pages.dev/" aria-label="바로해결툴즈 홈">
+        <div class="logo">✓</div>
+        <div>
+          <strong>바로해결툴즈</strong>
+          <span>바로 필요한 계산기·생활 미니툴</span>
+        </div>
+      </a>
 
-    <div class="card">
-      <h1>주식 평단가 계산기</h1>
-      <p>
-        주식 추가매수 후 평균단가가 얼마로 바뀌는지 바로 계산할 수 있는 평단가 계산기입니다.
-        기존 보유 수량, 기존 평균단가, 추가 매수 수량, 추가 매수가만 입력하면 새 평균단가와 총 매입금액을 확인할 수 있습니다.
-      </p>
+      <nav class="nav" aria-label="상단 메뉴">
+        <a href="#popular">인기 도구</a>
+        <a href="#categories">카테고리</a>
+        <a href="#platforms">바로해결랩</a>
+        <a href="https://barohaegyeollab.blogspot.com" target="_blank" rel="noopener">Blogger</a>
+        <a href="https://blog.naver.com/barohaegyeollab" target="_blank" rel="noopener">Naver</a>
+      </nav>
+    </header>
 
-      <div class="notice">
-        예: 10,000원에 10주 보유 중이고 8,000원에 10주를 추가 매수하면 새 평단가는 9,000원입니다.
+    <main>
+      <section class="hero">
+        <div class="badge">🚀 바로해결랩 미니툴 플랫폼</div>
+        <h1>
+          한국인을 위한<br />
+          <span class="gradient-text">무료 계산기·생활툴 모음</span>
+        </h1>
+        <p class="lead">
+          주식 평단가, 에어컨 전기요금, 오늘의 운세처럼
+          검색만으로는 답이 애매한 문제를 직접 입력하고 바로 확인할 수 있게 모았습니다.
+          지금은 작게 시작하지만, 하나씩 쌓아 생활형 도구 플랫폼으로 키워갑니다.
+        </p>
+
+        <div class="search-box">
+          <div class="search-icon">🔎</div>
+          <input id="searchInput" type="search" placeholder="어떤 도구를 찾으세요? 예: 평단가, 에어컨, 타로, 전기세" autocomplete="off" />
+        </div>
+
+        <div class="quick-tags" aria-label="빠른 검색어">
+          <button class="chip active" data-filter="all">전체</button>
+          <button class="chip" data-filter="금융">금융</button>
+          <button class="chip" data-filter="생활비">생활비</button>
+          <button class="chip" data-filter="운세">운세</button>
+          <button class="chip" data-filter="계산기">계산기</button>
+        </div>
+      </section>
+
+      <section class="section" id="popular">
+        <div class="section-head">
+          <div>
+            <h2>지금 바로 쓰는 도구</h2>
+            <p>현재 바로해결랩에서 운영 중인 핵심 도구입니다.</p>
+          </div>
+          <div class="count-pill" id="toolCount">3개 운영 중</div>
+        </div>
+
+        <div class="tool-grid" id="toolGrid">
+          <a class="tool-card" href="https://barohaegyeol-tools.pages.dev/stock-average/" data-keywords="주식 평단가 계산기 금융 물타기 평균단가 추가매수 계산기">
+            <div class="tool-top">
+              <div class="tool-icon">💹</div>
+              <div class="label">금융</div>
+            </div>
+            <h3>주식 평단가 계산기</h3>
+            <p>
+              추가매수 전에 새 평단, 총 투자금, 평단 인하폭, 현재가 기준 손익률을 바로 확인합니다.
+            </p>
+            <div class="tool-footer">
+              <span>물타기 전 필수</span>
+              <span class="go">사용하기 →</span>
+            </div>
+          </a>
+
+          <a class="tool-card green" href="https://barohaegyeol-tools.pages.dev/aircon-bill/" data-keywords="에어컨 전기요금 계산기 생활비 전기세 냉방비 전기요금 절약 계산기">
+            <div class="tool-top">
+              <div class="tool-icon">❄️</div>
+              <div class="label">생활비</div>
+            </div>
+            <h3>에어컨 전기요금 계산기</h3>
+            <p>
+              소비전력과 사용시간을 입력해 여름철 에어컨 예상 추가요금과 누진구간 변화를 계산합니다.
+            </p>
+            <div class="tool-footer">
+              <span>냉방비 폭탄 방지</span>
+              <span class="go">사용하기 →</span>
+            </div>
+          </a>
+
+          <a class="tool-card purple" href="https://barohaegyeol-tools.pages.dev/tarot/" data-keywords="오늘의 AI 타로 운세 무료 타로운세 전체운 금전운 연애운 직장운 운세">
+            <div class="tool-top">
+              <div class="tool-icon">🔮</div>
+              <div class="label">운세</div>
+            </div>
+            <h3>오늘의 AI 타로 운세</h3>
+            <p>
+              전체운, 금전운, 연애운, 일/직장운 중 하나를 고르고 카드 1장으로 오늘의 흐름을 확인합니다.
+            </p>
+            <div class="tool-footer">
+              <span>가볍게 보는 하루 흐름</span>
+              <span class="go">사용하기 →</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="empty" id="emptyState">
+          검색 결과가 없습니다.<br />
+          다른 단어로 검색하거나 카테고리를 전체로 바꿔보세요.
+        </div>
+      </section>
+
+      <section class="section" id="categories">
+        <div class="section-head">
+          <div>
+            <h2>카테고리별 도구</h2>
+            <p>지금 있는 도구부터 정리하고, 다음 회차마다 하나씩 추가합니다.</p>
+          </div>
+        </div>
+
+        <div class="category-grid">
+          <div class="category-card">
+            <strong>💰 금융 계산기</strong>
+            <span>투자, 평단가, 수익률, 이자, 세금처럼 숫자로 먼저 확인해야 하는 도구.</span>
+            <div class="mini-list">
+              <a href="https://barohaegyeol-tools.pages.dev/stock-average/">주식 평단가 계산기</a>
+              <div class="ready">수익률 계산기 준비 중</div>
+              <div class="ready">예금/적금 이자 계산기 준비 중</div>
+            </div>
+          </div>
+
+          <div class="category-card">
+            <strong>🏠 생활비 계산기</strong>
+            <span>전기세, 냉방비, 통신비, 생활요금처럼 매달 체감되는 비용을 계산합니다.</span>
+            <div class="mini-list">
+              <a href="https://barohaegyeol-tools.pages.dev/aircon-bill/">에어컨 전기요금 계산기</a>
+              <div class="ready">전기요금 계산기 확장 준비 중</div>
+              <div class="ready">가스요금 계산기 준비 중</div>
+            </div>
+          </div>
+
+          <div class="category-card">
+            <strong>🔮 운세·재미툴</strong>
+            <span>가볍게 즐기면서 재방문할 수 있는 감성형 미니툴입니다.</span>
+            <div class="mini-list">
+              <a href="https://barohaegyeol-tools.pages.dev/tarot/">오늘의 AI 타로 운세</a>
+              <div class="ready">AI 사주 운세 준비 후보</div>
+              <div class="ready">오늘의 행운 카드 준비 후보</div>
+            </div>
+          </div>
+
+          <div class="category-card">
+            <strong>📌 신청·조회 가이드</strong>
+            <span>정책, 이벤트, 예약, 조회처럼 절차가 헷갈리는 정보를 도구형으로 바꿉니다.</span>
+            <div class="mini-list">
+              <a href="https://barohaegyeollab.blogspot.com/2026/06/korea-stay-sale-festa-2026.html" target="_blank" rel="noopener">숙박세일 페스타 정리</a>
+              <a href="https://barohaegyeollab.blogspot.com/2026/06/tsushima-ferry-booking-checklist.html" target="_blank" rel="noopener">대마도 배편 체크리스트</a>
+              <div class="ready">장마철 침수차 보험 체크리스트 후보</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="platforms">
+        <div class="notice-panel">
+          <div>
+            <h2>바로해결랩은 이렇게 쌓아갑니다</h2>
+            <p>
+              하나의 주제를 단순 글로 끝내지 않고, 계산기·이미지·영상·블로그·SNS로 연결합니다.
+              검색으로 들어온 사람은 글을 읽고, 계산기로 확인하고, 필요한 도구를 다시 찾아오게 만드는 구조를 목표로 합니다.
+            </p>
+          </div>
+
+          <div class="link-grid">
+            <a href="https://barohaegyeollab.blogspot.com" target="_blank" rel="noopener">
+              <span>Blogger 원문 보기</span>
+              <span>↗</span>
+            </a>
+            <a href="https://blog.naver.com/barohaegyeollab" target="_blank" rel="noopener">
+              <span>Naver Blog 보기</span>
+              <span>↗</span>
+            </a>
+            <a href="https://www.youtube.com/@barohaegyeollab" target="_blank" rel="noopener">
+              <span>YouTube Shorts 보기</span>
+              <span>↗</span>
+            </a>
+            <a href="https://x.com/barohaegyeollab" target="_blank" rel="noopener">
+              <span>X 바로해결랩 보기</span>
+              <span>↗</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <h2>다음에 추가할 후보</h2>
+            <p>지금은 작지만, 생활 검색 수요가 있는 도구부터 차곡차곡 확장합니다.</p>
+          </div>
+        </div>
+
+        <div class="tool-grid">
+          <div class="tool-card orange" data-keywords="침수차 보험 장마 자동차 보험 보상 체크리스트">
+            <div class="tool-top">
+              <div class="tool-icon">🚗</div>
+              <div class="label">후보</div>
+            </div>
+            <h3>장마철 침수차 보험 체크리스트</h3>
+            <p>침수 피해, 자차보험, 보상 가능 여부를 확인하는 체크리스트형 도구 후보입니다.</p>
+            <div class="tool-footer">
+              <span>6회차 후보</span>
+              <span class="go">준비 중</span>
+            </div>
+          </div>
+
+          <div class="tool-card green" data-keywords="여행경비 휴가 경비 계산기 환전 숙박">
+            <div class="tool-top">
+              <div class="tool-icon">🏖️</div>
+              <div class="label">후보</div>
+            </div>
+            <h3>여름휴가 여행경비 계산기</h3>
+            <p>숙박, 교통, 식비, 환전까지 여행 전 예상 비용을 계산하는 도구 후보입니다.</p>
+            <div class="tool-footer">
+              <span>여름 시즌형</span>
+              <span class="go">준비 중</span>
+            </div>
+          </div>
+
+          <div class="tool-card purple" data-keywords="AI 사주 운세 생년월일 오늘 운세">
+            <div class="tool-top">
+              <div class="tool-icon">🌙</div>
+              <div class="label">후보</div>
+            </div>
+            <h3>AI 사주 운세</h3>
+            <p>타로 도구의 재방문 구조를 확장하는 감성형 운세 미니툴 후보입니다.</p>
+            <div class="tool-footer">
+              <span>재방문형</span>
+              <span class="go">준비 중</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <strong>바로해결툴즈 · BaroHaegyeol Tools</strong><br />
+      계산 결과와 운세 결과는 참고용입니다. 실제 판단은 공식기관, 고지서, 증권사, 전문가 확인을 함께 이용하세요.
+      <div class="footer-links">
+        <a href="https://barohaegyeol-tools.pages.dev/stock-average/">주식 평단가</a>
+        <a href="https://barohaegyeol-tools.pages.dev/aircon-bill/">에어컨 전기요금</a>
+        <a href="https://barohaegyeol-tools.pages.dev/tarot/">AI 타로</a>
+        <a href="https://barohaegyeollab.blogspot.com" target="_blank" rel="noopener">Blogger</a>
+        <a href="https://blog.naver.com/barohaegyeollab" target="_blank" rel="noopener">Naver</a>
       </div>
-    </div>
-
-    <div class="card">
-      <h2>평단가 계산하기</h2>
-
-      <label for="oldQty">기존 보유 수량</label>
-      <input type="number" id="oldQty" placeholder="예: 10" />
-
-      <label for="oldPrice">기존 평균단가</label>
-      <input type="number" id="oldPrice" placeholder="예: 10000" />
-
-      <label for="newQty">추가 매수 수량</label>
-      <input type="number" id="newQty" placeholder="예: 10" />
-
-      <label for="newPrice">추가 매수가</label>
-      <input type="number" id="newPrice" placeholder="예: 8000" />
-
-      <button onclick="calculateAverage()">평단가 계산하기</button>
-
-      <div class="result" id="resultBox">
-        <div class="result-row">총 보유 수량: <strong id="totalQty"></strong> 주</div>
-        <div class="result-row">총 매입금액: <strong id="totalAmount"></strong> 원</div>
-        <div class="result-row">새 평균단가: <strong id="averagePrice"></strong> 원</div>
-      </div>
-
-      <p class="small">
-        ※ 본 계산기는 단순 평균단가 계산용입니다. 세금, 수수료, 환율, 배당, 권리락 등은 반영하지 않습니다.
-      </p>
-    </div>
-
-    <div class="card">
-      <h2>계산 공식</h2>
-      <p>
-        새 평균단가는 기존 매입금액과 추가 매입금액을 더한 뒤, 총 보유 수량으로 나누어 계산합니다.
-      </p>
-
-      <div class="notice">
-        새 평단가 = (기존 수량 × 기존 평단가 + 추가 수량 × 추가 매수가) ÷ 총 보유 수량
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>주의사항</h2>
-      <ul>
-        <li>증권사 실제 평단가는 수수료, 세금, 환율 등에 따라 다를 수 있습니다.</li>
-        <li>해외주식은 환율과 환전 수수료에 따라 체감 평단이 달라질 수 있습니다.</li>
-        <li>무리한 물타기는 손실을 키울 수 있으므로 매수 전 손절가와 비중을 먼저 정하는 것이 좋습니다.</li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <h2>자주 묻는 질문</h2>
-
-      <p><strong>Q. 물타기하면 무조건 좋은가요?</strong><br>
-      아닙니다. 주가가 계속 하락하면 손실 금액이 더 커질 수 있습니다. 추가매수 전에는 종목 재료, 실적, 차트 위치를 같이 봐야 합니다.</p>
-
-      <p><strong>Q. 증권앱 평단과 계산기 결과가 다를 수 있나요?</strong><br>
-      네. 증권앱은 수수료와 세금 등을 반영할 수 있어 단순 계산기와 차이가 날 수 있습니다.</p>
-
-      <div class="link-box">
-        <strong>바로해결랩</strong><br>
-        신청·조회·가격·시간표·계산기까지 바로 필요한 정보를 정리합니다.
-      </div>
-    </div>
-
-    <div class="footer">
-      © 바로해결랩 · 바로해결툴즈
-    </div>
-
+    </footer>
   </div>
 
   <script>
-    function formatNumber(num) {
-      return Math.round(num).toLocaleString('ko-KR');
-    }
+    const searchInput = document.getElementById("searchInput");
+    const toolGrid = document.getElementById("toolGrid");
+    const emptyState = document.getElementById("emptyState");
+    const chips = document.querySelectorAll(".chip");
+    const activeToolCards = Array.from(toolGrid.querySelectorAll(".tool-card"));
+    const toolCount = document.getElementById("toolCount");
 
-    function calculateAverage() {
-      const oldQty = Number(document.getElementById('oldQty').value);
-      const oldPrice = Number(document.getElementById('oldPrice').value);
-      const newQty = Number(document.getElementById('newQty').value);
-      const newPrice = Number(document.getElementById('newPrice').value);
+    let currentFilter = "all";
 
-      if (!oldQty || !oldPrice || !newQty || !newPrice) {
-        alert('모든 값을 입력해 주세요.');
-        return;
-      }
+    searchInput.addEventListener("input", filterTools);
 
-      if (oldQty <= 0 || oldPrice <= 0 || newQty <= 0 || newPrice <= 0) {
-        alert('0보다 큰 숫자를 입력해 주세요.');
-        return;
-      }
+    chips.forEach(chip => {
+      chip.addEventListener("click", () => {
+        chips.forEach(c => c.classList.remove("active"));
+        chip.classList.add("active");
+        currentFilter = chip.dataset.filter;
+        filterTools();
+      });
+    });
 
-      const totalQty = oldQty + newQty;
-      const totalAmount = (oldQty * oldPrice) + (newQty * newPrice);
-      const averagePrice = totalAmount / totalQty;
+    function filterTools() {
+      const query = searchInput.value.trim().toLowerCase();
+      let visibleCount = 0;
 
-      document.getElementById('totalQty').textContent = formatNumber(totalQty);
-      document.getElementById('totalAmount').textContent = formatNumber(totalAmount);
-      document.getElementById('averagePrice').textContent = formatNumber(averagePrice);
+      activeToolCards.forEach(card => {
+        const keywords = (card.dataset.keywords || "").toLowerCase();
+        const text = card.textContent.toLowerCase();
 
-      document.getElementById('resultBox').style.display = 'block';
+        const matchesSearch = !query || keywords.includes(query) || text.includes(query);
+        const matchesFilter = currentFilter === "all" || keywords.includes(currentFilter.toLowerCase());
+
+        const visible = matchesSearch && matchesFilter;
+        card.style.display = visible ? "block" : "none";
+
+        if (visible) visibleCount += 1;
+      });
+
+      emptyState.style.display = visibleCount === 0 ? "block" : "none";
+      toolCount.textContent = `${visibleCount}개 표시 중`;
     }
   </script>
 </body>
