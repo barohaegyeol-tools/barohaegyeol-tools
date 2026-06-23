@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>에어컨 전기요금 계산기｜바로해결랩</title>
+  <meta name="description" content="에어컨 소비전력, 하루 사용시간, 월 사용일수, 기존 전기사용량을 입력하면 한 달 예상 전기요금 증가분을 계산할 수 있는 바로해결랩 에어컨 전기요금 계산기입니다." />
+  <meta name="keywords" content="에어컨 전기요금 계산기, 에어컨 전기세, 에어컨 전기세 아끼는 법, 냉방비 줄이는 법, 에어컨 하루 8시간 전기세, 전기요금 계산기, 바로해결랩" />
+
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/aircon-bill/" />
+
+  <meta property="og:title" content="에어컨 전기요금 계산기｜바로해결랩" />
+  <meta property="og:description" content="에어컨 하루 몇 시간 틀면 한 달 전기세가 얼마나 늘어날까요? 소비전력과 사용시간으로 바로 계산해보세요." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/aircon-bill/" />
+  <meta name="theme-color" content="#0f8bdc" />
+
+  <style>
+    :root {
+      --bg: #eef8ff;
+      --bg2: #f7fcff;
+      --card: #ffffff;
+      --card2: #f2f9ff;
+      --text: #102033;
+      --muted: #627386;
+      --line: #d9e9f5;
+      --blue: #1397e5;
+      --blue2: #0a70c8;
+      --sky: #dff4ff;
+      --mint: #ddf8ef;
+      --green: #12a66a;
+      --orange: #ff8a3d;
+      --red: #ef4444;
+      --yellow: #ffe9a8;
+      --shadow: 0 22px 70px rgba(18, 103, 165, .16);
+      --radius: 28px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", system-ui, sans-serif;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(61, 181, 255, .22), transparent 28%),
+        radial-gradient(circle at 92% 10%, rgba(91, 214, 178, .22), transparent 30%),
+        linear-gradient(180deg, #eef8ff 0%, #f8fcff 48%, #edf7ff 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 30px));
+      margin: 0 auto;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding: 24px 0 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .logo {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-weight: 900;
+      font-size: 22px;
+      background: linear-gradient(135deg, var(--blue), #46d2b4);
+      box-shadow: 0 14px 35px rgba(19, 151, 229, .25);
+    }
+
+    .brand strong {
+      display: block;
+      font-size: 18px;
+      letter-spacing: -.03em;
+    }
+
+    .brand span {
+      display: block;
+      margin-top: 2px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .top-links {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .top-links a {
+      padding: 10px 13px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.74);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 750;
+      color: #24445f;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 28px;
+      align-items: center;
+      padding: 34px 0 28px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: var(--blue2);
+      background: rgba(19,151,229,.09);
+      border: 1px solid rgba(19,151,229,.18);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    h1 {
+      margin: 18px 0 0;
+      font-size: clamp(40px, 6vw, 72px);
+      line-height: 1.05;
+      letter-spacing: -.07em;
+    }
+
+    .blue-text {
+      color: transparent;
+      background: linear-gradient(90deg, #0b6fc6, #12a6e6 45%, #16b887);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .lead {
+      margin: 18px 0 0;
+      max-width: 650px;
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: clamp(16px, 2vw, 20px);
+      word-break: keep-all;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .btn,
+    button {
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .btn {
+      min-height: 50px;
+      padding: 14px 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 17px;
+      text-decoration: none;
+      font-weight: 900;
+      letter-spacing: -.025em;
+      transition: .18s ease;
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      box-shadow: 0 18px 44px rgba(19,151,229,.26);
+    }
+
+    .btn-primary:hover,
+    .btn-ghost:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost {
+      color: #17415e;
+      background: rgba(255,255,255,.76);
+      border: 1px solid var(--line);
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 440px;
+      border-radius: 38px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 20%, rgba(255,255,255,.86), transparent 35%),
+        linear-gradient(160deg, #c7efff, #effbff 46%, #d8f7eb);
+      border: 1px solid rgba(255,255,255,.9);
+      box-shadow: var(--shadow);
+    }
+
+    .cool-room {
+      position: absolute;
+      inset: 26px;
+      border-radius: 30px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.62), rgba(255,255,255,.22)),
+        radial-gradient(circle at 30% 20%, rgba(84,190,255,.25), transparent 36%);
+      border: 1px solid rgba(255,255,255,.75);
+      overflow: hidden;
+    }
+
+    .aircon {
+      position: absolute;
+      left: 34px;
+      top: 34px;
+      width: 210px;
+      height: 72px;
+      border-radius: 22px;
+      background: #fff;
+      box-shadow: 0 18px 45px rgba(34, 113, 173, .18);
+      border: 1px solid #d7eefb;
+    }
+
+    .aircon::before {
+      content: "";
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      bottom: 16px;
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #d9ecf8, #afdcf4);
+    }
+
+    .wind {
+      position: absolute;
+      left: 62px;
+      top: 130px;
+      width: 360px;
+      height: 190px;
+      opacity: .72;
+      background:
+        radial-gradient(ellipse at 20% 18%, rgba(44,166,232,.22), transparent 36%),
+        radial-gradient(ellipse at 36% 44%, rgba(44,166,232,.18), transparent 40%),
+        radial-gradient(ellipse at 54% 68%, rgba(44,166,232,.13), transparent 44%);
+      filter: blur(.2px);
+      animation: windMove 4.5s ease-in-out infinite;
+    }
+
+    @keyframes windMove {
+      0%, 100% { transform: translateX(0); opacity: .62; }
+      50% { transform: translateX(18px); opacity: .86; }
+    }
+
+    .bill-card {
+      position: absolute;
+      right: 34px;
+      top: 54px;
+      width: 210px;
+      padding: 20px;
+      border-radius: 26px;
+      background: rgba(255,255,255,.88);
+      border: 1px solid rgba(255,255,255,.9);
+      box-shadow: 0 18px 45px rgba(34, 113, 173, .15);
+    }
+
+    .bill-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .bill-card strong {
+      display: block;
+      margin-top: 8px;
+      font-size: 30px;
+      color: var(--blue2);
+      letter-spacing: -.04em;
+    }
+
+    .cat {
+      position: absolute;
+      left: 74px;
+      bottom: 26px;
+      width: 180px;
+      height: 180px;
+      border-radius: 42px;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,.55);
+      border: 1px solid rgba(255,255,255,.8);
+    }
+
+    .cat-face {
+      width: 112px;
+      height: 96px;
+      position: relative;
+      border-radius: 46px 46px 36px 36px;
+      background: #fff4dc;
+      border: 3px solid #65452f;
+      box-shadow: inset 0 -9px 0 rgba(255,204,134,.42);
+    }
+
+    .cat-face::before,
+    .cat-face::after {
+      content: "";
+      position: absolute;
+      top: -18px;
+      width: 36px;
+      height: 36px;
+      background: #fff4dc;
+      border-left: 3px solid #65452f;
+      border-top: 3px solid #65452f;
+      transform: rotate(45deg);
+      border-radius: 8px;
+    }
+
+    .cat-face::before { left: 15px; }
+    .cat-face::after { right: 15px; }
+
+    .eye {
+      position: absolute;
+      top: 38px;
+      width: 17px;
+      height: 21px;
+      border-radius: 50%;
+      background: #2a1e18;
+    }
+
+    .eye.left { left: 30px; }
+    .eye.right { right: 30px; }
+
+    .nose {
+      position: absolute;
+      left: 50%;
+      top: 62px;
+      transform: translateX(-50%);
+      width: 11px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ef7b71;
+    }
+
+    .calc-float {
+      position: absolute;
+      right: 48px;
+      bottom: 56px;
+      width: 210px;
+      padding: 18px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #0d8fdb, #13b486);
+      color: #fff;
+      box-shadow: 0 22px 60px rgba(19,151,229,.26);
+    }
+
+    .calc-float b {
+      display: block;
+      font-size: 19px;
+      letter-spacing: -.04em;
+    }
+
+    .calc-float small {
+      display: block;
+      margin-top: 6px;
+      opacity: .9;
+      line-height: 1.5;
+    }
+
+    .section {
+      padding: 26px 0;
+    }
+
+    .grid-main {
+      display: grid;
+      grid-template-columns: .92fr 1.08fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .panel {
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.88);
+      border: 1px solid rgba(217,233,245,.95);
+      box-shadow: var(--shadow);
+    }
+
+    .calculator {
+      padding: 26px;
+      position: sticky;
+      top: 14px;
+    }
+
+    .panel-title {
+      margin: 0;
+      font-size: 30px;
+      letter-spacing: -.055em;
+    }
+
+    .panel-sub {
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.65;
+      word-break: keep-all;
+    }
+
+    .form {
+      display: grid;
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: 900;
+      color: #18344b;
+      letter-spacing: -.02em;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 54px;
+      padding: 14px 15px;
+      border: 1px solid #cfe2f1;
+      border-radius: 16px;
+      outline: none;
+      background: #fbfdff;
+      color: var(--text);
+      font-size: 18px;
+      font-weight: 800;
+      transition: .15s ease;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: rgba(19,151,229,.72);
+      box-shadow: 0 0 0 4px rgba(19,151,229,.11);
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .preset-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .preset {
+      border: 1px solid #d6e9f5;
+      background: #fff;
+      color: #1d4d6c;
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .calc-btn {
+      width: 100%;
+      min-height: 58px;
+      border: 0;
+      border-radius: 18px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      font-size: 18px;
+      font-weight: 950;
+      letter-spacing: -.03em;
+      box-shadow: 0 18px 44px rgba(19,151,229,.25);
+      transition: .18s ease;
+    }
+
+    .calc-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .result {
+      display: none;
+      padding: 24px;
+      margin-top: 18px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #f0faff, #effff8);
+      border: 1px solid #cceaf8;
+    }
+
+    .result.show {
+      display: block;
+      animation: rise .35s ease both;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .result-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .result-head h3 {
+      margin: 0;
+      font-size: 23px;
+      letter-spacing: -.045em;
+    }
+
+    .status {
+      padding: 8px 11px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 950;
+      background: #dff4ff;
+      color: #075c9e;
+    }
+
+    .result-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .r-card {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.82);
+      border: 1px solid #d8edf8;
+    }
+
+    .r-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .r-card strong {
+      display: block;
+      margin-top: 6px;
+      font-size: 22px;
+      letter-spacing: -.04em;
+      color: #0f3552;
+    }
+
+    .r-card.highlight {
+      background: linear-gradient(135deg, #0d8fdb, #13b486);
+      border-color: transparent;
+      color: #fff;
+    }
+
+    .r-card.highlight span,
+    .r-card.highlight strong {
+      color: #fff;
+    }
+
+    .analysis-box {
+      margin-top: 12px;
+      padding: 16px;
+      border-radius: 18px;
+      background: #fff;
+      border: 1px solid #d8edf8;
+      color: #2a4960;
+      line-height: 1.65;
+      word-break: keep-all;
+      font-size: 14px;
+    }
+
+    .save-box {
+      margin-top: 12px;
+      padding: 16px;
+      border-radius: 18px;
+      background: #fff8df;
+      border: 1px solid #ffe2a1;
+      color: #6d4b00;
+      line-height: 1.65;
+      font-size: 14px;
+      word-break: keep-all;
+    }
+
+    .content {
+      display: grid;
+      gap: 18px;
+    }
+
+    .content-card {
+      padding: 26px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.88);
+      border: 1px solid rgba(217,233,245,.95);
+      box-shadow: 0 16px 52px rgba(18,103,165,.10);
+    }
+
+    .content-card h2 {
+      margin: 0 0 12px;
+      font-size: 28px;
+      letter-spacing: -.052em;
+    }
+
+    .content-card h3 {
+      margin: 20px 0 8px;
+      font-size: 20px;
+      letter-spacing: -.035em;
+    }
+
+    .content-card p {
+      margin: 0 0 12px;
+      color: #40586f;
+      line-height: 1.78;
+      word-break: keep-all;
+    }
+
+    .tip-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .tip {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 15px;
+      border-radius: 18px;
+      background: #f7fbff;
+      border: 1px solid #d9e9f5;
+    }
+
+    .tip-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: #e2f5ff;
+      font-size: 22px;
+    }
+
+    .tip strong {
+      display: block;
+      margin-bottom: 4px;
+      color: #12334d;
+      letter-spacing: -.025em;
+    }
+
+    .tip span {
+      display: block;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 14px;
+      word-break: keep-all;
+    }
+
+    .formula {
+      padding: 16px;
+      border-radius: 18px;
+      background: #f7fbff;
+      border: 1px solid #d9e9f5;
+      color: #35536a;
+      line-height: 1.75;
+      font-size: 14px;
+      overflow-x: auto;
+    }
+
+    .cta-band {
+      padding: 22px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #0b7ed3, #13b486);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .cta-band strong {
+      display: block;
+      font-size: 22px;
+      letter-spacing: -.04em;
+    }
+
+    .cta-band span {
+      display: block;
+      margin-top: 4px;
+      opacity: .9;
+      line-height: 1.55;
+    }
+
+    .cta-band .btn {
+      background: #fff;
+      color: #0b6fc6;
+      box-shadow: none;
+    }
+
+    .related {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .related a {
+      display: block;
+      padding: 16px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: #f7fbff;
+      border: 1px solid #d9e9f5;
+      color: #214763;
+      font-weight: 850;
+      line-height: 1.5;
+    }
+
+    .notice {
+      color: #6b7f90;
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    footer {
+      padding: 42px 0 58px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .footer-links {
+      margin-top: 12px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--blue2);
+      text-decoration: none;
+      font-weight: 850;
+    }
+
+    @media (max-width: 920px) {
+      .hero,
+      .grid-main {
+        grid-template-columns: 1fr;
+      }
+
+      .calculator {
+        position: static;
+      }
+
+      .hero-visual {
+        min-height: 360px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .wrap {
+        width: min(100% - 22px, 1120px);
+      }
+
+      header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .top-links {
+        justify-content: flex-start;
+      }
+
+      .hero {
+        padding-top: 20px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .hero-visual {
+        min-height: 330px;
+        border-radius: 28px;
+      }
+
+      .aircon {
+        width: 170px;
+        height: 62px;
+        left: 18px;
+        top: 24px;
+      }
+
+      .bill-card {
+        right: 18px;
+        top: 34px;
+        width: 150px;
+        padding: 14px;
+      }
+
+      .bill-card strong {
+        font-size: 23px;
+      }
+
+      .cat {
+        width: 130px;
+        height: 130px;
+        left: 26px;
+      }
+
+      .cat-face {
+        transform: scale(.78);
+      }
+
+      .calc-float {
+        right: 18px;
+        bottom: 30px;
+        width: 160px;
+      }
+
+      .result-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .related {
+        grid-template-columns: 1fr;
+      }
+
+      .content-card,
+      .calculator {
+        padding: 20px;
+        border-radius: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="https://barohaegyeol-tools.pages.dev/" aria-label="바로해결툴즈 메인으로 이동">
+        <div class="logo">✓</div>
+        <div>
+          <strong>바로해결랩</strong>
+          <span>생활비 절약 · 계산기 · 바로 확인</span>
+        </div>
+      </a>
+
+      <div class="top-links">
+        <a href="#calculator">계산하기</a>
+        <a href="#saving">절약 팁</a>
+        <a href="https://barohaegyeollab.blogspot.com" target="_blank" rel="noopener">Blogger</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <div class="badge">❄️ 여름 냉방비 폭탄 방지용</div>
+          <h1>
+            에어컨 이렇게 쓰면<br />
+            <span class="blue-text">전기세 덜 나옵니다</span>
+          </h1>
+          <p class="lead">
+            에어컨을 켤 때마다 전기요금이 걱정된다면, 먼저 우리 집 기준으로 얼마나 나올지 계산해보세요.
+            소비전력, 사용시간, 기존 전기사용량을 넣으면 예상 추가요금과 누진구간 변화를 바로 확인할 수 있습니다.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#calculator">에어컨 전기요금 계산하기</a>
+            <a class="btn btn-ghost" href="#saving">전기세 아끼는 법 보기</a>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="cool-room">
+            <div class="aircon"></div>
+            <div class="wind"></div>
+            <div class="bill-card">
+              <span>예상 추가요금</span>
+              <strong id="visualBill">?</strong>
+            </div>
+            <div class="cat">
+              <div class="cat-face">
+                <span class="eye left"></span>
+                <span class="eye right"></span>
+                <span class="nose"></span>
+              </div>
+            </div>
+            <div class="calc-float">
+              <b>우리 집 기준 계산</b>
+              <small>사용시간만 바꿔도 냉방비 차이가 보입니다.</small>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="calculator">
+        <div class="grid-main">
+          <section class="panel calculator">
+            <h2 class="panel-title">에어컨 전기요금 계산기</h2>
+            <p class="panel-sub">
+              에어컨 소비전력과 사용시간을 입력하면, 한 달 예상 추가 사용량과 전기요금 증가분을 계산합니다.
+            </p>
+
+            <div class="form">
+              <div class="field">
+                <label for="season">요금 구간</label>
+                <select id="season">
+                  <option value="summer" selected>하계 기준 7~8월</option>
+                  <option value="normal">기타 계절 기준</option>
+                </select>
+                <div class="hint">하계에는 주택용 누진구간 일부가 완화되어 계산됩니다.</div>
+              </div>
+
+              <div class="field">
+                <label for="power">에어컨 소비전력(W)</label>
+                <input id="power" type="number" inputmode="decimal" value="1000" min="1" step="10" />
+                <div class="hint">벽걸이 약 700~1,200W, 스탠드 약 1,500~2,500W로 보는 경우가 많습니다.</div>
+                <div class="preset-row">
+                  <button class="preset" type="button" data-power="700">벽걸이 700W</button>
+                  <button class="preset" type="button" data-power="1000">벽걸이 1000W</button>
+                  <button class="preset" type="button" data-power="1500">스탠드 1500W</button>
+                  <button class="preset" type="button" data-power="2000">스탠드 2000W</button>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="hours">하루 사용시간</label>
+                <input id="hours" type="number" inputmode="decimal" value="8" min="0" step="0.5" />
+                <div class="hint">예: 하루 4시간, 8시간, 12시간. 0.5시간 단위로 입력할 수 있습니다.</div>
+              </div>
+
+              <div class="field">
+                <label for="days">월 사용일수</label>
+                <input id="days" type="number" inputmode="decimal" value="30" min="0" step="1" />
+                <div class="hint">실제로 에어컨을 켜는 날 수를 입력하세요.</div>
+              </div>
+
+              <div class="field">
+                <label for="baseKwh">기존 월 전기사용량(kWh)</label>
+                <input id="baseKwh" type="number" inputmode="decimal" value="250" min="0" step="1" />
+                <div class="hint">에어컨을 제외하고 평소 한 달에 쓰던 전기사용량입니다. 고지서에서 확인할 수 있습니다.</div>
+              </div>
+
+              <button class="calc-btn" type="button" id="calcBtn">예상 전기요금 계산하기</button>
+            </div>
+
+            <div class="result show" id="result">
+              <div class="result-head">
+                <h3>계산 결과</h3>
+                <span class="status" id="tierStatus">예상 계산</span>
+              </div>
+
+              <div class="result-cards">
+                <div class="r-card">
+                  <span>에어컨 추가 사용량</span>
+                  <strong id="extraKwh">-</strong>
+                </div>
+                <div class="r-card">
+                  <span>총 예상 사용량</span>
+                  <strong id="totalKwh">-</strong>
+                </div>
+                <div class="r-card highlight">
+                  <span>예상 추가 전기요금</span>
+                  <strong id="extraBill">-</strong>
+                </div>
+                <div class="r-card">
+                  <span>총 예상 월 전기요금</span>
+                  <strong id="totalBill">-</strong>
+                </div>
+              </div>
+
+              <div class="analysis-box" id="analysisText">
+                계산값을 입력하면 우리 집 기준 예상 전기요금 해석이 표시됩니다.
+              </div>
+
+              <div class="save-box" id="saveText">
+                하루 사용시간을 1시간 줄였을 때의 예상 절약 효과도 함께 확인할 수 있습니다.
+              </div>
+            </div>
+          </section>
+
+          <section class="content">
+            <div class="content-card">
+              <h2>에어컨 전기세, 온도만 보면 놓칩니다</h2>
+              <p>
+                여름만 되면 에어컨 리모컨을 누르는 순간부터 전기세가 걱정됩니다.
+                그런데 에어컨 전기요금은 단순히 설정온도 하나로만 결정되지 않습니다.
+              </p>
+              <p>
+                실제로는 소비전력, 하루 사용시간, 사용일수, 기존 전기사용량, 누진구간이 함께 영향을 줍니다.
+                그래서 “몇 도로 틀면 된다”보다 먼저 우리 집 기준으로 얼마나 늘어나는지 계산해보는 것이 더 현실적입니다.
+              </p>
+
+              <div class="cta-band">
+                <div>
+                  <strong>우리 집 기준으로 바로 확인</strong>
+                  <span>소비전력과 사용시간만 입력하면 예상 추가요금이 계산됩니다.</span>
+                </div>
+                <a class="btn" href="#calculator">계산기로 이동</a>
+              </div>
+            </div>
+
+            <div class="content-card" id="saving">
+              <h2>에어컨비 아끼는 현실적인 방법</h2>
+              <p>
+                무조건 참는 방식은 오래가기 어렵습니다. 중요한 건 같은 시원함을 만들더라도
+                전기를 덜 쓰는 쪽으로 습관을 바꾸는 것입니다.
+              </p>
+
+              <div class="tip-list">
+                <div class="tip">
+                  <div class="tip-icon">🌬️</div>
+                  <div>
+                    <strong>처음엔 빠르게 식히고, 이후 유지 운전</strong>
+                    <span>덥고 습한 방을 약하게 오래 돌리는 것보다 처음에 빠르게 온도를 낮춘 뒤 유지하는 방식이 유리할 수 있습니다.</span>
+                  </div>
+                </div>
+
+                <div class="tip">
+                  <div class="tip-icon">🌀</div>
+                  <div>
+                    <strong>선풍기나 서큘레이터를 같이 사용</strong>
+                    <span>찬 공기를 방 전체로 순환시키면 체감온도가 내려가고, 같은 설정온도에서도 더 시원하게 느낄 수 있습니다.</span>
+                  </div>
+                </div>
+
+                <div class="tip">
+                  <div class="tip-icon">🧼</div>
+                  <div>
+                    <strong>필터 청소는 전기세 절약의 기본</strong>
+                    <span>필터에 먼지가 쌓이면 냉방 효율이 떨어지고 같은 온도를 만들기 위해 더 오래 작동할 수 있습니다.</span>
+                  </div>
+                </div>
+
+                <div class="tip">
+                  <div class="tip-icon">🌞</div>
+                  <div>
+                    <strong>햇빛 차단과 문 닫기</strong>
+                    <span>커튼, 블라인드, 방문 닫기만으로도 냉방 손실을 줄일 수 있습니다. 작은 습관이 사용시간을 줄입니다.</span>
+                  </div>
+                </div>
+
+                <div class="tip">
+                  <div class="tip-icon">⚡</div>
+                  <div>
+                    <strong>누진구간을 꼭 확인</strong>
+                    <span>기존 사용량이 이미 높다면 에어컨 추가 사용량이 누진구간을 넘기면서 체감 요금이 커질 수 있습니다.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="content-card">
+              <h2>계산 방식</h2>
+              <p>
+                이 계산기는 에어컨 사용으로 늘어나는 전기사용량을 먼저 계산하고,
+                기존 월 사용량에 더한 뒤 주택용 저압 기준 누진구간을 단순 반영해 예상 요금을 보여줍니다.
+              </p>
+
+              <div class="formula">
+                <strong>기본 계산식</strong><br />
+                에어컨 월 사용량(kWh) = 소비전력(W) ÷ 1,000 × 하루 사용시간 × 월 사용일수<br />
+                예상 추가요금 = 에어컨 포함 총 예상요금 - 기존 사용량 기준 예상요금<br />
+                예상 총요금 = 기본요금 + 전력량요금 + 기후환경요금 + 연료비조정액 + 부가세 + 전력산업기반기금
+              </div>
+
+              <h3>입력값 설명</h3>
+              <p>
+                소비전력은 제품 라벨이나 설명서에서 확인할 수 있습니다.
+                인버터 에어컨은 실제 운전 상태에 따라 소비전력이 계속 달라질 수 있으므로,
+                이 계산기는 정확한 청구액이 아니라 예상 비교용으로 보는 것이 좋습니다.
+              </p>
+            </div>
+
+            <div class="content-card">
+              <h2>주의사항</h2>
+              <p class="notice">
+                이 계산기는 가정용 주택용 저압을 기준으로 단순 추정한 예상 계산기입니다.
+                실제 청구요금은 계약종별, 계절, 복지할인, 대가족·생명유지장치 할인,
+                기후환경요금, 연료비조정단가, 부가세, 전력산업기반기금, TV수신료,
+                계량기 검침일 등에 따라 달라질 수 있습니다.
+                최종 금액은 한전ON 또는 실제 전기요금 고지서를 기준으로 확인하세요.
+              </p>
+            </div>
+
+            <div class="content-card">
+              <h2>바로해결랩 관련 도구</h2>
+              <p>
+                바로해결랩은 생활비 절약, 계산기, 체크리스트, 운세형 미니툴을 하나씩 쌓아가고 있습니다.
+              </p>
+
+              <div class="related">
+                <a href="https://barohaegyeol-tools.pages.dev/" target="_blank" rel="noopener">바로해결툴즈 메인</a>
+                <a href="https://barohaegyeol-tools.pages.dev/tarot/" target="_blank" rel="noopener">오늘의 AI 타로 운세</a>
+                <a href="https://barohaegyeollab.blogspot.com" target="_blank" rel="noopener">Blogger 글 보기</a>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <strong>바로해결랩 · 에어컨 전기요금 계산기</strong><br />
+      이 페이지의 계산 결과는 참고용 예상치이며, 법적·세무적 효력 또는 실제 청구금액을 보장하지 않습니다.
+      <div class="footer-links">
+        <a href="https://barohaegyeol-tools.pages.dev/">바로해결툴즈</a>
+        <a href="https://barohaegyeollab.blogspot.com" target="_blank" rel="noopener">Blogger</a>
+        <a href="https://blog.naver.com/barohaegyeollab" target="_blank" rel="noopener">Naver Blog</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const rates = {
+      normal: {
+        name: "기타 계절",
+        tiers: [
+          { limit: 200, rate: 120.0, base: 910 },
+          { limit: 400, rate: 214.6, base: 1600 },
+          { limit: Infinity, rate: 307.3, base: 7300 }
+        ]
+      },
+      summer: {
+        name: "하계 7~8월",
+        tiers: [
+          { limit: 300, rate: 120.0, base: 910 },
+          { limit: 450, rate: 214.6, base: 1600 },
+          { limit: Infinity, rate: 307.3, base: 7300 }
+        ]
+      }
+    };
+
+    const climateRate = 9;
+    const fuelRate = 5;
+    const vatRate = 0.1;
+    const fundRate = 0.037;
+
+    const seasonEl = document.getElementById("season");
+    const powerEl = document.getElementById("power");
+    const hoursEl = document.getElementById("hours");
+    const daysEl = document.getElementById("days");
+    const baseKwhEl = document.getElementById("baseKwh");
+    const calcBtn = document.getElementById("calcBtn");
+
+    const result = document.getElementById("result");
+    const extraKwhEl = document.getElementById("extraKwh");
+    const totalKwhEl = document.getElementById("totalKwh");
+    const extraBillEl = document.getElementById("extraBill");
+    const totalBillEl = document.getElementById("totalBill");
+    const tierStatusEl = document.getElementById("tierStatus");
+    const analysisTextEl = document.getElementById("analysisText");
+    const saveTextEl = document.getElementById("saveText");
+    const visualBillEl = document.getElementById("visualBill");
+
+    document.querySelectorAll(".preset").forEach(button => {
+      button.addEventListener("click", () => {
+        powerEl.value = button.dataset.power;
+        calculate();
+      });
+    });
+
+    [seasonEl, powerEl, hoursEl, daysEl, baseKwhEl].forEach(el => {
+      el.addEventListener("input", calculate);
+      el.addEventListener("change", calculate);
+    });
+
+    calcBtn.addEventListener("click", () => {
+      calculate();
+      result.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    calculate();
+
+    function calculate() {
+      const season = seasonEl.value;
+      const power = safeNumber(powerEl.value);
+      const hours = safeNumber(hoursEl.value);
+      const days = safeNumber(daysEl.value);
+      const baseKwh = safeNumber(baseKwhEl.value);
+
+      const extraKwh = round1((power / 1000) * hours * days);
+      const totalKwh = round1(baseKwh + extraKwh);
+
+      const baseBill = calcBill(baseKwh, season);
+      const totalBill = calcBill(totalKwh, season);
+      const extraBill = Math.max(0, totalBill.total - baseBill.total);
+
+      const oneHourLessKwh = round1((power / 1000) * Math.max(0, hours - 1) * days);
+      const oneHourLessTotalKwh = round1(baseKwh + oneHourLessKwh);
+      const oneHourLessBill = calcBill(oneHourLessTotalKwh, season);
+      const oneHourSaving = Math.max(0, totalBill.total - oneHourLessBill.total);
+
+      extraKwhEl.textContent = `${formatNumber(extraKwh)} kWh`;
+      totalKwhEl.textContent = `${formatNumber(totalKwh)} kWh`;
+      extraBillEl.textContent = `${formatWon(extraBill)}`;
+      totalBillEl.textContent = `${formatWon(totalBill.total)}`;
+      visualBillEl.textContent = `${formatWonShort(extraBill)}`;
+
+      const tier = getTierLabel(totalKwh, season);
+      const baseTier = getTierLabel(baseKwh, season);
+      tierStatusEl.textContent = tier;
+
+      analysisTextEl.innerHTML = makeAnalysis({
+        baseKwh,
+        extraKwh,
+        totalKwh,
+        extraBill,
+        tier,
+        baseTier,
+        season
+      });
+
+      saveTextEl.innerHTML = makeSavingText({
+        hours,
+        oneHourSaving,
+        power,
+        days
+      });
+
+      result.classList.add("show");
+    }
+
+    function calcBill(kwh, season) {
+      const plan = rates[season];
+      const energy = calcEnergyCharge(kwh, plan.tiers);
+      const base = getBaseCharge(kwh, plan.tiers);
+
+      const climate = kwh * climateRate;
+      const fuel = kwh * fuelRate;
+      const subtotal = base + energy + climate + fuel;
+      const vat = Math.round(subtotal * vatRate);
+      const fund = Math.floor((subtotal * fundRate) / 10) * 10;
+      const total = Math.round(subtotal + vat + fund);
+
+      return {
+        kwh,
+        base,
+        energy,
+        climate,
+        fuel,
+        vat,
+        fund,
+        total
+      };
+    }
+
+    function calcEnergyCharge(kwh, tiers) {
+      let remaining = kwh;
+      let previousLimit = 0;
+      let charge = 0;
+
+      for (const tier of tiers) {
+        const section = Math.min(remaining, tier.limit - previousLimit);
+
+        if (section > 0) {
+          charge += section * tier.rate;
+          remaining -= section;
+        }
+
+        previousLimit = tier.limit;
+
+        if (remaining <= 0) break;
+      }
+
+      return charge;
+    }
+
+    function getBaseCharge(kwh, tiers) {
+      for (const tier of tiers) {
+        if (kwh <= tier.limit) return tier.base;
+      }
+
+      return tiers[tiers.length - 1].base;
+    }
+
+    function getTierLabel(kwh, season) {
+      if (season === "summer") {
+        if (kwh <= 300) return "1구간";
+        if (kwh <= 450) return "2구간";
+        return "3구간";
+      }
+
+      if (kwh <= 200) return "1구간";
+      if (kwh <= 400) return "2구간";
+      return "3구간";
+    }
+
+    function makeAnalysis(data) {
+      const tierMoved = data.tier !== data.baseTier;
+      let text = "";
+
+      text += `에어컨 사용으로 약 <strong>${formatNumber(data.extraKwh)}kWh</strong>가 추가됩니다. `;
+      text += `기존 ${formatNumber(data.baseKwh)}kWh에서 총 ${formatNumber(data.totalKwh)}kWh로 올라가며, 예상 추가요금은 <strong>${formatWon(data.extraBill)}</strong>입니다. `;
+
+      if (tierMoved) {
+        text += `기존에는 ${data.baseTier}이었지만 에어컨 사용 후 ${data.tier}으로 올라갈 수 있어 누진구간 영향을 주의해야 합니다.`;
+      } else {
+        text += `현재 입력값 기준으로는 같은 누진구간 안에서 사용량이 늘어나는 구조입니다. 그래도 사용시간이 길어지면 추가요금이 커질 수 있습니다.`;
+      }
+
+      return text;
+    }
+
+    function makeSavingText(data) {
+      if (data.hours <= 1) {
+        return "현재 하루 사용시간이 1시간 이하라서, 사용시간을 줄이는 것보다 필터 청소·바람 순환·햇빛 차단 같은 효율 개선이 더 현실적일 수 있습니다.";
+      }
+
+      return `하루 사용시간을 1시간만 줄이면 한 달 기준 약 <strong>${formatWon(data.oneHourSaving)}</strong> 정도를 아낄 수 있는 입력값입니다. 실제 절감액은 에어컨 종류와 운전 방식에 따라 달라질 수 있습니다.`;
+    }
+
+    function safeNumber(value) {
+      const n = Number(value);
+      return Number.isFinite(n) && n >= 0 ? n : 0;
+    }
+
+    function round1(value) {
+      return Math.round(value * 10) / 10;
+    }
+
+    function formatNumber(value) {
+      return Number(value).toLocaleString("ko-KR", {
+        maximumFractionDigits: 1
+      });
+    }
+
+    function formatWon(value) {
+      return `${Math.round(value).toLocaleString("ko-KR")}원`;
+    }
+
+    function formatWonShort(value) {
+      const rounded = Math.round(value);
+
+      if (rounded >= 10000) {
+        return `${Math.round(rounded / 1000).toLocaleString("ko-KR")}천원`;
+      }
+
+      return `${rounded.toLocaleString("ko-KR")}원`;
+    }
+  </script>
+</body>
+</html>
