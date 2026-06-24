@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>AI 사주 운세 | 생년월일로 보는 오늘의 운세 | 바로해결툴즈</title>
+  <meta name="description" content="생년월일, 태어난 시간, 관심 분야를 입력하면 오늘의 사주 운세, 행운 키워드, 조심할 점, 한 줄 조언을 확인할 수 있는 재미용 AI 사주 운세입니다." />
+  <meta name="keywords" content="AI 사주, 사주 운세, 오늘의 운세, 생년월일 운세, 무료 사주, 금전운, 연애운, 직장운, 바로해결툴즈" />
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/saju/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="AI 사주 운세 | 바로해결툴즈" />
+  <meta property="og:description" content="생년월일과 관심 분야를 입력하고 오늘의 운세와 행운 키워드를 확인해보세요." />
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/saju/" />
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <meta name="theme-color" content="#2e1065" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "AI 사주 운세",
+    "url": "https://barohaegyeol-tools.pages.dev/saju/",
+    "applicationCategory": "EntertainmentApplication",
+    "operatingSystem": "All",
+    "description": "생년월일, 태어난 시간, 관심 분야를 입력해 오늘의 재미용 사주 운세를 확인하는 무료 웹 도구입니다.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --night: #12051f;
+      --night2: #2e1065;
+      --purple: #7c3aed;
+      --violet: #a78bfa;
+      --pink: #f0abfc;
+      --gold: #facc15;
+      --gold2: #f59e0b;
+      --blue: #38bdf8;
+      --mint: #5eead4;
+      --rose: #fb7185;
+      --card: rgba(31, 12, 56, 0.78);
+      --card2: rgba(46, 16, 101, 0.62);
+      --line: rgba(250, 204, 21, 0.22);
+      --text: #fff7ed;
+      --soft: #e9d5ff;
+      --muted: #c4b5fd;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.44);
+      --radius: 26px;
+      --max: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      background:
+        radial-gradient(circle at 12% 10%, rgba(250, 204, 21, 0.20), transparent 25%),
+        radial-gradient(circle at 82% 8%, rgba(240, 171, 252, 0.22), transparent 28%),
+        radial-gradient(circle at 50% 100%, rgba(56, 189, 248, 0.14), transparent 34%),
+        linear-gradient(135deg, #090216 0%, #2e1065 46%, #12051f 100%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.75) 0 1px, transparent 1.8px),
+        radial-gradient(circle, rgba(250,204,21,0.7) 0 1px, transparent 1.8px);
+      background-size: 92px 92px, 137px 137px;
+      background-position: 10px 20px, 64px 38px;
+      opacity: 0.28;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(18px);
+      background: rgba(18, 5, 31, 0.72);
+      border-bottom: 1px solid rgba(250, 204, 21, 0.16);
+    }
+
+    .nav {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 950;
+      letter-spacing: -0.045em;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #facc15, #7c3aed);
+      color: #fff;
+      box-shadow: 0 14px 36px rgba(250, 204, 21, 0.22);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--soft);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .nav-links a {
+      padding: 9px 12px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      font-weight: 850;
+    }
+
+    .nav-links a:hover {
+      border-color: rgba(250, 204, 21, 0.22);
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .hero {
+      padding: 58px 0 32px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.03fr 0.97fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 12px;
+      border: 1px solid rgba(250, 204, 21, 0.20);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--soft);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .badge.hot {
+      border-color: rgba(250, 204, 21, 0.40);
+      background: rgba(250, 204, 21, 0.13);
+      color: #fef3c7;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(36px, 6vw, 64px);
+      line-height: 1.02;
+      letter-spacing: -0.075em;
+    }
+
+    h1 strong {
+      color: var(--gold);
+      text-shadow: 0 0 32px rgba(250, 204, 21, 0.28);
+    }
+
+    .hero-desc {
+      margin: 20px 0 0;
+      color: var(--soft);
+      font-size: clamp(16px, 2vw, 19px);
+      max-width: 680px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      border: 0;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 13px 18px;
+      min-height: 48px;
+      font-weight: 950;
+      font-size: 15px;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease, border .18s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #1e1b4b;
+      background: linear-gradient(135deg, #fde68a, #facc15);
+      box-shadow: 0 16px 40px rgba(250, 204, 21, 0.26);
+    }
+
+    .btn-secondary {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(250, 204, 21, 0.20);
+    }
+
+    .hero-card {
+      position: relative;
+      min-height: 360px;
+      border: 1px solid rgba(250, 204, 21, 0.20);
+      border-radius: 34px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 32%, rgba(250, 204, 21, 0.20), transparent 28%),
+        radial-gradient(circle at 18% 18%, rgba(240, 171, 252, 0.18), transparent 30%),
+        linear-gradient(145deg, rgba(46, 16, 101, 0.86), rgba(18, 5, 31, 0.78));
+      box-shadow: var(--shadow);
+      padding: 26px;
+    }
+
+    .oracle-visual {
+      position: relative;
+      height: 210px;
+      border-radius: 28px;
+      border: 1px solid rgba(250, 204, 21, 0.18);
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 48%, rgba(250, 204, 21, 0.18), transparent 26%),
+        radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.14), transparent 24%),
+        radial-gradient(circle at 80% 16%, rgba(240, 171, 252, 0.18), transparent 28%),
+        linear-gradient(180deg, #1e1b4b, #0f0523);
+    }
+
+    .moon {
+      position: absolute;
+      right: 44px;
+      top: 34px;
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: #fde68a;
+      box-shadow: 0 0 38px rgba(250, 204, 21, 0.45);
+    }
+
+    .moon::after {
+      content: "";
+      position: absolute;
+      right: -8px;
+      top: -2px;
+      width: 66px;
+      height: 66px;
+      border-radius: 50%;
+      background: #1e1b4b;
+    }
+
+    .orb {
+      position: absolute;
+      left: 50%;
+      bottom: 38px;
+      transform: translateX(-50%);
+      width: 116px;
+      height: 116px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 40% 30%, rgba(255,255,255,0.9), rgba(250,204,21,0.48) 18%, rgba(124,58,237,0.38) 52%, rgba(15,5,35,0.9) 100%);
+      box-shadow:
+        0 0 38px rgba(250, 204, 21, 0.25),
+        0 0 80px rgba(124, 58, 237, 0.28);
+      border: 1px solid rgba(250, 204, 21, 0.32);
+    }
+
+    .card-fan {
+      position: absolute;
+      left: 36px;
+      bottom: 34px;
+      width: 116px;
+      height: 92px;
+    }
+
+    .fortune-card {
+      position: absolute;
+      width: 50px;
+      height: 76px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #fff7ed, #fde68a);
+      border: 2px solid rgba(250, 204, 21, 0.62);
+      box-shadow: 0 14px 28px rgba(0,0,0,0.22);
+    }
+
+    .fortune-card:nth-child(1) {
+      left: 0;
+      top: 14px;
+      transform: rotate(-18deg);
+    }
+
+    .fortune-card:nth-child(2) {
+      left: 34px;
+      top: 2px;
+      transform: rotate(3deg);
+    }
+
+    .fortune-card:nth-child(3) {
+      left: 66px;
+      top: 16px;
+      transform: rotate(20deg);
+    }
+
+    .fortune-card::after {
+      content: "✦";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: #7c3aed;
+      font-size: 22px;
+    }
+
+    .floating-stat {
+      position: absolute;
+      border: 1px solid rgba(250, 204, 21, 0.18);
+      background: rgba(18, 5, 31, 0.72);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 14px 16px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.26);
+    }
+
+    .floating-stat.one {
+      left: 24px;
+      bottom: 30px;
+    }
+
+    .floating-stat.two {
+      right: 24px;
+      bottom: 76px;
+    }
+
+    .floating-stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .floating-stat b {
+      display: block;
+      margin-top: 2px;
+      font-size: 22px;
+      letter-spacing: -0.045em;
+      color: var(--gold);
+    }
+
+    .section {
+      padding: 28px 0;
+    }
+
+    .section-title {
+      margin: 0 0 16px;
+      font-size: 28px;
+      letter-spacing: -0.055em;
+    }
+
+    .oracle {
+      display: grid;
+      grid-template-columns: 1fr 0.92fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .panel-head {
+      padding: 22px 22px 0;
+    }
+
+    .panel-head h2 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: -0.045em;
+    }
+
+    .panel-head p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .form {
+      padding: 22px;
+      display: grid;
+      gap: 15px;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .field label {
+      font-size: 14px;
+      font-weight: 900;
+      color: var(--soft);
+    }
+
+    .hint {
+      margin-top: -3px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input, select {
+      width: 100%;
+      min-height: 50px;
+      border: 1px solid rgba(250, 204, 21, 0.18);
+      border-radius: 17px;
+      background: rgba(15, 5, 35, 0.62);
+      color: var(--text);
+      padding: 0 14px;
+      font-size: 16px;
+      outline: none;
+      transition: border .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+
+    input:focus, select:focus {
+      border-color: rgba(250, 204, 21, 0.72);
+      box-shadow: 0 0 0 4px rgba(250, 204, 21, 0.12);
+      background: rgba(15, 5, 35, 0.88);
+    }
+
+    input[type="date"] {
+      color-scheme: dark;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+
+    .preset-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .preset {
+      border: 1px solid rgba(250, 204, 21, 0.18);
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--soft);
+      border-radius: 999px;
+      padding: 9px 11px;
+      font-weight: 850;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .preset:hover {
+      background: rgba(250, 204, 21, 0.12);
+      color: #fef3c7;
+      border-color: rgba(250, 204, 21, 0.34);
+    }
+
+    .button-row {
+      display: grid;
+      grid-template-columns: 1fr 0.7fr;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .result-wrap {
+      padding: 22px;
+    }
+
+    .main-result {
+      border-radius: 24px;
+      padding: 22px;
+      background:
+        radial-gradient(circle at 82% 20%, rgba(250, 204, 21, 0.16), transparent 30%),
+        linear-gradient(135deg, rgba(124, 58, 237, 0.36), rgba(18, 5, 31, 0.60));
+      border: 1px solid rgba(250, 204, 21, 0.26);
+    }
+
+    .result-label {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .result-title {
+      margin-top: 4px;
+      font-size: clamp(28px, 5vw, 42px);
+      line-height: 1.08;
+      font-weight: 950;
+      letter-spacing: -0.055em;
+      color: var(--gold);
+    }
+
+    .result-pill {
+      margin-top: 10px;
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 7px 11px;
+      font-weight: 950;
+      font-size: 14px;
+      color: #fef3c7;
+      background: rgba(250, 204, 21, 0.12);
+      border: 1px solid rgba(250, 204, 21, 0.18);
+    }
+
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .score-card {
+      border: 1px solid rgba(250, 204, 21, 0.15);
+      border-radius: 17px;
+      background: rgba(255, 255, 255, 0.055);
+      padding: 13px;
+    }
+
+    .score-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .score-card b {
+      display: block;
+      margin-top: 3px;
+      font-size: 20px;
+      color: var(--text);
+      letter-spacing: -0.04em;
+    }
+
+    .summary-box {
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(250, 204, 21, 0.18);
+      background: rgba(18, 5, 31, 0.56);
+      color: var(--soft);
+      font-size: 14px;
+    }
+
+    .summary-box b {
+      color: var(--text);
+    }
+
+    .keyword-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .keyword {
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: rgba(250, 204, 21, 0.12);
+      border: 1px solid rgba(250, 204, 21, 0.18);
+      color: #fef3c7;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .copy-message {
+      min-height: 22px;
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 850;
+      margin-top: 8px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .info-card {
+      border: 1px solid rgba(250, 204, 21, 0.18);
+      border-radius: 22px;
+      background: rgba(46, 16, 101, 0.50);
+      padding: 18px;
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.18);
+    }
+
+    .info-card h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+      letter-spacing: -0.035em;
+      color: var(--text);
+    }
+
+    .info-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .tool-links {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .tool-link {
+      border: 1px solid rgba(250, 204, 21, 0.18);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 16px;
+      transition: transform .18s ease, background .18s ease, border .18s ease;
+    }
+
+    .tool-link:hover {
+      transform: translateY(-2px);
+      background: rgba(250, 204, 21, 0.10);
+      border-color: rgba(250, 204, 21, 0.34);
+    }
+
+    .tool-link small {
+      color: var(--gold);
+      font-weight: 950;
+    }
+
+    .tool-link b {
+      display: block;
+      margin-top: 4px;
+      letter-spacing: -0.035em;
+      color: var(--text);
+    }
+
+    .notice {
+      border: 1px solid rgba(250, 204, 21, 0.26);
+      background: rgba(250, 204, 21, 0.10);
+      color: #fef3c7;
+      border-radius: 22px;
+      padding: 18px;
+      margin-top: 18px;
+      font-size: 14px;
+    }
+
+    .footer {
+      padding: 38px 0 48px;
+      color: var(--muted);
+      border-top: 1px solid rgba(250, 204, 21, 0.16);
+      margin-top: 34px;
+      font-size: 14px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer a {
+      color: var(--gold);
+      font-weight: 900;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .oracle {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 38px;
+      }
+
+      .hero-card {
+        min-height: 310px;
+      }
+
+      .info-grid,
+      .tool-links {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .wrap {
+        width: min(100% - 22px, var(--max));
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 0;
+      }
+
+      .nav-links {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 3px;
+      }
+
+      .grid-2,
+      .grid-3,
+      .button-row,
+      .score-grid,
+      .info-grid,
+      .tool-links {
+        grid-template-columns: 1fr;
+      }
+
+      .panel-head,
+      .form,
+      .result-wrap {
+        padding: 18px;
+      }
+
+      .hero-card {
+        padding: 18px;
+        border-radius: 26px;
+      }
+
+      .floating-stat.two {
+        right: 18px;
+        bottom: 70px;
+      }
+
+      .floating-stat.one {
+        left: 18px;
+        bottom: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="../" aria-label="바로해결툴즈 메인으로 이동">
+        <span class="brand-mark">B</span>
+        <span>바로해결툴즈</span>
+      </a>
+
+      <nav class="nav-links" aria-label="주요 메뉴">
+        <a href="../">전체 도구</a>
+        <a href="#oracle">운세 보기</a>
+        <a href="../tarot/">AI 타로</a>
+        <a href="#related">관련 도구</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="badge-row">
+            <span class="badge hot">AI 사주 운세</span>
+            <span class="badge">생년월일 기반</span>
+            <span class="badge">오늘의 조언</span>
+            <span class="badge">재미용 운세</span>
+          </div>
+
+          <h1>
+            오늘 내 기운은<br />
+            <strong>어느 쪽으로 흐를까?</strong>
+          </h1>
+
+          <p class="hero-desc">
+            생년월일, 태어난 시간, 관심 분야를 입력하면 오늘의 운세 흐름,
+            행운 키워드, 조심할 점, 한 줄 조언을 재미로 확인할 수 있습니다.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#oracle">바로 운세 보기</a>
+            <button class="btn btn-secondary" type="button" onclick="fillExample()">예시값 넣기</button>
+          </div>
+        </div>
+
+        <div class="hero-card" aria-label="AI 사주 운세 그래픽">
+          <div class="oracle-visual">
+            <div class="moon"></div>
+            <div class="card-fan">
+              <div class="fortune-card"></div>
+              <div class="fortune-card"></div>
+              <div class="fortune-card"></div>
+            </div>
+            <div class="orb"></div>
+          </div>
+
+          <div class="floating-stat one">
+            <span>오늘의 키워드</span>
+            <b>균형</b>
+          </div>
+
+          <div class="floating-stat two">
+            <span>행운의 기운</span>
+            <b>금빛</b>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="oracle" class="section">
+      <div class="wrap oracle">
+        <section class="panel">
+          <div class="panel-head">
+            <h2>입력값</h2>
+            <p>정확한 사주풀이가 아니라, 생년월일을 바탕으로 만든 재미용 운세 카드입니다.</p>
+          </div>
+
+          <div class="form">
+            <div class="grid-2">
+              <div class="field">
+                <label for="birthDate">생년월일</label>
+                <input id="birthDate" type="date" />
+                <div class="hint">운세 문구 생성에 사용됩니다. 저장하지 않습니다.</div>
+              </div>
+
+              <div class="field">
+                <label for="birthHour">태어난 시간</label>
+                <select id="birthHour">
+                  <option value="unknown">모름</option>
+                  <option value="0">자시 23:00~01:00</option>
+                  <option value="2">축시 01:00~03:00</option>
+                  <option value="4">인시 03:00~05:00</option>
+                  <option value="6">묘시 05:00~07:00</option>
+                  <option value="8">진시 07:00~09:00</option>
+                  <option value="10">사시 09:00~11:00</option>
+                  <option value="12">오시 11:00~13:00</option>
+                  <option value="14">미시 13:00~15:00</option>
+                  <option value="16">신시 15:00~17:00</option>
+                  <option value="18">유시 17:00~19:00</option>
+                  <option value="20">술시 19:00~21:00</option>
+                  <option value="22">해시 21:00~23:00</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="field">
+                <label for="gender">성별 선택</label>
+                <select id="gender">
+                  <option value="none">선택 안 함</option>
+                  <option value="female">여성</option>
+                  <option value="male">남성</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="focus">오늘 가장 궁금한 분야</label>
+                <select id="focus">
+                  <option value="money">금전운</option>
+                  <option value="work">직장·사업운</option>
+                  <option value="love">연애·인간관계운</option>
+                  <option value="health">컨디션·생활운</option>
+                  <option value="general">전체운</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="mood">요즘 내 상태</label>
+              <select id="mood">
+                <option value="calm">차분하지만 뭔가 답답함</option>
+                <option value="rush">빨리 결과를 내고 싶음</option>
+                <option value="tired">피곤하고 의욕이 떨어짐</option>
+                <option value="fresh">새롭게 시작하고 싶음</option>
+                <option value="confused">선택지가 많아 헷갈림</option>
+              </select>
+              <div class="hint">결과 문구의 톤을 조정하는 참고값입니다.</div>
+            </div>
+
+            <div class="field">
+              <label>빠른 설정</label>
+              <div class="preset-row">
+                <button class="preset" type="button" onclick="setPreset('money')">금전운 예시</button>
+                <button class="preset" type="button" onclick="setPreset('work')">직장운 예시</button>
+                <button class="preset" type="button" onclick="setPreset('love')">연애운 예시</button>
+                <button class="preset" type="button" onclick="resetForm()">초기화</button>
+              </div>
+            </div>
+
+            <div class="button-row">
+              <button class="btn btn-primary" type="button" onclick="generateFortune()">운세 카드 뽑기</button>
+              <button class="btn btn-secondary" type="button" onclick="copyResult()">결과 복사</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" aria-live="polite">
+          <div class="panel-head">
+            <h2>오늘의 사주 운세</h2>
+            <p>재미로 보는 참고용 결과입니다. 중요한 결정은 현실 정보와 함께 판단하세요.</p>
+          </div>
+
+          <div class="result-wrap">
+            <div class="main-result">
+              <span class="result-label">오늘의 흐름</span>
+              <div id="fortuneTitle" class="result-title">운세 대기 중</div>
+              <div id="fortunePill" class="result-pill">생년월일을 입력해보세요</div>
+            </div>
+
+            <div class="score-grid">
+              <div class="score-card">
+                <span>금전운</span>
+                <b id="moneyScore">0점</b>
+              </div>
+
+              <div class="score-card">
+                <span>일·성취운</span>
+                <b id="workScore">0점</b>
+              </div>
+
+              <div class="score-card">
+                <span>관계운</span>
+                <b id="loveScore">0점</b>
+              </div>
+
+              <div class="score-card">
+                <span>컨디션</span>
+                <b id="healthScore">0점</b>
+              </div>
+            </div>
+
+            <div id="summary" class="summary-box">
+              <b>운세 대기 중</b><br />
+              생년월일과 관심 분야를 입력하면 오늘의 흐름을 보여드립니다.
+            </div>
+
+            <div class="summary-box">
+              <b>행운 키워드</b>
+              <div id="keywordRow" class="keyword-row">
+                <span class="keyword">준비</span>
+                <span class="keyword">균형</span>
+                <span class="keyword">타이밍</span>
+              </div>
+            </div>
+
+            <div id="advice" class="summary-box">
+              <b>오늘의 조언</b><br />
+              결과를 생성하면 오늘 조심할 점과 활용할 포인트가 표시됩니다.
+            </div>
+
+            <div id="copyMessage" class="copy-message"></div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2 class="section-title">이 도구의 기준</h2>
+
+        <div class="info-grid">
+          <article class="info-card">
+            <h3>재미용 운세</h3>
+            <p>정통 명리학 감정이 아니라, 생년월일과 선택값을 조합해 만든 가벼운 운세 카드입니다.</p>
+          </article>
+
+          <article class="info-card">
+            <h3>단정 금지</h3>
+            <p>투자, 건강, 법률, 진로 같은 중요한 결정은 운세만으로 판단하면 안 됩니다.</p>
+          </article>
+
+          <article class="info-card">
+            <h3>재방문형 도구</h3>
+            <p>오늘의 기분 전환, 행운 키워드 확인, AI 타로와 함께 보는 재미 요소로 설계했습니다.</p>
+          </article>
+        </div>
+
+        <div class="notice">
+          <b>주의사항</b><br />
+          이 페이지는 오락·재미용 운세 도구입니다. 실제 사주 감정, 의학적 판단, 투자 판단, 법률 자문, 심리 상담을 대체하지 않습니다.
+          중요한 결정은 전문가 조언과 현실적인 정보를 함께 확인하세요.
+        </div>
+      </div>
+    </section>
+
+    <section id="related" class="section">
+      <div class="wrap">
+        <h2 class="section-title">관련 도구</h2>
+
+        <div class="tool-links">
+          <a class="tool-link" href="../tarot/">
+            <small>운세</small>
+            <b>오늘의 AI 타로 운세</b>
+          </a>
+
+          <a class="tool-link" href="../travel-budget/">
+            <small>여행</small>
+            <b>여름휴가 여행경비 계산기</b>
+          </a>
+
+          <a class="tool-link" href="../stock-average/">
+            <small>주식</small>
+            <b>주식 평단가 계산기</b>
+          </a>
+
+          <a class="tool-link" href="../aircon-bill/">
+            <small>생활비</small>
+            <b>에어컨 전기요금 계산기</b>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div>
+        <b>바로해결툴즈</b><br />
+        생활비, 여행경비, 보험 체크리스트, 주식, 운세까지 바로 확인하는 무료 미니툴 모음
+      </div>
+
+      <div>
+        <a href="../">메인으로</a>
+        &nbsp;·&nbsp;
+        <a href="../tarot/">AI 타로</a>
+        &nbsp;·&nbsp;
+        <a href="#oracle">위로</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const els = {
+      birthDate: document.getElementById("birthDate"),
+      birthHour: document.getElementById("birthHour"),
+      gender: document.getElementById("gender"),
+      focus: document.getElementById("focus"),
+      mood: document.getElementById("mood"),
+      fortuneTitle: document.getElementById("fortuneTitle"),
+      fortunePill: document.getElementById("fortunePill"),
+      moneyScore: document.getElementById("moneyScore"),
+      workScore: document.getElementById("workScore"),
+      loveScore: document.getElementById("loveScore"),
+      healthScore: document.getElementById("healthScore"),
+      summary: document.getElementById("summary"),
+      keywordRow: document.getElementById("keywordRow"),
+      advice: document.getElementById("advice"),
+      copyMessage: document.getElementById("copyMessage")
+    };
+
+    const titlePool = [
+      "기운이 모이는 날",
+      "타이밍을 고르는 날",
+      "작은 선택이 커지는 날",
+      "흐름을 정리해야 하는 날",
+      "무리보다 균형이 좋은 날",
+      "새로운 힌트가 보이는 날",
+      "말보다 관찰이 유리한 날",
+      "기회와 지출을 함께 봐야 하는 날"
+    ];
+
+    const elements = [
+      { name: "목", keyword: "성장", color: "초록", phrase: "새로운 계획을 세우기 좋은 기운" },
+      { name: "화", keyword: "열정", color: "붉은색", phrase: "움직임과 표현력이 강해지는 기운" },
+      { name: "토", keyword: "균형", color: "황금빛", phrase: "정리와 안정감이 중요한 기운" },
+      { name: "금", keyword: "결단", color: "은빛", phrase: "판단과 기준이 선명해지는 기운" },
+      { name: "수", keyword: "흐름", color: "푸른색", phrase: "유연하게 방향을 바꾸기 좋은 기운" }
+    ];
+
+    const focusText = {
+      money: {
+        label: "금전운",
+        strong: "돈이 새는 구멍을 막는 쪽이 유리합니다.",
+        caution: "충동구매, 급한 투자 판단, 남의 말만 믿고 움직이는 선택은 피하세요."
+      },
+      work: {
+        label: "직장·사업운",
+        strong: "성과보다 우선순위를 정리하는 쪽이 유리합니다.",
+        caution: "급하게 일을 벌리기보다, 이미 시작한 일을 마무리하는 데 집중하세요."
+      },
+      love: {
+        label: "연애·인간관계운",
+        strong: "말의 세기보다 타이밍이 중요한 날입니다.",
+        caution: "상대의 반응을 단정하지 말고, 한 박자 늦게 답하는 편이 좋습니다."
+      },
+      health: {
+        label: "컨디션·생활운",
+        strong: "리듬을 회복하는 것이 가장 중요합니다.",
+        caution: "무리한 일정, 늦은 수면, 과한 카페인은 컨디션을 흔들 수 있습니다."
+      },
+      general: {
+        label: "전체운",
+        strong: "한 번에 크게 바꾸기보다 흐름을 정리하는 날입니다.",
+        caution: "오늘은 큰 결정보다 작은 정리가 더 좋은 결과로 이어질 수 있습니다."
+      }
+    };
+
+    const moodText = {
+      calm: "답답함이 있더라도 급하게 밀어붙이기보다, 한 가지를 정리하면 흐름이 풀립니다.",
+      rush: "빨리 결과를 내고 싶은 기운이 강합니다. 속도보다 실수 방지가 더 중요합니다.",
+      tired: "기운이 분산되기 쉬운 상태입니다. 오늘은 체력과 집중력을 아껴 쓰는 편이 좋습니다.",
+      fresh: "새로운 시작의 기운이 있습니다. 단, 계획 없이 시작하면 쉽게 흐트러질 수 있습니다.",
+      confused: "선택지가 많아 보일수록 기준 하나를 정해야 합니다. 오늘의 핵심은 단순화입니다."
+    };
+
+    const keywordPool = [
+      "균형", "정리", "타이밍", "집중", "절제", "관찰", "기회", "회복",
+      "기준", "속도조절", "대화", "준비", "선택", "인내", "실행", "전환"
+    ];
+
+    function hashText(text) {
+      let hash = 0;
+      for (let i = 0; i < text.length; i++) {
+        hash = (hash << 5) - hash + text.charCodeAt(i);
+        hash |= 0;
+      }
+      return Math.abs(hash);
+    }
+
+    function todayKey() {
+      const now = new Date();
+      return now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
+    }
+
+    function pick(array, seed, offset) {
+      return array[(seed + offset) % array.length];
+    }
+
+    function score(seed, offset) {
+      return 62 + ((seed + offset * 17) % 35);
+    }
+
+    function generateFortune() {
+      if (!els.birthDate.value) {
+        els.summary.innerHTML = "<b>생년월일 확인 필요</b><br />생년월일을 입력하면 오늘의 운세 카드가 생성됩니다.";
+        els.fortuneTitle.textContent = "운세 대기 중";
+        els.fortunePill.textContent = "생년월일을 입력해보세요";
+        els.copyMessage.textContent = "";
+        return;
+      }
+
+      const seedSource = [
+        els.birthDate.value,
+        els.birthHour.value,
+        els.gender.value,
+        els.focus.value,
+        els.mood.value,
+        todayKey()
+      ].join("|");
+
+      const seed = hashText(seedSource);
+      const element = pick(elements, seed, 3);
+      const title = pick(titlePool, seed, 7);
+      const focus = focusText[els.focus.value];
+      const mood = moodText[els.mood.value];
+
+      const money = score(seed, 1);
+      const work = score(seed, 2);
+      const love = score(seed, 3);
+      const health = score(seed, 4);
+
+      const keywords = [
+        element.keyword,
+        pick(keywordPool, seed, 5),
+        pick(keywordPool, seed, 9),
+        element.color
+      ];
+
+      els.fortuneTitle.textContent = title;
+      els.fortunePill.textContent = element.name + "의 기운 · " + focus.label;
+      els.moneyScore.textContent = money + "점";
+      els.workScore.textContent = work + "점";
+      els.loveScore.textContent = love + "점";
+      els.healthScore.textContent = health + "점";
+
+      els.summary.innerHTML =
+        "<b>오늘의 운세 흐름</b><br />" +
+        "오늘은 <b>" + element.keyword + "</b>의 기운이 강하게 들어오는 날입니다. " +
+        element.phrase + "이 느껴지고, " + focus.label + "에서는 <b>" + focus.strong + "</b><br />" +
+        mood;
+
+      els.keywordRow.innerHTML = keywords.map(keyword => "<span class='keyword'>" + keyword + "</span>").join("");
+
+      els.advice.innerHTML =
+        "<b>오늘의 조언</b><br />" +
+        focus.caution + "<br />" +
+        "행운의 색은 <b>" + element.color + "</b>, 오늘의 키워드는 <b>" + keywords[1] + "</b>입니다. " +
+        "중요한 결정은 운세만으로 판단하지 말고 현실적인 정보와 함께 확인하세요.";
+
+      els.copyMessage.textContent = "";
+    }
+
+    function setPreset(type) {
+      els.birthDate.value = "1992-06-15";
+      els.birthHour.value = "8";
+      els.gender.value = "none";
+
+      if (type === "money") {
+        els.focus.value = "money";
+        els.mood.value = "rush";
+      }
+
+      if (type === "work") {
+        els.focus.value = "work";
+        els.mood.value = "confused";
+      }
+
+      if (type === "love") {
+        els.focus.value = "love";
+        els.mood.value = "calm";
+      }
+
+      generateFortune();
+    }
+
+    function fillExample() {
+      setPreset("money");
+      document.getElementById("oracle").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function resetForm() {
+      els.birthDate.value = "";
+      els.birthHour.value = "unknown";
+      els.gender.value = "none";
+      els.focus.value = "money";
+      els.mood.value = "calm";
+
+      els.fortuneTitle.textContent = "운세 대기 중";
+      els.fortunePill.textContent = "생년월일을 입력해보세요";
+      els.moneyScore.textContent = "0점";
+      els.workScore.textContent = "0점";
+      els.loveScore.textContent = "0점";
+      els.healthScore.textContent = "0점";
+      els.summary.innerHTML = "<b>운세 대기 중</b><br />생년월일과 관심 분야를 입력하면 오늘의 흐름을 보여드립니다.";
+      els.keywordRow.innerHTML = "<span class='keyword'>준비</span><span class='keyword'>균형</span><span class='keyword'>타이밍</span>";
+      els.advice.innerHTML = "<b>오늘의 조언</b><br />결과를 생성하면 오늘 조심할 점과 활용할 포인트가 표시됩니다.";
+      els.copyMessage.textContent = "";
+    }
+
+    async function copyResult() {
+      if (!els.birthDate.value) {
+        els.copyMessage.textContent = "먼저 생년월일을 입력하고 운세를 생성하세요.";
+        return;
+      }
+
+      const text =
+        "[바로해결툴즈 AI 사주 운세]\n" +
+        "오늘의 흐름: " + els.fortuneTitle.textContent + "\n" +
+        "운세 구분: " + els.fortunePill.textContent + "\n" +
+        "금전운: " + els.moneyScore.textContent + "\n" +
+        "일·성취운: " + els.workScore.textContent + "\n" +
+        "관계운: " + els.loveScore.textContent + "\n" +
+        "컨디션: " + els.healthScore.textContent + "\n\n" +
+        "요약: " + els.summary.innerText.replace(/\s+/g, " ") + "\n\n" +
+        "조언: " + els.advice.innerText.replace(/\s+/g, " ");
+
+      try {
+        await navigator.clipboard.writeText(text);
+        els.copyMessage.textContent = "운세 결과가 복사됐습니다.";
+      } catch (error) {
+        els.copyMessage.textContent = "복사 기능을 사용할 수 없습니다. 결과를 직접 선택해 복사하세요.";
+      }
+    }
+
+    [els.birthDate, els.birthHour, els.gender, els.focus, els.mood].forEach(input => {
+      input.addEventListener("change", () => {
+        if (els.birthDate.value) generateFortune();
+      });
+    });
+  </script>
+</body>
+</html>
