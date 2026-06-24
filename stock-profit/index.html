@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>주식 수익률 계산기 | 매수가·매도가·수수료·세금 반영 | 바로해결툴즈</title>
+  <meta name="description" content="매수가, 매도가, 수량, 수수료, 세금을 입력하면 주식 수익금과 수익률을 바로 계산할 수 있는 무료 주식 수익률 계산기입니다." />
+  <meta name="keywords" content="주식 수익률 계산기, 주식 수익 계산기, 주식 손익 계산기, 매수가 매도가 수익률, 주식 세금 수수료 계산, 바로해결툴즈" />
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/stock-profit/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="주식 수익률 계산기 | 바로해결툴즈" />
+  <meta property="og:description" content="매수가·매도가·수량·수수료·세금까지 반영해 실제 주식 수익률을 계산해보세요." />
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/stock-profit/" />
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <meta name="theme-color" content="#0f172a" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "주식 수익률 계산기",
+    "url": "https://barohaegyeol-tools.pages.dev/stock-profit/",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "All",
+    "description": "매수가, 매도가, 수량, 수수료, 세금을 입력하면 주식 수익금과 수익률을 계산하는 무료 웹 계산기입니다.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #070b16;
+      --bg2: #0f172a;
+      --card: rgba(15, 23, 42, 0.88);
+      --card2: rgba(30, 41, 59, 0.78);
+      --line: rgba(148, 163, 184, 0.22);
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --soft: #cbd5e1;
+      --blue: #38bdf8;
+      --blue2: #2563eb;
+      --green: #22c55e;
+      --red: #ef4444;
+      --yellow: #facc15;
+      --purple: #a78bfa;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+      --radius: 24px;
+      --radius2: 16px;
+      --max: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 5%, rgba(56, 189, 248, 0.20), transparent 28%),
+        radial-gradient(circle at 82% 8%, rgba(167, 139, 250, 0.16), transparent 30%),
+        radial-gradient(circle at 50% 100%, rgba(34, 197, 94, 0.12), transparent 35%),
+        linear-gradient(135deg, #050816 0%, #0f172a 48%, #111827 100%);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: rgba(7, 11, 22, 0.72);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #38bdf8, #2563eb);
+      box-shadow: 0 12px 32px rgba(37, 99, 235, 0.36);
+      font-weight: 950;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--soft);
+      font-size: 14px;
+    }
+
+    .nav-links a {
+      padding: 9px 12px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+    }
+
+    .nav-links a:hover {
+      border-color: var(--line);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .hero {
+      padding: 58px 0 32px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.04fr 0.96fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--soft);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .badge.hot {
+      border-color: rgba(56, 189, 248, 0.35);
+      color: #dff7ff;
+      background: rgba(56, 189, 248, 0.10);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 6vw, 62px);
+      line-height: 1.02;
+      letter-spacing: -0.075em;
+    }
+
+    .hero strong {
+      color: #7dd3fc;
+    }
+
+    .hero-desc {
+      margin: 20px 0 0;
+      color: var(--soft);
+      font-size: clamp(16px, 2vw, 19px);
+      max-width: 650px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      border: 0;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 13px 18px;
+      font-weight: 900;
+      font-size: 15px;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 48px;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #04111f;
+      background: linear-gradient(135deg, #67e8f9, #38bdf8);
+      box-shadow: 0 16px 40px rgba(56, 189, 248, 0.28);
+    }
+
+    .btn-secondary {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid var(--line);
+    }
+
+    .hero-card {
+      position: relative;
+      min-height: 330px;
+      border: 1px solid var(--line);
+      border-radius: 32px;
+      overflow: hidden;
+      background:
+        linear-gradient(145deg, rgba(15, 23, 42, 0.94), rgba(30, 41, 59, 0.72)),
+        radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.15), transparent 25%);
+      box-shadow: var(--shadow);
+      padding: 26px;
+    }
+
+    .chart-visual {
+      height: 174px;
+      border-radius: 22px;
+      background:
+        linear-gradient(180deg, rgba(56, 189, 248, 0.08), rgba(34, 197, 94, 0.02)),
+        repeating-linear-gradient(to right, rgba(148, 163, 184, 0.09) 0 1px, transparent 1px 48px),
+        repeating-linear-gradient(to bottom, rgba(148, 163, 184, 0.08) 0 1px, transparent 1px 42px);
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chart-visual svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .floating-stat {
+      position: absolute;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      background: rgba(2, 6, 23, 0.76);
+      backdrop-filter: blur(12px);
+      border-radius: 18px;
+      padding: 14px 16px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.30);
+    }
+
+    .floating-stat.one {
+      left: 24px;
+      bottom: 30px;
+    }
+
+    .floating-stat.two {
+      right: 24px;
+      bottom: 68px;
+    }
+
+    .floating-stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .floating-stat b {
+      display: block;
+      margin-top: 2px;
+      font-size: 22px;
+      letter-spacing: -0.04em;
+    }
+
+    .section {
+      padding: 28px 0;
+    }
+
+    .section-title {
+      margin: 0 0 16px;
+      font-size: 28px;
+      letter-spacing: -0.055em;
+    }
+
+    .calculator {
+      display: grid;
+      grid-template-columns: 1fr 0.92fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .panel-head {
+      padding: 22px 22px 0;
+    }
+
+    .panel-head h2 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: -0.045em;
+    }
+
+    .panel-head p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .form {
+      padding: 22px;
+      display: grid;
+      gap: 15px;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .field label {
+      font-size: 14px;
+      font-weight: 850;
+      color: var(--soft);
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input, select {
+      width: 100%;
+      min-height: 50px;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      border-radius: 16px;
+      background: rgba(2, 6, 23, 0.54);
+      color: var(--text);
+      padding: 0 14px;
+      font-size: 16px;
+      outline: none;
+      transition: border .18s ease, box-shadow .18s ease;
+    }
+
+    input:focus, select:focus {
+      border-color: rgba(56, 189, 248, 0.72);
+      box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.12);
+    }
+
+    .unit {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+      pointer-events: none;
+    }
+
+    .input-wrap.has-unit input {
+      padding-right: 54px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .preset-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .preset {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--soft);
+      border-radius: 999px;
+      padding: 9px 11px;
+      font-weight: 800;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .preset:hover {
+      background: rgba(56, 189, 248, 0.12);
+      color: #e0f8ff;
+      border-color: rgba(56, 189, 248, 0.34);
+    }
+
+    .button-row {
+      display: grid;
+      grid-template-columns: 1fr 0.7fr;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .result-wrap {
+      padding: 22px;
+    }
+
+    .main-result {
+      border-radius: 22px;
+      padding: 22px;
+      background:
+        linear-gradient(135deg, rgba(56, 189, 248, 0.13), rgba(34, 197, 94, 0.08)),
+        rgba(2, 6, 23, 0.42);
+      border: 1px solid rgba(56, 189, 248, 0.24);
+    }
+
+    .result-label {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .result-money {
+      margin-top: 4px;
+      font-size: clamp(28px, 5vw, 42px);
+      line-height: 1.05;
+      font-weight: 950;
+      letter-spacing: -0.055em;
+    }
+
+    .result-rate {
+      margin-top: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 14px;
+      font-weight: 900;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .positive {
+      color: #4ade80;
+    }
+
+    .negative {
+      color: #fb7185;
+    }
+
+    .neutral {
+      color: #e2e8f0;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .result-item {
+      padding: 14px;
+      border-radius: 17px;
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .result-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .result-item b {
+      display: block;
+      margin-top: 3px;
+      font-size: 17px;
+      letter-spacing: -0.035em;
+    }
+
+    .summary-box {
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      background: rgba(15, 23, 42, 0.70);
+      color: var(--soft);
+      font-size: 14px;
+    }
+
+    .summary-box b {
+      color: var(--text);
+    }
+
+    .copy-message {
+      min-height: 22px;
+      color: #7dd3fc;
+      font-size: 13px;
+      font-weight: 800;
+      margin-top: 8px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .info-card {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--card2);
+      padding: 18px;
+    }
+
+    .info-card h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+      letter-spacing: -0.035em;
+    }
+
+    .info-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .tool-links {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .tool-link {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.055);
+      padding: 16px;
+      transition: transform .18s ease, background .18s ease, border .18s ease;
+    }
+
+    .tool-link:hover {
+      transform: translateY(-2px);
+      background: rgba(56, 189, 248, 0.10);
+      border-color: rgba(56, 189, 248, 0.32);
+    }
+
+    .tool-link small {
+      color: var(--blue);
+      font-weight: 950;
+    }
+
+    .tool-link b {
+      display: block;
+      margin-top: 4px;
+      letter-spacing: -0.035em;
+    }
+
+    .notice {
+      border: 1px solid rgba(250, 204, 21, 0.26);
+      background: rgba(250, 204, 21, 0.08);
+      color: #fef3c7;
+      border-radius: 20px;
+      padding: 18px;
+      margin-top: 18px;
+      font-size: 14px;
+    }
+
+    .footer {
+      padding: 38px 0 48px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      margin-top: 34px;
+      font-size: 14px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer a {
+      color: var(--soft);
+      font-weight: 800;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .calculator {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 38px;
+      }
+
+      .hero-card {
+        min-height: 285px;
+      }
+
+      .info-grid,
+      .tool-links {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .wrap {
+        width: min(100% - 22px, var(--max));
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 0;
+      }
+
+      .nav-links {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 3px;
+      }
+
+      .grid-2,
+      .button-row,
+      .result-grid,
+      .info-grid,
+      .tool-links {
+        grid-template-columns: 1fr;
+      }
+
+      .panel-head,
+      .form,
+      .result-wrap {
+        padding: 18px;
+      }
+
+      .hero-card {
+        padding: 18px;
+        border-radius: 24px;
+      }
+
+      .floating-stat.two {
+        right: 18px;
+        bottom: 72px;
+      }
+
+      .floating-stat.one {
+        left: 18px;
+        bottom: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="../" aria-label="바로해결툴즈 메인으로 이동">
+        <span class="brand-mark">B</span>
+        <span>바로해결툴즈</span>
+      </a>
+
+      <nav class="nav-links" aria-label="주요 메뉴">
+        <a href="../">전체 도구</a>
+        <a href="../stock-average/">평단가</a>
+        <a href="#calculator">수익률 계산</a>
+        <a href="#related">관련 계산기</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="badge-row">
+            <span class="badge hot">주식 계산기</span>
+            <span class="badge">수수료 반영</span>
+            <span class="badge">세금 반영</span>
+            <span class="badge">모바일 최적화</span>
+          </div>
+
+          <h1>
+            지금 팔면<br />
+            <strong>실제 수익률</strong> 얼마?
+          </h1>
+
+          <p class="hero-desc">
+            매수가, 매도가, 수량만 넣으면 총 매수금액, 매도금액, 수수료, 세금,
+            최종 손익과 수익률을 한 번에 계산합니다.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#calculator">바로 계산하기</a>
+            <button class="btn btn-secondary" type="button" onclick="fillExample()">예시값 넣기</button>
+          </div>
+        </div>
+
+        <div class="hero-card" aria-label="수익률 대시보드 그래픽">
+          <div class="chart-visual">
+            <svg viewBox="0 0 600 260" preserveAspectRatio="none" role="img" aria-label="상승 차트 그래픽">
+              <defs>
+                <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#38bdf8" />
+                  <stop offset="60%" stop-color="#22c55e" />
+                  <stop offset="100%" stop-color="#a78bfa" />
+                </linearGradient>
+                <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.23" />
+                  <stop offset="100%" stop-color="#38bdf8" stop-opacity="0" />
+                </linearGradient>
+              </defs>
+              <path d="M0 210 C70 190 90 166 140 178 C200 194 222 105 280 116 C340 126 355 65 420 78 C480 88 505 45 600 34 L600 260 L0 260 Z" fill="url(#areaGradient)" />
+              <path d="M0 210 C70 190 90 166 140 178 C200 194 222 105 280 116 C340 126 355 65 420 78 C480 88 505 45 600 34" fill="none" stroke="url(#lineGradient)" stroke-width="8" stroke-linecap="round" />
+            </svg>
+          </div>
+
+          <div class="floating-stat one">
+            <span>예상 손익</span>
+            <b class="positive">+₩128,400</b>
+          </div>
+
+          <div class="floating-stat two">
+            <span>수익률</span>
+            <b class="positive">+7.84%</b>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="calculator" class="section">
+      <div class="wrap calculator">
+        <section class="panel">
+          <div class="panel-head">
+            <h2>입력값</h2>
+            <p>쉼표를 넣어도 자동 계산됩니다. 세율과 수수료율은 직접 수정할 수 있습니다.</p>
+          </div>
+
+          <div class="form">
+            <div class="field">
+              <label for="stockName">종목명 선택 입력</label>
+              <input id="stockName" type="text" placeholder="예: 삼성전자, SK하이닉스, 엔비디아" autocomplete="off" />
+            </div>
+
+            <div class="grid-2">
+              <div class="field">
+                <label for="buyPrice">매수가</label>
+                <div class="input-wrap has-unit">
+                  <input id="buyPrice" type="text" inputmode="decimal" placeholder="예: 70000" />
+                  <span class="unit">원</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="sellPrice">매도가</label>
+                <div class="input-wrap has-unit">
+                  <input id="sellPrice" type="text" inputmode="decimal" placeholder="예: 76000" />
+                  <span class="unit">원</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="quantity">보유 수량</label>
+              <div class="input-wrap has-unit">
+                <input id="quantity" type="text" inputmode="numeric" placeholder="예: 20" />
+                <span class="unit">주</span>
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="field">
+                <label for="feeRate">매매 수수료율</label>
+                <div class="input-wrap has-unit">
+                  <input id="feeRate" type="text" inputmode="decimal" value="0.015" />
+                  <span class="unit">%</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="taxRate">매도 세금률</label>
+                <div class="input-wrap has-unit">
+                  <input id="taxRate" type="text" inputmode="decimal" value="0.20" />
+                  <span class="unit">%</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>빠른 설정</label>
+              <div class="preset-row">
+                <button class="preset" type="button" onclick="setPreset('domestic')">국내주식 예시</button>
+                <button class="preset" type="button" onclick="setPreset('lowfee')">수수료 낮게</button>
+                <button class="preset" type="button" onclick="setPreset('overseas')">해외주식 단순 손익</button>
+                <button class="preset" type="button" onclick="resetForm()">초기화</button>
+              </div>
+            </div>
+
+            <div class="button-row">
+              <button class="btn btn-primary" type="button" onclick="calculateProfit()">수익률 계산하기</button>
+              <button class="btn btn-secondary" type="button" onclick="copyResult()">결과 복사</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" aria-live="polite">
+          <div class="panel-head">
+            <h2>계산 결과</h2>
+            <p>수수료는 매수·매도 양쪽, 세금은 매도금액 기준으로 계산합니다.</p>
+          </div>
+
+          <div class="result-wrap">
+            <div class="main-result">
+              <span class="result-label">최종 예상 손익</span>
+              <div id="netProfit" class="result-money neutral">₩0</div>
+              <div id="profitRate" class="result-rate neutral">수익률 0.00%</div>
+            </div>
+
+            <div class="result-grid">
+              <div class="result-item">
+                <span>총 매수금액</span>
+                <b id="totalBuy">₩0</b>
+              </div>
+              <div class="result-item">
+                <span>총 매도금액</span>
+                <b id="totalSell">₩0</b>
+              </div>
+              <div class="result-item">
+                <span>총 수수료</span>
+                <b id="totalFee">₩0</b>
+              </div>
+              <div class="result-item">
+                <span>매도 세금</span>
+                <b id="sellTax">₩0</b>
+              </div>
+              <div class="result-item">
+                <span>세전 손익</span>
+                <b id="grossProfit">₩0</b>
+              </div>
+              <div class="result-item">
+                <span>손익분기 매도가</span>
+                <b id="breakEven">₩0</b>
+              </div>
+            </div>
+
+            <div id="summary" class="summary-box">
+              <b>계산 대기 중</b><br />
+              매수가, 매도가, 수량을 입력하면 실제 손익을 계산합니다.
+            </div>
+
+            <div id="copyMessage" class="copy-message"></div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2 class="section-title">이 계산기가 필요한 순간</h2>
+
+        <div class="info-grid">
+          <article class="info-card">
+            <h3>팔기 전에 실수익 확인</h3>
+            <p>단순 매도가 차익이 아니라 수수료와 세금을 뺀 최종 손익을 확인합니다.</p>
+          </article>
+
+          <article class="info-card">
+            <h3>물타기 후 매도 판단</h3>
+            <p>평단가를 낮춘 뒤 어느 가격에서 실제 수익 전환이 되는지 빠르게 확인할 수 있습니다.</p>
+          </article>
+
+          <article class="info-card">
+            <h3>목표 수익률 검산</h3>
+            <p>수익금과 수익률을 함께 확인해 감이 아니라 숫자로 판단하게 해줍니다.</p>
+          </article>
+        </div>
+
+        <div class="notice">
+          <b>주의사항</b><br />
+          이 계산기는 참고용입니다. 실제 수수료, 세금, 환율, 제비용은 증권사, 시장, 상품, 계좌 유형, 이벤트 조건에 따라 달라질 수 있습니다.
+          해외주식 양도소득세는 별도 계산이 필요하므로 해외주식 세금 계산기에서 따로 확인하는 구조로 운영합니다.
+        </div>
+      </div>
+    </section>
+
+    <section id="related" class="section">
+      <div class="wrap">
+        <h2 class="section-title">관련 주식 계산기</h2>
+
+        <div class="tool-links">
+          <a class="tool-link" href="../stock-average/">
+            <small>대표 도구</small>
+            <b>주식 평단가 계산기</b>
+          </a>
+
+          <a class="tool-link" href="../stock-tax/">
+            <small>준비 중</small>
+            <b>해외주식 양도세 계산기</b>
+          </a>
+
+          <a class="tool-link" href="../stock-dividend/">
+            <small>준비 중</small>
+            <b>배당금 계산기</b>
+          </a>
+
+          <a class="tool-link" href="../stock-split-buy/">
+            <small>준비 중</small>
+            <b>분할매수 계산기</b>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div>
+        <b>바로해결툴즈</b><br />
+        생활비, 주식, 운세까지 바로 계산하는 무료 미니툴 모음
+      </div>
+
+      <div>
+        <a href="../">메인으로</a>
+        &nbsp;·&nbsp;
+        <a href="../stock-average/">평단가 계산기</a>
+        &nbsp;·&nbsp;
+        <a href="#calculator">위로</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const els = {
+      stockName: document.getElementById("stockName"),
+      buyPrice: document.getElementById("buyPrice"),
+      sellPrice: document.getElementById("sellPrice"),
+      quantity: document.getElementById("quantity"),
+      feeRate: document.getElementById("feeRate"),
+      taxRate: document.getElementById("taxRate"),
+      netProfit: document.getElementById("netProfit"),
+      profitRate: document.getElementById("profitRate"),
+      totalBuy: document.getElementById("totalBuy"),
+      totalSell: document.getElementById("totalSell"),
+      totalFee: document.getElementById("totalFee"),
+      sellTax: document.getElementById("sellTax"),
+      grossProfit: document.getElementById("grossProfit"),
+      breakEven: document.getElementById("breakEven"),
+      summary: document.getElementById("summary"),
+      copyMessage: document.getElementById("copyMessage")
+    };
+
+    function onlyNumber(value) {
+      if (value === null || value === undefined) return 0;
+      const cleaned = String(value).replace(/,/g, "").replace(/[^\d.-]/g, "");
+      const number = parseFloat(cleaned);
+      return Number.isFinite(number) ? number : 0;
+    }
+
+    function formatInput(input) {
+      const raw = input.value;
+      if (raw === "" || raw === "-") return;
+      const cursorAtEnd = input.selectionStart === input.value.length;
+      const number = onlyNumber(raw);
+
+      if (!Number.isFinite(number)) return;
+
+      if (input.id === "feeRate" || input.id === "taxRate") {
+        input.value = String(raw).replace(/[^\d.]/g, "");
+        return;
+      }
+
+      input.value = number.toLocaleString("ko-KR");
+
+      if (cursorAtEnd) {
+        input.setSelectionRange(input.value.length, input.value.length);
+      }
+    }
+
+    function won(value) {
+      const rounded = Math.round(value);
+      const absText = Math.abs(rounded).toLocaleString("ko-KR");
+      if (rounded > 0) return "+₩" + absText;
+      if (rounded < 0) return "-₩" + absText;
+      return "₩0";
+    }
+
+    function plainWon(value) {
+      return "₩" + Math.round(value).toLocaleString("ko-KR");
+    }
+
+    function percent(value) {
+      const sign = value > 0 ? "+" : "";
+      return sign + value.toFixed(2) + "%";
+    }
+
+    function setTone(element, value) {
+      element.classList.remove("positive", "negative", "neutral");
+      if (value > 0) element.classList.add("positive");
+      else if (value < 0) element.classList.add("negative");
+      else element.classList.add("neutral");
+    }
+
+    function calculateValues() {
+      const buyPrice = onlyNumber(els.buyPrice.value);
+      const sellPrice = onlyNumber(els.sellPrice.value);
+      const quantity = onlyNumber(els.quantity.value);
+      const feeRate = onlyNumber(els.feeRate.value) / 100;
+      const taxRate = onlyNumber(els.taxRate.value) / 100;
+
+      const totalBuy = buyPrice * quantity;
+      const totalSell = sellPrice * quantity;
+      const buyFee = totalBuy * feeRate;
+      const sellFee = totalSell * feeRate;
+      const totalFee = buyFee + sellFee;
+      const sellTax = totalSell * taxRate;
+      const grossProfit = totalSell - totalBuy;
+      const netProfit = grossProfit - totalFee - sellTax;
+      const totalCost = totalBuy + buyFee;
+      const profitRate = totalCost > 0 ? (netProfit / totalCost) * 100 : 0;
+
+      const denominator = quantity * (1 - feeRate - taxRate);
+      const breakEven = denominator > 0 ? (totalBuy + buyFee) / denominator : 0;
+
+      return {
+        buyPrice,
+        sellPrice,
+        quantity,
+        feeRate,
+        taxRate,
+        totalBuy,
+        totalSell,
+        buyFee,
+        sellFee,
+        totalFee,
+        sellTax,
+        grossProfit,
+        netProfit,
+        totalCost,
+        profitRate,
+        breakEven
+      };
+    }
+
+    function calculateProfit() {
+      const data = calculateValues();
+
+      if (data.buyPrice <= 0 || data.sellPrice <= 0 || data.quantity <= 0) {
+        els.netProfit.textContent = "₩0";
+        els.profitRate.textContent = "수익률 0.00%";
+        els.totalBuy.textContent = "₩0";
+        els.totalSell.textContent = "₩0";
+        els.totalFee.textContent = "₩0";
+        els.sellTax.textContent = "₩0";
+        els.grossProfit.textContent = "₩0";
+        els.breakEven.textContent = "₩0";
+        els.summary.innerHTML = "<b>입력값 확인 필요</b><br />매수가, 매도가, 수량을 모두 0보다 크게 입력하세요.";
+        setTone(els.netProfit, 0);
+        setTone(els.profitRate, 0);
+        return;
+      }
+
+      els.netProfit.textContent = won(data.netProfit);
+      els.profitRate.textContent = "수익률 " + percent(data.profitRate);
+      els.totalBuy.textContent = plainWon(data.totalBuy);
+      els.totalSell.textContent = plainWon(data.totalSell);
+      els.totalFee.textContent = plainWon(data.totalFee);
+      els.sellTax.textContent = plainWon(data.sellTax);
+      els.grossProfit.textContent = won(data.grossProfit);
+      els.breakEven.textContent = plainWon(data.breakEven);
+
+      setTone(els.netProfit, data.netProfit);
+      setTone(els.profitRate, data.profitRate);
+
+      const name = els.stockName.value.trim() || "해당 종목";
+      let judgment = "";
+
+      if (data.profitRate >= 10) {
+        judgment = "수익률이 꽤 높은 구간입니다. 익절 기준과 추가 상승 여지를 함께 확인하는 게 좋습니다.";
+      } else if (data.profitRate > 0) {
+        judgment = "수익 구간입니다. 수수료와 세금을 반영해도 플러스입니다.";
+      } else if (data.profitRate === 0) {
+        judgment = "거의 손익분기 구간입니다. 실제 체결가와 수수료 조건에 따라 결과가 달라질 수 있습니다.";
+      } else {
+        judgment = "손실 구간입니다. 추가 매수, 보유, 손절 판단은 종목 재료와 시장 흐름까지 같이 봐야 합니다.";
+      }
+
+      els.summary.innerHTML =
+        "<b>" + escapeHtml(name) + " 계산 요약</b><br />" +
+        "매수가 " + plainWon(data.buyPrice) + ", 매도가 " + plainWon(data.sellPrice) + ", 수량 " + data.quantity.toLocaleString("ko-KR") + "주 기준으로 " +
+        "최종 손익은 <b>" + won(data.netProfit) + "</b>, 수익률은 <b>" + percent(data.profitRate) + "</b>입니다.<br />" +
+        judgment;
+
+      els.copyMessage.textContent = "";
+    }
+
+    function escapeHtml(text) {
+      return text
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function setPreset(type) {
+      if (type === "domestic") {
+        els.feeRate.value = "0.015";
+        els.taxRate.value = "0.20";
+      }
+
+      if (type === "lowfee") {
+        els.feeRate.value = "0.003";
+        els.taxRate.value = "0.20";
+      }
+
+      if (type === "overseas") {
+        els.feeRate.value = "0.25";
+        els.taxRate.value = "0";
+      }
+
+      calculateProfit();
+    }
+
+    function fillExample() {
+      els.stockName.value = "예시 종목";
+      els.buyPrice.value = "70,000";
+      els.sellPrice.value = "76,000";
+      els.quantity.value = "20";
+      els.feeRate.value = "0.015";
+      els.taxRate.value = "0.20";
+      calculateProfit();
+      document.getElementById("calculator").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function resetForm() {
+      els.stockName.value = "";
+      els.buyPrice.value = "";
+      els.sellPrice.value = "";
+      els.quantity.value = "";
+      els.feeRate.value = "0.015";
+      els.taxRate.value = "0.20";
+      calculateProfit();
+    }
+
+    async function copyResult() {
+      const data = calculateValues();
+
+      if (data.buyPrice <= 0 || data.sellPrice <= 0 || data.quantity <= 0) {
+        els.copyMessage.textContent = "먼저 계산할 값을 입력하세요.";
+        return;
+      }
+
+      const name = els.stockName.value.trim() || "종목명 미입력";
+      const text =
+        "[바로해결툴즈 주식 수익률 계산 결과]\n" +
+        "종목: " + name + "\n" +
+        "매수가: " + plainWon(data.buyPrice) + "\n" +
+        "매도가: " + plainWon(data.sellPrice) + "\n" +
+        "수량: " + data.quantity.toLocaleString("ko-KR") + "주\n" +
+        "총 매수금액: " + plainWon(data.totalBuy) + "\n" +
+        "총 매도금액: " + plainWon(data.totalSell) + "\n" +
+        "총 수수료: " + plainWon(data.totalFee) + "\n" +
+        "매도 세금: " + plainWon(data.sellTax) + "\n" +
+        "최종 손익: " + won(data.netProfit) + "\n" +
+        "수익률: " + percent(data.profitRate);
+
+      try {
+        await navigator.clipboard.writeText(text);
+        els.copyMessage.textContent = "계산 결과가 복사됐습니다.";
+      } catch (error) {
+        els.copyMessage.textContent = "복사 기능을 사용할 수 없습니다. 결과를 직접 선택해 복사하세요.";
+      }
+    }
+
+    [els.buyPrice, els.sellPrice, els.quantity, els.feeRate, els.taxRate].forEach((input) => {
+      input.addEventListener("input", () => {
+        formatInput(input);
+        calculateProfit();
+      });
+    });
+
+    els.stockName.addEventListener("input", calculateProfit);
+
+    calculateProfit();
+  </script>
+</body>
+</html>
