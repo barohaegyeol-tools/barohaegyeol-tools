@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>분할매수 계산기 | 주식 물타기·추가매수 계획 계산 | 바로해결툴즈</title>
+  <meta name="description" content="총 투자예산, 기준가, 분할횟수, 하락 간격, 투자비중을 입력하면 회차별 매수금액, 예상 수량, 평균단가, 남은 예산을 계산하는 무료 분할매수 계산기입니다." />
+  <meta name="keywords" content="분할매수 계산기, 주식 분할매수 계산기, 물타기 계산기, 추가매수 계산기, 평균단가 계산, 주식 매수 계획, 바로해결툴즈" />
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/stock-split-buy/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="분할매수 계산기 | 바로해결툴즈" />
+  <meta property="og:description" content="총 예산과 분할 비중을 입력해 회차별 매수금액, 예상 수량, 평균단가를 계산해보세요." />
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/stock-split-buy/" />
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <meta name="theme-color" content="#0f172a" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "분할매수 계산기",
+    "url": "https://barohaegyeol-tools.pages.dev/stock-split-buy/",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "All",
+    "description": "총 투자예산, 기준가, 분할횟수, 하락 간격, 투자비중을 입력해 회차별 매수금액, 예상 수량, 평균단가를 계산하는 무료 웹 계산기입니다.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #050816;
+      --card: rgba(15, 23, 42, 0.88);
+      --card2: rgba(30, 41, 59, 0.76);
+      --line: rgba(148, 163, 184, 0.22);
+      --text: #f8fafc;
+      --soft: #cbd5e1;
+      --muted: #94a3b8;
+      --blue: #38bdf8;
+      --cyan: #67e8f9;
+      --green: #22c55e;
+      --yellow: #facc15;
+      --orange: #fb923c;
+      --red: #fb7185;
+      --purple: #a78bfa;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+      --radius: 24px;
+      --max: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      background:
+        radial-gradient(circle at 13% 8%, rgba(167, 139, 250, 0.18), transparent 30%),
+        radial-gradient(circle at 84% 7%, rgba(56, 189, 248, 0.18), transparent 29%),
+        radial-gradient(circle at 52% 100%, rgba(34, 197, 94, 0.12), transparent 34%),
+        linear-gradient(135deg, #050816 0%, #0f172a 46%, #111827 100%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(16px);
+      background: rgba(5, 8, 22, 0.75);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 950;
+      letter-spacing: -0.045em;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #a78bfa, #2563eb);
+      box-shadow: 0 14px 36px rgba(124, 58, 237, 0.32);
+      color: #fff;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--soft);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .nav-links a {
+      padding: 9px 12px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+    }
+
+    .nav-links a:hover {
+      border-color: var(--line);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .hero {
+      padding: 58px 0 32px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.04fr 0.96fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--soft);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .badge.hot {
+      border-color: rgba(167, 139, 250, 0.38);
+      background: rgba(167, 139, 250, 0.13);
+      color: #ede9fe;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 6vw, 62px);
+      line-height: 1.02;
+      letter-spacing: -0.075em;
+    }
+
+    h1 strong {
+      color: #c4b5fd;
+    }
+
+    .hero-desc {
+      margin: 20px 0 0;
+      color: var(--soft);
+      font-size: clamp(16px, 2vw, 19px);
+      max-width: 660px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      border: 0;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 13px 18px;
+      min-height: 48px;
+      font-weight: 950;
+      font-size: 15px;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease, border .18s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #100821;
+      background: linear-gradient(135deg, #c4b5fd, #a78bfa);
+      box-shadow: 0 16px 40px rgba(167, 139, 250, 0.26);
+    }
+
+    .btn-secondary {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid var(--line);
+    }
+
+    .hero-card {
+      position: relative;
+      min-height: 348px;
+      border: 1px solid var(--line);
+      border-radius: 32px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 25% 20%, rgba(167, 139, 250, 0.20), transparent 28%),
+        linear-gradient(145deg, rgba(15, 23, 42, 0.94), rgba(30, 41, 59, 0.72));
+      box-shadow: var(--shadow);
+      padding: 26px;
+    }
+
+    .split-visual {
+      height: 190px;
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      background:
+        linear-gradient(180deg, rgba(167, 139, 250, 0.10), rgba(56, 189, 248, 0.03)),
+        repeating-linear-gradient(to right, rgba(148, 163, 184, 0.08) 0 1px, transparent 1px 48px),
+        repeating-linear-gradient(to bottom, rgba(148, 163, 184, 0.08) 0 1px, transparent 1px 42px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .steps {
+      position: absolute;
+      inset: 26px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      align-items: end;
+      gap: 12px;
+    }
+
+    .step {
+      border-radius: 16px;
+      border: 1px solid rgba(196, 181, 253, 0.28);
+      background: linear-gradient(180deg, rgba(196, 181, 253, 0.9), rgba(37, 99, 235, 0.52));
+      box-shadow: 0 12px 30px rgba(167, 139, 250, 0.18);
+      position: relative;
+    }
+
+    .step:nth-child(1) { height: 96%; }
+    .step:nth-child(2) { height: 82%; }
+    .step:nth-child(3) { height: 68%; }
+    .step:nth-child(4) { height: 54%; }
+    .step:nth-child(5) { height: 40%; }
+
+    .step::after {
+      content: attr(data-label);
+      position: absolute;
+      left: 50%;
+      bottom: 8px;
+      transform: translateX(-50%);
+      font-size: 12px;
+      font-weight: 950;
+      color: #fff;
+    }
+
+    .floating-stat {
+      position: absolute;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      background: rgba(2, 6, 23, 0.76);
+      backdrop-filter: blur(12px);
+      border-radius: 18px;
+      padding: 14px 16px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.30);
+    }
+
+    .floating-stat.one {
+      left: 24px;
+      bottom: 30px;
+    }
+
+    .floating-stat.two {
+      right: 24px;
+      bottom: 74px;
+    }
+
+    .floating-stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .floating-stat b {
+      display: block;
+      margin-top: 2px;
+      font-size: 22px;
+      letter-spacing: -0.045em;
+    }
+
+    .purple {
+      color: #c4b5fd;
+    }
+
+    .positive {
+      color: #4ade80;
+    }
+
+    .negative {
+      color: #fb7185;
+    }
+
+    .neutral {
+      color: #e2e8f0;
+    }
+
+    .section {
+      padding: 28px 0;
+    }
+
+    .section-title {
+      margin: 0 0 16px;
+      font-size: 28px;
+      letter-spacing: -0.055em;
+    }
+
+    .calculator {
+      display: grid;
+      grid-template-columns: 1fr 0.92fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .panel-head {
+      padding: 22px 22px 0;
+    }
+
+    .panel-head h2 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: -0.045em;
+    }
+
+    .panel-head p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .form {
+      padding: 22px;
+      display: grid;
+      gap: 15px;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .field label {
+      font-size: 14px;
+      font-weight: 850;
+      color: var(--soft);
+    }
+
+    .hint {
+      margin-top: -3px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input, select {
+      width: 100%;
+      min-height: 50px;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      border-radius: 16px;
+      background: rgba(2, 6, 23, 0.54);
+      color: var(--text);
+      padding: 0 14px;
+      font-size: 16px;
+      outline: none;
+      transition: border .18s ease, box-shadow .18s ease;
+    }
+
+    input:focus, select:focus {
+      border-color: rgba(167, 139, 250, 0.72);
+      box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.12);
+    }
+
+    .unit {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 850;
+      pointer-events: none;
+    }
+
+    .input-wrap.has-unit input {
+      padding-right: 64px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+
+    .preset-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .preset {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--soft);
+      border-radius: 999px;
+      padding: 9px 11px;
+      font-weight: 850;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .preset:hover {
+      background: rgba(167, 139, 250, 0.12);
+      color: #ede9fe;
+      border-color: rgba(167, 139, 250, 0.34);
+    }
+
+    .button-row {
+      display: grid;
+      grid-template-columns: 1fr 0.7fr;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .split-table-wrap {
+      overflow-x: auto;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      background: rgba(2, 6, 23, 0.35);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 650px;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.13);
+      text-align: right;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    th:first-child, td:first-child {
+      text-align: left;
+    }
+
+    th {
+      color: var(--soft);
+      background: rgba(255, 255, 255, 0.04);
+      font-weight: 900;
+    }
+
+    td {
+      color: var(--muted);
+    }
+
+    td b {
+      color: var(--text);
+    }
+
+    .result-wrap {
+      padding: 22px;
+    }
+
+    .main-result {
+      border-radius: 22px;
+      padding: 22px;
+      background:
+        linear-gradient(135deg, rgba(167, 139, 250, 0.16), rgba(56, 189, 248, 0.07)),
+        rgba(2, 6, 23, 0.42);
+      border: 1px solid rgba(167, 139, 250, 0.27);
+    }
+
+    .result-label {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .result-money {
+      margin-top: 4px;
+      font-size: clamp(29px, 5vw, 42px);
+      line-height: 1.05;
+      font-weight: 950;
+      letter-spacing: -0.055em;
+    }
+
+    .result-rate {
+      margin-top: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 14px;
+      font-weight: 900;
+      background: rgba(255, 255, 255, 0.08);
+      color: #ddd6fe;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .result-item {
+      padding: 14px;
+      border-radius: 17px;
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .result-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .result-item b {
+      display: block;
+      margin-top: 3px;
+      font-size: 17px;
+      letter-spacing: -0.035em;
+    }
+
+    .summary-box {
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      background: rgba(15, 23, 42, 0.70);
+      color: var(--soft);
+      font-size: 14px;
+    }
+
+    .summary-box b {
+      color: var(--text);
+    }
+
+    .copy-message {
+      min-height: 22px;
+      color: #c4b5fd;
+      font-size: 13px;
+      font-weight: 850;
+      margin-top: 8px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .info-card {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--card2);
+      padding: 18px;
+    }
+
+    .info-card h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+      letter-spacing: -0.035em;
+    }
+
+    .info-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .tool-links {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .tool-link {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.055);
+      padding: 16px;
+      transition: transform .18s ease, background .18s ease, border .18s ease;
+    }
+
+    .tool-link:hover {
+      transform: translateY(-2px);
+      background: rgba(167, 139, 250, 0.10);
+      border-color: rgba(167, 139, 250, 0.32);
+    }
+
+    .tool-link small {
+      color: #c4b5fd;
+      font-weight: 950;
+    }
+
+    .tool-link b {
+      display: block;
+      margin-top: 4px;
+      letter-spacing: -0.035em;
+    }
+
+    .notice {
+      border: 1px solid rgba(250, 204, 21, 0.26);
+      background: rgba(250, 204, 21, 0.08);
+      color: #fef3c7;
+      border-radius: 20px;
+      padding: 18px;
+      margin-top: 18px;
+      font-size: 14px;
+    }
+
+    .update {
+      border: 1px solid rgba(56, 189, 248, 0.20);
+      background: rgba(56, 189, 248, 0.07);
+      color: #dff7ff;
+      border-radius: 20px;
+      padding: 18px;
+      margin-top: 14px;
+      font-size: 14px;
+    }
+
+    .footer {
+      padding: 38px 0 48px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      margin-top: 34px;
+      font-size: 14px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer a {
+      color: var(--soft);
+      font-weight: 850;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .calculator {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 38px;
+      }
+
+      .hero-card {
+        min-height: 300px;
+      }
+
+      .info-grid,
+      .tool-links {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .wrap {
+        width: min(100% - 22px, var(--max));
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 0;
+      }
+
+      .nav-links {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 3px;
+      }
+
+      .grid-2,
+      .grid-3,
+      .button-row,
+      .result-grid,
+      .info-grid,
+      .tool-links {
+        grid-template-columns: 1fr;
+      }
+
+      .panel-head,
+      .form,
+      .result-wrap {
+        padding: 18px;
+      }
+
+      .hero-card {
+        padding: 18px;
+        border-radius: 24px;
+      }
+
+      .floating-stat.two {
+        right: 18px;
+        bottom: 70px;
+      }
+
+      .floating-stat.one {
+        left: 18px;
+        bottom: 24px;
+      }
+
+      table {
+        min-width: 720px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="../" aria-label="바로해결툴즈 메인으로 이동">
+        <span class="brand-mark">B</span>
+        <span>바로해결툴즈</span>
+      </a>
+
+      <nav class="nav-links" aria-label="주요 메뉴">
+        <a href="../">전체 도구</a>
+        <a href="../stock-average/">평단가</a>
+        <a href="../stock-profit/">수익률</a>
+        <a href="../stock-tax/">양도세</a>
+        <a href="../stock-dividend/">배당금</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="badge-row">
+            <span class="badge hot">분할매수 계산기</span>
+            <span class="badge">물타기 계획</span>
+            <span class="badge">평균단가</span>
+            <span class="badge">예산 배분</span>
+          </div>
+
+          <h1>
+            몰빵 말고<br />
+            <strong>몇 번에 나눠 살지</strong> 계산
+          </h1>
+
+          <p class="hero-desc">
+            총 투자예산, 기준가, 분할횟수, 하락 간격, 투자비중을 입력하면
+            회차별 매수금액, 예상 수량, 총 보유수량, 예상 평균단가와 남은 예산을 한 번에 계산합니다.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#calculator">바로 계산하기</a>
+            <button class="btn btn-secondary" type="button" onclick="fillExample()">예시값 넣기</button>
+          </div>
+        </div>
+
+        <div class="hero-card" aria-label="분할매수 그래픽">
+          <div class="split-visual">
+            <div class="steps">
+              <div class="step" data-label="1차"></div>
+              <div class="step" data-label="2차"></div>
+              <div class="step" data-label="3차"></div>
+              <div class="step" data-label="4차"></div>
+              <div class="step" data-label="5차"></div>
+            </div>
+          </div>
+
+          <div class="floating-stat one">
+            <span>예상 평균단가</span>
+            <b class="purple">₩68,420</b>
+          </div>
+
+          <div class="floating-stat two">
+            <span>분할 횟수</span>
+            <b class="purple">5회</b>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="calculator" class="section">
+      <div class="wrap calculator">
+        <section class="panel">
+          <div class="panel-head">
+            <h2>입력값</h2>
+            <p>처음에는 총예산, 기준가, 분할횟수만 넣고 빠른 설정으로 계산하면 됩니다.</p>
+          </div>
+
+          <div class="form">
+            <div class="grid-2">
+              <div class="field">
+                <label for="stockName">종목명 선택 입력</label>
+                <input id="stockName" type="text" placeholder="예: 삼성전자, SK하이닉스, 엔비디아" autocomplete="off" />
+                <div class="hint">복사 결과에 표시됩니다.</div>
+              </div>
+
+              <div class="field">
+                <label for="totalBudget">총 투자예산</label>
+                <div class="input-wrap has-unit">
+                  <input id="totalBudget" type="text" inputmode="numeric" placeholder="예: 5,000,000" />
+                  <span class="unit">원</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid-3">
+              <div class="field">
+                <label for="basePrice">1차 기준 매수가</label>
+                <div class="input-wrap has-unit">
+                  <input id="basePrice" type="text" inputmode="decimal" placeholder="예: 70000" />
+                  <span class="unit">원</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="splitCount">분할 횟수</label>
+                <select id="splitCount">
+                  <option value="2">2회</option>
+                  <option value="3">3회</option>
+                  <option value="4">4회</option>
+                  <option value="5" selected>5회</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="dropStep">회차별 하락 간격</label>
+                <div class="input-wrap has-unit">
+                  <input id="dropStep" type="text" inputmode="decimal" value="3" />
+                  <span class="unit">%</span>
+                </div>
+                <div class="hint">예: 3%면 1차 70,000원 → 2차 67,900원</div>
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="field">
+                <label for="ratioType">투자비중 방식</label>
+                <select id="ratioType">
+                  <option value="equal">균등 분할</option>
+                  <option value="front">초반 집중</option>
+                  <option value="back" selected>하락 시 비중 확대</option>
+                  <option value="custom">직접 입력</option>
+                </select>
+                <div class="hint">하락 시 비중 확대는 물타기 계획에 자주 쓰는 방식입니다.</div>
+              </div>
+
+              <div class="field">
+                <label for="feeRate">매수 수수료율</label>
+                <div class="input-wrap has-unit">
+                  <input id="feeRate" type="text" inputmode="decimal" value="0.015" />
+                  <span class="unit">%</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>직접 비중 입력</label>
+              <div class="grid-3">
+                <div class="input-wrap has-unit"><input id="ratio1" type="text" inputmode="decimal" value="10" /><span class="unit">%</span></div>
+                <div class="input-wrap has-unit"><input id="ratio2" type="text" inputmode="decimal" value="15" /><span class="unit">%</span></div>
+                <div class="input-wrap has-unit"><input id="ratio3" type="text" inputmode="decimal" value="20" /><span class="unit">%</span></div>
+                <div class="input-wrap has-unit"><input id="ratio4" type="text" inputmode="decimal" value="25" /><span class="unit">%</span></div>
+                <div class="input-wrap has-unit"><input id="ratio5" type="text" inputmode="decimal" value="30" /><span class="unit">%</span></div>
+                <div class="hint">직접 입력은 투자비중 방식을 “직접 입력”으로 선택했을 때 적용됩니다.</div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>빠른 설정</label>
+              <div class="preset-row">
+                <button class="preset" type="button" onclick="setPreset('safe')">안전형</button>
+                <button class="preset" type="button" onclick="setPreset('aggressive')">공격형</button>
+                <button class="preset" type="button" onclick="setPreset('equal')">균등형</button>
+                <button class="preset" type="button" onclick="resetForm()">초기화</button>
+              </div>
+            </div>
+
+            <div class="button-row">
+              <button class="btn btn-primary" type="button" onclick="calculateSplitBuy()">분할매수 계산하기</button>
+              <button class="btn btn-secondary" type="button" onclick="copyResult()">결과 복사</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" aria-live="polite">
+          <div class="panel-head">
+            <h2>계산 결과</h2>
+            <p>수량은 소수점 없이 살 수 있는 주식 수 기준으로 계산합니다.</p>
+          </div>
+
+          <div class="result-wrap">
+            <div class="main-result">
+              <span class="result-label">예상 평균단가</span>
+              <div id="averagePrice" class="result-money purple">₩0</div>
+              <div id="shareView" class="result-rate">예상 보유수량 0주</div>
+            </div>
+
+            <div class="result-grid">
+              <div class="result-item">
+                <span>총 사용예산</span>
+                <b id="usedBudget">₩0</b>
+              </div>
+
+              <div class="result-item">
+                <span>남은 예산</span>
+                <b id="remainingBudget">₩0</b>
+              </div>
+
+              <div class="result-item">
+                <span>예상 보유수량</span>
+                <b id="totalShares">0주</b>
+              </div>
+
+              <div class="result-item">
+                <span>마지막 매수 예정가</span>
+                <b id="lastPrice">₩0</b>
+              </div>
+
+              <div class="result-item">
+                <span>총 수수료</span>
+                <b id="totalFee">₩0</b>
+              </div>
+
+              <div class="result-item">
+                <span>비중 합계</span>
+                <b id="ratioSum">0%</b>
+              </div>
+            </div>
+
+            <div class="summary-box">
+              <b>회차별 매수 계획</b>
+              <div class="split-table-wrap" style="margin-top:12px;">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>회차</th>
+                      <th>예상 매수가</th>
+                      <th>투자비중</th>
+                      <th>배정금액</th>
+                      <th>예상 수량</th>
+                      <th>실사용금액</th>
+                    </tr>
+                  </thead>
+                  <tbody id="planBody">
+                    <tr>
+                      <td colspan="6" style="text-align:center;">입력값을 넣으면 계획이 표시됩니다.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div id="summary" class="summary-box">
+              <b>계산 대기 중</b><br />
+              총 투자예산, 1차 기준 매수가, 분할횟수를 입력하면 매수 계획을 계산합니다.
+            </div>
+
+            <div id="copyMessage" class="copy-message"></div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2 class="section-title">분할매수 계산 핵심</h2>
+
+        <div class="info-grid">
+          <article class="info-card">
+            <h3>예산 먼저 고정</h3>
+            <p>분할매수는 얼마까지 살지 정하고 시작해야 합니다. 예산 없이 물타면 손실이 커집니다.</p>
+          </article>
+
+          <article class="info-card">
+            <h3>하락 간격 설정</h3>
+            <p>1~2%마다 계속 사면 금방 예산이 소진됩니다. 변동성이 큰 종목은 간격을 넓게 잡는 편이 안전합니다.</p>
+          </article>
+
+          <article class="info-card">
+            <h3>비중 조절</h3>
+            <p>확신이 낮으면 균등형, 하락 때 더 살 계획이면 후반 비중 확대형이 맞습니다.</p>
+          </article>
+        </div>
+
+        <div class="notice">
+          <b>주의사항</b><br />
+          이 계산기는 참고용입니다. 분할매수는 손실을 무조건 회복시키는 방법이 아닙니다.
+          종목의 실적, 재료, 시장 방향, 거래량, 수급이 무너진 상태에서 추가매수만 반복하면 손실이 더 커질 수 있습니다.
+        </div>
+
+        <div class="update">
+          <b>운영 기준</b><br />
+          이 도구는 평단가 계산기와 함께 쓰도록 설계했습니다.
+          먼저 분할매수 계획을 세우고, 실제 체결 후에는 평단가 계산기에서 최종 평균단가를 다시 확인하는 구조가 좋습니다.
+        </div>
+      </div>
+    </section>
+
+    <section id="related" class="section">
+      <div class="wrap">
+        <h2 class="section-title">관련 주식 계산기</h2>
+
+        <div class="tool-links">
+          <a class="tool-link" href="../stock-average/">
+            <small>대표 도구</small>
+            <b>주식 평단가 계산기</b>
+          </a>
+
+          <a class="tool-link" href="../stock-profit/">
+            <small>완료</small>
+            <b>주식 수익률 계산기</b>
+          </a>
+
+          <a class="tool-link" href="../stock-tax/">
+            <small>완료</small>
+            <b>해외주식 양도세 계산기</b>
+          </a>
+
+          <a class="tool-link" href="../stock-dividend/">
+            <small>완료</small>
+            <b>배당금 계산기</b>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div>
+        <b>바로해결툴즈</b><br />
+        생활비, 주식, 운세까지 바로 계산하는 무료 미니툴 모음
+      </div>
+
+      <div>
+        <a href="../">메인으로</a>
+        &nbsp;·&nbsp;
+        <a href="../stock-average/">평단가</a>
+        &nbsp;·&nbsp;
+        <a href="../stock-profit/">수익률</a>
+        &nbsp;·&nbsp;
+        <a href="#calculator">위로</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const els = {
+      stockName: document.getElementById("stockName"),
+      totalBudget: document.getElementById("totalBudget"),
+      basePrice: document.getElementById("basePrice"),
+      splitCount: document.getElementById("splitCount"),
+      dropStep: document.getElementById("dropStep"),
+      ratioType: document.getElementById("ratioType"),
+      feeRate: document.getElementById("feeRate"),
+      ratios: [
+        document.getElementById("ratio1"),
+        document.getElementById("ratio2"),
+        document.getElementById("ratio3"),
+        document.getElementById("ratio4"),
+        document.getElementById("ratio5")
+      ],
+      averagePrice: document.getElementById("averagePrice"),
+      shareView: document.getElementById("shareView"),
+      usedBudget: document.getElementById("usedBudget"),
+      remainingBudget: document.getElementById("remainingBudget"),
+      totalShares: document.getElementById("totalShares"),
+      lastPrice: document.getElementById("lastPrice"),
+      totalFee: document.getElementById("totalFee"),
+      ratioSum: document.getElementById("ratioSum"),
+      planBody: document.getElementById("planBody"),
+      summary: document.getElementById("summary"),
+      copyMessage: document.getElementById("copyMessage")
+    };
+
+    const numericInputs = [
+      els.totalBudget,
+      els.basePrice,
+      els.dropStep,
+      els.feeRate,
+      ...els.ratios
+    ];
+
+    function onlyNumber(value) {
+      if (value === null || value === undefined) return 0;
+      const cleaned = String(value).replace(/,/g, "").replace(/[^\d.-]/g, "");
+      const number = parseFloat(cleaned);
+      return Number.isFinite(number) ? number : 0;
+    }
+
+    function formatInput(input) {
+      const raw = input.value;
+      if (raw === "" || raw === "-") return;
+
+      if (input === els.dropStep || input === els.feeRate || els.ratios.includes(input)) {
+        input.value = String(raw).replace(/[^\d.]/g, "");
+        return;
+      }
+
+      const cursorAtEnd = input.selectionStart === input.value.length;
+      const number = onlyNumber(raw);
+
+      if (!Number.isFinite(number)) return;
+
+      input.value = number.toLocaleString("ko-KR");
+
+      if (cursorAtEnd) {
+        input.setSelectionRange(input.value.length, input.value.length);
+      }
+    }
+
+    function won(value) {
+      return "₩" + Math.round(value).toLocaleString("ko-KR");
+    }
+
+    function getPresetRatios(type, count) {
+      const maps = {
+        equal: {
+          2: [50, 50],
+          3: [33.33, 33.33, 33.34],
+          4: [25, 25, 25, 25],
+          5: [20, 20, 20, 20, 20]
+        },
+        front: {
+          2: [60, 40],
+          3: [50, 30, 20],
+          4: [40, 30, 20, 10],
+          5: [35, 25, 20, 12, 8]
+        },
+        back: {
+          2: [40, 60],
+          3: [25, 35, 40],
+          4: [15, 25, 30, 30],
+          5: [10, 15, 20, 25, 30]
+        }
+      };
+
+      return maps[type][count] || maps.back[count];
+    }
+
+    function getRatios(count) {
+      const type = els.ratioType.value;
+
+      if (type === "custom") {
+        return els.ratios.slice(0, count).map(input => Math.max(0, onlyNumber(input.value)));
+      }
+
+      return getPresetRatios(type, count);
+    }
+
+    function calculateValues() {
+      const totalBudget = Math.max(0, onlyNumber(els.totalBudget.value));
+      const basePrice = Math.max(0, onlyNumber(els.basePrice.value));
+      const splitCount = parseInt(els.splitCount.value, 10);
+      const dropStep = Math.max(0, onlyNumber(els.dropStep.value));
+      const feeRate = Math.max(0, onlyNumber(els.feeRate.value)) / 100;
+      const ratios = getRatios(splitCount);
+      const ratioSum = ratios.reduce((sum, value) => sum + value, 0);
+
+      const normalizedRatios = ratioSum > 0
+        ? ratios.map(value => value / ratioSum)
+        : ratios.map(() => 0);
+
+      const plan = normalizedRatios.map((ratio, index) => {
+        const price = basePrice * (1 - (dropStep / 100) * index);
+        const safePrice = Math.max(1, price);
+        const allocatedBudget = totalBudget * ratio;
+        const feeAdjustedPrice = safePrice * (1 + feeRate);
+        const shares = feeAdjustedPrice > 0 ? Math.floor(allocatedBudget / feeAdjustedPrice) : 0;
+        const buyAmount = shares * safePrice;
+        const fee = buyAmount * feeRate;
+        const usedAmount = buyAmount + fee;
+
+        return {
+          round: index + 1,
+          price: safePrice,
+          ratioPercent: ratio * 100,
+          allocatedBudget,
+          shares,
+          buyAmount,
+          fee,
+          usedAmount
+        };
+      });
+
+      const totalShares = plan.reduce((sum, row) => sum + row.shares, 0);
+      const totalBuyAmount = plan.reduce((sum, row) => sum + row.buyAmount, 0);
+      const totalFee = plan.reduce((sum, row) => sum + row.fee, 0);
+      const usedBudget = totalBuyAmount + totalFee;
+      const remainingBudget = totalBudget - usedBudget;
+      const averagePrice = totalShares > 0 ? totalBuyAmount / totalShares : 0;
+      const lastPrice = plan.length ? plan[plan.length - 1].price : 0;
+
+      return {
+        totalBudget,
+        basePrice,
+        splitCount,
+        dropStep,
+        feeRate,
+        ratios,
+        ratioSum,
+        plan,
+        totalShares,
+        totalBuyAmount,
+        totalFee,
+        usedBudget,
+        remainingBudget,
+        averagePrice,
+        lastPrice
+      };
+    }
+
+    function calculateSplitBuy() {
+      const data = calculateValues();
+
+      if (data.totalBudget <= 0 || data.basePrice <= 0 || data.splitCount <= 0) {
+        els.averagePrice.textContent = "₩0";
+        els.shareView.textContent = "예상 보유수량 0주";
+        els.usedBudget.textContent = "₩0";
+        els.remainingBudget.textContent = "₩0";
+        els.totalShares.textContent = "0주";
+        els.lastPrice.textContent = "₩0";
+        els.totalFee.textContent = "₩0";
+        els.ratioSum.textContent = "0%";
+        els.planBody.innerHTML = '<tr><td colspan="6" style="text-align:center;">입력값을 넣으면 계획이 표시됩니다.</td></tr>';
+        els.summary.innerHTML = "<b>입력값 확인 필요</b><br />총 투자예산과 1차 기준 매수가를 입력하세요.";
+        els.copyMessage.textContent = "";
+        return;
+      }
+
+      els.averagePrice.textContent = won(data.averagePrice);
+      els.shareView.textContent = "예상 보유수량 " + data.totalShares.toLocaleString("ko-KR") + "주";
+      els.usedBudget.textContent = won(data.usedBudget);
+      els.remainingBudget.textContent = won(data.remainingBudget);
+      els.totalShares.textContent = data.totalShares.toLocaleString("ko-KR") + "주";
+      els.lastPrice.textContent = won(data.lastPrice);
+      els.totalFee.textContent = won(data.totalFee);
+      els.ratioSum.textContent = data.ratioSum.toFixed(2) + "%";
+
+      els.planBody.innerHTML = data.plan.map(row => `
+        <tr>
+          <td><b>${row.round}차</b></td>
+          <td>${won(row.price)}</td>
+          <td>${row.ratioPercent.toFixed(2)}%</td>
+          <td>${won(row.allocatedBudget)}</td>
+          <td><b>${row.shares.toLocaleString("ko-KR")}주</b></td>
+          <td>${won(row.usedAmount)}</td>
+        </tr>
+      `).join("");
+
+      const name = els.stockName.value.trim() || "해당 종목";
+      const averageDrop = data.basePrice > 0 ? ((data.basePrice - data.averagePrice) / data.basePrice) * 100 : 0;
+
+      let judgment = "";
+      if (data.totalShares <= 0) {
+        judgment = "현재 예산으로는 1주도 매수하기 어렵습니다. 예산이나 기준가를 다시 확인하세요.";
+      } else if (data.remainingBudget < 0) {
+        judgment = "예산을 초과했습니다. 비중이나 수수료율을 조정하세요.";
+      } else if (data.dropStep <= 1) {
+        judgment = "하락 간격이 좁은 편입니다. 변동성이 큰 종목은 예산이 빠르게 소진될 수 있습니다.";
+      } else if (data.dropStep >= 5) {
+        judgment = "하락 간격이 넓은 편입니다. 체결 기회는 줄 수 있지만 예산 관리에는 유리합니다.";
+      } else {
+        judgment = "분할 간격과 비중이 무난한 편입니다. 실제 매수 전에는 종목 추세와 시장 방향을 함께 확인하세요.";
+      }
+
+      els.summary.innerHTML =
+        "<b>" + escapeHtml(name) + " 분할매수 계획 요약</b><br />" +
+        "총 예산 <b>" + won(data.totalBudget) + "</b>으로 " + data.splitCount + "회 분할매수를 계획하면, " +
+        "예상 총 보유수량은 <b>" + data.totalShares.toLocaleString("ko-KR") + "주</b>, 예상 평균단가는 <b>" + won(data.averagePrice) + "</b>입니다. " +
+        "1차 기준가 대비 평균단가는 약 <b>" + averageDrop.toFixed(2) + "%</b> 낮아지는 구조입니다. " +
+        "총 사용예산은 <b>" + won(data.usedBudget) + "</b>, 남은 예산은 <b>" + won(data.remainingBudget) + "</b>입니다.<br />" +
+        judgment;
+
+      els.copyMessage.textContent = "";
+    }
+
+    function escapeHtml(text) {
+      return text
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function setPreset(type) {
+      if (type === "safe") {
+        els.stockName.value = "안전형 예시";
+        els.totalBudget.value = "5,000,000";
+        els.basePrice.value = "70,000";
+        els.splitCount.value = "5";
+        els.dropStep.value = "4";
+        els.ratioType.value = "back";
+        els.feeRate.value = "0.015";
+      }
+
+      if (type === "aggressive") {
+        els.stockName.value = "공격형 예시";
+        els.totalBudget.value = "5,000,000";
+        els.basePrice.value = "70,000";
+        els.splitCount.value = "4";
+        els.dropStep.value = "2";
+        els.ratioType.value = "front";
+        els.feeRate.value = "0.015";
+      }
+
+      if (type === "equal") {
+        els.stockName.value = "균등형 예시";
+        els.totalBudget.value = "5,000,000";
+        els.basePrice.value = "70,000";
+        els.splitCount.value = "5";
+        els.dropStep.value = "3";
+        els.ratioType.value = "equal";
+        els.feeRate.value = "0.015";
+      }
+
+      numericInputs.forEach(formatInput);
+      calculateSplitBuy();
+    }
+
+    function fillExample() {
+      setPreset("safe");
+      document.getElementById("calculator").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function resetForm() {
+      els.stockName.value = "";
+      els.totalBudget.value = "";
+      els.basePrice.value = "";
+      els.splitCount.value = "5";
+      els.dropStep.value = "3";
+      els.ratioType.value = "back";
+      els.feeRate.value = "0.015";
+      els.ratios[0].value = "10";
+      els.ratios[1].value = "15";
+      els.ratios[2].value = "20";
+      els.ratios[3].value = "25";
+      els.ratios[4].value = "30";
+      calculateSplitBuy();
+    }
+
+    async function copyResult() {
+      const data = calculateValues();
+
+      if (data.totalBudget <= 0 || data.basePrice <= 0 || data.totalShares <= 0) {
+        els.copyMessage.textContent = "먼저 계산할 값을 입력하세요.";
+        return;
+      }
+
+      const name = els.stockName.value.trim() || "종목명 미입력";
+      const planText = data.plan.map(row =>
+        row.round + "차: " +
+        "매수가 " + won(row.price) + ", " +
+        "비중 " + row.ratioPercent.toFixed(2) + "%, " +
+        "수량 " + row.shares.toLocaleString("ko-KR") + "주, " +
+        "실사용 " + won(row.usedAmount)
+      ).join("\n");
+
+      const text =
+        "[바로해결툴즈 분할매수 계산 결과]\n" +
+        "종목: " + name + "\n" +
+        "총 투자예산: " + won(data.totalBudget) + "\n" +
+        "1차 기준 매수가: " + won(data.basePrice) + "\n" +
+        "분할횟수: " + data.splitCount + "회\n" +
+        "하락 간격: " + data.dropStep.toFixed(2) + "%\n" +
+        "예상 평균단가: " + won(data.averagePrice) + "\n" +
+        "예상 보유수량: " + data.totalShares.toLocaleString("ko-KR") + "주\n" +
+        "총 사용예산: " + won(data.usedBudget) + "\n" +
+        "남은 예산: " + won(data.remainingBudget) + "\n\n" +
+        "[회차별 계획]\n" +
+        planText;
+
+      try {
+        await navigator.clipboard.writeText(text);
+        els.copyMessage.textContent = "계산 결과가 복사됐습니다.";
+      } catch (error) {
+        els.copyMessage.textContent = "복사 기능을 사용할 수 없습니다. 결과를 직접 선택해 복사하세요.";
+      }
+    }
+
+    numericInputs.forEach((input) => {
+      input.addEventListener("input", () => {
+        formatInput(input);
+        calculateSplitBuy();
+      });
+    });
+
+    els.stockName.addEventListener("input", calculateSplitBuy);
+    els.splitCount.addEventListener("change", calculateSplitBuy);
+    els.ratioType.addEventListener("change", calculateSplitBuy);
+
+    calculateSplitBuy();
+  </script>
+</body>
+</html>
