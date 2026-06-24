@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>해외주식 양도소득세 계산기 | 250만원 공제·22% 세율 | 바로해결툴즈</title>
+  <meta name="description" content="해외주식 연간 순손익, 기본공제 250만원, 양도소득세 20%, 지방소득세 2%를 반영해 예상 해외주식 양도소득세를 계산하는 무료 계산기입니다." />
+  <meta name="keywords" content="해외주식 양도소득세 계산기, 미국주식 양도세 계산기, 해외주식 세금 계산기, 미국주식 세금, 해외주식 250만원 공제, 서학개미 세금, 바로해결툴즈" />
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/stock-tax/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="해외주식 양도소득세 계산기 | 바로해결툴즈" />
+  <meta property="og:description" content="해외주식 연간 순손익과 250만원 기본공제를 반영해 예상 세금을 계산해보세요." />
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/stock-tax/" />
+  <meta property="og:site_name" content="바로해결툴즈" />
+  <meta name="theme-color" content="#0f172a" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "해외주식 양도소득세 계산기",
+    "url": "https://barohaegyeol-tools.pages.dev/stock-tax/",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "All",
+    "description": "해외주식 연간 순손익, 기본공제, 양도소득세율, 지방소득세율을 입력해 예상 해외주식 양도소득세를 계산하는 무료 웹 계산기입니다.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #050816;
+      --bg2: #0f172a;
+      --card: rgba(15, 23, 42, 0.88);
+      --card2: rgba(30, 41, 59, 0.76);
+      --line: rgba(148, 163, 184, 0.22);
+      --text: #f8fafc;
+      --soft: #cbd5e1;
+      --muted: #94a3b8;
+      --blue: #38bdf8;
+      --cyan: #67e8f9;
+      --green: #22c55e;
+      --red: #fb7185;
+      --yellow: #facc15;
+      --purple: #a78bfa;
+      --orange: #fb923c;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+      --radius: 24px;
+      --max: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      background:
+        radial-gradient(circle at 14% 7%, rgba(56, 189, 248, 0.20), transparent 30%),
+        radial-gradient(circle at 82% 5%, rgba(251, 146, 60, 0.15), transparent 28%),
+        radial-gradient(circle at 55% 100%, rgba(34, 197, 94, 0.11), transparent 34%),
+        linear-gradient(135deg, #050816 0%, #0f172a 46%, #111827 100%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(16px);
+      background: rgba(5, 8, 22, 0.75);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 950;
+      letter-spacing: -0.045em;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #38bdf8, #2563eb);
+      box-shadow: 0 14px 36px rgba(37, 99, 235, 0.38);
+      color: #fff;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--soft);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .nav-links a {
+      padding: 9px 12px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+    }
+
+    .nav-links a:hover {
+      border-color: var(--line);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .hero {
+      padding: 58px 0 32px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.04fr 0.96fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--soft);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .badge.hot {
+      border-color: rgba(251, 146, 60, 0.36);
+      background: rgba(251, 146, 60, 0.12);
+      color: #ffedd5;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 6vw, 62px);
+      line-height: 1.02;
+      letter-spacing: -0.075em;
+    }
+
+    h1 strong {
+      color: #fdba74;
+    }
+
+    .hero-desc {
+      margin: 20px 0 0;
+      color: var(--soft);
+      font-size: clamp(16px, 2vw, 19px);
+      max-width: 660px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      border: 0;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 13px 18px;
+      min-height: 48px;
+      font-weight: 950;
+      font-size: 15px;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease, border .18s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #171107;
+      background: linear-gradient(135deg, #fdba74, #fb923c);
+      box-shadow: 0 16px 40px rgba(251, 146, 60, 0.28);
+    }
+
+    .btn-secondary {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid var(--line);
+    }
+
+    .hero-card {
+      position: relative;
+      min-height: 348px;
+      border: 1px solid var(--line);
+      border-radius: 32px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 25% 20%, rgba(251, 146, 60, 0.18), transparent 28%),
+        linear-gradient(145deg, rgba(15, 23, 42, 0.94), rgba(30, 41, 59, 0.72));
+      box-shadow: var(--shadow);
+      padding: 26px;
+    }
+
+    .tax-visual {
+      height: 190px;
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      background:
+        linear-gradient(180deg, rgba(251, 146, 60, 0.10), rgba(56, 189, 248, 0.03)),
+        repeating-linear-gradient(to right, rgba(148, 163, 184, 0.08) 0 1px, transparent 1px 48px),
+        repeating-linear-gradient(to bottom, rgba(148, 163, 184, 0.08) 0 1px, transparent 1px 42px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tax-bars {
+      position: absolute;
+      left: 28px;
+      right: 28px;
+      bottom: 24px;
+      height: 125px;
+      display: flex;
+      align-items: end;
+      gap: 14px;
+    }
+
+    .bar {
+      flex: 1;
+      min-width: 28px;
+      border-radius: 12px 12px 0 0;
+      background: linear-gradient(180deg, rgba(56, 189, 248, 0.95), rgba(37, 99, 235, 0.50));
+      box-shadow: 0 0 28px rgba(56, 189, 248, 0.22);
+    }
+
+    .bar:nth-child(1) { height: 52%; }
+    .bar:nth-child(2) { height: 72%; background: linear-gradient(180deg, rgba(251, 146, 60, 0.95), rgba(234, 88, 12, 0.48)); }
+    .bar:nth-child(3) { height: 42%; }
+    .bar:nth-child(4) { height: 86%; background: linear-gradient(180deg, rgba(34, 197, 94, 0.95), rgba(21, 128, 61, 0.46)); }
+    .bar:nth-child(5) { height: 62%; background: linear-gradient(180deg, rgba(167, 139, 250, 0.95), rgba(109, 40, 217, 0.46)); }
+
+    .floating-stat {
+      position: absolute;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      background: rgba(2, 6, 23, 0.76);
+      backdrop-filter: blur(12px);
+      border-radius: 18px;
+      padding: 14px 16px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.30);
+    }
+
+    .floating-stat.one {
+      left: 24px;
+      bottom: 30px;
+    }
+
+    .floating-stat.two {
+      right: 24px;
+      bottom: 74px;
+    }
+
+    .floating-stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .floating-stat b {
+      display: block;
+      margin-top: 2px;
+      font-size: 22px;
+      letter-spacing: -0.045em;
+    }
+
+    .orange {
+      color: #fdba74;
+    }
+
+    .positive {
+      color: #4ade80;
+    }
+
+    .negative {
+      color: #fb7185;
+    }
+
+    .neutral {
+      color: #e2e8f0;
+    }
+
+    .section {
+      padding: 28px 0;
+    }
+
+    .section-title {
+      margin: 0 0 16px;
+      font-size: 28px;
+      letter-spacing: -0.055em;
+    }
+
+    .calculator {
+      display: grid;
+      grid-template-columns: 1fr 0.92fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .panel-head {
+      padding: 22px 22px 0;
+    }
+
+    .panel-head h2 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: -0.045em;
+    }
+
+    .panel-head p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .form {
+      padding: 22px;
+      display: grid;
+      gap: 15px;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .field label {
+      font-size: 14px;
+      font-weight: 850;
+      color: var(--soft);
+    }
+
+    .hint {
+      margin-top: -3px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input, select {
+      width: 100%;
+      min-height: 50px;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      border-radius: 16px;
+      background: rgba(2, 6, 23, 0.54);
+      color: var(--text);
+      padding: 0 14px;
+      font-size: 16px;
+      outline: none;
+      transition: border .18s ease, box-shadow .18s ease;
+    }
+
+    input:focus, select:focus {
+      border-color: rgba(251, 146, 60, 0.72);
+      box-shadow: 0 0 0 4px rgba(251, 146, 60, 0.12);
+    }
+
+    .unit {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 850;
+      pointer-events: none;
+    }
+
+    .input-wrap.has-unit input {
+      padding-right: 64px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+
+    .preset-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .preset {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--soft);
+      border-radius: 999px;
+      padding: 9px 11px;
+      font-weight: 850;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .preset:hover {
+      background: rgba(251, 146, 60, 0.12);
+      color: #ffedd5;
+      border-color: rgba(251, 146, 60, 0.34);
+    }
+
+    .button-row {
+      display: grid;
+      grid-template-columns: 1fr 0.7fr;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .detail-box {
+      display: grid;
+      gap: 15px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .result-wrap {
+      padding: 22px;
+    }
+
+    .main-result {
+      border-radius: 22px;
+      padding: 22px;
+      background:
+        linear-gradient(135deg, rgba(251, 146, 60, 0.15), rgba(56, 189, 248, 0.07)),
+        rgba(2, 6, 23, 0.42);
+      border: 1px solid rgba(251, 146, 60, 0.27);
+    }
+
+    .result-label {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .result-money {
+      margin-top: 4px;
+      font-size: clamp(29px, 5vw, 42px);
+      line-height: 1.05;
+      font-weight: 950;
+      letter-spacing: -0.055em;
+    }
+
+    .result-rate {
+      margin-top: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 14px;
+      font-weight: 900;
+      background: rgba(255, 255, 255, 0.08);
+      color: #fed7aa;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .result-item {
+      padding: 14px;
+      border-radius: 17px;
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .result-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .result-item b {
+      display: block;
+      margin-top: 3px;
+      font-size: 17px;
+      letter-spacing: -0.035em;
+    }
+
+    .summary-box {
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      background: rgba(15, 23, 42, 0.70);
+      color: var(--soft);
+      font-size: 14px;
+    }
+
+    .summary-box b {
+      color: var(--text);
+    }
+
+    .copy-message {
+      min-height: 22px;
+      color: #fdba74;
+      font-size: 13px;
+      font-weight: 850;
+      margin-top: 8px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .info-card {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--card2);
+      padding: 18px;
+    }
+
+    .info-card h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+      letter-spacing: -0.035em;
+    }
+
+    .info-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .tool-links {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .tool-link {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.055);
+      padding: 16px;
+      transition: transform .18s ease, background .18s ease, border .18s ease;
+    }
+
+    .tool-link:hover {
+      transform: translateY(-2px);
+      background: rgba(251, 146, 60, 0.10);
+      border-color: rgba(251, 146, 60, 0.32);
+    }
+
+    .tool-link small {
+      color: #fdba74;
+      font-weight: 950;
+    }
+
+    .tool-link b {
+      display: block;
+      margin-top: 4px;
+      letter-spacing: -0.035em;
+    }
+
+    .notice {
+      border: 1px solid rgba(250, 204, 21, 0.26);
+      background: rgba(250, 204, 21, 0.08);
+      color: #fef3c7;
+      border-radius: 20px;
+      padding: 18px;
+      margin-top: 18px;
+      font-size: 14px;
+    }
+
+    .update {
+      border: 1px solid rgba(56, 189, 248, 0.20);
+      background: rgba(56, 189, 248, 0.07);
+      color: #dff7ff;
+      border-radius: 20px;
+      padding: 18px;
+      margin-top: 14px;
+      font-size: 14px;
+    }
+
+    .footer {
+      padding: 38px 0 48px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      margin-top: 34px;
+      font-size: 14px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer a {
+      color: var(--soft);
+      font-weight: 850;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .calculator {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 38px;
+      }
+
+      .hero-card {
+        min-height: 300px;
+      }
+
+      .info-grid,
+      .tool-links {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .wrap {
+        width: min(100% - 22px, var(--max));
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 0;
+      }
+
+      .nav-links {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 3px;
+      }
+
+      .grid-2,
+      .grid-3,
+      .button-row,
+      .result-grid,
+      .info-grid,
+      .tool-links {
+        grid-template-columns: 1fr;
+      }
+
+      .panel-head,
+      .form,
+      .result-wrap {
+        padding: 18px;
+      }
+
+      .hero-card {
+        padding: 18px;
+        border-radius: 24px;
+      }
+
+      .floating-stat.two {
+        right: 18px;
+        bottom: 70px;
+      }
+
+      .floating-stat.one {
+        left: 18px;
+        bottom: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="../" aria-label="바로해결툴즈 메인으로 이동">
+        <span class="brand-mark">B</span>
+        <span>바로해결툴즈</span>
+      </a>
+
+      <nav class="nav-links" aria-label="주요 메뉴">
+        <a href="../">전체 도구</a>
+        <a href="../stock-average/">평단가</a>
+        <a href="../stock-profit/">수익률</a>
+        <a href="#calculator">세금 계산</a>
+        <a href="#related">관련 계산기</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="badge-row">
+            <span class="badge hot">해외주식 세금</span>
+            <span class="badge">250만원 공제</span>
+            <span class="badge">22% 기본 세율</span>
+            <span class="badge">연간 손익 기준</span>
+          </div>
+
+          <h1>
+            미국주식 팔았다면<br />
+            <strong>세금부터 계산</strong>하세요
+          </h1>
+
+          <p class="hero-desc">
+            해외주식 연간 순손익, 필요경비, 기본공제 250만원, 양도소득세와 지방소득세를 반영해
+            예상 납부세액을 빠르게 확인합니다.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#calculator">바로 계산하기</a>
+            <button class="btn btn-secondary" type="button" onclick="fillExample()">예시값 넣기</button>
+          </div>
+        </div>
+
+        <div class="hero-card" aria-label="해외주식 세금 계산 그래픽">
+          <div class="tax-visual">
+            <div class="tax-bars">
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+            </div>
+          </div>
+
+          <div class="floating-stat one">
+            <span>기본공제</span>
+            <b class="orange">₩2,500,000</b>
+          </div>
+
+          <div class="floating-stat two">
+            <span>예상 세율</span>
+            <b class="orange">22%</b>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="calculator" class="section">
+      <div class="wrap calculator">
+        <section class="panel">
+          <div class="panel-head">
+            <h2>입력값</h2>
+            <p>증권사 양도세 자료가 있으면 “간편 계산”이 가장 빠릅니다.</p>
+          </div>
+
+          <div class="form">
+            <div class="grid-2">
+              <div class="field">
+                <label for="taxYear">귀속연도</label>
+                <input id="taxYear" type="text" inputmode="numeric" value="2026" />
+                <div class="hint">예: 2026년에 매도한 해외주식 손익</div>
+              </div>
+
+              <div class="field">
+                <label for="calcMode">계산 방식</label>
+                <select id="calcMode">
+                  <option value="simple">간편 계산: 연간 순손익 입력</option>
+                  <option value="detail">상세 계산: 양도가액-취득가액-경비</option>
+                </select>
+                <div class="hint">처음이면 간편 계산을 추천합니다.</div>
+              </div>
+            </div>
+
+            <div id="simpleBox" class="detail-box">
+              <div class="field">
+                <label for="annualNetGain">해외주식 연간 순손익</label>
+                <div class="input-wrap has-unit">
+                  <input id="annualNetGain" type="text" inputmode="numeric" placeholder="예: 8,000,000" />
+                  <span class="unit">원</span>
+                </div>
+                <div class="hint">해외주식 이익과 손실을 합산한 금액입니다. 손실이면 - 입력 가능.</div>
+              </div>
+            </div>
+
+            <div id="detailBox" class="detail-box hidden">
+              <div class="field">
+                <label for="sellAmount">총 양도가액</label>
+                <div class="input-wrap has-unit">
+                  <input id="sellAmount" type="text" inputmode="numeric" placeholder="예: 18,000,000" />
+                  <span class="unit">원</span>
+                </div>
+                <div class="hint">매도금액을 원화로 환산한 금액입니다.</div>
+              </div>
+
+              <div class="field">
+                <label for="buyAmount">총 취득가액</label>
+                <div class="input-wrap has-unit">
+                  <input id="buyAmount" type="text" inputmode="numeric" placeholder="예: 10,000,000" />
+                  <span class="unit">원</span>
+                </div>
+                <div class="hint">매수금액을 원화로 환산한 금액입니다.</div>
+              </div>
+
+              <div class="field">
+                <label for="expenses">필요경비 / 매매수수료</label>
+                <div class="input-wrap has-unit">
+                  <input id="expenses" type="text" inputmode="numeric" placeholder="예: 50,000" />
+                  <span class="unit">원</span>
+                </div>
+                <div class="hint">증권사 수수료 등 필요경비가 있으면 입력합니다.</div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="domesticTaxableGain">국내 과세대상 주식 손익 선택 입력</label>
+              <div class="input-wrap has-unit">
+                <input id="domesticTaxableGain" type="text" inputmode="numeric" value="0" />
+                <span class="unit">원</span>
+              </div>
+              <div class="hint">대주주·비상장 등 양도세 과세대상 국내주식 손익이 있을 때만 입력합니다. 일반 국내 상장주식 소액주주 매매손익은 보통 여기에 넣지 않습니다.</div>
+            </div>
+
+            <div class="grid-3">
+              <div class="field">
+                <label for="deduction">기본공제</label>
+                <div class="input-wrap has-unit">
+                  <input id="deduction" type="text" inputmode="numeric" value="2,500,000" />
+                  <span class="unit">원</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="incomeTaxRate">양도소득세율</label>
+                <div class="input-wrap has-unit">
+                  <input id="incomeTaxRate" type="text" inputmode="decimal" value="20" />
+                  <span class="unit">%</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="localTaxRate">지방소득세율</label>
+                <div class="input-wrap has-unit">
+                  <input id="localTaxRate" type="text" inputmode="decimal" value="2" />
+                  <span class="unit">%</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>빠른 설정</label>
+              <div class="preset-row">
+                <button class="preset" type="button" onclick="setPreset('standard')">기본값</button>
+                <button class="preset" type="button" onclick="setPreset('profit800')">800만원 수익 예시</button>
+                <button class="preset" type="button" onclick="setPreset('under250')">250만원 이하 예시</button>
+                <button class="preset" type="button" onclick="resetForm()">초기화</button>
+              </div>
+            </div>
+
+            <div class="button-row">
+              <button class="btn btn-primary" type="button" onclick="calculateTax()">세금 계산하기</button>
+              <button class="btn btn-secondary" type="button" onclick="copyResult()">결과 복사</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" aria-live="polite">
+          <div class="panel-head">
+            <h2>계산 결과</h2>
+            <p>과세표준이 0원이면 예상 납부세액도 0원으로 계산됩니다.</p>
+          </div>
+
+          <div class="result-wrap">
+            <div class="main-result">
+              <span class="result-label">예상 납부세액</span>
+              <div id="totalTax" class="result-money orange">₩0</div>
+              <div id="taxRateView" class="result-rate">적용 세율 22.00%</div>
+            </div>
+
+            <div class="result-grid">
+              <div class="result-item">
+                <span>해외주식 양도손익</span>
+                <b id="foreignGain">₩0</b>
+              </div>
+
+              <div class="result-item">
+                <span>통산 후 양도소득금액</span>
+                <b id="combinedGain">₩0</b>
+              </div>
+
+              <div class="result-item">
+                <span>사용된 기본공제</span>
+                <b id="deductionUsed">₩0</b>
+              </div>
+
+              <div class="result-item">
+                <span>과세표준</span>
+                <b id="taxableBase">₩0</b>
+              </div>
+
+              <div class="result-item">
+                <span>양도소득세</span>
+                <b id="incomeTax">₩0</b>
+              </div>
+
+              <div class="result-item">
+                <span>지방소득세</span>
+                <b id="localTax">₩0</b>
+              </div>
+
+              <div class="result-item">
+                <span>공제 후 남는 금액</span>
+                <b id="afterDeductionProfit">₩0</b>
+              </div>
+
+              <div class="result-item">
+                <span>세후 예상 잔액</span>
+                <b id="afterTaxProfit">₩0</b>
+              </div>
+            </div>
+
+            <div id="summary" class="summary-box">
+              <b>계산 대기 중</b><br />
+              해외주식 연간 순손익을 입력하면 예상 양도소득세를 계산합니다.
+            </div>
+
+            <div id="copyMessage" class="copy-message"></div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2 class="section-title">해외주식 세금 계산 핵심</h2>
+
+        <div class="info-grid">
+          <article class="info-card">
+            <h3>연간 손익 기준</h3>
+            <p>종목 하나가 아니라 해당 연도에 실현한 해외주식 이익과 손실을 합산해서 봅니다.</p>
+          </article>
+
+          <article class="info-card">
+            <h3>250만원 기본공제</h3>
+            <p>기본공제는 기본값 250만원으로 넣어두었고, 필요하면 직접 수정할 수 있습니다.</p>
+          </article>
+
+          <article class="info-card">
+            <h3>22% 기본 계산</h3>
+            <p>기본값은 양도소득세 20%와 지방소득세 2%를 합산한 22%입니다.</p>
+          </article>
+        </div>
+
+        <div class="notice">
+          <b>주의사항</b><br />
+          이 계산기는 참고용입니다. 실제 신고 금액은 증권사 해외주식 양도소득세 자료, 환율 적용 기준, 필요경비 인정 여부,
+          국내 과세대상 주식 손익통산 여부, 홈택스 신고 기준에 따라 달라질 수 있습니다.
+          세금 신고 전에는 반드시 증권사 자료와 국세청 안내를 확인하세요.
+        </div>
+
+        <div class="update">
+          <b>검토 기준</b><br />
+          2026년 6월 24일 기준으로 해외주식 양도소득세 일반 계산 구조를 반영했습니다.
+          세법과 신고 기준은 바뀔 수 있으므로, 승인 신청이나 세금 신고용 안내글 작성 전에는 공식 기준을 다시 확인합니다.
+        </div>
+      </div>
+    </section>
+
+    <section id="related" class="section">
+      <div class="wrap">
+        <h2 class="section-title">관련 주식 계산기</h2>
+
+        <div class="tool-links">
+          <a class="tool-link" href="../stock-average/">
+            <small>대표 도구</small>
+            <b>주식 평단가 계산기</b>
+          </a>
+
+          <a class="tool-link" href="../stock-profit/">
+            <small>완료</small>
+            <b>주식 수익률 계산기</b>
+          </a>
+
+          <a class="tool-link" href="../stock-dividend/">
+            <small>준비 중</small>
+            <b>배당금 계산기</b>
+          </a>
+
+          <a class="tool-link" href="../stock-split-buy/">
+            <small>준비 중</small>
+            <b>분할매수 계산기</b>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div>
+        <b>바로해결툴즈</b><br />
+        생활비, 주식, 운세까지 바로 계산하는 무료 미니툴 모음
+      </div>
+
+      <div>
+        <a href="../">메인으로</a>
+        &nbsp;·&nbsp;
+        <a href="../stock-profit/">수익률 계산기</a>
+        &nbsp;·&nbsp;
+        <a href="#calculator">위로</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const els = {
+      taxYear: document.getElementById("taxYear"),
+      calcMode: document.getElementById("calcMode"),
+      simpleBox: document.getElementById("simpleBox"),
+      detailBox: document.getElementById("detailBox"),
+      annualNetGain: document.getElementById("annualNetGain"),
+      sellAmount: document.getElementById("sellAmount"),
+      buyAmount: document.getElementById("buyAmount"),
+      expenses: document.getElementById("expenses"),
+      domesticTaxableGain: document.getElementById("domesticTaxableGain"),
+      deduction: document.getElementById("deduction"),
+      incomeTaxRate: document.getElementById("incomeTaxRate"),
+      localTaxRate: document.getElementById("localTaxRate"),
+      totalTax: document.getElementById("totalTax"),
+      taxRateView: document.getElementById("taxRateView"),
+      foreignGain: document.getElementById("foreignGain"),
+      combinedGain: document.getElementById("combinedGain"),
+      deductionUsed: document.getElementById("deductionUsed"),
+      taxableBase: document.getElementById("taxableBase"),
+      incomeTax: document.getElementById("incomeTax"),
+      localTax: document.getElementById("localTax"),
+      afterDeductionProfit: document.getElementById("afterDeductionProfit"),
+      afterTaxProfit: document.getElementById("afterTaxProfit"),
+      summary: document.getElementById("summary"),
+      copyMessage: document.getElementById("copyMessage")
+    };
+
+    const moneyInputs = [
+      els.annualNetGain,
+      els.sellAmount,
+      els.buyAmount,
+      els.expenses,
+      els.domesticTaxableGain,
+      els.deduction
+    ];
+
+    const rateInputs = [
+      els.incomeTaxRate,
+      els.localTaxRate
+    ];
+
+    function onlyNumber(value) {
+      if (value === null || value === undefined) return 0;
+      const cleaned = String(value).replace(/,/g, "").replace(/[^\d.-]/g, "");
+      const number = parseFloat(cleaned);
+      return Number.isFinite(number) ? number : 0;
+    }
+
+    function formatInput(input) {
+      const raw = input.value;
+      if (raw === "" || raw === "-") return;
+
+      if (input === els.incomeTaxRate || input === els.localTaxRate || input === els.taxYear) {
+        input.value = String(raw).replace(/[^\d.]/g, "");
+        return;
+      }
+
+      const cursorAtEnd = input.selectionStart === input.value.length;
+      const number = onlyNumber(raw);
+
+      if (!Number.isFinite(number)) return;
+
+      input.value = number.toLocaleString("ko-KR");
+
+      if (cursorAtEnd) {
+        input.setSelectionRange(input.value.length, input.value.length);
+      }
+    }
+
+    function plainWon(value) {
+      const sign = value < 0 ? "-₩" : "₩";
+      return sign + Math.abs(Math.round(value)).toLocaleString("ko-KR");
+    }
+
+    function signedWon(value) {
+      const rounded = Math.round(value);
+      if (rounded > 0) return "+₩" + rounded.toLocaleString("ko-KR");
+      if (rounded < 0) return "-₩" + Math.abs(rounded).toLocaleString("ko-KR");
+      return "₩0";
+    }
+
+    function percent(value) {
+      return value.toFixed(2) + "%";
+    }
+
+    function setTone(element, value) {
+      element.classList.remove("positive", "negative", "neutral", "orange");
+
+      if (value > 0) {
+        element.classList.add("orange");
+      } else if (value < 0) {
+        element.classList.add("negative");
+      } else {
+        element.classList.add("neutral");
+      }
+    }
+
+    function getForeignGain() {
+      if (els.calcMode.value === "simple") {
+        return onlyNumber(els.annualNetGain.value);
+      }
+
+      const sellAmount = onlyNumber(els.sellAmount.value);
+      const buyAmount = onlyNumber(els.buyAmount.value);
+      const expenses = onlyNumber(els.expenses.value);
+
+      return sellAmount - buyAmount - expenses;
+    }
+
+    function calculateValues() {
+      const foreignGain = getForeignGain();
+      const domesticTaxableGain = onlyNumber(els.domesticTaxableGain.value);
+      const deduction = Math.max(0, onlyNumber(els.deduction.value));
+      const incomeTaxRate = Math.max(0, onlyNumber(els.incomeTaxRate.value)) / 100;
+      const localTaxRate = Math.max(0, onlyNumber(els.localTaxRate.value)) / 100;
+
+      const combinedGain = foreignGain + domesticTaxableGain;
+      const deductionUsed = combinedGain > 0 ? Math.min(combinedGain, deduction) : 0;
+      const taxableBase = Math.max(0, combinedGain - deduction);
+      const incomeTax = taxableBase * incomeTaxRate;
+      const localTax = taxableBase * localTaxRate;
+      const totalTax = incomeTax + localTax;
+      const afterDeductionProfit = taxableBase;
+      const afterTaxProfit = combinedGain - totalTax;
+      const totalTaxRate = incomeTaxRate + localTaxRate;
+
+      return {
+        foreignGain,
+        domesticTaxableGain,
+        deduction,
+        deductionUsed,
+        combinedGain,
+        taxableBase,
+        incomeTax,
+        localTax,
+        totalTax,
+        afterDeductionProfit,
+        afterTaxProfit,
+        totalTaxRate
+      };
+    }
+
+    function calculateTax() {
+      const data = calculateValues();
+
+      els.totalTax.textContent = plainWon(data.totalTax);
+      els.taxRateView.textContent = "적용 세율 " + percent(data.totalTaxRate * 100);
+      els.foreignGain.textContent = signedWon(data.foreignGain);
+      els.combinedGain.textContent = signedWon(data.combinedGain);
+      els.deductionUsed.textContent = plainWon(data.deductionUsed);
+      els.taxableBase.textContent = plainWon(data.taxableBase);
+      els.incomeTax.textContent = plainWon(data.incomeTax);
+      els.localTax.textContent = plainWon(data.localTax);
+      els.afterDeductionProfit.textContent = plainWon(data.afterDeductionProfit);
+      els.afterTaxProfit.textContent = signedWon(data.afterTaxProfit);
+
+      setTone(els.totalTax, data.totalTax);
+
+      const year = els.taxYear.value.trim() || "해당 연도";
+
+      let judgment = "";
+      if (data.combinedGain <= 0) {
+        judgment = "통산 후 양도소득금액이 0원 이하라 예상 납부세액은 0원입니다. 단, 손실이 있어도 신고 필요 여부는 증권사 자료와 홈택스 기준을 확인하세요.";
+      } else if (data.taxableBase <= 0) {
+        judgment = "기본공제 범위 안에 있어 예상 납부세액은 0원입니다.";
+      } else {
+        judgment = "기본공제를 초과한 금액에 세율을 적용한 예상 세금입니다. 실제 신고 전에는 증권사 양도세 자료로 다시 확인하세요.";
+      }
+
+      els.summary.innerHTML =
+        "<b>" + escapeHtml(year) + "년 해외주식 양도세 계산 요약</b><br />" +
+        "해외주식 양도손익은 <b>" + signedWon(data.foreignGain) + "</b>, 국내 과세대상 주식 손익 반영 후 금액은 <b>" + signedWon(data.combinedGain) + "</b>입니다. " +
+        "기본공제 <b>" + plainWon(data.deductionUsed) + "</b> 적용 후 과세표준은 <b>" + plainWon(data.taxableBase) + "</b>, 예상 납부세액은 <b>" + plainWon(data.totalTax) + "</b>입니다.<br />" +
+        judgment;
+
+      els.copyMessage.textContent = "";
+    }
+
+    function escapeHtml(text) {
+      return text
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function toggleMode() {
+      if (els.calcMode.value === "simple") {
+        els.simpleBox.classList.remove("hidden");
+        els.detailBox.classList.add("hidden");
+      } else {
+        els.simpleBox.classList.add("hidden");
+        els.detailBox.classList.remove("hidden");
+      }
+
+      calculateTax();
+    }
+
+    function setPreset(type) {
+      if (type === "standard") {
+        els.calcMode.value = "simple";
+        els.annualNetGain.value = "";
+        els.sellAmount.value = "";
+        els.buyAmount.value = "";
+        els.expenses.value = "";
+        els.domesticTaxableGain.value = "0";
+        els.deduction.value = "2,500,000";
+        els.incomeTaxRate.value = "20";
+        els.localTaxRate.value = "2";
+      }
+
+      if (type === "profit800") {
+        els.calcMode.value = "simple";
+        els.annualNetGain.value = "8,000,000";
+        els.domesticTaxableGain.value = "0";
+        els.deduction.value = "2,500,000";
+        els.incomeTaxRate.value = "20";
+        els.localTaxRate.value = "2";
+      }
+
+      if (type === "under250") {
+        els.calcMode.value = "simple";
+        els.annualNetGain.value = "2,400,000";
+        els.domesticTaxableGain.value = "0";
+        els.deduction.value = "2,500,000";
+        els.incomeTaxRate.value = "20";
+        els.localTaxRate.value = "2";
+      }
+
+      moneyInputs.forEach(formatInput);
+      toggleMode();
+      calculateTax();
+    }
+
+    function fillExample() {
+      setPreset("profit800");
+      document.getElementById("calculator").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function resetForm() {
+      els.taxYear.value = "2026";
+      els.calcMode.value = "simple";
+      els.annualNetGain.value = "";
+      els.sellAmount.value = "";
+      els.buyAmount.value = "";
+      els.expenses.value = "";
+      els.domesticTaxableGain.value = "0";
+      els.deduction.value = "2,500,000";
+      els.incomeTaxRate.value = "20";
+      els.localTaxRate.value = "2";
+      toggleMode();
+      calculateTax();
+    }
+
+    async function copyResult() {
+      const data = calculateValues();
+      const year = els.taxYear.value.trim() || "해당 연도";
+
+      const text =
+        "[바로해결툴즈 해외주식 양도소득세 계산 결과]\n" +
+        "귀속연도: " + year + "\n" +
+        "해외주식 양도손익: " + signedWon(data.foreignGain) + "\n" +
+        "국내 과세대상 주식 손익: " + signedWon(data.domesticTaxableGain) + "\n" +
+        "통산 후 양도소득금액: " + signedWon(data.combinedGain) + "\n" +
+        "기본공제: " + plainWon(data.deduction) + "\n" +
+        "사용된 기본공제: " + plainWon(data.deductionUsed) + "\n" +
+        "과세표준: " + plainWon(data.taxableBase) + "\n" +
+        "양도소득세: " + plainWon(data.incomeTax) + "\n" +
+        "지방소득세: " + plainWon(data.localTax) + "\n" +
+        "예상 납부세액: " + plainWon(data.totalTax) + "\n" +
+        "적용 세율: " + percent(data.totalTaxRate * 100);
+
+      try {
+        await navigator.clipboard.writeText(text);
+        els.copyMessage.textContent = "계산 결과가 복사됐습니다.";
+      } catch (error) {
+        els.copyMessage.textContent = "복사 기능을 사용할 수 없습니다. 결과를 직접 선택해 복사하세요.";
+      }
+    }
+
+    els.calcMode.addEventListener("change", toggleMode);
+
+    moneyInputs.forEach((input) => {
+      input.addEventListener("input", () => {
+        formatInput(input);
+        calculateTax();
+      });
+    });
+
+    rateInputs.forEach((input) => {
+      input.addEventListener("input", () => {
+        formatInput(input);
+        calculateTax();
+      });
+    });
+
+    els.taxYear.addEventListener("input", () => {
+      formatInput(els.taxYear);
+      calculateTax();
+    });
+
+    toggleMode();
+    calculateTax();
+  </script>
+</body>
+</html>
