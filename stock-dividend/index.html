@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>배당금 계산기 | 세전·세후 배당금·배당수익률 계산 | 바로해결툴즈</title>
+  <meta name="description" content="보유수량, 1주당 배당금, 배당횟수, 세율, 환율을 입력하면 세전·세후 배당금과 배당수익률을 계산할 수 있는 무료 배당금 계산기입니다." />
+  <meta name="keywords" content="배당금 계산기, 배당수익률 계산기, 세후 배당금 계산, 미국주식 배당금 계산기, 삼성전자 배당금 계산, SCHD 배당금 계산, 바로해결툴즈" />
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/stock-dividend/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="배당금 계산기 | 바로해결툴즈" />
+  <meta property="og:description" content="보유수량과 1주당 배당금을 입력해 세전·세후 배당금과 배당수익률을 계산해보세요." />
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/stock-dividend/" />
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <meta name="theme-color" content="#0f172a" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "배당금 계산기",
+    "url": "https://barohaegyeol-tools.pages.dev/stock-dividend/",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "All",
+    "description": "보유수량, 1주당 배당금, 배당횟수, 세율, 환율을 입력해 세전·세후 배당금과 배당수익률을 계산하는 무료 웹 계산기입니다.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #050816;
+      --bg2: #0f172a;
+      --card: rgba(15, 23, 42, 0.88);
+      --card2: rgba(30, 41, 59, 0.76);
+      --line: rgba(148, 163, 184, 0.22);
+      --text: #f8fafc;
+      --soft: #cbd5e1;
+      --muted: #94a3b8;
+      --blue: #38bdf8;
+      --green: #22c55e;
+      --emerald: #34d399;
+      --yellow: #facc15;
+      --orange: #fb923c;
+      --purple: #a78bfa;
+      --red: #fb7185;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+      --radius: 24px;
+      --max: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(34, 197, 94, 0.20), transparent 30%),
+        radial-gradient(circle at 84% 7%, rgba(56, 189, 248, 0.16), transparent 29%),
+        radial-gradient(circle at 52% 100%, rgba(167, 139, 250, 0.12), transparent 34%),
+        linear-gradient(135deg, #050816 0%, #0f172a 46%, #111827 100%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(16px);
+      background: rgba(5, 8, 22, 0.75);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 950;
+      letter-spacing: -0.045em;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #34d399, #2563eb);
+      box-shadow: 0 14px 36px rgba(34, 197, 94, 0.28);
+      color: #fff;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--soft);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .nav-links a {
+      padding: 9px 12px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+    }
+
+    .nav-links a:hover {
+      border-color: var(--line);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .hero {
+      padding: 58px 0 32px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.04fr 0.96fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--soft);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .badge.hot {
+      border-color: rgba(52, 211, 153, 0.36);
+      background: rgba(52, 211, 153, 0.12);
+      color: #dcfce7;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 6vw, 62px);
+      line-height: 1.02;
+      letter-spacing: -0.075em;
+    }
+
+    h1 strong {
+      color: #86efac;
+    }
+
+    .hero-desc {
+      margin: 20px 0 0;
+      color: var(--soft);
+      font-size: clamp(16px, 2vw, 19px);
+      max-width: 660px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      border: 0;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 13px 18px;
+      min-height: 48px;
+      font-weight: 950;
+      font-size: 15px;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease, border .18s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #03140b;
+      background: linear-gradient(135deg, #86efac, #34d399);
+      box-shadow: 0 16px 40px rgba(52, 211, 153, 0.24);
+    }
+
+    .btn-secondary {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid var(--line);
+    }
+
+    .hero-card {
+      position: relative;
+      min-height: 348px;
+      border: 1px solid var(--line);
+      border-radius: 32px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 25% 20%, rgba(34, 197, 94, 0.18), transparent 28%),
+        linear-gradient(145deg, rgba(15, 23, 42, 0.94), rgba(30, 41, 59, 0.72));
+      box-shadow: var(--shadow);
+      padding: 26px;
+    }
+
+    .dividend-visual {
+      height: 190px;
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      background:
+        linear-gradient(180deg, rgba(34, 197, 94, 0.10), rgba(56, 189, 248, 0.03)),
+        repeating-linear-gradient(to right, rgba(148, 163, 184, 0.08) 0 1px, transparent 1px 48px),
+        repeating-linear-gradient(to bottom, rgba(148, 163, 184, 0.08) 0 1px, transparent 1px 42px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .coins {
+      position: absolute;
+      left: 28px;
+      right: 28px;
+      bottom: 28px;
+      height: 132px;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .coin-stack {
+      flex: 1;
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 5px;
+      align-items: center;
+    }
+
+    .coin {
+      width: min(70px, 100%);
+      height: 15px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #facc15, #fb923c);
+      box-shadow: 0 8px 22px rgba(250, 204, 21, 0.18);
+      border: 1px solid rgba(254, 240, 138, 0.3);
+    }
+
+    .coin-stack:nth-child(1) .coin:nth-child(n+5) { display: none; }
+    .coin-stack:nth-child(2) .coin:nth-child(n+7) { display: none; }
+    .coin-stack:nth-child(3) .coin:nth-child(n+4) { display: none; }
+    .coin-stack:nth-child(4) .coin:nth-child(n+8) { display: none; }
+    .coin-stack:nth-child(5) .coin:nth-child(n+6) { display: none; }
+
+    .floating-stat {
+      position: absolute;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      background: rgba(2, 6, 23, 0.76);
+      backdrop-filter: blur(12px);
+      border-radius: 18px;
+      padding: 14px 16px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.30);
+    }
+
+    .floating-stat.one {
+      left: 24px;
+      bottom: 30px;
+    }
+
+    .floating-stat.two {
+      right: 24px;
+      bottom: 74px;
+    }
+
+    .floating-stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .floating-stat b {
+      display: block;
+      margin-top: 2px;
+      font-size: 22px;
+      letter-spacing: -0.045em;
+    }
+
+    .green {
+      color: #86efac;
+    }
+
+    .positive {
+      color: #4ade80;
+    }
+
+    .negative {
+      color: #fb7185;
+    }
+
+    .neutral {
+      color: #e2e8f0;
+    }
+
+    .section {
+      padding: 28px 0;
+    }
+
+    .section-title {
+      margin: 0 0 16px;
+      font-size: 28px;
+      letter-spacing: -0.055em;
+    }
+
+    .calculator {
+      display: grid;
+      grid-template-columns: 1fr 0.92fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .panel-head {
+      padding: 22px 22px 0;
+    }
+
+    .panel-head h2 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: -0.045em;
+    }
+
+    .panel-head p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .form {
+      padding: 22px;
+      display: grid;
+      gap: 15px;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .field label {
+      font-size: 14px;
+      font-weight: 850;
+      color: var(--soft);
+    }
+
+    .hint {
+      margin-top: -3px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input, select {
+      width: 100%;
+      min-height: 50px;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      border-radius: 16px;
+      background: rgba(2, 6, 23, 0.54);
+      color: var(--text);
+      padding: 0 14px;
+      font-size: 16px;
+      outline: none;
+      transition: border .18s ease, box-shadow .18s ease;
+    }
+
+    input:focus, select:focus {
+      border-color: rgba(52, 211, 153, 0.72);
+      box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.12);
+    }
+
+    .unit {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 850;
+      pointer-events: none;
+    }
+
+    .input-wrap.has-unit input {
+      padding-right: 64px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+
+    .preset-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .preset {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--soft);
+      border-radius: 999px;
+      padding: 9px 11px;
+      font-weight: 850;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .preset:hover {
+      background: rgba(52, 211, 153, 0.12);
+      color: #dcfce7;
+      border-color: rgba(52, 211, 153, 0.34);
+    }
+
+    .button-row {
+      display: grid;
+      grid-template-columns: 1fr 0.7fr;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .result-wrap {
+      padding: 22px;
+    }
+
+    .main-result {
+      border-radius: 22px;
+      padding: 22px;
+      background:
+        linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(56, 189, 248, 0.07)),
+        rgba(2, 6, 23, 0.42);
+      border: 1px solid rgba(52, 211, 153, 0.27);
+    }
+
+    .result-label {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .result-money {
+      margin-top: 4px;
+      font-size: clamp(29px, 5vw, 42px);
+      line-height: 1.05;
+      font-weight: 950;
+      letter-spacing: -0.055em;
+    }
+
+    .result-rate {
+      margin-top: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 14px;
+      font-weight: 900;
+      background: rgba(255, 255, 255, 0.08);
+      color: #bbf7d0;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .result-item {
+      padding: 14px;
+      border-radius: 17px;
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .result-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .result-item b {
+      display: block;
+      margin-top: 3px;
+      font-size: 17px;
+      letter-spacing: -0.035em;
+    }
+
+    .summary-box {
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      background: rgba(15, 23, 42, 0.70);
+      color: var(--soft);
+      font-size: 14px;
+    }
+
+    .summary-box b {
+      color: var(--text);
+    }
+
+    .copy-message {
+      min-height: 22px;
+      color: #86efac;
+      font-size: 13px;
+      font-weight: 850;
+      margin-top: 8px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .info-card {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--card2);
+      padding: 18px;
+    }
+
+    .info-card h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+      letter-spacing: -0.035em;
+    }
+
+    .info-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .tool-links {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .tool-link {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.055);
+      padding: 16px;
+      transition: transform .18s ease, background .18s ease, border .18s ease;
+    }
+
+    .tool-link:hover {
+      transform: translateY(-2px);
+      background: rgba(52, 211, 153, 0.10);
+      border-color: rgba(52, 211, 153, 0.32);
+    }
+
+    .tool-link small {
+      color: #86efac;
+      font-weight: 950;
+    }
+
+    .tool-link b {
+      display: block;
+      margin-top: 4px;
+      letter-spacing: -0.035em;
+    }
+
+    .notice {
+      border: 1px solid rgba(250, 204, 21, 0.26);
+      background: rgba(250, 204, 21, 0.08);
+      color: #fef3c7;
+      border-radius: 20px;
+      padding: 18px;
+      margin-top: 18px;
+      font-size: 14px;
+    }
+
+    .update {
+      border: 1px solid rgba(56, 189, 248, 0.20);
+      background: rgba(56, 189, 248, 0.07);
+      color: #dff7ff;
+      border-radius: 20px;
+      padding: 18px;
+      margin-top: 14px;
+      font-size: 14px;
+    }
+
+    .footer {
+      padding: 38px 0 48px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      margin-top: 34px;
+      font-size: 14px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer a {
+      color: var(--soft);
+      font-weight: 850;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .calculator {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 38px;
+      }
+
+      .hero-card {
+        min-height: 300px;
+      }
+
+      .info-grid,
+      .tool-links {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .wrap {
+        width: min(100% - 22px, var(--max));
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 0;
+      }
+
+      .nav-links {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 3px;
+      }
+
+      .grid-2,
+      .grid-3,
+      .button-row,
+      .result-grid,
+      .info-grid,
+      .tool-links {
+        grid-template-columns: 1fr;
+      }
+
+      .panel-head,
+      .form,
+      .result-wrap {
+        padding: 18px;
+      }
+
+      .hero-card {
+        padding: 18px;
+        border-radius: 24px;
+      }
+
+      .floating-stat.two {
+        right: 18px;
+        bottom: 70px;
+      }
+
+      .floating-stat.one {
+        left: 18px;
+        bottom: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="../" aria-label="바로해결툴즈 메인으로 이동">
+        <span class="brand-mark">B</span>
+        <span>바로해결툴즈</span>
+      </a>
+
+      <nav class="nav-links" aria-label="주요 메뉴">
+        <a href="../">전체 도구</a>
+        <a href="../stock-average/">평단가</a>
+        <a href="../stock-profit/">수익률</a>
+        <a href="../stock-tax/">양도세</a>
+        <a href="#calculator">배당 계산</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="badge-row">
+            <span class="badge hot">배당금 계산기</span>
+            <span class="badge">세전·세후</span>
+            <span class="badge">국내·미국주식</span>
+            <span class="badge">배당수익률</span>
+          </div>
+
+          <h1>
+            배당주 샀다면<br />
+            <strong>세후 배당금</strong>부터
+          </h1>
+
+          <p class="hero-desc">
+            보유수량, 1주당 배당금, 배당횟수, 세율, 환율을 입력하면
+            세전 배당금, 세후 배당금, 월평균 배당금, 매수가·현재가 기준 배당수익률을 한 번에 계산합니다.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#calculator">바로 계산하기</a>
+            <button class="btn btn-secondary" type="button" onclick="fillExample()">예시값 넣기</button>
+          </div>
+        </div>
+
+        <div class="hero-card" aria-label="배당금 그래픽">
+          <div class="dividend-visual">
+            <div class="coins">
+              <div class="coin-stack">
+                <span class="coin"></span><span class="coin"></span><span class="coin"></span><span class="coin"></span><span class="coin"></span><span class="coin"></span><span class="coin"></span>
+              </div>
+              <div class="coin-stack">
+                <span class="coin"></span><span class="coin"></span><span class="coin"></span><span class="coin"></span><span class="coin"></span><span class="coin"></span><span class="coin"></span>
+              </div>
+              <div class="coin-stack">
+                <span class="coin"></span><span class="coin"></span><span class="coin"></span><span class="coin"></span><span class="coin"></span><span class="coin"></span><span class="coin"></span>
+              </div>
+              <div class="coin-stack">
+                <span class="coin"></span><span class="coin"></span><span class="coin"></span><span class="coin"></span><span class="coin"></span><span class="coin"></span><span class="coin"></span>
+              </div>
+              <div class="coin-stack">
+                <span class="coin"></span><span class="coin"></span><span class="coin"></span><span class="coin"></span><span class="coin"></span><span class="coin"></span><span class="coin"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="floating-stat one">
+            <span>세후 연배당</span>
+            <b class="green">₩412,500</b>
+          </div>
+
+          <div class="floating-stat two">
+            <span>배당수익률</span>
+            <b class="green">4.12%</b>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="calculator" class="section">
+      <div class="wrap calculator">
+        <section class="panel">
+          <div class="panel-head">
+            <h2>입력값</h2>
+            <p>국내주식, 미국주식, 직접입력 중 선택하면 세율과 통화 기본값이 자동으로 바뀝니다.</p>
+          </div>
+
+          <div class="form">
+            <div class="grid-2">
+              <div class="field">
+                <label for="marketType">계산 유형</label>
+                <select id="marketType">
+                  <option value="kr">국내주식 배당</option>
+                  <option value="us">미국주식 배당</option>
+                  <option value="custom">직접 입력</option>
+                </select>
+                <div class="hint">세율·통화·환율은 언제든 수정할 수 있습니다.</div>
+              </div>
+
+              <div class="field">
+                <label for="stockName">종목명 선택 입력</label>
+                <input id="stockName" type="text" placeholder="예: 삼성전자, SCHD, 리얼티인컴" autocomplete="off" />
+                <div class="hint">복사 결과에 표시됩니다.</div>
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="field">
+                <label for="shares">보유 수량</label>
+                <div class="input-wrap has-unit">
+                  <input id="shares" type="text" inputmode="numeric" placeholder="예: 100" />
+                  <span class="unit">주</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="paymentCount">연간 배당횟수</label>
+                <div class="input-wrap has-unit">
+                  <input id="paymentCount" type="text" inputmode="numeric" value="4" />
+                  <span class="unit">회</span>
+                </div>
+                <div class="hint">분기배당 4회, 월배당 12회, 연배당 1회</div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="dividendPerShare">1주당 1회 배당금</label>
+              <div class="input-wrap has-unit">
+                <input id="dividendPerShare" type="text" inputmode="decimal" placeholder="예: 361 또는 0.75" />
+                <span id="dividendUnit" class="unit">원</span>
+              </div>
+              <div class="hint">분기배당이면 1분기 배당금 1회분을 입력합니다.</div>
+            </div>
+
+            <div class="grid-2">
+              <div class="field">
+                <label for="buyPrice">1주당 매수가</label>
+                <div class="input-wrap has-unit">
+                  <input id="buyPrice" type="text" inputmode="decimal" placeholder="예: 70000" />
+                  <span id="buyUnit" class="unit">원</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="currentPrice">1주당 현재가</label>
+                <div class="input-wrap has-unit">
+                  <input id="currentPrice" type="text" inputmode="decimal" placeholder="예: 75000" />
+                  <span id="currentUnit" class="unit">원</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="field">
+                <label for="taxRate">배당 원천징수세율</label>
+                <div class="input-wrap has-unit">
+                  <input id="taxRate" type="text" inputmode="decimal" value="15.4" />
+                  <span class="unit">%</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="exchangeRate">환율</label>
+                <div class="input-wrap has-unit">
+                  <input id="exchangeRate" type="text" inputmode="decimal" value="1" />
+                  <span class="unit">원</span>
+                </div>
+                <div class="hint">국내주식은 1, 미국주식은 달러당 원화 환율 입력</div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>빠른 설정</label>
+              <div class="preset-row">
+                <button class="preset" type="button" onclick="setPreset('kr')">국내 배당 예시</button>
+                <button class="preset" type="button" onclick="setPreset('us')">미국 배당 예시</button>
+                <button class="preset" type="button" onclick="setPreset('monthly')">월배당 예시</button>
+                <button class="preset" type="button" onclick="resetForm()">초기화</button>
+              </div>
+            </div>
+
+            <div class="button-row">
+              <button class="btn btn-primary" type="button" onclick="calculateDividend()">배당금 계산하기</button>
+              <button class="btn btn-secondary" type="button" onclick="copyResult()">결과 복사</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" aria-live="polite">
+          <div class="panel-head">
+            <h2>계산 결과</h2>
+            <p>세후 배당금은 입력한 원천징수세율을 단순 반영한 참고값입니다.</p>
+          </div>
+
+          <div class="result-wrap">
+            <div class="main-result">
+              <span class="result-label">세후 연간 배당금</span>
+              <div id="netAnnualDividend" class="result-money green">₩0</div>
+              <div id="yieldView" class="result-rate">매수가 기준 0.00%</div>
+            </div>
+
+            <div class="result-grid">
+              <div class="result-item">
+                <span>세전 연간 배당금</span>
+                <b id="grossAnnualDividend">₩0</b>
+              </div>
+
+              <div class="result-item">
+                <span>예상 원천징수세</span>
+                <b id="withholdingTax">₩0</b>
+              </div>
+
+              <div class="result-item">
+                <span>세후 1회 배당금</span>
+                <b id="netPerPayment">₩0</b>
+              </div>
+
+              <div class="result-item">
+                <span>세후 월평균 배당금</span>
+                <b id="netMonthlyDividend">₩0</b>
+              </div>
+
+              <div class="result-item">
+                <span>총 매수금액</span>
+                <b id="totalBuyAmount">₩0</b>
+              </div>
+
+              <div class="result-item">
+                <span>현재 평가금액</span>
+                <b id="currentValue">₩0</b>
+              </div>
+
+              <div class="result-item">
+                <span>매수가 기준 배당수익률</span>
+                <b id="yieldOnBuy">0.00%</b>
+              </div>
+
+              <div class="result-item">
+                <span>현재가 기준 배당수익률</span>
+                <b id="yieldOnCurrent">0.00%</b>
+              </div>
+            </div>
+
+            <div id="summary" class="summary-box">
+              <b>계산 대기 중</b><br />
+              보유수량, 1주당 배당금, 배당횟수를 입력하면 예상 배당금을 계산합니다.
+            </div>
+
+            <div id="copyMessage" class="copy-message"></div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2 class="section-title">배당금 계산 핵심</h2>
+
+        <div class="info-grid">
+          <article class="info-card">
+            <h3>세전보다 세후가 중요</h3>
+            <p>실제로 계좌에 들어오는 금액은 원천징수 후 금액이므로 세후 배당금을 같이 봐야 합니다.</p>
+          </article>
+
+          <article class="info-card">
+            <h3>매수가 기준 수익률</h3>
+            <p>내가 실제로 투자한 금액 대비 배당률을 보면 장기 보유 판단에 도움이 됩니다.</p>
+          </article>
+
+          <article class="info-card">
+            <h3>현재가 기준 수익률</h3>
+            <p>지금 새로 진입하는 사람 기준의 배당 매력도는 현재가 기준 수익률로 봅니다.</p>
+          </article>
+        </div>
+
+        <div class="notice">
+          <b>주의사항</b><br />
+          이 계산기는 참고용입니다. 실제 배당금, 지급일, 환율, 원천징수세율, 금융소득종합과세 여부, 계좌 유형, 국가별 조세조약에 따라 실제 수령액은 달라질 수 있습니다.
+          특히 금융소득이 큰 경우 종합과세 대상 여부를 별도로 확인해야 합니다.
+        </div>
+
+        <div class="update">
+          <b>검토 기준</b><br />
+          2026년 6월 24일 기준으로 국내 배당 기본세율 15.4%, 미국주식 배당 원천징수 15%를 빠른 설정에 반영했습니다.
+          세율은 바뀔 수 있으므로 실제 세금 신고나 투자 판단 전에는 증권사·국세청 기준을 다시 확인하세요.
+        </div>
+      </div>
+    </section>
+
+    <section id="related" class="section">
+      <div class="wrap">
+        <h2 class="section-title">관련 주식 계산기</h2>
+
+        <div class="tool-links">
+          <a class="tool-link" href="../stock-average/">
+            <small>대표 도구</small>
+            <b>주식 평단가 계산기</b>
+          </a>
+
+          <a class="tool-link" href="../stock-profit/">
+            <small>완료</small>
+            <b>주식 수익률 계산기</b>
+          </a>
+
+          <a class="tool-link" href="../stock-tax/">
+            <small>완료</small>
+            <b>해외주식 양도세 계산기</b>
+          </a>
+
+          <a class="tool-link" href="../stock-split-buy/">
+            <small>준비 중</small>
+            <b>분할매수 계산기</b>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div>
+        <b>바로해결툴즈</b><br />
+        생활비, 주식, 운세까지 바로 계산하는 무료 미니툴 모음
+      </div>
+
+      <div>
+        <a href="../">메인으로</a>
+        &nbsp;·&nbsp;
+        <a href="../stock-profit/">수익률 계산기</a>
+        &nbsp;·&nbsp;
+        <a href="../stock-tax/">양도세 계산기</a>
+        &nbsp;·&nbsp;
+        <a href="#calculator">위로</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const els = {
+      marketType: document.getElementById("marketType"),
+      stockName: document.getElementById("stockName"),
+      shares: document.getElementById("shares"),
+      paymentCount: document.getElementById("paymentCount"),
+      dividendPerShare: document.getElementById("dividendPerShare"),
+      buyPrice: document.getElementById("buyPrice"),
+      currentPrice: document.getElementById("currentPrice"),
+      taxRate: document.getElementById("taxRate"),
+      exchangeRate: document.getElementById("exchangeRate"),
+      dividendUnit: document.getElementById("dividendUnit"),
+      buyUnit: document.getElementById("buyUnit"),
+      currentUnit: document.getElementById("currentUnit"),
+      netAnnualDividend: document.getElementById("netAnnualDividend"),
+      yieldView: document.getElementById("yieldView"),
+      grossAnnualDividend: document.getElementById("grossAnnualDividend"),
+      withholdingTax: document.getElementById("withholdingTax"),
+      netPerPayment: document.getElementById("netPerPayment"),
+      netMonthlyDividend: document.getElementById("netMonthlyDividend"),
+      totalBuyAmount: document.getElementById("totalBuyAmount"),
+      currentValue: document.getElementById("currentValue"),
+      yieldOnBuy: document.getElementById("yieldOnBuy"),
+      yieldOnCurrent: document.getElementById("yieldOnCurrent"),
+      summary: document.getElementById("summary"),
+      copyMessage: document.getElementById("copyMessage")
+    };
+
+    const numericInputs = [
+      els.shares,
+      els.paymentCount,
+      els.dividendPerShare,
+      els.buyPrice,
+      els.currentPrice,
+      els.taxRate,
+      els.exchangeRate
+    ];
+
+    function onlyNumber(value) {
+      if (value === null || value === undefined) return 0;
+      const cleaned = String(value).replace(/,/g, "").replace(/[^\d.-]/g, "");
+      const number = parseFloat(cleaned);
+      return Number.isFinite(number) ? number : 0;
+    }
+
+    function formatInput(input) {
+      const raw = input.value;
+      if (raw === "" || raw === "-") return;
+
+      if (input === els.taxRate || input === els.dividendPerShare || input === els.buyPrice || input === els.currentPrice || input === els.exchangeRate) {
+        input.value = String(raw).replace(/[^\d.]/g, "");
+        return;
+      }
+
+      const cursorAtEnd = input.selectionStart === input.value.length;
+      const number = onlyNumber(raw);
+
+      if (!Number.isFinite(number)) return;
+
+      input.value = number.toLocaleString("ko-KR");
+
+      if (cursorAtEnd) {
+        input.setSelectionRange(input.value.length, input.value.length);
+      }
+    }
+
+    function plainWon(value) {
+      return "₩" + Math.round(value).toLocaleString("ko-KR");
+    }
+
+    function plainCurrency(value) {
+      const market = els.marketType.value;
+
+      if (market === "us") {
+        return "$" + Number(value).toLocaleString("en-US", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        });
+      }
+
+      return "₩" + Math.round(value).toLocaleString("ko-KR");
+    }
+
+    function percent(value) {
+      if (!Number.isFinite(value)) return "0.00%";
+      return value.toFixed(2) + "%";
+    }
+
+    function getCurrencyLabel() {
+      return els.marketType.value === "us" ? "달러" : "원";
+    }
+
+    function applyMarketDefaults(shouldClear) {
+      const type = els.marketType.value;
+
+      if (type === "kr") {
+        els.taxRate.value = "15.4";
+        els.exchangeRate.value = "1";
+        els.dividendUnit.textContent = "원";
+        els.buyUnit.textContent = "원";
+        els.currentUnit.textContent = "원";
+      }
+
+      if (type === "us") {
+        els.taxRate.value = "15";
+        if (onlyNumber(els.exchangeRate.value) <= 1) {
+          els.exchangeRate.value = "1,380";
+        }
+        els.dividendUnit.textContent = "$";
+        els.buyUnit.textContent = "$";
+        els.currentUnit.textContent = "$";
+      }
+
+      if (type === "custom") {
+        els.dividendUnit.textContent = "입력";
+        els.buyUnit.textContent = "입력";
+        els.currentUnit.textContent = "입력";
+      }
+
+      if (shouldClear) {
+        els.stockName.value = "";
+        els.shares.value = "";
+        els.paymentCount.value = "4";
+        els.dividendPerShare.value = "";
+        els.buyPrice.value = "";
+        els.currentPrice.value = "";
+      }
+
+      numericInputs.forEach(formatInput);
+      calculateDividend();
+    }
+
+    function calculateValues() {
+      const shares = Math.max(0, onlyNumber(els.shares.value));
+      const paymentCount = Math.max(0, onlyNumber(els.paymentCount.value));
+      const dividendPerShare = Math.max(0, onlyNumber(els.dividendPerShare.value));
+      const buyPrice = Math.max(0, onlyNumber(els.buyPrice.value));
+      const currentPrice = Math.max(0, onlyNumber(els.currentPrice.value));
+      const taxRate = Math.max(0, onlyNumber(els.taxRate.value)) / 100;
+      const exchangeRate = Math.max(0, onlyNumber(els.exchangeRate.value)) || 1;
+
+      const grossPerPaymentLocal = shares * dividendPerShare;
+      const grossAnnualLocal = grossPerPaymentLocal * paymentCount;
+      const withholdingTaxLocal = grossAnnualLocal * taxRate;
+      const netAnnualLocal = grossAnnualLocal - withholdingTaxLocal;
+      const netPerPaymentLocal = paymentCount > 0 ? netAnnualLocal / paymentCount : 0;
+      const netMonthlyLocal = netAnnualLocal / 12;
+
+      const totalBuyLocal = shares * buyPrice;
+      const currentValueLocal = shares * currentPrice;
+
+      const grossAnnualKrw = grossAnnualLocal * exchangeRate;
+      const withholdingTaxKrw = withholdingTaxLocal * exchangeRate;
+      const netAnnualKrw = netAnnualLocal * exchangeRate;
+      const netPerPaymentKrw = netPerPaymentLocal * exchangeRate;
+      const netMonthlyKrw = netMonthlyLocal * exchangeRate;
+      const totalBuyKrw = totalBuyLocal * exchangeRate;
+      const currentValueKrw = currentValueLocal * exchangeRate;
+
+      const yieldOnBuy = totalBuyLocal > 0 ? (grossAnnualLocal / totalBuyLocal) * 100 : 0;
+      const yieldOnCurrent = currentValueLocal > 0 ? (grossAnnualLocal / currentValueLocal) * 100 : 0;
+      const netYieldOnBuy = totalBuyLocal > 0 ? (netAnnualLocal / totalBuyLocal) * 100 : 0;
+      const netYieldOnCurrent = currentValueLocal > 0 ? (netAnnualLocal / currentValueLocal) * 100 : 0;
+
+      return {
+        shares,
+        paymentCount,
+        dividendPerShare,
+        buyPrice,
+        currentPrice,
+        taxRate,
+        exchangeRate,
+        grossPerPaymentLocal,
+        grossAnnualLocal,
+        withholdingTaxLocal,
+        netAnnualLocal,
+        netPerPaymentLocal,
+        netMonthlyLocal,
+        totalBuyLocal,
+        currentValueLocal,
+        grossAnnualKrw,
+        withholdingTaxKrw,
+        netAnnualKrw,
+        netPerPaymentKrw,
+        netMonthlyKrw,
+        totalBuyKrw,
+        currentValueKrw,
+        yieldOnBuy,
+        yieldOnCurrent,
+        netYieldOnBuy,
+        netYieldOnCurrent
+      };
+    }
+
+    function calculateDividend() {
+      const data = calculateValues();
+
+      if (data.shares <= 0 || data.paymentCount <= 0 || data.dividendPerShare <= 0) {
+        els.netAnnualDividend.textContent = "₩0";
+        els.yieldView.textContent = "매수가 기준 0.00%";
+        els.grossAnnualDividend.textContent = "₩0";
+        els.withholdingTax.textContent = "₩0";
+        els.netPerPayment.textContent = "₩0";
+        els.netMonthlyDividend.textContent = "₩0";
+        els.totalBuyAmount.textContent = "₩0";
+        els.currentValue.textContent = "₩0";
+        els.yieldOnBuy.textContent = "0.00%";
+        els.yieldOnCurrent.textContent = "0.00%";
+        els.summary.innerHTML = "<b>입력값 확인 필요</b><br />보유수량, 1주당 배당금, 연간 배당횟수를 입력하세요.";
+        els.copyMessage.textContent = "";
+        return;
+      }
+
+      els.netAnnualDividend.textContent = plainWon(data.netAnnualKrw);
+      els.yieldView.textContent = "세후 매수가 기준 " + percent(data.netYieldOnBuy);
+      els.grossAnnualDividend.textContent = plainWon(data.grossAnnualKrw);
+      els.withholdingTax.textContent = plainWon(data.withholdingTaxKrw);
+      els.netPerPayment.textContent = plainWon(data.netPerPaymentKrw);
+      els.netMonthlyDividend.textContent = plainWon(data.netMonthlyKrw);
+      els.totalBuyAmount.textContent = plainWon(data.totalBuyKrw);
+      els.currentValue.textContent = plainWon(data.currentValueKrw);
+      els.yieldOnBuy.textContent = percent(data.yieldOnBuy) + " / 세후 " + percent(data.netYieldOnBuy);
+      els.yieldOnCurrent.textContent = percent(data.yieldOnCurrent) + " / 세후 " + percent(data.netYieldOnCurrent);
+
+      const name = els.stockName.value.trim() || "해당 종목";
+      const currencyLabel = getCurrencyLabel();
+
+      let judgment = "";
+      if (data.netYieldOnBuy >= 5) {
+        judgment = "세후 배당수익률이 높은 편입니다. 다만 배당 유지 가능성과 주가 변동 위험까지 같이 봐야 합니다.";
+      } else if (data.netYieldOnBuy >= 3) {
+        judgment = "배당주로 검토할 만한 구간입니다. 성장성보다 현금흐름 목적이라면 배당 안정성이 중요합니다.";
+      } else if (data.netYieldOnBuy > 0) {
+        judgment = "배당은 발생하지만 수익률은 낮은 편입니다. 배당보다 주가 상승 기대가 더 중요한 종목일 수 있습니다.";
+      } else {
+        judgment = "배당수익률 계산을 위해 매수가와 배당금을 다시 확인하세요.";
+      }
+
+      els.summary.innerHTML =
+        "<b>" + escapeHtml(name) + " 배당 계산 요약</b><br />" +
+        "보유수량 " + data.shares.toLocaleString("ko-KR") + "주, 1주당 1회 배당금 " + plainCurrency(data.dividendPerShare) + ", 연 " + data.paymentCount.toLocaleString("ko-KR") + "회 배당 기준입니다. " +
+        "세전 연간 배당금은 <b>" + plainWon(data.grossAnnualKrw) + "</b>, 세후 연간 배당금은 <b>" + plainWon(data.netAnnualKrw) + "</b>입니다. " +
+        "세후 월평균 배당금은 <b>" + plainWon(data.netMonthlyKrw) + "</b>이고, 매수가 기준 세후 배당수익률은 <b>" + percent(data.netYieldOnBuy) + "</b>입니다.<br />" +
+        "입력 통화 기준은 " + currencyLabel + "이며, 원화 환산에는 입력한 환율 " + data.exchangeRate.toLocaleString("ko-KR") + "원을 적용했습니다.<br />" +
+        judgment;
+
+      els.copyMessage.textContent = "";
+    }
+
+    function escapeHtml(text) {
+      return text
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function setPreset(type) {
+      if (type === "kr") {
+        els.marketType.value = "kr";
+        els.stockName.value = "국내 배당 예시";
+        els.shares.value = "100";
+        els.paymentCount.value = "4";
+        els.dividendPerShare.value = "361";
+        els.buyPrice.value = "70,000";
+        els.currentPrice.value = "75,000";
+        els.taxRate.value = "15.4";
+        els.exchangeRate.value = "1";
+      }
+
+      if (type === "us") {
+        els.marketType.value = "us";
+        els.stockName.value = "미국 배당 예시";
+        els.shares.value = "50";
+        els.paymentCount.value = "4";
+        els.dividendPerShare.value = "0.75";
+        els.buyPrice.value = "70";
+        els.currentPrice.value = "75";
+        els.taxRate.value = "15";
+        els.exchangeRate.value = "1,380";
+      }
+
+      if (type === "monthly") {
+        els.marketType.value = "us";
+        els.stockName.value = "월배당 예시";
+        els.shares.value = "100";
+        els.paymentCount.value = "12";
+        els.dividendPerShare.value = "0.25";
+        els.buyPrice.value = "55";
+        els.currentPrice.value = "58";
+        els.taxRate.value = "15";
+        els.exchangeRate.value = "1,380";
+      }
+
+      if (els.marketType.value === "kr") {
+        els.dividendUnit.textContent = "원";
+        els.buyUnit.textContent = "원";
+        els.currentUnit.textContent = "원";
+      } else if (els.marketType.value === "us") {
+        els.dividendUnit.textContent = "$";
+        els.buyUnit.textContent = "$";
+        els.currentUnit.textContent = "$";
+      }
+
+      numericInputs.forEach(formatInput);
+      calculateDividend();
+    }
+
+    function fillExample() {
+      setPreset("kr");
+      document.getElementById("calculator").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function resetForm() {
+      els.marketType.value = "kr";
+      els.stockName.value = "";
+      els.shares.value = "";
+      els.paymentCount.value = "4";
+      els.dividendPerShare.value = "";
+      els.buyPrice.value = "";
+      els.currentPrice.value = "";
+      els.taxRate.value = "15.4";
+      els.exchangeRate.value = "1";
+      applyMarketDefaults(false);
+      calculateDividend();
+    }
+
+    async function copyResult() {
+      const data = calculateValues();
+
+      if (data.shares <= 0 || data.paymentCount <= 0 || data.dividendPerShare <= 0) {
+        els.copyMessage.textContent = "먼저 계산할 값을 입력하세요.";
+        return;
+      }
+
+      const name = els.stockName.value.trim() || "종목명 미입력";
+      const text =
+        "[바로해결툴즈 배당금 계산 결과]\n" +
+        "종목: " + name + "\n" +
+        "보유수량: " + data.shares.toLocaleString("ko-KR") + "주\n" +
+        "1주당 1회 배당금: " + plainCurrency(data.dividendPerShare) + "\n" +
+        "연간 배당횟수: " + data.paymentCount.toLocaleString("ko-KR") + "회\n" +
+        "세율: " + (data.taxRate * 100).toFixed(2) + "%\n" +
+        "환율: " + data.exchangeRate.toLocaleString("ko-KR") + "원\n" +
+        "세전 연간 배당금: " + plainWon(data.grossAnnualKrw) + "\n" +
+        "예상 원천징수세: " + plainWon(data.withholdingTaxKrw) + "\n" +
+        "세후 연간 배당금: " + plainWon(data.netAnnualKrw) + "\n" +
+        "세후 월평균 배당금: " + plainWon(data.netMonthlyKrw) + "\n" +
+        "매수가 기준 배당수익률: " + percent(data.yieldOnBuy) + " / 세후 " + percent(data.netYieldOnBuy) + "\n" +
+        "현재가 기준 배당수익률: " + percent(data.yieldOnCurrent) + " / 세후 " + percent(data.netYieldOnCurrent);
+
+      try {
+        await navigator.clipboard.writeText(text);
+        els.copyMessage.textContent = "계산 결과가 복사됐습니다.";
+      } catch (error) {
+        els.copyMessage.textContent = "복사 기능을 사용할 수 없습니다. 결과를 직접 선택해 복사하세요.";
+      }
+    }
+
+    els.marketType.addEventListener("change", () => {
+      applyMarketDefaults(false);
+    });
+
+    numericInputs.forEach((input) => {
+      input.addEventListener("input", () => {
+        formatInput(input);
+        calculateDividend();
+      });
+    });
+
+    els.stockName.addEventListener("input", calculateDividend);
+
+    applyMarketDefaults(false);
+    calculateDividend();
+  </script>
+</body>
+</html>
