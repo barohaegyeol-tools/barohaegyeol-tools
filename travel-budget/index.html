@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>여름휴가 여행경비 계산기 | 1인당 여행비·숙박비·식비 계산 | 바로해결툴즈</title>
+  <meta name="description" content="여행 인원, 여행일수, 숙박비, 교통비, 식비, 액티비티 비용을 입력하면 총 여행경비와 1인당 경비, 하루 평균 비용을 계산하는 무료 여행경비 계산기입니다." />
+  <meta name="keywords" content="여행경비 계산기, 여름휴가 경비 계산기, 여행비 계산기, 1인당 여행비 계산, 휴가비 계산기, 숙박비 식비 교통비 계산, 바로해결툴즈" />
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/travel-budget/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="여름휴가 여행경비 계산기 | 바로해결툴즈" />
+  <meta property="og:description" content="인원수, 여행일수, 숙박비, 교통비, 식비까지 넣고 1인당 여행경비를 바로 계산하세요." />
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/travel-budget/" />
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <meta name="theme-color" content="#14b8a6" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "여름휴가 여행경비 계산기",
+    "url": "https://barohaegyeol-tools.pages.dev/travel-budget/",
+    "applicationCategory": "TravelApplication",
+    "operatingSystem": "All",
+    "description": "여행 인원, 여행일수, 숙박비, 교통비, 식비, 액티비티 비용을 입력해 총 여행경비와 1인당 경비를 계산하는 무료 웹 계산기입니다.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --cream: #fff7ed;
+      --cream2: #fffbeb;
+      --mint: #14b8a6;
+      --mint2: #2dd4bf;
+      --sky: #38bdf8;
+      --coral: #fb7185;
+      --orange: #fb923c;
+      --yellow: #facc15;
+      --purple: #8b5cf6;
+      --green: #22c55e;
+      --text: #17313b;
+      --text2: #334155;
+      --muted: #64748b;
+      --white: rgba(255, 255, 255, 0.78);
+      --card: rgba(255, 255, 255, 0.86);
+      --line: rgba(15, 23, 42, 0.12);
+      --shadow: 0 22px 70px rgba(15, 23, 42, 0.16);
+      --radius: 26px;
+      --max: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      background:
+        radial-gradient(circle at 10% 6%, rgba(20, 184, 166, 0.26), transparent 28%),
+        radial-gradient(circle at 88% 10%, rgba(251, 113, 133, 0.22), transparent 30%),
+        radial-gradient(circle at 50% 100%, rgba(250, 204, 21, 0.22), transparent 35%),
+        linear-gradient(135deg, #fff7ed 0%, #ecfeff 45%, #fef3c7 100%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(18px);
+      background: rgba(255, 251, 235, 0.76);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    }
+
+    .nav {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 950;
+      letter-spacing: -0.045em;
+      color: #0f172a;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #14b8a6, #fb923c);
+      color: #fff;
+      box-shadow: 0 14px 34px rgba(20, 184, 166, 0.28);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #475569;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .nav-links a {
+      padding: 9px 12px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      font-weight: 800;
+    }
+
+    .nav-links a:hover {
+      border-color: rgba(15, 23, 42, 0.10);
+      background: rgba(255, 255, 255, 0.58);
+    }
+
+    .hero {
+      padding: 58px 0 32px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.03fr 0.97fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 12px;
+      border: 1px solid rgba(15, 23, 42, 0.10);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.62);
+      color: #475569;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .badge.hot {
+      border-color: rgba(251, 146, 60, 0.28);
+      background: linear-gradient(135deg, rgba(251, 146, 60, 0.18), rgba(250, 204, 21, 0.18));
+      color: #9a3412;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(36px, 6vw, 64px);
+      line-height: 1.02;
+      letter-spacing: -0.075em;
+      color: #0f172a;
+    }
+
+    h1 strong {
+      color: #0f766e;
+      position: relative;
+    }
+
+    h1 strong::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 4px;
+      height: 12px;
+      background: rgba(250, 204, 21, 0.38);
+      z-index: -1;
+      border-radius: 999px;
+    }
+
+    .hero-desc {
+      margin: 20px 0 0;
+      color: var(--text2);
+      font-size: clamp(16px, 2vw, 19px);
+      max-width: 680px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      border: 0;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 13px 18px;
+      min-height: 48px;
+      font-weight: 950;
+      font-size: 15px;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease, border .18s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(135deg, #14b8a6, #0ea5e9);
+      box-shadow: 0 16px 40px rgba(14, 165, 233, 0.24);
+    }
+
+    .btn-secondary {
+      color: #0f172a;
+      background: rgba(255, 255, 255, 0.68);
+      border: 1px solid rgba(15, 23, 42, 0.10);
+    }
+
+    .hero-card {
+      position: relative;
+      min-height: 354px;
+      border: 1px solid rgba(15, 23, 42, 0.10);
+      border-radius: 34px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 22% 20%, rgba(250, 204, 21, 0.38), transparent 25%),
+        radial-gradient(circle at 84% 18%, rgba(251, 113, 133, 0.28), transparent 28%),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.82), rgba(240, 253, 250, 0.72));
+      box-shadow: var(--shadow);
+      padding: 26px;
+    }
+
+    .travel-visual {
+      height: 204px;
+      border-radius: 26px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(15, 23, 42, 0.09);
+      background:
+        linear-gradient(180deg, #7dd3fc 0%, #bae6fd 42%, #fef3c7 43%, #fde68a 100%);
+    }
+
+    .sun {
+      position: absolute;
+      right: 38px;
+      top: 28px;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: #facc15;
+      box-shadow: 0 0 0 14px rgba(250, 204, 21, 0.18), 0 0 38px rgba(250, 204, 21, 0.40);
+    }
+
+    .sea {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 54px;
+      height: 46px;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(255,255,255,0.7) 0 8px, transparent 9px),
+        radial-gradient(circle at 55% 0%, rgba(255,255,255,0.55) 0 7px, transparent 8px),
+        linear-gradient(180deg, #22d3ee, #0f766e);
+    }
+
+    .sand {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 64px;
+      background: linear-gradient(180deg, #fde68a, #fdba74);
+    }
+
+    .palm {
+      position: absolute;
+      left: 40px;
+      bottom: 38px;
+      width: 72px;
+      height: 128px;
+    }
+
+    .trunk {
+      position: absolute;
+      left: 34px;
+      bottom: 0;
+      width: 13px;
+      height: 92px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #92400e, #b45309);
+      transform: rotate(8deg);
+      transform-origin: bottom;
+    }
+
+    .leaf {
+      position: absolute;
+      left: 30px;
+      top: 16px;
+      width: 62px;
+      height: 22px;
+      border-radius: 100% 0 100% 0;
+      background: #16a34a;
+      transform-origin: left center;
+    }
+
+    .leaf:nth-child(2) { transform: rotate(-42deg); }
+    .leaf:nth-child(3) { transform: rotate(-12deg); background: #22c55e; }
+    .leaf:nth-child(4) { transform: rotate(18deg); }
+    .leaf:nth-child(5) { transform: rotate(52deg); background: #22c55e; }
+    .leaf:nth-child(6) { transform: rotate(88deg); width: 48px; }
+
+    .suitcase {
+      position: absolute;
+      right: 56px;
+      bottom: 27px;
+      width: 72px;
+      height: 58px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #fb7185, #8b5cf6);
+      box-shadow: 0 16px 30px rgba(15, 23, 42, 0.18);
+    }
+
+    .suitcase::before {
+      content: "";
+      position: absolute;
+      left: 22px;
+      top: -12px;
+      width: 28px;
+      height: 18px;
+      border: 5px solid #7c3aed;
+      border-bottom: 0;
+      border-radius: 14px 14px 0 0;
+    }
+
+    .suitcase::after {
+      content: "";
+      position: absolute;
+      left: 34px;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: rgba(255,255,255,0.38);
+    }
+
+    .floating-stat {
+      position: absolute;
+      border: 1px solid rgba(15, 23, 42, 0.10);
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 14px 16px;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.16);
+    }
+
+    .floating-stat.one {
+      left: 24px;
+      bottom: 30px;
+    }
+
+    .floating-stat.two {
+      right: 24px;
+      bottom: 76px;
+    }
+
+    .floating-stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .floating-stat b {
+      display: block;
+      margin-top: 2px;
+      font-size: 22px;
+      letter-spacing: -0.045em;
+      color: #0f766e;
+    }
+
+    .section {
+      padding: 28px 0;
+    }
+
+    .section-title {
+      margin: 0 0 16px;
+      font-size: 28px;
+      letter-spacing: -0.055em;
+      color: #0f172a;
+    }
+
+    .calculator {
+      display: grid;
+      grid-template-columns: 1fr 0.92fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .panel {
+      border: 1px solid rgba(15, 23, 42, 0.10);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .panel-head {
+      padding: 22px 22px 0;
+    }
+
+    .panel-head h2 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: -0.045em;
+      color: #0f172a;
+    }
+
+    .panel-head p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .form {
+      padding: 22px;
+      display: grid;
+      gap: 15px;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .field label {
+      font-size: 14px;
+      font-weight: 900;
+      color: #334155;
+    }
+
+    .hint {
+      margin-top: -3px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input, select {
+      width: 100%;
+      min-height: 50px;
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      border-radius: 17px;
+      background: rgba(255, 255, 255, 0.82);
+      color: #0f172a;
+      padding: 0 14px;
+      font-size: 16px;
+      outline: none;
+      transition: border .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+
+    input:focus, select:focus {
+      border-color: rgba(20, 184, 166, 0.72);
+      box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.14);
+      background: #fff;
+    }
+
+    .unit {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 850;
+      pointer-events: none;
+    }
+
+    .input-wrap.has-unit input {
+      padding-right: 64px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+
+    .preset-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .preset {
+      border: 1px solid rgba(15, 23, 42, 0.10);
+      background: rgba(255, 255, 255, 0.72);
+      color: #334155;
+      border-radius: 999px;
+      padding: 9px 11px;
+      font-weight: 850;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .preset:hover {
+      background: rgba(20, 184, 166, 0.14);
+      color: #0f766e;
+      border-color: rgba(20, 184, 166, 0.32);
+    }
+
+    .button-row {
+      display: grid;
+      grid-template-columns: 1fr 0.7fr;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .result-wrap {
+      padding: 22px;
+    }
+
+    .main-result {
+      border-radius: 24px;
+      padding: 22px;
+      background:
+        linear-gradient(135deg, rgba(20, 184, 166, 0.18), rgba(251, 146, 60, 0.18)),
+        rgba(255, 255, 255, 0.64);
+      border: 1px solid rgba(20, 184, 166, 0.22);
+    }
+
+    .result-label {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .result-money {
+      margin-top: 4px;
+      font-size: clamp(30px, 5vw, 44px);
+      line-height: 1.05;
+      font-weight: 950;
+      letter-spacing: -0.055em;
+      color: #0f766e;
+    }
+
+    .result-rate {
+      margin-top: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 14px;
+      font-weight: 950;
+      color: #9a3412;
+      background: rgba(255, 255, 255, 0.62);
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .result-item {
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(15, 23, 42, 0.09);
+      background: rgba(255, 255, 255, 0.58);
+    }
+
+    .result-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .result-item b {
+      display: block;
+      margin-top: 3px;
+      font-size: 17px;
+      letter-spacing: -0.035em;
+      color: #0f172a;
+    }
+
+    .summary-box {
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(15, 23, 42, 0.10);
+      background: rgba(255, 255, 255, 0.62);
+      color: var(--text2);
+      font-size: 14px;
+    }
+
+    .summary-box b {
+      color: #0f172a;
+    }
+
+    .saving-list {
+      margin: 12px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 8px;
+    }
+
+    .saving-list li {
+      padding: 10px 12px;
+      border-radius: 15px;
+      background: rgba(20, 184, 166, 0.10);
+      border: 1px solid rgba(20, 184, 166, 0.16);
+      color: #134e4a;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .copy-message {
+      min-height: 22px;
+      color: #0f766e;
+      font-size: 13px;
+      font-weight: 850;
+      margin-top: 8px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .info-card {
+      border: 1px solid rgba(15, 23, 42, 0.10);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.68);
+      padding: 18px;
+      box-shadow: 0 14px 36px rgba(15, 23, 42, 0.07);
+    }
+
+    .info-card h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+      letter-spacing: -0.035em;
+      color: #0f172a;
+    }
+
+    .info-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .tool-links {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .tool-link {
+      border: 1px solid rgba(15, 23, 42, 0.10);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.66);
+      padding: 16px;
+      transition: transform .18s ease, background .18s ease, border .18s ease;
+    }
+
+    .tool-link:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.92);
+      border-color: rgba(20, 184, 166, 0.28);
+    }
+
+    .tool-link small {
+      color: #0f766e;
+      font-weight: 950;
+    }
+
+    .tool-link b {
+      display: block;
+      margin-top: 4px;
+      letter-spacing: -0.035em;
+      color: #0f172a;
+    }
+
+    .notice {
+      border: 1px solid rgba(251, 146, 60, 0.24);
+      background: rgba(255, 237, 213, 0.70);
+      color: #9a3412;
+      border-radius: 22px;
+      padding: 18px;
+      margin-top: 18px;
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .update {
+      border: 1px solid rgba(20, 184, 166, 0.20);
+      background: rgba(204, 251, 241, 0.58);
+      color: #134e4a;
+      border-radius: 22px;
+      padding: 18px;
+      margin-top: 14px;
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .footer {
+      padding: 38px 0 48px;
+      color: var(--muted);
+      border-top: 1px solid rgba(15, 23, 42, 0.10);
+      margin-top: 34px;
+      font-size: 14px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer a {
+      color: #0f766e;
+      font-weight: 900;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .calculator {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 38px;
+      }
+
+      .hero-card {
+        min-height: 300px;
+      }
+
+      .info-grid,
+      .tool-links {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .wrap {
+        width: min(100% - 22px, var(--max));
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 0;
+      }
+
+      .nav-links {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 3px;
+      }
+
+      .grid-2,
+      .grid-3,
+      .button-row,
+      .result-grid,
+      .info-grid,
+      .tool-links {
+        grid-template-columns: 1fr;
+      }
+
+      .panel-head,
+      .form,
+      .result-wrap {
+        padding: 18px;
+      }
+
+      .hero-card {
+        padding: 18px;
+        border-radius: 26px;
+      }
+
+      .floating-stat.two {
+        right: 18px;
+        bottom: 70px;
+      }
+
+      .floating-stat.one {
+        left: 18px;
+        bottom: 24px;
+      }
+
+      .car,
+      .suitcase {
+        transform: scale(0.88);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="../" aria-label="바로해결툴즈 메인으로 이동">
+        <span class="brand-mark">B</span>
+        <span>바로해결툴즈</span>
+      </a>
+
+      <nav class="nav-links" aria-label="주요 메뉴">
+        <a href="../">전체 도구</a>
+        <a href="#calculator">경비 계산</a>
+        <a href="#tips">절약 팁</a>
+        <a href="#related">관련 도구</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="badge-row">
+            <span class="badge hot">여름휴가 계산기</span>
+            <span class="badge">1인당 경비</span>
+            <span class="badge">숙박·교통·식비</span>
+            <span class="badge">예산 초과 확인</span>
+          </div>
+
+          <h1>
+            여행 가기 전<br />
+            <strong>1인당 얼마인지</strong> 먼저
+          </h1>
+
+          <p class="hero-desc">
+            인원수, 여행일수, 숙박비, 교통비, 식비, 액티비티 비용을 입력하면
+            총 여행경비, 1인당 경비, 하루 평균 비용, 예산 초과 여부를 바로 계산합니다.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#calculator">바로 계산하기</a>
+            <button class="btn btn-secondary" type="button" onclick="fillExample()">여름휴가 예시 넣기</button>
+          </div>
+        </div>
+
+        <div class="hero-card" aria-label="여름휴가 여행 그래픽">
+          <div class="travel-visual">
+            <div class="sun"></div>
+            <div class="palm">
+              <div class="trunk"></div>
+              <div class="leaf"></div>
+              <div class="leaf"></div>
+              <div class="leaf"></div>
+              <div class="leaf"></div>
+              <div class="leaf"></div>
+            </div>
+            <div class="sea"></div>
+            <div class="sand"></div>
+            <div class="suitcase"></div>
+          </div>
+
+          <div class="floating-stat one">
+            <span>예상 총경비</span>
+            <b>₩1,240,000</b>
+          </div>
+
+          <div class="floating-stat two">
+            <span>1인당 경비</span>
+            <b>₩310,000</b>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="calculator" class="section">
+      <div class="wrap calculator">
+        <section class="panel">
+          <div class="panel-head">
+            <h2>입력값</h2>
+            <p>대략 입력해도 됩니다. 여행은 정확한 원 단위보다 빠진 비용을 줄이는 게 핵심입니다.</p>
+          </div>
+
+          <div class="form">
+            <div class="grid-2">
+              <div class="field">
+                <label for="tripName">여행명 선택 입력</label>
+                <input id="tripName" type="text" placeholder="예: 부산 2박3일, 제주도 가족여행" autocomplete="off" />
+              </div>
+
+              <div class="field">
+                <label for="totalBudget">전체 예산 선택 입력</label>
+                <div class="input-wrap has-unit">
+                  <input id="totalBudget" type="text" inputmode="numeric" placeholder="예: 1,500,000" />
+                  <span class="unit">원</span>
+                </div>
+                <div class="hint">예산을 비워두면 초과 여부 없이 경비만 계산합니다.</div>
+              </div>
+            </div>
+
+            <div class="grid-3">
+              <div class="field">
+                <label for="people">여행 인원</label>
+                <div class="input-wrap has-unit">
+                  <input id="people" type="text" inputmode="numeric" value="4" />
+                  <span class="unit">명</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="days">여행 일수</label>
+                <div class="input-wrap has-unit">
+                  <input id="days" type="text" inputmode="numeric" value="3" />
+                  <span class="unit">일</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="nights">숙박 일수</label>
+                <div class="input-wrap has-unit">
+                  <input id="nights" type="text" inputmode="numeric" value="2" />
+                  <span class="unit">박</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="lodgingMode">숙박비 입력 방식</label>
+              <select id="lodgingMode">
+                <option value="total">숙박비 총액 입력</option>
+                <option value="perNight">1박당 숙박비 입력</option>
+              </select>
+            </div>
+
+            <div class="grid-2">
+              <div class="field">
+                <label for="lodgingCost">숙박비</label>
+                <div class="input-wrap has-unit">
+                  <input id="lodgingCost" type="text" inputmode="numeric" placeholder="예: 500,000" />
+                  <span class="unit">원</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="transportCost">교통비 총액</label>
+                <div class="input-wrap has-unit">
+                  <input id="transportCost" type="text" inputmode="numeric" placeholder="예: 300,000" />
+                  <span class="unit">원</span>
+                </div>
+                <div class="hint">항공권, 기차, 렌터카, 기름값, 톨비 등을 합산</div>
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="field">
+                <label for="foodPerPersonDay">식비</label>
+                <div class="input-wrap has-unit">
+                  <input id="foodPerPersonDay" type="text" inputmode="numeric" placeholder="예: 35,000" />
+                  <span class="unit">원</span>
+                </div>
+                <div class="hint">1인 1일 기준 식비</div>
+              </div>
+
+              <div class="field">
+                <label for="activityPerPerson">입장권 / 액티비티</label>
+                <div class="input-wrap has-unit">
+                  <input id="activityPerPerson" type="text" inputmode="numeric" placeholder="예: 50,000" />
+                  <span class="unit">원</span>
+                </div>
+                <div class="hint">1인 전체 여행 기준</div>
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="field">
+                <label for="shoppingCost">쇼핑 / 기념품 / 카페</label>
+                <div class="input-wrap has-unit">
+                  <input id="shoppingCost" type="text" inputmode="numeric" placeholder="예: 120,000" />
+                  <span class="unit">원</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="extraCost">기타비용</label>
+                <div class="input-wrap has-unit">
+                  <input id="extraCost" type="text" inputmode="numeric" placeholder="예: 80,000" />
+                  <span class="unit">원</span>
+                </div>
+                <div class="hint">주차비, 짐 보관, 비상약, 현장 추가비용 등</div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="reserveRate">비상 예비비</label>
+              <div class="input-wrap has-unit">
+                <input id="reserveRate" type="text" inputmode="decimal" value="10" />
+                <span class="unit">%</span>
+              </div>
+              <div class="hint">예상보다 더 쓰는 비용을 대비해 5~15% 정도를 추천합니다.</div>
+            </div>
+
+            <div class="field">
+              <label>빠른 설정</label>
+              <div class="preset-row">
+                <button class="preset" type="button" onclick="setPreset('couple')">커플 2박3일</button>
+                <button class="preset" type="button" onclick="setPreset('family')">가족 3박4일</button>
+                <button class="preset" type="button" onclick="setPreset('friends')">친구 4명</button>
+                <button class="preset" type="button" onclick="resetForm()">초기화</button>
+              </div>
+            </div>
+
+            <div class="button-row">
+              <button class="btn btn-primary" type="button" onclick="calculateTravel()">여행경비 계산하기</button>
+              <button class="btn btn-secondary" type="button" onclick="copyResult()">결과 복사</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" aria-live="polite">
+          <div class="panel-head">
+            <h2>계산 결과</h2>
+            <p>총경비와 1인당 경비를 같이 봐야 실제 부담이 바로 보입니다.</p>
+          </div>
+
+          <div class="result-wrap">
+            <div class="main-result">
+              <span class="result-label">예상 총 여행경비</span>
+              <div id="totalCostView" class="result-money">₩0</div>
+              <div id="perPersonView" class="result-rate">1인당 ₩0</div>
+            </div>
+
+            <div class="result-grid">
+              <div class="result-item">
+                <span>숙박비</span>
+                <b id="lodgingView">₩0</b>
+              </div>
+
+              <div class="result-item">
+                <span>교통비</span>
+                <b id="transportView">₩0</b>
+              </div>
+
+              <div class="result-item">
+                <span>식비 총액</span>
+                <b id="foodView">₩0</b>
+              </div>
+
+              <div class="result-item">
+                <span>액티비티 총액</span>
+                <b id="activityView">₩0</b>
+              </div>
+
+              <div class="result-item">
+                <span>쇼핑·기타</span>
+                <b id="miscView">₩0</b>
+              </div>
+
+              <div class="result-item">
+                <span>예비비</span>
+                <b id="reserveView">₩0</b>
+              </div>
+
+              <div class="result-item">
+                <span>하루 평균</span>
+                <b id="perDayView">₩0</b>
+              </div>
+
+              <div class="result-item">
+                <span>1인 1일 평균</span>
+                <b id="perPersonDayView">₩0</b>
+              </div>
+            </div>
+
+            <div id="summary" class="summary-box">
+              <b>계산 대기 중</b><br />
+              여행 인원, 일수, 주요 비용을 입력하면 예상 여행경비를 계산합니다.
+            </div>
+
+            <div id="savingBox" class="summary-box">
+              <b>자동 절약 팁</b>
+              <ul id="savingList" class="saving-list">
+                <li>숙박·교통·식비를 나눠 입력하면 어디서 줄일 수 있는지 바로 보입니다.</li>
+              </ul>
+            </div>
+
+            <div id="copyMessage" class="copy-message"></div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section id="tips" class="section">
+      <div class="wrap">
+        <h2 class="section-title">여행비 줄이는 핵심</h2>
+
+        <div class="info-grid">
+          <article class="info-card">
+            <h3>숙박비가 제일 큽니다</h3>
+            <p>가족·친구 여행은 숙박비 비중이 커서 지역, 요일, 숙소 등급만 바꿔도 총액이 크게 줄어듭니다.</p>
+          </article>
+
+          <article class="info-card">
+            <h3>식비는 1인 1일로 보기</h3>
+            <p>식비를 총액으로 잡으면 감이 안 옵니다. 1인 1일 기준으로 잡아야 초과 여부가 바로 보입니다.</p>
+          </article>
+
+          <article class="info-card">
+            <h3>예비비는 빼면 안 됩니다</h3>
+            <p>현장 결제, 주차비, 카페, 편의점, 기념품 때문에 실제 지출은 계획보다 늘어나는 경우가 많습니다.</p>
+          </article>
+        </div>
+
+        <div class="notice">
+          <b>주의사항</b><br />
+          이 계산기는 여행 전 예산 계획용 참고 도구입니다. 실제 비용은 성수기 여부, 지역, 교통편, 숙소 조건, 환율, 현장 결제 금액에 따라 달라질 수 있습니다.
+        </div>
+
+        <div class="update">
+          <b>운영 기준</b><br />
+          2026년 6월 24일 기준으로 여름휴가 시즌형 계산기 구조를 반영했습니다.
+          숙박비, 교통비, 식비, 액티비티, 예비비를 나눠 계산해 사용자가 실제 예산을 잡기 쉽게 설계했습니다.
+        </div>
+      </div>
+    </section>
+
+    <section id="related" class="section">
+      <div class="wrap">
+        <h2 class="section-title">관련 도구</h2>
+
+        <div class="tool-links">
+          <a class="tool-link" href="../aircon-bill/">
+            <small>생활비</small>
+            <b>에어컨 전기요금 계산기</b>
+          </a>
+
+          <a class="tool-link" href="../flood-car-checklist/">
+            <small>보험 체크</small>
+            <b>장마철 침수차 보험 체크리스트</b>
+          </a>
+
+          <a class="tool-link" href="../stock-average/">
+            <small>주식</small>
+            <b>주식 평단가 계산기</b>
+          </a>
+
+          <a class="tool-link" href="../tarot/">
+            <small>운세</small>
+            <b>오늘의 AI 타로 운세</b>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div>
+        <b>바로해결툴즈</b><br />
+        생활비, 여행경비, 보험 체크리스트, 주식, 운세까지 바로 확인하는 무료 미니툴 모음
+      </div>
+
+      <div>
+        <a href="../">메인으로</a>
+        &nbsp;·&nbsp;
+        <a href="../aircon-bill/">에어컨 계산기</a>
+        &nbsp;·&nbsp;
+        <a href="#calculator">위로</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const els = {
+      tripName: document.getElementById("tripName"),
+      totalBudget: document.getElementById("totalBudget"),
+      people: document.getElementById("people"),
+      days: document.getElementById("days"),
+      nights: document.getElementById("nights"),
+      lodgingMode: document.getElementById("lodgingMode"),
+      lodgingCost: document.getElementById("lodgingCost"),
+      transportCost: document.getElementById("transportCost"),
+      foodPerPersonDay: document.getElementById("foodPerPersonDay"),
+      activityPerPerson: document.getElementById("activityPerPerson"),
+      shoppingCost: document.getElementById("shoppingCost"),
+      extraCost: document.getElementById("extraCost"),
+      reserveRate: document.getElementById("reserveRate"),
+      totalCostView: document.getElementById("totalCostView"),
+      perPersonView: document.getElementById("perPersonView"),
+      lodgingView: document.getElementById("lodgingView"),
+      transportView: document.getElementById("transportView"),
+      foodView: document.getElementById("foodView"),
+      activityView: document.getElementById("activityView"),
+      miscView: document.getElementById("miscView"),
+      reserveView: document.getElementById("reserveView"),
+      perDayView: document.getElementById("perDayView"),
+      perPersonDayView: document.getElementById("perPersonDayView"),
+      summary: document.getElementById("summary"),
+      savingList: document.getElementById("savingList"),
+      copyMessage: document.getElementById("copyMessage")
+    };
+
+    const moneyInputs = [
+      els.totalBudget,
+      els.lodgingCost,
+      els.transportCost,
+      els.foodPerPersonDay,
+      els.activityPerPerson,
+      els.shoppingCost,
+      els.extraCost
+    ];
+
+    const numericInputs = [
+      els.people,
+      els.days,
+      els.nights,
+      els.reserveRate,
+      ...moneyInputs
+    ];
+
+    function onlyNumber(value) {
+      if (value === null || value === undefined) return 0;
+      const cleaned = String(value).replace(/,/g, "").replace(/[^\d.-]/g, "");
+      const number = parseFloat(cleaned);
+      return Number.isFinite(number) ? number : 0;
+    }
+
+    function formatInput(input) {
+      const raw = input.value;
+      if (raw === "" || raw === "-") return;
+
+      if (input === els.reserveRate) {
+        input.value = String(raw).replace(/[^\d.]/g, "");
+        return;
+      }
+
+      const cursorAtEnd = input.selectionStart === input.value.length;
+      const number = onlyNumber(raw);
+
+      if (!Number.isFinite(number)) return;
+
+      input.value = number.toLocaleString("ko-KR");
+
+      if (cursorAtEnd) {
+        input.setSelectionRange(input.value.length, input.value.length);
+      }
+    }
+
+    function won(value) {
+      return "₩" + Math.round(value).toLocaleString("ko-KR");
+    }
+
+    function calculateValues() {
+      const people = Math.max(1, onlyNumber(els.people.value));
+      const days = Math.max(1, onlyNumber(els.days.value));
+      const nights = Math.max(0, onlyNumber(els.nights.value));
+      const totalBudget = Math.max(0, onlyNumber(els.totalBudget.value));
+      const lodgingInput = Math.max(0, onlyNumber(els.lodgingCost.value));
+      const transportCost = Math.max(0, onlyNumber(els.transportCost.value));
+      const foodPerPersonDay = Math.max(0, onlyNumber(els.foodPerPersonDay.value));
+      const activityPerPerson = Math.max(0, onlyNumber(els.activityPerPerson.value));
+      const shoppingCost = Math.max(0, onlyNumber(els.shoppingCost.value));
+      const extraCost = Math.max(0, onlyNumber(els.extraCost.value));
+      const reserveRate = Math.max(0, onlyNumber(els.reserveRate.value)) / 100;
+
+      const lodgingTotal = els.lodgingMode.value === "perNight"
+        ? lodgingInput * nights
+        : lodgingInput;
+
+      const foodTotal = foodPerPersonDay * people * days;
+      const activityTotal = activityPerPerson * people;
+      const miscTotal = shoppingCost + extraCost;
+      const subtotal = lodgingTotal + transportCost + foodTotal + activityTotal + miscTotal;
+      const reserveCost = subtotal * reserveRate;
+      const totalCost = subtotal + reserveCost;
+      const perPerson = totalCost / people;
+      const perDay = totalCost / days;
+      const perPersonDay = totalCost / people / days;
+      const budgetGap = totalBudget > 0 ? totalBudget - totalCost : 0;
+      const budgetRate = totalBudget > 0 ? (totalCost / totalBudget) * 100 : 0;
+
+      return {
+        people,
+        days,
+        nights,
+        totalBudget,
+        lodgingInput,
+        lodgingTotal,
+        transportCost,
+        foodPerPersonDay,
+        foodTotal,
+        activityPerPerson,
+        activityTotal,
+        shoppingCost,
+        extraCost,
+        miscTotal,
+        subtotal,
+        reserveRate,
+        reserveCost,
+        totalCost,
+        perPerson,
+        perDay,
+        perPersonDay,
+        budgetGap,
+        budgetRate
+      };
+    }
+
+    function calculateTravel() {
+      const data = calculateValues();
+
+      els.totalCostView.textContent = won(data.totalCost);
+      els.perPersonView.textContent = "1인당 " + won(data.perPerson);
+      els.lodgingView.textContent = won(data.lodgingTotal);
+      els.transportView.textContent = won(data.transportCost);
+      els.foodView.textContent = won(data.foodTotal);
+      els.activityView.textContent = won(data.activityTotal);
+      els.miscView.textContent = won(data.miscTotal);
+      els.reserveView.textContent = won(data.reserveCost);
+      els.perDayView.textContent = won(data.perDay);
+      els.perPersonDayView.textContent = won(data.perPersonDay);
+
+      const tripName = els.tripName.value.trim() || "이번 여행";
+
+      let budgetText = "";
+      if (data.totalBudget > 0) {
+        if (data.budgetGap >= 0) {
+          budgetText = "입력한 예산 " + won(data.totalBudget) + "보다 <b>" + won(data.budgetGap) + "</b> 여유가 있습니다.";
+        } else {
+          budgetText = "입력한 예산 " + won(data.totalBudget) + "보다 <b>" + won(Math.abs(data.budgetGap)) + "</b> 초과합니다.";
+        }
+      } else {
+        budgetText = "전체 예산을 입력하면 예산 초과 여부까지 확인할 수 있습니다.";
+      }
+
+      let grade = "";
+      if (data.perPersonDay <= 70000) {
+        grade = "가성비 좋은 여행 예산입니다.";
+      } else if (data.perPersonDay <= 120000) {
+        grade = "무난한 휴가 예산입니다.";
+      } else {
+        grade = "1인 1일 비용이 높은 편입니다. 숙박비와 교통비를 먼저 줄이는 게 효과적입니다.";
+      }
+
+      els.summary.innerHTML =
+        "<b>" + escapeHtml(tripName) + " 여행경비 요약</b><br />" +
+        data.people.toLocaleString("ko-KR") + "명이 " + data.days.toLocaleString("ko-KR") + "일 동안 여행할 경우, " +
+        "예상 총경비는 <b>" + won(data.totalCost) + "</b>, 1인당 경비는 <b>" + won(data.perPerson) + "</b>입니다. " +
+        "하루 평균은 <b>" + won(data.perDay) + "</b>, 1인 1일 평균은 <b>" + won(data.perPersonDay) + "</b>입니다.<br />" +
+        budgetText + "<br />" +
+        grade;
+
+      renderTips(data);
+      els.copyMessage.textContent = "";
+    }
+
+    function renderTips(data) {
+      const tips = [];
+
+      const lodgingShare = data.totalCost > 0 ? data.lodgingTotal / data.totalCost : 0;
+      const transportShare = data.totalCost > 0 ? data.transportCost / data.totalCost : 0;
+      const foodShare = data.totalCost > 0 ? data.foodTotal / data.totalCost : 0;
+
+      if (lodgingShare >= 0.35) {
+        tips.push("숙박비 비중이 큽니다. 평일 숙박, 외곽 숙소, 조식 포함 여부를 비교하면 절약폭이 큽니다.");
+      }
+
+      if (transportShare >= 0.30) {
+        tips.push("교통비 비중이 큽니다. 렌터카·기름값·주차비까지 포함했는지 다시 확인하세요.");
+      }
+
+      if (foodShare >= 0.30) {
+        tips.push("식비 비중이 큽니다. 하루 한 끼는 간단식으로 잡으면 총액이 바로 줄어듭니다.");
+      }
+
+      if (data.reserveRate < 0.05) {
+        tips.push("예비비가 낮습니다. 현장 추가비를 고려해 최소 5~10%는 남겨두는 편이 안전합니다.");
+      }
+
+      if (data.totalBudget > 0 && data.budgetGap < 0) {
+        tips.push("예산을 초과했습니다. 숙박비, 교통비, 액티비티 비용 순서로 줄이는 게 효과적입니다.");
+      }
+
+      if (tips.length === 0) {
+        tips.push("전체 비용 배분이 무난합니다. 예약 전 취소수수료와 현장 추가요금을 한 번 더 확인하세요.");
+        tips.push("여행 인원이 많다면 공용비와 개인비를 나눠 정산하면 분쟁을 줄일 수 있습니다.");
+      }
+
+      els.savingList.innerHTML = tips.map(tip => "<li>" + tip + "</li>").join("");
+    }
+
+    function escapeHtml(text) {
+      return text
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function setPreset(type) {
+      if (type === "couple") {
+        els.tripName.value = "커플 2박3일 여행";
+        els.totalBudget.value = "1,200,000";
+        els.people.value = "2";
+        els.days.value = "3";
+        els.nights.value = "2";
+        els.lodgingMode.value = "total";
+        els.lodgingCost.value = "420,000";
+        els.transportCost.value = "220,000";
+        els.foodPerPersonDay.value = "45,000";
+        els.activityPerPerson.value = "80,000";
+        els.shoppingCost.value = "100,000";
+        els.extraCost.value = "60,000";
+        els.reserveRate.value = "10";
+      }
+
+      if (type === "family") {
+        els.tripName.value = "가족 3박4일 여행";
+        els.totalBudget.value = "2,500,000";
+        els.people.value = "4";
+        els.days.value = "4";
+        els.nights.value = "3";
+        els.lodgingMode.value = "total";
+        els.lodgingCost.value = "900,000";
+        els.transportCost.value = "450,000";
+        els.foodPerPersonDay.value = "38,000";
+        els.activityPerPerson.value = "70,000";
+        els.shoppingCost.value = "180,000";
+        els.extraCost.value = "120,000";
+        els.reserveRate.value = "10";
+      }
+
+      if (type === "friends") {
+        els.tripName.value = "친구 4명 2박3일";
+        els.totalBudget.value = "1,600,000";
+        els.people.value = "4";
+        els.days.value = "3";
+        els.nights.value = "2";
+        els.lodgingMode.value = "perNight";
+        els.lodgingCost.value = "260,000";
+        els.transportCost.value = "320,000";
+        els.foodPerPersonDay.value = "40,000";
+        els.activityPerPerson.value = "60,000";
+        els.shoppingCost.value = "120,000";
+        els.extraCost.value = "80,000";
+        els.reserveRate.value = "10";
+      }
+
+      numericInputs.forEach(formatInput);
+      calculateTravel();
+    }
+
+    function fillExample() {
+      setPreset("family");
+      document.getElementById("calculator").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function resetForm() {
+      els.tripName.value = "";
+      els.totalBudget.value = "";
+      els.people.value = "4";
+      els.days.value = "3";
+      els.nights.value = "2";
+      els.lodgingMode.value = "total";
+      els.lodgingCost.value = "";
+      els.transportCost.value = "";
+      els.foodPerPersonDay.value = "";
+      els.activityPerPerson.value = "";
+      els.shoppingCost.value = "";
+      els.extraCost.value = "";
+      els.reserveRate.value = "10";
+      calculateTravel();
+    }
+
+    async function copyResult() {
+      const data = calculateValues();
+      const tripName = els.tripName.value.trim() || "여행명 미입력";
+
+      const text =
+        "[바로해결툴즈 여름휴가 여행경비 계산 결과]\n" +
+        "여행명: " + tripName + "\n" +
+        "인원: " + data.people.toLocaleString("ko-KR") + "명\n" +
+        "일정: " + data.days.toLocaleString("ko-KR") + "일 / " + data.nights.toLocaleString("ko-KR") + "박\n" +
+        "숙박비: " + won(data.lodgingTotal) + "\n" +
+        "교통비: " + won(data.transportCost) + "\n" +
+        "식비 총액: " + won(data.foodTotal) + "\n" +
+        "액티비티 총액: " + won(data.activityTotal) + "\n" +
+        "쇼핑·기타: " + won(data.miscTotal) + "\n" +
+        "예비비: " + won(data.reserveCost) + "\n" +
+        "예상 총경비: " + won(data.totalCost) + "\n" +
+        "1인당 경비: " + won(data.perPerson) + "\n" +
+        "하루 평균: " + won(data.perDay) + "\n" +
+        "1인 1일 평균: " + won(data.perPersonDay);
+
+      try {
+        await navigator.clipboard.writeText(text);
+        els.copyMessage.textContent = "계산 결과가 복사됐습니다.";
+      } catch (error) {
+        els.copyMessage.textContent = "복사 기능을 사용할 수 없습니다. 결과를 직접 선택해 복사하세요.";
+      }
+    }
+
+    numericInputs.forEach((input) => {
+      input.addEventListener("input", () => {
+        formatInput(input);
+        calculateTravel();
+      });
+    });
+
+    els.tripName.addEventListener("input", calculateTravel);
+    els.lodgingMode.addEventListener("change", calculateTravel);
+
+    calculateTravel();
+  </script>
+</body>
+</html>
