@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>주식 분할매도 계산기｜1차·2차·3차 나눠 팔면 수익이 얼마일까｜바로해결툴즈</title>
+  <meta name="description" content="주식 분할매도 계산기입니다. 1차, 2차, 3차 매도 가격과 수량을 입력하면 총 실현수익, 평균 매도가, 남은 수량, 원금 회수 여부까지 한 번에 계산합니다." />
+  <meta name="keywords" content="주식 분할매도 계산기, 분할매도 계산, 익절 계산기, 1차 매도 2차 매도 3차 매도, 주식 수익 계산기, 바로해결툴즈" />
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/stock-scale-out/" />
+  <meta name="theme-color" content="#effaf7" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="주식 분할매도 계산기｜1차·2차·3차로 나눠 팔면?" />
+  <meta property="og:description" content="분할매도 가격과 수량을 넣으면 총 수익, 평균 매도가, 남은 수량과 실질 회수단가를 바로 계산합니다." />
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/stock-scale-out/" />
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"주식 분할매도 계산기",
+    "url":"https://barohaegyeol-tools.pages.dev/stock-scale-out/",
+    "applicationCategory":"FinanceApplication",
+    "operatingSystem":"All",
+    "description":"1차, 2차, 3차 분할매도 시 총 실현수익과 남은 수량을 계산하는 무료 주식 계산기",
+    "publisher":{
+      "@type":"Organization",
+      "name":"바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root{
+      --bg1:#f7fbff;
+      --bg2:#fefdf4;
+      --bg3:#eefaf7;
+      --panel:rgba(255,255,255,.72);
+      --panel-strong:rgba(255,255,255,.86);
+      --line:rgba(20, 40, 60, .10);
+      --text:#0f172a;
+      --muted:#5f7286;
+      --primary:#2563eb;
+      --primary2:#14b8a6;
+      --accent:#f59e0b;
+      --accent2:#fb7185;
+      --mint:#34d399;
+      --sky:#38bdf8;
+      --shadow:0 22px 60px rgba(28, 58, 92, .12);
+      --shadow2:0 12px 30px rgba(28, 58, 92, .10);
+      --radius:28px;
+      --max:1180px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;
+      background:
+        radial-gradient(circle at 12% 16%, rgba(56,189,248,.18), transparent 22%),
+        radial-gradient(circle at 88% 12%, rgba(251,113,133,.12), transparent 20%),
+        radial-gradient(circle at 82% 86%, rgba(52,211,153,.16), transparent 23%),
+        linear-gradient(135deg,var(--bg1) 0%, var(--bg2) 48%, var(--bg3) 100%);
+      min-height:100vh;
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+
+    a{text-decoration:none;color:inherit}
+    button,input{font:inherit}
+
+    .wrap{
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+    }
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:20;
+      background:rgba(255,255,255,.72);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid rgba(15,23,42,.06);
+    }
+
+    .nav{
+      min-height:68px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:900;
+      letter-spacing:-.04em;
+    }
+
+    .brand-mark{
+      width:40px;
+      height:40px;
+      border-radius:14px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      background:linear-gradient(135deg,#60a5fa,#14b8a6);
+      box-shadow:0 10px 24px rgba(56,189,248,.25);
+      font-weight:900;
+    }
+
+    .brand small{
+      display:block;
+      margin-top:1px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+    }
+
+    .nav-links{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .nav-links a{
+      padding:9px 13px;
+      border-radius:999px;
+      background:rgba(255,255,255,.8);
+      border:1px solid rgba(15,23,42,.08);
+      color:#1e293b;
+      font-size:14px;
+      font-weight:850;
+      box-shadow:var(--shadow2);
+    }
+
+    .hero{
+      padding:56px 0 24px;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.02fr .98fr;
+      gap:30px;
+      align-items:center;
+    }
+
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:14px;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.8);
+      color:#334155;
+      font-size:13px;
+      font-weight:850;
+      box-shadow:var(--shadow2);
+    }
+
+    .chip.hot{
+      background:linear-gradient(135deg, rgba(255,243,205,.95), rgba(255,255,255,.92));
+      color:#a16207;
+    }
+
+    h1{
+      margin:0;
+      font-size:clamp(38px, 6vw, 74px);
+      line-height:1.03;
+      letter-spacing:-.075em;
+    }
+
+    .gradient{
+      background:linear-gradient(90deg,#2563eb 0%, #14b8a6 48%, #f59e0b 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    .lead{
+      margin:18px 0 0;
+      max-width:680px;
+      color:#334155;
+      font-size:clamp(16px, 2vw, 19px);
+      word-break:keep-all;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:24px;
+    }
+
+    .btn{
+      min-height:49px;
+      padding:13px 18px;
+      border-radius:16px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      font-weight:900;
+      border:1px solid transparent;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+
+    .btn:hover{transform:translateY(-2px)}
+
+    .btn-primary{
+      color:#fff;
+      background:linear-gradient(135deg,#2563eb,#14b8a6);
+      box-shadow:0 14px 34px rgba(37,99,235,.22);
+    }
+
+    .btn-ghost{
+      color:#0f172a;
+      background:rgba(255,255,255,.78);
+      border-color:rgba(15,23,42,.08);
+    }
+
+    .visual{
+      position:relative;
+      min-height:400px;
+      border-radius:38px;
+      background:
+        radial-gradient(circle at 78% 18%, rgba(250,204,21,.16), transparent 18%),
+        radial-gradient(circle at 20% 80%, rgba(96,165,250,.18), transparent 20%),
+        linear-gradient(145deg, rgba(255,255,255,.84), rgba(255,255,255,.55));
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      padding:26px;
+    }
+
+    .chart-card{
+      position:absolute;
+      left:26px;
+      right:26px;
+      top:24px;
+      height:172px;
+      border-radius:26px;
+      background:
+        linear-gradient(rgba(15,23,42,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,23,42,.05) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255,255,255,.95), rgba(240,249,255,.88));
+      background-size: 38px 38px, 38px 38px, auto;
+      border:1px solid rgba(15,23,42,.08);
+      overflow:hidden;
+    }
+
+    .chart-svg{
+      position:absolute;
+      inset:16px 16px 12px 16px;
+    }
+
+    .mini-tag{
+      position:absolute;
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:900;
+      box-shadow:var(--shadow2);
+      border:1px solid rgba(15,23,42,.08);
+      background:#fff;
+      color:#0f172a;
+    }
+
+    .tag1{left:28px; bottom:28px}
+    .tag2{left:126px; bottom:62px}
+    .tag3{left:238px; bottom:102px}
+
+    .goal-chip{
+      position:absolute;
+      left:26px;
+      bottom:24px;
+      width:220px;
+      padding:18px;
+      border-radius:22px;
+      background:linear-gradient(135deg,#fff,#f0fdfa);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .goal-chip span{
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:800;
+    }
+
+    .goal-chip strong{
+      display:block;
+      margin-top:6px;
+      font-size:34px;
+      line-height:1;
+      letter-spacing:-.05em;
+      color:#0f172a;
+    }
+
+    .rabbit-card{
+      position:absolute;
+      right:24px;
+      bottom:22px;
+      width:172px;
+      height:172px;
+      border-radius:34px;
+      border:1px solid rgba(15,23,42,.08);
+      background:linear-gradient(145deg, rgba(255,255,255,.94), rgba(240,249,255,.8));
+      box-shadow:var(--shadow2);
+    }
+
+    .rabbit-head{
+      position:absolute;
+      left:42px;
+      top:48px;
+      width:88px;
+      height:78px;
+      background:#fff8ef;
+      border:4px solid #233247;
+      border-radius:42px 42px 34px 34px;
+    }
+
+    .rabbit-ear{
+      position:absolute;
+      top:-30px;
+      width:24px;
+      height:48px;
+      background:#fff8ef;
+      border:4px solid #233247;
+      border-radius:20px 20px 16px 16px;
+    }
+
+    .rabbit-ear::after{
+      content:"";
+      position:absolute;
+      inset:8px 6px 8px 6px;
+      border-radius:14px;
+      background:#ffd3de;
+    }
+
+    .rabbit-ear.left{left:16px; transform:rotate(-8deg)}
+    .rabbit-ear.right{right:16px; transform:rotate(8deg)}
+
+    .rabbit-eye{
+      position:absolute;
+      top:28px;
+      width:10px;
+      height:14px;
+      background:#111827;
+      border-radius:999px;
+    }
+
+    .rabbit-eye.left{left:24px}
+    .rabbit-eye.right{right:24px}
+
+    .rabbit-nose{
+      position:absolute;
+      left:50%;
+      top:42px;
+      width:14px;
+      height:10px;
+      background:#f97316;
+      border-radius:999px;
+      transform:translateX(-50%);
+    }
+
+    .rabbit-mouth{
+      position:absolute;
+      left:50%;
+      top:52px;
+      width:24px;
+      height:12px;
+      border-bottom:3px solid #16a34a;
+      border-radius:0 0 14px 14px;
+      transform:translateX(-50%);
+    }
+
+    .rabbit-badge{
+      position:absolute;
+      right:12px;
+      top:12px;
+      padding:8px 10px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#fde68a,#facc15);
+      color:#7c2d12;
+      font-size:12px;
+      font-weight:900;
+      box-shadow:var(--shadow2);
+    }
+
+    .section{padding:22px 0}
+    .tool-grid{
+      display:grid;
+      grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);
+      gap:22px;
+      align-items:start;
+    }
+
+    .panel{
+      padding:24px;
+      border-radius:var(--radius);
+      background:var(--panel);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);
+    }
+
+    .panel h2{
+      margin:0 0 12px;
+      font-size:27px;
+      line-height:1.2;
+      letter-spacing:-.05em;
+    }
+
+    .desc{
+      margin:-4px 0 18px;
+      color:var(--muted);
+      font-size:14px;
+      word-break:keep-all;
+    }
+
+    .form{
+      display:grid;
+      gap:14px;
+    }
+
+    .field label{
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom:8px;
+      font-size:14px;
+      font-weight:900;
+      color:#0f172a;
+    }
+
+    .field small{
+      color:var(--muted);
+      font-weight:750;
+    }
+
+    .input-wrap{
+      position:relative;
+    }
+
+    input{
+      width:100%;
+      min-height:54px;
+      padding:14px 50px 14px 15px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.10);
+      background:rgba(255,255,255,.92);
+      color:#0f172a;
+      font-size:16px;
+      font-weight:850;
+      outline:none;
+      transition:.16s ease;
+    }
+
+    input:focus{
+      border-color:rgba(37,99,235,.32);
+      box-shadow:0 0 0 4px rgba(37,99,235,.08);
+    }
+
+    .unit{
+      position:absolute;
+      top:50%;
+      right:15px;
+      transform:translateY(-50%);
+      color:var(--muted);
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .row{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .split-card{
+      padding:16px;
+      border-radius:22px;
+      background:rgba(255,255,255,.72);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .split-card h3{
+      margin:0 0 12px;
+      font-size:18px;
+      letter-spacing:-.03em;
+    }
+
+    .split1 h3{color:#2563eb}
+    .split2 h3{color:#14b8a6}
+    .split3 h3{color:#f59e0b}
+
+    .preset{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .preset button{
+      padding:8px 11px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:#fff;
+      color:#334155;
+      font-size:12px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .calc-btn{
+      width:100%;
+      min-height:58px;
+      margin-top:6px;
+      border:0;
+      border-radius:18px;
+      color:#fff;
+      background:linear-gradient(135deg,#2563eb,#14b8a6);
+      font-size:17px;
+      font-weight:950;
+      cursor:pointer;
+      box-shadow:0 16px 34px rgba(37,99,235,.22);
+    }
+
+    .reset-btn{
+      width:100%;
+      min-height:48px;
+      margin-top:10px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.82);
+      color:#0f172a;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .notice{
+      margin-top:12px;
+      padding:13px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.74);
+      border:1px solid rgba(15,23,42,.08);
+      color:#475569;
+      font-size:13px;
+      font-weight:760;
+      word-break:keep-all;
+    }
+
+    .result-box{
+      display:grid;
+      gap:14px;
+    }
+
+    .result-main{
+      padding:24px;
+      border-radius:26px;
+      background:
+        radial-gradient(circle at 82% 20%, rgba(255,255,255,.38), transparent 24%),
+        linear-gradient(135deg,#60a5fa 0%, #34d399 54%, #fde68a 100%);
+      color:#082032;
+      box-shadow:var(--shadow2);
+    }
+
+    .result-main span{
+      display:block;
+      font-size:14px;
+      font-weight:900;
+      opacity:.82;
+    }
+
+    .result-main strong{
+      display:block;
+      margin-top:8px;
+      font-size:clamp(34px,5vw,56px);
+      line-height:1;
+      letter-spacing:-.06em;
+    }
+
+    .result-main em{
+      display:block;
+      margin-top:10px;
+      font-style:normal;
+      font-size:14px;
+      font-weight:850;
+      opacity:.9;
+      word-break:keep-all;
+    }
+
+    .mini-results{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:12px;
+    }
+
+    .mini-result{
+      padding:16px;
+      border-radius:20px;
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .mini-result span{
+      display:block;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:850;
+    }
+
+    .mini-result strong{
+      display:block;
+      margin-top:6px;
+      font-size:22px;
+      letter-spacing:-.04em;
+      color:#0f172a;
+    }
+
+    .result-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:12px;
+    }
+
+    .metric{
+      padding:18px;
+      border-radius:20px;
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .metric span{
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .metric strong{
+      display:block;
+      margin-top:7px;
+      font-size:24px;
+      letter-spacing:-.045em;
+      color:#0f172a;
+    }
+
+    .good{color:#16a34a !important}
+    .warn{color:#d97706 !important}
+    .bad{color:#e11d48 !important}
+
+    .guide-grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:16px;
+    }
+
+    .guide{
+      padding:20px;
+      border-radius:22px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .guide b{
+      display:block;
+      margin-bottom:8px;
+      font-size:17px;
+      letter-spacing:-.03em;
+    }
+
+    .guide p{
+      margin:0;
+      color:#475569;
+      font-size:14px;
+      word-break:keep-all;
+    }
+
+    footer{
+      padding:44px 0 54px;
+      color:var(--muted);
+      text-align:center;
+      font-size:13px;
+    }
+
+    @media (max-width: 920px){
+      .hero-grid,
+      .tool-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width: 640px){
+      .nav{
+        flex-direction:column;
+        align-items:flex-start;
+        padding:12px 0;
+      }
+
+      .nav-links{
+        width:100%;
+        overflow-x:auto;
+        padding-bottom:4px;
+      }
+
+      .hero-actions{
+        display:grid;
+      }
+
+      .btn{
+        width:100%;
+      }
+
+      .row,
+      .mini-results,
+      .result-grid,
+      .guide-grid{
+        grid-template-columns:1fr;
+      }
+
+      .visual{
+        min-height:360px;
+      }
+
+      .rabbit-card{
+        width:138px;
+        height:138px;
+      }
+
+      .rabbit-head{
+        left:28px;
+        top:40px;
+        width:76px;
+        height:66px;
+      }
+
+      .rabbit-ear{
+        top:-26px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="../">
+        <div class="brand-mark">B</div>
+        <div>
+          바로해결툴즈
+          <small>주식 계산 · 분할 매도 · 바로 확인</small>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="주요 도구">
+        <a href="../">전체 도구</a>
+        <a href="../stock-average/">평단가</a>
+        <a href="../stock-target-price/">익절가</a>
+        <a href="../stock-stop-loss/">손절가</a>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="chips">
+            <span class="chip hot">🐰 분할매도 체크</span>
+            <span class="chip">1차·2차·3차 매도</span>
+            <span class="chip">원금 회수 확인</span>
+          </div>
+
+          <h1>
+            나눠 팔면<br>
+            <span class="gradient">총 수익이 얼마나 될까?</span>
+          </h1>
+
+          <p class="lead">
+            1차, 2차, 3차 매도 가격과 수량을 입력하면 총 실현수익,
+            평균 매도가, 남은 수량, 원금 회수 여부까지 한 번에 계산합니다.
+            감으로 팔지 말고 숫자로 먼저 시뮬레이션해보세요.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#calculator">분할매도 계산하기</a>
+            <a class="btn btn-ghost" href="../stock-target-price/">익절가 계산기</a>
+          </div>
+        </div>
+
+        <div class="visual" aria-label="주식 분할매도 예시 일러스트">
+          <div class="chart-card">
+            <div class="chart-svg">
+              <svg viewBox="0 0 420 150" width="100%" height="100%">
+                <defs>
+                  <linearGradient id="lineGrad" x1="0" x2="1">
+                    <stop offset="0%" stop-color="#60a5fa"/>
+                    <stop offset="55%" stop-color="#14b8a6"/>
+                    <stop offset="100%" stop-color="#f59e0b"/>
+                  </linearGradient>
+                </defs>
+                <path d="M18 118 C70 112, 108 108, 146 94 C194 78, 226 70, 268 58 C314 44, 350 32, 400 24"
+                      fill="none" stroke="url(#lineGrad)" stroke-width="8" stroke-linecap="round"/>
+                <circle cx="146" cy="94" r="6" fill="#2563eb"/>
+                <circle cx="268" cy="58" r="6" fill="#14b8a6"/>
+                <circle cx="400" cy="24" r="6" fill="#f59e0b"/>
+              </svg>
+            </div>
+            <div class="mini-tag tag1">1차 매도</div>
+            <div class="mini-tag tag2">2차 매도</div>
+            <div class="mini-tag tag3">3차 매도</div>
+          </div>
+
+          <div class="goal-chip">
+            <span>예상 총 실현수익</span>
+            <strong>+299,000원</strong>
+          </div>
+
+          <div class="rabbit-card" aria-hidden="true">
+            <div class="rabbit-badge">분할</div>
+            <div class="rabbit-head">
+              <div class="rabbit-ear left"></div>
+              <div class="rabbit-ear right"></div>
+              <div class="rabbit-eye left"></div>
+              <div class="rabbit-eye right"></div>
+              <div class="rabbit-nose"></div>
+              <div class="rabbit-mouth"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="calculator">
+      <div class="wrap tool-grid">
+        <div class="panel">
+          <h2>주식 분할매도 계산기</h2>
+          <p class="desc">
+            매수단가와 보유 수량을 넣고 1차, 2차, 3차 매도 계획을 입력하면
+            총 수익과 남은 주식의 실질 회수단가를 계산합니다.
+          </p>
+
+          <form class="form" onsubmit="event.preventDefault(); calculateScaleOut();">
+            <div class="row">
+              <div class="field">
+                <label for="avgPrice">
+                  평균 매수가
+                  <small>보유 평균단가</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="avgPrice" type="number" min="0" step="0.01" value="10000" placeholder="예: 10000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="totalQty">
+                  총 보유 수량
+                  <small>현재 보유 주식 수</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="totalQty" type="number" min="0" step="1" value="100" placeholder="예: 100">
+                  <span class="unit">주</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="feeRate">
+                매도 비용률
+                <small>수수료·세금 합산, 선택 입력</small>
+              </label>
+              <div class="input-wrap">
+                <input id="feeRate" type="number" min="0" step="0.001" value="0.015" placeholder="예: 0.015">
+                <span class="unit">%</span>
+              </div>
+            </div>
+
+            <div class="split-card split1">
+              <h3>1차 매도</h3>
+              <div class="row">
+                <div class="field">
+                  <label for="price1">매도가</label>
+                  <div class="input-wrap">
+                    <input id="price1" type="number" min="0" step="0.01" value="11500" placeholder="예: 11500">
+                    <span class="unit">원</span>
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="qty1">매도 수량</label>
+                  <div class="input-wrap">
+                    <input id="qty1" type="number" min="0" step="1" value="30" placeholder="예: 30">
+                    <span class="unit">주</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="split-card split2">
+              <h3>2차 매도</h3>
+              <div class="row">
+                <div class="field">
+                  <label for="price2">매도가</label>
+                  <div class="input-wrap">
+                    <input id="price2" type="number" min="0" step="0.01" value="12500" placeholder="예: 12500">
+                    <span class="unit">원</span>
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="qty2">매도 수량</label>
+                  <div class="input-wrap">
+                    <input id="qty2" type="number" min="0" step="1" value="30" placeholder="예: 30">
+                    <span class="unit">주</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="split-card split3">
+              <h3>3차 매도</h3>
+              <div class="row">
+                <div class="field">
+                  <label for="price3">매도가</label>
+                  <div class="input-wrap">
+                    <input id="price3" type="number" min="0" step="0.01" value="14000" placeholder="예: 14000">
+                    <span class="unit">원</span>
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="qty3">매도 수량</label>
+                  <div class="input-wrap">
+                    <input id="qty3" type="number" min="0" step="1" value="40" placeholder="예: 40">
+                    <span class="unit">주</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="preset">
+              <button type="button" onclick="fillExample('balanced')">균형형 예시</button>
+              <button type="button" onclick="fillExample('fast')">빠른 회수형</button>
+              <button type="button" onclick="fillExample('hold')">길게 보유형</button>
+            </div>
+
+            <button class="calc-btn" type="submit">분할매도 계산하기</button>
+            <button class="reset-btn" type="button" onclick="resetForm()">입력값 초기화</button>
+          </form>
+
+          <div class="notice">
+            이 계산기는 분할매도 계획을 미리 점검하는 참고용 도구입니다.
+            실제 체결 가격, 세금, 수수료, 시장 상황에 따라 결과는 달라질 수 있습니다.
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>계산 결과</h2>
+          <p class="desc">
+            총 실현수익만 보지 말고 평균 매도가, 남은 수량, 원금 회수 여부까지 같이 확인하세요.
+          </p>
+
+          <div class="result-box">
+            <div class="result-main">
+              <span>총 실현수익</span>
+              <strong id="totalProfit">-</strong>
+              <em id="summaryText">값을 입력하고 계산 버튼을 눌러주세요.</em>
+            </div>
+
+            <div class="mini-results">
+              <div class="mini-result">
+                <span>1차 실현수익</span>
+                <strong id="profit1">-</strong>
+              </div>
+              <div class="mini-result">
+                <span>2차 실현수익</span>
+                <strong id="profit2">-</strong>
+              </div>
+              <div class="mini-result">
+                <span>3차 실현수익</span>
+                <strong id="profit3">-</strong>
+              </div>
+            </div>
+
+            <div class="result-grid">
+              <div class="metric">
+                <span>총 매수금액</span>
+                <strong id="totalBuy">-</strong>
+              </div>
+              <div class="metric">
+                <span>총 매도 후 수령액</span>
+                <strong id="totalNetSell">-</strong>
+              </div>
+              <div class="metric">
+                <span>매도한 총 수량</span>
+                <strong id="soldQty">-</strong>
+              </div>
+              <div class="metric">
+                <span>남은 수량</span>
+                <strong id="remainQty">-</strong>
+              </div>
+              <div class="metric">
+                <span>평균 매도가</span>
+                <strong id="avgSellPrice">-</strong>
+              </div>
+              <div class="metric">
+                <span>원금 회수율</span>
+                <strong id="recoveryRate">-</strong>
+              </div>
+              <div class="metric">
+                <span>남은 주식 실질 회수단가</span>
+                <strong id="remainCostPerShare">-</strong>
+              </div>
+              <div class="metric">
+                <span>전체 기준 손익률</span>
+                <strong id="totalProfitRate">-</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice">
+            남은 주식 실질 회수단가는 “이미 회수한 금액을 반영한 남은 주식의 체감 원가”입니다.
+            음수라면 원금 회수 후 남은 주식이 전부 수익 구간이라는 뜻입니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="panel">
+          <h2>분할매도 체크포인트</h2>
+          <div class="guide-grid">
+            <div class="guide">
+              <b>1차는 원금 회수 관점</b>
+              <p>첫 매도는 심리 안정용으로 많이 씁니다. 일부 원금 회수만 해도 대응이 훨씬 편해집니다.</p>
+            </div>
+            <div class="guide">
+              <b>2차는 수익 극대화 구간</b>
+              <p>주가 흐름이 이어질 때 두 번째 매도로 수익 구간을 넓혀볼 수 있습니다.</p>
+            </div>
+            <div class="guide">
+              <b>3차는 남은 물량 전략</b>
+              <p>끝까지 가져갈 물량인지, 추세가 꺾이면 마무리할 물량인지 미리 기준을 정해두세요.</p>
+            </div>
+          </div>
+
+          <div class="notice">
+            TIP. 분할매도 계산기는 익절가 계산기와 같이 써야 좋습니다.
+            먼저 목표가를 잡고, 그 다음 1차·2차·3차 비중을 나눠보면 훨씬 실전적입니다.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 바로해결툴즈 · 계산 결과는 참고용입니다. 실제 투자 판단과 책임은 본인에게 있습니다.
+  </footer>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    function num(id){
+      const v = Number($(id).value);
+      return Number.isFinite(v) ? v : 0;
+    }
+
+    function won(v){
+      if(!Number.isFinite(v)) return "-";
+      return `${Math.round(v).toLocaleString("ko-KR")}원`;
+    }
+
+    function pct(v, digits = 2){
+      if(!Number.isFinite(v)) return "-";
+      const sign = v > 0 ? "+" : "";
+      return `${sign}${v.toLocaleString("ko-KR", {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: digits
+      })}%`;
+    }
+
+    function setText(id, value){
+      $(id).textContent = value;
+    }
+
+    function setClass(id, cls){
+      $(id).className = cls;
+    }
+
+    function calculateStage(avgPrice, price, qty, costRate){
+      const gross = price * qty;
+      const cost = gross * costRate;
+      const net = gross - cost;
+      const buyCost = avgPrice * qty;
+      const profit = net - buyCost;
+      return { gross, cost, net, buyCost, profit };
+    }
+
+    function calculateScaleOut(){
+      const avgPrice = num("avgPrice");
+      const totalQty = num("totalQty");
+      const feeRate = Math.max(num("feeRate") / 100, 0);
+
+      const price1 = num("price1");
+      const qty1 = num("qty1");
+      const price2 = num("price2");
+      const qty2 = num("qty2");
+      const price3 = num("price3");
+      const qty3 = num("qty3");
+
+      if(avgPrice <= 0 || totalQty <= 0){
+        showMessage("평균 매수가와 총 보유 수량을 먼저 입력해주세요.");
+        return;
+      }
+
+      if(price1 < 0 || price2 < 0 || price3 < 0 || qty1 < 0 || qty2 < 0 || qty3 < 0){
+        showMessage("매도가와 수량은 0 이상으로 입력해주세요.");
+        return;
+      }
+
+      const soldQty = qty1 + qty2 + qty3;
+
+      if(soldQty <= 0){
+        showMessage("최소 1개 이상 매도 수량을 입력해주세요.");
+        return;
+      }
+
+      if(soldQty > totalQty){
+        showMessage("분할매도 총 수량이 보유 수량보다 많습니다. 수량을 다시 확인해주세요.");
+        return;
+      }
+
+      const totalBuy = avgPrice * totalQty;
+
+      const s1 = calculateStage(avgPrice, price1, qty1, feeRate);
+      const s2 = calculateStage(avgPrice, price2, qty2, feeRate);
+      const s3 = calculateStage(avgPrice, price3, qty3, feeRate);
+
+      const totalNetSell = s1.net + s2.net + s3.net;
+      const totalProfit = s1.profit + s2.profit + s3.profit;
+      const remainQty = totalQty - soldQty;
+      const avgSellPrice = soldQty > 0 ? ((price1 * qty1) + (price2 * qty2) + (price3 * qty3)) / soldQty : 0;
+      const recoveryRate = totalBuy > 0 ? (totalNetSell / totalBuy) * 100 : 0;
+      const effectiveRemainCost = totalBuy - totalNetSell;
+      const remainCostPerShare = remainQty > 0 ? effectiveRemainCost / remainQty : 0;
+      const totalProfitRate = totalBuy > 0 ? (totalProfit / totalBuy) * 100 : 0;
+
+      setText("totalProfit", `${totalProfit >= 0 ? "+" : ""}${won(totalProfit)}`);
+      setText("profit1", `${s1.profit >= 0 ? "+" : ""}${won(s1.profit)}`);
+      setText("profit2", `${s2.profit >= 0 ? "+" : ""}${won(s2.profit)}`);
+      setText("profit3", `${s3.profit >= 0 ? "+" : ""}${won(s3.profit)}`);
+
+      setText("totalBuy", won(totalBuy));
+      setText("totalNetSell", won(totalNetSell));
+      setText("soldQty", `${soldQty.toLocaleString("ko-KR")}주`);
+      setText("remainQty", `${remainQty.toLocaleString("ko-KR")}주`);
+      setText("avgSellPrice", won(avgSellPrice));
+      setText("recoveryRate", pct(recoveryRate));
+      setText("remainCostPerShare", remainQty > 0 ? won(remainCostPerShare) : "전량 매도");
+      setText("totalProfitRate", pct(totalProfitRate));
+
+      setClass("totalProfit", totalProfit >= 0 ? "good" : "bad");
+      setClass("profit1", s1.profit >= 0 ? "good" : "bad");
+      setClass("profit2", s2.profit >= 0 ? "good" : "bad");
+      setClass("profit3", s3.profit >= 0 ? "good" : "bad");
+      setClass("recoveryRate", recoveryRate >= 100 ? "good" : "warn");
+      setClass("remainCostPerShare", remainQty > 0 ? (remainCostPerShare <= 0 ? "good" : "warn") : "good");
+      setClass("totalProfitRate", totalProfitRate >= 0 ? "good" : "bad");
+
+      let summary = `${soldQty.toLocaleString("ko-KR")}주를 분할매도하면 총 실현수익은 약 ${won(totalProfit)}입니다. `;
+      if(remainQty > 0){
+        if(remainCostPerShare <= 0){
+          summary += `남은 ${remainQty.toLocaleString("ko-KR")}주는 사실상 원금 회수 이후 물량입니다.`;
+        }else{
+          summary += `남은 ${remainQty.toLocaleString("ko-KR")}주의 실질 회수단가는 약 ${won(remainCostPerShare)}입니다.`;
+        }
+      }else{
+        summary += `전량 매도 기준입니다.`;
+      }
+      setText("summaryText", summary);
+    }
+
+    function showMessage(message){
+      setText("totalProfit", "-");
+      setText("profit1", "-");
+      setText("profit2", "-");
+      setText("profit3", "-");
+      setText("totalBuy", "-");
+      setText("totalNetSell", "-");
+      setText("soldQty", "-");
+      setText("remainQty", "-");
+      setText("avgSellPrice", "-");
+      setText("recoveryRate", "-");
+      setText("remainCostPerShare", "-");
+      setText("totalProfitRate", "-");
+      setText("summaryText", message);
+    }
+
+    function fillExample(type){
+      $("avgPrice").value = 10000;
+      $("totalQty").value = 100;
+      $("feeRate").value = 0.015;
+
+      if(type === "balanced"){
+        $("price1").value = 11500; $("qty1").value = 30;
+        $("price2").value = 12500; $("qty2").value = 30;
+        $("price3").value = 14000; $("qty3").value = 40;
+      } else if(type === "fast"){
+        $("price1").value = 11000; $("qty1").value = 50;
+        $("price2").value = 12000; $("qty2").value = 30;
+        $("price3").value = 13000; $("qty3").value = 20;
+      } else if(type === "hold"){
+        $("price1").value = 11500; $("qty1").value = 20;
+        $("price2").value = 13000; $("qty2").value = 30;
+        $("price3").value = 15000; $("qty3").value = 20;
+      }
+
+      calculateScaleOut();
+    }
+
+    function resetForm(){
+      $("avgPrice").value = "";
+      $("totalQty").value = "";
+      $("feeRate").value = "0.015";
+      $("price1").value = "";
+      $("qty1").value = "";
+      $("price2").value = "";
+      $("qty2").value = "";
+      $("price3").value = "";
+      $("qty3").value = "";
+      showMessage("값을 입력하고 계산 버튼을 눌러주세요.");
+    }
+
+    calculateScaleOut();
+  </script>
+</body>
+</html>
