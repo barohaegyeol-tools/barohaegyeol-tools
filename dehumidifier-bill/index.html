@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>제습기 전기세 계산기｜하루 몇 시간 틀면 한 달 전기요금 얼마일까｜바로해결툴즈</title>
+  <meta name="description" content="제습기 소비전력, 하루 사용시간, 사용일수, 전기요금 단가를 입력하면 하루 전기세, 한 달 전기세, 총 사용전력량을 계산합니다." />
+  <meta name="keywords" content="제습기 전기세 계산기, 제습기 전기요금 계산, 제습기 하루 전기세, 제습기 한달 전기세, 제습기 소비전력 계산, 장마철 전기세 계산기, 바로해결툴즈" />
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/dehumidifier-bill/" />
+  <meta name="theme-color" content="#eefbff" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="제습기 전기세 계산기｜하루 몇 시간 틀면 얼마일까" />
+  <meta property="og:description" content="소비전력과 사용시간을 입력하면 제습기 전기세를 바로 계산합니다." />
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/dehumidifier-bill/" />
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"제습기 전기세 계산기",
+    "url":"https://barohaegyeol-tools.pages.dev/dehumidifier-bill/",
+    "applicationCategory":"UtilitiesApplication",
+    "operatingSystem":"All",
+    "description":"제습기 소비전력, 하루 사용시간, 사용일수, 전기요금 단가를 기준으로 예상 전기요금을 계산하는 무료 생활 계산기입니다.",
+    "publisher":{
+      "@type":"Organization",
+      "name":"바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg1:#eefbff;
+      --bg2:#f0fff7;
+      --bg3:#fff8ec;
+      --text:#102033;
+      --muted:#64748b;
+      --card:rgba(255,255,255,.84);
+      --line:rgba(15,23,42,.10);
+      --sky:#38bdf8;
+      --cyan:#06b6d4;
+      --blue:#2563eb;
+      --mint:#14b8a6;
+      --green:#22c55e;
+      --yellow:#facc15;
+      --orange:#fb923c;
+      --purple:#8b5cf6;
+      --red:#ef4444;
+      --shadow:0 24px 70px rgba(6,182,212,.14);
+      --shadow2:0 14px 34px rgba(15,23,42,.08);
+      --radius:28px;
+      --max:1180px;
+    }
+
+    * {
+      box-sizing:border-box;
+    }
+
+    html {
+      scroll-behavior:smooth;
+    }
+
+    body {
+      margin:0;
+      min-height:100vh;
+      color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;
+      line-height:1.65;
+      background:
+        radial-gradient(circle at 12% 12%, rgba(6,182,212,.16), transparent 24%),
+        radial-gradient(circle at 88% 10%, rgba(20,184,166,.15), transparent 22%),
+        radial-gradient(circle at 82% 86%, rgba(250,204,21,.16), transparent 24%),
+        linear-gradient(135deg,var(--bg1) 0%, var(--bg2) 50%, var(--bg3) 100%);
+      overflow-x:hidden;
+    }
+
+    body::before {
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.15;
+      background-image:radial-gradient(circle, rgba(6,182,212,.20) 1px, transparent 1px);
+      background-size:30px 30px;
+      mask-image:linear-gradient(to bottom,#000,transparent 82%);
+    }
+
+    a {
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button,
+    input,
+    select {
+      font:inherit;
+    }
+
+    .wrap {
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+    }
+
+    .topbar {
+      position:sticky;
+      top:0;
+      z-index:50;
+      border-bottom:1px solid rgba(15,23,42,.07);
+      background:rgba(238,251,255,.76);
+      backdrop-filter:blur(18px);
+    }
+
+    .nav {
+      min-height:68px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:950;
+      letter-spacing:-.045em;
+    }
+
+    .brand-mark {
+      width:40px;
+      height:40px;
+      border-radius:15px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      background:linear-gradient(135deg,#06b6d4,#14b8a6);
+      box-shadow:0 14px 34px rgba(6,182,212,.24);
+      font-weight:950;
+    }
+
+    .brand small {
+      display:block;
+      margin-top:1px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:-.02em;
+    }
+
+    .nav-links {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      white-space:nowrap;
+    }
+
+    .nav-links a {
+      padding:9px 13px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.80);
+      color:#26364a;
+      font-size:14px;
+      font-weight:850;
+      box-shadow:var(--shadow2);
+    }
+
+    .hero {
+      padding:58px 0 26px;
+    }
+
+    .hero-grid {
+      display:grid;
+      grid-template-columns:1.02fr .98fr;
+      align-items:center;
+      gap:32px;
+    }
+
+    .chips {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:16px;
+    }
+
+    .chip {
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.82);
+      color:#334155;
+      font-size:13px;
+      font-weight:900;
+      box-shadow:var(--shadow2);
+    }
+
+    .chip.hot {
+      color:#0891b2;
+      background:linear-gradient(135deg,rgba(207,250,254,.98),rgba(255,255,255,.92));
+    }
+
+    h1 {
+      margin:0;
+      max-width:750px;
+      font-size:clamp(38px,6.1vw,74px);
+      line-height:1.04;
+      letter-spacing:-.078em;
+    }
+
+    .gradient {
+      color:transparent;
+      background:linear-gradient(90deg,#06b6d4 0%, #14b8a6 48%, #f59e0b 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+    }
+
+    .lead {
+      margin:20px 0 0;
+      max-width:670px;
+      color:#34465c;
+      font-size:clamp(16px,2vw,19px);
+      line-height:1.82;
+      letter-spacing:-.015em;
+      word-break:keep-all;
+    }
+
+    .lead strong {
+      color:#0891b2;
+      font-weight:950;
+    }
+
+    .hero-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:26px;
+    }
+
+    .btn {
+      min-height:49px;
+      padding:13px 18px;
+      border-radius:16px;
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      gap:8px;
+      border:1px solid transparent;
+      font-weight:950;
+      letter-spacing:-.025em;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+
+    .btn:hover {
+      transform:translateY(-2px);
+    }
+
+    .btn-primary {
+      color:#fff;
+      background:linear-gradient(135deg,#06b6d4,#14b8a6,#f59e0b);
+      box-shadow:0 16px 38px rgba(6,182,212,.24);
+    }
+
+    .btn-ghost {
+      color:#102033;
+      background:rgba(255,255,255,.82);
+      border-color:rgba(15,23,42,.08);
+    }
+
+    .visual {
+      position:relative;
+      min-height:404px;
+      border-radius:38px;
+      border:1px solid rgba(15,23,42,.08);
+      background:
+        radial-gradient(circle at 78% 16%, rgba(250,204,21,.20), transparent 20%),
+        radial-gradient(circle at 16% 82%, rgba(6,182,212,.17), transparent 23%),
+        linear-gradient(145deg,rgba(255,255,255,.96),rgba(207,250,254,.78));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      padding:26px;
+    }
+
+    .visual-panel {
+      position:absolute;
+      left:26px;
+      right:26px;
+      top:26px;
+      height:178px;
+      border-radius:28px;
+      background:
+        linear-gradient(rgba(15,23,42,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,23,42,.045) 1px, transparent 1px),
+        linear-gradient(180deg,rgba(255,255,255,.96),rgba(207,250,254,.94));
+      background-size:38px 38px,38px 38px,auto;
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      overflow:hidden;
+    }
+
+    .humidity-arc {
+      position:absolute;
+      left:34px;
+      bottom:22px;
+      width:210px;
+      height:120px;
+      border-radius:120px 120px 0 0;
+      background:
+        conic-gradient(from 180deg at 50% 100%, #06b6d4 0deg, #14b8a6 92deg, rgba(15,23,42,.08) 92deg, rgba(15,23,42,.08) 180deg);
+      overflow:hidden;
+    }
+
+    .humidity-arc::after {
+      content:"";
+      position:absolute;
+      left:28px;
+      right:28px;
+      bottom:0;
+      height:78px;
+      border-radius:90px 90px 0 0;
+      background:rgba(255,255,255,.94);
+    }
+
+    .arc-label {
+      position:absolute;
+      left:58px;
+      bottom:33px;
+      z-index:2;
+      text-align:center;
+      font-weight:950;
+      color:#0891b2;
+    }
+
+    .arc-label span {
+      display:block;
+      font-size:13px;
+      color:var(--muted);
+      letter-spacing:-.02em;
+    }
+
+    .arc-label strong {
+      display:block;
+      margin-top:2px;
+      font-size:34px;
+      line-height:1;
+      letter-spacing:-.06em;
+    }
+
+    .droplets {
+      position:absolute;
+      right:34px;
+      bottom:22px;
+      display:flex;
+      align-items:flex-end;
+      gap:12px;
+    }
+
+    .drop {
+      width:36px;
+      height:48px;
+      border-radius:50% 50% 56% 56%;
+      background:linear-gradient(180deg,#67e8f9,#06b6d4);
+      transform:rotate(45deg);
+      box-shadow:inset 0 7px 0 rgba(255,255,255,.34);
+    }
+
+    .drop:nth-child(2) {
+      width:28px;
+      height:38px;
+      opacity:.78;
+      background:linear-gradient(180deg,#86efac,#14b8a6);
+    }
+
+    .drop:nth-child(3) {
+      width:24px;
+      height:32px;
+      opacity:.62;
+      background:linear-gradient(180deg,#fde68a,#f59e0b);
+    }
+
+    .power-card {
+      position:absolute;
+      right:30px;
+      top:30px;
+      width:190px;
+      padding:18px;
+      border-radius:24px;
+      background:#fff;
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .power-card span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .power-card strong {
+      display:block;
+      margin-top:6px;
+      color:#0891b2;
+      font-size:32px;
+      line-height:1;
+      letter-spacing:-.05em;
+    }
+
+    .main-result-card {
+      position:absolute;
+      left:26px;
+      bottom:24px;
+      width:270px;
+      padding:18px;
+      border-radius:24px;
+      background:linear-gradient(135deg,#fff,#f0fdf4);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .main-result-card span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .main-result-card strong {
+      display:block;
+      margin-top:6px;
+      color:#16a34a;
+      font-size:34px;
+      line-height:1;
+      letter-spacing:-.05em;
+    }
+
+    .frog-card {
+      position:absolute;
+      right:28px;
+      bottom:24px;
+      width:172px;
+      height:172px;
+      border-radius:36px;
+      border:1px solid rgba(15,23,42,.08);
+      background:linear-gradient(145deg,#fff,#ecfccb);
+      box-shadow:var(--shadow2);
+    }
+
+    .frog-head {
+      position:absolute;
+      left:34px;
+      top:50px;
+      width:104px;
+      height:86px;
+      border-radius:52px 52px 42px 42px;
+      background:#86efac;
+      border:4px solid #166534;
+    }
+
+    .frog-eye {
+      position:absolute;
+      top:-18px;
+      width:34px;
+      height:34px;
+      border-radius:50%;
+      background:#dcfce7;
+      border:4px solid #166534;
+    }
+
+    .frog-eye.left {
+      left:14px;
+    }
+
+    .frog-eye.right {
+      right:14px;
+    }
+
+    .frog-eye::after {
+      content:"";
+      position:absolute;
+      left:8px;
+      top:8px;
+      width:9px;
+      height:9px;
+      border-radius:50%;
+      background:#111827;
+    }
+
+    .frog-smile {
+      position:absolute;
+      left:50%;
+      top:48px;
+      width:42px;
+      height:20px;
+      border-bottom:4px solid #166534;
+      border-radius:0 0 999px 999px;
+      transform:translateX(-50%);
+    }
+
+    .fan {
+      position:absolute;
+      left:15px;
+      bottom:16px;
+      width:52px;
+      height:52px;
+      border-radius:18px;
+      background:linear-gradient(135deg,#cffafe,#dbeafe);
+      border:3px solid #0891b2;
+      transform:rotate(-10deg);
+    }
+
+    .fan::before {
+      content:"";
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:26px;
+      height:26px;
+      border-radius:50%;
+      border:5px solid #0891b2;
+      border-left-color:transparent;
+      transform:translate(-50%,-50%) rotate(35deg);
+    }
+
+    .badge-mini {
+      position:absolute;
+      right:14px;
+      top:14px;
+      padding:8px 10px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#cffafe,#ecfccb);
+      color:#0891b2;
+      font-size:12px;
+      font-weight:950;
+      box-shadow:var(--shadow2);
+      z-index:5;
+    }
+
+    .section {
+      padding:22px 0;
+    }
+
+    .tool-grid {
+      display:grid;
+      grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);
+      gap:22px;
+      align-items:start;
+    }
+
+    .panel {
+      padding:24px;
+      border-radius:var(--radius);
+      border:1px solid rgba(15,23,42,.08);
+      background:var(--card);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);
+    }
+
+    .panel h2 {
+      margin:0 0 12px;
+      font-size:27px;
+      line-height:1.2;
+      letter-spacing:-.052em;
+    }
+
+    .desc {
+      margin:-4px 0 18px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    .form {
+      display:grid;
+      gap:14px;
+    }
+
+    .field label {
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom:8px;
+      color:#102033;
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .field small {
+      color:var(--muted);
+      font-weight:750;
+    }
+
+    .input-wrap {
+      position:relative;
+    }
+
+    input,
+    select {
+      width:100%;
+      min-height:54px;
+      padding:14px 54px 14px 15px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.10);
+      background:rgba(255,255,255,.94);
+      color:#102033;
+      font-size:16px;
+      font-weight:850;
+      outline:none;
+      transition:.16s ease;
+    }
+
+    select {
+      padding-right:15px;
+      appearance:none;
+      cursor:pointer;
+    }
+
+    input:focus,
+    select:focus {
+      border-color:rgba(6,182,212,.42);
+      box-shadow:0 0 0 4px rgba(6,182,212,.10);
+    }
+
+    .unit {
+      position:absolute;
+      top:50%;
+      right:15px;
+      transform:translateY(-50%);
+      color:var(--muted);
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .row {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .preset {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .preset button {
+      padding:8px 11px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:#fff;
+      color:#334155;
+      font-size:12px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .calc-btn {
+      width:100%;
+      min-height:58px;
+      margin-top:6px;
+      border:0;
+      border-radius:18px;
+      color:#fff;
+      background:linear-gradient(135deg,#06b6d4,#14b8a6,#f59e0b);
+      font-size:17px;
+      font-weight:950;
+      cursor:pointer;
+      box-shadow:0 16px 34px rgba(6,182,212,.24);
+    }
+
+    .reset-btn {
+      width:100%;
+      min-height:48px;
+      margin-top:10px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.86);
+      color:#102033;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .notice {
+      margin-top:12px;
+      padding:13px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(15,23,42,.08);
+      color:#526173;
+      font-size:13px;
+      line-height:1.75;
+      font-weight:760;
+      word-break:keep-all;
+    }
+
+    .warning {
+      border-color:rgba(245,158,11,.25);
+      background:rgba(255,251,235,.80);
+      color:#92400e;
+    }
+
+    .result-box {
+      display:grid;
+      gap:14px;
+    }
+
+    .result-main {
+      padding:24px;
+      border-radius:26px;
+      color:#102033;
+      background:
+        radial-gradient(circle at 84% 18%, rgba(255,255,255,.42), transparent 26%),
+        linear-gradient(135deg,#67e8f9,#86efac 54%,#fde68a);
+      box-shadow:var(--shadow2);
+    }
+
+    .result-main span {
+      display:block;
+      font-size:14px;
+      opacity:.82;
+      font-weight:900;
+    }
+
+    .result-main strong {
+      display:block;
+      margin-top:8px;
+      font-size:clamp(36px,5vw,58px);
+      line-height:1;
+      letter-spacing:-.06em;
+    }
+
+    .result-main em {
+      display:block;
+      margin-top:10px;
+      font-size:14px;
+      line-height:1.75;
+      font-style:normal;
+      font-weight:850;
+      opacity:.88;
+      word-break:keep-all;
+    }
+
+    .result-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .metric {
+      padding:18px;
+      border-radius:20px;
+      background:rgba(255,255,255,.84);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .metric span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .metric strong {
+      display:block;
+      margin-top:7px;
+      color:#102033;
+      font-size:24px;
+      letter-spacing:-.045em;
+    }
+
+    .good {
+      color:#16a34a !important;
+    }
+
+    .warn {
+      color:#d97706 !important;
+    }
+
+    .bad {
+      color:#e11d48 !important;
+    }
+
+    .guide-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .guide {
+      padding:20px;
+      border-radius:22px;
+      background:rgba(255,255,255,.80);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .guide b {
+      display:block;
+      margin-bottom:8px;
+      font-size:17px;
+      letter-spacing:-.03em;
+    }
+
+    .guide p {
+      margin:0;
+      color:#526173;
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    footer {
+      padding:44px 0 54px;
+      color:var(--muted);
+      text-align:center;
+      font-size:13px;
+    }
+
+    @media (max-width:920px) {
+      .hero-grid,
+      .tool-grid {
+        grid-template-columns:1fr;
+      }
+
+      .hero {
+        padding-top:42px;
+      }
+    }
+
+    @media (max-width:640px) {
+      .nav {
+        align-items:flex-start;
+        flex-direction:column;
+        padding:12px 0;
+      }
+
+      .nav-links {
+        width:100%;
+        overflow-x:auto;
+        padding-bottom:4px;
+      }
+
+      .hero-actions {
+        display:grid;
+      }
+
+      .btn {
+        width:100%;
+      }
+
+      .row,
+      .result-grid,
+      .guide-grid {
+        grid-template-columns:1fr;
+      }
+
+      .visual {
+        min-height:360px;
+      }
+
+      .power-card {
+        width:154px;
+      }
+
+      .main-result-card {
+        width:220px;
+      }
+
+      .frog-card {
+        width:138px;
+        height:138px;
+        right:18px;
+      }
+
+      .frog-head {
+        left:24px;
+        top:48px;
+        width:90px;
+        height:78px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="../">
+        <div class="brand-mark">B</div>
+        <div>
+          바로해결툴즈
+          <small>생활 계산 · 제습기 전기세 · 바로 확인</small>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="주요 도구">
+        <a href="../">전체 도구</a>
+        <a href="../aircon-bill/">에어컨 전기세</a>
+        <a href="../youth-future-savings/">청년미래적금</a>
+        <a href="../travel-budget/">여행예산</a>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="chips">
+            <span class="chip hot">💧 제습기 전기세</span>
+            <span class="chip">장마철 필수</span>
+            <span class="chip">하루·한달 계산</span>
+          </div>
+
+          <h1>
+            제습기 하루 종일 틀면<br>
+            <span class="gradient">전기세 얼마나 나올까?</span>
+          </h1>
+
+          <p class="lead">
+            제습기 소비전력, 하루 사용시간, 사용일수, 전기요금 단가를 입력하면
+            <strong>하루 전기세, 한 달 예상 전기세, 총 사용전력량</strong>을
+            한 번에 계산합니다. 장마철에 막연히 걱정하지 말고 숫자로 먼저 확인하세요.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#calculator">제습기 전기세 계산하기</a>
+            <a class="btn btn-ghost" href="#guide">절약 체크포인트</a>
+          </div>
+        </div>
+
+        <div class="visual" aria-label="제습기 전기세 계산 예시">
+          <div class="visual-panel">
+            <div class="humidity-arc">
+              <div class="arc-label">
+                <span>습도 관리</span>
+                <strong>55%</strong>
+              </div>
+            </div>
+
+            <div class="droplets">
+              <div class="drop"></div>
+              <div class="drop"></div>
+              <div class="drop"></div>
+            </div>
+
+            <div class="power-card">
+              <span>소비전력</span>
+              <strong>300W</strong>
+            </div>
+          </div>
+
+          <div class="main-result-card">
+            <span>한 달 예상 전기세</span>
+            <strong>약 6,480원</strong>
+          </div>
+
+          <div class="frog-card" aria-hidden="true">
+            <div class="badge-mini">DRY</div>
+            <div class="frog-head">
+              <div class="frog-eye left"></div>
+              <div class="frog-eye right"></div>
+              <div class="frog-smile"></div>
+            </div>
+            <div class="fan"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="calculator">
+      <div class="wrap tool-grid">
+        <div class="panel">
+          <h2>제습기 전기세 계산기</h2>
+          <p class="desc">
+            제품 라벨의 소비전력 W와 실제 사용시간을 입력하면 예상 전기요금을 계산합니다.
+            기본 단가는 예시값이므로 가정별 전기요금 구간에 맞게 조정하세요.
+          </p>
+
+          <form class="form" onsubmit="event.preventDefault(); calculateDehumidifierBill();">
+            <div class="row">
+              <div class="field">
+                <label for="watt">
+                  소비전력
+                  <small>제품 라벨 W</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="watt" type="number" min="0" step="1" value="300" placeholder="예: 300">
+                  <span class="unit">W</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="hoursPerDay">
+                  하루 사용시간
+                  <small>실제 가동 시간</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="hoursPerDay" type="number" min="0" max="24" step="0.5" value="8" placeholder="예: 8">
+                  <span class="unit">시간</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="days">
+                  사용일수
+                  <small>한 달 기준</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="days" type="number" min="1" max="31" step="1" value="30" placeholder="예: 30">
+                  <span class="unit">일</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="unitPrice">
+                  전기요금 단가
+                  <small>1kWh당 예상 단가</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="unitPrice" type="number" min="0" step="1" value="180" placeholder="예: 180">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="efficiencyRate">
+                  실제 가동률
+                  <small>자동정지 반영</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="efficiencyRate" type="number" min="1" max="100" step="1" value="70" placeholder="예: 70">
+                  <span class="unit">%</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="standbyWatt">
+                  대기전력
+                  <small>선택 입력</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="standbyWatt" type="number" min="0" step="0.1" value="1" placeholder="예: 1">
+                  <span class="unit">W</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="preset">
+              <button type="button" onclick="fillExample('small')">소형 180W</button>
+              <button type="button" onclick="fillExample('normal')">일반 300W</button>
+              <button type="button" onclick="fillExample('large')">대용량 500W</button>
+              <button type="button" onclick="fillExample('allDay')">24시간 사용</button>
+            </div>
+
+            <button class="calc-btn" type="submit">제습기 전기세 계산하기</button>
+            <button class="reset-btn" type="button" onclick="resetForm()">입력값 초기화</button>
+          </form>
+
+          <div class="notice warning">
+            이 계산기는 소비전력 × 사용시간 기준의 간편 계산입니다. 실제 전기요금은 누진구간, 기본요금,
+            기후환경요금, 연료비조정액, 다른 가전 사용량에 따라 달라질 수 있습니다.
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>계산 결과</h2>
+          <p class="desc">
+            하루 전기세와 한 달 예상 전기세를 나눠 확인하세요.
+          </p>
+
+          <div class="result-box">
+            <div class="result-main">
+              <span>한 달 예상 전기세</span>
+              <strong id="monthlyBill">-</strong>
+              <em id="summaryText">값을 입력하고 계산 버튼을 눌러주세요.</em>
+            </div>
+
+            <div class="result-grid">
+              <div class="metric">
+                <span>하루 예상 전기세</span>
+                <strong id="dailyBill">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>총 사용전력량</span>
+                <strong id="totalKwh">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>하루 사용전력량</span>
+                <strong id="dailyKwh">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>순수 가동 전력량</span>
+                <strong id="activeKwh">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>대기전력 비용</span>
+                <strong id="standbyCost">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>연속 사용 시 1년</span>
+                <strong id="yearlyBill">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>적용 단가</span>
+                <strong id="appliedUnitPrice">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>사용 강도</span>
+                <strong id="usageGrade">-</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice">
+            제습기는 설정 습도에 도달하면 압축기 가동이 줄어들 수 있어 실제 전기세는 입력값보다 낮게 나올 수 있습니다.
+            반대로 빨래 건조, 지하공간, 장시간 연속 사용 시에는 더 높아질 수 있습니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="guide">
+      <div class="wrap">
+        <div class="panel">
+          <h2>제습기 전기세 줄이는 체크포인트</h2>
+
+          <div class="guide-grid">
+            <div class="guide">
+              <b>습도 목표를 너무 낮추지 않기</b>
+              <p>
+                실내 습도를 지나치게 낮게 잡으면 압축기 가동 시간이 길어져 전기세가 늘어날 수 있습니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>문 닫고 좁은 공간부터</b>
+              <p>
+                방문과 창문을 닫고 사용하는 편이 효율적입니다.
+                넓은 공간 전체를 한 번에 제습하면 시간이 오래 걸립니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>빨래 건조는 시간 제한</b>
+              <p>
+                빨래 건조용으로 쓸 때는 타이머를 걸어두는 것이 좋습니다.
+                계속 켜두면 사용시간이 크게 늘어납니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="notice">
+            TIP. 장마철에는 제습기 전기세와 에어컨 전기세를 함께 계산해두면
+            어느 쪽을 얼마나 사용할지 더 현실적으로 판단할 수 있습니다.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 바로해결툴즈 · 계산 결과는 참고용입니다. 실제 전기요금은 가정별 사용량과 요금제에 따라 달라질 수 있습니다.
+  </footer>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    function num(id) {
+      const value = Number($(id).value);
+      return Number.isFinite(value) ? value : 0;
+    }
+
+    function setText(id, value) {
+      $(id).textContent = value;
+    }
+
+    function won(value) {
+      if (!Number.isFinite(value)) return "-";
+      return `${Math.round(value).toLocaleString("ko-KR")}원`;
+    }
+
+    function kwh(value) {
+      if (!Number.isFinite(value)) return "-";
+      return `${value.toLocaleString("ko-KR", {
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 0
+      })}kWh`;
+    }
+
+    function calculateDehumidifierBill() {
+      const watt = Math.max(num("watt"), 0);
+      const hoursPerDay = Math.min(Math.max(num("hoursPerDay"), 0), 24);
+      const days = Math.min(Math.max(Math.floor(num("days")), 1), 31);
+      const unitPrice = Math.max(num("unitPrice"), 0);
+      const efficiencyRate = Math.min(Math.max(num("efficiencyRate"), 1), 100) / 100;
+      const standbyWatt = Math.max(num("standbyWatt"), 0);
+
+      $("hoursPerDay").value = hoursPerDay;
+      $("days").value = days;
+
+      if (watt <= 0 || hoursPerDay <= 0 || days <= 0 || unitPrice <= 0) {
+        showMessage("소비전력, 하루 사용시간, 사용일수, 전기요금 단가를 입력해주세요.");
+        return;
+      }
+
+      const activeHoursPerDay = hoursPerDay * efficiencyRate;
+      const standbyHoursPerDay = Math.max(24 - hoursPerDay, 0);
+
+      const dailyActiveKwh = (watt / 1000) * activeHoursPerDay;
+      const dailyStandbyKwh = (standbyWatt / 1000) * standbyHoursPerDay;
+      const dailyKwh = dailyActiveKwh + dailyStandbyKwh;
+
+      const totalActiveKwh = dailyActiveKwh * days;
+      const totalStandbyKwh = dailyStandbyKwh * days;
+      const totalKwh = dailyKwh * days;
+
+      const dailyBill = dailyKwh * unitPrice;
+      const monthlyBill = totalKwh * unitPrice;
+      const standbyCost = totalStandbyKwh * unitPrice;
+      const yearlyBill = dailyBill * 365;
+
+      setText("monthlyBill", won(monthlyBill));
+      setText("dailyBill", won(dailyBill));
+      setText("totalKwh", kwh(totalKwh));
+      setText("dailyKwh", kwh(dailyKwh));
+      setText("activeKwh", kwh(totalActiveKwh));
+      setText("standbyCost", won(standbyCost));
+      setText("yearlyBill", won(yearlyBill));
+      setText("appliedUnitPrice", `${Math.round(unitPrice).toLocaleString("ko-KR")}원/kWh`);
+
+      const grade = getUsageGrade(monthlyBill, totalKwh);
+      setText("usageGrade", grade.text);
+      $("usageGrade").className = grade.className;
+
+      $("monthlyBill").className = monthlyBill >= 20000 ? "warn" : "good";
+      $("dailyBill").className = "good";
+      $("totalKwh").className = totalKwh >= 100 ? "warn" : "good";
+
+      const summary = `소비전력 ${watt.toLocaleString("ko-KR")}W 제습기를 하루 ${hoursPerDay}시간씩 ${days}일 사용하면 총 사용전력량은 약 ${kwh(totalKwh)}, 한 달 예상 전기세는 약 ${won(monthlyBill)}입니다.`;
+
+      setText("summaryText", summary);
+    }
+
+    function getUsageGrade(monthlyBill, totalKwh) {
+      if (monthlyBill >= 30000 || totalKwh >= 150) {
+        return {
+          text:"사용량 높음",
+          className:"bad"
+        };
+      }
+
+      if (monthlyBill >= 15000 || totalKwh >= 80) {
+        return {
+          text:"중간 사용",
+          className:"warn"
+        };
+      }
+
+      return {
+        text:"부담 낮음",
+        className:"good"
+      };
+    }
+
+    function showMessage(message) {
+      setText("monthlyBill", "-");
+      setText("dailyBill", "-");
+      setText("totalKwh", "-");
+      setText("dailyKwh", "-");
+      setText("activeKwh", "-");
+      setText("standbyCost", "-");
+      setText("yearlyBill", "-");
+      setText("appliedUnitPrice", "-");
+      setText("usageGrade", "-");
+      setText("summaryText", message);
+    }
+
+    function fillExample(type) {
+      if (type === "small") {
+        $("watt").value = 180;
+        $("hoursPerDay").value = 6;
+        $("days").value = 30;
+        $("unitPrice").value = 180;
+        $("efficiencyRate").value = 70;
+        $("standbyWatt").value = 1;
+      }
+
+      if (type === "normal") {
+        $("watt").value = 300;
+        $("hoursPerDay").value = 8;
+        $("days").value = 30;
+        $("unitPrice").value = 180;
+        $("efficiencyRate").value = 70;
+        $("standbyWatt").value = 1;
+      }
+
+      if (type === "large") {
+        $("watt").value = 500;
+        $("hoursPerDay").value = 10;
+        $("days").value = 30;
+        $("unitPrice").value = 180;
+        $("efficiencyRate").value = 75;
+        $("standbyWatt").value = 1.5;
+      }
+
+      if (type === "allDay") {
+        $("watt").value = 300;
+        $("hoursPerDay").value = 24;
+        $("days").value = 30;
+        $("unitPrice").value = 180;
+        $("efficiencyRate").value = 60;
+        $("standbyWatt").value = 0;
+      }
+
+      calculateDehumidifierBill();
+    }
+
+    function resetForm() {
+      $("watt").value = "";
+      $("hoursPerDay").value = "";
+      $("days").value = "30";
+      $("unitPrice").value = "180";
+      $("efficiencyRate").value = "70";
+      $("standbyWatt").value = "1";
+      showMessage("값을 입력하고 계산 버튼을 눌러주세요.");
+    }
+
+    calculateDehumidifierBill();
+  </script>
+</body>
+</html>
