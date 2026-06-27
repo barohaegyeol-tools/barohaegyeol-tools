@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>주식 익절가 계산기｜목표 수익률이면 얼마에 팔아야 할까｜바로해결툴즈</title>
+  <meta name="description" content="매수가, 보유 수량, 목표 수익률 또는 목표 매도가를 입력하면 익절가, 예상 수익금, 매도금액, 세금·수수료 반영 후 예상 실수익을 바로 계산합니다." />
+  <meta name="keywords" content="주식 익절가 계산기, 목표가 계산기, 목표 수익률 계산기, 주식 수익 계산, 익절 계산기, 매도가 계산기, 주식 목표가, 바로해결툴즈" />
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/stock-target-price/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="주식 익절가 계산기｜목표 수익률이면 얼마에 팔아야 할까" />
+  <meta property="og:description" content="목표 수익률을 입력하면 얼마에 팔아야 하는지, 예상 수익금은 얼마인지 바로 계산합니다." />
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/stock-target-price/" />
+  <meta property="og:site_name" content="바로해결툴즈" />
+  <meta name="theme-color" content="#06261f" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "주식 익절가 계산기",
+    "url": "https://barohaegyeol-tools.pages.dev/stock-target-price/",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "All",
+    "description": "목표 수익률 또는 목표 매도가를 기준으로 예상 수익금과 익절가를 계산하는 무료 주식 계산기입니다.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #061b1f;
+      --bg2: #092b2b;
+      --panel: rgba(255, 255, 255, .10);
+      --panel2: rgba(255, 255, 255, .075);
+      --ink: #f8fafc;
+      --text: #d9f99d;
+      --muted: #9fb7ad;
+      --line: rgba(255, 255, 255, .14);
+      --green: #22c55e;
+      --green2: #14b8a6;
+      --lime: #bef264;
+      --gold: #facc15;
+      --orange: #fb923c;
+      --blue: #38bdf8;
+      --red: #fb7185;
+      --navy: #08111f;
+      --shadow: 0 28px 90px rgba(0, 0, 0, .36);
+      --shadow2: 0 18px 54px rgba(0, 0, 0, .22);
+      --radius: 30px;
+      --max: 1160px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", system-ui, sans-serif;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(190, 242, 100, .22), transparent 28%),
+        radial-gradient(circle at 88% 12%, rgba(56, 189, 248, .18), transparent 27%),
+        radial-gradient(circle at 52% 105%, rgba(250, 204, 21, .14), transparent 34%),
+        linear-gradient(145deg, #061b1f 0%, #071827 46%, #0b2f24 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .28;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,.14) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: linear-gradient(to bottom, #000, transparent 86%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid rgba(255, 255, 255, .08);
+      background: rgba(6, 27, 31, .72);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      min-height: 68px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 950;
+      letter-spacing: -.045em;
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      color: #061b1f;
+      background: linear-gradient(135deg, var(--lime), var(--green2));
+      box-shadow: 0 16px 34px rgba(34, 197, 94, .25);
+      font-weight: 950;
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 1px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 8px;
+      color: #d1fae5;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .nav-links a {
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, .11);
+      background: rgba(255, 255, 255, .06);
+      font-weight: 850;
+    }
+
+    .hero {
+      padding: 62px 0 30px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.02fr .98fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .12);
+      color: #e2e8f0;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .chip.hot {
+      color: #ecfccb;
+      background: rgba(34, 197, 94, .14);
+      border-color: rgba(34, 197, 94, .34);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(40px, 6.5vw, 78px);
+      line-height: 1.03;
+      letter-spacing: -.078em;
+    }
+
+    .gradient-text {
+      color: transparent;
+      background: linear-gradient(90deg, #bef264 0%, #22c55e 42%, #38bdf8 88%);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .lead {
+      margin: 20px 0 0;
+      max-width: 690px;
+      color: #d1fae5;
+      font-size: clamp(16px, 2vw, 19px);
+      word-break: keep-all;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 26px;
+    }
+
+    .btn {
+      min-height: 49px;
+      padding: 13px 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 16px;
+      border: 1px solid transparent;
+      font-weight: 950;
+      letter-spacing: -.025em;
+      cursor: pointer;
+      transition: .18s ease;
+    }
+
+    .btn-primary {
+      color: #061b1f;
+      background: linear-gradient(135deg, #bef264, #22c55e, #38bdf8);
+      box-shadow: 0 20px 50px rgba(34, 197, 94, .24);
+    }
+
+    .btn-ghost {
+      color: #d1fae5;
+      background: rgba(255, 255, 255, .07);
+      border-color: rgba(255, 255, 255, .12);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 388px;
+      border-radius: 40px;
+      padding: 26px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 80% 12%, rgba(250, 204, 21, .24), transparent 24%),
+        radial-gradient(circle at 18% 84%, rgba(34, 197, 94, .20), transparent 30%),
+        linear-gradient(145deg, rgba(255,255,255,.13), rgba(255,255,255,.04));
+      border: 1px solid rgba(255, 255, 255, .14);
+      box-shadow: var(--shadow);
+    }
+
+    .rise-panel {
+      position: absolute;
+      left: 28px;
+      right: 28px;
+      top: 34px;
+      height: 172px;
+      border-radius: 28px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.035)),
+        linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px);
+      background-size: auto, 42px 42px, 42px 42px;
+      border: 1px solid rgba(255,255,255,.11);
+      overflow: hidden;
+    }
+
+    .rise-line {
+      position: absolute;
+      inset: 22px;
+    }
+
+    .rise-line svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .goal-card {
+      position: absolute;
+      left: 34px;
+      bottom: 34px;
+      width: 220px;
+      padding: 18px;
+      border-radius: 24px;
+      background: rgba(7, 24, 39, .74);
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow2);
+    }
+
+    .goal-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .goal-card strong {
+      display: block;
+      margin-top: 6px;
+      font-size: 34px;
+      line-height: 1;
+      color: var(--lime);
+      letter-spacing: -.05em;
+    }
+
+    .rocket-cat {
+      position: absolute;
+      right: 26px;
+      bottom: 24px;
+      width: 170px;
+      height: 170px;
+      border-radius: 44px;
+      background:
+        radial-gradient(circle at 50% 42%, #fff7dc 0 33%, transparent 34%),
+        linear-gradient(145deg, rgba(255,255,255,.18), rgba(255,255,255,.055));
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: var(--shadow2);
+    }
+
+    .rocket-cat .rocket {
+      position: absolute;
+      right: 8px;
+      top: 12px;
+      width: 54px;
+      height: 54px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      color: #061b1f;
+      background: linear-gradient(135deg, var(--lime), var(--gold));
+      font-size: 28px;
+      font-weight: 950;
+      transform: rotate(14deg);
+      box-shadow: 0 14px 32px rgba(250, 204, 21, .24);
+    }
+
+    .rocket-cat .ear {
+      position: absolute;
+      top: 36px;
+      width: 36px;
+      height: 36px;
+      background: #ffe8b8;
+      border: 5px solid #14212a;
+      border-radius: 11px 11px 4px 11px;
+    }
+
+    .rocket-cat .ear.left {
+      left: 39px;
+      transform: rotate(-32deg);
+    }
+
+    .rocket-cat .ear.right {
+      right: 39px;
+      transform: rotate(32deg) scaleX(-1);
+    }
+
+    .rocket-cat .face {
+      position: absolute;
+      left: 39px;
+      top: 50px;
+      width: 92px;
+      height: 84px;
+      border-radius: 40px 40px 34px 34px;
+      background: #fff4d6;
+      border: 5px solid #14212a;
+    }
+
+    .rocket-cat .eye {
+      position: absolute;
+      top: 31px;
+      width: 11px;
+      height: 18px;
+      border-radius: 99px;
+      background: #111827;
+    }
+
+    .rocket-cat .eye.left {
+      left: 25px;
+    }
+
+    .rocket-cat .eye.right {
+      right: 25px;
+    }
+
+    .rocket-cat .mouth {
+      position: absolute;
+      left: 50%;
+      top: 56px;
+      width: 26px;
+      height: 14px;
+      border-radius: 0 0 999px 999px;
+      border-bottom: 4px solid #22c55e;
+      transform: translateX(-50%);
+    }
+
+    .section {
+      padding: 24px 0;
+    }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .panel {
+      padding: 24px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255, 255, 255, .12);
+      background: rgba(255, 255, 255, .08);
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(14px);
+    }
+
+    .panel h2 {
+      margin: 0 0 14px;
+      font-size: 26px;
+      line-height: 1.2;
+      letter-spacing: -.055em;
+    }
+
+    .desc {
+      margin: -4px 0 18px;
+      color: var(--muted);
+      font-size: 14px;
+      word-break: keep-all;
+    }
+
+    .form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .field label {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+      color: #ecfeff;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .field small {
+      color: var(--muted);
+      font-weight: 750;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 54px;
+      padding: 14px 54px 14px 15px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, .14);
+      background: rgba(2, 6, 23, .44);
+      color: #f8fafc;
+      font-size: 16px;
+      font-weight: 850;
+      outline: none;
+      transition: .16s ease;
+    }
+
+    select {
+      padding-right: 15px;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: rgba(190, 242, 100, .64);
+      box-shadow: 0 0 0 4px rgba(190, 242, 100, .12);
+    }
+
+    .unit {
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .preset {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .preset button {
+      padding: 8px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.07);
+      color: #ecfeff;
+      font-size: 12px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .calc-btn {
+      width: 100%;
+      min-height: 58px;
+      margin-top: 6px;
+      border: 0;
+      border-radius: 18px;
+      color: #061b1f;
+      background: linear-gradient(135deg, #bef264, #22c55e, #38bdf8);
+      font-size: 17px;
+      font-weight: 950;
+      box-shadow: 0 18px 42px rgba(34, 197, 94, .25);
+      cursor: pointer;
+    }
+
+    .reset-btn {
+      width: 100%;
+      min-height: 48px;
+      margin-top: 10px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.07);
+      color: #e2e8f0;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .notice {
+      margin-top: 12px;
+      padding: 13px 14px;
+      border-radius: 17px;
+      color: #d1fae5;
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .10);
+      font-size: 13px;
+      font-weight: 750;
+      word-break: keep-all;
+    }
+
+    .result-box {
+      display: grid;
+      gap: 14px;
+    }
+
+    .result-main {
+      padding: 24px;
+      border-radius: 26px;
+      color: #061b1f;
+      background:
+        radial-gradient(circle at 84% 18%, rgba(255,255,255,.36), transparent 30%),
+        linear-gradient(135deg, #bef264, #22c55e 46%, #38bdf8);
+      box-shadow: 0 22px 64px rgba(34, 197, 94, .22);
+    }
+
+    .result-main span {
+      display: block;
+      font-size: 14px;
+      opacity: .82;
+      font-weight: 900;
+    }
+
+    .result-main strong {
+      display: block;
+      margin-top: 8px;
+      font-size: clamp(38px, 5.3vw, 58px);
+      line-height: 1;
+      letter-spacing: -.06em;
+    }
+
+    .result-main em {
+      display: block;
+      margin-top: 10px;
+      font-style: normal;
+      font-size: 14px;
+      opacity: .88;
+      font-weight: 850;
+      word-break: keep-all;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .metric {
+      padding: 18px;
+      border-radius: 21px;
+      border: 1px solid rgba(255, 255, 255, .10);
+      background: rgba(255, 255, 255, .07);
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .metric strong {
+      display: block;
+      margin-top: 7px;
+      color: #f8fafc;
+      font-size: 24px;
+      letter-spacing: -.045em;
+    }
+
+    .good {
+      color: var(--lime) !important;
+    }
+
+    .warn {
+      color: var(--gold) !important;
+    }
+
+    .bad {
+      color: var(--red) !important;
+    }
+
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .guide-card {
+      padding: 20px;
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, .10);
+      background: rgba(255, 255, 255, .07);
+    }
+
+    .guide-card b {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 17px;
+      letter-spacing: -.03em;
+    }
+
+    .guide-card p {
+      margin: 0;
+      color: #d1fae5;
+      font-size: 14px;
+      word-break: keep-all;
+    }
+
+    footer {
+      padding: 42px 0 54px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    @media (max-width: 920px) {
+      .hero-grid,
+      .tool-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 42px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 12px 0;
+      }
+
+      .nav-links {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+
+      .hero-actions {
+        display: grid;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .row,
+      .result-grid,
+      .guide-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual {
+        min-height: 330px;
+      }
+
+      .rocket-cat {
+        width: 132px;
+        height: 132px;
+        right: 18px;
+        bottom: 18px;
+      }
+
+      .rocket-cat .face {
+        left: 23px;
+        top: 41px;
+      }
+
+      .rocket-cat .ear.left {
+        left: 26px;
+        top: 30px;
+      }
+
+      .rocket-cat .ear.right {
+        right: 26px;
+        top: 30px;
+      }
+
+      .rocket-cat .rocket {
+        right: 4px;
+        top: 6px;
+        width: 45px;
+        height: 45px;
+        font-size: 23px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="../">
+        <div class="brand-mark">B</div>
+        <div>
+          바로해결툴즈
+          <small>주식 계산 · 목표 수익 · 바로 확인</small>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="주요 도구">
+        <a href="../">전체 도구</a>
+        <a href="../stock-average/">평단가</a>
+        <a href="../stock-stop-loss/">손절가</a>
+        <a href="../stock-profit/">수익률</a>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="chips">
+            <span class="chip hot">🚀 익절 목표 확인</span>
+            <span class="chip">목표 수익률</span>
+            <span class="chip">매도가 계산</span>
+          </div>
+
+          <h1>
+            몇 퍼센트 먹으려면<br />
+            <span class="gradient-text">얼마에 팔아야 할까?</span>
+          </h1>
+
+          <p class="lead">
+            매수가, 보유 수량, 목표 수익률을 입력하면 목표 매도가와 예상 수익금을 계산합니다.
+            막연히 오르길 기다리기보다, 익절 기준을 숫자로 먼저 잡아보세요.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#calculator">익절가 계산하기</a>
+            <a class="btn btn-ghost" href="../stock-stop-loss/">손절가 계산기</a>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-label="주식 익절가 계산 예시">
+          <div class="rise-panel">
+            <div class="rise-line">
+              <svg viewBox="0 0 420 130" role="img" aria-label="상승 목표 차트">
+                <defs>
+                  <linearGradient id="riseLine" x1="0" x2="1">
+                    <stop offset="0%" stop-color="#38bdf8"/>
+                    <stop offset="45%" stop-color="#22c55e"/>
+                    <stop offset="100%" stop-color="#bef264"/>
+                  </linearGradient>
+                  <linearGradient id="riseFill" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stop-color="#22c55e" stop-opacity="0.28"/>
+                    <stop offset="100%" stop-color="#22c55e" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <path d="M10 102 C50 94, 80 92, 112 84 C152 74, 172 76, 208 62 C244 48, 268 54, 306 38 C350 20, 374 28, 410 16 L410 130 L10 130 Z" fill="url(#riseFill)"></path>
+                <path d="M10 102 C50 94, 80 92, 112 84 C152 74, 172 76, 208 62 C244 48, 268 54, 306 38 C350 20, 374 28, 410 16" fill="none" stroke="url(#riseLine)" stroke-width="7" stroke-linecap="round"></path>
+                <line x1="18" y1="34" x2="402" y2="34" stroke="#bef264" stroke-width="3" stroke-dasharray="9 10" opacity=".9"></line>
+                <text x="22" y="27" fill="#bef264" font-size="18" font-weight="900">목표가</text>
+              </svg>
+            </div>
+          </div>
+
+          <div class="goal-card">
+            <span>목표 매도가</span>
+            <strong>11,500원</strong>
+          </div>
+
+          <div class="rocket-cat" aria-hidden="true">
+            <div class="rocket">↗</div>
+            <div class="ear left"></div>
+            <div class="ear right"></div>
+            <div class="face">
+              <div class="eye left"></div>
+              <div class="eye right"></div>
+              <div class="mouth"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="calculator">
+      <div class="wrap tool-grid">
+        <div class="panel">
+          <h2>주식 익절가 계산기</h2>
+          <p class="desc">
+            목표 수익률로 계산하거나, 직접 목표 매도가를 입력해서 예상 수익금을 확인할 수 있습니다.
+          </p>
+
+          <form class="form" onsubmit="event.preventDefault(); calculateTargetPrice();">
+            <div class="field">
+              <label for="buyPrice">
+                매수가
+                <small>평균 매입단가</small>
+              </label>
+              <div class="input-wrap">
+                <input id="buyPrice" type="number" inputmode="decimal" min="0" step="0.01" value="10000" placeholder="예: 10000" />
+                <span class="unit">원</span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="qty">
+                보유 수량
+                <small>현재 가진 주식 수</small>
+              </label>
+              <div class="input-wrap">
+                <input id="qty" type="number" inputmode="decimal" min="0" step="1" value="100" placeholder="예: 100" />
+                <span class="unit">주</span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="mode">
+                  계산 방식
+                  <small>기준 선택</small>
+                </label>
+                <select id="mode" onchange="syncModeLabel();">
+                  <option value="rate">목표 수익률로 계산</option>
+                  <option value="price">목표 매도가로 계산</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="feeRate">
+                  매도 수수료율
+                  <small>선택 입력</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="feeRate" type="number" inputmode="decimal" min="0" step="0.001" value="0.015" placeholder="예: 0.015" />
+                  <span class="unit">%</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="targetInput">
+                <span id="targetInputLabel">목표 수익률</span>
+                <small id="targetInputHelp">몇 % 수익을 원하나요</small>
+              </label>
+              <div class="input-wrap">
+                <input id="targetInput" type="number" inputmode="decimal" min="0" step="0.01" value="15" placeholder="예: 15" />
+                <span class="unit" id="targetUnit">%</span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="currentPrice">
+                현재가
+                <small>선택 입력</small>
+              </label>
+              <div class="input-wrap">
+                <input id="currentPrice" type="number" inputmode="decimal" min="0" step="0.01" value="10800" placeholder="예: 10800" />
+                <span class="unit">원</span>
+              </div>
+            </div>
+
+            <div class="preset">
+              <button type="button" onclick="setTargetRate(5)">+5% 목표</button>
+              <button type="button" onclick="setTargetRate(10)">+10% 목표</button>
+              <button type="button" onclick="setTargetRate(15)">+15% 목표</button>
+              <button type="button" onclick="setTargetRate(20)">+20% 목표</button>
+            </div>
+
+            <button class="calc-btn" type="submit">익절가 계산하기</button>
+            <button class="reset-btn" type="button" onclick="resetForm()">입력값 초기화</button>
+          </form>
+
+          <div class="notice">
+            수수료와 세금은 거래 조건, 증권사, 시장, 이벤트에 따라 달라질 수 있습니다.
+            이 계산기는 목표 수익 기준을 잡기 위한 참고용 도구입니다.
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>계산 결과</h2>
+          <p class="desc">
+            목표가만 보지 말고 예상 수익금과 현재가 대비 남은 상승률을 함께 확인하세요.
+          </p>
+
+          <div class="result-box">
+            <div class="result-main">
+              <span>계산된 목표 매도가</span>
+              <strong id="targetPrice">-</strong>
+              <em id="summaryText">값을 입력하고 계산 버튼을 눌러주세요.</em>
+            </div>
+
+            <div class="result-grid">
+              <div class="metric">
+                <span>예상 순수익</span>
+                <strong id="profitAmount" class="good">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>예상 수익률</span>
+                <strong id="profitRate" class="good">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>총 매수금액</span>
+                <strong id="totalBuy">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>매도 후 예상 금액</span>
+                <strong id="afterSell">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>현재가 대비 남은 상승률</span>
+                <strong id="remainRate">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>주당 예상 수익</span>
+                <strong id="profitPerShare">-</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice">
+            목표가는 정답이 아니라 기준입니다. 실제 매도 전에는 거래량, 재료, 저항선, 시장 흐름을 같이 확인하세요.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="panel">
+          <h2>익절 전 체크포인트</h2>
+
+          <div class="guide-grid">
+            <div class="guide-card">
+              <b>목표 수익률 먼저 정하기</b>
+              <p>
+                막연히 더 오르겠지라고 보기보다, 몇 % 수익이면 팔지 먼저 정하면 매도 판단이 쉬워집니다.
+              </p>
+            </div>
+
+            <div class="guide-card">
+              <b>수익금 기준으로 보기</b>
+              <p>
+                +10%라는 비율보다 실제 수익금이 얼마인지 확인해야 체감 수익을 정확히 볼 수 있습니다.
+              </p>
+            </div>
+
+            <div class="guide-card">
+              <b>분할매도 고려</b>
+              <p>
+                한 번에 전부 팔기 어렵다면 목표가 구간별로 나눠 파는 방식도 함께 검토할 수 있습니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="notice">
+            TIP. 손절가와 목표가를 함께 정하면 매매 기준이 훨씬 명확해집니다.
+            감정으로 대응하기보다 숫자로 먼저 기준을 잡아보세요.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 바로해결툴즈 · 계산 결과는 참고용입니다. 투자 판단과 책임은 본인에게 있습니다.
+  </footer>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    function toNumber(id) {
+      const value = Number($(id).value);
+      return Number.isFinite(value) ? value : 0;
+    }
+
+    function formatNumber(value, digits = 0) {
+      if (!Number.isFinite(value)) return "-";
+      return value.toLocaleString("ko-KR", {
+        maximumFractionDigits: digits,
+        minimumFractionDigits: 0
+      });
+    }
+
+    function formatWon(value) {
+      if (!Number.isFinite(value)) return "-";
+      return `${formatNumber(Math.round(value))}원`;
+    }
+
+    function setText(id, value) {
+      $(id).textContent = value;
+    }
+
+    function syncModeLabel() {
+      const mode = $("mode").value;
+
+      if (mode === "rate") {
+        $("targetInputLabel").textContent = "목표 수익률";
+        $("targetInputHelp").textContent = "몇 % 수익을 원하나요";
+        $("targetUnit").textContent = "%";
+        $("targetInput").value = "15";
+      } else {
+        $("targetInputLabel").textContent = "목표 매도가";
+        $("targetInputHelp").textContent = "팔고 싶은 가격";
+        $("targetUnit").textContent = "원";
+        $("targetInput").value = "11500";
+      }
+
+      calculateTargetPrice();
+    }
+
+    function setTargetRate(rate) {
+      $("mode").value = "rate";
+      syncModeLabel();
+      $("targetInput").value = rate;
+      calculateTargetPrice();
+    }
+
+    function calculateTargetPrice() {
+      const buyPrice = toNumber("buyPrice");
+      const qty = toNumber("qty");
+      const mode = $("mode").value;
+      const targetInput = toNumber("targetInput");
+      const currentPrice = toNumber("currentPrice");
+      const feeRate = Math.max(toNumber("feeRate") / 100, 0);
+
+      if (buyPrice <= 0 || qty <= 0 || targetInput <= 0) {
+        showMessage("매수가, 보유 수량, 목표 기준을 모두 0보다 크게 입력해주세요.");
+        return;
+      }
+
+      let targetPrice;
+
+      if (mode === "rate") {
+        targetPrice = buyPrice * (1 + targetInput / 100);
+      } else {
+        targetPrice = targetInput;
+
+        if (targetPrice <= buyPrice) {
+          showMessage("목표 매도가는 매수가보다 높아야 익절 기준 계산이 가능합니다.");
+          return;
+        }
+      }
+
+      const totalBuy = buyPrice * qty;
+      const grossSell = targetPrice * qty;
+      const sellFee = grossSell * feeRate;
+      const afterSell = grossSell - sellFee;
+      const profitAmount = afterSell - totalBuy;
+      const profitRate = (profitAmount / totalBuy) * 100;
+      const profitPerShare = profitAmount / qty;
+
+      setText("targetPrice", formatWon(targetPrice));
+      setText("profitAmount", `+${formatWon(profitAmount)}`);
+      setText("profitRate", `+${formatNumber(profitRate, 2)}%`);
+      setText("totalBuy", formatWon(totalBuy));
+      setText("afterSell", formatWon(afterSell));
+      setText("profitPerShare", formatWon(profitPerShare));
+
+      if (currentPrice > 0) {
+        const remainRate = ((targetPrice - currentPrice) / currentPrice) * 100;
+        const remainText = `${remainRate >= 0 ? "+" : ""}${formatNumber(remainRate, 2)}%`;
+
+        setText("remainRate", remainText);
+        $("remainRate").className = remainRate >= 0 ? "warn" : "good";
+      } else {
+        setText("remainRate", "현재가 미입력");
+        $("remainRate").className = "";
+      }
+
+      setText(
+        "summaryText",
+        `${formatNumber(qty)}주를 ${formatWon(targetPrice)}에 매도하면 예상 순수익은 약 ${formatWon(profitAmount)}입니다.`
+      );
+    }
+
+    function showMessage(message) {
+      setText("targetPrice", "-");
+      setText("profitAmount", "-");
+      setText("profitRate", "-");
+      setText("totalBuy", "-");
+      setText("afterSell", "-");
+      setText("remainRate", "-");
+      setText("profitPerShare", "-");
+      setText("summaryText", message);
+    }
+
+    function resetForm() {
+      $("buyPrice").value = "";
+      $("qty").value = "";
+      $("mode").value = "rate";
+      $("targetInput").value = "";
+      $("currentPrice").value = "";
+      $("feeRate").value = "0.015";
+      syncModeLabel();
+      showMessage("값을 입력하고 계산 버튼을 눌러주세요.");
+    }
+
+    syncModeLabel();
+    calculateTargetPrice();
+  </script>
+</body>
+</html>
