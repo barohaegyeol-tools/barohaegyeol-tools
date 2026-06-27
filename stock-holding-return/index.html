@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>주식 보유기간 수익률 계산기｜며칠 보유해서 연환산 수익률은 얼마일까｜바로해결툴즈</title>
+  <meta name="description" content="매수일, 매도일, 매수가, 매도가, 수량, 배당금, 수수료를 입력하면 보유기간, 총수익률, 연환산 수익률, 월평균 수익률을 계산합니다." />
+  <meta name="keywords" content="주식 보유기간 수익률 계산기, 연환산 수익률 계산기, 주식 수익률 계산, 보유기간 계산기, 투자기간 수익률 계산, CAGR 계산기, 바로해결툴즈" />
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/stock-holding-return/" />
+  <meta name="theme-color" content="#f3fff7" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="주식 보유기간 수익률 계산기｜연환산 수익률 바로 확인" />
+  <meta property="og:description" content="주식을 며칠 보유했고, 그 기간 기준 연환산 수익률이 얼마인지 계산합니다." />
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/stock-holding-return/" />
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"주식 보유기간 수익률 계산기",
+    "url":"https://barohaegyeol-tools.pages.dev/stock-holding-return/",
+    "applicationCategory":"FinanceApplication",
+    "operatingSystem":"All",
+    "description":"매수일, 매도일, 매수가, 매도가, 수량, 배당금, 수수료를 기준으로 보유기간 수익률과 연환산 수익률을 계산하는 무료 주식 계산기입니다.",
+    "publisher":{
+      "@type":"Organization",
+      "name":"바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg1:#f3fff7;
+      --bg2:#f1fbff;
+      --bg3:#fffbea;
+      --text:#102033;
+      --muted:#64748b;
+      --card:rgba(255,255,255,.84);
+      --line:rgba(15,23,42,.10);
+      --green:#22c55e;
+      --emerald:#10b981;
+      --mint:#14b8a6;
+      --sky:#38bdf8;
+      --blue:#2563eb;
+      --yellow:#facc15;
+      --orange:#fb923c;
+      --purple:#8b5cf6;
+      --red:#ef4444;
+      --shadow:0 24px 70px rgba(16,185,129,.14);
+      --shadow2:0 14px 34px rgba(15,23,42,.08);
+      --radius:28px;
+      --max:1180px;
+    }
+
+    * {
+      box-sizing:border-box;
+    }
+
+    html {
+      scroll-behavior:smooth;
+    }
+
+    body {
+      margin:0;
+      min-height:100vh;
+      color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;
+      line-height:1.65;
+      background:
+        radial-gradient(circle at 12% 12%, rgba(34,197,94,.16), transparent 24%),
+        radial-gradient(circle at 88% 10%, rgba(56,189,248,.16), transparent 22%),
+        radial-gradient(circle at 82% 86%, rgba(250,204,21,.17), transparent 24%),
+        linear-gradient(135deg,var(--bg1) 0%, var(--bg2) 50%, var(--bg3) 100%);
+      overflow-x:hidden;
+    }
+
+    body::before {
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.16;
+      background-image:radial-gradient(circle, rgba(16,185,129,.18) 1px, transparent 1px);
+      background-size:30px 30px;
+      mask-image:linear-gradient(to bottom,#000,transparent 82%);
+    }
+
+    a {
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button,
+    input {
+      font:inherit;
+    }
+
+    .wrap {
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+    }
+
+    .topbar {
+      position:sticky;
+      top:0;
+      z-index:50;
+      border-bottom:1px solid rgba(15,23,42,.07);
+      background:rgba(243,255,247,.76);
+      backdrop-filter:blur(18px);
+    }
+
+    .nav {
+      min-height:68px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:950;
+      letter-spacing:-.045em;
+    }
+
+    .brand-mark {
+      width:40px;
+      height:40px;
+      border-radius:15px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      background:linear-gradient(135deg,#22c55e,#38bdf8);
+      box-shadow:0 14px 34px rgba(16,185,129,.24);
+      font-weight:950;
+    }
+
+    .brand small {
+      display:block;
+      margin-top:1px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:-.02em;
+    }
+
+    .nav-links {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      white-space:nowrap;
+    }
+
+    .nav-links a {
+      padding:9px 13px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.80);
+      color:#26364a;
+      font-size:14px;
+      font-weight:850;
+      box-shadow:var(--shadow2);
+    }
+
+    .hero {
+      padding:58px 0 26px;
+    }
+
+    .hero-grid {
+      display:grid;
+      grid-template-columns:1.02fr .98fr;
+      align-items:center;
+      gap:32px;
+    }
+
+    .chips {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:16px;
+    }
+
+    .chip {
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.82);
+      color:#334155;
+      font-size:13px;
+      font-weight:900;
+      box-shadow:var(--shadow2);
+    }
+
+    .chip.hot {
+      color:#047857;
+      background:linear-gradient(135deg,rgba(209,250,229,.98),rgba(255,255,255,.9));
+    }
+
+    h1 {
+      margin:0;
+      max-width:740px;
+      font-size:clamp(38px,6.1vw,74px);
+      line-height:1.04;
+      letter-spacing:-.078em;
+    }
+
+    .gradient {
+      color:transparent;
+      background:linear-gradient(90deg,#22c55e 0%, #14b8a6 44%, #2563eb 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+    }
+
+    .lead {
+      margin:20px 0 0;
+      max-width:660px;
+      color:#34465c;
+      font-size:clamp(16px,2vw,19px);
+      line-height:1.82;
+      letter-spacing:-.015em;
+      word-break:keep-all;
+    }
+
+    .lead strong {
+      color:#047857;
+      font-weight:950;
+    }
+
+    .hero-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:26px;
+    }
+
+    .btn {
+      min-height:49px;
+      padding:13px 18px;
+      border-radius:16px;
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      gap:8px;
+      border:1px solid transparent;
+      font-weight:950;
+      letter-spacing:-.025em;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+
+    .btn:hover {
+      transform:translateY(-2px);
+    }
+
+    .btn-primary {
+      color:#fff;
+      background:linear-gradient(135deg,#22c55e,#14b8a6,#2563eb);
+      box-shadow:0 16px 38px rgba(16,185,129,.25);
+    }
+
+    .btn-ghost {
+      color:#102033;
+      background:rgba(255,255,255,.82);
+      border-color:rgba(15,23,42,.08);
+    }
+
+    .visual {
+      position:relative;
+      min-height:404px;
+      border-radius:38px;
+      border:1px solid rgba(15,23,42,.08);
+      background:
+        radial-gradient(circle at 78% 16%, rgba(250,204,21,.22), transparent 20%),
+        radial-gradient(circle at 16% 82%, rgba(34,197,94,.16), transparent 23%),
+        linear-gradient(145deg,rgba(255,255,255,.96),rgba(236,253,245,.78));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      padding:26px;
+    }
+
+    .visual-panel {
+      position:absolute;
+      left:26px;
+      right:26px;
+      top:26px;
+      height:178px;
+      border-radius:28px;
+      background:
+        linear-gradient(rgba(15,23,42,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,23,42,.045) 1px, transparent 1px),
+        linear-gradient(180deg,rgba(255,255,255,.96),rgba(236,253,245,.94));
+      background-size:38px 38px,38px 38px,auto;
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      overflow:hidden;
+    }
+
+    .time-track {
+      position:absolute;
+      left:34px;
+      right:34px;
+      top:78px;
+      height:14px;
+      border-radius:999px;
+      background:rgba(15,23,42,.08);
+    }
+
+    .time-fill {
+      position:absolute;
+      left:0;
+      top:0;
+      height:100%;
+      width:72%;
+      border-radius:999px;
+      background:linear-gradient(90deg,#22c55e,#14b8a6,#38bdf8);
+      box-shadow:0 10px 24px rgba(20,184,166,.26);
+    }
+
+    .dot {
+      position:absolute;
+      top:50%;
+      width:34px;
+      height:34px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:#fff;
+      border:4px solid #14b8a6;
+      box-shadow:var(--shadow2);
+      transform:translateY(-50%);
+      font-size:13px;
+      font-weight:950;
+      color:#047857;
+    }
+
+    .dot.start {
+      left:0;
+    }
+
+    .dot.end {
+      left:72%;
+    }
+
+    .calendar-card {
+      position:absolute;
+      right:30px;
+      top:30px;
+      width:190px;
+      padding:18px;
+      border-radius:24px;
+      background:#fff;
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .calendar-card span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .calendar-card strong {
+      display:block;
+      margin-top:6px;
+      color:#059669;
+      font-size:32px;
+      line-height:1;
+      letter-spacing:-.05em;
+    }
+
+    .main-result-card {
+      position:absolute;
+      left:26px;
+      bottom:24px;
+      width:270px;
+      padding:18px;
+      border-radius:24px;
+      background:linear-gradient(135deg,#fff,#eff6ff);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .main-result-card span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .main-result-card strong {
+      display:block;
+      margin-top:6px;
+      color:#2563eb;
+      font-size:34px;
+      line-height:1;
+      letter-spacing:-.05em;
+    }
+
+    .turtle-card {
+      position:absolute;
+      right:28px;
+      bottom:24px;
+      width:172px;
+      height:172px;
+      border-radius:36px;
+      border:1px solid rgba(15,23,42,.08);
+      background:linear-gradient(145deg,#fff,#fef9c3);
+      box-shadow:var(--shadow2);
+    }
+
+    .turtle-shell {
+      position:absolute;
+      left:38px;
+      top:58px;
+      width:92px;
+      height:72px;
+      border-radius:54px 54px 34px 34px;
+      background:linear-gradient(135deg,#34d399,#059669);
+      border:4px solid #065f46;
+      box-shadow:inset 0 8px 0 rgba(255,255,255,.28);
+    }
+
+    .shell-line {
+      position:absolute;
+      left:50%;
+      top:8px;
+      width:4px;
+      height:50px;
+      border-radius:999px;
+      background:rgba(6,95,70,.45);
+      transform:translateX(-50%);
+    }
+
+    .shell-line::before,
+    .shell-line::after {
+      content:"";
+      position:absolute;
+      top:16px;
+      width:34px;
+      height:4px;
+      border-radius:999px;
+      background:rgba(6,95,70,.35);
+    }
+
+    .shell-line::before {
+      right:4px;
+      transform:rotate(-28deg);
+      transform-origin:right center;
+    }
+
+    .shell-line::after {
+      left:4px;
+      transform:rotate(28deg);
+      transform-origin:left center;
+    }
+
+    .turtle-head {
+      position:absolute;
+      right:-22px;
+      top:18px;
+      width:42px;
+      height:38px;
+      border-radius:50%;
+      background:#86efac;
+      border:4px solid #065f46;
+    }
+
+    .turtle-eye {
+      position:absolute;
+      top:10px;
+      width:6px;
+      height:8px;
+      border-radius:999px;
+      background:#111827;
+    }
+
+    .turtle-eye.left {
+      left:9px;
+    }
+
+    .turtle-eye.right {
+      right:9px;
+    }
+
+    .turtle-smile {
+      position:absolute;
+      left:50%;
+      top:20px;
+      width:16px;
+      height:9px;
+      border-bottom:3px solid #065f46;
+      border-radius:0 0 999px 999px;
+      transform:translateX(-50%);
+    }
+
+    .turtle-leg {
+      position:absolute;
+      width:24px;
+      height:18px;
+      border-radius:50%;
+      background:#86efac;
+      border:4px solid #065f46;
+    }
+
+    .turtle-leg.l1 {
+      left:0;
+      top:50px;
+    }
+
+    .turtle-leg.l2 {
+      left:16px;
+      bottom:-12px;
+    }
+
+    .turtle-leg.l3 {
+      right:16px;
+      bottom:-12px;
+    }
+
+    .clock-badge {
+      position:absolute;
+      left:16px;
+      bottom:16px;
+      width:46px;
+      height:46px;
+      border-radius:18px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg,#dcfce7,#dbeafe);
+      border:3px solid #22c55e;
+      color:#047857;
+      font-size:22px;
+      font-weight:950;
+      transform:rotate(-10deg);
+    }
+
+    .badge-mini {
+      position:absolute;
+      right:14px;
+      top:14px;
+      padding:8px 10px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#dcfce7,#dbeafe);
+      color:#047857;
+      font-size:12px;
+      font-weight:950;
+      box-shadow:var(--shadow2);
+    }
+
+    .section {
+      padding:22px 0;
+    }
+
+    .tool-grid {
+      display:grid;
+      grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);
+      gap:22px;
+      align-items:start;
+    }
+
+    .panel {
+      padding:24px;
+      border-radius:var(--radius);
+      border:1px solid rgba(15,23,42,.08);
+      background:var(--card);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);
+    }
+
+    .panel h2 {
+      margin:0 0 12px;
+      font-size:27px;
+      line-height:1.2;
+      letter-spacing:-.052em;
+    }
+
+    .desc {
+      margin:-4px 0 18px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    .form {
+      display:grid;
+      gap:14px;
+    }
+
+    .field label {
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom:8px;
+      color:#102033;
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .field small {
+      color:var(--muted);
+      font-weight:750;
+    }
+
+    .input-wrap {
+      position:relative;
+    }
+
+    input {
+      width:100%;
+      min-height:54px;
+      padding:14px 54px 14px 15px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.10);
+      background:rgba(255,255,255,.94);
+      color:#102033;
+      font-size:16px;
+      font-weight:850;
+      outline:none;
+      transition:.16s ease;
+    }
+
+    input[type="date"] {
+      padding-right:15px;
+    }
+
+    input:focus {
+      border-color:rgba(16,185,129,.42);
+      box-shadow:0 0 0 4px rgba(16,185,129,.10);
+    }
+
+    .unit {
+      position:absolute;
+      top:50%;
+      right:15px;
+      transform:translateY(-50%);
+      color:var(--muted);
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .row {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .preset {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .preset button {
+      padding:8px 11px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:#fff;
+      color:#334155;
+      font-size:12px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .calc-btn {
+      width:100%;
+      min-height:58px;
+      margin-top:6px;
+      border:0;
+      border-radius:18px;
+      color:#fff;
+      background:linear-gradient(135deg,#22c55e,#14b8a6,#2563eb);
+      font-size:17px;
+      font-weight:950;
+      cursor:pointer;
+      box-shadow:0 16px 34px rgba(16,185,129,.24);
+    }
+
+    .reset-btn {
+      width:100%;
+      min-height:48px;
+      margin-top:10px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.86);
+      color:#102033;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .notice {
+      margin-top:12px;
+      padding:13px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(15,23,42,.08);
+      color:#526173;
+      font-size:13px;
+      line-height:1.75;
+      font-weight:760;
+      word-break:keep-all;
+    }
+
+    .result-box {
+      display:grid;
+      gap:14px;
+    }
+
+    .result-main {
+      padding:24px;
+      border-radius:26px;
+      color:#102033;
+      background:
+        radial-gradient(circle at 84% 18%, rgba(255,255,255,.42), transparent 26%),
+        linear-gradient(135deg,#86efac,#67e8f9 54%,#93c5fd);
+      box-shadow:var(--shadow2);
+    }
+
+    .result-main span {
+      display:block;
+      font-size:14px;
+      opacity:.82;
+      font-weight:900;
+    }
+
+    .result-main strong {
+      display:block;
+      margin-top:8px;
+      font-size:clamp(36px,5vw,58px);
+      line-height:1;
+      letter-spacing:-.06em;
+    }
+
+    .result-main em {
+      display:block;
+      margin-top:10px;
+      font-size:14px;
+      line-height:1.75;
+      font-style:normal;
+      font-weight:850;
+      opacity:.88;
+      word-break:keep-all;
+    }
+
+    .result-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .metric {
+      padding:18px;
+      border-radius:20px;
+      background:rgba(255,255,255,.84);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .metric span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .metric strong {
+      display:block;
+      margin-top:7px;
+      color:#102033;
+      font-size:24px;
+      letter-spacing:-.045em;
+    }
+
+    .good {
+      color:#16a34a !important;
+    }
+
+    .warn {
+      color:#d97706 !important;
+    }
+
+    .bad {
+      color:#e11d48 !important;
+    }
+
+    .guide-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .guide {
+      padding:20px;
+      border-radius:22px;
+      background:rgba(255,255,255,.80);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .guide b {
+      display:block;
+      margin-bottom:8px;
+      font-size:17px;
+      letter-spacing:-.03em;
+    }
+
+    .guide p {
+      margin:0;
+      color:#526173;
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    footer {
+      padding:44px 0 54px;
+      color:var(--muted);
+      text-align:center;
+      font-size:13px;
+    }
+
+    @media (max-width:920px) {
+      .hero-grid,
+      .tool-grid {
+        grid-template-columns:1fr;
+      }
+
+      .hero {
+        padding-top:42px;
+      }
+    }
+
+    @media (max-width:640px) {
+      .nav {
+        align-items:flex-start;
+        flex-direction:column;
+        padding:12px 0;
+      }
+
+      .nav-links {
+        width:100%;
+        overflow-x:auto;
+        padding-bottom:4px;
+      }
+
+      .hero-actions {
+        display:grid;
+      }
+
+      .btn {
+        width:100%;
+      }
+
+      .row,
+      .result-grid,
+      .guide-grid {
+        grid-template-columns:1fr;
+      }
+
+      .visual {
+        min-height:360px;
+      }
+
+      .calendar-card {
+        width:154px;
+      }
+
+      .main-result-card {
+        width:220px;
+      }
+
+      .turtle-card {
+        width:138px;
+        height:138px;
+        right:18px;
+      }
+
+      .turtle-shell {
+        left:26px;
+        top:55px;
+        width:82px;
+        height:64px;
+      }
+
+      .turtle-head {
+        right:-18px;
+        top:15px;
+        width:36px;
+        height:34px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="../">
+        <div class="brand-mark">B</div>
+        <div>
+          바로해결툴즈
+          <small>주식 계산 · 보유기간 · 바로 확인</small>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="주요 도구">
+        <a href="../">전체 도구</a>
+        <a href="../stock-profit/">수익률</a>
+        <a href="../stock-compound/">복리</a>
+        <a href="../stock-target-profit/">목표수익금</a>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="chips">
+            <span class="chip hot">🐢 보유기간 수익률</span>
+            <span class="chip">연환산 수익률</span>
+            <span class="chip">CAGR 확인</span>
+          </div>
+
+          <h1>
+            며칠 보유해서<br>
+            <span class="gradient">연환산 수익률은 얼마일까?</span>
+          </h1>
+
+          <p class="lead">
+            매수일, 매도일, 매수가, 매도가, 수량, 배당금과 거래비용을 입력하면
+            <strong>보유기간, 총수익률, 연환산 수익률, 월평균 수익률</strong>을
+            한 번에 계산합니다. 짧게 벌었는지, 오래 들고 간 성과인지 숫자로 비교하세요.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#calculator">보유기간 수익률 계산하기</a>
+            <a class="btn btn-ghost" href="../stock-profit/">일반 수익률 계산기</a>
+          </div>
+        </div>
+
+        <div class="visual" aria-label="주식 보유기간 수익률 계산 예시">
+          <div class="visual-panel">
+            <div class="time-track">
+              <div class="time-fill"></div>
+              <div class="dot start">매수</div>
+              <div class="dot end">매도</div>
+            </div>
+
+            <div class="calendar-card">
+              <span>보유기간</span>
+              <strong>365일</strong>
+            </div>
+          </div>
+
+          <div class="main-result-card">
+            <span>연환산 수익률</span>
+            <strong>+24.8%</strong>
+          </div>
+
+          <div class="turtle-card" aria-hidden="true">
+            <div class="badge-mini">HOLD</div>
+            <div class="turtle-shell">
+              <div class="shell-line"></div>
+              <div class="turtle-head">
+                <div class="turtle-eye left"></div>
+                <div class="turtle-eye right"></div>
+                <div class="turtle-smile"></div>
+              </div>
+              <div class="turtle-leg l1"></div>
+              <div class="turtle-leg l2"></div>
+              <div class="turtle-leg l3"></div>
+            </div>
+            <div class="clock-badge">D</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="calculator">
+      <div class="wrap tool-grid">
+        <div class="panel">
+          <h2>주식 보유기간 수익률 계산기</h2>
+          <p class="desc">
+            단순 수익률뿐 아니라 보유한 기간을 반영한 연환산 수익률까지 계산합니다.
+            단기 수익과 장기 수익을 비교할 때 유용합니다.
+          </p>
+
+          <form class="form" onsubmit="event.preventDefault(); calculateHoldingReturn();">
+            <div class="row">
+              <div class="field">
+                <label for="buyDate">
+                  매수일
+                  <small>처음 산 날짜</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="buyDate" type="date">
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="sellDate">
+                  매도일 또는 기준일
+                  <small>오늘 기준도 가능</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="sellDate" type="date">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="buyPrice">
+                  평균 매수가
+                  <small>1주 매입단가</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="buyPrice" type="number" min="0" step="0.01" value="10000" placeholder="예: 10000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="sellPrice">
+                  매도가 또는 현재가
+                  <small>1주 평가단가</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="sellPrice" type="number" min="0" step="0.01" value="12500" placeholder="예: 12500">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="qty">
+                보유 수량
+                <small>매수한 주식 수</small>
+              </label>
+              <div class="input-wrap">
+                <input id="qty" type="number" min="0" step="1" value="100" placeholder="예: 100">
+                <span class="unit">주</span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="dividend">
+                  총 배당금
+                  <small>세후 또는 실제 수령액</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="dividend" type="number" step="1" value="0" placeholder="예: 50000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="totalCost">
+                  총 거래비용
+                  <small>수수료·세금 합계</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="totalCost" type="number" min="0" step="1" value="0" placeholder="예: 15000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="preset">
+              <button type="button" onclick="fillExample('oneYear')">1년 보유 예시</button>
+              <button type="button" onclick="fillExample('short')">단기 급등 예시</button>
+              <button type="button" onclick="fillExample('long')">장기 보유 예시</button>
+              <button type="button" onclick="fillExample('loss')">손실 보유 예시</button>
+            </div>
+
+            <button class="calc-btn" type="submit">보유기간 수익률 계산하기</button>
+            <button class="reset-btn" type="button" onclick="resetForm()">입력값 초기화</button>
+          </form>
+
+          <div class="notice">
+            연환산 수익률은 현재 수익률이 1년 동안 같은 비율로 지속된다고 가정해 환산한 값입니다.
+            짧은 보유기간의 높은 수익률은 연환산 시 과도하게 커질 수 있습니다.
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>계산 결과</h2>
+          <p class="desc">
+            단순 수익률과 보유기간을 반영한 연환산 수익률을 함께 비교하세요.
+          </p>
+
+          <div class="result-box">
+            <div class="result-main">
+              <span>연환산 수익률</span>
+              <strong id="annualReturn">-</strong>
+              <em id="summaryText">값을 입력하고 계산 버튼을 눌러주세요.</em>
+            </div>
+
+            <div class="result-grid">
+              <div class="metric">
+                <span>보유기간</span>
+                <strong id="holdingDays">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>보유 개월 수</span>
+                <strong id="holdingMonths">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>총 매수금액</span>
+                <strong id="buyAmount">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>평가/매도금액</span>
+                <strong id="sellAmount">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>총 손익</span>
+                <strong id="totalProfit">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>총수익률</span>
+                <strong id="totalReturn">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>월평균 단순수익률</span>
+                <strong id="monthlySimpleReturn">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>일평균 단순수익률</span>
+                <strong id="dailySimpleReturn">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>배당 포함 손익</span>
+                <strong id="profitWithDividend">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>투자 성과 구간</span>
+                <strong id="performanceGrade">-</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice">
+            CAGR 방식의 연환산 수익률은 기간별 성과 비교에 좋지만,
+            실제 미래 수익률을 보장하지 않습니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="panel">
+          <h2>보유기간 수익률 체크포인트</h2>
+
+          <div class="guide-grid">
+            <div class="guide">
+              <b>단순 수익률만 보면 착시</b>
+              <p>
+                3일 만에 5%와 1년 만에 5%는 같은 수익률처럼 보여도 투자 효율은 완전히 다릅니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>짧은 기간은 과대해석 주의</b>
+              <p>
+                단기 급등 수익을 연환산하면 매우 높게 나올 수 있으므로 참고용으로만 봐야 합니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>배당 포함 여부 확인</b>
+              <p>
+                장기 보유 종목은 배당금까지 포함해야 실제 투자 성과에 더 가깝습니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="notice">
+            TIP. 보유기간 수익률을 본 뒤에는 목표 수익금 계산기와 분할매도 계산기를 함께 쓰면
+            다음 매도 계획까지 연결하기 좋습니다.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 바로해결툴즈 · 계산 결과는 참고용입니다. 실제 투자 판단과 책임은 본인에게 있습니다.
+  </footer>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    function num(id) {
+      const value = Number($(id).value);
+      return Number.isFinite(value) ? value : 0;
+    }
+
+    function setText(id, value) {
+      $(id).textContent = value;
+    }
+
+    function won(value) {
+      if (!Number.isFinite(value)) return "-";
+      return `${Math.round(value).toLocaleString("ko-KR")}원`;
+    }
+
+    function percent(value) {
+      if (!Number.isFinite(value)) return "-";
+      const sign = value > 0 ? "+" : "";
+      return `${sign}${value.toLocaleString("ko-KR", {
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 0
+      })}%`;
+    }
+
+    function formatDate(date) {
+      return date.toISOString().slice(0, 10);
+    }
+
+    function addDays(date, days) {
+      const copy = new Date(date);
+      copy.setDate(copy.getDate() + days);
+      return copy;
+    }
+
+    function parseDate(value) {
+      if (!value) return null;
+      const date = new Date(value + "T00:00:00");
+      return Number.isNaN(date.getTime()) ? null : date;
+    }
+
+    function initDates() {
+      const today = new Date();
+      const oneYearAgo = addDays(today, -365);
+
+      $("buyDate").value = formatDate(oneYearAgo);
+      $("sellDate").value = formatDate(today);
+    }
+
+    function calculateHoldingReturn() {
+      const buyDate = parseDate($("buyDate").value);
+      const sellDate = parseDate($("sellDate").value);
+      const buyPrice = num("buyPrice");
+      const sellPrice = num("sellPrice");
+      const qty = num("qty");
+      const dividend = num("dividend");
+      const totalCost = Math.max(num("totalCost"), 0);
+
+      if (!buyDate || !sellDate) {
+        showMessage("매수일과 매도일 또는 기준일을 입력해주세요.");
+        return;
+      }
+
+      const msPerDay = 1000 * 60 * 60 * 24;
+      const holdingDays = Math.round((sellDate - buyDate) / msPerDay);
+
+      if (holdingDays <= 0) {
+        showMessage("매도일 또는 기준일은 매수일보다 뒤여야 합니다.");
+        return;
+      }
+
+      if (buyPrice <= 0 || sellPrice <= 0 || qty <= 0) {
+        showMessage("매수가, 매도가 또는 현재가, 보유 수량을 입력해주세요.");
+        return;
+      }
+
+      const buyAmount = buyPrice * qty;
+      const sellAmount = sellPrice * qty;
+      const priceProfit = sellAmount - buyAmount;
+      const profitWithDividend = priceProfit + dividend - totalCost;
+      const totalReturnRate = buyAmount > 0 ? (profitWithDividend / buyAmount) * 100 : 0;
+
+      const years = holdingDays / 365;
+      const months = holdingDays / 30.4375;
+      const days = holdingDays;
+
+      let annualReturnRate = 0;
+
+      if (buyAmount + profitWithDividend > 0 && buyAmount > 0) {
+        annualReturnRate = (Math.pow((buyAmount + profitWithDividend) / buyAmount, 1 / years) - 1) * 100;
+      } else {
+        annualReturnRate = -100;
+      }
+
+      const monthlySimpleReturn = months > 0 ? totalReturnRate / months : 0;
+      const dailySimpleReturn = days > 0 ? totalReturnRate / days : 0;
+
+      setText("annualReturn", percent(annualReturnRate));
+      $("annualReturn").className = annualReturnRate >= 0 ? "good" : "bad";
+
+      setText("holdingDays", `${holdingDays.toLocaleString("ko-KR")}일`);
+      setText("holdingMonths", `약 ${months.toLocaleString("ko-KR", {
+        maximumFractionDigits: 1
+      })}개월`);
+      setText("buyAmount", won(buyAmount));
+      setText("sellAmount", won(sellAmount));
+
+      setText("totalProfit", `${profitWithDividend >= 0 ? "+" : ""}${won(profitWithDividend)}`);
+      $("totalProfit").className = profitWithDividend >= 0 ? "good" : "bad";
+
+      setText("totalReturn", percent(totalReturnRate));
+      $("totalReturn").className = totalReturnRate >= 0 ? "good" : "bad";
+
+      setText("monthlySimpleReturn", percent(monthlySimpleReturn));
+      $("monthlySimpleReturn").className = monthlySimpleReturn >= 0 ? "good" : "bad";
+
+      setText("dailySimpleReturn", percent(dailySimpleReturn));
+      $("dailySimpleReturn").className = dailySimpleReturn >= 0 ? "good" : "bad";
+
+      setText("profitWithDividend", `${profitWithDividend >= 0 ? "+" : ""}${won(profitWithDividend)}`);
+      $("profitWithDividend").className = profitWithDividend >= 0 ? "good" : "bad";
+
+      const grade = getPerformanceGrade(totalReturnRate, annualReturnRate, holdingDays);
+      setText("performanceGrade", grade.text);
+      $("performanceGrade").className = grade.className;
+
+      const summary = `${holdingDays.toLocaleString("ko-KR")}일 보유 기준 총수익률은 ${percent(totalReturnRate)}, 연환산 수익률은 ${percent(annualReturnRate)}입니다. 배당금과 거래비용을 반영한 총 손익은 ${profitWithDividend >= 0 ? "+" : ""}${won(profitWithDividend)}입니다.`;
+      setText("summaryText", summary);
+    }
+
+    function getPerformanceGrade(totalReturnRate, annualReturnRate, holdingDays) {
+      if (totalReturnRate < 0) {
+        return {
+          text: "손실 구간",
+          className: "bad"
+        };
+      }
+
+      if (holdingDays <= 30 && annualReturnRate >= 100) {
+        return {
+          text: "단기 급등 구간",
+          className: "warn"
+        };
+      }
+
+      if (annualReturnRate >= 30) {
+        return {
+          text: "고수익 구간",
+          className: "good"
+        };
+      }
+
+      if (annualReturnRate >= 10) {
+        return {
+          text: "양호한 구간",
+          className: "good"
+        };
+      }
+
+      if (annualReturnRate >= 0) {
+        return {
+          text: "소폭 수익 구간",
+          className: "warn"
+        };
+      }
+
+      return {
+        text: "점검 필요",
+        className: "bad"
+      };
+    }
+
+    function showMessage(message) {
+      setText("annualReturn", "-");
+      setText("holdingDays", "-");
+      setText("holdingMonths", "-");
+      setText("buyAmount", "-");
+      setText("sellAmount", "-");
+      setText("totalProfit", "-");
+      setText("totalReturn", "-");
+      setText("monthlySimpleReturn", "-");
+      setText("dailySimpleReturn", "-");
+      setText("profitWithDividend", "-");
+      setText("performanceGrade", "-");
+      setText("summaryText", message);
+    }
+
+    function fillExample(type) {
+      const today = new Date();
+
+      if (type === "oneYear") {
+        $("buyDate").value = formatDate(addDays(today, -365));
+        $("sellDate").value = formatDate(today);
+        $("buyPrice").value = 10000;
+        $("sellPrice").value = 12500;
+        $("qty").value = 100;
+        $("dividend").value = 0;
+        $("totalCost").value = 0;
+      }
+
+      if (type === "short") {
+        $("buyDate").value = formatDate(addDays(today, -14));
+        $("sellDate").value = formatDate(today);
+        $("buyPrice").value = 20000;
+        $("sellPrice").value = 23000;
+        $("qty").value = 50;
+        $("dividend").value = 0;
+        $("totalCost").value = 5000;
+      }
+
+      if (type === "long") {
+        $("buyDate").value = formatDate(addDays(today, -1095));
+        $("sellDate").value = formatDate(today);
+        $("buyPrice").value = 30000;
+        $("sellPrice").value = 45000;
+        $("qty").value = 30;
+        $("dividend").value = 90000;
+        $("totalCost").value = 12000;
+      }
+
+      if (type === "loss") {
+        $("buyDate").value = formatDate(addDays(today, -240));
+        $("sellDate").value = formatDate(today);
+        $("buyPrice").value = 50000;
+        $("sellPrice").value = 42000;
+        $("qty").value = 20;
+        $("dividend").value = 0;
+        $("totalCost").value = 8000;
+      }
+
+      calculateHoldingReturn();
+    }
+
+    function resetForm() {
+      $("buyDate").value = "";
+      $("sellDate").value = "";
+      $("buyPrice").value = "";
+      $("sellPrice").value = "";
+      $("qty").value = "";
+      $("dividend").value = "0";
+      $("totalCost").value = "0";
+      showMessage("값을 입력하고 계산 버튼을 눌러주세요.");
+    }
+
+    initDates();
+    calculateHoldingReturn();
+  </script>
+</body>
+</html>
