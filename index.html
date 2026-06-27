@@ -4,20 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>바로해결툴즈 | 주식·생활비·보험·운세 무료 계산기 모음</title>
-  <meta name="description" content="주식 평단가, 수익률, 해외주식 양도세, 배당금, 분할매수, 에어컨 전기요금, 여행경비, 침수차 보험 체크리스트, AI 타로와 사주 운세까지 바로 확인하는 무료 미니툴 모음입니다." />
-  <meta name="keywords" content="바로해결툴즈, 주식 계산기, 평단가 계산기, 주식 수익률 계산기, 해외주식 양도세 계산기, 배당금 계산기, 분할매수 계산기, 에어컨 전기요금 계산기, 여행경비 계산기, 침수차 보험 체크리스트, AI 타로, AI 사주" />
+  <title>바로해결툴즈 | 주식·생활비·보험·운세 무료 계산기와 미니툴 모음</title>
+  <meta name="description" content="주식 평단가·수익률·손절가·목표가 계산기부터 자동차세, 대출이자, 전월세 전환, 여행경비, 꿈해몽, 연애궁합, AI 타로와 사주까지 필요한 계산과 확인을 한 번에 해결하는 무료 미니툴 모음입니다." />
+  <meta name="keywords" content="바로해결툴즈, 무료 계산기, 주식 계산기, 평단가 계산기, 수익률 계산기, 손절가 계산기, 목표가 계산기, 자동차세 계산기, 대출이자 계산기, 전월세 전환 계산기, 여행경비 계산기, 꿈해몽, 연애궁합, AI 타로, AI 사주" />
   <meta name="author" content="바로해결툴즈" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/" />
+  <meta name="theme-color" content="#f8fbff" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="바로해결툴즈 | 무료 미니툴 모음" />
-  <meta property="og:description" content="주식, 생활비, 보험 체크리스트, 운세까지 필요한 계산과 확인을 빠르게 해결하세요." />
+  <meta property="og:title" content="바로해결툴즈 | 필요한 계산과 확인을 한 번에" />
+  <meta property="og:description" content="주식·생활비·여행·보험·운세·재미형 테스트까지 자주 찾는 무료 미니툴을 한곳에 모았습니다." />
   <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/" />
   <meta property="og:site_name" content="바로해결툴즈" />
-
-  <meta name="theme-color" content="#f8fafc" />
 
   <script type="application/ld+json">
   {
@@ -25,7 +24,12 @@
     "@type": "WebSite",
     "name": "바로해결툴즈",
     "url": "https://barohaegyeol-tools.pages.dev/",
-    "description": "주식, 생활비, 보험 체크리스트, 운세 관련 무료 웹 도구 모음",
+    "description": "주식, 생활비, 여행, 보험, 운세, 재미형 테스트 관련 무료 웹 도구 모음",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://barohaegyeol-tools.pages.dev/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    },
     "publisher": {
       "@type": "Organization",
       "name": "바로해결툴즈"
@@ -33,861 +37,1150 @@
   }
   </script>
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": "바로해결툴즈 도구 목록",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "주식 평단가 계산기", "url": "https://barohaegyeol-tools.pages.dev/stock-average/" },
-      { "@type": "ListItem", "position": 2, "name": "주식 수익률 계산기", "url": "https://barohaegyeol-tools.pages.dev/stock-profit/" },
-      { "@type": "ListItem", "position": 3, "name": "해외주식 양도세 계산기", "url": "https://barohaegyeol-tools.pages.dev/stock-tax/" },
-      { "@type": "ListItem", "position": 4, "name": "배당금 계산기", "url": "https://barohaegyeol-tools.pages.dev/stock-dividend/" },
-      { "@type": "ListItem", "position": 5, "name": "분할매수 계산기", "url": "https://barohaegyeol-tools.pages.dev/stock-split-buy/" },
-      { "@type": "ListItem", "position": 6, "name": "에어컨 전기요금 계산기", "url": "https://barohaegyeol-tools.pages.dev/aircon-bill/" },
-      { "@type": "ListItem", "position": 7, "name": "여름휴가 여행경비 계산기", "url": "https://barohaegyeol-tools.pages.dev/travel-budget/" },
-      { "@type": "ListItem", "position": 8, "name": "장마철 침수차 보험 체크리스트", "url": "https://barohaegyeol-tools.pages.dev/flood-car-checklist/" },
-      { "@type": "ListItem", "position": 9, "name": "오늘의 AI 타로 운세", "url": "https://barohaegyeol-tools.pages.dev/tarot/" },
-      { "@type": "ListItem", "position": 10, "name": "AI 사주 운세", "url": "https://barohaegyeol-tools.pages.dev/saju/" }
-    ]
-  }
-  </script>
-
   <style>
     :root {
-      --bg: #f8fafc;
-      --bg2: #eef6ff;
-      --ink: #0f172a;
-      --text: #26364a;
-      --muted: #64748b;
-      --soft: #f1f5f9;
-      --white: #ffffff;
-      --line: rgba(15, 23, 42, 0.10);
-      --shadow: 0 22px 70px rgba(15, 23, 42, 0.10);
-      --shadow2: 0 14px 34px rgba(15, 23, 42, 0.08);
-      --radius: 28px;
-      --radius2: 20px;
-      --max: 1180px;
-
-      --stock: #2563eb;
-      --stock2: #38bdf8;
-      --life: #14b8a6;
-      --life2: #fb923c;
-      --insurance: #0ea5e9;
-      --insurance2: #0284c7;
-      --fortune: #7c3aed;
-      --fortune2: #facc15;
-      --new: #fb7185;
-      --good: #22c55e;
+      --bg:#f8fbff;
+      --ink:#0f172a;
+      --text:#27364a;
+      --muted:#64748b;
+      --white:#ffffff;
+      --line:rgba(15,23,42,.10);
+      --blue:#2563eb;
+      --sky:#38bdf8;
+      --teal:#14b8a6;
+      --green:#22c55e;
+      --yellow:#facc15;
+      --orange:#fb923c;
+      --rose:#fb7185;
+      --purple:#7c3aed;
+      --shadow:0 24px 80px rgba(15,23,42,.11);
+      --shadow2:0 14px 34px rgba(15,23,42,.08);
+      --shadow3:0 28px 90px rgba(37,99,235,.14);
+      --max:1180px;
     }
 
     * {
-      box-sizing: border-box;
+      box-sizing:border-box;
     }
 
     html {
-      scroll-behavior: smooth;
+      scroll-behavior:smooth;
     }
 
     body {
-      margin: 0;
-      min-height: 100vh;
-      color: var(--ink);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.6;
+      margin:0;
+      min-height:100vh;
+      color:var(--ink);
+      font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;
+      line-height:1.62;
       background:
-        radial-gradient(circle at 10% 4%, rgba(56, 189, 248, 0.18), transparent 28%),
-        radial-gradient(circle at 90% 10%, rgba(250, 204, 21, 0.20), transparent 26%),
-        radial-gradient(circle at 55% 98%, rgba(124, 58, 237, 0.10), transparent 34%),
-        linear-gradient(135deg, #f8fafc 0%, #f0f9ff 48%, #fff7ed 100%);
+        radial-gradient(circle at 8% 8%, rgba(56,189,248,.24), transparent 25%),
+        radial-gradient(circle at 92% 7%, rgba(250,204,21,.24), transparent 24%),
+        radial-gradient(circle at 68% 95%, rgba(124,58,237,.11), transparent 32%),
+        linear-gradient(135deg,#f8fbff 0%, #edf8ff 48%, #fff8ed 100%);
+      overflow-x:hidden;
+    }
+
+    body::before {
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.36;
+      background-image:
+        radial-gradient(circle, rgba(37,99,235,.13) 1px, transparent 1.3px),
+        radial-gradient(circle, rgba(20,184,166,.13) 1px, transparent 1.3px);
+      background-size:32px 32px, 72px 72px;
+      background-position:0 0, 18px 22px;
+      mask-image:linear-gradient(to bottom,#000 0%,#000 64%,transparent 100%);
     }
 
     a {
-      color: inherit;
-      text-decoration: none;
+      color:inherit;
+      text-decoration:none;
     }
 
     button,
     input {
-      font: inherit;
+      font:inherit;
+    }
+
+    button {
+      cursor:pointer;
     }
 
     .wrap {
-      width: min(var(--max), calc(100% - 32px));
-      margin: 0 auto;
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+      position:relative;
+      z-index:1;
     }
 
     .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      border-bottom: 1px solid rgba(15, 23, 42, 0.08);
-      background: rgba(248, 250, 252, 0.78);
-      backdrop-filter: blur(18px);
+      position:sticky;
+      top:0;
+      z-index:80;
+      border-bottom:1px solid rgba(15,23,42,.07);
+      background:rgba(248,251,255,.78);
+      backdrop-filter:blur(20px);
     }
 
     .nav {
-      min-height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
+      min-height:72px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
     }
 
     .brand {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      font-weight: 950;
-      letter-spacing: -0.045em;
-      color: var(--ink);
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:950;
+      letter-spacing:-.045em;
+      color:var(--ink);
     }
 
     .brand-mark {
-      width: 40px;
-      height: 40px;
-      border-radius: 15px;
-      display: grid;
-      place-items: center;
-      color: #fff;
-      background: conic-gradient(from 140deg, #2563eb, #14b8a6, #facc15, #fb7185, #7c3aed, #2563eb);
-      box-shadow: 0 14px 34px rgba(37, 99, 235, 0.20);
+      width:42px;
+      height:42px;
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      background:conic-gradient(from 140deg,#2563eb,#14b8a6,#facc15,#fb7185,#7c3aed,#2563eb);
+      box-shadow:0 16px 36px rgba(37,99,235,.22);
+      font-weight:950;
+    }
+
+    .brand small {
+      display:block;
+      margin-top:1px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:850;
+      letter-spacing:-.02em;
     }
 
     .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: #475569;
-      font-size: 14px;
-      white-space: nowrap;
+      display:flex;
+      align-items:center;
+      gap:7px;
+      color:#475569;
+      font-size:14px;
+      white-space:nowrap;
     }
 
     .nav-links a {
-      padding: 9px 12px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      font-weight: 850;
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid transparent;
+      font-weight:850;
+      transition:.16s ease;
     }
 
-    .nav-links a:hover {
-      background: rgba(255, 255, 255, 0.72);
-      border-color: rgba(15, 23, 42, 0.08);
+    .nav-links a:hover,
+    .nav-links a.active {
+      background:rgba(255,255,255,.78);
+      border-color:rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      color:#0f172a;
     }
 
     .hero {
-      padding: 66px 0 34px;
+      padding:64px 0 28px;
     }
 
     .hero-grid {
-      display: grid;
-      grid-template-columns: 1.04fr 0.96fr;
-      gap: 34px;
-      align-items: center;
+      display:grid;
+      grid-template-columns:1.02fr .98fr;
+      gap:34px;
+      align-items:center;
     }
 
     .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 9px 13px;
-      border-radius: 999px;
-      border: 1px solid rgba(15, 23, 42, 0.10);
-      background: rgba(255, 255, 255, 0.70);
-      color: #475569;
-      font-size: 13px;
-      font-weight: 900;
-      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.05);
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:9px 13px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.09);
+      background:rgba(255,255,255,.76);
+      color:#475569;
+      font-size:13px;
+      font-weight:900;
+      box-shadow:0 10px 26px rgba(15,23,42,.05);
     }
 
     .eyebrow span {
-      width: 8px;
-      height: 8px;
-      border-radius: 99px;
-      background: var(--good);
-      box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.14);
+      width:8px;
+      height:8px;
+      border-radius:99px;
+      background:var(--green);
+      box-shadow:0 0 0 6px rgba(34,197,94,.14);
     }
 
     h1 {
-      margin: 18px 0 0;
-      font-size: clamp(38px, 6.2vw, 72px);
-      line-height: 1.01;
-      letter-spacing: -0.078em;
-      color: #0f172a;
+      margin:18px 0 0;
+      max-width:800px;
+      font-size:clamp(42px,6.2vw,78px);
+      line-height:1.01;
+      letter-spacing:-.08em;
+      color:#0f172a;
     }
 
     h1 strong {
-      background: linear-gradient(135deg, #2563eb, #14b8a6, #7c3aed);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      background:linear-gradient(135deg,#2563eb 0%, #14b8a6 46%, #7c3aed 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
     }
 
     .hero-desc {
-      margin: 22px 0 0;
-      max-width: 700px;
-      color: var(--text);
-      font-size: clamp(16px, 2vw, 19px);
+      margin:22px 0 0;
+      max-width:720px;
+      color:var(--text);
+      font-size:clamp(16px,2vw,19px);
+      line-height:1.82;
+      word-break:keep-all;
+    }
+
+    .hero-desc strong {
+      color:#0f766e;
+      font-weight:950;
     }
 
     .hero-actions {
-      margin-top: 28px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
+      margin-top:28px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
     }
 
     .btn {
-      min-height: 50px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 13px 18px;
-      border-radius: 999px;
-      border: 0;
-      cursor: pointer;
-      font-weight: 950;
-      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+      min-height:52px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:13px 18px;
+      border-radius:18px;
+      border:0;
+      font-weight:950;
+      letter-spacing:-.02em;
+      transition:.18s ease;
     }
 
     .btn:hover {
-      transform: translateY(-1px);
+      transform:translateY(-2px);
     }
 
     .btn-primary {
-      color: #fff;
-      background: linear-gradient(135deg, #2563eb, #14b8a6);
-      box-shadow: 0 18px 40px rgba(37, 99, 235, 0.20);
+      color:#fff;
+      background:linear-gradient(135deg,#2563eb,#14b8a6);
+      box-shadow:0 18px 44px rgba(37,99,235,.22);
     }
 
     .btn-secondary {
-      color: #0f172a;
-      background: rgba(255, 255, 255, 0.74);
-      border: 1px solid rgba(15, 23, 42, 0.10);
+      color:#0f172a;
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(15,23,42,.10);
+      box-shadow:var(--shadow2);
+    }
+
+    .quick-intent {
+      margin-top:20px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .intent-chip {
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:8px 11px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.66);
+      color:#475569;
+      font-size:13px;
+      font-weight:900;
+      transition:.16s ease;
+    }
+
+    .intent-chip:hover {
+      transform:translateY(-1px);
+      background:#fff;
+      color:#0f172a;
     }
 
     .hero-panel {
-      position: relative;
-      min-height: 385px;
-      border-radius: 36px;
+      position:relative;
+      min-height:430px;
+      border-radius:42px;
       background:
-        radial-gradient(circle at 22% 20%, rgba(56, 189, 248, 0.26), transparent 28%),
-        radial-gradient(circle at 82% 20%, rgba(250, 204, 21, 0.28), transparent 30%),
-        linear-gradient(145deg, rgba(255,255,255,0.86), rgba(239,246,255,0.72));
-      border: 1px solid rgba(15, 23, 42, 0.08);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      padding: 28px;
+        radial-gradient(circle at 22% 20%, rgba(56,189,248,.26), transparent 28%),
+        radial-gradient(circle at 82% 20%, rgba(250,204,21,.30), transparent 30%),
+        radial-gradient(circle at 50% 92%, rgba(124,58,237,.12), transparent 24%),
+        linear-gradient(145deg,rgba(255,255,255,.88),rgba(239,246,255,.72));
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow3);
+      overflow:hidden;
+      padding:28px;
     }
 
     .hero-panel::before {
-      content: "";
-      position: absolute;
-      inset: 18px;
-      border-radius: 28px;
-      border: 1px dashed rgba(15, 23, 42, 0.10);
-      pointer-events: none;
+      content:"";
+      position:absolute;
+      inset:18px;
+      border-radius:32px;
+      border:1px dashed rgba(15,23,42,.10);
     }
 
-    .orbit {
-      position: absolute;
-      width: 210px;
-      height: 210px;
-      border-radius: 50%;
-      left: 50%;
-      top: 47%;
-      transform: translate(-50%, -50%);
-      background:
-        radial-gradient(circle at 40% 30%, rgba(255,255,255,0.95), rgba(56,189,248,0.18) 42%, rgba(124,58,237,0.12) 100%);
-      border: 1px solid rgba(15, 23, 42, 0.08);
-      box-shadow: inset 0 0 36px rgba(255,255,255,0.65), 0 24px 60px rgba(15, 23, 42, 0.12);
-      display: grid;
-      place-items: center;
-      text-align: center;
-      padding: 22px;
+    .tool-orbit {
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:220px;
+      height:220px;
+      border-radius:50%;
+      transform:translate(-50%,-50%);
+      background:radial-gradient(circle at 35% 28%, rgba(255,255,255,.98), rgba(219,234,254,.92));
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:0 28px 80px rgba(37,99,235,.16);
+      display:grid;
+      place-items:center;
+      text-align:center;
+      z-index:3;
     }
 
-    .orbit b {
-      display: block;
-      font-size: 38px;
-      letter-spacing: -0.08em;
-      line-height: 1;
+    .tool-orbit::before,
+    .tool-orbit::after {
+      content:"";
+      position:absolute;
+      inset:-42px;
+      border-radius:50%;
+      border:1px dashed rgba(37,99,235,.18);
+      animation:spin 24s linear infinite;
     }
 
-    .orbit span {
-      display: block;
-      margin-top: 8px;
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 850;
+    .tool-orbit::after {
+      inset:-84px;
+      border-color:rgba(20,184,166,.16);
+      animation-duration:34s;
+      animation-direction:reverse;
     }
 
-    .floating-tool {
-      position: absolute;
-      min-width: 150px;
-      border-radius: 20px;
-      padding: 14px 15px;
-      background: rgba(255, 255, 255, 0.78);
-      border: 1px solid rgba(15, 23, 42, 0.08);
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.10);
-      backdrop-filter: blur(12px);
+    @keyframes spin {
+      to {
+        transform:rotate(360deg);
+      }
     }
 
-    .floating-tool small {
-      display: inline-flex;
-      padding: 4px 8px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 950;
-      color: #fff;
+    @keyframes floaty {
+      0%,100% {
+        transform:translateY(0);
+      }
+
+      50% {
+        transform:translateY(-8px);
+      }
     }
 
-    .floating-tool b {
-      display: block;
-      margin-top: 7px;
-      color: #0f172a;
-      line-height: 1.25;
-      letter-spacing: -0.035em;
+    .orbit-inner {
+      position:relative;
+      z-index:2;
     }
 
-    .ft1 {
-      left: 28px;
-      top: 32px;
+    .orbit-inner strong {
+      display:block;
+      font-size:44px;
+      line-height:1;
+      letter-spacing:-.06em;
     }
 
-    .ft1 small {
-      background: var(--stock);
+    .orbit-inner span {
+      display:block;
+      margin-top:7px;
+      color:#475569;
+      font-size:13px;
+      font-weight:900;
     }
 
-    .ft2 {
-      right: 34px;
-      top: 72px;
+    .float-card {
+      position:absolute;
+      z-index:4;
+      width:190px;
+      padding:15px;
+      border-radius:22px;
+      background:rgba(255,255,255,.92);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      animation:floaty 5.5s ease-in-out infinite;
     }
 
-    .ft2 small {
-      background: var(--life);
+    .float-card b {
+      display:block;
+      font-size:16px;
+      letter-spacing:-.04em;
     }
 
-    .ft3 {
-      left: 42px;
-      bottom: 54px;
+    .float-card span {
+      display:block;
+      margin-top:3px;
+      color:#64748b;
+      font-size:12px;
+      font-weight:850;
     }
 
-    .ft3 small {
-      background: var(--insurance);
+    .float-card em {
+      display:inline-flex;
+      margin-bottom:8px;
+      padding:5px 8px;
+      border-radius:999px;
+      font-style:normal;
+      font-size:11px;
+      font-weight:950;
+      color:#fff;
     }
 
-    .ft4 {
-      right: 46px;
-      bottom: 36px;
+    .float-card.one {
+      left:28px;
+      top:34px;
     }
 
-    .ft4 small {
-      background: var(--fortune);
+    .float-card.two {
+      right:28px;
+      top:74px;
+      animation-delay:-1.3s;
     }
 
-    .metrics {
-      padding: 8px 0 28px;
+    .float-card.three {
+      left:36px;
+      bottom:42px;
+      animation-delay:-2.2s;
     }
 
-    .metric-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
+    .float-card.four {
+      right:42px;
+      bottom:38px;
+      animation-delay:-3s;
     }
 
-    .metric {
-      padding: 18px;
-      border-radius: 22px;
-      background: rgba(255,255,255,0.72);
-      border: 1px solid rgba(15, 23, 42, 0.08);
-      box-shadow: var(--shadow2);
+    .float-card.one em {
+      background:#2563eb;
     }
 
-    .metric b {
-      display: block;
-      font-size: 28px;
-      letter-spacing: -0.06em;
-      color: #0f172a;
+    .float-card.two em {
+      background:#14b8a6;
     }
 
-    .metric span {
-      display: block;
-      margin-top: 4px;
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 850;
+    .float-card.three em {
+      background:#fb7185;
+    }
+
+    .float-card.four em {
+      background:#7c3aed;
+    }
+
+    .stats {
+      margin-top:34px;
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:14px;
+    }
+
+    .stat-card {
+      padding:19px 20px;
+      border-radius:22px;
+      background:rgba(255,255,255,.76);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .stat-card strong {
+      display:block;
+      color:#0f172a;
+      font-size:26px;
+      line-height:1;
+      letter-spacing:-.045em;
+    }
+
+    .stat-card span {
+      display:block;
+      margin-top:8px;
+      color:#64748b;
+      font-size:13px;
+      font-weight:850;
     }
 
     .section {
-      padding: 34px 0;
-    }
-
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 18px;
-      margin-bottom: 18px;
+      padding:32px 0;
     }
 
     .section-title {
-      margin: 0;
-      font-size: clamp(26px, 3.4vw, 38px);
-      line-height: 1.12;
-      letter-spacing: -0.065em;
-      color: #0f172a;
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:18px;
+      margin-bottom:18px;
     }
 
-    .section-desc {
-      margin: 8px 0 0;
-      color: var(--muted);
-      font-size: 15px;
+    .section-title h2 {
+      margin:0;
+      font-size:clamp(28px,4vw,40px);
+      line-height:1.15;
+      letter-spacing:-.06em;
     }
 
-    .search-panel {
-      padding: 18px;
-      border-radius: 26px;
-      border: 1px solid rgba(15, 23, 42, 0.08);
-      background: rgba(255,255,255,0.72);
-      box-shadow: var(--shadow2);
-      display: grid;
-      gap: 12px;
-      margin-bottom: 18px;
+    .section-title p {
+      margin:7px 0 0;
+      color:#64748b;
+      font-size:15px;
+      font-weight:780;
+      word-break:keep-all;
     }
 
-    .search-input {
-      position: relative;
-    }
-
-    .search-input input {
-      width: 100%;
-      min-height: 54px;
-      border: 1px solid rgba(15, 23, 42, 0.10);
-      border-radius: 18px;
-      background: rgba(255,255,255,0.86);
-      color: #0f172a;
-      padding: 0 16px;
-      outline: none;
-      font-size: 16px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
-    }
-
-    .search-input input:focus {
-      border-color: rgba(37, 99, 235, 0.42);
-      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.10);
-    }
-
-    .chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .chip {
-      border: 1px solid rgba(15, 23, 42, 0.10);
-      background: rgba(255,255,255,0.70);
-      color: #475569;
-      border-radius: 999px;
-      padding: 9px 12px;
-      font-size: 13px;
-      font-weight: 900;
-      cursor: pointer;
-    }
-
-    .chip.active {
-      color: #fff;
-      border-color: transparent;
-      background: linear-gradient(135deg, #2563eb, #14b8a6);
-      box-shadow: 0 12px 24px rgba(37, 99, 235, 0.16);
+    .section-kicker {
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      margin-bottom:8px;
+      color:#2563eb;
+      font-size:13px;
+      font-weight:950;
     }
 
     .featured-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 0.9fr 0.9fr;
-      gap: 14px;
+      display:grid;
+      grid-template-columns:1.25fr .875fr .875fr;
+      gap:16px;
     }
 
-    .feature-card,
-    .tool-card,
-    .path-card,
-    .note-card {
-      position: relative;
-      overflow: hidden;
-      border-radius: 26px;
-      background: rgba(255,255,255,0.76);
-      border: 1px solid rgba(15, 23, 42, 0.08);
-      box-shadow: var(--shadow2);
+    .hero-tool {
+      position:relative;
+      min-height:255px;
+      padding:24px;
+      border-radius:30px;
+      background:#fff;
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      transition:.18s ease;
     }
 
-    .feature-card {
-      min-height: 250px;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+    .hero-tool:hover {
+      transform:translateY(-3px);
     }
 
-    .feature-card::after,
-    .tool-card::after {
-      content: "";
-      position: absolute;
-      right: -55px;
-      top: -55px;
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      background: var(--glow);
-      opacity: 0.20;
-      pointer-events: none;
+    .hero-tool::after {
+      content:"";
+      position:absolute;
+      right:-44px;
+      top:-44px;
+      width:170px;
+      height:170px;
+      border-radius:50%;
+      background:rgba(37,99,235,.12);
     }
 
-    .feature-tag,
-    .tool-tag {
-      display: inline-flex;
-      width: fit-content;
-      align-items: center;
-      gap: 7px;
-      padding: 7px 10px;
-      border-radius: 999px;
-      color: #fff;
-      background: var(--accent);
-      font-size: 12px;
-      font-weight: 950;
+    .hero-tool.dream::after {
+      background:rgba(20,184,166,.18);
     }
 
-    .feature-card h3 {
-      margin: 16px 0 0;
-      font-size: 30px;
-      letter-spacing: -0.06em;
-      line-height: 1.12;
-      color: #0f172a;
+    .hero-tool.love::after {
+      background:rgba(251,113,133,.18);
     }
 
-    .feature-card p {
-      margin: 10px 0 0;
-      color: var(--text);
-      font-size: 15px;
+    .hero-tool.stock::after {
+      background:rgba(37,99,235,.14);
     }
 
-    .card-link {
-      margin-top: 18px;
-      display: inline-flex;
-      width: fit-content;
-      align-items: center;
-      gap: 7px;
-      padding: 10px 13px;
-      border-radius: 999px;
-      background: #0f172a;
-      color: #fff;
-      font-weight: 950;
-      font-size: 14px;
+    .badge-row {
+      display:flex;
+      flex-wrap:wrap;
+      gap:7px;
+      margin-bottom:14px;
+      position:relative;
+      z-index:1;
+    }
+
+    .badge {
+      display:inline-flex;
+      align-items:center;
+      gap:5px;
+      padding:7px 10px;
+      border-radius:999px;
+      color:#fff;
+      font-size:12px;
+      font-weight:950;
+      letter-spacing:-.01em;
+    }
+
+    .badge.stock {
+      background:#2563eb;
+    }
+
+    .badge.life {
+      background:#14b8a6;
+    }
+
+    .badge.insurance {
+      background:#0ea5e9;
+    }
+
+    .badge.fortune {
+      background:#7c3aed;
+    }
+
+    .badge.fun {
+      background:#fb7185;
+    }
+
+    .badge.hot {
+      background:#f97316;
+    }
+
+    .hero-tool h3 {
+      position:relative;
+      z-index:1;
+      margin:0;
+      font-size:28px;
+      line-height:1.22;
+      letter-spacing:-.055em;
+    }
+
+    .hero-tool p {
+      position:relative;
+      z-index:1;
+      margin:10px 0 0;
+      color:#475569;
+      font-size:15px;
+      line-height:1.72;
+      font-weight:760;
+      word-break:keep-all;
+    }
+
+    .hero-tool .go {
+      position:absolute;
+      left:24px;
+      bottom:22px;
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:10px 13px;
+      border-radius:999px;
+      background:#0f172a;
+      color:#fff;
+      font-size:13px;
+      font-weight:950;
+      z-index:2;
+    }
+
+    .search-shell {
+      margin-top:4px;
+      padding:18px;
+      border-radius:30px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);
+    }
+
+    .search-box {
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:10px;
+      align-items:center;
+    }
+
+    .search-input-wrap {
+      position:relative;
+    }
+
+    .search-input-wrap span {
+      position:absolute;
+      left:16px;
+      top:50%;
+      transform:translateY(-50%);
+      color:#64748b;
+      font-weight:950;
+    }
+
+    .search-box input {
+      width:100%;
+      min-height:58px;
+      border:1px solid rgba(15,23,42,.10);
+      border-radius:19px;
+      background:#fff;
+      color:#0f172a;
+      outline:none;
+      padding:14px 18px 14px 43px;
+      font-size:16px;
+      font-weight:850;
+    }
+
+    .search-box input:focus {
+      border-color:rgba(37,99,235,.40);
+      box-shadow:0 0 0 4px rgba(37,99,235,.10);
+    }
+
+    .random-btn {
+      min-height:58px;
+      border:0;
+      border-radius:19px;
+      padding:14px 18px;
+      color:#fff;
+      background:linear-gradient(135deg,#0f172a,#334155);
+      font-weight:950;
+      white-space:nowrap;
+    }
+
+    .filter-row {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:13px;
+    }
+
+    .filter-btn {
+      border:1px solid rgba(15,23,42,.08);
+      border-radius:999px;
+      padding:9px 12px;
+      background:#fff;
+      color:#475569;
+      font-size:13px;
+      font-weight:900;
+      transition:.16s ease;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      color:#fff;
+      background:linear-gradient(135deg,#2563eb,#14b8a6);
+      border-color:transparent;
+      box-shadow:0 12px 26px rgba(37,99,235,.18);
+    }
+
+    .tools-head {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin:22px 0 14px;
+      color:#64748b;
+      font-size:14px;
+      font-weight:850;
     }
 
     .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px;
     }
 
     .tool-card {
-      padding: 20px;
-      min-height: 208px;
-      transition: transform .18s ease, box-shadow .18s ease, border .18s ease;
+      position:relative;
+      min-height:218px;
+      padding:20px;
+      border-radius:26px;
+      background:rgba(255,255,255,.88);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      overflow:hidden;
+      transition:.18s ease;
     }
 
     .tool-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
-      border-color: rgba(15, 23, 42, 0.16);
+      transform:translateY(-3px);
+      box-shadow:0 22px 54px rgba(15,23,42,.12);
+    }
+
+    .tool-card::after {
+      content:"";
+      position:absolute;
+      right:-38px;
+      top:-38px;
+      width:128px;
+      height:128px;
+      border-radius:50%;
+      background:var(--cardGlow, rgba(37,99,235,.12));
+    }
+
+    .tool-top {
+      position:relative;
+      z-index:1;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:10px;
+      margin-bottom:13px;
+    }
+
+    .tool-icon {
+      width:44px;
+      height:44px;
+      display:grid;
+      place-items:center;
+      border-radius:16px;
+      background:#f8fafc;
+      font-size:24px;
+      box-shadow:inset 0 0 0 1px rgba(15,23,42,.06);
     }
 
     .tool-card h3 {
-      margin: 14px 0 0;
-      color: #0f172a;
-      font-size: 21px;
-      letter-spacing: -0.055em;
-      line-height: 1.18;
+      position:relative;
+      z-index:1;
+      margin:0;
+      font-size:21px;
+      line-height:1.28;
+      letter-spacing:-.045em;
     }
 
     .tool-card p {
-      margin: 9px 0 0;
-      color: var(--muted);
-      font-size: 14px;
+      position:relative;
+      z-index:1;
+      margin:9px 0 0;
+      color:#475569;
+      font-size:14px;
+      line-height:1.68;
+      font-weight:760;
+      word-break:keep-all;
     }
 
-    .tool-meta {
-      margin-top: 14px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
+    .tag-row {
+      position:relative;
+      z-index:1;
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      margin-top:13px;
+      padding-bottom:42px;
     }
 
-    .mini {
-      display: inline-flex;
-      padding: 5px 8px;
-      border-radius: 999px;
-      color: #475569;
-      background: rgba(15, 23, 42, 0.05);
-      font-size: 12px;
-      font-weight: 850;
+    .tag-row span {
+      padding:6px 8px;
+      border-radius:999px;
+      background:#f1f5f9;
+      color:#64748b;
+      font-size:12px;
+      font-weight:850;
     }
 
-    .new {
-      color: #be123c;
-      background: rgba(251, 113, 133, 0.13);
+    .tool-link {
+      position:absolute;
+      left:20px;
+      bottom:18px;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      color:#2563eb;
+      font-size:13px;
+      font-weight:950;
+      z-index:2;
     }
 
-    .popular {
-      color: #1d4ed8;
-      background: rgba(37, 99, 235, 0.11);
+    .category-block {
+      margin-top:24px;
     }
 
-    .category-label {
-      margin: 30px 0 13px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .category-heading {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin:0 0 13px;
+      font-size:22px;
+      letter-spacing:-.05em;
     }
 
     .category-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 6px var(--glow);
+      width:14px;
+      height:14px;
+      border-radius:50%;
+      background:var(--dotColor,#2563eb);
+      box-shadow:0 0 0 6px var(--dotGlow,rgba(37,99,235,.12));
     }
 
-    .category-label h3 {
-      margin: 0;
-      font-size: 22px;
-      letter-spacing: -0.045em;
-      color: #0f172a;
+    .flow-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px;
     }
 
-    .stock {
-      --accent: var(--stock);
-      --glow: rgba(37, 99, 235, 0.60);
+    .flow-card {
+      padding:22px;
+      min-height:180px;
+      border-radius:28px;
+      background:rgba(255,255,255,.84);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
     }
 
-    .life {
-      --accent: var(--life);
-      --glow: rgba(20, 184, 166, 0.58);
+    .flow-card b {
+      display:block;
+      font-size:20px;
+      letter-spacing:-.05em;
     }
 
-    .insurance {
-      --accent: var(--insurance);
-      --glow: rgba(14, 165, 233, 0.58);
+    .flow-card p {
+      margin:9px 0 0;
+      color:#64748b;
+      font-size:14px;
+      line-height:1.7;
+      font-weight:780;
+      word-break:keep-all;
     }
 
-    .fortune {
-      --accent: var(--fortune);
-      --glow: rgba(124, 58, 237, 0.58);
+    .flow-card a {
+      display:inline-flex;
+      margin-top:14px;
+      color:#2563eb;
+      font-size:13px;
+      font-weight:950;
     }
 
-    .path-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+    .info-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
     }
 
-    .path-card {
-      padding: 20px;
-      background: rgba(255,255,255,0.72);
+    .info-card {
+      padding:24px;
+      border-radius:28px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
     }
 
-    .path-card small {
-      display: inline-flex;
-      padding: 6px 9px;
-      border-radius: 999px;
-      color: #fff;
-      background: var(--accent);
-      font-weight: 950;
-      font-size: 12px;
+    .info-card h3 {
+      margin:0 0 12px;
+      font-size:22px;
+      letter-spacing:-.05em;
     }
 
-    .path-card h3 {
-      margin: 14px 0 8px;
-      font-size: 21px;
-      letter-spacing: -0.05em;
-      color: #0f172a;
+    .history-list {
+      display:grid;
+      gap:10px;
     }
 
-    .path-card p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
+    .history-item {
+      display:flex;
+      gap:10px;
+      align-items:center;
+      padding:12px 13px;
+      border-radius:16px;
+      background:rgba(248,250,252,.82);
+      color:#475569;
+      font-size:13px;
+      font-weight:850;
     }
 
-    .path-card a {
-      margin-top: 14px;
-      display: inline-flex;
-      font-weight: 950;
-      color: var(--accent);
-      font-size: 14px;
+    .history-item time {
+      flex:0 0 auto;
+      color:#0f172a;
+      font-weight:950;
     }
 
-    .note-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
+    .notice-text {
+      margin:0;
+      color:#475569;
+      font-size:14px;
+      line-height:1.78;
+      font-weight:780;
+      word-break:keep-all;
     }
 
-    .note-card {
-      padding: 20px;
-      background: rgba(255,255,255,0.70);
+    .empty-state {
+      grid-column:1/-1;
+      padding:26px;
+      border-radius:24px;
+      background:#fff;
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
     }
 
-    .note-card h3 {
-      margin: 0 0 8px;
-      color: #0f172a;
-      letter-spacing: -0.04em;
+    .empty-state h3 {
+      margin:0 0 6px;
+      font-size:22px;
+      letter-spacing:-.05em;
     }
 
-    .note-card p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
+    .empty-state p {
+      margin:0;
+      color:#64748b;
+      font-weight:800;
     }
 
-    .timeline {
-      margin-top: 10px;
-      display: grid;
-      gap: 9px;
+    footer {
+      margin-top:24px;
+      padding:38px 0 52px;
+      border-top:1px solid rgba(15,23,42,.08);
+      color:#64748b;
     }
 
-    .timeline div {
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: rgba(15, 23, 42, 0.04);
-      color: #475569;
-      font-size: 14px;
-      font-weight: 750;
+    .footer-grid {
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:20px;
+      flex-wrap:wrap;
     }
 
-    .empty {
-      display: none;
-      padding: 24px;
-      border-radius: 24px;
-      background: rgba(255,255,255,0.70);
-      border: 1px solid rgba(15, 23, 42, 0.08);
-      color: var(--muted);
-      text-align: center;
-      font-weight: 850;
+    .footer-brand b {
+      display:block;
+      color:#0f172a;
+      font-size:16px;
+      letter-spacing:-.04em;
     }
 
-    .footer {
-      margin-top: 34px;
-      padding: 42px 0 50px;
-      border-top: 1px solid rgba(15, 23, 42, 0.08);
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
-
-    .footer b {
-      color: #0f172a;
+    .footer-brand span {
+      display:block;
+      margin-top:6px;
+      font-size:13px;
+      font-weight:760;
     }
 
     .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      font-size:13px;
+      font-weight:900;
+      color:#475569;
     }
 
-    .footer a {
-      color: #334155;
-      font-weight: 900;
-    }
-
-    @media (max-width: 980px) {
+    @media (max-width:1040px) {
       .hero-grid,
-      .featured-grid {
-        grid-template-columns: 1fr;
+      .featured-grid,
+      .info-grid {
+        grid-template-columns:1fr;
       }
 
-      .metric-grid,
-      .tools-grid,
-      .path-grid {
-        grid-template-columns: repeat(2, 1fr);
+      .tools-grid {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+
+      .flow-grid {
+        grid-template-columns:1fr;
       }
 
       .hero-panel {
-        min-height: 340px;
+        min-height:390px;
       }
     }
 
-    @media (max-width: 680px) {
-      .wrap {
-        width: min(100% - 22px, var(--max));
-      }
-
+    @media (max-width:760px) {
       .nav {
-        align-items: flex-start;
-        flex-direction: column;
-        padding: 14px 0;
+        align-items:flex-start;
+        flex-direction:column;
+        padding:12px 0;
       }
 
       .nav-links {
-        width: 100%;
-        overflow-x: auto;
-        padding-bottom: 3px;
+        width:100%;
+        overflow:auto;
+        padding-bottom:4px;
       }
 
       .hero {
-        padding-top: 42px;
+        padding-top:40px;
+      }
+
+      .hero-actions {
+        display:grid;
+      }
+
+      .btn {
+        width:100%;
+      }
+
+      .stats {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+
+      .tools-grid {
+        grid-template-columns:1fr;
+      }
+
+      .search-box {
+        grid-template-columns:1fr;
+      }
+
+      .random-btn {
+        width:100%;
+      }
+
+      .section-title {
+        align-items:flex-start;
+        flex-direction:column;
       }
 
       .hero-panel {
-        min-height: 430px;
-        border-radius: 28px;
-        padding: 20px;
+        min-height:430px;
       }
 
-      .orbit {
-        width: 170px;
-        height: 170px;
-        top: 47%;
+      .tool-orbit {
+        width:180px;
+        height:180px;
       }
 
-      .orbit b {
-        font-size: 30px;
+      .orbit-inner strong {
+        font-size:38px;
       }
 
-      .floating-tool {
-        min-width: 130px;
-        padding: 12px;
+      .float-card {
+        width:150px;
+        padding:12px;
       }
 
-      .ft1 { left: 18px; top: 26px; }
-      .ft2 { right: 18px; top: 72px; }
-      .ft3 { left: 18px; bottom: 74px; }
-      .ft4 { right: 18px; bottom: 28px; }
-
-      .metric-grid,
-      .tools-grid,
-      .path-grid,
-      .note-grid {
-        grid-template-columns: 1fr;
+      .float-card.one {
+        left:16px;
+        top:24px;
       }
 
-      .section-head {
-        align-items: start;
-        flex-direction: column;
+      .float-card.two {
+        right:16px;
+        top:70px;
       }
 
-      .feature-card,
-      .tool-card,
-      .path-card,
-      .note-card {
-        border-radius: 22px;
+      .float-card.three {
+        left:16px;
+        bottom:34px;
+      }
+
+      .float-card.four {
+        right:16px;
+        bottom:28px;
+      }
+    }
+
+    @media (max-width:520px) {
+      .wrap {
+        width:min(var(--max), calc(100% - 24px));
+      }
+
+      .stats {
+        grid-template-columns:1fr;
+      }
+
+      .hero-panel {
+        min-height:460px;
+        border-radius:32px;
+      }
+
+      .float-card {
+        width:135px;
+      }
+
+      .float-card b {
+        font-size:14px;
+      }
+
+      .float-card span {
+        display:none;
       }
     }
   </style>
@@ -896,17 +1189,20 @@
 <body>
   <header class="topbar">
     <div class="wrap nav">
-      <a class="brand" href="./" aria-label="바로해결툴즈 메인">
-        <span class="brand-mark">B</span>
-        <span>바로해결툴즈</span>
+      <a class="brand" href="./" aria-label="바로해결툴즈 홈">
+        <div class="brand-mark">B</div>
+        <div>
+          바로해결툴즈
+          <small>계산 · 조회 · 테스트 · 운세</small>
+        </div>
       </a>
 
-      <nav class="nav-links" aria-label="주요 메뉴">
-        <a href="#tools">도구 전체</a>
+      <nav class="nav-links" aria-label="상단 메뉴">
+        <a href="#all-tools" class="active">도구 전체</a>
         <a href="#stock">주식</a>
         <a href="#life">생활·여행</a>
         <a href="#insurance">보험</a>
-        <a href="#fortune">운세</a>
+        <a href="#fortune">운세·재미</a>
       </nav>
     </div>
   </header>
@@ -915,413 +1211,759 @@
     <section class="hero">
       <div class="wrap hero-grid">
         <div>
-          <div class="eyebrow">
-            <span></span>
-            무료 미니툴 모음 · 바로 계산하고 바로 확인
-          </div>
-
-          <h1>
-            필요한 계산,<br />
-            <strong>한 번에 바로 해결</strong>
-          </h1>
-
+          <div class="eyebrow"><span></span> 무료 미니툴 모음 · 필요한 계산과 확인을 바로 해결</div>
+          <h1>복잡한 계산,<br><strong>한 번에 바로 해결</strong></h1>
           <p class="hero-desc">
-            주식 평단가와 수익률, 해외주식 세금, 배당금, 분할매수부터
-            에어컨 전기요금, 여행경비, 침수차 보험 체크리스트, AI 운세까지.
-            자주 찾는 숫자와 체크포인트를 깔끔하게 정리했습니다.
+            주식 평단가·수익률·손절가부터 자동차세, 대출이자, 전월세 전환, 여행경비, 보험 체크리스트,
+            꿈해몽과 연애궁합까지. <strong>검색해서 들어온 사람이 바로 쓰고, 다음 도구까지 이어지도록</strong> 구성했습니다.
           </p>
 
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#tools">도구 바로 찾기</a>
-            <a class="btn btn-secondary" href="./stock-average/">인기 도구 열기</a>
+            <a class="btn btn-primary" href="#all-tools">도구 바로 찾기</a>
+            <a class="btn btn-secondary" href="#featured">인기 도구 열기</a>
+          </div>
+
+          <div class="quick-intent" aria-label="빠른 목적 선택">
+            <a class="intent-chip" href="stock-average/">📈 평단 계산</a>
+            <a class="intent-chip" href="stock-stop-loss/">🛡️ 손절가 확인</a>
+            <a class="intent-chip" href="loan-interest/">🏦 대출이자</a>
+            <a class="intent-chip" href="dream-meaning/">🌙 꿈해몽</a>
+            <a class="intent-chip" href="love-compatibility/">💘 연애궁합</a>
           </div>
         </div>
 
-        <div class="hero-panel" aria-label="바로해결툴즈 대시보드 그래픽">
-          <div class="floating-tool ft1">
-            <small>주식</small>
-            <b>평단가·수익률·세금 계산</b>
-          </div>
-
-          <div class="floating-tool ft2">
-            <small>생활</small>
-            <b>전기요금·여행경비 확인</b>
-          </div>
-
-          <div class="orbit">
-            <div>
-              <b>10개</b>
-              <span>현재 운영 중인 무료 도구</span>
+        <div class="hero-panel" aria-label="바로해결툴즈 대표 도구 일러스트">
+          <div class="tool-orbit">
+            <div class="orbit-inner">
+              <strong id="heroToolCount">31</strong>
+              <span>연결된 무료 도구</span>
             </div>
           </div>
 
-          <div class="floating-tool ft3">
-            <small>보험</small>
-            <b>침수차 체크리스트</b>
-          </div>
+          <a class="float-card one" href="stock-average/">
+            <em>주식</em>
+            <b>평단가·수익률</b>
+            <span>매수·매도 판단 전 빠른 계산</span>
+          </a>
 
-          <div class="floating-tool ft4">
-            <small>운세</small>
-            <b>AI 타로·사주 운세</b>
-          </div>
+          <a class="float-card two" href="loan-interest/">
+            <em>생활</em>
+            <b>대출·전월세</b>
+            <span>매달 나가는 돈을 먼저 확인</span>
+          </a>
+
+          <a class="float-card three" href="dream-meaning/">
+            <em>재미</em>
+            <b>꿈해몽 검색</b>
+            <span>반복 검색형 유입 콘텐츠</span>
+          </a>
+
+          <a class="float-card four" href="love-compatibility/">
+            <em>테스트</em>
+            <b>연애궁합</b>
+            <span>공유하기 좋은 이벤트형 도구</span>
+          </a>
         </div>
+      </div>
+
+      <div class="wrap stats" aria-label="서비스 현황">
+        <div class="stat-card"><strong id="totalTools">31</strong><span>총 도구 수</span></div>
+        <div class="stat-card"><strong id="stockTools">18</strong><span>주식 계산기</span></div>
+        <div class="stat-card"><strong id="lifeTools">8</strong><span>생활·여행 도구</span></div>
+        <div class="stat-card"><strong id="funTools">4</strong><span>운세·재미형 도구</span></div>
       </div>
     </section>
 
-    <section class="metrics">
-      <div class="wrap metric-grid">
-        <div class="metric">
-          <b>10</b>
-          <span>총 도구 수</span>
-        </div>
-
-        <div class="metric">
-          <b>5</b>
-          <span>주식 계산기</span>
-        </div>
-
-        <div class="metric">
-          <b>3</b>
-          <span>신규 생활·보험 도구</span>
-        </div>
-
-        <div class="metric">
-          <b>2</b>
-          <span>운세·재방문형 도구</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
+    <section class="section" id="featured">
       <div class="wrap">
-        <div class="section-head">
+        <div class="section-title">
           <div>
-            <h2 class="section-title">지금 바로 쓰기 좋은 도구</h2>
-            <p class="section-desc">검색자가 가장 먼저 누를 만한 핵심 도구를 앞에 배치했습니다.</p>
+            <span class="section-kicker">🔥 먼저 써보기 좋은 도구</span>
+            <h2>지금 바로 쓰기 좋은 대표 도구</h2>
+            <p>검색 의도가 강한 계산기와 체류시간을 늘리는 재미형 도구를 전면에 배치했습니다.</p>
           </div>
         </div>
 
         <div class="featured-grid">
-          <a class="feature-card stock" href="./stock-average/">
-            <div>
-              <span class="feature-tag">인기 · 주식</span>
-              <h3>주식 평단가 계산기</h3>
-              <p>추가매수, 물타기, 보유수량 변경 후 평균단가를 빠르게 계산합니다.</p>
-            </div>
-            <span class="card-link">계산하러 가기</span>
-          </a>
-
-          <a class="feature-card life" href="./travel-budget/">
-            <div>
-              <span class="feature-tag">신규 · 여행</span>
-              <h3>여름휴가 여행경비 계산기</h3>
-              <p>숙박비, 교통비, 식비를 넣고 1인당 여행비를 확인합니다.</p>
-            </div>
-            <span class="card-link">여행비 계산</span>
-          </a>
-
-          <a class="feature-card fortune" href="./saju/">
-            <div>
-              <span class="feature-tag">신규 · 운세</span>
-              <h3>AI 사주 운세</h3>
-              <p>생년월일과 관심 분야로 오늘의 운세 흐름을 재미로 확인합니다.</p>
-            </div>
-            <span class="card-link">운세 보기</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section id="tools" class="section">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <h2 class="section-title">전체 도구 모음</h2>
-            <p class="section-desc">도구 이름이나 키워드를 검색하거나 카테고리로 골라보세요.</p>
-          </div>
-        </div>
-
-        <div class="search-panel">
-          <div class="search-input">
-            <input id="searchInput" type="search" placeholder="예: 평단가, 수익률, 여행경비, 침수차, 사주" aria-label="도구 검색" />
-          </div>
-
-          <div class="chips" aria-label="카테고리 필터">
-            <button class="chip active" type="button" data-filter="all">전체</button>
-            <button class="chip" type="button" data-filter="stock">주식</button>
-            <button class="chip" type="button" data-filter="life">생활·여행</button>
-            <button class="chip" type="button" data-filter="insurance">보험</button>
-            <button class="chip" type="button" data-filter="fortune">운세</button>
-          </div>
-        </div>
-
-        <div id="stock" class="category-label stock">
-          <span class="category-dot"></span>
-          <h3>주식 계산기</h3>
-        </div>
-
-        <div class="tools-grid">
-          <a class="tool-card stock" href="./stock-average/" data-category="stock" data-title="주식 평단가 계산기 물타기 추가매수 평균단가">
-            <span class="tool-tag">주식</span>
+          <a class="hero-tool stock" href="stock-average/">
+            <div class="badge-row"><span class="badge stock">인기 · 주식</span><span class="badge hot">핵심</span></div>
             <h3>주식 평단가 계산기</h3>
-            <p>현재 보유분과 추가매수 금액을 입력해 새로운 평균단가를 계산합니다.</p>
-            <div class="tool-meta">
-              <span class="mini popular">인기</span>
-              <span class="mini">물타기</span>
-              <span class="mini">평균단가</span>
-            </div>
+            <p>추가매수, 물타기, 보유수량 변경 후 평균단가를 빠르게 계산합니다. 주식 계산기 묶음의 시작점입니다.</p>
+            <span class="go">계산하러 가기 →</span>
           </a>
 
-          <a class="tool-card stock" href="./stock-profit/" data-category="stock" data-title="주식 수익률 계산기 손익 매수가 매도가 수수료 세금">
-            <span class="tool-tag">주식</span>
-            <h3>주식 수익률 계산기</h3>
-            <p>매수가, 매도가, 수량, 수수료, 세금을 반영해 실제 손익을 계산합니다.</p>
-            <div class="tool-meta">
-              <span class="mini new">신규</span>
-              <span class="mini">수익률</span>
-              <span class="mini">손익</span>
-            </div>
+          <a class="hero-tool dream" href="dream-meaning/">
+            <div class="badge-row"><span class="badge fun">신규 · 재미</span></div>
+            <h3>꿈해몽 검색기</h3>
+            <p>뱀꿈, 이빨꿈, 돈꿈, 전남친꿈 등 반복 검색되는 꿈 키워드를 카드형으로 해석합니다.</p>
+            <span class="go">꿈해몽 보기 →</span>
           </a>
 
-          <a class="tool-card stock" href="./stock-tax/" data-category="stock" data-title="해외주식 양도소득세 계산기 미국주식 세금 250만원 공제">
-            <span class="tool-tag">주식</span>
-            <h3>해외주식 양도세 계산기</h3>
-            <p>연간 순손익, 250만원 공제, 22% 세율 기준으로 예상 세금을 계산합니다.</p>
-            <div class="tool-meta">
-              <span class="mini new">신규</span>
-              <span class="mini">미국주식</span>
-              <span class="mini">세금</span>
-            </div>
+          <a class="hero-tool love" href="love-compatibility/">
+            <div class="badge-row"><span class="badge fun">신규 · 테스트</span></div>
+            <h3>연애 궁합 테스트</h3>
+            <p>MBTI, 이름, 생년월일, 연애성향, 친밀도까지 한 번에 보는 공유형 테스트입니다.</p>
+            <span class="go">궁합 보러가기 →</span>
           </a>
-
-          <a class="tool-card stock" href="./stock-dividend/" data-category="stock" data-title="배당금 계산기 배당수익률 세후 배당 미국주식 국내주식">
-            <span class="tool-tag">주식</span>
-            <h3>배당금 계산기</h3>
-            <p>보유수량과 1주당 배당금을 입력해 세전·세후 배당금을 확인합니다.</p>
-            <div class="tool-meta">
-              <span class="mini new">신규</span>
-              <span class="mini">배당</span>
-              <span class="mini">수익률</span>
-            </div>
-          </a>
-
-          <a class="tool-card stock" href="./stock-split-buy/" data-category="stock" data-title="분할매수 계산기 물타기 추가매수 매수계획 평균단가">
-            <span class="tool-tag">주식</span>
-            <h3>분할매수 계산기</h3>
-            <p>총예산, 하락 간격, 분할 비중을 넣고 회차별 매수 계획을 세웁니다.</p>
-            <div class="tool-meta">
-              <span class="mini new">신규</span>
-              <span class="mini">분할매수</span>
-              <span class="mini">계획</span>
-            </div>
-          </a>
-        </div>
-
-        <div id="life" class="category-label life">
-          <span class="category-dot"></span>
-          <h3>생활비·여행 계산기</h3>
-        </div>
-
-        <div class="tools-grid">
-          <a class="tool-card life" href="./aircon-bill/" data-category="life" data-title="에어컨 전기요금 계산기 냉방비 전기세 여름 전기요금">
-            <span class="tool-tag">생활비</span>
-            <h3>에어컨 전기요금 계산기</h3>
-            <p>사용 시간과 소비전력을 입력해 예상 전기요금과 냉방비를 계산합니다.</p>
-            <div class="tool-meta">
-              <span class="mini popular">시즌</span>
-              <span class="mini">전기요금</span>
-              <span class="mini">냉방비</span>
-            </div>
-          </a>
-
-          <a class="tool-card life" href="./travel-budget/" data-category="life" data-title="여름휴가 여행경비 계산기 여행비 1인당 경비 숙박비 식비 교통비">
-            <span class="tool-tag">여행</span>
-            <h3>여름휴가 여행경비 계산기</h3>
-            <p>숙박비, 교통비, 식비, 액티비티 비용을 합산해 1인당 여행비를 계산합니다.</p>
-            <div class="tool-meta">
-              <span class="mini new">신규</span>
-              <span class="mini">여행비</span>
-              <span class="mini">1인당</span>
-            </div>
-          </a>
-        </div>
-
-        <div id="insurance" class="category-label insurance">
-          <span class="category-dot"></span>
-          <h3>보험·체크리스트</h3>
-        </div>
-
-        <div class="tools-grid">
-          <a class="tool-card insurance" href="./flood-car-checklist/" data-category="insurance" data-title="장마철 침수차 보험 체크리스트 자차담보 단독사고 중고차 침수 확인">
-            <span class="tool-tag">보험</span>
-            <h3>장마철 침수차 보험 체크리스트</h3>
-            <p>차량 침수 피해, 자차담보, 특약, 중고차 침수 의심 포인트를 확인합니다.</p>
-            <div class="tool-meta">
-              <span class="mini new">신규</span>
-              <span class="mini">침수차</span>
-              <span class="mini">보험</span>
-            </div>
-          </a>
-        </div>
-
-        <div id="fortune" class="category-label fortune">
-          <span class="category-dot"></span>
-          <h3>운세·재방문형 도구</h3>
-        </div>
-
-        <div class="tools-grid">
-          <a class="tool-card fortune" href="./tarot/" data-category="fortune" data-title="오늘의 AI 타로 운세 카드 오늘 운세 재미">
-            <span class="tool-tag">운세</span>
-            <h3>오늘의 AI 타로 운세</h3>
-            <p>가볍게 카드 한 장을 뽑고 오늘의 흐름과 조언을 확인합니다.</p>
-            <div class="tool-meta">
-              <span class="mini popular">재방문</span>
-              <span class="mini">타로</span>
-              <span class="mini">오늘운</span>
-            </div>
-          </a>
-
-          <a class="tool-card fortune" href="./saju/" data-category="fortune" data-title="AI 사주 운세 생년월일 오늘의 운세 금전운 직장운 연애운">
-            <span class="tool-tag">운세</span>
-            <h3>AI 사주 운세</h3>
-            <p>생년월일과 관심 분야를 입력해 오늘의 운세 흐름을 재미로 확인합니다.</p>
-            <div class="tool-meta">
-              <span class="mini new">신규</span>
-              <span class="mini">사주</span>
-              <span class="mini">오늘운</span>
-            </div>
-          </a>
-        </div>
-
-        <div id="emptyState" class="empty">
-          검색 결과가 없습니다. 다른 키워드로 다시 찾아보세요.
         </div>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="all-tools">
       <div class="wrap">
-        <div class="section-head">
+        <div class="section-title">
           <div>
-            <h2 class="section-title">추천 사용 동선</h2>
-            <p class="section-desc">도구끼리 자연스럽게 이어지도록 설계했습니다.</p>
+            <span class="section-kicker">🔎 전체 도구 모음</span>
+            <h2>필요한 도구를 바로 찾으세요</h2>
+            <p>도구 이름, 키워드, 목적을 검색하거나 카테고리 버튼으로 빠르게 좁힐 수 있습니다.</p>
           </div>
         </div>
 
-        <div class="path-grid">
-          <div class="path-card stock">
-            <small>주식 투자자</small>
-            <h3>평단가 → 수익률 → 세금</h3>
-            <p>추가매수 후 평균단가를 보고, 매도 전 실제 수익률과 해외주식 세금을 확인하세요.</p>
-            <a href="./stock-average/">평단가부터 시작</a>
+        <div class="search-shell">
+          <div class="search-box">
+            <div class="search-input-wrap">
+              <span>⌕</span>
+              <input id="toolSearch" type="search" placeholder="예: 평단가, 손절가, 자동차세, 대출이자, 꿈해몽, 연애궁합" autocomplete="off" />
+            </div>
+            <button class="random-btn" type="button" id="randomToolBtn">랜덤 도구 열기</button>
           </div>
 
-          <div class="path-card life">
-            <small>여름 시즌</small>
-            <h3>전기요금 → 여행경비</h3>
-            <p>집에서는 냉방비를 줄이고, 휴가 전에는 1인당 여행비를 먼저 계산하세요.</p>
-            <a href="./travel-budget/">여행비 계산하기</a>
+          <div class="filter-row" id="filterRow" aria-label="카테고리 필터"></div>
+
+          <div class="tools-head">
+            <span id="resultText">전체 도구를 표시합니다.</span>
+            <span id="resultCount">0개</span>
           </div>
 
-          <div class="path-card fortune">
-            <small>재방문 도구</small>
-            <h3>AI 타로 → AI 사주</h3>
-            <p>오늘의 카드와 생년월일 운세를 함께 보며 가볍게 하루 흐름을 확인하세요.</p>
-            <a href="./saju/">사주 운세 보기</a>
+          <div class="tools-grid" id="toolsGrid"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="categoryMap">
+      <div class="wrap">
+        <div class="section-title">
+          <div>
+            <span class="section-kicker">🧭 카테고리별 연결</span>
+            <h2>목적별로 이어지는 도구 구조</h2>
+            <p>한 개 도구에서 끝나지 않고 다음 행동까지 이어지게 묶었습니다.</p>
+          </div>
+        </div>
+
+        <div id="categorySections"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-title">
+          <div>
+            <span class="section-kicker">🚀 추천 사용 동선</span>
+            <h2>이렇게 쓰면 체류시간이 늘어납니다</h2>
+            <p>사용자가 한 번 들어와서 자연스럽게 여러 도구를 보도록 만든 내부 이동 경로입니다.</p>
+          </div>
+        </div>
+
+        <div class="flow-grid">
+          <div class="flow-card">
+            <b>평단가 → 수익률 → 세금</b>
+            <p>주가 계산을 시작한 사용자가 실제 손익과 세금까지 이어서 확인하도록 만든 주식 핵심 루트입니다.</p>
+            <a href="stock-average/">평단가부터 시작</a>
+          </div>
+
+          <div class="flow-card">
+            <b>대출이자 → 전월세 → 이사비용</b>
+            <p>주거비와 생활비를 비교하는 사용자가 월 부담, 보증금, 이동 비용까지 연속으로 계산하게 만듭니다.</p>
+            <a href="loan-interest/">대출이자 계산하기</a>
+          </div>
+
+          <div class="flow-card">
+            <b>꿈해몽 → 연애궁합 → 타로</b>
+            <p>호기심 유입 사용자를 재미형 콘텐츠로 연결해 반복 검색과 공유 가능성을 높이는 루트입니다.</p>
+            <a href="dream-meaning/">꿈해몽 검색하기</a>
           </div>
         </div>
       </div>
     </section>
 
     <section class="section">
-      <div class="wrap">
-        <div class="note-grid">
-          <div class="note-card">
-            <h3>업데이트 이력</h3>
-            <div class="timeline">
-              <div>2026.06.24 · 주식 계산기 4종 추가</div>
-              <div>2026.06.24 · 침수차 보험 체크리스트 추가</div>
-              <div>2026.06.24 · 여행경비 계산기, AI 사주 운세 추가</div>
-              <div>2026.06.24 · 메인 홈페이지 구조 리디자인</div>
-            </div>
+      <div class="wrap info-grid">
+        <div class="info-card">
+          <h3>업데이트 이력</h3>
+          <div class="history-list">
+            <div class="history-item"><time>2026.06.27</time><span>꿈해몽 검색기 리디자인 및 메인 연결</span></div>
+            <div class="history-item"><time>2026.06.27</time><span>연애 궁합 테스트 추가 및 메인 연결</span></div>
+            <div class="history-item"><time>2026.06.27</time><span>주식 계산기 확장 묶음 반영</span></div>
+            <div class="history-item"><time>2026.06.27</time><span>메인 홈페이지 검색·필터·추천동선 리모델링</span></div>
           </div>
+        </div>
 
-          <div class="note-card">
-            <h3>이용 전 확인사항</h3>
-            <p>
-              바로해결툴즈의 계산 결과와 체크리스트는 참고용입니다.
-              실제 투자, 세금 신고, 보험 보상, 여행 예약, 건강·법률 판단은 각 증권사, 세무 기준,
-              보험약관, 공식 안내, 전문가 확인을 함께 참고해야 합니다.
-            </p>
-            <p style="margin-top:12px;">
-              도구는 계속 업데이트됩니다. 더 정확하고 쓰기 쉬운 구조로 개선해가겠습니다.
-            </p>
-          </div>
+        <div class="info-card">
+          <h3>이용 전 확인사항</h3>
+          <p class="notice-text">
+            바로해결툴즈의 계산 결과와 체크리스트는 참고용입니다. 실제 투자, 세금 신고, 보험 보상, 대출, 계약, 운세 판단은
+            반드시 공식 자료와 전문가 확인을 함께 진행하세요. 도구는 계속 업데이트하며 더 정확하고 쓰기 쉬운 구조로 개선합니다.
+          </p>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="wrap footer-inner">
-      <div>
-        <b>바로해결툴즈</b><br />
-        주식, 생활비, 여행, 보험 체크리스트, 운세까지 바로 확인하는 무료 미니툴 모음
+  <footer>
+    <div class="wrap footer-grid">
+      <div class="footer-brand">
+        <b>바로해결툴즈</b>
+        <span>주식, 생활비, 여행, 보험 체크리스트, 운세, 재미 테스트를 한곳에 모은 무료 미니툴 모음</span>
       </div>
 
       <div class="footer-links">
-        <a href="#tools">도구 전체</a>
-        <a href="./stock-average/">평단가</a>
-        <a href="./aircon-bill/">전기요금</a>
-        <a href="./tarot/">AI 타로</a>
-        <a href="./saju/">AI 사주</a>
+        <a href="#all-tools">도구 전체</a>
+        <a href="#stock">주식</a>
+        <a href="#life">생활·여행</a>
+        <a href="#fortune">운세·재미</a>
       </div>
     </div>
   </footer>
 
   <script>
-    const searchInput = document.getElementById("searchInput");
-    const chips = document.querySelectorAll(".chip");
-    const cards = document.querySelectorAll(".tool-card");
-    const emptyState = document.getElementById("emptyState");
+    const tools = [
+      {
+        title:"주식 평단가 계산기",
+        url:"stock-average/",
+        category:"주식",
+        type:"stock",
+        icon:"📈",
+        desc:"현재 보유 주식과 추가 매수 금액을 입력해 새로운 평균단가를 계산합니다.",
+        tags:["인기","평단가","물타기"],
+        keywords:"주식 평단가 평균단가 물타기 추가매수 매수단가",
+        featured:true,
+        hot:true
+      },
+      {
+        title:"주식 수익률 계산기",
+        url:"stock-profit/",
+        category:"주식",
+        type:"stock",
+        icon:"💹",
+        desc:"매수가, 매도가, 수량, 수수료, 세금을 반영해 실제 손익률을 계산합니다.",
+        tags:["수익률","손익","매도"],
+        keywords:"주식 수익률 손익 매도 수수료 세금",
+        featured:true
+      },
+      {
+        title:"해외주식 양도세 계산기",
+        url:"stock-tax/",
+        category:"주식",
+        type:"stock",
+        icon:"🌎",
+        desc:"연간 손익과 250만원 공제 기준으로 해외주식 예상 세금을 계산합니다.",
+        tags:["해외주식","세금","양도세"],
+        keywords:"해외주식 양도세 미국주식 세금 250만원 공제",
+        featured:true
+      },
+      {
+        title:"배당금 계산기",
+        url:"stock-dividend/",
+        category:"주식",
+        type:"stock",
+        icon:"💵",
+        desc:"보유수량과 1주당 배당금을 입력해 세전·세후 배당금을 확인합니다.",
+        tags:["배당","수익률","현금흐름"],
+        keywords:"배당금 배당수익률 세후 배당 세전"
+      },
+      {
+        title:"분할매수 계산기",
+        url:"stock-split-buy/",
+        category:"주식",
+        type:"stock",
+        icon:"🧩",
+        desc:"여러 가격대에 나눠 매수할 때 예상 평균단가와 총 매수금을 계산합니다.",
+        tags:["분할매수","계획","평단"],
+        keywords:"분할매수 주식분할 매수계획 평단"
+      },
+      {
+        title:"추가매수 계산기",
+        url:"stock-additional-buy/",
+        category:"주식",
+        type:"stock",
+        icon:"➕",
+        desc:"기존 보유분에 추가로 매수했을 때 변경되는 평단과 총 보유금액을 계산합니다.",
+        tags:["추가매수","평단","보유"],
+        keywords:"추가매수 평단가 보유수량 평균단가"
+      },
+      {
+        title:"물타기 계산기",
+        url:"stock-average-down/",
+        category:"주식",
+        type:"stock",
+        icon:"💧",
+        desc:"하락 종목을 추가매수할 때 목표 평단까지 필요한 매수 수량과 금액을 계산합니다.",
+        tags:["물타기","평단낮추기","목표"],
+        keywords:"물타기 계산기 평단 낮추기 목표평단 추가매수"
+      },
+      {
+        title:"매수수량 계산기",
+        url:"stock-buy-quantity/",
+        category:"주식",
+        type:"stock",
+        icon:"🧮",
+        desc:"투입 가능한 금액과 주가를 기준으로 살 수 있는 주식 수량을 계산합니다.",
+        tags:["매수수량","예산","주문"],
+        keywords:"매수수량 몇주 살수 있나 주식 예산"
+      },
+      {
+        title:"복리 계산기",
+        url:"stock-compound/",
+        category:"주식",
+        type:"stock",
+        icon:"📊",
+        desc:"시드머니, 기간, 수익률을 입력해 복리 투자 결과를 계산합니다.",
+        tags:["복리","장기투자","시드"],
+        keywords:"복리 계산기 주식 복리 투자 수익률"
+      },
+      {
+        title:"주식 수수료 계산기",
+        url:"stock-fee/",
+        category:"주식",
+        type:"stock",
+        icon:"🧾",
+        desc:"매수·매도 수수료와 세금을 반영해 실제 거래 비용을 확인합니다.",
+        tags:["수수료","세금","실손익"],
+        keywords:"주식 수수료 세금 거래비용 증권거래세"
+      },
+      {
+        title:"보유수익률 계산기",
+        url:"stock-holding-return/",
+        category:"주식",
+        type:"stock",
+        icon:"📌",
+        desc:"평단과 현재가 기준으로 보유 종목의 현재 수익률과 손익금을 계산합니다.",
+        tags:["보유","수익률","현재가"],
+        keywords:"보유수익률 현재수익률 평단 현재가 손익"
+      },
+      {
+        title:"포트폴리오 비중 계산기",
+        url:"stock-portfolio-balance/",
+        category:"주식",
+        type:"stock",
+        icon:"🥧",
+        desc:"종목별 투자금 비중을 확인해 포트폴리오 쏠림을 점검합니다.",
+        tags:["포트폴리오","비중","리밸런싱"],
+        keywords:"포트폴리오 비중 리밸런싱 종목비중"
+      },
+      {
+        title:"분할매도 계산기",
+        url:"stock-scale-out/",
+        category:"주식",
+        type:"stock",
+        icon:"📤",
+        desc:"목표가별 매도 수량을 나눠 회수금과 남은 보유분을 계산합니다.",
+        tags:["분할매도","익절","회수"],
+        keywords:"분할매도 익절 회수금 매도계획"
+      },
+      {
+        title:"시드머니 계산기",
+        url:"stock-seed-money/",
+        category:"주식",
+        type:"stock",
+        icon:"🌱",
+        desc:"목표 금액과 기간을 기준으로 필요한 시드머니와 월 투자액을 점검합니다.",
+        tags:["시드머니","목표","투자계획"],
+        keywords:"시드머니 목표금액 투자계획 월투자"
+      },
+      {
+        title:"손절가 계산기",
+        url:"stock-stop-loss/",
+        category:"주식",
+        type:"stock",
+        icon:"🛡️",
+        desc:"매수가와 허용 손실률을 기준으로 손절가와 예상 손실금을 계산합니다.",
+        tags:["손절가","리스크","손실"],
+        keywords:"손절가 손절률 리스크 손실금",
+        featured:true
+      },
+      {
+        title:"목표평단 계산기",
+        url:"stock-target-average/",
+        category:"주식",
+        type:"stock",
+        icon:"🎯",
+        desc:"원하는 평균단가까지 낮추거나 맞추기 위해 필요한 추가매수 금액을 계산합니다.",
+        tags:["목표평단","추가매수","평단"],
+        keywords:"목표평단 평균단가 추가매수 물타기"
+      },
+      {
+        title:"목표가 계산기",
+        url:"stock-target-price/",
+        category:"주식",
+        type:"stock",
+        icon:"🚩",
+        desc:"목표 수익률 기준으로 필요한 매도가를 빠르게 계산합니다.",
+        tags:["목표가","수익률","매도가"],
+        keywords:"목표가 목표수익률 매도가 익절가"
+      },
+      {
+        title:"목표수익 계산기",
+        url:"stock-target-profit/",
+        category:"주식",
+        type:"stock",
+        icon:"🏆",
+        desc:"목표 수익금에 도달하기 위한 매도가와 필요 수익률을 계산합니다.",
+        tags:["목표수익","익절","매도가"],
+        keywords:"목표수익 목표수익금 매도가 수익률"
+      },
 
-    let activeFilter = "all";
+      {
+        title:"자동차세 계산기",
+        url:"car-tax/",
+        category:"생활·여행",
+        type:"life",
+        icon:"🚗",
+        desc:"차량 배기량과 연식 기준으로 자동차세와 연납 예상액을 계산합니다.",
+        tags:["자동차세","연납","차량"],
+        keywords:"자동차세 계산 자동차세 연납 차량 세금",
+        featured:true
+      },
+      {
+        title:"대출이자 계산기",
+        url:"loan-interest/",
+        category:"생활·여행",
+        type:"life",
+        icon:"🏦",
+        desc:"대출금, 금리, 기간을 입력해 월 상환액과 총 이자를 계산합니다.",
+        tags:["대출","이자","상환"],
+        keywords:"대출이자 월상환액 원리금 원금균등 만기일시",
+        featured:true
+      },
+      {
+        title:"전월세 전환 계산기",
+        url:"rent-conversion/",
+        category:"생활·여행",
+        type:"life",
+        icon:"🏠",
+        desc:"전세 보증금과 월세를 비교해 전월세 전환 흐름을 확인합니다.",
+        tags:["전월세","월세","보증금"],
+        keywords:"전월세 전환 월세 전세 보증금 전환율"
+      },
+      {
+        title:"이사비용 계산기",
+        url:"moving-cost/",
+        category:"생활·여행",
+        type:"life",
+        icon:"📦",
+        desc:"집 크기, 이사 거리, 서비스 유형에 따라 예상 이사비용을 계산합니다.",
+        tags:["이사","포장이사","비용"],
+        keywords:"이사비용 포장이사 원룸이사 이삿짐"
+      },
+      {
+        title:"에어컨 전기요금 계산기",
+        url:"aircon-bill/",
+        category:"생활·여행",
+        type:"life",
+        icon:"❄️",
+        desc:"사용 시간과 소비전력을 입력해 예상 전기요금과 냉방비를 계산합니다.",
+        tags:["전기요금","에어컨","냉방비"],
+        keywords:"에어컨 전기요금 냉방비 전기세"
+      },
+      {
+        title:"제습기 전기요금 계산기",
+        url:"dehumidifier-bill/",
+        category:"생활·여행",
+        type:"life",
+        icon:"💧",
+        desc:"제습기 소비전력과 사용시간 기준으로 예상 전기요금을 확인합니다.",
+        tags:["제습기","전기요금","장마"],
+        keywords:"제습기 전기세 제습기 전기요금 장마"
+      },
+      {
+        title:"여름휴가 여행경비 계산기",
+        url:"travel-budget/",
+        category:"생활·여행",
+        type:"life",
+        icon:"🏖️",
+        desc:"숙박비, 교통비, 식비, 액티비티 비용을 합산해 1인당 여행비를 계산합니다.",
+        tags:["여행비","휴가","1인당"],
+        keywords:"여행경비 여름휴가 여행비 숙박 교통 식비",
+        featured:true
+      },
+      {
+        title:"청년 미래저축 계산기",
+        url:"youth-future-savings/",
+        category:"생활·여행",
+        type:"life",
+        icon:"💰",
+        desc:"청년 적금과 정책금융 상품의 납입액과 예상 수령액을 계산합니다.",
+        tags:["청년","적금","정책"],
+        keywords:"청년도약계좌 청년미래적금 적금 계산"
+      },
+
+      {
+        title:"장마철 침수차 보험 체크리스트",
+        url:"flood-car-checklist/",
+        category:"보험",
+        type:"insurance",
+        icon:"☔",
+        desc:"차량 침수 피해 전후 확인사항, 특약, 보상 가능성을 체크합니다.",
+        tags:["보험","침수차","체크리스트"],
+        keywords:"침수차 보험 장마 자동차보험 자차특약",
+        featured:true
+      },
+
+      {
+        title:"꿈해몽 검색기",
+        url:"dream-meaning/",
+        category:"운세·재미",
+        type:"fortune",
+        icon:"🌙",
+        desc:"꿈에서 기억나는 키워드를 입력해 길몽·주의몽·상황별 해석을 확인합니다.",
+        tags:["신규","꿈해몽","검색"],
+        keywords:"꿈해몽 뱀꿈 이빨꿈 돈꿈 전남친꿈 조상꿈 로또꿈",
+        featured:true,
+        hot:true
+      },
+      {
+        title:"연애 궁합 테스트",
+        url:"love-compatibility/",
+        category:"운세·재미",
+        type:"fortune",
+        icon:"💘",
+        desc:"MBTI, 이름, 생년월일, 연애성향, 친밀도 성향으로 두 사람의 궁합을 확인합니다.",
+        tags:["신규","연애궁합","MBTI"],
+        keywords:"연애궁합 MBTI 궁합 이름궁합 생년월일 속궁합 커플 테스트",
+        featured:true,
+        hot:true
+      },
+      {
+        title:"오늘의 AI 타로 운세",
+        url:"tarot/",
+        category:"운세·재미",
+        type:"fortune",
+        icon:"🔮",
+        desc:"가볍게 카드를 뽑고 오늘의 흐름과 조언을 확인하는 AI 타로 도구입니다.",
+        tags:["타로","오늘운","재미"],
+        keywords:"AI 타로 오늘의 타로 운세 카드"
+      },
+      {
+        title:"AI 사주 운세",
+        url:"saju/",
+        category:"운세·재미",
+        type:"fortune",
+        icon:"✨",
+        desc:"생년월일과 관심 분야를 입력해 오늘의 운세 흐름을 확인합니다.",
+        tags:["사주","운세","오늘운"],
+        keywords:"AI 사주 운세 오늘의 운세 생년월일"
+      }
+    ];
+
+    const categories = [
+      {name:"전체", value:"전체", icon:"🧰"},
+      {name:"추천", value:"추천", icon:"🔥"},
+      {name:"주식", value:"주식", icon:"📈"},
+      {name:"생활·여행", value:"생활·여행", icon:"🏠"},
+      {name:"보험", value:"보험", icon:"☔"},
+      {name:"운세·재미", value:"운세·재미", icon:"🌙"}
+    ];
+
+    const categoryColors = {
+      "주식": {
+        dot:"#2563eb",
+        glow:"rgba(37,99,235,.12)",
+        card:"rgba(37,99,235,.12)"
+      },
+      "생활·여행": {
+        dot:"#14b8a6",
+        glow:"rgba(20,184,166,.12)",
+        card:"rgba(20,184,166,.13)"
+      },
+      "보험": {
+        dot:"#0ea5e9",
+        glow:"rgba(14,165,233,.12)",
+        card:"rgba(14,165,233,.13)"
+      },
+      "운세·재미": {
+        dot:"#7c3aed",
+        glow:"rgba(124,58,237,.12)",
+        card:"rgba(124,58,237,.12)"
+      }
+    };
+
+    const typeBadges = {
+      stock:"주식",
+      life:"생활",
+      insurance:"보험",
+      fortune:"운세"
+    };
+
+    let activeCategory = "전체";
+
+    const $ = (id) => document.getElementById(id);
 
     function normalize(text) {
-      return String(text || "").toLowerCase().replace(/\s+/g, "");
+      return String(text || "").toLowerCase().replace(/\s+/g, "").trim();
     }
 
-    function filterTools() {
-      const query = normalize(searchInput.value);
-      let visibleCount = 0;
+    function renderFilters() {
+      $("filterRow").innerHTML = categories.map((category) => `
+        <button class="filter-btn ${category.value === activeCategory ? "active" : ""}" type="button" data-category="${category.value}">
+          ${category.icon} ${category.name}
+        </button>
+      `).join("");
 
-      cards.forEach(card => {
-        const category = card.dataset.category;
-        const title = normalize(card.dataset.title + " " + card.innerText);
-        const matchCategory = activeFilter === "all" || category === activeFilter;
-        const matchQuery = !query || title.includes(query);
-
-        if (matchCategory && matchQuery) {
-          card.style.display = "";
-          visibleCount++;
-        } else {
-          card.style.display = "none";
-        }
+      document.querySelectorAll(".filter-btn").forEach((button) => {
+        button.addEventListener("click", () => {
+          activeCategory = button.dataset.category;
+          renderFilters();
+          renderTools();
+        });
       });
-
-      emptyState.style.display = visibleCount === 0 ? "block" : "none";
     }
 
-    chips.forEach(chip => {
-      chip.addEventListener("click", () => {
-        chips.forEach(item => item.classList.remove("active"));
-        chip.classList.add("active");
-        activeFilter = chip.dataset.filter;
-        filterTools();
-      });
-    });
+    function getFilteredTools() {
+      const keyword = normalize($("toolSearch").value);
 
-    searchInput.addEventListener("input", filterTools);
+      return tools.filter((tool) => {
+        const categoryMatch = activeCategory === "전체" ||
+          (activeCategory === "추천" && tool.featured) ||
+          tool.category === activeCategory;
+
+        if (!categoryMatch) return false;
+        if (!keyword) return true;
+
+        const haystack = normalize(`${tool.title} ${tool.desc} ${tool.category} ${tool.tags.join(" ")} ${tool.keywords}`);
+        return haystack.includes(keyword);
+      });
+    }
+
+    function renderTools() {
+      const list = getFilteredTools();
+      const keyword = $("toolSearch").value.trim();
+      const grid = $("toolsGrid");
+
+      $("resultCount").textContent = `${list.length}개`;
+      $("resultText").textContent = keyword
+        ? `"${keyword}" 검색 결과입니다.`
+        : activeCategory === "전체"
+          ? "전체 도구를 표시합니다."
+          : `${activeCategory} 도구를 표시합니다.`;
+
+      if (!list.length) {
+        grid.innerHTML = `
+          <div class="empty-state">
+            <h3>검색 결과가 없습니다</h3>
+            <p>다른 키워드로 검색해보세요. 예: 평단가, 손절가, 자동차세, 대출이자, 꿈해몽, 연애궁합</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = list.map(renderToolCard).join("");
+      attachToolTracking();
+    }
+
+    function renderToolCard(tool) {
+      const color = categoryColors[tool.category] || categoryColors["주식"];
+      const badgeClass = tool.type === "life" ? "life" : tool.type === "insurance" ? "insurance" : tool.type === "fortune" ? "fortune" : "stock";
+      const tagHtml = tool.tags.map((tag) => `<span>${tag}</span>`).join("");
+
+      return `
+        <a class="tool-card" href="${tool.url}" data-tool="${tool.title}" style="--cardGlow:${color.card}">
+          <div class="tool-top">
+            <div class="tool-icon">${tool.icon}</div>
+            <div class="badge-row">
+              <span class="badge ${badgeClass}">${typeBadges[tool.type]}</span>
+              ${tool.hot ? `<span class="badge hot">인기</span>` : ""}
+            </div>
+          </div>
+          <h3>${tool.title}</h3>
+          <p>${tool.desc}</p>
+          <div class="tag-row">${tagHtml}</div>
+          <span class="tool-link">바로 열기 →</span>
+        </a>
+      `;
+    }
+
+    function renderCategorySections() {
+      const container = $("categorySections");
+      const grouped = ["주식", "생활·여행", "보험", "운세·재미"];
+
+      container.innerHTML = grouped.map((category) => {
+        const color = categoryColors[category];
+        const items = tools.filter((tool) => tool.category === category);
+
+        return `
+          <section class="category-block" id="${getCategoryId(category)}">
+            <h3 class="category-heading">
+              <span class="category-dot" style="--dotColor:${color.dot};--dotGlow:${color.glow}"></span>
+              ${category} <small style="color:#64748b;font-size:13px;font-weight:900;">${items.length}개</small>
+            </h3>
+            <div class="tools-grid">
+              ${items.map(renderToolCard).join("")}
+            </div>
+          </section>
+        `;
+      }).join("");
+    }
+
+    function getCategoryId(category) {
+      if (category === "주식") return "stock";
+      if (category === "생활·여행") return "life";
+      if (category === "보험") return "insurance";
+      return "fortune";
+    }
+
+    function setStats() {
+      const stock = tools.filter((tool) => tool.category === "주식").length;
+      const life = tools.filter((tool) => tool.category === "생활·여행").length;
+      const fortune = tools.filter((tool) => tool.category === "운세·재미").length;
+
+      $("heroToolCount").textContent = tools.length;
+      $("totalTools").textContent = tools.length;
+      $("stockTools").textContent = stock;
+      $("lifeTools").textContent = life;
+      $("funTools").textContent = fortune;
+    }
+
+    function openRandomTool() {
+      const pool = getFilteredTools().length ? getFilteredTools() : tools;
+      const pick = pool[Math.floor(Math.random() * pool.length)];
+      window.location.href = pick.url;
+    }
+
+    function applyQueryFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      const q = params.get("q");
+
+      if (q) {
+        $("toolSearch").value = q;
+        document.querySelector("#all-tools").scrollIntoView({behavior:"smooth"});
+      }
+    }
+
+    function attachToolTracking() {
+      document.querySelectorAll("[data-tool]").forEach((card) => {
+        card.addEventListener("click", () => {
+          try {
+            const recent = JSON.parse(localStorage.getItem("baro_recent_tools") || "[]");
+            const next = [card.dataset.tool, ...recent.filter((item) => item !== card.dataset.tool)].slice(0, 5);
+            localStorage.setItem("baro_recent_tools", JSON.stringify(next));
+          } catch (error) {}
+        });
+      });
+    }
+
+    function init() {
+      setStats();
+      renderFilters();
+      applyQueryFromUrl();
+      renderTools();
+      renderCategorySections();
+      attachToolTracking();
+
+      $("toolSearch").addEventListener("input", renderTools);
+      $("randomToolBtn").addEventListener("click", openRandomTool);
+    }
+
+    init();
   </script>
 </body>
 </html>
