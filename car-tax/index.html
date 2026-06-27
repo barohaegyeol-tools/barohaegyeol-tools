@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>자동차세 계산기｜배기량·차령·연납 할인까지 바로 계산｜바로해결툴즈</title>
+  <meta name="description" content="자동차 배기량, 차량연식, 영업용 여부, 전기차 여부, 연납 할인율을 입력하면 예상 자동차세와 지방교육세, 연납 예상금액을 계산합니다." />
+  <meta name="keywords" content="자동차세 계산기, 자동차세 조회, 자동차세 연납 계산기, 자동차세 배기량, 자동차세 전기차, 자동차세 할인, 자동차세 cc 계산, 바로해결툴즈" />
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/car-tax/" />
+  <meta name="theme-color" content="#fff7ed" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="자동차세 계산기｜배기량·차령·연납 할인까지 확인" />
+  <meta property="og:description" content="배기량과 연식을 입력하면 자동차세, 지방교육세, 연납 예상금액을 바로 계산합니다." />
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/car-tax/" />
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"자동차세 계산기",
+    "url":"https://barohaegyeol-tools.pages.dev/car-tax/",
+    "applicationCategory":"FinanceApplication",
+    "operatingSystem":"All",
+    "description":"자동차 배기량, 차량연식, 차종, 연납 할인율을 기준으로 예상 자동차세와 지방교육세를 계산하는 무료 생활 계산기입니다.",
+    "publisher":{
+      "@type":"Organization",
+      "name":"바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg1:#fff7ed;
+      --bg2:#f0fdf4;
+      --bg3:#eff6ff;
+      --text:#122033;
+      --muted:#64748b;
+      --card:rgba(255,255,255,.84);
+      --orange:#fb923c;
+      --amber:#f59e0b;
+      --yellow:#facc15;
+      --green:#22c55e;
+      --mint:#14b8a6;
+      --blue:#2563eb;
+      --sky:#38bdf8;
+      --purple:#8b5cf6;
+      --red:#ef4444;
+      --shadow:0 24px 70px rgba(251,146,60,.15);
+      --shadow2:0 14px 34px rgba(15,23,42,.08);
+      --radius:28px;
+      --max:1180px;
+    }
+
+    * {
+      box-sizing:border-box;
+    }
+
+    html {
+      scroll-behavior:smooth;
+    }
+
+    body {
+      margin:0;
+      min-height:100vh;
+      color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;
+      line-height:1.65;
+      background:
+        radial-gradient(circle at 12% 12%, rgba(251,146,60,.18), transparent 24%),
+        radial-gradient(circle at 88% 10%, rgba(34,197,94,.15), transparent 22%),
+        radial-gradient(circle at 82% 86%, rgba(37,99,235,.13), transparent 24%),
+        linear-gradient(135deg,var(--bg1) 0%, var(--bg2) 50%, var(--bg3) 100%);
+      overflow-x:hidden;
+    }
+
+    body::before {
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.14;
+      background-image:radial-gradient(circle, rgba(251,146,60,.22) 1px, transparent 1px);
+      background-size:30px 30px;
+      mask-image:linear-gradient(to bottom,#000,transparent 82%);
+    }
+
+    a {
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button,
+    input,
+    select {
+      font:inherit;
+    }
+
+    .wrap {
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+    }
+
+    .topbar {
+      position:sticky;
+      top:0;
+      z-index:50;
+      border-bottom:1px solid rgba(15,23,42,.07);
+      background:rgba(255,247,237,.76);
+      backdrop-filter:blur(18px);
+    }
+
+    .nav {
+      min-height:68px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:950;
+      letter-spacing:-.045em;
+    }
+
+    .brand-mark {
+      width:40px;
+      height:40px;
+      border-radius:15px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      background:linear-gradient(135deg,#fb923c,#22c55e);
+      box-shadow:0 14px 34px rgba(251,146,60,.24);
+      font-weight:950;
+    }
+
+    .brand small {
+      display:block;
+      margin-top:1px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:-.02em;
+    }
+
+    .nav-links {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      white-space:nowrap;
+    }
+
+    .nav-links a {
+      padding:9px 13px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.80);
+      color:#26364a;
+      font-size:14px;
+      font-weight:850;
+      box-shadow:var(--shadow2);
+    }
+
+    .hero {
+      padding:58px 0 26px;
+    }
+
+    .hero-grid {
+      display:grid;
+      grid-template-columns:1.02fr .98fr;
+      align-items:center;
+      gap:32px;
+    }
+
+    .chips {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:16px;
+    }
+
+    .chip {
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.82);
+      color:#334155;
+      font-size:13px;
+      font-weight:900;
+      box-shadow:var(--shadow2);
+    }
+
+    .chip.hot {
+      color:#c2410c;
+      background:linear-gradient(135deg,rgba(255,237,213,.98),rgba(255,255,255,.92));
+    }
+
+    h1 {
+      margin:0;
+      max-width:760px;
+      font-size:clamp(38px,6.1vw,74px);
+      line-height:1.04;
+      letter-spacing:-.078em;
+    }
+
+    .gradient {
+      color:transparent;
+      background:linear-gradient(90deg,#f97316 0%, #16a34a 48%, #2563eb 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+    }
+
+    .lead {
+      margin:20px 0 0;
+      max-width:690px;
+      color:#34465c;
+      font-size:clamp(16px,2vw,19px);
+      line-height:1.82;
+      letter-spacing:-.015em;
+      word-break:keep-all;
+    }
+
+    .lead strong {
+      color:#c2410c;
+      font-weight:950;
+    }
+
+    .hero-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:26px;
+    }
+
+    .btn {
+      min-height:49px;
+      padding:13px 18px;
+      border-radius:16px;
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      gap:8px;
+      border:1px solid transparent;
+      font-weight:950;
+      letter-spacing:-.025em;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+
+    .btn:hover {
+      transform:translateY(-2px);
+    }
+
+    .btn-primary {
+      color:#fff;
+      background:linear-gradient(135deg,#f97316,#16a34a,#2563eb);
+      box-shadow:0 16px 38px rgba(249,115,22,.24);
+    }
+
+    .btn-ghost {
+      color:#122033;
+      background:rgba(255,255,255,.82);
+      border-color:rgba(15,23,42,.08);
+    }
+
+    .visual {
+      position:relative;
+      min-height:404px;
+      border-radius:38px;
+      border:1px solid rgba(15,23,42,.08);
+      background:
+        radial-gradient(circle at 78% 16%, rgba(250,204,21,.22), transparent 20%),
+        radial-gradient(circle at 16% 82%, rgba(34,197,94,.15), transparent 23%),
+        linear-gradient(145deg,rgba(255,255,255,.96),rgba(255,237,213,.78));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      padding:26px;
+    }
+
+    .visual-panel {
+      position:absolute;
+      left:26px;
+      right:26px;
+      top:26px;
+      height:178px;
+      border-radius:28px;
+      background:
+        linear-gradient(rgba(15,23,42,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,23,42,.045) 1px, transparent 1px),
+        linear-gradient(180deg,rgba(255,255,255,.96),rgba(255,247,237,.94));
+      background-size:38px 38px,38px 38px,auto;
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      overflow:hidden;
+    }
+
+    .road {
+      position:absolute;
+      left:28px;
+      right:28px;
+      bottom:28px;
+      height:58px;
+      border-radius:999px;
+      background:linear-gradient(90deg,#334155,#64748b);
+      overflow:hidden;
+    }
+
+    .road::before {
+      content:"";
+      position:absolute;
+      left:24px;
+      right:24px;
+      top:27px;
+      height:5px;
+      background:repeating-linear-gradient(90deg,#facc15 0 22px,transparent 22px 42px);
+      border-radius:999px;
+    }
+
+    .car {
+      position:absolute;
+      left:54px;
+      bottom:55px;
+      width:170px;
+      height:76px;
+    }
+
+    .car-body {
+      position:absolute;
+      left:0;
+      bottom:0;
+      width:170px;
+      height:54px;
+      border-radius:28px 36px 22px 22px;
+      background:linear-gradient(135deg,#fb923c,#f97316);
+      border:4px solid #7c2d12;
+      box-shadow:inset 0 7px 0 rgba(255,255,255,.24);
+    }
+
+    .car-top {
+      position:absolute;
+      left:42px;
+      bottom:39px;
+      width:82px;
+      height:42px;
+      border-radius:34px 34px 8px 8px;
+      background:linear-gradient(135deg,#bae6fd,#38bdf8);
+      border:4px solid #7c2d12;
+    }
+
+    .wheel {
+      position:absolute;
+      bottom:-10px;
+      width:34px;
+      height:34px;
+      border-radius:50%;
+      background:#111827;
+      border:6px solid #e5e7eb;
+      z-index:3;
+    }
+
+    .wheel.left {
+      left:25px;
+    }
+
+    .wheel.right {
+      right:25px;
+    }
+
+    .tax-card {
+      position:absolute;
+      right:30px;
+      top:30px;
+      width:196px;
+      padding:18px;
+      border-radius:24px;
+      background:#fff;
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .tax-card span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .tax-card strong {
+      display:block;
+      margin-top:6px;
+      color:#f97316;
+      font-size:32px;
+      line-height:1;
+      letter-spacing:-.05em;
+    }
+
+    .main-result-card {
+      position:absolute;
+      left:26px;
+      bottom:24px;
+      width:270px;
+      padding:18px;
+      border-radius:24px;
+      background:linear-gradient(135deg,#fff,#f0fdf4);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .main-result-card span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .main-result-card strong {
+      display:block;
+      margin-top:6px;
+      color:#16a34a;
+      font-size:34px;
+      line-height:1;
+      letter-spacing:-.05em;
+    }
+
+    .dog-card {
+      position:absolute;
+      right:28px;
+      bottom:24px;
+      width:172px;
+      height:172px;
+      border-radius:36px;
+      border:1px solid rgba(15,23,42,.08);
+      background:linear-gradient(145deg,#fff,#dbeafe);
+      box-shadow:var(--shadow2);
+    }
+
+    .dog-head {
+      position:absolute;
+      left:36px;
+      top:44px;
+      width:100px;
+      height:94px;
+      border-radius:46px 46px 40px 40px;
+      background:#facc15;
+      border:4px solid #78350f;
+    }
+
+    .dog-ear {
+      position:absolute;
+      top:12px;
+      width:30px;
+      height:52px;
+      border-radius:22px;
+      background:#92400e;
+      border:4px solid #78350f;
+      z-index:-1;
+    }
+
+    .dog-ear.left {
+      left:-15px;
+      transform:rotate(18deg);
+    }
+
+    .dog-ear.right {
+      right:-15px;
+      transform:rotate(-18deg);
+    }
+
+    .dog-eye {
+      position:absolute;
+      top:32px;
+      width:10px;
+      height:13px;
+      border-radius:999px;
+      background:#111827;
+    }
+
+    .dog-eye.left {
+      left:29px;
+    }
+
+    .dog-eye.right {
+      right:29px;
+    }
+
+    .dog-nose {
+      position:absolute;
+      left:50%;
+      top:51px;
+      width:17px;
+      height:12px;
+      border-radius:999px;
+      background:#111827;
+      transform:translateX(-50%);
+    }
+
+    .dog-smile {
+      position:absolute;
+      left:50%;
+      top:64px;
+      width:28px;
+      height:13px;
+      border-bottom:3px solid #16a34a;
+      border-radius:0 0 999px 999px;
+      transform:translateX(-50%);
+    }
+
+    .receipt {
+      position:absolute;
+      left:15px;
+      bottom:16px;
+      width:52px;
+      height:50px;
+      border-radius:12px;
+      background:linear-gradient(135deg,#fff7ed,#dcfce7);
+      border:3px solid #f97316;
+      transform:rotate(-10deg);
+    }
+
+    .receipt::before,
+    .receipt::after {
+      content:"";
+      position:absolute;
+      left:10px;
+      right:10px;
+      height:4px;
+      border-radius:999px;
+      background:#f97316;
+    }
+
+    .receipt::before {
+      top:15px;
+    }
+
+    .receipt::after {
+      top:28px;
+    }
+
+    .badge-mini {
+      position:absolute;
+      right:14px;
+      top:14px;
+      padding:8px 10px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#ffedd5,#dcfce7);
+      color:#c2410c;
+      font-size:12px;
+      font-weight:950;
+      box-shadow:var(--shadow2);
+      z-index:5;
+    }
+
+    .section {
+      padding:22px 0;
+    }
+
+    .tool-grid {
+      display:grid;
+      grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);
+      gap:22px;
+      align-items:start;
+    }
+
+    .panel {
+      padding:24px;
+      border-radius:var(--radius);
+      border:1px solid rgba(15,23,42,.08);
+      background:var(--card);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);
+    }
+
+    .panel h2 {
+      margin:0 0 12px;
+      font-size:27px;
+      line-height:1.2;
+      letter-spacing:-.052em;
+    }
+
+    .desc {
+      margin:-4px 0 18px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    .form {
+      display:grid;
+      gap:14px;
+    }
+
+    .field label {
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom:8px;
+      color:#122033;
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .field small {
+      color:var(--muted);
+      font-weight:750;
+    }
+
+    .input-wrap {
+      position:relative;
+    }
+
+    input,
+    select {
+      width:100%;
+      min-height:54px;
+      padding:14px 54px 14px 15px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.10);
+      background:rgba(255,255,255,.94);
+      color:#122033;
+      font-size:16px;
+      font-weight:850;
+      outline:none;
+      transition:.16s ease;
+    }
+
+    select {
+      padding-right:15px;
+      appearance:none;
+      cursor:pointer;
+    }
+
+    input:focus,
+    select:focus {
+      border-color:rgba(249,115,22,.42);
+      box-shadow:0 0 0 4px rgba(249,115,22,.10);
+    }
+
+    .unit {
+      position:absolute;
+      top:50%;
+      right:15px;
+      transform:translateY(-50%);
+      color:var(--muted);
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .row {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .preset {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .preset button {
+      padding:8px 11px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:#fff;
+      color:#334155;
+      font-size:12px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .calc-btn {
+      width:100%;
+      min-height:58px;
+      margin-top:6px;
+      border:0;
+      border-radius:18px;
+      color:#fff;
+      background:linear-gradient(135deg,#f97316,#16a34a,#2563eb);
+      font-size:17px;
+      font-weight:950;
+      cursor:pointer;
+      box-shadow:0 16px 34px rgba(249,115,22,.24);
+    }
+
+    .reset-btn {
+      width:100%;
+      min-height:48px;
+      margin-top:10px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.86);
+      color:#122033;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .notice {
+      margin-top:12px;
+      padding:13px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(15,23,42,.08);
+      color:#526173;
+      font-size:13px;
+      line-height:1.75;
+      font-weight:760;
+      word-break:keep-all;
+    }
+
+    .warning {
+      border-color:rgba(245,158,11,.25);
+      background:rgba(255,251,235,.80);
+      color:#92400e;
+    }
+
+    .result-box {
+      display:grid;
+      gap:14px;
+    }
+
+    .result-main {
+      padding:24px;
+      border-radius:26px;
+      color:#122033;
+      background:
+        radial-gradient(circle at 84% 18%, rgba(255,255,255,.42), transparent 26%),
+        linear-gradient(135deg,#fdba74,#86efac 54%,#93c5fd);
+      box-shadow:var(--shadow2);
+    }
+
+    .result-main span {
+      display:block;
+      font-size:14px;
+      opacity:.82;
+      font-weight:900;
+    }
+
+    .result-main strong {
+      display:block;
+      margin-top:8px;
+      font-size:clamp(36px,5vw,58px);
+      line-height:1;
+      letter-spacing:-.06em;
+    }
+
+    .result-main em {
+      display:block;
+      margin-top:10px;
+      font-size:14px;
+      line-height:1.75;
+      font-style:normal;
+      font-weight:850;
+      opacity:.88;
+      word-break:keep-all;
+    }
+
+    .result-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .metric {
+      padding:18px;
+      border-radius:20px;
+      background:rgba(255,255,255,.84);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .metric span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .metric strong {
+      display:block;
+      margin-top:7px;
+      color:#122033;
+      font-size:24px;
+      letter-spacing:-.045em;
+    }
+
+    .good {
+      color:#16a34a !important;
+    }
+
+    .warn {
+      color:#d97706 !important;
+    }
+
+    .bad {
+      color:#e11d48 !important;
+    }
+
+    .guide-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .guide {
+      padding:20px;
+      border-radius:22px;
+      background:rgba(255,255,255,.80);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .guide b {
+      display:block;
+      margin-bottom:8px;
+      font-size:17px;
+      letter-spacing:-.03em;
+    }
+
+    .guide p {
+      margin:0;
+      color:#526173;
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    footer {
+      padding:44px 0 54px;
+      color:var(--muted);
+      text-align:center;
+      font-size:13px;
+    }
+
+    @media (max-width:920px) {
+      .hero-grid,
+      .tool-grid {
+        grid-template-columns:1fr;
+      }
+
+      .hero {
+        padding-top:42px;
+      }
+    }
+
+    @media (max-width:640px) {
+      .nav {
+        align-items:flex-start;
+        flex-direction:column;
+        padding:12px 0;
+      }
+
+      .nav-links {
+        width:100%;
+        overflow-x:auto;
+        padding-bottom:4px;
+      }
+
+      .hero-actions {
+        display:grid;
+      }
+
+      .btn {
+        width:100%;
+      }
+
+      .row,
+      .result-grid,
+      .guide-grid {
+        grid-template-columns:1fr;
+      }
+
+      .visual {
+        min-height:360px;
+      }
+
+      .tax-card {
+        width:154px;
+      }
+
+      .main-result-card {
+        width:220px;
+      }
+
+      .dog-card {
+        width:138px;
+        height:138px;
+        right:18px;
+      }
+
+      .dog-head {
+        left:24px;
+        top:42px;
+        width:90px;
+        height:84px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="../">
+        <div class="brand-mark">B</div>
+        <div>
+          바로해결툴즈
+          <small>생활 계산 · 자동차세 · 바로 확인</small>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="주요 도구">
+        <a href="../">전체 도구</a>
+        <a href="../dehumidifier-bill/">제습기 전기세</a>
+        <a href="../aircon-bill/">에어컨 전기세</a>
+        <a href="../youth-future-savings/">청년미래적금</a>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="chips">
+            <span class="chip hot">🚗 자동차세 계산</span>
+            <span class="chip">배기량 기준</span>
+            <span class="chip">연납 할인 반영</span>
+          </div>
+
+          <h1>
+            내 차 자동차세<br>
+            <span class="gradient">올해 얼마 나올까?</span>
+          </h1>
+
+          <p class="lead">
+            배기량, 차량연식, 승용차·전기차 여부, 연납 할인율을 입력하면
+            <strong>자동차세 본세, 지방교육세, 차령 감면, 연납 예상금액</strong>을
+            한 번에 계산합니다. 자동차세 고지서 보기 전에 대략적인 금액을 먼저 확인하세요.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#calculator">자동차세 계산하기</a>
+            <a class="btn btn-ghost" href="#guide">자동차세 기준 보기</a>
+          </div>
+        </div>
+
+        <div class="visual" aria-label="자동차세 계산 예시">
+          <div class="visual-panel">
+            <div class="road"></div>
+            <div class="car">
+              <div class="car-top"></div>
+              <div class="car-body"></div>
+              <div class="wheel left"></div>
+              <div class="wheel right"></div>
+            </div>
+
+            <div class="tax-card">
+              <span>배기량</span>
+              <strong>1,998cc</strong>
+            </div>
+          </div>
+
+          <div class="main-result-card">
+            <span>예상 연 자동차세</span>
+            <strong>약 51만원</strong>
+          </div>
+
+          <div class="dog-card" aria-hidden="true">
+            <div class="badge-mini">TAX</div>
+            <div class="dog-head">
+              <div class="dog-ear left"></div>
+              <div class="dog-ear right"></div>
+              <div class="dog-eye left"></div>
+              <div class="dog-eye right"></div>
+              <div class="dog-nose"></div>
+              <div class="dog-smile"></div>
+            </div>
+            <div class="receipt"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="calculator">
+      <div class="wrap tool-grid">
+        <div class="panel">
+          <h2>자동차세 계산기</h2>
+          <p class="desc">
+            비영업용 승용차 기준으로 자동차세 본세와 지방교육세를 계산합니다.
+            전기차는 “전기차·기타 승용차”를 선택하세요.
+          </p>
+
+          <form class="form" onsubmit="event.preventDefault(); calculateCarTax();">
+            <div class="row">
+              <div class="field">
+                <label for="carType">
+                  차량 구분
+                  <small>승용차 기준</small>
+                </label>
+                <div class="input-wrap">
+                  <select id="carType" onchange="toggleCarType();">
+                    <option value="gasoline">비영업용 승용차</option>
+                    <option value="business">영업용 승용차</option>
+                    <option value="electric">전기차·기타 승용차</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="cc">
+                  배기량
+                  <small>전기차는 입력 불필요</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="cc" type="number" min="0" step="1" value="1998" placeholder="예: 1998">
+                  <span class="unit">cc</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="carAge">
+                  차령
+                  <small>출고 후 경과연수</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="carAge" type="number" min="1" max="30" step="1" value="1" placeholder="예: 1">
+                  <span class="unit">년</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="payType">
+                  납부 방식
+                  <small>연납 공제 선택</small>
+                </label>
+                <div class="input-wrap">
+                  <select id="payType" onchange="syncDiscount();">
+                    <option value="0">정기납부</option>
+                    <option value="5">1월 연납 5%</option>
+                    <option value="3.75">3월 연납 약 3.75%</option>
+                    <option value="2.5">6월 연납 약 2.5%</option>
+                    <option value="1.25">9월 연납 약 1.25%</option>
+                    <option value="custom">직접 입력</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="discountRate">
+                  연납 공제율
+                  <small>직접 조정 가능</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="discountRate" type="number" min="0" max="20" step="0.01" value="0" placeholder="예: 5">
+                  <span class="unit">%</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="educationTax">
+                  지방교육세
+                  <small>비영업용 승용차 30%</small>
+                </label>
+                <div class="input-wrap">
+                  <select id="educationTax">
+                    <option value="auto">자동 적용</option>
+                    <option value="on">30% 적용</option>
+                    <option value="off">미적용</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="preset">
+              <button type="button" onclick="fillExample('compact')">경차 998cc</button>
+              <button type="button" onclick="fillExample('mid')">준중형 1598cc</button>
+              <button type="button" onclick="fillExample('sedan')">중형 1998cc</button>
+              <button type="button" onclick="fillExample('ev')">전기차</button>
+              <button type="button" onclick="fillExample('old')">10년차 차량</button>
+            </div>
+
+            <button class="calc-btn" type="submit">자동차세 계산하기</button>
+            <button class="reset-btn" type="button" onclick="resetForm()">입력값 초기화</button>
+          </form>
+
+          <div class="notice warning">
+            계산 결과는 예상치입니다. 실제 자동차세는 관할 지자체, 과세 기준일, 차량 등록정보,
+            감면 대상 여부, 연납 신청 시점에 따라 달라질 수 있습니다.
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>계산 결과</h2>
+          <p class="desc">
+            자동차세 본세, 지방교육세, 차령 감면, 연납 예상금액을 나눠 확인하세요.
+          </p>
+
+          <div class="result-box">
+            <div class="result-main">
+              <span>예상 납부금액</span>
+              <strong id="finalTax">-</strong>
+              <em id="summaryText">값을 입력하고 계산 버튼을 눌러주세요.</em>
+            </div>
+
+            <div class="result-grid">
+              <div class="metric">
+                <span>자동차세 본세</span>
+                <strong id="baseTax">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>지방교육세</span>
+                <strong id="eduTax">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>연세액 합계</span>
+                <strong id="annualTax">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>연납 공제액</span>
+                <strong id="discountAmount" class="good">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>차령 감면율</span>
+                <strong id="ageDiscount">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>적용 cc당 세액</span>
+                <strong id="ccRate">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>상반기 예상</span>
+                <strong id="firstHalf">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>하반기 예상</span>
+                <strong id="secondHalf">-</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice">
+            자동차세는 보통 6월과 12월에 나눠 부과됩니다. 연납을 신청하면 한 번에 납부하고 공제 혜택을 받을 수 있습니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="guide">
+      <div class="wrap">
+        <div class="panel">
+          <h2>자동차세 계산 기준</h2>
+
+          <div class="guide-grid">
+            <div class="guide">
+              <b>비영업용 승용차</b>
+              <p>
+                1,000cc 이하는 80원/cc, 1,600cc 이하는 140원/cc, 1,600cc 초과는 200원/cc 기준으로 계산합니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>지방교육세 30%</b>
+              <p>
+                비영업용 승용차는 자동차세 본세에 지방교육세가 추가됩니다. 계산기에서는 자동 적용할 수 있습니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>차령 감면</b>
+              <p>
+                비영업용 승용차는 일정 차령 이상부터 감면이 적용됩니다. 오래된 차량은 연세액이 줄어들 수 있습니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="notice warning">
+            전기차는 배기량 기준이 아니라 정액 자동차세 기준으로 계산합니다.
+            세부 감면·면제·연납 조건은 매년 바뀔 수 있으니 실제 납부 전 위택스 또는 지자체 고지서를 확인하세요.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 바로해결툴즈 · 계산 결과는 참고용입니다. 실제 자동차세는 관할 지자체 고지서와 위택스 기준을 확인하세요.
+  </footer>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    function num(id) {
+      const value = Number($(id).value);
+      return Number.isFinite(value) ? value : 0;
+    }
+
+    function setText(id, value) {
+      $(id).textContent = value;
+    }
+
+    function won(value) {
+      if (!Number.isFinite(value)) return "-";
+      return `${Math.round(value).toLocaleString("ko-KR")}원`;
+    }
+
+    function percent(value) {
+      if (!Number.isFinite(value)) return "-";
+      return `${value.toLocaleString("ko-KR", {
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 0
+      })}%`;
+    }
+
+    function toggleCarType() {
+      const carType = $("carType").value;
+
+      if (carType === "electric") {
+        $("cc").value = "";
+        $("cc").disabled = true;
+      } else {
+        $("cc").disabled = false;
+
+        if (!num("cc")) {
+          $("cc").value = 1998;
+        }
+      }
+
+      calculateCarTax();
+    }
+
+    function syncDiscount() {
+      const payType = $("payType").value;
+
+      if (payType !== "custom") {
+        $("discountRate").value = payType;
+      }
+
+      calculateCarTax();
+    }
+
+    function getCcRate(carType, cc) {
+      if (carType === "electric") {
+        return 100000;
+      }
+
+      if (carType === "business") {
+        if (cc <= 1000) return 18;
+        if (cc <= 2500) return 19;
+        return 24;
+      }
+
+      if (cc <= 1000) return 80;
+      if (cc <= 1600) return 140;
+      return 200;
+    }
+
+    function getAgeDiscountRate(carType, carAge) {
+      if (carType !== "gasoline") return 0;
+
+      if (carAge < 3) return 0;
+
+      const cappedAge = Math.min(carAge, 12);
+      return Math.min((cappedAge - 2) * 5, 50);
+    }
+
+    function shouldApplyEducationTax(carType, educationTaxMode) {
+      if (educationTaxMode === "on") return true;
+      if (educationTaxMode === "off") return false;
+      return carType === "gasoline" || carType === "electric";
+    }
+
+    function calculateCarTax() {
+      const carType = $("carType").value;
+      const cc = num("cc");
+      const carAge = Math.max(Math.floor(num("carAge")), 1);
+      const discountRate = Math.min(Math.max(num("discountRate"), 0), 20);
+      const educationTaxMode = $("educationTax").value;
+
+      $("carAge").value = carAge;
+      $("discountRate").value = discountRate;
+
+      if (carType !== "electric" && cc <= 0) {
+        showMessage("배기량을 입력해주세요. 전기차는 차량 구분에서 전기차를 선택하세요.");
+        return;
+      }
+
+      const ccRate = getCcRate(carType, cc);
+      const ageDiscountRate = getAgeDiscountRate(carType, carAge);
+
+      let rawBaseTax = 0;
+
+      if (carType === "electric") {
+        rawBaseTax = 100000;
+      } else {
+        rawBaseTax = cc * ccRate;
+      }
+
+      const ageDiscountAmount = rawBaseTax * (ageDiscountRate / 100);
+      const baseTax = rawBaseTax - ageDiscountAmount;
+
+      const eduTaxApplied = shouldApplyEducationTax(carType, educationTaxMode);
+      const eduTax = eduTaxApplied ? baseTax * 0.3 : 0;
+
+      const annualTax = baseTax + eduTax;
+      const discountAmount = annualTax * (discountRate / 100);
+      const finalTax = annualTax - discountAmount;
+
+      const firstHalf = annualTax / 2;
+      const secondHalf = annualTax / 2;
+
+      setText("finalTax", won(finalTax));
+      setText("baseTax", won(baseTax));
+      setText("eduTax", won(eduTax));
+      setText("annualTax", won(annualTax));
+      setText("discountAmount", discountRate > 0 ? `-${won(discountAmount)}` : "0원");
+      setText("ageDiscount", percent(ageDiscountRate));
+
+      if (carType === "electric") {
+        setText("ccRate", "전기차 정액");
+      } else {
+        setText("ccRate", `${ccRate.toLocaleString("ko-KR")}원/cc`);
+      }
+
+      setText("firstHalf", won(firstHalf));
+      setText("secondHalf", won(secondHalf));
+
+      $("finalTax").className = "good";
+      $("discountAmount").className = discountRate > 0 ? "good" : "";
+      $("ageDiscount").className = ageDiscountRate > 0 ? "good" : "";
+
+      const carTypeText = {
+        gasoline:"비영업용 승용차",
+        business:"영업용 승용차",
+        electric:"전기차·기타 승용차"
+      }[carType];
+
+      const ccText = carType === "electric" ? "전기차 정액 기준" : `${cc.toLocaleString("ko-KR")}cc, ${ccRate}원/cc 기준`;
+      const summary = `${carTypeText} ${ccText}으로 계산한 연세액은 약 ${won(annualTax)}입니다. 연납 공제율 ${percent(discountRate)} 적용 시 예상 납부금액은 약 ${won(finalTax)}입니다.`;
+
+      setText("summaryText", summary);
+    }
+
+    function showMessage(message) {
+      setText("finalTax", "-");
+      setText("baseTax", "-");
+      setText("eduTax", "-");
+      setText("annualTax", "-");
+      setText("discountAmount", "-");
+      setText("ageDiscount", "-");
+      setText("ccRate", "-");
+      setText("firstHalf", "-");
+      setText("secondHalf", "-");
+      setText("summaryText", message);
+    }
+
+    function fillExample(type) {
+      $("educationTax").value = "auto";
+      $("payType").value = "0";
+      $("discountRate").value = "0";
+      $("cc").disabled = false;
+
+      if (type === "compact") {
+        $("carType").value = "gasoline";
+        $("cc").value = 998;
+        $("carAge").value = 1;
+      }
+
+      if (type === "mid") {
+        $("carType").value = "gasoline";
+        $("cc").value = 1598;
+        $("carAge").value = 1;
+      }
+
+      if (type === "sedan") {
+        $("carType").value = "gasoline";
+        $("cc").value = 1998;
+        $("carAge").value = 1;
+      }
+
+      if (type === "ev") {
+        $("carType").value = "electric";
+        $("cc").value = "";
+        $("cc").disabled = true;
+        $("carAge").value = 1;
+      }
+
+      if (type === "old") {
+        $("carType").value = "gasoline";
+        $("cc").value = 1998;
+        $("carAge").value = 10;
+        $("payType").value = "5";
+        $("discountRate").value = "5";
+      }
+
+      calculateCarTax();
+    }
+
+    function resetForm() {
+      $("carType").value = "gasoline";
+      $("cc").disabled = false;
+      $("cc").value = "1998";
+      $("carAge").value = "1";
+      $("payType").value = "0";
+      $("discountRate").value = "0";
+      $("educationTax").value = "auto";
+      calculateCarTax();
+    }
+
+    calculateCarTax();
+  </script>
+</body>
+</html>
