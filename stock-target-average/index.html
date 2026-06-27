@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>목표 평단가 계산기｜평단 낮추려면 몇 주 사야 할까｜바로해결툴즈</title>
+  <meta name="description" content="기존 보유 수량, 기존 평단가, 추가 매수가, 목표 평단가를 입력하면 목표 평단까지 낮추기 위해 필요한 추가 매수 수량과 필요 금액을 바로 계산합니다." />
+  <meta name="keywords" content="목표 평단가 계산기, 평단 낮추려면 몇 주, 물타기 수량 계산기, 추가매수 수량 계산, 주식 평단 낮추기, 주식 물타기 계산, 바로해결툴즈" />
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/stock-target-average/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="목표 평단가 계산기｜평단 낮추려면 몇 주 사야 할까" />
+  <meta property="og:description" content="목표 평단가까지 낮추려면 몇 주를 더 사야 하는지 바로 계산해보세요." />
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/stock-target-average/" />
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <meta name="theme-color" content="#eef6ff" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "목표 평단가 계산기",
+    "url": "https://barohaegyeol-tools.pages.dev/stock-target-average/",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "All",
+    "description": "목표 평단가까지 낮추기 위해 필요한 추가 매수 수량과 필요 금액을 계산하는 무료 주식 계산기입니다.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #f5f9ff;
+      --bg2: #eef6ff;
+      --white: #ffffff;
+      --ink: #0f172a;
+      --text: #26364a;
+      --muted: #64748b;
+      --line: rgba(15, 23, 42, 0.10);
+      --blue: #2563eb;
+      --blue2: #1238ff;
+      --mint: #14b8a6;
+      --green: #16a34a;
+      --red: #ef4444;
+      --orange: #f97316;
+      --purple: #7c3aed;
+      --soft: #f8fafc;
+      --shadow: 0 24px 70px rgba(37, 99, 235, 0.14);
+      --shadow2: 0 16px 42px rgba(15, 23, 42, 0.08);
+      --radius: 28px;
+      --radius2: 20px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", system-ui, sans-serif;
+      background:
+        radial-gradient(circle at 10% 6%, rgba(37, 99, 235, .16), transparent 30%),
+        radial-gradient(circle at 90% 8%, rgba(20, 184, 166, .15), transparent 28%),
+        radial-gradient(circle at 50% 100%, rgba(124, 58, 237, .08), transparent 36%),
+        linear-gradient(135deg, #f8fbff 0%, #eef6ff 52%, #f3fff8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid rgba(15, 23, 42, .08);
+      background: rgba(248, 251, 255, .78);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 950;
+      letter-spacing: -.045em;
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: linear-gradient(135deg, var(--blue), var(--mint));
+      box-shadow: 0 14px 34px rgba(37, 99, 235, .22);
+      font-weight: 950;
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 1px;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: -.02em;
+      font-weight: 800;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: #475569;
+      white-space: nowrap;
+    }
+
+    .nav-links a {
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(15, 23, 42, .08);
+      background: rgba(255, 255, 255, .66);
+      font-weight: 850;
+    }
+
+    .hero {
+      padding: 58px 0 28px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr .92fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 13px;
+      border-radius: 999px;
+      background: rgba(37, 99, 235, .08);
+      color: var(--blue2);
+      border: 1px solid rgba(37, 99, 235, .16);
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    h1 {
+      margin: 18px 0 0;
+      font-size: clamp(38px, 6.1vw, 74px);
+      line-height: 1.04;
+      letter-spacing: -.078em;
+    }
+
+    .gradient-text {
+      color: transparent;
+      background: linear-gradient(90deg, var(--blue2), var(--blue) 44%, var(--mint));
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .lead {
+      margin: 20px 0 0;
+      max-width: 680px;
+      color: var(--text);
+      font-size: clamp(16px, 2vw, 19px);
+      word-break: keep-all;
+    }
+
+    .hero-actions {
+      margin-top: 26px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn {
+      min-height: 48px;
+      padding: 13px 17px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 16px;
+      border: 1px solid transparent;
+      font-weight: 950;
+      letter-spacing: -.025em;
+      cursor: pointer;
+      transition: .18s ease;
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--blue), var(--mint));
+      box-shadow: 0 18px 44px rgba(37, 99, 235, .24);
+    }
+
+    .btn-ghost {
+      color: #1e3a5f;
+      background: rgba(255, 255, 255, .76);
+      border-color: rgba(15, 23, 42, .10);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero-card {
+      position: relative;
+      min-height: 340px;
+      border-radius: 36px;
+      border: 1px solid rgba(255, 255, 255, .9);
+      background:
+        radial-gradient(circle at 72% 18%, rgba(20, 184, 166, .18), transparent 28%),
+        linear-gradient(145deg, rgba(255,255,255,.86), rgba(255,255,255,.42));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      padding: 26px;
+    }
+
+    .mini-result {
+      display: grid;
+      gap: 14px;
+    }
+
+    .mini-card {
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, .82);
+      border: 1px solid rgba(15, 23, 42, .08);
+      box-shadow: var(--shadow2);
+    }
+
+    .mini-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .mini-card strong {
+      display: block;
+      margin-top: 6px;
+      font-size: 28px;
+      letter-spacing: -.045em;
+      color: var(--blue2);
+    }
+
+    .cat {
+      position: absolute;
+      right: 28px;
+      bottom: 22px;
+      width: 160px;
+      height: 160px;
+      border-radius: 42px;
+      background:
+        radial-gradient(circle at 50% 38%, #fff7df 0 34%, transparent 35%),
+        linear-gradient(160deg, #fff, #eaf7ff);
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(15, 23, 42, .08);
+      box-shadow: var(--shadow2);
+      font-size: 82px;
+    }
+
+    .section {
+      padding: 24px 0;
+    }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .panel {
+      border-radius: var(--radius);
+      border: 1px solid rgba(15, 23, 42, .09);
+      background: rgba(255, 255, 255, .82);
+      box-shadow: var(--shadow2);
+      padding: 24px;
+    }
+
+    .panel h2 {
+      margin: 0 0 14px;
+      font-size: 26px;
+      line-height: 1.2;
+      letter-spacing: -.055em;
+    }
+
+    .form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .field label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+      color: #1f334a;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .field small {
+      color: var(--muted);
+      font-weight: 750;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input {
+      width: 100%;
+      min-height: 54px;
+      padding: 14px 54px 14px 15px;
+      border-radius: 16px;
+      border: 1px solid rgba(15, 23, 42, .13);
+      background: rgba(255, 255, 255, .92);
+      color: var(--ink);
+      font-size: 16px;
+      font-weight: 850;
+      outline: none;
+      transition: .16s ease;
+    }
+
+    input:focus {
+      border-color: rgba(37, 99, 235, .52);
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, .10);
+    }
+
+    .unit {
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .calc-btn {
+      width: 100%;
+      min-height: 58px;
+      margin-top: 6px;
+      border: 0;
+      border-radius: 18px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--blue2), var(--blue), var(--mint));
+      font-size: 17px;
+      font-weight: 950;
+      box-shadow: 0 18px 42px rgba(37, 99, 235, .28);
+    }
+
+    .reset-btn {
+      width: 100%;
+      min-height: 48px;
+      margin-top: 10px;
+      border-radius: 16px;
+      border: 1px solid rgba(15, 23, 42, .10);
+      background: rgba(248, 250, 252, .95);
+      color: #334155;
+      font-weight: 900;
+    }
+
+    .notice {
+      margin-top: 12px;
+      padding: 13px 14px;
+      border-radius: 17px;
+      color: #3f4f63;
+      background: rgba(241, 245, 249, .86);
+      border: 1px solid rgba(15, 23, 42, .08);
+      font-size: 13px;
+      font-weight: 750;
+      word-break: keep-all;
+    }
+
+    .result-box {
+      display: grid;
+      gap: 14px;
+    }
+
+    .result-main {
+      padding: 24px;
+      border-radius: 26px;
+      color: #fff;
+      background:
+        radial-gradient(circle at 85% 20%, rgba(255,255,255,.24), transparent 28%),
+        linear-gradient(135deg, #1238ff, #2563eb 48%, #14b8a6);
+      box-shadow: var(--shadow);
+    }
+
+    .result-main span {
+      display: block;
+      font-size: 14px;
+      opacity: .86;
+      font-weight: 850;
+    }
+
+    .result-main strong {
+      display: block;
+      margin-top: 8px;
+      font-size: clamp(36px, 5vw, 56px);
+      line-height: 1;
+      letter-spacing: -.06em;
+    }
+
+    .result-main em {
+      display: block;
+      margin-top: 10px;
+      font-style: normal;
+      font-size: 14px;
+      opacity: .92;
+      word-break: keep-all;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .metric {
+      padding: 18px;
+      border-radius: 21px;
+      border: 1px solid rgba(15, 23, 42, .08);
+      background: rgba(255, 255, 255, .82);
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .metric strong {
+      display: block;
+      margin-top: 7px;
+      color: var(--ink);
+      font-size: 24px;
+      letter-spacing: -.045em;
+    }
+
+    .metric .up {
+      color: var(--red);
+    }
+
+    .metric .down,
+    .metric .good {
+      color: var(--green);
+    }
+
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .guide-card {
+      padding: 20px;
+      border-radius: 22px;
+      border: 1px solid rgba(15, 23, 42, .08);
+      background: rgba(255, 255, 255, .78);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, .05);
+    }
+
+    .guide-card b {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 17px;
+      letter-spacing: -.03em;
+    }
+
+    .guide-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      word-break: keep-all;
+    }
+
+    footer {
+      padding: 42px 0 54px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .tool-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 36px;
+      }
+
+      .hero-card {
+        min-height: 300px;
+      }
+
+      .guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 12px 0;
+      }
+
+      .nav-links {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+
+      .hero-actions {
+        display: grid;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .result-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cat {
+        width: 120px;
+        height: 120px;
+        font-size: 62px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="../">
+        <div class="brand-mark">✓</div>
+        <div>
+          바로해결툴즈
+          <small>주식 계산기 · 생활비 계산 · 바로 확인</small>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="주요 도구">
+        <a href="../">도구 전체</a>
+        <a href="../stock-average/">평단가</a>
+        <a href="../stock-profit/">수익률</a>
+        <a href="../stock-split-buy/">분할매수</a>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow">📉 물타기 전 필수 확인</div>
+          <h1>
+            목표 평단까지<br />
+            <span class="gradient-text">몇 주 더 사야 할까?</span>
+          </h1>
+          <p class="lead">
+            기존 보유 수량과 평단, 추가 매수가, 목표 평단가를 입력하면
+            목표 평단까지 낮추기 위해 필요한 추가 매수 수량과 필요 금액을 계산합니다.
+            평단만 보지 말고 총 투자금과 리스크도 함께 확인하세요.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#calculator">바로 계산하기</a>
+            <a class="btn btn-ghost" href="../stock-average/">기본 평단가 계산기</a>
+          </div>
+        </div>
+
+        <div class="hero-card" aria-label="목표 평단가 계산 예시">
+          <div class="mini-result">
+            <div class="mini-card">
+              <span>기존 평균단가</span>
+              <strong>10,000원</strong>
+            </div>
+            <div class="mini-card">
+              <span>목표 평균단가</span>
+              <strong>9,000원</strong>
+            </div>
+            <div class="mini-card">
+              <span>계산 포인트</span>
+              <strong>필요 수량 역산</strong>
+            </div>
+          </div>
+          <div class="cat" aria-hidden="true">🐱</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="calculator">
+      <div class="wrap tool-grid">
+        <div class="panel">
+          <h2>목표 평단가 계산기</h2>
+
+          <form class="form" onsubmit="event.preventDefault(); calculateTargetAverage();">
+            <div class="field">
+              <label for="currentQty">
+                기존 보유 수량
+                <small>현재 가진 주식 수</small>
+              </label>
+              <div class="input-wrap">
+                <input id="currentQty" type="number" inputmode="decimal" min="0" step="1" placeholder="예: 100" value="100" />
+                <span class="unit">주</span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="currentAvg">
+                기존 평균단가
+                <small>현재 평단</small>
+              </label>
+              <div class="input-wrap">
+                <input id="currentAvg" type="number" inputmode="decimal" min="0" step="0.01" placeholder="예: 10000" value="10000" />
+                <span class="unit">원</span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="buyPrice">
+                추가 매수가
+                <small>새로 살 가격</small>
+              </label>
+              <div class="input-wrap">
+                <input id="buyPrice" type="number" inputmode="decimal" min="0" step="0.01" placeholder="예: 8000" value="8000" />
+                <span class="unit">원</span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="targetAvg">
+                목표 평균단가
+                <small>낮추고 싶은 평단</small>
+              </label>
+              <div class="input-wrap">
+                <input id="targetAvg" type="number" inputmode="decimal" min="0" step="0.01" placeholder="예: 9000" value="9000" />
+                <span class="unit">원</span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="currentPrice">
+                현재가 또는 예상 매도가
+                <small>선택 입력</small>
+              </label>
+              <div class="input-wrap">
+                <input id="currentPrice" type="number" inputmode="decimal" min="0" step="0.01" placeholder="예: 9200" value="9200" />
+                <span class="unit">원</span>
+              </div>
+            </div>
+
+            <button class="calc-btn" type="submit">목표 평단까지 필요한 수량 계산하기</button>
+            <button class="reset-btn" type="button" onclick="resetForm()">입력값 초기화</button>
+          </form>
+
+          <div class="notice">
+            입력한 정보는 브라우저에서만 계산되며 서버로 전송되지 않습니다.
+            계산 결과는 참고용이며, 실제 투자 판단은 본인의 책임입니다.
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>계산 결과</h2>
+
+          <div class="result-box">
+            <div class="result-main">
+              <span>목표 평단까지 필요한 추가 매수 수량</span>
+              <strong id="needQty">-</strong>
+              <em id="summaryText">값을 입력하고 계산 버튼을 눌러주세요.</em>
+            </div>
+
+            <div class="result-grid">
+              <div class="metric">
+                <span>추가 필요 금액</span>
+                <strong id="needMoney">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>계산 후 새 평단</span>
+                <strong id="newAvg">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>총 보유 수량</span>
+                <strong id="totalQty">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>총 투자금</span>
+                <strong id="totalMoney">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>평단 인하율</span>
+                <strong id="avgDrop" class="good">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>현재가 기준 손익률</span>
+                <strong id="profitRate">-</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="panel">
+          <h2>물타기 전 체크포인트</h2>
+
+          <div class="guide-grid">
+            <div class="guide-card">
+              <b>하락 이유 확인</b>
+              <p>
+                단순 조정인지, 실적 악화나 재료 소멸인지 먼저 구분해야 합니다.
+                이유를 모른 채 평단만 낮추는 건 위험할 수 있습니다.
+              </p>
+            </div>
+
+            <div class="guide-card">
+              <b>총 투자금 확인</b>
+              <p>
+                목표 평단을 낮추려면 추가 자금이 필요합니다.
+                평단은 낮아져도 전체 투자금과 손실 규모는 커질 수 있습니다.
+              </p>
+            </div>
+
+            <div class="guide-card">
+              <b>손절·익절 기준</b>
+              <p>
+                추가매수 전에 손절가와 목표가를 먼저 정해두면 감정적인 매매를 줄일 수 있습니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="notice">
+            TIP. 목표 평단가가 추가 매수가보다 낮으면 계산상 달성할 수 없습니다.
+            목표 평단을 낮추려면 추가 매수가가 목표 평단보다 낮아야 합니다.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 바로해결툴즈 · 주식 계산 결과는 참고용입니다. 투자 판단과 책임은 본인에게 있습니다.
+  </footer>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    function toNumber(id) {
+      const value = Number($(id).value);
+      return Number.isFinite(value) ? value : 0;
+    }
+
+    function formatNumber(value, digits = 0) {
+      if (!Number.isFinite(value)) return "-";
+      return value.toLocaleString("ko-KR", {
+        maximumFractionDigits: digits,
+        minimumFractionDigits: 0
+      });
+    }
+
+    function formatWon(value) {
+      if (!Number.isFinite(value)) return "-";
+      return `${formatNumber(Math.round(value))}원`;
+    }
+
+    function setText(id, text) {
+      $(id).textContent = text;
+    }
+
+    function calculateTargetAverage() {
+      const currentQty = toNumber("currentQty");
+      const currentAvg = toNumber("currentAvg");
+      const buyPrice = toNumber("buyPrice");
+      const targetAvg = toNumber("targetAvg");
+      const currentPrice = toNumber("currentPrice");
+
+      const fields = [currentQty, currentAvg, buyPrice, targetAvg];
+
+      if (fields.some((v) => v <= 0)) {
+        showMessage("기존 수량, 기존 평단, 추가 매수가, 목표 평단을 모두 0보다 크게 입력해주세요.");
+        return;
+      }
+
+      if (targetAvg >= currentAvg) {
+        showMessage("목표 평단이 기존 평단보다 높거나 같습니다. 이미 목표 평단 이하이거나, 낮출 필요가 없는 상태입니다.");
+        return;
+      }
+
+      if (buyPrice >= targetAvg) {
+        showMessage("추가 매수가가 목표 평단보다 낮아야 목표 평단까지 낮출 수 있습니다.");
+        return;
+      }
+
+      const currentCost = currentQty * currentAvg;
+
+      /*
+        목표 평단 공식:
+        (기존투자금 + 추가수량 × 추가매수가) / (기존수량 + 추가수량) = 목표평단
+        추가수량 = (기존투자금 - 목표평단 × 기존수량) / (목표평단 - 추가매수가)
+      */
+      const rawNeedQty = (currentCost - targetAvg * currentQty) / (targetAvg - buyPrice);
+      const needQty = Math.ceil(rawNeedQty);
+
+      if (!Number.isFinite(needQty) || needQty <= 0) {
+        showMessage("계산할 수 없는 조합입니다. 입력값을 다시 확인해주세요.");
+        return;
+      }
+
+      const needMoney = needQty * buyPrice;
+      const totalQty = currentQty + needQty;
+      const totalMoney = currentCost + needMoney;
+      const newAvg = totalMoney / totalQty;
+      const avgDropRate = ((currentAvg - newAvg) / currentAvg) * 100;
+
+      setText("needQty", `${formatNumber(needQty)}주`);
+      setText("needMoney", formatWon(needMoney));
+      setText("newAvg", formatWon(newAvg));
+      setText("totalQty", `${formatNumber(totalQty)}주`);
+      setText("totalMoney", formatWon(totalMoney));
+      setText("avgDrop", `${formatNumber(avgDropRate, 2)}%`);
+
+      if (currentPrice > 0) {
+        const valuation = currentPrice * totalQty;
+        const profit = valuation - totalMoney;
+        const profitRate = (profit / totalMoney) * 100;
+        const profitEl = $("profitRate");
+
+        profitEl.textContent = `${profitRate >= 0 ? "+" : ""}${formatNumber(profitRate, 2)}%`;
+        profitEl.className = profitRate >= 0 ? "good" : "up";
+      } else {
+        setText("profitRate", "현재가 미입력");
+        $("profitRate").className = "";
+      }
+
+      setText(
+        "summaryText",
+        `${formatNumber(needQty)}주를 ${formatWon(buyPrice)}에 추가 매수하면 새 평단은 약 ${formatWon(newAvg)}입니다.`
+      );
+    }
+
+    function showMessage(message) {
+      setText("needQty", "-");
+      setText("needMoney", "-");
+      setText("newAvg", "-");
+      setText("totalQty", "-");
+      setText("totalMoney", "-");
+      setText("avgDrop", "-");
+      setText("profitRate", "-");
+      setText("summaryText", message);
+    }
+
+    function resetForm() {
+      $("currentQty").value = "";
+      $("currentAvg").value = "";
+      $("buyPrice").value = "";
+      $("targetAvg").value = "";
+      $("currentPrice").value = "";
+
+      showMessage("값을 입력하고 계산 버튼을 눌러주세요.");
+    }
+
+    calculateTargetAverage();
+  </script>
+</body>
+</html>
