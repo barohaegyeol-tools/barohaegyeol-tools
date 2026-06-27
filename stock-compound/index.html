@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>주식 복리 계산기｜월 적립식 장기투자 수익 바로 계산｜바로해결툴즈</title>
+  <meta name="description" content="초기 투자금, 월 추가 투자금, 연평균 수익률, 투자 기간을 입력하면 주식 장기투자 복리 수익, 최종 평가금, 원금, 수익금을 바로 계산합니다." />
+  <meta name="keywords" content="주식 복리 계산기, 복리 계산기, 장기투자 복리 계산기, 월 적립식 투자 계산기, 주식 장기투자 수익 계산기, 배당 재투자 계산기, 바로해결툴즈" />
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/stock-compound/" />
+  <meta name="theme-color" content="#f8fbff" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="주식 복리 계산기｜월 적립식 장기투자 수익 계산" />
+  <meta property="og:description" content="월 투자금과 수익률을 입력하면 장기투자 복리 수익과 최종 평가금을 계산합니다." />
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/stock-compound/" />
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"주식 복리 계산기",
+    "url":"https://barohaegyeol-tools.pages.dev/stock-compound/",
+    "applicationCategory":"FinanceApplication",
+    "operatingSystem":"All",
+    "description":"초기 투자금, 월 투자금, 연평균 수익률, 투자 기간을 기준으로 장기투자 복리 수익을 계산하는 무료 주식 계산기입니다.",
+    "publisher":{
+      "@type":"Organization",
+      "name":"바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg1: #f8fbff;
+      --bg2: #f3fff8;
+      --bg3: #fff8ed;
+      --text: #0f1f33;
+      --muted: #64748b;
+      --line: rgba(15, 23, 42, .10);
+      --card: rgba(255, 255, 255, .80);
+      --card2: rgba(255, 255, 255, .94);
+      --blue: #2563eb;
+      --sky: #38bdf8;
+      --mint: #14b8a6;
+      --green: #22c55e;
+      --lime: #84cc16;
+      --yellow: #facc15;
+      --orange: #fb923c;
+      --purple: #8b5cf6;
+      --red: #f43f5e;
+      --shadow: 0 24px 70px rgba(20, 184, 166, .13);
+      --shadow2: 0 14px 34px rgba(15, 23, 42, .08);
+      --radius: 28px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", system-ui, sans-serif;
+      line-height: 1.65;
+      background:
+        radial-gradient(circle at 10% 12%, rgba(34, 197, 94, .16), transparent 24%),
+        radial-gradient(circle at 88% 10%, rgba(56, 189, 248, .16), transparent 22%),
+        radial-gradient(circle at 82% 86%, rgba(250, 204, 21, .15), transparent 24%),
+        linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 50%, var(--bg3) 100%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .18;
+      background-image:
+        radial-gradient(circle, rgba(20, 184, 166, .18) 1px, transparent 1px);
+      background-size: 30px 30px;
+      mask-image: linear-gradient(to bottom, #000, transparent 82%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid rgba(15, 23, 42, .07);
+      background: rgba(248, 251, 255, .76);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      min-height: 68px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 950;
+      letter-spacing: -.045em;
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: linear-gradient(135deg, #14b8a6, #22c55e);
+      box-shadow: 0 14px 34px rgba(20, 184, 166, .22);
+      font-weight: 950;
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 1px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      white-space: nowrap;
+    }
+
+    .nav-links a {
+      padding: 9px 13px;
+      border-radius: 999px;
+      border: 1px solid rgba(15, 23, 42, .08);
+      background: rgba(255,255,255,.78);
+      color: #26364a;
+      font-size: 14px;
+      font-weight: 850;
+      box-shadow: var(--shadow2);
+    }
+
+    .hero {
+      padding: 58px 0 26px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.02fr .98fr;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(15, 23, 42, .08);
+      background: rgba(255,255,255,.82);
+      color: #334155;
+      font-size: 13px;
+      font-weight: 900;
+      box-shadow: var(--shadow2);
+    }
+
+    .chip.hot {
+      color: #047857;
+      background: linear-gradient(135deg, rgba(209, 250, 229, .98), rgba(255,255,255,.9));
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 730px;
+      font-size: clamp(38px, 6.1vw, 74px);
+      line-height: 1.04;
+      letter-spacing: -.078em;
+    }
+
+    .gradient {
+      color: transparent;
+      background: linear-gradient(90deg, #16a34a 0%, #14b8a6 48%, #2563eb 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .lead {
+      margin: 20px 0 0;
+      max-width: 660px;
+      color: #34465c;
+      font-size: clamp(16px, 2vw, 19px);
+      line-height: 1.82;
+      letter-spacing: -.015em;
+      word-break: keep-all;
+    }
+
+    .lead strong {
+      color: #047857;
+      font-weight: 950;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 26px;
+    }
+
+    .btn {
+      min-height: 49px;
+      padding: 13px 18px;
+      border-radius: 16px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid transparent;
+      font-weight: 950;
+      letter-spacing: -.025em;
+      cursor: pointer;
+      transition: .18s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(135deg, #16a34a, #14b8a6, #2563eb);
+      box-shadow: 0 16px 38px rgba(20, 184, 166, .24);
+    }
+
+    .btn-ghost {
+      color: #0f1f33;
+      background: rgba(255,255,255,.82);
+      border-color: rgba(15, 23, 42, .08);
+    }
+
+    .visual {
+      position: relative;
+      min-height: 404px;
+      border-radius: 38px;
+      border: 1px solid rgba(15, 23, 42, .08);
+      background:
+        radial-gradient(circle at 78% 16%, rgba(250, 204, 21, .22), transparent 20%),
+        radial-gradient(circle at 16% 82%, rgba(34, 197, 94, .17), transparent 23%),
+        linear-gradient(145deg, rgba(255,255,255,.96), rgba(240,253,244,.76));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      padding: 26px;
+    }
+
+    .visual-panel {
+      position: absolute;
+      left: 26px;
+      right: 26px;
+      top: 26px;
+      height: 178px;
+      border-radius: 28px;
+      background:
+        linear-gradient(rgba(15,23,42,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,23,42,.045) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255,255,255,.96), rgba(240,253,244,.94));
+      background-size: 38px 38px, 38px 38px, auto;
+      border: 1px solid rgba(15, 23, 42, .08);
+      box-shadow: var(--shadow2);
+      overflow: hidden;
+    }
+
+    .growth-line {
+      position: absolute;
+      inset: 24px 28px 20px;
+    }
+
+    .year-card {
+      position: absolute;
+      right: 28px;
+      top: 34px;
+      width: 190px;
+      padding: 18px;
+      border-radius: 24px;
+      background: #fff;
+      border: 1px solid rgba(15, 23, 42, .08);
+      box-shadow: var(--shadow2);
+    }
+
+    .year-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .year-card strong {
+      display: block;
+      margin-top: 6px;
+      color: #16a34a;
+      font-size: 32px;
+      line-height: 1;
+      letter-spacing: -.05em;
+    }
+
+    .main-result-card {
+      position: absolute;
+      left: 26px;
+      bottom: 24px;
+      width: 270px;
+      padding: 18px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #fff, #ecfdf5);
+      border: 1px solid rgba(15, 23, 42, .08);
+      box-shadow: var(--shadow2);
+    }
+
+    .main-result-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .main-result-card strong {
+      display: block;
+      margin-top: 6px;
+      color: #0f766e;
+      font-size: 34px;
+      line-height: 1;
+      letter-spacing: -.05em;
+    }
+
+    .panda-card {
+      position: absolute;
+      right: 28px;
+      bottom: 24px;
+      width: 172px;
+      height: 172px;
+      border-radius: 36px;
+      border: 1px solid rgba(15, 23, 42, .08);
+      background: linear-gradient(145deg, #fff, #f0fdf4);
+      box-shadow: var(--shadow2);
+    }
+
+    .panda-head {
+      position: absolute;
+      left: 35px;
+      top: 42px;
+      width: 102px;
+      height: 94px;
+      border-radius: 48px 48px 40px 40px;
+      background: #fff;
+      border: 4px solid #1f2937;
+    }
+
+    .panda-ear {
+      position: absolute;
+      top: -16px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #1f2937;
+      border: 4px solid #1f2937;
+    }
+
+    .panda-ear.left {
+      left: 8px;
+    }
+
+    .panda-ear.right {
+      right: 8px;
+    }
+
+    .panda-eye-patch {
+      position: absolute;
+      top: 26px;
+      width: 28px;
+      height: 32px;
+      border-radius: 50%;
+      background: #1f2937;
+      transform: rotate(-12deg);
+    }
+
+    .panda-eye-patch.left {
+      left: 18px;
+    }
+
+    .panda-eye-patch.right {
+      right: 18px;
+      transform: rotate(12deg);
+    }
+
+    .panda-eye {
+      position: absolute;
+      top: 36px;
+      width: 8px;
+      height: 10px;
+      border-radius: 999px;
+      background: #fff;
+      z-index: 2;
+    }
+
+    .panda-eye.left {
+      left: 29px;
+    }
+
+    .panda-eye.right {
+      right: 29px;
+    }
+
+    .panda-nose {
+      position: absolute;
+      left: 50%;
+      top: 52px;
+      width: 16px;
+      height: 10px;
+      border-radius: 999px;
+      background: #1f2937;
+      transform: translateX(-50%);
+    }
+
+    .panda-mouth {
+      position: absolute;
+      left: 50%;
+      top: 63px;
+      width: 24px;
+      height: 12px;
+      border-bottom: 3px solid #16a34a;
+      border-radius: 0 0 999px 999px;
+      transform: translateX(-50%);
+    }
+
+    .sprout {
+      position: absolute;
+      left: 18px;
+      bottom: 18px;
+      width: 44px;
+      height: 44px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #dcfce7, #86efac);
+      border: 3px solid #16a34a;
+      color: #166534;
+      font-size: 24px;
+      font-weight: 950;
+      transform: rotate(-10deg);
+    }
+
+    .badge-mini {
+      position: absolute;
+      right: 14px;
+      top: 14px;
+      padding: 8px 10px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #dcfce7, #dbeafe);
+      color: #047857;
+      font-size: 12px;
+      font-weight: 950;
+      box-shadow: var(--shadow2);
+    }
+
+    .section {
+      padding: 22px 0;
+    }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: minmax(0,.94fr) minmax(0,1.06fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .panel {
+      padding: 24px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(15, 23, 42, .08);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .panel h2 {
+      margin: 0 0 12px;
+      font-size: 27px;
+      line-height: 1.2;
+      letter-spacing: -.052em;
+    }
+
+    .desc {
+      margin: -4px 0 18px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.75;
+      word-break: keep-all;
+    }
+
+    .form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .field label {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+      color: #0f1f33;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .field small {
+      color: var(--muted);
+      font-weight: 750;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 54px;
+      padding: 14px 54px 14px 15px;
+      border-radius: 16px;
+      border: 1px solid rgba(15, 23, 42, .10);
+      background: rgba(255,255,255,.94);
+      color: #0f1f33;
+      font-size: 16px;
+      font-weight: 850;
+      outline: none;
+      transition: .16s ease;
+    }
+
+    select {
+      padding-right: 15px;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: rgba(20, 184, 166, .40);
+      box-shadow: 0 0 0 4px rgba(20, 184, 166, .09);
+    }
+
+    .unit {
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .preset {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .preset button {
+      padding: 8px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(15, 23, 42, .08);
+      background: #fff;
+      color: #334155;
+      font-size: 12px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .calc-btn {
+      width: 100%;
+      min-height: 58px;
+      margin-top: 6px;
+      border: 0;
+      border-radius: 18px;
+      color: #fff;
+      background: linear-gradient(135deg, #16a34a, #14b8a6, #2563eb);
+      font-size: 17px;
+      font-weight: 950;
+      cursor: pointer;
+      box-shadow: 0 16px 34px rgba(20, 184, 166, .23);
+    }
+
+    .reset-btn {
+      width: 100%;
+      min-height: 48px;
+      margin-top: 10px;
+      border-radius: 16px;
+      border: 1px solid rgba(15, 23, 42, .08);
+      background: rgba(255,255,255,.86);
+      color: #0f1f33;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .notice {
+      margin-top: 12px;
+      padding: 13px 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(15, 23, 42, .08);
+      color: #526173;
+      font-size: 13px;
+      line-height: 1.75;
+      font-weight: 760;
+      word-break: keep-all;
+    }
+
+    .result-box {
+      display: grid;
+      gap: 14px;
+    }
+
+    .result-main {
+      padding: 24px;
+      border-radius: 26px;
+      color: #0f1f33;
+      background:
+        radial-gradient(circle at 84% 18%, rgba(255,255,255,.40), transparent 26%),
+        linear-gradient(135deg, #86efac, #5eead4 56%, #93c5fd);
+      box-shadow: var(--shadow2);
+    }
+
+    .result-main span {
+      display: block;
+      font-size: 14px;
+      opacity: .82;
+      font-weight: 900;
+    }
+
+    .result-main strong {
+      display: block;
+      margin-top: 8px;
+      font-size: clamp(36px, 5vw, 58px);
+      line-height: 1;
+      letter-spacing: -.06em;
+    }
+
+    .result-main em {
+      display: block;
+      margin-top: 10px;
+      font-size: 14px;
+      line-height: 1.75;
+      font-style: normal;
+      font-weight: 850;
+      opacity: .88;
+      word-break: keep-all;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 12px;
+    }
+
+    .metric {
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.84);
+      border: 1px solid rgba(15, 23, 42, .08);
+      box-shadow: var(--shadow2);
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .metric strong {
+      display: block;
+      margin-top: 7px;
+      color: #0f1f33;
+      font-size: 24px;
+      letter-spacing: -.045em;
+    }
+
+    .good {
+      color: #16a34a !important;
+    }
+
+    .warn {
+      color: #d97706 !important;
+    }
+
+    .bad {
+      color: #e11d48 !important;
+    }
+
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 16px;
+    }
+
+    .guide {
+      padding: 20px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.80);
+      border: 1px solid rgba(15, 23, 42, .08);
+      box-shadow: var(--shadow2);
+    }
+
+    .guide b {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 17px;
+      letter-spacing: -.03em;
+    }
+
+    .guide p {
+      margin: 0;
+      color: #526173;
+      font-size: 14px;
+      line-height: 1.75;
+      word-break: keep-all;
+    }
+
+    footer {
+      padding: 44px 0 54px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    @media (max-width: 920px) {
+      .hero-grid,
+      .tool-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 42px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 12px 0;
+      }
+
+      .nav-links {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+
+      .hero-actions {
+        display: grid;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .row,
+      .result-grid,
+      .guide-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .visual {
+        min-height: 360px;
+      }
+
+      .year-card {
+        width: 154px;
+      }
+
+      .main-result-card {
+        width: 220px;
+      }
+
+      .panda-card {
+        width: 138px;
+        height: 138px;
+        right: 18px;
+      }
+
+      .panda-head {
+        left: 24px;
+        top: 38px;
+        width: 88px;
+        height: 82px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="../">
+        <div class="brand-mark">B</div>
+        <div>
+          바로해결툴즈
+          <small>주식 계산 · 복리 수익 · 바로 확인</small>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="주요 도구">
+        <a href="../">전체 도구</a>
+        <a href="../stock-profit/">수익률</a>
+        <a href="../stock-dividend/">배당금</a>
+        <a href="../stock-buy-quantity/">매수수량</a>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="chips">
+            <span class="chip hot">🌱 장기투자 계산</span>
+            <span class="chip">월 적립식</span>
+            <span class="chip">복리 수익</span>
+          </div>
+
+          <h1>
+            매달 투자하면<br>
+            <span class="gradient">몇 년 뒤 얼마가 될까?</span>
+          </h1>
+
+          <p class="lead">
+            초기 투자금, 월 추가 투자금, 연평균 수익률, 투자 기간을 입력하면
+            <strong>최종 평가금, 총 투자원금, 예상 수익금, 복리 수익률</strong>을
+            한 번에 계산합니다. 장기투자는 감보다 숫자로 먼저 봐야 합니다.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#calculator">복리 수익 계산하기</a>
+            <a class="btn btn-ghost" href="../stock-dividend/">배당금 계산기</a>
+          </div>
+        </div>
+
+        <div class="visual" aria-label="주식 복리 계산 예시">
+          <div class="visual-panel">
+            <div class="growth-line">
+              <svg viewBox="0 0 420 150" width="100%" height="100%" role="img" aria-label="복리 성장 차트">
+                <defs>
+                  <linearGradient id="lineGrad" x1="0" x2="1">
+                    <stop offset="0%" stop-color="#16a34a"/>
+                    <stop offset="48%" stop-color="#14b8a6"/>
+                    <stop offset="100%" stop-color="#2563eb"/>
+                  </linearGradient>
+                  <linearGradient id="fillGrad" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stop-color="#22c55e" stop-opacity=".22"/>
+                    <stop offset="100%" stop-color="#22c55e" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <path d="M20 122 C70 118, 106 112, 146 98 C190 82, 232 62, 276 42 C324 20, 364 18, 402 12 L402 150 L20 150 Z" fill="url(#fillGrad)"></path>
+                <path d="M20 122 C70 118, 106 112, 146 98 C190 82, 232 62, 276 42 C324 20, 364 18, 402 12" fill="none" stroke="url(#lineGrad)" stroke-width="8" stroke-linecap="round"></path>
+                <circle cx="146" cy="98" r="7" fill="#16a34a"/>
+                <circle cx="276" cy="42" r="7" fill="#14b8a6"/>
+                <circle cx="402" cy="12" r="7" fill="#2563eb"/>
+              </svg>
+            </div>
+
+            <div class="year-card">
+              <span>투자 기간</span>
+              <strong>10년</strong>
+            </div>
+          </div>
+
+          <div class="main-result-card">
+            <span>예상 최종 평가금</span>
+            <strong>95,624,000원</strong>
+          </div>
+
+          <div class="panda-card" aria-hidden="true">
+            <div class="badge-mini">복리</div>
+            <div class="panda-head">
+              <div class="panda-ear left"></div>
+              <div class="panda-ear right"></div>
+              <div class="panda-eye-patch left"></div>
+              <div class="panda-eye-patch right"></div>
+              <div class="panda-eye left"></div>
+              <div class="panda-eye right"></div>
+              <div class="panda-nose"></div>
+              <div class="panda-mouth"></div>
+            </div>
+            <div class="sprout">🌱</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="calculator">
+      <div class="wrap tool-grid">
+        <div class="panel">
+          <h2>주식 복리 계산기</h2>
+          <p class="desc">
+            초기 투자금, 월 투자금, 연평균 수익률, 투자 기간을 입력하면
+            장기투자 복리 결과를 계산합니다.
+          </p>
+
+          <form class="form" onsubmit="event.preventDefault(); calculateCompound();">
+            <div class="row">
+              <div class="field">
+                <label for="initial">
+                  초기 투자금
+                  <small>처음 넣는 금액</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="initial" type="number" min="0" step="1" value="10000000" placeholder="예: 10000000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="monthly">
+                  월 추가 투자금
+                  <small>매달 적립 금액</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="monthly" type="number" min="0" step="1" value="500000" placeholder="예: 500000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="annualReturn">
+                  연평균 수익률
+                  <small>예상 연 수익률</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="annualReturn" type="number" step="0.01" value="8" placeholder="예: 8">
+                  <span class="unit">%</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="years">
+                  투자 기간
+                  <small>몇 년 투자할지</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="years" type="number" min="0" step="1" value="10" placeholder="예: 10">
+                  <span class="unit">년</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="contributionTiming">
+                  월 투자 시점
+                  <small>초입금/말입금</small>
+                </label>
+                <select id="contributionTiming">
+                  <option value="end" selected>월말 투자</option>
+                  <option value="begin">월초 투자</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="taxRate">
+                  예상 세금/비용률
+                  <small>선택 입력</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="taxRate" type="number" min="0" step="0.01" value="0" placeholder="예: 15.4">
+                  <span class="unit">%</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="targetAmount">
+                목표 금액
+                <small>선택 입력, 달성 여부 확인</small>
+              </label>
+              <div class="input-wrap">
+                <input id="targetAmount" type="number" min="0" step="1" value="100000000" placeholder="예: 100000000">
+                <span class="unit">원</span>
+              </div>
+            </div>
+
+            <div class="preset">
+              <button type="button" onclick="fillExample('basic')">기본 예시</button>
+              <button type="button" onclick="fillExample('monthly')">월 30만원</button>
+              <button type="button" onclick="fillExample('long')">20년 장기</button>
+              <button type="button" onclick="fillExample('goal')">1억 목표</button>
+            </div>
+
+            <button class="calc-btn" type="submit">복리 수익 계산하기</button>
+            <button class="reset-btn" type="button" onclick="resetForm()">입력값 초기화</button>
+          </form>
+
+          <div class="notice">
+            이 계산기는 일정한 수익률을 가정한 단순 복리 계산입니다.
+            실제 주식 수익률은 매년 달라질 수 있고, 손실 구간도 발생할 수 있습니다.
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>계산 결과</h2>
+          <p class="desc">
+            최종 금액만 보지 말고 총 원금, 예상 수익금, 목표 달성 여부를 같이 확인하세요.
+          </p>
+
+          <div class="result-box">
+            <div class="result-main">
+              <span>예상 최종 평가금</span>
+              <strong id="finalAmount">-</strong>
+              <em id="summaryText">값을 입력하고 계산 버튼을 눌러주세요.</em>
+            </div>
+
+            <div class="result-grid">
+              <div class="metric">
+                <span>총 투자원금</span>
+                <strong id="totalPrincipal">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>예상 수익금</span>
+                <strong id="profitAmount" class="good">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>원금 대비 수익률</span>
+                <strong id="profitRate" class="good">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>예상 세금/비용</span>
+                <strong id="taxAmount" class="warn">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>세금/비용 반영 후 금액</span>
+                <strong id="afterTaxAmount">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>월평균 투자원금</span>
+                <strong id="monthlyAverage">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>목표 금액 차이</span>
+                <strong id="targetDiff">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>목표 달성 여부</span>
+                <strong id="targetStatus">-</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice">
+            장기투자는 수익률보다 기간과 꾸준함의 영향이 큽니다.
+            수익률을 높게 잡기보다 보수적인 수익률로 여러 번 비교해보는 것이 좋습니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="panel">
+          <h2>복리 계산 전 체크포인트</h2>
+
+          <div class="guide-grid">
+            <div class="guide">
+              <b>수익률은 보수적으로</b>
+              <p>
+                복리 계산은 수익률을 조금만 높게 넣어도 결과가 크게 달라집니다.
+                5%, 7%, 10%처럼 여러 기준으로 비교하세요.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>월 적립금이 중요</b>
+              <p>
+                장기투자에서는 초기 투자금만큼 매달 꾸준히 넣는 금액이 큰 차이를 만듭니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>배당 재투자도 함께 보기</b>
+              <p>
+                배당금을 다시 투자하면 복리 효과가 커질 수 있습니다.
+                배당금 계산기와 같이 보면 더 현실적입니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="notice">
+            TIP. 복리 계산기는 장기 계획용입니다.
+            단기 매매 판단은 평단가, 수익률, 손절가 계산기와 함께 보는 게 좋습니다.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 바로해결툴즈 · 계산 결과는 참고용입니다. 실제 투자 판단과 책임은 본인에게 있습니다.
+  </footer>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    function num(id) {
+      const value = Number($(id).value);
+      return Number.isFinite(value) ? value : 0;
+    }
+
+    function won(value) {
+      if (!Number.isFinite(value)) return "-";
+      return `${Math.round(value).toLocaleString("ko-KR")}원`;
+    }
+
+    function pct(value) {
+      if (!Number.isFinite(value)) return "-";
+      const sign = value > 0 ? "+" : "";
+      return `${sign}${value.toLocaleString("ko-KR", {
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 0
+      })}%`;
+    }
+
+    function setText(id, value) {
+      $(id).textContent = value;
+    }
+
+    function calculateCompound() {
+      const initial = Math.max(num("initial"), 0);
+      const monthly = Math.max(num("monthly"), 0);
+      const annualReturn = num("annualReturn") / 100;
+      const years = Math.max(num("years"), 0);
+      const taxRate = Math.max(num("taxRate"), 0) / 100;
+      const targetAmount = Math.max(num("targetAmount"), 0);
+      const timing = $("contributionTiming").value;
+
+      if (initial <= 0 && monthly <= 0) {
+        showMessage("초기 투자금 또는 월 추가 투자금 중 하나는 입력해야 합니다.");
+        return;
+      }
+
+      if (years <= 0) {
+        showMessage("투자 기간을 1년 이상으로 입력해주세요.");
+        return;
+      }
+
+      const months = Math.round(years * 12);
+      const monthlyRate = Math.pow(1 + annualReturn, 1 / 12) - 1;
+
+      let balance = initial;
+
+      for (let month = 1; month <= months; month++) {
+        if (timing === "begin") {
+          balance += monthly;
+          balance *= (1 + monthlyRate);
+        } else {
+          balance *= (1 + monthlyRate);
+          balance += monthly;
+        }
+      }
+
+      const totalPrincipal = initial + (monthly * months);
+      const profitAmount = balance - totalPrincipal;
+      const taxAmount = profitAmount > 0 ? profitAmount * taxRate : 0;
+      const afterTaxAmount = balance - taxAmount;
+      const profitRate = totalPrincipal > 0 ? (profitAmount / totalPrincipal) * 100 : 0;
+      const monthlyAverage = totalPrincipal / months;
+      const targetDiff = targetAmount > 0 ? afterTaxAmount - targetAmount : 0;
+
+      setText("finalAmount", won(balance));
+      setText("totalPrincipal", won(totalPrincipal));
+      setText("profitAmount", `${profitAmount >= 0 ? "+" : ""}${won(profitAmount)}`);
+      setText("profitRate", pct(profitRate));
+      setText("taxAmount", won(taxAmount));
+      setText("afterTaxAmount", won(afterTaxAmount));
+      setText("monthlyAverage", won(monthlyAverage));
+
+      if (targetAmount > 0) {
+        setText("targetDiff", `${targetDiff >= 0 ? "+" : ""}${won(targetDiff)}`);
+        setText("targetStatus", targetDiff >= 0 ? "목표 달성" : "추가 필요");
+        $("targetStatus").className = targetDiff >= 0 ? "good" : "bad";
+        $("targetDiff").className = targetDiff >= 0 ? "good" : "bad";
+      } else {
+        setText("targetDiff", "목표 미입력");
+        setText("targetStatus", "목표 미입력");
+        $("targetStatus").className = "";
+        $("targetDiff").className = "";
+      }
+
+      $("profitAmount").className = profitAmount >= 0 ? "good" : "bad";
+      $("profitRate").className = profitRate >= 0 ? "good" : "bad";
+
+      setText(
+        "summaryText",
+        `${years.toLocaleString("ko-KR")}년 동안 월 ${won(monthly)}씩 투자하면 예상 최종 평가금은 약 ${won(balance)}입니다. 총 투자원금은 ${won(totalPrincipal)}입니다.`
+      );
+    }
+
+    function showMessage(message) {
+      setText("finalAmount", "-");
+      setText("totalPrincipal", "-");
+      setText("profitAmount", "-");
+      setText("profitRate", "-");
+      setText("taxAmount", "-");
+      setText("afterTaxAmount", "-");
+      setText("monthlyAverage", "-");
+      setText("targetDiff", "-");
+      setText("targetStatus", "-");
+      setText("summaryText", message);
+    }
+
+    function fillExample(type) {
+      if (type === "basic") {
+        $("initial").value = 10000000;
+        $("monthly").value = 500000;
+        $("annualReturn").value = 8;
+        $("years").value = 10;
+        $("taxRate").value = 0;
+        $("targetAmount").value = 100000000;
+        $("contributionTiming").value = "end";
+      }
+
+      if (type === "monthly") {
+        $("initial").value = 3000000;
+        $("monthly").value = 300000;
+        $("annualReturn").value = 7;
+        $("years").value = 15;
+        $("taxRate").value = 0;
+        $("targetAmount").value = 100000000;
+        $("contributionTiming").value = "end";
+      }
+
+      if (type === "long") {
+        $("initial").value = 10000000;
+        $("monthly").value = 500000;
+        $("annualReturn").value = 7;
+        $("years").value = 20;
+        $("taxRate").value = 0;
+        $("targetAmount").value = 300000000;
+        $("contributionTiming").value = "end";
+      }
+
+      if (type === "goal") {
+        $("initial").value = 5000000;
+        $("monthly").value = 700000;
+        $("annualReturn").value = 8;
+        $("years").value = 10;
+        $("taxRate").value = 0;
+        $("targetAmount").value = 100000000;
+        $("contributionTiming").value = "begin";
+      }
+
+      calculateCompound();
+    }
+
+    function resetForm() {
+      $("initial").value = "";
+      $("monthly").value = "";
+      $("annualReturn").value = "8";
+      $("years").value = "";
+      $("taxRate").value = "0";
+      $("targetAmount").value = "";
+      $("contributionTiming").value = "end";
+      showMessage("값을 입력하고 계산 버튼을 눌러주세요.");
+    }
+
+    calculateCompound();
+  </script>
+</body>
+</html>
