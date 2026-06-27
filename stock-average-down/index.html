@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>주식 물타기 필요금액 계산기｜목표 평단까지 얼마를 더 사야 할까｜바로해결툴즈</title>
+  <meta name="description" content="현재 평단가, 보유수량, 추가 매수가, 목표 평단가를 입력하면 목표 평단까지 필요한 추가 매수수량과 필요금액을 계산합니다." />
+  <meta name="keywords" content="주식 물타기 계산기, 물타기 필요금액 계산기, 주식 평단 낮추기 계산기, 목표 평단 계산기, 추가매수 계산기, 평단가 계산기, 바로해결툴즈" />
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/stock-average-down/" />
+  <meta name="theme-color" content="#f5f3ff" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="주식 물타기 필요금액 계산기｜목표 평단까지 얼마 필요할까" />
+  <meta property="og:description" content="목표 평단까지 필요한 추가 매수수량과 필요금액을 바로 계산합니다." />
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/stock-average-down/" />
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"주식 물타기 필요금액 계산기",
+    "url":"https://barohaegyeol-tools.pages.dev/stock-average-down/",
+    "applicationCategory":"FinanceApplication",
+    "operatingSystem":"All",
+    "description":"현재 평단가, 보유수량, 추가 매수가, 목표 평단가를 기준으로 필요한 추가 매수수량과 필요금액을 계산하는 무료 주식 계산기입니다.",
+    "publisher":{
+      "@type":"Organization",
+      "name":"바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg1:#f5f3ff;
+      --bg2:#ecfeff;
+      --bg3:#fff7ed;
+      --text:#132033;
+      --muted:#64748b;
+      --card:rgba(255,255,255,.84);
+      --line:rgba(15,23,42,.10);
+      --violet:#7c3aed;
+      --purple:#8b5cf6;
+      --blue:#2563eb;
+      --sky:#38bdf8;
+      --cyan:#06b6d4;
+      --mint:#14b8a6;
+      --green:#22c55e;
+      --yellow:#facc15;
+      --orange:#fb923c;
+      --red:#ef4444;
+      --shadow:0 24px 70px rgba(124,58,237,.14);
+      --shadow2:0 14px 34px rgba(15,23,42,.08);
+      --radius:28px;
+      --max:1180px;
+    }
+
+    * {
+      box-sizing:border-box;
+    }
+
+    html {
+      scroll-behavior:smooth;
+    }
+
+    body {
+      margin:0;
+      min-height:100vh;
+      color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;
+      line-height:1.65;
+      background:
+        radial-gradient(circle at 12% 12%, rgba(124,58,237,.16), transparent 24%),
+        radial-gradient(circle at 88% 10%, rgba(56,189,248,.17), transparent 22%),
+        radial-gradient(circle at 82% 86%, rgba(251,146,60,.16), transparent 24%),
+        linear-gradient(135deg,var(--bg1) 0%, var(--bg2) 50%, var(--bg3) 100%);
+      overflow-x:hidden;
+    }
+
+    body::before {
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.16;
+      background-image:radial-gradient(circle, rgba(124,58,237,.18) 1px, transparent 1px);
+      background-size:30px 30px;
+      mask-image:linear-gradient(to bottom,#000,transparent 82%);
+    }
+
+    a {
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button,
+    input {
+      font:inherit;
+    }
+
+    .wrap {
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+    }
+
+    .topbar {
+      position:sticky;
+      top:0;
+      z-index:50;
+      border-bottom:1px solid rgba(15,23,42,.07);
+      background:rgba(245,243,255,.76);
+      backdrop-filter:blur(18px);
+    }
+
+    .nav {
+      min-height:68px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:950;
+      letter-spacing:-.045em;
+    }
+
+    .brand-mark {
+      width:40px;
+      height:40px;
+      border-radius:15px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      background:linear-gradient(135deg,#7c3aed,#06b6d4);
+      box-shadow:0 14px 34px rgba(124,58,237,.24);
+      font-weight:950;
+    }
+
+    .brand small {
+      display:block;
+      margin-top:1px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:-.02em;
+    }
+
+    .nav-links {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      white-space:nowrap;
+    }
+
+    .nav-links a {
+      padding:9px 13px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.80);
+      color:#26364a;
+      font-size:14px;
+      font-weight:850;
+      box-shadow:var(--shadow2);
+    }
+
+    .hero {
+      padding:58px 0 26px;
+    }
+
+    .hero-grid {
+      display:grid;
+      grid-template-columns:1.02fr .98fr;
+      align-items:center;
+      gap:32px;
+    }
+
+    .chips {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:16px;
+    }
+
+    .chip {
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.82);
+      color:#334155;
+      font-size:13px;
+      font-weight:900;
+      box-shadow:var(--shadow2);
+    }
+
+    .chip.hot {
+      color:#6d28d9;
+      background:linear-gradient(135deg,rgba(237,233,254,.98),rgba(255,255,255,.9));
+    }
+
+    h1 {
+      margin:0;
+      max-width:740px;
+      font-size:clamp(38px,6.1vw,74px);
+      line-height:1.04;
+      letter-spacing:-.078em;
+    }
+
+    .gradient {
+      color:transparent;
+      background:linear-gradient(90deg,#7c3aed 0%, #06b6d4 48%, #fb923c 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+    }
+
+    .lead {
+      margin:20px 0 0;
+      max-width:660px;
+      color:#34465c;
+      font-size:clamp(16px,2vw,19px);
+      line-height:1.82;
+      letter-spacing:-.015em;
+      word-break:keep-all;
+    }
+
+    .lead strong {
+      color:#6d28d9;
+      font-weight:950;
+    }
+
+    .hero-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:26px;
+    }
+
+    .btn {
+      min-height:49px;
+      padding:13px 18px;
+      border-radius:16px;
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      gap:8px;
+      border:1px solid transparent;
+      font-weight:950;
+      letter-spacing:-.025em;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+
+    .btn:hover {
+      transform:translateY(-2px);
+    }
+
+    .btn-primary {
+      color:#fff;
+      background:linear-gradient(135deg,#7c3aed,#06b6d4,#fb923c);
+      box-shadow:0 16px 38px rgba(124,58,237,.25);
+    }
+
+    .btn-ghost {
+      color:#132033;
+      background:rgba(255,255,255,.82);
+      border-color:rgba(15,23,42,.08);
+    }
+
+    .visual {
+      position:relative;
+      min-height:404px;
+      border-radius:38px;
+      border:1px solid rgba(15,23,42,.08);
+      background:
+        radial-gradient(circle at 78% 16%, rgba(251,146,60,.21), transparent 20%),
+        radial-gradient(circle at 16% 82%, rgba(124,58,237,.16), transparent 23%),
+        linear-gradient(145deg,rgba(255,255,255,.96),rgba(237,233,254,.76));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      padding:26px;
+    }
+
+    .visual-panel {
+      position:absolute;
+      left:26px;
+      right:26px;
+      top:26px;
+      height:178px;
+      border-radius:28px;
+      background:
+        linear-gradient(rgba(15,23,42,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,23,42,.045) 1px, transparent 1px),
+        linear-gradient(180deg,rgba(255,255,255,.96),rgba(237,233,254,.94));
+      background-size:38px 38px,38px 38px,auto;
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      overflow:hidden;
+    }
+
+    .avg-chart {
+      position:absolute;
+      left:30px;
+      right:30px;
+      top:32px;
+      bottom:26px;
+    }
+
+    .price-line {
+      position:absolute;
+      left:0;
+      right:0;
+      height:6px;
+      border-radius:999px;
+      background:rgba(15,23,42,.08);
+    }
+
+    .price-line.current {
+      top:26px;
+    }
+
+    .price-line.target {
+      top:78px;
+      background:linear-gradient(90deg,#7c3aed,#06b6d4);
+      box-shadow:0 10px 24px rgba(6,182,212,.22);
+    }
+
+    .line-label {
+      position:absolute;
+      left:0;
+      padding:6px 10px;
+      border-radius:999px;
+      background:#fff;
+      border:1px solid rgba(15,23,42,.08);
+      font-size:12px;
+      font-weight:950;
+      box-shadow:var(--shadow2);
+    }
+
+    .label-current {
+      top:3px;
+      color:#6d28d9;
+    }
+
+    .label-target {
+      top:55px;
+      color:#0891b2;
+    }
+
+    .water-drops {
+      position:absolute;
+      left:34px;
+      right:34px;
+      bottom:10px;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+    }
+
+    .drop {
+      width:34px;
+      height:44px;
+      border-radius:50% 50% 55% 55%;
+      background:linear-gradient(180deg,#67e8f9,#06b6d4);
+      transform:rotate(45deg);
+      box-shadow:inset 0 7px 0 rgba(255,255,255,.36);
+      opacity:.92;
+    }
+
+    .drop:nth-child(2) {
+      width:26px;
+      height:34px;
+      background:linear-gradient(180deg,#c4b5fd,#7c3aed);
+      opacity:.74;
+    }
+
+    .drop:nth-child(3) {
+      width:40px;
+      height:52px;
+      background:linear-gradient(180deg,#fdba74,#fb923c);
+      opacity:.86;
+    }
+
+    .drop:nth-child(4) {
+      width:28px;
+      height:36px;
+      opacity:.70;
+    }
+
+    .target-card {
+      position:absolute;
+      right:30px;
+      top:30px;
+      width:190px;
+      padding:18px;
+      border-radius:24px;
+      background:#fff;
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .target-card span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .target-card strong {
+      display:block;
+      margin-top:6px;
+      color:#7c3aed;
+      font-size:32px;
+      line-height:1;
+      letter-spacing:-.05em;
+    }
+
+    .main-result-card {
+      position:absolute;
+      left:26px;
+      bottom:24px;
+      width:270px;
+      padding:18px;
+      border-radius:24px;
+      background:linear-gradient(135deg,#fff,#ecfeff);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .main-result-card span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .main-result-card strong {
+      display:block;
+      margin-top:6px;
+      color:#0891b2;
+      font-size:34px;
+      line-height:1;
+      letter-spacing:-.05em;
+    }
+
+    .otter-card {
+      position:absolute;
+      right:28px;
+      bottom:24px;
+      width:172px;
+      height:172px;
+      border-radius:36px;
+      border:1px solid rgba(15,23,42,.08);
+      background:linear-gradient(145deg,#fff,#fef3c7);
+      box-shadow:var(--shadow2);
+    }
+
+    .otter-head {
+      position:absolute;
+      left:39px;
+      top:44px;
+      width:94px;
+      height:92px;
+      border-radius:46px 46px 42px 42px;
+      background:#b77945;
+      border:4px solid #5c3520;
+    }
+
+    .otter-ear {
+      position:absolute;
+      top:-12px;
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      background:#b77945;
+      border:4px solid #5c3520;
+    }
+
+    .otter-ear.left {
+      left:5px;
+    }
+
+    .otter-ear.right {
+      right:5px;
+    }
+
+    .otter-face {
+      position:absolute;
+      left:18px;
+      top:38px;
+      width:50px;
+      height:42px;
+      border-radius:50% 50% 44% 44%;
+      background:#f8d3a8;
+    }
+
+    .otter-eye {
+      position:absolute;
+      top:28px;
+      width:9px;
+      height:12px;
+      border-radius:999px;
+      background:#111827;
+    }
+
+    .otter-eye.left {
+      left:28px;
+    }
+
+    .otter-eye.right {
+      right:28px;
+    }
+
+    .otter-nose {
+      position:absolute;
+      left:50%;
+      top:49px;
+      width:17px;
+      height:11px;
+      border-radius:999px;
+      background:#3b2417;
+      transform:translateX(-50%);
+    }
+
+    .otter-smile {
+      position:absolute;
+      left:50%;
+      top:61px;
+      width:24px;
+      height:12px;
+      border-bottom:3px solid #16a34a;
+      border-radius:0 0 999px 999px;
+      transform:translateX(-50%);
+    }
+
+    .watering-can {
+      position:absolute;
+      left:13px;
+      bottom:17px;
+      width:52px;
+      height:42px;
+      border-radius:16px 16px 14px 14px;
+      background:linear-gradient(135deg,#a5f3fc,#38bdf8);
+      border:3px solid #0891b2;
+      transform:rotate(-12deg);
+    }
+
+    .watering-can::before {
+      content:"";
+      position:absolute;
+      right:-24px;
+      top:10px;
+      width:32px;
+      height:12px;
+      border-radius:999px;
+      background:#38bdf8;
+      border:3px solid #0891b2;
+      transform:rotate(-18deg);
+    }
+
+    .watering-can::after {
+      content:"";
+      position:absolute;
+      left:9px;
+      top:-17px;
+      width:27px;
+      height:23px;
+      border:4px solid #0891b2;
+      border-bottom:0;
+      border-radius:18px 18px 0 0;
+    }
+
+    .badge-mini {
+      position:absolute;
+      right:14px;
+      top:14px;
+      padding:8px 10px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#ede9fe,#cffafe);
+      color:#6d28d9;
+      font-size:12px;
+      font-weight:950;
+      box-shadow:var(--shadow2);
+    }
+
+    .section {
+      padding:22px 0;
+    }
+
+    .tool-grid {
+      display:grid;
+      grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);
+      gap:22px;
+      align-items:start;
+    }
+
+    .panel {
+      padding:24px;
+      border-radius:var(--radius);
+      border:1px solid rgba(15,23,42,.08);
+      background:var(--card);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);
+    }
+
+    .panel h2 {
+      margin:0 0 12px;
+      font-size:27px;
+      line-height:1.2;
+      letter-spacing:-.052em;
+    }
+
+    .desc {
+      margin:-4px 0 18px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    .form {
+      display:grid;
+      gap:14px;
+    }
+
+    .field label {
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom:8px;
+      color:#132033;
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .field small {
+      color:var(--muted);
+      font-weight:750;
+    }
+
+    .input-wrap {
+      position:relative;
+    }
+
+    input {
+      width:100%;
+      min-height:54px;
+      padding:14px 54px 14px 15px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.10);
+      background:rgba(255,255,255,.94);
+      color:#132033;
+      font-size:16px;
+      font-weight:850;
+      outline:none;
+      transition:.16s ease;
+    }
+
+    input:focus {
+      border-color:rgba(124,58,237,.38);
+      box-shadow:0 0 0 4px rgba(124,58,237,.09);
+    }
+
+    .unit {
+      position:absolute;
+      top:50%;
+      right:15px;
+      transform:translateY(-50%);
+      color:var(--muted);
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .row {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .preset {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .preset button {
+      padding:8px 11px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:#fff;
+      color:#334155;
+      font-size:12px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .calc-btn {
+      width:100%;
+      min-height:58px;
+      margin-top:6px;
+      border:0;
+      border-radius:18px;
+      color:#fff;
+      background:linear-gradient(135deg,#7c3aed,#06b6d4,#fb923c);
+      font-size:17px;
+      font-weight:950;
+      cursor:pointer;
+      box-shadow:0 16px 34px rgba(124,58,237,.23);
+    }
+
+    .reset-btn {
+      width:100%;
+      min-height:48px;
+      margin-top:10px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.86);
+      color:#132033;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .notice {
+      margin-top:12px;
+      padding:13px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(15,23,42,.08);
+      color:#526173;
+      font-size:13px;
+      line-height:1.75;
+      font-weight:760;
+      word-break:keep-all;
+    }
+
+    .result-box {
+      display:grid;
+      gap:14px;
+    }
+
+    .result-main {
+      padding:24px;
+      border-radius:26px;
+      color:#132033;
+      background:
+        radial-gradient(circle at 84% 18%, rgba(255,255,255,.42), transparent 26%),
+        linear-gradient(135deg,#c4b5fd,#67e8f9 54%,#fdba74);
+      box-shadow:var(--shadow2);
+    }
+
+    .result-main span {
+      display:block;
+      font-size:14px;
+      opacity:.82;
+      font-weight:900;
+    }
+
+    .result-main strong {
+      display:block;
+      margin-top:8px;
+      font-size:clamp(36px,5vw,58px);
+      line-height:1;
+      letter-spacing:-.06em;
+    }
+
+    .result-main em {
+      display:block;
+      margin-top:10px;
+      font-size:14px;
+      line-height:1.75;
+      font-style:normal;
+      font-weight:850;
+      opacity:.88;
+      word-break:keep-all;
+    }
+
+    .result-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .metric {
+      padding:18px;
+      border-radius:20px;
+      background:rgba(255,255,255,.84);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .metric span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .metric strong {
+      display:block;
+      margin-top:7px;
+      color:#132033;
+      font-size:24px;
+      letter-spacing:-.045em;
+    }
+
+    .good {
+      color:#16a34a !important;
+    }
+
+    .warn {
+      color:#d97706 !important;
+    }
+
+    .bad {
+      color:#e11d48 !important;
+    }
+
+    .guide-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .guide {
+      padding:20px;
+      border-radius:22px;
+      background:rgba(255,255,255,.80);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .guide b {
+      display:block;
+      margin-bottom:8px;
+      font-size:17px;
+      letter-spacing:-.03em;
+    }
+
+    .guide p {
+      margin:0;
+      color:#526173;
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    footer {
+      padding:44px 0 54px;
+      color:var(--muted);
+      text-align:center;
+      font-size:13px;
+    }
+
+    @media (max-width:920px) {
+      .hero-grid,
+      .tool-grid {
+        grid-template-columns:1fr;
+      }
+
+      .hero {
+        padding-top:42px;
+      }
+    }
+
+    @media (max-width:640px) {
+      .nav {
+        align-items:flex-start;
+        flex-direction:column;
+        padding:12px 0;
+      }
+
+      .nav-links {
+        width:100%;
+        overflow-x:auto;
+        padding-bottom:4px;
+      }
+
+      .hero-actions {
+        display:grid;
+      }
+
+      .btn {
+        width:100%;
+      }
+
+      .row,
+      .result-grid,
+      .guide-grid {
+        grid-template-columns:1fr;
+      }
+
+      .visual {
+        min-height:360px;
+      }
+
+      .target-card {
+        width:154px;
+      }
+
+      .main-result-card {
+        width:220px;
+      }
+
+      .otter-card {
+        width:138px;
+        height:138px;
+        right:18px;
+      }
+
+      .otter-head {
+        left:25px;
+        top:42px;
+        width:88px;
+        height:86px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="../">
+        <div class="brand-mark">B</div>
+        <div>
+          바로해결툴즈
+          <small>주식 계산 · 물타기 · 바로 확인</small>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="주요 도구">
+        <a href="../">전체 도구</a>
+        <a href="../stock-average-price/">평단가</a>
+        <a href="../stock-buy-quantity/">매수수량</a>
+        <a href="../stock-loss-cut/">손절가</a>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="chips">
+            <span class="chip hot">💧 물타기 필요금액</span>
+            <span class="chip">목표 평단</span>
+            <span class="chip">추가매수 수량</span>
+          </div>
+
+          <h1>
+            목표 평단까지<br>
+            <span class="gradient">얼마를 더 사야 할까?</span>
+          </h1>
+
+          <p class="lead">
+            현재 평단가, 보유수량, 추가 매수가, 목표 평단가를 입력하면
+            <strong>필요한 추가 매수수량, 필요금액, 최종 보유수량, 최종 평단가</strong>를
+            한 번에 계산합니다. 감정적으로 물타기 전에 필요한 돈부터 확인하세요.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#calculator">물타기 필요금액 계산하기</a>
+            <a class="btn btn-ghost" href="../stock-average-price/">평단가 계산기</a>
+          </div>
+        </div>
+
+        <div class="visual" aria-label="주식 물타기 필요금액 계산 예시">
+          <div class="visual-panel">
+            <div class="avg-chart">
+              <div class="price-line current"></div>
+              <div class="price-line target"></div>
+              <div class="line-label label-current">현재 평단 50,000원</div>
+              <div class="line-label label-target">목표 평단 45,000원</div>
+
+              <div class="water-drops">
+                <div class="drop"></div>
+                <div class="drop"></div>
+                <div class="drop"></div>
+                <div class="drop"></div>
+              </div>
+            </div>
+
+            <div class="target-card">
+              <span>추가 매수가</span>
+              <strong>40,000원</strong>
+            </div>
+          </div>
+
+          <div class="main-result-card">
+            <span>필요 추가금액</span>
+            <strong>400만원</strong>
+          </div>
+
+          <div class="otter-card" aria-hidden="true">
+            <div class="badge-mini">AVG</div>
+            <div class="otter-head">
+              <div class="otter-ear left"></div>
+              <div class="otter-ear right"></div>
+              <div class="otter-face"></div>
+              <div class="otter-eye left"></div>
+              <div class="otter-eye right"></div>
+              <div class="otter-nose"></div>
+              <div class="otter-smile"></div>
+            </div>
+            <div class="watering-can"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="calculator">
+      <div class="wrap tool-grid">
+        <div class="panel">
+          <h2>주식 물타기 필요금액 계산기</h2>
+          <p class="desc">
+            목표 평단가까지 낮추려면 몇 주를 더 사야 하고,
+            얼마가 필요한지 계산합니다.
+          </p>
+
+          <form class="form" onsubmit="event.preventDefault(); calculateAverageDown();">
+            <div class="row">
+              <div class="field">
+                <label for="currentAvg">
+                  현재 평단가
+                  <small>현재 평균 매수가</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="currentAvg" type="number" min="0" step="0.01" value="50000" placeholder="예: 50000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="currentQty">
+                  현재 보유수량
+                  <small>이미 보유한 주식 수</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="currentQty" type="number" min="0" step="1" value="100" placeholder="예: 100">
+                  <span class="unit">주</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="addPrice">
+                  추가 매수가
+                  <small>새로 살 가격</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="addPrice" type="number" min="0" step="0.01" value="40000" placeholder="예: 40000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="targetAvg">
+                  목표 평단가
+                  <small>낮추고 싶은 평단</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="targetAvg" type="number" min="0" step="0.01" value="45000" placeholder="예: 45000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="currentPrice">
+                  현재가
+                  <small>선택 입력, 평가손익 계산</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="currentPrice" type="number" min="0" step="0.01" value="40000" placeholder="예: 40000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="budget">
+                  추가매수 예산
+                  <small>선택 입력, 가능 수량 확인</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="budget" type="number" min="0" step="1" value="3000000" placeholder="예: 3000000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="preset">
+              <button type="button" onclick="fillExample('basic')">기본 물타기</button>
+              <button type="button" onclick="fillExample('deep')">큰 하락</button>
+              <button type="button" onclick="fillExample('small')">소액 추가</button>
+              <button type="button" onclick="fillExample('hard')">목표 과도</button>
+            </div>
+
+            <button class="calc-btn" type="submit">물타기 필요금액 계산하기</button>
+            <button class="reset-btn" type="button" onclick="resetForm()">입력값 초기화</button>
+          </form>
+
+          <div class="notice">
+            목표 평단가는 추가 매수가보다 높고 현재 평단가보다 낮아야 현실적으로 계산됩니다.
+            추가 매수가보다 더 낮은 목표 평단은 같은 가격으로 매수해서는 달성할 수 없습니다.
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>계산 결과</h2>
+          <p class="desc">
+            목표 평단까지 필요한 금액과 예산 기준 가능 평단을 함께 확인하세요.
+          </p>
+
+          <div class="result-box">
+            <div class="result-main">
+              <span>목표 평단 필요금액</span>
+              <strong id="requiredAmount">-</strong>
+              <em id="summaryText">값을 입력하고 계산 버튼을 눌러주세요.</em>
+            </div>
+
+            <div class="result-grid">
+              <div class="metric">
+                <span>필요 추가매수 수량</span>
+                <strong id="requiredQty">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>필요 추가매수 금액</span>
+                <strong id="requiredAmountSub">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>최종 보유수량</span>
+                <strong id="finalQty">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>최종 평단가</span>
+                <strong id="finalAvg">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>현재 투자원금</span>
+                <strong id="currentPrincipal">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>최종 투자원금</span>
+                <strong id="finalPrincipal">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>평단 인하폭</span>
+                <strong id="avgDrop">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>평단 인하율</span>
+                <strong id="avgDropRate">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>예산 기준 가능 수량</span>
+                <strong id="budgetQty">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>예산 기준 예상 평단</span>
+                <strong id="budgetAvg">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>현재가 기준 손익률</span>
+                <strong id="currentReturnRate">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>판단 구간</span>
+                <strong id="riskStatus">-</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice">
+            물타기는 평단을 낮추지만 총 투자원금과 종목 비중도 함께 커집니다.
+            계산 결과가 부담스럽다면 비중 축소나 손절가 계산도 같이 확인하세요.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="panel">
+          <h2>물타기 전 체크포인트</h2>
+
+          <div class="guide-grid">
+            <div class="guide">
+              <b>필요금액부터 확인</b>
+              <p>
+                목표 평단까지 필요한 금액이 생각보다 크면 무리한 추가매수가 될 수 있습니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>종목 비중 확대 주의</b>
+              <p>
+                평단은 낮아져도 특정 종목 비중이 커지면 포트폴리오 리스크가 커집니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>손절 기준도 함께 보기</b>
+              <p>
+                물타기 후에도 추가 하락할 수 있으므로 손절가와 회복 필요 수익률을 같이 봐야 합니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="notice">
+            TIP. 물타기 필요금액을 확인한 뒤에는 손절가 계산기, 회복 수익률 계산기,
+            매수수량 계산기를 함께 쓰면 실제 대응 계획을 더 명확하게 잡을 수 있습니다.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 바로해결툴즈 · 계산 결과는 참고용입니다. 실제 투자 판단과 책임은 본인에게 있습니다.
+  </footer>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    function num(id) {
+      const value = Number($(id).value);
+      return Number.isFinite(value) ? value : 0;
+    }
+
+    function setText(id, value) {
+      $(id).textContent = value;
+    }
+
+    function won(value) {
+      if (!Number.isFinite(value)) return "-";
+      return `${Math.round(value).toLocaleString("ko-KR")}원`;
+    }
+
+    function percent(value) {
+      if (!Number.isFinite(value)) return "-";
+      const sign = value > 0 ? "+" : "";
+      return `${sign}${value.toLocaleString("ko-KR", {
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 0
+      })}%`;
+    }
+
+    function shares(value) {
+      if (!Number.isFinite(value)) return "-";
+      return `${Math.ceil(value).toLocaleString("ko-KR")}주`;
+    }
+
+    function calculateAverageDown() {
+      const currentAvg = num("currentAvg");
+      const currentQty = num("currentQty");
+      const addPrice = num("addPrice");
+      const targetAvg = num("targetAvg");
+      const currentPrice = num("currentPrice");
+      const budget = Math.max(num("budget"), 0);
+
+      if (currentAvg <= 0 || currentQty <= 0 || addPrice <= 0 || targetAvg <= 0) {
+        showMessage("현재 평단가, 보유수량, 추가 매수가, 목표 평단가를 입력해주세요.");
+        return;
+      }
+
+      if (targetAvg >= currentAvg) {
+        showAlreadyAchieved(currentAvg, currentQty, addPrice, targetAvg, currentPrice, budget);
+        return;
+      }
+
+      if (targetAvg <= addPrice) {
+        showImpossible(currentAvg, currentQty, addPrice, targetAvg, currentPrice, budget);
+        return;
+      }
+
+      const exactRequiredQty = (currentQty * (currentAvg - targetAvg)) / (targetAvg - addPrice);
+      const requiredQty = Math.ceil(exactRequiredQty);
+      const requiredAmount = requiredQty * addPrice;
+
+      const currentPrincipal = currentAvg * currentQty;
+      const finalQty = currentQty + requiredQty;
+      const finalPrincipal = currentPrincipal + requiredAmount;
+      const finalAvg = finalPrincipal / finalQty;
+
+      const avgDrop = currentAvg - finalAvg;
+      const avgDropRate = (avgDrop / currentAvg) * 100;
+
+      const budgetQty = budget > 0 ? Math.floor(budget / addPrice) : 0;
+      const budgetAmount = budgetQty * addPrice;
+      const budgetFinalQty = currentQty + budgetQty;
+      const budgetFinalPrincipal = currentPrincipal + budgetAmount;
+      const budgetAvg = budgetFinalQty > 0 ? budgetFinalPrincipal / budgetFinalQty : currentAvg;
+
+      const currentReturnRate = currentPrice > 0 ? ((currentPrice - finalAvg) / finalAvg) * 100 : 0;
+
+      setText("requiredAmount", won(requiredAmount));
+      setText("requiredQty", shares(requiredQty));
+      setText("requiredAmountSub", won(requiredAmount));
+      setText("finalQty", `${finalQty.toLocaleString("ko-KR")}주`);
+      setText("finalAvg", won(finalAvg));
+      setText("currentPrincipal", won(currentPrincipal));
+      setText("finalPrincipal", won(finalPrincipal));
+      setText("avgDrop", `-${won(avgDrop)}`);
+      setText("avgDropRate", `-${avgDropRate.toLocaleString("ko-KR", {
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 0
+      })}%`);
+
+      setText("budgetQty", budget > 0 ? `${budgetQty.toLocaleString("ko-KR")}주` : "예산 미입력");
+      setText("budgetAvg", budget > 0 ? won(budgetAvg) : "예산 미입력");
+
+      if (currentPrice > 0) {
+        setText("currentReturnRate", percent(currentReturnRate));
+        $("currentReturnRate").className = currentReturnRate >= 0 ? "good" : "bad";
+      } else {
+        setText("currentReturnRate", "현재가 미입력");
+        $("currentReturnRate").className = "";
+      }
+
+      const status = getRiskStatus(requiredAmount, currentPrincipal, requiredQty, currentQty, budget, requiredAmount);
+      setText("riskStatus", status.text);
+      $("riskStatus").className = status.className;
+
+      $("requiredAmount").className = "good";
+      $("requiredQty").className = "good";
+      $("requiredAmountSub").className = "good";
+      $("finalAvg").className = "good";
+      $("avgDrop").className = "good";
+      $("avgDropRate").className = "good";
+      $("budgetAvg").className = budget > 0 && budgetAvg <= targetAvg ? "good" : "warn";
+
+      let summary = `목표 평단 ${won(targetAvg)}까지 낮추려면 ${shares(requiredQty)}를 추가 매수해야 하며, 필요한 금액은 약 ${won(requiredAmount)}입니다. 최종 평단은 약 ${won(finalAvg)}입니다.`;
+
+      if (budget > 0) {
+        if (budget >= requiredAmount) {
+          summary += ` 입력한 예산 ${won(budget)}으로 목표 평단 달성이 가능합니다.`;
+        } else {
+          summary += ` 입력한 예산 ${won(budget)}으로는 목표 평단까지 부족하며, 예산 기준 예상 평단은 약 ${won(budgetAvg)}입니다.`;
+        }
+      }
+
+      setText("summaryText", summary);
+    }
+
+    function showAlreadyAchieved(currentAvg, currentQty, addPrice, targetAvg, currentPrice, budget) {
+      const currentPrincipal = currentAvg * currentQty;
+
+      setText("requiredAmount", "0원");
+      setText("requiredQty", "0주");
+      setText("requiredAmountSub", "0원");
+      setText("finalQty", `${currentQty.toLocaleString("ko-KR")}주`);
+      setText("finalAvg", won(currentAvg));
+      setText("currentPrincipal", won(currentPrincipal));
+      setText("finalPrincipal", won(currentPrincipal));
+      setText("avgDrop", "0원");
+      setText("avgDropRate", "0%");
+      setText("budgetQty", budget > 0 ? `${Math.floor(budget / addPrice).toLocaleString("ko-KR")}주` : "예산 미입력");
+      setText("budgetAvg", budget > 0 ? won(((currentAvg * currentQty) + (Math.floor(budget / addPrice) * addPrice)) / (currentQty + Math.floor(budget / addPrice))) : "예산 미입력");
+
+      if (currentPrice > 0) {
+        const returnRate = ((currentPrice - currentAvg) / currentAvg) * 100;
+        setText("currentReturnRate", percent(returnRate));
+        $("currentReturnRate").className = returnRate >= 0 ? "good" : "bad";
+      } else {
+        setText("currentReturnRate", "현재가 미입력");
+        $("currentReturnRate").className = "";
+      }
+
+      setText("riskStatus", "이미 목표 이상");
+      $("riskStatus").className = "good";
+      $("requiredAmount").className = "good";
+      $("summaryText").textContent = `목표 평단 ${won(targetAvg)}은 현재 평단 ${won(currentAvg)}보다 높거나 같습니다. 추가 매수 없이 이미 목표 평단 조건을 충족합니다.`;
+    }
+
+    function showImpossible(currentAvg, currentQty, addPrice, targetAvg, currentPrice, budget) {
+      const currentPrincipal = currentAvg * currentQty;
+      const budgetQty = budget > 0 ? Math.floor(budget / addPrice) : 0;
+      const budgetAmount = budgetQty * addPrice;
+      const budgetFinalQty = currentQty + budgetQty;
+      const budgetAvg = budgetFinalQty > 0 ? (currentPrincipal + budgetAmount) / budgetFinalQty : currentAvg;
+
+      setText("requiredAmount", "계산 불가");
+      setText("requiredQty", "계산 불가");
+      setText("requiredAmountSub", "계산 불가");
+      setText("finalQty", "-");
+      setText("finalAvg", "-");
+      setText("currentPrincipal", won(currentPrincipal));
+      setText("finalPrincipal", "-");
+      setText("avgDrop", "-");
+      setText("avgDropRate", "-");
+      setText("budgetQty", budget > 0 ? `${budgetQty.toLocaleString("ko-KR")}주` : "예산 미입력");
+      setText("budgetAvg", budget > 0 ? won(budgetAvg) : "예산 미입력");
+
+      if (currentPrice > 0) {
+        const returnRate = ((currentPrice - currentAvg) / currentAvg) * 100;
+        setText("currentReturnRate", percent(returnRate));
+        $("currentReturnRate").className = returnRate >= 0 ? "good" : "bad";
+      } else {
+        setText("currentReturnRate", "현재가 미입력");
+        $("currentReturnRate").className = "";
+      }
+
+      setText("riskStatus", "목표 재설정 필요");
+      $("riskStatus").className = "bad";
+      $("requiredAmount").className = "bad";
+      $("summaryText").textContent = `목표 평단 ${won(targetAvg)}이 추가 매수가 ${won(addPrice)}보다 낮거나 같습니다. 같은 가격으로 추가 매수해서는 해당 목표 평단을 달성할 수 없습니다. 목표 평단을 올리거나 추가 매수가를 더 낮춰야 합니다.`;
+    }
+
+    function getRiskStatus(requiredAmount, currentPrincipal, requiredQty, currentQty, budget, requiredAmountAgain) {
+      const amountRatio = currentPrincipal > 0 ? requiredAmount / currentPrincipal : 0;
+      const qtyRatio = currentQty > 0 ? requiredQty / currentQty : 0;
+
+      if (budget > 0 && budget < requiredAmountAgain) {
+        return {
+          text: "예산 부족",
+          className: "warn"
+        };
+      }
+
+      if (amountRatio >= 1.5 || qtyRatio >= 1.5) {
+        return {
+          text: "비중 급확대 주의",
+          className: "bad"
+        };
+      }
+
+      if (amountRatio >= 0.7 || qtyRatio >= 0.7) {
+        return {
+          text: "신중 검토 구간",
+          className: "warn"
+        };
+      }
+
+      return {
+        text: "계획 가능 구간",
+        className: "good"
+      };
+    }
+
+    function showMessage(message) {
+      setText("requiredAmount", "-");
+      setText("requiredQty", "-");
+      setText("requiredAmountSub", "-");
+      setText("finalQty", "-");
+      setText("finalAvg", "-");
+      setText("currentPrincipal", "-");
+      setText("finalPrincipal", "-");
+      setText("avgDrop", "-");
+      setText("avgDropRate", "-");
+      setText("budgetQty", "-");
+      setText("budgetAvg", "-");
+      setText("currentReturnRate", "-");
+      setText("riskStatus", "-");
+      setText("summaryText", message);
+    }
+
+    function fillExample(type) {
+      if (type === "basic") {
+        $("currentAvg").value = 50000;
+        $("currentQty").value = 100;
+        $("addPrice").value = 40000;
+        $("targetAvg").value = 45000;
+        $("currentPrice").value = 40000;
+        $("budget").value = 3000000;
+      }
+
+      if (type === "deep") {
+        $("currentAvg").value = 80000;
+        $("currentQty").value = 50;
+        $("addPrice").value = 50000;
+        $("targetAvg").value = 65000;
+        $("currentPrice").value = 50000;
+        $("budget").value = 5000000;
+      }
+
+      if (type === "small") {
+        $("currentAvg").value = 30000;
+        $("currentQty").value = 80;
+        $("addPrice").value = 27000;
+        $("targetAvg").value = 29000;
+        $("currentPrice").value = 27000;
+        $("budget").value = 1000000;
+      }
+
+      if (type === "hard") {
+        $("currentAvg").value = 50000;
+        $("currentQty").value = 100;
+        $("addPrice").value = 40000;
+        $("targetAvg").value = 39000;
+        $("currentPrice").value = 40000;
+        $("budget").value = 3000000;
+      }
+
+      calculateAverageDown();
+    }
+
+    function resetForm() {
+      $("currentAvg").value = "";
+      $("currentQty").value = "";
+      $("addPrice").value = "";
+      $("targetAvg").value = "";
+      $("currentPrice").value = "";
+      $("budget").value = "";
+      showMessage("값을 입력하고 계산 버튼을 눌러주세요.");
+    }
+
+    calculateAverageDown();
+  </script>
+</body>
+</html>
