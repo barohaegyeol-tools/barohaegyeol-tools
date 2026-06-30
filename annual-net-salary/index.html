@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>연봉 실수령액 계산기｜연봉 3000·4000·5000 실제 월급｜바로해결툴즈</title>
+  <meta name="description" content="연봉, 비과세액, 부양가족 수, 4대보험 요율을 입력하면 월 예상 실수령액, 연간 실수령액, 소득세, 지방소득세, 4대보험 공제액을 계산합니다." />
+  <meta name="keywords" content="연봉 실수령액 계산기, 월급 실수령액 계산기, 연봉 3000 실수령액, 연봉 4000 실수령액, 연봉 5000 실수령액, 4대보험 공제, 소득세 계산, 바로해결툴즈" />
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/annual-net-salary/" />
+  <meta name="theme-color" content="#eff6ff" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="연봉 실수령액 계산기｜연봉별 실제 월급 확인" />
+  <meta property="og:description" content="연봉과 비과세액을 입력하면 월 예상 실수령액과 세금·4대보험 공제액을 바로 계산합니다." />
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/annual-net-salary/" />
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"연봉 실수령액 계산기",
+    "url":"https://barohaegyeol-tools.pages.dev/annual-net-salary/",
+    "applicationCategory":"FinanceApplication",
+    "operatingSystem":"All",
+    "description":"연봉, 비과세액, 부양가족 수, 4대보험 요율을 기준으로 월 예상 실수령액과 연간 실수령액을 계산하는 무료 생활 계산기입니다.",
+    "publisher":{
+      "@type":"Organization",
+      "name":"바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg1:#eff6ff;
+      --bg2:#f8fafc;
+      --bg3:#fef9c3;
+      --text:#0f172a;
+      --sub:#334155;
+      --muted:#64748b;
+      --line:rgba(15,23,42,.10);
+      --white:rgba(255,255,255,.88);
+
+      --blue:#2563eb;
+      --sky:#38bdf8;
+      --cyan:#06b6d4;
+      --green:#22c55e;
+      --teal:#14b8a6;
+      --gold:#f59e0b;
+      --yellow:#facc15;
+      --purple:#7c3aed;
+      --red:#ef4444;
+      --navy:#0f172a;
+
+      --shadow:0 24px 70px rgba(37,99,235,.14);
+      --shadow2:0 14px 34px rgba(15,23,42,.08);
+      --radius:28px;
+      --max:1180px;
+    }
+
+    * {
+      box-sizing:border-box;
+    }
+
+    html {
+      scroll-behavior:smooth;
+    }
+
+    body {
+      margin:0;
+      min-height:100vh;
+      color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;
+      line-height:1.65;
+      background:
+        radial-gradient(circle at 10% 8%, rgba(37,99,235,.20), transparent 25%),
+        radial-gradient(circle at 88% 10%, rgba(245,158,11,.18), transparent 24%),
+        radial-gradient(circle at 84% 88%, rgba(20,184,166,.12), transparent 25%),
+        linear-gradient(135deg,var(--bg1) 0%, var(--bg2) 48%, var(--bg3) 100%);
+      overflow-x:hidden;
+    }
+
+    body::before {
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.18;
+      background-image:
+        radial-gradient(circle, rgba(37,99,235,.22) 1px, transparent 1.2px),
+        radial-gradient(circle, rgba(245,158,11,.18) 1px, transparent 1.2px);
+      background-size:32px 32px, 76px 76px;
+      background-position:0 0, 22px 26px;
+      mask-image:linear-gradient(to bottom,#000 0%,#000 68%,transparent 100%);
+    }
+
+    a {
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button,
+    input,
+    select {
+      font:inherit;
+    }
+
+    button {
+      cursor:pointer;
+    }
+
+    .wrap {
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+    }
+
+    .topbar {
+      position:sticky;
+      top:0;
+      z-index:50;
+      border-bottom:1px solid rgba(15,23,42,.07);
+      background:rgba(239,246,255,.78);
+      backdrop-filter:blur(18px);
+    }
+
+    .nav {
+      min-height:68px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:950;
+      letter-spacing:-.045em;
+    }
+
+    .brand-mark {
+      width:42px;
+      height:42px;
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      background:conic-gradient(from 150deg,#2563eb,#38bdf8,#f59e0b,#22c55e,#7c3aed,#2563eb);
+      box-shadow:0 16px 36px rgba(37,99,235,.24);
+      font-weight:950;
+    }
+
+    .brand small {
+      display:block;
+      margin-top:1px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:-.02em;
+    }
+
+    .nav-links {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      white-space:nowrap;
+    }
+
+    .nav-links a {
+      padding:9px 13px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.78);
+      color:#26364a;
+      font-size:14px;
+      font-weight:850;
+      box-shadow:var(--shadow2);
+    }
+
+    .hero {
+      padding:58px 0 28px;
+    }
+
+    .hero-grid {
+      display:grid;
+      grid-template-columns:1.02fr .98fr;
+      align-items:center;
+      gap:32px;
+    }
+
+    .chips {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:16px;
+    }
+
+    .chip {
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.82);
+      color:#334155;
+      font-size:13px;
+      font-weight:900;
+      box-shadow:var(--shadow2);
+    }
+
+    .chip.hot {
+      color:#1d4ed8;
+      background:linear-gradient(135deg,rgba(219,234,254,.98),rgba(255,255,255,.92));
+    }
+
+    h1 {
+      margin:0;
+      max-width:780px;
+      font-size:clamp(38px,6.1vw,74px);
+      line-height:1.04;
+      letter-spacing:-.078em;
+    }
+
+    .gradient {
+      color:transparent;
+      background:linear-gradient(90deg,#2563eb 0%, #0ea5e9 42%, #f59e0b 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+    }
+
+    .lead {
+      margin:20px 0 0;
+      max-width:700px;
+      color:#34465c;
+      font-size:clamp(16px,2vw,19px);
+      line-height:1.82;
+      letter-spacing:-.015em;
+      word-break:keep-all;
+    }
+
+    .lead strong {
+      color:#1d4ed8;
+      font-weight:950;
+    }
+
+    .hero-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:26px;
+    }
+
+    .btn {
+      min-height:50px;
+      padding:13px 18px;
+      border-radius:17px;
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      gap:8px;
+      border:1px solid transparent;
+      font-weight:950;
+      letter-spacing:-.025em;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+
+    .btn:hover {
+      transform:translateY(-2px);
+    }
+
+    .btn-primary {
+      color:#fff;
+      background:linear-gradient(135deg,#2563eb,#0ea5e9,#f59e0b);
+      box-shadow:0 16px 38px rgba(37,99,235,.24);
+    }
+
+    .btn-ghost {
+      color:#122033;
+      background:rgba(255,255,255,.82);
+      border-color:rgba(15,23,42,.08);
+    }
+
+    .visual {
+      position:relative;
+      min-height:426px;
+      border-radius:40px;
+      border:1px solid rgba(15,23,42,.08);
+      background:
+        radial-gradient(circle at 78% 15%, rgba(245,158,11,.22), transparent 22%),
+        radial-gradient(circle at 17% 86%, rgba(37,99,235,.17), transparent 23%),
+        linear-gradient(145deg,rgba(255,255,255,.96),rgba(239,246,255,.82));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      padding:26px;
+    }
+
+    .visual-panel {
+      position:absolute;
+      left:26px;
+      right:26px;
+      top:26px;
+      height:188px;
+      border-radius:30px;
+      background:
+        linear-gradient(rgba(15,23,42,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,23,42,.045) 1px, transparent 1px),
+        linear-gradient(180deg,rgba(255,255,255,.96),rgba(239,246,255,.94));
+      background-size:38px 38px,38px 38px,auto;
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      overflow:hidden;
+    }
+
+    .salary-line {
+      position:absolute;
+      left:28px;
+      right:28px;
+      bottom:26px;
+      height:62px;
+      border-radius:999px;
+      background:linear-gradient(90deg,#0f172a,#2563eb,#f59e0b);
+      opacity:.92;
+      overflow:hidden;
+    }
+
+    .salary-line::before {
+      content:"";
+      position:absolute;
+      left:24px;
+      right:24px;
+      top:28px;
+      height:5px;
+      border-radius:999px;
+      background:repeating-linear-gradient(90deg,rgba(255,255,255,.82) 0 28px,transparent 28px 48px);
+    }
+
+    .contract {
+      position:absolute;
+      left:42px;
+      top:42px;
+      width:232px;
+      height:146px;
+      border-radius:24px;
+      background:#fff;
+      border:3px solid #2563eb;
+      box-shadow:0 18px 34px rgba(15,23,42,.12);
+      overflow:hidden;
+      transform:rotate(-2deg);
+    }
+
+    .contract-head {
+      height:36px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 14px;
+      background:linear-gradient(90deg,#dbeafe,#fef3c7);
+      color:#1d4ed8;
+      font-weight:950;
+      font-size:13px;
+    }
+
+    .contract-lines {
+      padding:15px;
+      display:grid;
+      gap:9px;
+    }
+
+    .contract-row {
+      display:grid;
+      grid-template-columns:1fr 78px;
+      gap:10px;
+      align-items:center;
+    }
+
+    .contract-row span {
+      height:8px;
+      border-radius:999px;
+      background:#dbeafe;
+    }
+
+    .contract-row strong {
+      height:12px;
+      border-radius:999px;
+      background:#fde68a;
+    }
+
+    .bank-card {
+      position:absolute;
+      right:40px;
+      top:42px;
+      width:156px;
+      height:156px;
+      border-radius:34px;
+      background:#fff;
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:0 22px 48px rgba(15,23,42,.15);
+      display:grid;
+      place-items:center;
+    }
+
+    .bank-screen {
+      width:108px;
+      height:78px;
+      border-radius:20px;
+      background:linear-gradient(135deg,#2563eb,#0ea5e9,#f59e0b);
+      color:#fff;
+      display:grid;
+      place-items:center;
+      font-size:24px;
+      font-weight:950;
+      box-shadow:0 18px 34px rgba(37,99,235,.18);
+    }
+
+    .bank-base {
+      width:78px;
+      height:20px;
+      border-radius:999px;
+      margin-top:-22px;
+      background:#0f172a;
+      opacity:.9;
+    }
+
+    .result-ticket {
+      position:absolute;
+      left:28px;
+      bottom:26px;
+      width:292px;
+      padding:19px;
+      border-radius:26px;
+      background:linear-gradient(135deg,#fff,#eff6ff);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .result-ticket span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .result-ticket strong {
+      display:block;
+      margin-top:7px;
+      color:#1d4ed8;
+      font-size:34px;
+      line-height:1;
+      letter-spacing:-.05em;
+    }
+
+    .fox-card {
+      position:absolute;
+      right:28px;
+      bottom:26px;
+      width:174px;
+      height:174px;
+      border-radius:38px;
+      border:1px solid rgba(15,23,42,.08);
+      background:linear-gradient(145deg,#fff,#fef3c7);
+      box-shadow:var(--shadow2);
+    }
+
+    .fox-head {
+      position:absolute;
+      left:36px;
+      top:52px;
+      width:102px;
+      height:88px;
+      border-radius:46px 46px 38px 38px;
+      background:#fb923c;
+      border:4px solid #7c2d12;
+    }
+
+    .fox-ear {
+      position:absolute;
+      top:-24px;
+      width:38px;
+      height:38px;
+      background:#fb923c;
+      border-left:4px solid #7c2d12;
+      border-top:4px solid #7c2d12;
+      border-radius:10px;
+      transform:rotate(45deg);
+      z-index:-1;
+    }
+
+    .fox-ear.left {
+      left:10px;
+    }
+
+    .fox-ear.right {
+      right:10px;
+    }
+
+    .fox-eye {
+      position:absolute;
+      top:32px;
+      width:10px;
+      height:13px;
+      border-radius:999px;
+      background:#111827;
+    }
+
+    .fox-eye.left {
+      left:29px;
+    }
+
+    .fox-eye.right {
+      right:29px;
+    }
+
+    .fox-nose {
+      position:absolute;
+      left:50%;
+      top:54px;
+      width:17px;
+      height:12px;
+      border-radius:999px;
+      background:#111827;
+      transform:translateX(-50%);
+    }
+
+    .fox-smile {
+      position:absolute;
+      left:50%;
+      top:68px;
+      width:30px;
+      height:14px;
+      border-bottom:3px solid #2563eb;
+      border-radius:0 0 999px 999px;
+      transform:translateX(-50%);
+    }
+
+    .coin-mini {
+      position:absolute;
+      left:15px;
+      bottom:16px;
+      width:56px;
+      height:56px;
+      border-radius:50%;
+      background:linear-gradient(135deg,#facc15,#f59e0b);
+      border:3px solid #78350f;
+      display:grid;
+      place-items:center;
+      color:#78350f;
+      font-weight:950;
+      transform:rotate(-8deg);
+    }
+
+    .badge-mini {
+      position:absolute;
+      right:14px;
+      top:14px;
+      padding:8px 10px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#dbeafe,#fef3c7);
+      color:#1d4ed8;
+      font-size:12px;
+      font-weight:950;
+      box-shadow:var(--shadow2);
+      z-index:5;
+    }
+
+    .section {
+      padding:22px 0;
+    }
+
+    .tool-grid {
+      display:grid;
+      grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);
+      gap:22px;
+      align-items:start;
+    }
+
+    .panel {
+      padding:24px;
+      border-radius:var(--radius);
+      border:1px solid rgba(15,23,42,.08);
+      background:var(--white);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);
+    }
+
+    .panel h2 {
+      margin:0 0 12px;
+      font-size:27px;
+      line-height:1.2;
+      letter-spacing:-.052em;
+    }
+
+    .desc {
+      margin:-4px 0 18px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    .form {
+      display:grid;
+      gap:14px;
+    }
+
+    .field label {
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom:8px;
+      color:#122033;
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .field small {
+      color:var(--muted);
+      font-weight:750;
+    }
+
+    .input-wrap {
+      position:relative;
+    }
+
+    input,
+    select {
+      width:100%;
+      min-height:54px;
+      padding:14px 54px 14px 15px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.10);
+      background:rgba(255,255,255,.94);
+      color:#122033;
+      font-size:16px;
+      font-weight:850;
+      outline:none;
+      transition:.16s ease;
+    }
+
+    select {
+      padding-right:15px;
+      appearance:none;
+      cursor:pointer;
+    }
+
+    input:focus,
+    select:focus {
+      border-color:rgba(37,99,235,.48);
+      box-shadow:0 0 0 4px rgba(37,99,235,.12);
+    }
+
+    .unit {
+      position:absolute;
+      top:50%;
+      right:15px;
+      transform:translateY(-50%);
+      color:var(--muted);
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .row {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .preset {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .preset button {
+      padding:8px 11px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:#fff;
+      color:#334155;
+      font-size:12px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .calc-btn {
+      width:100%;
+      min-height:58px;
+      margin-top:6px;
+      border:0;
+      border-radius:18px;
+      color:#fff;
+      background:linear-gradient(135deg,#2563eb,#0ea5e9,#f59e0b);
+      font-size:17px;
+      font-weight:950;
+      cursor:pointer;
+      box-shadow:0 16px 34px rgba(37,99,235,.24);
+    }
+
+    .reset-btn {
+      width:100%;
+      min-height:48px;
+      margin-top:10px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.86);
+      color:#122033;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .notice {
+      margin-top:12px;
+      padding:13px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(15,23,42,.08);
+      color:#526173;
+      font-size:13px;
+      line-height:1.75;
+      font-weight:760;
+      word-break:keep-all;
+    }
+
+    .warning {
+      border-color:rgba(245,158,11,.25);
+      background:rgba(255,251,235,.82);
+      color:#92400e;
+    }
+
+    .result-box {
+      display:grid;
+      gap:14px;
+    }
+
+    .result-main {
+      padding:24px;
+      border-radius:26px;
+      color:#122033;
+      background:
+        radial-gradient(circle at 84% 18%, rgba(255,255,255,.42), transparent 26%),
+        linear-gradient(135deg,#bfdbfe,#bae6fd 50%,#fde68a);
+      box-shadow:var(--shadow2);
+    }
+
+    .result-main span {
+      display:block;
+      font-size:14px;
+      opacity:.82;
+      font-weight:900;
+    }
+
+    .result-main strong {
+      display:block;
+      margin-top:8px;
+      font-size:clamp(36px,5vw,58px);
+      line-height:1;
+      letter-spacing:-.06em;
+    }
+
+    .result-main em {
+      display:block;
+      margin-top:10px;
+      font-size:14px;
+      line-height:1.75;
+      font-style:normal;
+      font-weight:850;
+      opacity:.88;
+      word-break:keep-all;
+    }
+
+    .result-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .metric {
+      padding:18px;
+      border-radius:20px;
+      background:rgba(255,255,255,.84);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .metric span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .metric strong {
+      display:block;
+      margin-top:7px;
+      color:#122033;
+      font-size:24px;
+      letter-spacing:-.045em;
+    }
+
+    .metric.full {
+      grid-column:1/-1;
+    }
+
+    .good {
+      color:#0f766e !important;
+    }
+
+    .warn {
+      color:#d97706 !important;
+    }
+
+    .bad {
+      color:#e11d48 !important;
+    }
+
+    .guide-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .guide {
+      padding:20px;
+      border-radius:22px;
+      background:rgba(255,255,255,.80);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .guide b {
+      display:block;
+      margin-bottom:8px;
+      font-size:17px;
+      letter-spacing:-.03em;
+    }
+
+    .guide p {
+      margin:0;
+      color:#526173;
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    .related-grid {
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .related-card {
+      padding:16px;
+      border-radius:20px;
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      font-weight:900;
+      color:#24415f;
+      line-height:1.45;
+    }
+
+    footer {
+      padding:44px 0 54px;
+      color:var(--muted);
+      text-align:center;
+      font-size:13px;
+    }
+
+    @media (max-width:920px) {
+      .hero-grid,
+      .tool-grid {
+        grid-template-columns:1fr;
+      }
+
+      .hero {
+        padding-top:42px;
+      }
+    }
+
+    @media (max-width:720px) {
+      .related-grid {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+    }
+
+    @media (max-width:640px) {
+      .nav {
+        align-items:flex-start;
+        flex-direction:column;
+        padding:12px 0;
+      }
+
+      .nav-links {
+        width:100%;
+        overflow-x:auto;
+        padding-bottom:4px;
+      }
+
+      .hero-actions {
+        display:grid;
+      }
+
+      .btn {
+        width:100%;
+      }
+
+      .row,
+      .result-grid,
+      .guide-grid,
+      .related-grid {
+        grid-template-columns:1fr;
+      }
+
+      .visual {
+        min-height:374px;
+      }
+
+      .contract {
+        left:24px;
+        width:172px;
+      }
+
+      .bank-card {
+        right:24px;
+        width:122px;
+        height:138px;
+      }
+
+      .bank-screen {
+        width:86px;
+        height:62px;
+      }
+
+      .result-ticket {
+        width:220px;
+      }
+
+      .fox-card {
+        width:138px;
+        height:138px;
+        right:18px;
+      }
+
+      .fox-head {
+        left:24px;
+        top:48px;
+        width:90px;
+        height:76px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="../" aria-label="바로해결툴즈 메인으로 이동">
+        <div class="brand-mark">B</div>
+        <div>
+          바로해결툴즈
+          <small>연봉 · 실수령액 · 바로 확인</small>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="주요 도구">
+        <a href="../">전체 도구</a>
+        <a href="../four-insurance/">4대보험</a>
+        <a href="../weekly-holiday-pay/">주휴수당</a>
+        <a href="../severance-pay/">퇴직금</a>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="chips">
+            <span class="chip hot">💳 연봉 실수령액</span>
+            <span class="chip">월급 환산</span>
+            <span class="chip">세금·4대보험 반영</span>
+          </div>
+
+          <h1>
+            연봉은 같은데<br>
+            <span class="gradient">통장 입금액은 다릅니다</span>
+          </h1>
+
+          <p class="lead">
+            연봉, 월 비과세액, 부양가족 수, 4대보험 요율을 입력하면
+            <strong>월 예상 실수령액, 연간 실수령액, 세금과 4대보험 공제액</strong>을 한 번에 계산합니다.
+            연봉계약서 보기 전에 실제 월급부터 확인하세요.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#calculator">실수령액 계산하기</a>
+            <a class="btn btn-ghost" href="#guide">계산 기준 보기</a>
+          </div>
+        </div>
+
+        <div class="visual" aria-label="연봉 실수령액 계산 예시">
+          <div class="visual-panel">
+            <div class="salary-line"></div>
+
+            <div class="contract">
+              <div class="contract-head">
+                <span>연봉계약서</span>
+                <span>SALARY</span>
+              </div>
+              <div class="contract-lines">
+                <div class="contract-row"><span></span><strong></strong></div>
+                <div class="contract-row"><span></span><strong></strong></div>
+                <div class="contract-row"><span></span><strong></strong></div>
+                <div class="contract-row"><span></span><strong></strong></div>
+              </div>
+            </div>
+
+            <div class="bank-card">
+              <div>
+                <div class="bank-screen">₩</div>
+                <div class="bank-base"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="result-ticket">
+            <span>월 예상 실수령액</span>
+            <strong id="visualPay">약 291만원</strong>
+          </div>
+
+          <div class="fox-card" aria-hidden="true">
+            <div class="badge-mini">NET</div>
+            <div class="fox-head">
+              <div class="fox-ear left"></div>
+              <div class="fox-ear right"></div>
+              <div class="fox-eye left"></div>
+              <div class="fox-eye right"></div>
+              <div class="fox-nose"></div>
+              <div class="fox-smile"></div>
+            </div>
+            <div class="coin-mini">₩</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="calculator">
+      <div class="wrap tool-grid">
+        <div class="panel">
+          <h2>연봉 실수령액 계산기</h2>
+          <p class="desc">
+            연봉을 월급으로 나눈 뒤 비과세액, 4대보험, 예상 소득세와 지방소득세를 차감해 월 실수령액을 계산합니다.
+            소득세는 근로소득공제와 기본세율을 활용한 예상 계산입니다.
+          </p>
+
+          <form class="form" onsubmit="event.preventDefault(); calculateNetSalary();">
+            <div class="row">
+              <div class="field">
+                <label for="annualSalary">
+                  연봉
+                  <small>세전 총연봉</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="annualSalary" type="number" min="0" step="100000" value="40000000" placeholder="예: 40000000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="monthlyNonTaxable">
+                  월 비과세액
+                  <small>식대 등</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="monthlyNonTaxable" type="number" min="0" step="10000" value="200000" placeholder="예: 200000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="dependents">
+                  기본공제 대상자 수
+                  <small>본인 포함</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="dependents" type="number" min="1" max="10" step="1" value="1" placeholder="예: 1">
+                  <span class="unit">명</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="childCreditCount">
+                  자녀세액공제 인원
+                  <small>간편 반영</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="childCreditCount" type="number" min="0" max="10" step="1" value="0" placeholder="예: 0">
+                  <span class="unit">명</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="pensionEmployeeRate">
+                  국민연금 근로자 요율
+                  <small>수정 가능</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="pensionEmployeeRate" type="number" min="0" step="0.01" value="4.5">
+                  <span class="unit">%</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="healthTotalRate">
+                  건강보험 총 요율
+                  <small>근로자 절반 부담</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="healthTotalRate" type="number" min="0" step="0.001" value="7.09">
+                  <span class="unit">%</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="longCareRate">
+                  장기요양보험 요율
+                  <small>건강보험료 대비</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="longCareRate" type="number" min="0" step="0.01" value="12.95">
+                  <span class="unit">%</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="employmentEmployeeRate">
+                  고용보험 근로자 요율
+                  <small>수정 가능</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="employmentEmployeeRate" type="number" min="0" step="0.01" value="0.9">
+                  <span class="unit">%</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="pensionMin">
+                  국민연금 하한 기준소득
+                  <small>최신 기준 수정</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="pensionMin" type="number" min="0" step="1000" value="390000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="pensionMax">
+                  국민연금 상한 기준소득
+                  <small>최신 기준 수정</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="pensionMax" type="number" min="0" step="1000" value="6170000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="incomeTaxMode">
+                  소득세 계산 방식
+                  <small>예상 계산</small>
+                </label>
+                <div class="input-wrap">
+                  <select id="incomeTaxMode">
+                    <option value="credit">근로소득세액공제 간편 반영</option>
+                    <option value="basic">기본세율만 적용</option>
+                    <option value="manual">월 소득세 직접 입력</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="manualIncomeTax">
+                  월 소득세 직접 입력
+                  <small>선택 입력</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="manualIncomeTax" type="number" min="0" step="1000" value="0">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="preset">
+              <button type="button" onclick="fillExample('salary3000')">연봉 3000</button>
+              <button type="button" onclick="fillExample('salary4000')">연봉 4000</button>
+              <button type="button" onclick="fillExample('salary5000')">연봉 5000</button>
+              <button type="button" onclick="fillExample('salary7000')">연봉 7000</button>
+            </div>
+
+            <button class="calc-btn" type="submit">실수령액 계산하기</button>
+            <button class="reset-btn" type="button" onclick="resetForm()">입력값 초기화</button>
+          </form>
+
+          <div class="notice warning">
+            이 계산기는 예상치입니다. 실제 원천징수세액은 국세청 간이세액표, 공제대상가족 수,
+            비과세 항목, 4대보험 신고 보수월액, 회사 급여 프로그램, 연말정산 결과에 따라 달라질 수 있습니다.
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>계산 결과</h2>
+          <p class="desc">
+            월 예상 실수령액, 연간 실수령액, 4대보험, 소득세, 지방소득세를 나눠 확인하세요.
+          </p>
+
+          <div class="result-box">
+            <div class="result-main">
+              <span>월 예상 실수령액</span>
+              <strong id="monthlyNetPay">-</strong>
+              <em id="summaryText">값을 입력하고 계산 버튼을 눌러주세요.</em>
+            </div>
+
+            <div class="result-grid">
+              <div class="metric">
+                <span>월 세전급여</span>
+                <strong id="monthlyGrossPay">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>연간 실수령액</span>
+                <strong id="annualNetPay">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>4대보험 월 공제</span>
+                <strong id="monthlyInsurance">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>소득세</span>
+                <strong id="monthlyIncomeTax">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>지방소득세</span>
+                <strong id="monthlyLocalTax">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>총 월 공제액</span>
+                <strong id="monthlyDeduction">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>국민연금</span>
+                <strong id="pensionAmount">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>건강보험</span>
+                <strong id="healthAmount">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>장기요양</span>
+                <strong id="careAmount">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>고용보험</span>
+                <strong id="employmentAmount">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>근로소득금액</span>
+                <strong id="earnedIncomeAmount">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>과세표준 예상</span>
+                <strong id="taxBaseAmount">-</strong>
+              </div>
+
+              <div class="metric full">
+                <span>실수령률</span>
+                <strong id="netRate">-</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice">
+            월별 실제 입금액은 상여금 지급 방식, 성과급, 비과세 식대, 입사·퇴사 월 일할계산,
+            4대보험 정산 여부에 따라 달라질 수 있습니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="guide">
+      <div class="wrap">
+        <div class="panel">
+          <h2>연봉 실수령액 계산 기준</h2>
+
+          <div class="guide-grid">
+            <div class="guide">
+              <b>연봉을 월급으로 환산</b>
+              <p>
+                입력한 세전 연봉을 12개월로 나눠 월 세전급여를 계산합니다.
+                상여금 별도 지급 구조라면 실제 월급과 차이가 날 수 있습니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>비과세액 차감</b>
+              <p>
+                월 비과세액은 세금과 4대보험 계산 기준에서 제외될 수 있습니다.
+                식대 등 비과세 항목은 회사 급여 처리 기준을 확인해야 합니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>세금은 예상 계산</b>
+              <p>
+                근로소득공제, 기본공제, 4대보험 공제, 기본세율을 활용한 예상 계산입니다.
+                실제 원천징수는 간이세액표 기준과 다를 수 있습니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="notice warning">
+            이 계산기는 실수령액을 빠르게 가늠하기 위한 도구입니다.
+            실제 급여명세서의 공제액은 간이세액표, 부양가족, 비과세 항목, 회사 급여규정,
+            4대보험 보수월액 신고 기준, 연말정산 결과에 따라 달라질 수 있습니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="panel">
+          <h2>같이 보면 좋은 도구</h2>
+          <p class="desc">
+            연봉 실수령액을 확인했다면 4대보험, 주휴수당, 퇴직금, 실업급여도 함께 확인해보세요.
+          </p>
+
+          <div class="related-grid">
+            <a class="related-card" href="../">전체 도구 보기</a>
+            <a class="related-card" href="../four-insurance/">4대보험 계산기</a>
+            <a class="related-card" href="../severance-pay/">퇴직금 계산기</a>
+            <a class="related-card" href="../unemployment-benefit/">실업급여 계산기</a>
+          </div>
+
+          <div class="notice">
+            예정 도구: 월급 실수령액 계산기, 최저시급 월급 계산기, 건강보험료 계산기, 종합소득세 계산기.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 바로해결툴즈 · 연봉 실수령액 계산 결과는 참고용입니다. 실제 급여명세서와 원천징수세액은 회사 기준과 최신 공식 기준을 확인하세요.
+  </footer>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    function num(id) {
+      const value = Number($(id).value);
+      return Number.isFinite(value) ? value : 0;
+    }
+
+    function setText(id, value) {
+      $(id).textContent = value;
+    }
+
+    function won(value) {
+      if (!Number.isFinite(value)) return "-";
+      return `${Math.round(value).toLocaleString("ko-KR")}원`;
+    }
+
+    function shortWon(value) {
+      if (!Number.isFinite(value)) return "-";
+
+      const rounded = Math.round(value);
+
+      if (rounded >= 100000000) {
+        return `약 ${(rounded / 100000000).toFixed(1)}억`;
+      }
+
+      if (rounded >= 10000) {
+        return `약 ${Math.round(rounded / 10000).toLocaleString("ko-KR")}만원`;
+      }
+
+      return `약 ${rounded.toLocaleString("ko-KR")}원`;
+    }
+
+    function percent(value) {
+      if (!Number.isFinite(value)) return "-";
+      return `${value.toLocaleString("ko-KR", {
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 1
+      })}%`;
+    }
+
+    function rate(value) {
+      return value / 100;
+    }
+
+    function applyRounding(value) {
+      if (!Number.isFinite(value)) return 0;
+      return Math.round(value);
+    }
+
+    function earnedIncomeDeduction(grossPay) {
+      let deduction = 0;
+
+      if (grossPay <= 5000000) {
+        deduction = grossPay * 0.7;
+      } else if (grossPay <= 15000000) {
+        deduction = 3500000 + (grossPay - 5000000) * 0.4;
+      } else if (grossPay <= 45000000) {
+        deduction = 7500000 + (grossPay - 15000000) * 0.15;
+      } else if (grossPay <= 100000000) {
+        deduction = 12000000 + (grossPay - 45000000) * 0.05;
+      } else {
+        deduction = 14750000 + (grossPay - 100000000) * 0.02;
+      }
+
+      return Math.min(deduction, 20000000);
+    }
+
+    function progressiveIncomeTax(taxBase) {
+      const base = Math.max(taxBase, 0);
+
+      if (base <= 14000000) {
+        return base * 0.06;
+      }
+
+      if (base <= 50000000) {
+        return base * 0.15 - 1260000;
+      }
+
+      if (base <= 88000000) {
+        return base * 0.24 - 5760000;
+      }
+
+      if (base <= 150000000) {
+        return base * 0.35 - 15440000;
+      }
+
+      if (base <= 300000000) {
+        return base * 0.38 - 19940000;
+      }
+
+      if (base <= 500000000) {
+        return base * 0.40 - 25940000;
+      }
+
+      if (base <= 1000000000) {
+        return base * 0.42 - 35940000;
+      }
+
+      return base * 0.45 - 65940000;
+    }
+
+    function earnedIncomeTaxCredit(calculatedTax, grossPay) {
+      if (calculatedTax <= 0) return 0;
+
+      let credit = 0;
+
+      if (calculatedTax <= 1300000) {
+        credit = calculatedTax * 0.55;
+      } else {
+        credit = 715000 + (calculatedTax - 1300000) * 0.30;
+      }
+
+      let cap = 740000;
+
+      if (grossPay > 33000000 && grossPay <= 70000000) {
+        cap = Math.max(660000, 740000 - (grossPay - 33000000) * 0.008);
+      }
+
+      if (grossPay > 70000000 && grossPay <= 120000000) {
+        cap = Math.max(500000, 660000 - (grossPay - 70000000) * 0.5);
+      }
+
+      if (grossPay > 120000000) {
+        cap = Math.max(200000, 500000 - (grossPay - 120000000) * 0.5);
+      }
+
+      return Math.min(credit, cap, calculatedTax);
+    }
+
+    function childTaxCredit(count) {
+      if (count <= 0) return 0;
+      if (count === 1) return 150000;
+      if (count === 2) return 300000;
+      return 300000 + (count - 2) * 300000;
+    }
+
+    function calculateNetSalary() {
+      const annualSalary = num("annualSalary");
+      const monthlyNonTaxable = Math.min(num("monthlyNonTaxable"), annualSalary / 12);
+      const dependents = Math.max(Math.floor(num("dependents")), 1);
+      const childCount = Math.max(Math.floor(num("childCreditCount")), 0);
+
+      const pensionRate = num("pensionEmployeeRate");
+      const healthTotalRate = num("healthTotalRate");
+      const longCareRate = num("longCareRate");
+      const employmentRate = num("employmentEmployeeRate");
+      const pensionMin = num("pensionMin");
+      const pensionMax = num("pensionMax");
+
+      const taxMode = $("incomeTaxMode").value;
+      const manualIncomeTax = num("manualIncomeTax");
+
+      const monthlyGross = annualSalary / 12;
+      const annualNonTaxable = monthlyNonTaxable * 12;
+      const taxableAnnualSalary = Math.max(annualSalary - annualNonTaxable, 0);
+      const monthlyInsuranceBase = Math.max(monthlyGross - monthlyNonTaxable, 0);
+
+      const pensionBase = Math.min(Math.max(monthlyInsuranceBase, pensionMin), pensionMax || monthlyInsuranceBase);
+      const pension = applyRounding(pensionBase * rate(pensionRate));
+
+      const health = applyRounding(monthlyInsuranceBase * rate(healthTotalRate) / 2);
+      const care = applyRounding(health * rate(longCareRate));
+      const employment = applyRounding(monthlyInsuranceBase * rate(employmentRate));
+
+      const monthlyInsurance = pension + health + care + employment;
+      const annualInsurance = monthlyInsurance * 12;
+
+      const earnedDeduction = earnedIncomeDeduction(taxableAnnualSalary);
+      const earnedIncomeAmount = Math.max(taxableAnnualSalary - earnedDeduction, 0);
+
+      const personalDeduction = dependents * 1500000;
+      const estimatedTaxBase = Math.max(earnedIncomeAmount - personalDeduction - annualInsurance, 0);
+
+      const calculatedAnnualTax = progressiveIncomeTax(estimatedTaxBase);
+      const credit = taxMode === "credit"
+        ? earnedIncomeTaxCredit(calculatedAnnualTax, taxableAnnualSalary) + childTaxCredit(childCount)
+        : 0;
+
+      const annualIncomeTaxByFormula = Math.max(calculatedAnnualTax - credit, 0);
+
+      const monthlyIncomeTax = taxMode === "manual"
+        ? manualIncomeTax
+        : annualIncomeTaxByFormula / 12;
+
+      const monthlyLocalTax = monthlyIncomeTax * 0.10;
+      const monthlyDeduction = monthlyInsurance + monthlyIncomeTax + monthlyLocalTax;
+      const monthlyNet = Math.max(monthlyGross - monthlyDeduction, 0);
+      const annualNet = monthlyNet * 12;
+      const netRate = annualSalary > 0 ? annualNet / annualSalary * 100 : 0;
+
+      setText("monthlyNetPay", won(monthlyNet));
+      setText("monthlyGrossPay", won(monthlyGross));
+      setText("annualNetPay", won(annualNet));
+      setText("monthlyInsurance", won(monthlyInsurance));
+      setText("monthlyIncomeTax", won(monthlyIncomeTax));
+      setText("monthlyLocalTax", won(monthlyLocalTax));
+      setText("monthlyDeduction", won(monthlyDeduction));
+      setText("pensionAmount", won(pension));
+      setText("healthAmount", won(health));
+      setText("careAmount", won(care));
+      setText("employmentAmount", won(employment));
+      setText("earnedIncomeAmount", won(earnedIncomeAmount));
+      setText("taxBaseAmount", won(estimatedTaxBase));
+      setText("netRate", percent(netRate));
+      setText("visualPay", shortWon(monthlyNet));
+
+      let taxText = "";
+
+      if (taxMode === "manual") {
+        taxText = `월 소득세를 직접 입력한 값 ${won(manualIncomeTax)}으로 계산했습니다. `;
+      } else if (taxMode === "credit") {
+        taxText = `근로소득공제, 기본공제, 4대보험 공제, 근로소득세액공제를 간편 반영했습니다. `;
+      } else {
+        taxText = `근로소득공제와 기본세율만 적용해 예상 소득세를 계산했습니다. `;
+      }
+
+      const summary = `${taxText}입력 연봉 ${won(annualSalary)} 기준 월 세전급여는 ${won(monthlyGross)}, 월 예상 실수령액은 약 ${won(monthlyNet)}입니다. 연간 실수령액은 약 ${won(annualNet)}이며, 실수령률은 약 ${percent(netRate)}입니다.`;
+
+      setText("summaryText", summary);
+    }
+
+    function fillExample(type) {
+      if (type === "salary3000") {
+        $("annualSalary").value = "30000000";
+      }
+
+      if (type === "salary4000") {
+        $("annualSalary").value = "40000000";
+      }
+
+      if (type === "salary5000") {
+        $("annualSalary").value = "50000000";
+      }
+
+      if (type === "salary7000") {
+        $("annualSalary").value = "70000000";
+      }
+
+      $("monthlyNonTaxable").value = "200000";
+      $("dependents").value = "1";
+      $("childCreditCount").value = "0";
+      calculateNetSalary();
+    }
+
+    function resetForm() {
+      $("annualSalary").value = "40000000";
+      $("monthlyNonTaxable").value = "200000";
+      $("dependents").value = "1";
+      $("childCreditCount").value = "0";
+      $("pensionEmployeeRate").value = "4.5";
+      $("healthTotalRate").value = "7.09";
+      $("longCareRate").value = "12.95";
+      $("employmentEmployeeRate").value = "0.9";
+      $("pensionMin").value = "390000";
+      $("pensionMax").value = "6170000";
+      $("incomeTaxMode").value = "credit";
+      $("manualIncomeTax").value = "0";
+      calculateNetSalary();
+    }
+
+    [
+      "annualSalary",
+      "monthlyNonTaxable",
+      "dependents",
+      "childCreditCount",
+      "pensionEmployeeRate",
+      "healthTotalRate",
+      "longCareRate",
+      "employmentEmployeeRate",
+      "pensionMin",
+      "pensionMax",
+      "incomeTaxMode",
+      "manualIncomeTax"
+    ].forEach((id) => {
+      $(id).addEventListener("input", calculateNetSalary);
+      $(id).addEventListener("change", calculateNetSalary);
+    });
+
+    calculateNetSalary();
+  </script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'></script>
+  <!-- End Cloudflare Web Analytics -->
+</body>
+</html>
