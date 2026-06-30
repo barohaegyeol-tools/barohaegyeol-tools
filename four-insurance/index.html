@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>4대보험 계산기｜월급에서 실제로 얼마나 빠질까｜바로해결툴즈</title>
+  <meta name="description" content="월급, 국민연금, 건강보험, 장기요양보험, 고용보험, 산재보험 요율을 입력하면 근로자 부담액과 사업주 부담액, 총 4대보험 비용을 계산합니다." />
+  <meta name="keywords" content="4대보험 계산기, 국민연금 계산기, 건강보험 계산기, 고용보험 계산기, 산재보험 계산기, 월급 공제 계산, 4대보험료, 바로해결툴즈" />
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/four-insurance/" />
+  <meta name="theme-color" content="#f5f3ff" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="4대보험 계산기｜월급에서 실제로 얼마나 빠질까" />
+  <meta property="og:description" content="월급을 입력하면 국민연금·건강보험·장기요양·고용보험 근로자 부담액과 사업주 부담액을 계산합니다." />
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/four-insurance/" />
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"4대보험 계산기",
+    "url":"https://barohaegyeol-tools.pages.dev/four-insurance/",
+    "applicationCategory":"FinanceApplication",
+    "operatingSystem":"All",
+    "description":"월급과 4대보험 요율을 기준으로 근로자 부담액, 사업주 부담액, 총 보험료를 계산하는 무료 생활 계산기입니다.",
+    "publisher":{
+      "@type":"Organization",
+      "name":"바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg1:#f5f3ff;
+      --bg2:#eff6ff;
+      --bg3:#ecfeff;
+      --text:#0f172a;
+      --sub:#334155;
+      --muted:#64748b;
+      --line:rgba(15,23,42,.10);
+      --white:rgba(255,255,255,.88);
+
+      --purple:#7c3aed;
+      --blue:#2563eb;
+      --sky:#38bdf8;
+      --cyan:#06b6d4;
+      --teal:#14b8a6;
+      --green:#22c55e;
+      --amber:#f59e0b;
+      --orange:#fb923c;
+      --red:#ef4444;
+      --navy:#0f172a;
+
+      --shadow:0 24px 70px rgba(124,58,237,.14);
+      --shadow2:0 14px 34px rgba(15,23,42,.08);
+      --radius:28px;
+      --max:1180px;
+    }
+
+    * {
+      box-sizing:border-box;
+    }
+
+    html {
+      scroll-behavior:smooth;
+    }
+
+    body {
+      margin:0;
+      min-height:100vh;
+      color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;
+      line-height:1.65;
+      background:
+        radial-gradient(circle at 10% 8%, rgba(124,58,237,.20), transparent 25%),
+        radial-gradient(circle at 88% 10%, rgba(56,189,248,.18), transparent 24%),
+        radial-gradient(circle at 84% 88%, rgba(34,197,94,.13), transparent 25%),
+        linear-gradient(135deg,var(--bg1) 0%, var(--bg2) 48%, var(--bg3) 100%);
+      overflow-x:hidden;
+    }
+
+    body::before {
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.18;
+      background-image:
+        radial-gradient(circle, rgba(124,58,237,.24) 1px, transparent 1.2px),
+        radial-gradient(circle, rgba(37,99,235,.16) 1px, transparent 1.2px);
+      background-size:32px 32px, 76px 76px;
+      background-position:0 0, 22px 26px;
+      mask-image:linear-gradient(to bottom,#000 0%,#000 68%,transparent 100%);
+    }
+
+    a {
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button,
+    input,
+    select {
+      font:inherit;
+    }
+
+    button {
+      cursor:pointer;
+    }
+
+    .wrap {
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+    }
+
+    .topbar {
+      position:sticky;
+      top:0;
+      z-index:50;
+      border-bottom:1px solid rgba(15,23,42,.07);
+      background:rgba(245,243,255,.78);
+      backdrop-filter:blur(18px);
+    }
+
+    .nav {
+      min-height:68px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:950;
+      letter-spacing:-.045em;
+    }
+
+    .brand-mark {
+      width:42px;
+      height:42px;
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      background:conic-gradient(from 150deg,#7c3aed,#2563eb,#06b6d4,#22c55e,#f59e0b,#7c3aed);
+      box-shadow:0 16px 36px rgba(124,58,237,.24);
+      font-weight:950;
+    }
+
+    .brand small {
+      display:block;
+      margin-top:1px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:-.02em;
+    }
+
+    .nav-links {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      white-space:nowrap;
+    }
+
+    .nav-links a {
+      padding:9px 13px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.78);
+      color:#26364a;
+      font-size:14px;
+      font-weight:850;
+      box-shadow:var(--shadow2);
+    }
+
+    .hero {
+      padding:58px 0 28px;
+    }
+
+    .hero-grid {
+      display:grid;
+      grid-template-columns:1.02fr .98fr;
+      align-items:center;
+      gap:32px;
+    }
+
+    .chips {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:16px;
+    }
+
+    .chip {
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.82);
+      color:#334155;
+      font-size:13px;
+      font-weight:900;
+      box-shadow:var(--shadow2);
+    }
+
+    .chip.hot {
+      color:#6d28d9;
+      background:linear-gradient(135deg,rgba(237,233,254,.98),rgba(255,255,255,.92));
+    }
+
+    h1 {
+      margin:0;
+      max-width:780px;
+      font-size:clamp(38px,6.1vw,74px);
+      line-height:1.04;
+      letter-spacing:-.078em;
+    }
+
+    .gradient {
+      color:transparent;
+      background:linear-gradient(90deg,#7c3aed 0%, #2563eb 44%, #14b8a6 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+    }
+
+    .lead {
+      margin:20px 0 0;
+      max-width:700px;
+      color:#34465c;
+      font-size:clamp(16px,2vw,19px);
+      line-height:1.82;
+      letter-spacing:-.015em;
+      word-break:keep-all;
+    }
+
+    .lead strong {
+      color:#6d28d9;
+      font-weight:950;
+    }
+
+    .hero-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:26px;
+    }
+
+    .btn {
+      min-height:50px;
+      padding:13px 18px;
+      border-radius:17px;
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      gap:8px;
+      border:1px solid transparent;
+      font-weight:950;
+      letter-spacing:-.025em;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+
+    .btn:hover {
+      transform:translateY(-2px);
+    }
+
+    .btn-primary {
+      color:#fff;
+      background:linear-gradient(135deg,#7c3aed,#2563eb,#14b8a6);
+      box-shadow:0 16px 38px rgba(124,58,237,.24);
+    }
+
+    .btn-ghost {
+      color:#122033;
+      background:rgba(255,255,255,.82);
+      border-color:rgba(15,23,42,.08);
+    }
+
+    .visual {
+      position:relative;
+      min-height:424px;
+      border-radius:40px;
+      border:1px solid rgba(15,23,42,.08);
+      background:
+        radial-gradient(circle at 78% 15%, rgba(124,58,237,.20), transparent 22%),
+        radial-gradient(circle at 17% 86%, rgba(56,189,248,.19), transparent 23%),
+        linear-gradient(145deg,rgba(255,255,255,.96),rgba(245,243,255,.84));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      padding:26px;
+    }
+
+    .visual-panel {
+      position:absolute;
+      left:26px;
+      right:26px;
+      top:26px;
+      height:188px;
+      border-radius:30px;
+      background:
+        linear-gradient(rgba(15,23,42,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,23,42,.045) 1px, transparent 1px),
+        linear-gradient(180deg,rgba(255,255,255,.96),rgba(245,243,255,.94));
+      background-size:38px 38px,38px 38px,auto;
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      overflow:hidden;
+    }
+
+    .pay-line {
+      position:absolute;
+      left:28px;
+      right:28px;
+      bottom:26px;
+      height:62px;
+      border-radius:999px;
+      background:linear-gradient(90deg,#7c3aed,#2563eb,#14b8a6);
+      opacity:.92;
+      overflow:hidden;
+    }
+
+    .pay-line::before {
+      content:"";
+      position:absolute;
+      left:24px;
+      right:24px;
+      top:28px;
+      height:5px;
+      border-radius:999px;
+      background:repeating-linear-gradient(90deg,rgba(255,255,255,.82) 0 28px,transparent 28px 48px);
+    }
+
+    .pay-slip {
+      position:absolute;
+      left:42px;
+      top:42px;
+      width:232px;
+      height:146px;
+      border-radius:24px;
+      background:#fff;
+      border:3px solid #7c3aed;
+      box-shadow:0 18px 34px rgba(15,23,42,.12);
+      overflow:hidden;
+    }
+
+    .slip-head {
+      height:36px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 14px;
+      background:linear-gradient(90deg,#ede9fe,#dbeafe);
+      color:#6d28d9;
+      font-weight:950;
+      font-size:13px;
+    }
+
+    .slip-lines {
+      padding:15px;
+      display:grid;
+      gap:9px;
+    }
+
+    .slip-row {
+      display:grid;
+      grid-template-columns:1fr 72px;
+      gap:10px;
+      align-items:center;
+    }
+
+    .slip-row span {
+      height:8px;
+      border-radius:999px;
+      background:#e0e7ff;
+    }
+
+    .slip-row strong {
+      height:12px;
+      border-radius:999px;
+      background:#bfdbfe;
+    }
+
+    .shield-card {
+      position:absolute;
+      right:40px;
+      top:42px;
+      width:156px;
+      height:156px;
+      border-radius:34px;
+      background:#fff;
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:0 22px 48px rgba(15,23,42,.15);
+      display:grid;
+      place-items:center;
+    }
+
+    .shield {
+      width:96px;
+      height:110px;
+      position:relative;
+      background:linear-gradient(135deg,#7c3aed,#2563eb,#14b8a6);
+      clip-path:polygon(50% 0%, 88% 16%, 82% 74%, 50% 100%, 18% 74%, 12% 16%);
+      box-shadow:0 18px 34px rgba(37,99,235,.20);
+    }
+
+    .shield::before {
+      content:"4";
+      position:absolute;
+      inset:18px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      font-size:42px;
+      font-weight:950;
+      border:3px solid rgba(255,255,255,.72);
+      clip-path:polygon(50% 0%, 88% 16%, 82% 74%, 50% 100%, 18% 74%, 12% 16%);
+    }
+
+    .result-ticket {
+      position:absolute;
+      left:28px;
+      bottom:26px;
+      width:292px;
+      padding:19px;
+      border-radius:26px;
+      background:linear-gradient(135deg,#fff,#f5f3ff);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .result-ticket span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .result-ticket strong {
+      display:block;
+      margin-top:7px;
+      color:#6d28d9;
+      font-size:34px;
+      line-height:1;
+      letter-spacing:-.05em;
+    }
+
+    .penguin-card {
+      position:absolute;
+      right:28px;
+      bottom:26px;
+      width:174px;
+      height:174px;
+      border-radius:38px;
+      border:1px solid rgba(15,23,42,.08);
+      background:linear-gradient(145deg,#fff,#dbeafe);
+      box-shadow:var(--shadow2);
+    }
+
+    .penguin-body {
+      position:absolute;
+      left:38px;
+      top:42px;
+      width:98px;
+      height:102px;
+      border-radius:48px 48px 42px 42px;
+      background:#0f172a;
+      border:4px solid #334155;
+    }
+
+    .penguin-belly {
+      position:absolute;
+      left:20px;
+      top:28px;
+      width:50px;
+      height:62px;
+      border-radius:999px;
+      background:#fff;
+    }
+
+    .penguin-eye {
+      position:absolute;
+      top:23px;
+      width:9px;
+      height:12px;
+      border-radius:999px;
+      background:#fff;
+    }
+
+    .penguin-eye.left {
+      left:29px;
+    }
+
+    .penguin-eye.right {
+      right:29px;
+    }
+
+    .penguin-beak {
+      position:absolute;
+      left:50%;
+      top:39px;
+      width:0;
+      height:0;
+      border-left:8px solid transparent;
+      border-right:8px solid transparent;
+      border-top:12px solid #f59e0b;
+      transform:translateX(-50%);
+    }
+
+    .card-mini {
+      position:absolute;
+      left:14px;
+      bottom:16px;
+      width:58px;
+      height:46px;
+      border-radius:13px;
+      background:linear-gradient(135deg,#7c3aed,#14b8a6);
+      border:3px solid #0f172a;
+      transform:rotate(-8deg);
+    }
+
+    .card-mini::before,
+    .card-mini::after {
+      content:"";
+      position:absolute;
+      left:10px;
+      right:10px;
+      height:5px;
+      border-radius:999px;
+      background:#fff;
+    }
+
+    .card-mini::before {
+      top:13px;
+    }
+
+    .card-mini::after {
+      top:25px;
+      width:24px;
+    }
+
+    .badge-mini {
+      position:absolute;
+      right:14px;
+      top:14px;
+      padding:8px 10px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#ede9fe,#dbeafe);
+      color:#6d28d9;
+      font-size:12px;
+      font-weight:950;
+      box-shadow:var(--shadow2);
+      z-index:5;
+    }
+
+    .section {
+      padding:22px 0;
+    }
+
+    .tool-grid {
+      display:grid;
+      grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);
+      gap:22px;
+      align-items:start;
+    }
+
+    .panel {
+      padding:24px;
+      border-radius:var(--radius);
+      border:1px solid rgba(15,23,42,.08);
+      background:var(--white);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);
+    }
+
+    .panel h2 {
+      margin:0 0 12px;
+      font-size:27px;
+      line-height:1.2;
+      letter-spacing:-.052em;
+    }
+
+    .desc {
+      margin:-4px 0 18px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    .form {
+      display:grid;
+      gap:14px;
+    }
+
+    .field label {
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom:8px;
+      color:#122033;
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .field small {
+      color:var(--muted);
+      font-weight:750;
+    }
+
+    .input-wrap {
+      position:relative;
+    }
+
+    input,
+    select {
+      width:100%;
+      min-height:54px;
+      padding:14px 54px 14px 15px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.10);
+      background:rgba(255,255,255,.94);
+      color:#122033;
+      font-size:16px;
+      font-weight:850;
+      outline:none;
+      transition:.16s ease;
+    }
+
+    select {
+      padding-right:15px;
+      appearance:none;
+      cursor:pointer;
+    }
+
+    input:focus,
+    select:focus {
+      border-color:rgba(124,58,237,.48);
+      box-shadow:0 0 0 4px rgba(124,58,237,.12);
+    }
+
+    .unit {
+      position:absolute;
+      top:50%;
+      right:15px;
+      transform:translateY(-50%);
+      color:var(--muted);
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .row {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .preset {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .preset button {
+      padding:8px 11px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:#fff;
+      color:#334155;
+      font-size:12px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .calc-btn {
+      width:100%;
+      min-height:58px;
+      margin-top:6px;
+      border:0;
+      border-radius:18px;
+      color:#fff;
+      background:linear-gradient(135deg,#7c3aed,#2563eb,#14b8a6);
+      font-size:17px;
+      font-weight:950;
+      cursor:pointer;
+      box-shadow:0 16px 34px rgba(124,58,237,.24);
+    }
+
+    .reset-btn {
+      width:100%;
+      min-height:48px;
+      margin-top:10px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.86);
+      color:#122033;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .notice {
+      margin-top:12px;
+      padding:13px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(15,23,42,.08);
+      color:#526173;
+      font-size:13px;
+      line-height:1.75;
+      font-weight:760;
+      word-break:keep-all;
+    }
+
+    .warning {
+      border-color:rgba(245,158,11,.25);
+      background:rgba(255,251,235,.82);
+      color:#92400e;
+    }
+
+    .result-box {
+      display:grid;
+      gap:14px;
+    }
+
+    .result-main {
+      padding:24px;
+      border-radius:26px;
+      color:#122033;
+      background:
+        radial-gradient(circle at 84% 18%, rgba(255,255,255,.42), transparent 26%),
+        linear-gradient(135deg,#ddd6fe,#bfdbfe 54%,#99f6e4);
+      box-shadow:var(--shadow2);
+    }
+
+    .result-main span {
+      display:block;
+      font-size:14px;
+      opacity:.82;
+      font-weight:900;
+    }
+
+    .result-main strong {
+      display:block;
+      margin-top:8px;
+      font-size:clamp(36px,5vw,58px);
+      line-height:1;
+      letter-spacing:-.06em;
+    }
+
+    .result-main em {
+      display:block;
+      margin-top:10px;
+      font-size:14px;
+      line-height:1.75;
+      font-style:normal;
+      font-weight:850;
+      opacity:.88;
+      word-break:keep-all;
+    }
+
+    .result-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .metric {
+      padding:18px;
+      border-radius:20px;
+      background:rgba(255,255,255,.84);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .metric span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .metric strong {
+      display:block;
+      margin-top:7px;
+      color:#122033;
+      font-size:24px;
+      letter-spacing:-.045em;
+    }
+
+    .metric.full {
+      grid-column:1/-1;
+    }
+
+    .good {
+      color:#0f766e !important;
+    }
+
+    .warn {
+      color:#d97706 !important;
+    }
+
+    .bad {
+      color:#e11d48 !important;
+    }
+
+    .guide-grid {
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .guide {
+      padding:20px;
+      border-radius:22px;
+      background:rgba(255,255,255,.80);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .guide b {
+      display:block;
+      margin-bottom:8px;
+      font-size:17px;
+      letter-spacing:-.03em;
+    }
+
+    .guide p {
+      margin:0;
+      color:#526173;
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    .related-grid {
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .related-card {
+      padding:16px;
+      border-radius:20px;
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      font-weight:900;
+      color:#24415f;
+      line-height:1.45;
+    }
+
+    footer {
+      padding:44px 0 54px;
+      color:var(--muted);
+      text-align:center;
+      font-size:13px;
+    }
+
+    @media (max-width:1040px) {
+      .guide-grid {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+    }
+
+    @media (max-width:920px) {
+      .hero-grid,
+      .tool-grid {
+        grid-template-columns:1fr;
+      }
+
+      .hero {
+        padding-top:42px;
+      }
+    }
+
+    @media (max-width:720px) {
+      .related-grid {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+    }
+
+    @media (max-width:640px) {
+      .nav {
+        align-items:flex-start;
+        flex-direction:column;
+        padding:12px 0;
+      }
+
+      .nav-links {
+        width:100%;
+        overflow-x:auto;
+        padding-bottom:4px;
+      }
+
+      .hero-actions {
+        display:grid;
+      }
+
+      .btn {
+        width:100%;
+      }
+
+      .row,
+      .result-grid,
+      .guide-grid,
+      .related-grid {
+        grid-template-columns:1fr;
+      }
+
+      .visual {
+        min-height:374px;
+      }
+
+      .pay-slip {
+        left:24px;
+        width:172px;
+      }
+
+      .shield-card {
+        right:24px;
+        width:122px;
+        height:138px;
+      }
+
+      .shield {
+        width:76px;
+        height:90px;
+      }
+
+      .result-ticket {
+        width:220px;
+      }
+
+      .penguin-card {
+        width:138px;
+        height:138px;
+        right:18px;
+      }
+
+      .penguin-body {
+        left:24px;
+        top:42px;
+        width:90px;
+        height:88px;
+      }
+
+      .penguin-belly {
+        width:46px;
+        height:54px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="../" aria-label="바로해결툴즈 메인으로 이동">
+        <div class="brand-mark">B</div>
+        <div>
+          바로해결툴즈
+          <small>월급 공제 · 4대보험 · 바로 확인</small>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="주요 도구">
+        <a href="../">전체 도구</a>
+        <a href="../weekly-holiday-pay/">주휴수당</a>
+        <a href="../severance-pay/">퇴직금</a>
+        <a href="../unemployment-benefit/">실업급여</a>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="chips">
+            <span class="chip hot">🛡️ 4대보험 계산</span>
+            <span class="chip">근로자 부담</span>
+            <span class="chip">사업주 부담</span>
+          </div>
+
+          <h1>
+            월급에서 빠지는 4대보험<br>
+            <span class="gradient">한 번에 계산하세요</span>
+          </h1>
+
+          <p class="lead">
+            월급을 입력하면 국민연금, 건강보험, 장기요양보험, 고용보험을 기준으로
+            <strong>근로자 공제액, 사업주 부담액, 총 보험료</strong>를 계산합니다.
+            산재보험은 업종별로 다르기 때문에 사업주 부담 요율을 직접 조정할 수 있습니다.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#calculator">4대보험 계산하기</a>
+            <a class="btn btn-ghost" href="#guide">요율 기준 보기</a>
+          </div>
+        </div>
+
+        <div class="visual" aria-label="4대보험 계산 예시">
+          <div class="visual-panel">
+            <div class="pay-line"></div>
+
+            <div class="pay-slip">
+              <div class="slip-head">
+                <span>급여명세서</span>
+                <span>4 INS</span>
+              </div>
+              <div class="slip-lines">
+                <div class="slip-row"><span></span><strong></strong></div>
+                <div class="slip-row"><span></span><strong></strong></div>
+                <div class="slip-row"><span></span><strong></strong></div>
+                <div class="slip-row"><span></span><strong></strong></div>
+              </div>
+            </div>
+
+            <div class="shield-card">
+              <div class="shield"></div>
+            </div>
+          </div>
+
+          <div class="result-ticket">
+            <span>근로자 공제액</span>
+            <strong id="visualPay">약 28만원</strong>
+          </div>
+
+          <div class="penguin-card" aria-hidden="true">
+            <div class="badge-mini">PAY</div>
+            <div class="penguin-body">
+              <div class="penguin-belly"></div>
+              <div class="penguin-eye left"></div>
+              <div class="penguin-eye right"></div>
+              <div class="penguin-beak"></div>
+            </div>
+            <div class="card-mini"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="calculator">
+      <div class="wrap tool-grid">
+        <div class="panel">
+          <h2>4대보험 계산기</h2>
+          <p class="desc">
+            월 보수액과 보험요율을 입력하면 근로자 부담액과 사업주 부담액을 나눠 계산합니다.
+            요율과 기준소득월액은 매년 달라질 수 있으므로 실제 급여 반영 전 최신 기준으로 수정하세요.
+          </p>
+
+          <form class="form" onsubmit="event.preventDefault(); calculateInsurance();">
+            <div class="field">
+              <label for="monthlySalary">
+                월 보수액
+                <small>세전 월급 기준</small>
+              </label>
+              <div class="input-wrap">
+                <input id="monthlySalary" type="number" min="0" step="1000" value="3000000" placeholder="예: 3000000">
+                <span class="unit">원</span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="pensionEmployeeRate">
+                  국민연금 근로자 요율
+                  <small>수정 가능</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="pensionEmployeeRate" type="number" min="0" step="0.01" value="4.5">
+                  <span class="unit">%</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="pensionEmployerRate">
+                  국민연금 사업주 요율
+                  <small>수정 가능</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="pensionEmployerRate" type="number" min="0" step="0.01" value="4.5">
+                  <span class="unit">%</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="pensionMin">
+                  국민연금 하한 기준소득
+                  <small>최신 기준 수정</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="pensionMin" type="number" min="0" step="1000" value="390000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="pensionMax">
+                  국민연금 상한 기준소득
+                  <small>최신 기준 수정</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="pensionMax" type="number" min="0" step="1000" value="6170000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="healthTotalRate">
+                  건강보험 총 요율
+                  <small>근로자·사업주 반반</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="healthTotalRate" type="number" min="0" step="0.001" value="7.09">
+                  <span class="unit">%</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="longCareRate">
+                  장기요양보험 요율
+                  <small>건강보험료 대비</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="longCareRate" type="number" min="0" step="0.01" value="12.95">
+                  <span class="unit">%</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="employmentEmployeeRate">
+                  고용보험 근로자 요율
+                  <small>실업급여 부담</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="employmentEmployeeRate" type="number" min="0" step="0.01" value="0.9">
+                  <span class="unit">%</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="employmentEmployerRate">
+                  고용보험 사업주 요율
+                  <small>규모별 추가부담 포함 가능</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="employmentEmployerRate" type="number" min="0" step="0.01" value="1.15">
+                  <span class="unit">%</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="industrialRate">
+                  산재보험 사업주 요율
+                  <small>업종별 다름</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="industrialRate" type="number" min="0" step="0.01" value="0.7">
+                  <span class="unit">%</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="roundingMode">
+                  반올림 방식
+                  <small>급여 프로그램별 상이</small>
+                </label>
+                <div class="input-wrap">
+                  <select id="roundingMode">
+                    <option value="round">원 단위 반올림</option>
+                    <option value="floor">원 단위 버림</option>
+                    <option value="ceil">원 단위 올림</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="preset">
+              <button type="button" onclick="fillExample('salary250')">월 250만원</button>
+              <button type="button" onclick="fillExample('salary300')">월 300만원</button>
+              <button type="button" onclick="fillExample('salary400')">월 400만원</button>
+              <button type="button" onclick="fillExample('salary600')">월 600만원</button>
+            </div>
+
+            <button class="calc-btn" type="submit">4대보험 계산하기</button>
+            <button class="reset-btn" type="button" onclick="resetForm()">입력값 초기화</button>
+          </form>
+
+          <div class="notice warning">
+            이 계산기는 참고용입니다. 국민연금 기준소득월액 상·하한, 건강보험료율, 장기요양보험료율,
+            고용보험 사업주 부담률, 산재보험 업종별 요율은 매년 또는 사업장별로 달라질 수 있습니다.
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>계산 결과</h2>
+          <p class="desc">
+            근로자 공제액과 사업주 부담액을 분리해서 확인하세요.
+          </p>
+
+          <div class="result-box">
+            <div class="result-main">
+              <span>근로자 월 공제액 합계</span>
+              <strong id="employeeTotal">-</strong>
+              <em id="summaryText">값을 입력하고 계산 버튼을 눌러주세요.</em>
+            </div>
+
+            <div class="result-grid">
+              <div class="metric">
+                <span>국민연금 근로자</span>
+                <strong id="pensionEmployee">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>국민연금 사업주</span>
+                <strong id="pensionEmployer">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>건강보험 근로자</span>
+                <strong id="healthEmployee">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>건강보험 사업주</span>
+                <strong id="healthEmployer">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>장기요양 근로자</span>
+                <strong id="careEmployee">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>장기요양 사업주</span>
+                <strong id="careEmployer">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>고용보험 근로자</span>
+                <strong id="employmentEmployee">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>고용보험 사업주</span>
+                <strong id="employmentEmployer">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>산재보험 사업주</span>
+                <strong id="industrialEmployer">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>사업주 부담 합계</span>
+                <strong id="employerTotal">-</strong>
+              </div>
+
+              <div class="metric full">
+                <span>근로자+사업주 총 보험료</span>
+                <strong id="grandTotal">-</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice">
+            산재보험은 근로자 부담이 아니라 사업주 부담으로 계산했습니다.
+            실제 산재보험료율은 업종과 사업장 상태에 따라 달라질 수 있습니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="guide">
+      <div class="wrap">
+        <div class="panel">
+          <h2>4대보험 계산 기준</h2>
+
+          <div class="guide-grid">
+            <div class="guide">
+              <b>국민연금</b>
+              <p>
+                기준소득월액에 요율을 적용합니다. 상한·하한 기준이 있어 월급이 너무 낮거나 높으면
+                입력 월급과 계산 기준금액이 달라질 수 있습니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>건강보험</b>
+              <p>
+                보수월액에 건강보험료율을 적용하고, 근로자와 사업주가 나누어 부담하는 구조로 계산했습니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>장기요양보험</b>
+              <p>
+                건강보험료에 장기요양보험료율을 곱해 계산했습니다.
+                요율은 매년 바뀔 수 있어 입력값으로 조정할 수 있습니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>고용·산재보험</b>
+              <p>
+                고용보험은 근로자와 사업주 부담을 나누고, 산재보험은 사업주 부담으로 계산했습니다.
+                사업장 규모와 업종에 따라 달라질 수 있습니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="notice warning">
+            실제 급여 공제액은 비과세 항목, 보수월액 신고, 정산, 입사·퇴사 월 일할계산, 사업장 규모,
+            업종별 산재요율, 급여 프로그램의 원단위 처리 방식에 따라 달라질 수 있습니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="panel">
+          <h2>같이 보면 좋은 도구</h2>
+          <p class="desc">
+            월급 공제액을 확인했다면 주휴수당, 퇴직금, 실업급여도 함께 확인해보세요.
+          </p>
+
+          <div class="related-grid">
+            <a class="related-card" href="../">전체 도구 보기</a>
+            <a class="related-card" href="../weekly-holiday-pay/">주휴수당 계산기</a>
+            <a class="related-card" href="../severance-pay/">퇴직금 계산기</a>
+            <a class="related-card" href="../unemployment-benefit/">실업급여 계산기</a>
+          </div>
+
+          <div class="notice">
+            예정 도구: 최저시급 월급 계산기, 월급 실수령액 계산기, 연봉 실수령액 계산기, 건강보험료 계산기.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 바로해결툴즈 · 4대보험 계산 결과는 참고용입니다. 실제 보험료는 최신 공식 요율, 사업장 신고 기준, 급여 항목, 업종별 산재요율에 따라 달라질 수 있습니다.
+  </footer>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    function num(id) {
+      const value = Number($(id).value);
+      return Number.isFinite(value) ? value : 0;
+    }
+
+    function setText(id, value) {
+      $(id).textContent = value;
+    }
+
+    function applyRounding(value) {
+      const mode = $("roundingMode").value;
+
+      if (!Number.isFinite(value)) return 0;
+      if (mode === "floor") return Math.floor(value);
+      if (mode === "ceil") return Math.ceil(value);
+      return Math.round(value);
+    }
+
+    function won(value) {
+      if (!Number.isFinite(value)) return "-";
+      return `${Math.round(value).toLocaleString("ko-KR")}원`;
+    }
+
+    function shortWon(value) {
+      if (!Number.isFinite(value)) return "-";
+
+      const rounded = Math.round(value);
+
+      if (rounded >= 100000000) {
+        return `약 ${(rounded / 100000000).toFixed(1)}억`;
+      }
+
+      if (rounded >= 10000) {
+        return `약 ${Math.round(rounded / 10000).toLocaleString("ko-KR")}만원`;
+      }
+
+      return `약 ${rounded.toLocaleString("ko-KR")}원`;
+    }
+
+    function rate(value) {
+      return value / 100;
+    }
+
+    function calculateInsurance() {
+      const salary = num("monthlySalary");
+
+      const pensionEmployeeRate = num("pensionEmployeeRate");
+      const pensionEmployerRate = num("pensionEmployerRate");
+      const pensionMin = num("pensionMin");
+      const pensionMax = num("pensionMax");
+
+      const healthTotalRate = num("healthTotalRate");
+      const longCareRate = num("longCareRate");
+
+      const employmentEmployeeRate = num("employmentEmployeeRate");
+      const employmentEmployerRate = num("employmentEmployerRate");
+      const industrialRate = num("industrialRate");
+
+      const pensionBase = Math.min(Math.max(salary, pensionMin), pensionMax || salary);
+
+      const pensionEmployee = applyRounding(pensionBase * rate(pensionEmployeeRate));
+      const pensionEmployer = applyRounding(pensionBase * rate(pensionEmployerRate));
+
+      const totalHealth = applyRounding(salary * rate(healthTotalRate));
+      const healthEmployee = applyRounding(totalHealth / 2);
+      const healthEmployer = applyRounding(totalHealth / 2);
+
+      const careEmployee = applyRounding(healthEmployee * rate(longCareRate));
+      const careEmployer = applyRounding(healthEmployer * rate(longCareRate));
+
+      const employmentEmployee = applyRounding(salary * rate(employmentEmployeeRate));
+      const employmentEmployer = applyRounding(salary * rate(employmentEmployerRate));
+
+      const industrialEmployer = applyRounding(salary * rate(industrialRate));
+
+      const employeeTotal = pensionEmployee + healthEmployee + careEmployee + employmentEmployee;
+      const employerTotal = pensionEmployer + healthEmployer + careEmployer + employmentEmployer + industrialEmployer;
+      const grandTotal = employeeTotal + employerTotal;
+
+      setText("employeeTotal", won(employeeTotal));
+      setText("pensionEmployee", won(pensionEmployee));
+      setText("pensionEmployer", won(pensionEmployer));
+      setText("healthEmployee", won(healthEmployee));
+      setText("healthEmployer", won(healthEmployer));
+      setText("careEmployee", won(careEmployee));
+      setText("careEmployer", won(careEmployer));
+      setText("employmentEmployee", won(employmentEmployee));
+      setText("employmentEmployer", won(employmentEmployer));
+      setText("industrialEmployer", won(industrialEmployer));
+      setText("employerTotal", won(employerTotal));
+      setText("grandTotal", won(grandTotal));
+      setText("visualPay", shortWon(employeeTotal));
+
+      let pensionNote = "";
+
+      if (salary < pensionMin) {
+        pensionNote = `국민연금은 입력 월급보다 높은 하한 기준소득월액 ${won(pensionMin)}을 기준으로 계산했습니다. `;
+      } else if (pensionMax > 0 && salary > pensionMax) {
+        pensionNote = `국민연금은 입력 월급보다 낮은 상한 기준소득월액 ${won(pensionMax)}을 기준으로 계산했습니다. `;
+      }
+
+      const summary = `${pensionNote}입력 월급 ${won(salary)} 기준 근로자 월 공제액은 약 ${won(employeeTotal)}, 사업주 부담액은 약 ${won(employerTotal)}입니다. 근로자와 사업주를 합친 총 보험료는 약 ${won(grandTotal)}입니다.`;
+
+      setText("summaryText", summary);
+    }
+
+    function fillExample(type) {
+      if (type === "salary250") {
+        $("monthlySalary").value = "2500000";
+      }
+
+      if (type === "salary300") {
+        $("monthlySalary").value = "3000000";
+      }
+
+      if (type === "salary400") {
+        $("monthlySalary").value = "4000000";
+      }
+
+      if (type === "salary600") {
+        $("monthlySalary").value = "6000000";
+      }
+
+      calculateInsurance();
+    }
+
+    function resetForm() {
+      $("monthlySalary").value = "3000000";
+      $("pensionEmployeeRate").value = "4.5";
+      $("pensionEmployerRate").value = "4.5";
+      $("pensionMin").value = "390000";
+      $("pensionMax").value = "6170000";
+      $("healthTotalRate").value = "7.09";
+      $("longCareRate").value = "12.95";
+      $("employmentEmployeeRate").value = "0.9";
+      $("employmentEmployerRate").value = "1.15";
+      $("industrialRate").value = "0.7";
+      $("roundingMode").value = "round";
+      calculateInsurance();
+    }
+
+    [
+      "monthlySalary",
+      "pensionEmployeeRate",
+      "pensionEmployerRate",
+      "pensionMin",
+      "pensionMax",
+      "healthTotalRate",
+      "longCareRate",
+      "employmentEmployeeRate",
+      "employmentEmployerRate",
+      "industrialRate",
+      "roundingMode"
+    ].forEach((id) => {
+      $(id).addEventListener("input", calculateInsurance);
+      $(id).addEventListener("change", calculateInsurance);
+    });
+
+    calculateInsurance();
+  </script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'></script>
+  <!-- End Cloudflare Web Analytics -->
+</body>
+</html>
