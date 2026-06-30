@@ -1,0 +1,1765 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>국민연금 예상수령액 조회｜노령연금 월 예상액 계산｜바로해결툴즈</title>
+  <meta name="description" content="현재 나이, 예상 수급 나이, 가입기간, 월 납부보험료 또는 기준소득월액을 입력하면 국민연금 예상수령액, 총 납부액, 예상 수령 시작 시점, 회수기간을 계산할 수 있는 무료 국민연금 계산기입니다." />
+  <meta name="keywords" content="국민연금 예상수령액 조회, 국민연금 계산기, 노령연금 예상수령액, 국민연금 수령나이, 국민연금 납부액 계산, 연금 예상액, 바로해결툴즈" />
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/national-pension/" />
+  <meta name="theme-color" content="#f5f3ff" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="국민연금 예상수령액 조회｜노령연금 월 예상액 계산" />
+  <meta property="og:description" content="가입기간과 월 납부액을 입력하면 국민연금 예상수령액, 총 납부액, 예상 회수기간을 바로 계산합니다." />
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/national-pension/" />
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"국민연금 예상수령액 조회",
+    "url":"https://barohaegyeol-tools.pages.dev/national-pension/",
+    "applicationCategory":"FinanceApplication",
+    "operatingSystem":"All",
+    "description":"현재 나이, 예상 수급 나이, 가입기간, 월 납부보험료 또는 기준소득월액을 기준으로 국민연금 예상수령액과 총 납부액을 계산하는 무료 생활 계산기입니다.",
+    "publisher":{
+      "@type":"Organization",
+      "name":"바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg1:#f5f3ff;
+      --bg2:#fffbeb;
+      --bg3:#f8fafc;
+      --ink:#0f172a;
+      --text:#27364a;
+      --muted:#64748b;
+      --line:rgba(15,23,42,.10);
+      --white:rgba(255,255,255,.88);
+
+      --navy:#0f172a;
+      --purple:#7c3aed;
+      --violet:#8b5cf6;
+      --indigo:#4f46e5;
+      --blue:#2563eb;
+      --sky:#38bdf8;
+      --gold:#f59e0b;
+      --yellow:#facc15;
+      --amber:#fbbf24;
+      --orange:#fb923c;
+      --mint:#14b8a6;
+      --green:#22c55e;
+      --rose:#fb7185;
+      --red:#ef4444;
+
+      --shadow:0 24px 70px rgba(124,58,237,.15);
+      --shadow2:0 14px 34px rgba(15,23,42,.08);
+      --radius:28px;
+      --max:1180px;
+    }
+
+    * {
+      box-sizing:border-box;
+    }
+
+    html {
+      scroll-behavior:smooth;
+    }
+
+    body {
+      margin:0;
+      min-height:100vh;
+      color:var(--ink);
+      font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;
+      line-height:1.66;
+      background:
+        radial-gradient(circle at 9% 8%, rgba(124,58,237,.22), transparent 25%),
+        radial-gradient(circle at 88% 10%, rgba(245,158,11,.20), transparent 24%),
+        radial-gradient(circle at 78% 88%, rgba(37,99,235,.12), transparent 27%),
+        linear-gradient(135deg,var(--bg1) 0%, var(--bg3) 48%, var(--bg2) 100%);
+      overflow-x:hidden;
+    }
+
+    body::before {
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.18;
+      background-image:
+        radial-gradient(circle, rgba(124,58,237,.18) 1px, transparent 1.3px),
+        radial-gradient(circle, rgba(245,158,11,.16) 1px, transparent 1.3px);
+      background-size:34px 34px, 84px 84px;
+      background-position:0 0, 22px 28px;
+      mask-image:linear-gradient(to bottom,#000 0%,#000 68%,transparent 100%);
+    }
+
+    a {
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button,
+    input,
+    select {
+      font:inherit;
+    }
+
+    button {
+      cursor:pointer;
+    }
+
+    .wrap {
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+    }
+
+    .topbar {
+      position:sticky;
+      top:0;
+      z-index:70;
+      border-bottom:1px solid rgba(15,23,42,.07);
+      background:rgba(245,243,255,.78);
+      backdrop-filter:blur(18px);
+    }
+
+    .nav {
+      min-height:68px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:950;
+      letter-spacing:-.045em;
+    }
+
+    .brand-mark {
+      width:42px;
+      height:42px;
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      background:conic-gradient(from 145deg,#7c3aed,#4f46e5,#2563eb,#f59e0b,#facc15,#7c3aed);
+      box-shadow:0 16px 36px rgba(124,58,237,.25);
+      font-weight:950;
+    }
+
+    .brand small {
+      display:block;
+      margin-top:1px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:-.02em;
+    }
+
+    .nav-links {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      white-space:nowrap;
+    }
+
+    .nav-links a {
+      padding:9px 13px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.78);
+      color:#26364a;
+      font-size:14px;
+      font-weight:850;
+      box-shadow:var(--shadow2);
+    }
+
+    .hero {
+      padding:58px 0 28px;
+    }
+
+    .hero-grid {
+      display:grid;
+      grid-template-columns:1.02fr .98fr;
+      align-items:center;
+      gap:32px;
+    }
+
+    .chips {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:16px;
+    }
+
+    .chip {
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.82);
+      color:#334155;
+      font-size:13px;
+      font-weight:900;
+      box-shadow:var(--shadow2);
+    }
+
+    .chip.hot {
+      color:#6d28d9;
+      background:linear-gradient(135deg,rgba(237,233,254,.98),rgba(255,255,255,.92));
+    }
+
+    h1 {
+      margin:0;
+      max-width:800px;
+      font-size:clamp(38px,6.1vw,74px);
+      line-height:1.04;
+      letter-spacing:-.078em;
+    }
+
+    .gradient {
+      color:transparent;
+      background:linear-gradient(90deg,#7c3aed 0%, #2563eb 45%, #f59e0b 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+    }
+
+    .lead {
+      margin:20px 0 0;
+      max-width:700px;
+      color:#34465c;
+      font-size:clamp(16px,2vw,19px);
+      line-height:1.82;
+      letter-spacing:-.015em;
+      word-break:keep-all;
+    }
+
+    .lead strong {
+      color:#6d28d9;
+      font-weight:950;
+    }
+
+    .hero-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:26px;
+    }
+
+    .btn {
+      min-height:50px;
+      padding:13px 18px;
+      border-radius:17px;
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      gap:8px;
+      border:1px solid transparent;
+      font-weight:950;
+      letter-spacing:-.025em;
+      transition:.18s ease;
+    }
+
+    .btn:hover {
+      transform:translateY(-2px);
+    }
+
+    .btn-primary {
+      color:#fff;
+      background:linear-gradient(135deg,#7c3aed,#2563eb,#f59e0b);
+      box-shadow:0 16px 38px rgba(124,58,237,.24);
+    }
+
+    .btn-ghost {
+      color:#122033;
+      background:rgba(255,255,255,.82);
+      border-color:rgba(15,23,42,.08);
+    }
+
+    .visual {
+      position:relative;
+      min-height:430px;
+      border-radius:42px;
+      border:1px solid rgba(15,23,42,.08);
+      background:
+        radial-gradient(circle at 76% 15%, rgba(245,158,11,.22), transparent 22%),
+        radial-gradient(circle at 17% 86%, rgba(124,58,237,.22), transparent 24%),
+        linear-gradient(145deg,rgba(255,255,255,.96),rgba(245,243,255,.84));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      padding:26px;
+    }
+
+    .pension-book {
+      position:absolute;
+      left:34px;
+      right:34px;
+      top:34px;
+      height:230px;
+      border-radius:34px;
+      background:
+        radial-gradient(circle at 85% 18%, rgba(255,255,255,.26), transparent 25%),
+        linear-gradient(135deg,#312e81,#7c3aed 48%,#f59e0b);
+      box-shadow:0 24px 60px rgba(49,46,129,.20);
+      overflow:hidden;
+    }
+
+    .pension-book::before {
+      content:"";
+      position:absolute;
+      left:24px;
+      top:24px;
+      bottom:24px;
+      width:16px;
+      border-radius:999px;
+      background:rgba(255,255,255,.30);
+      box-shadow:22px 0 0 rgba(255,255,255,.16);
+    }
+
+    .pension-book::after {
+      content:"";
+      position:absolute;
+      inset:20px;
+      border-radius:26px;
+      border:1px dashed rgba(255,255,255,.24);
+    }
+
+    .book-label {
+      position:absolute;
+      left:70px;
+      top:48px;
+      color:#fef3c7;
+      font-size:13px;
+      font-weight:950;
+      z-index:2;
+    }
+
+    .book-title {
+      position:absolute;
+      left:70px;
+      top:78px;
+      color:#fff;
+      font-size:31px;
+      line-height:1.08;
+      font-weight:950;
+      letter-spacing:-.055em;
+      z-index:2;
+    }
+
+    .book-lines {
+      position:absolute;
+      left:70px;
+      right:40px;
+      bottom:38px;
+      display:grid;
+      gap:10px;
+      z-index:2;
+    }
+
+    .book-lines span {
+      height:8px;
+      border-radius:999px;
+      background:rgba(255,255,255,.30);
+    }
+
+    .book-lines span:nth-child(2) {
+      width:74%;
+    }
+
+    .coin-orbit {
+      position:absolute;
+      right:40px;
+      top:46px;
+      width:142px;
+      height:142px;
+      border-radius:50%;
+      background:rgba(255,255,255,.16);
+      border:1px solid rgba(255,255,255,.28);
+      box-shadow:0 18px 38px rgba(15,23,42,.16);
+      z-index:3;
+    }
+
+    .coin-big {
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:78px;
+      height:78px;
+      border-radius:50%;
+      background:linear-gradient(135deg,#fde68a,#f59e0b);
+      border:4px solid #78350f;
+      transform:translate(-50%,-50%);
+      display:grid;
+      place-items:center;
+      color:#78350f;
+      font-size:32px;
+      font-weight:950;
+    }
+
+    .coin-small {
+      position:absolute;
+      width:30px;
+      height:30px;
+      border-radius:50%;
+      background:linear-gradient(135deg,#facc15,#f97316);
+      border:3px solid #78350f;
+    }
+
+    .coin-small.one {
+      left:8px;
+      top:24px;
+    }
+
+    .coin-small.two {
+      right:10px;
+      top:18px;
+    }
+
+    .coin-small.three {
+      right:22px;
+      bottom:10px;
+    }
+
+    .timeline {
+      position:absolute;
+      left:52px;
+      right:52px;
+      top:274px;
+      height:40px;
+      z-index:2;
+    }
+
+    .timeline::before {
+      content:"";
+      position:absolute;
+      left:0;
+      right:0;
+      top:18px;
+      height:6px;
+      border-radius:999px;
+      background:linear-gradient(90deg,#7c3aed,#2563eb,#f59e0b);
+    }
+
+    .timeline i {
+      position:absolute;
+      top:7px;
+      width:26px;
+      height:26px;
+      border-radius:50%;
+      background:#fff;
+      border:5px solid #7c3aed;
+      box-shadow:0 10px 22px rgba(15,23,42,.12);
+    }
+
+    .timeline i:nth-child(1) { left:0; }
+    .timeline i:nth-child(2) { left:46%; border-color:#2563eb; }
+    .timeline i:nth-child(3) { right:0; border-color:#f59e0b; }
+
+    .pension-card {
+      position:absolute;
+      left:28px;
+      bottom:28px;
+      width:304px;
+      padding:20px;
+      border-radius:28px;
+      background:linear-gradient(135deg,#fff,#f5f3ff);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      z-index:4;
+    }
+
+    .pension-card span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .pension-card strong {
+      display:block;
+      margin-top:7px;
+      color:#6d28d9;
+      font-size:34px;
+      line-height:1;
+      letter-spacing:-.055em;
+    }
+
+    .owl-card {
+      position:absolute;
+      right:28px;
+      bottom:28px;
+      width:180px;
+      height:180px;
+      border-radius:42px;
+      border:1px solid rgba(15,23,42,.08);
+      background:linear-gradient(145deg,#fff,#fef3c7);
+      box-shadow:var(--shadow2);
+      z-index:4;
+    }
+
+    .owl-head {
+      position:absolute;
+      left:34px;
+      top:39px;
+      width:112px;
+      height:104px;
+      border-radius:52px 52px 42px 42px;
+      background:#fbbf24;
+      border:4px solid #78350f;
+    }
+
+    .owl-ear {
+      position:absolute;
+      top:-20px;
+      width:34px;
+      height:34px;
+      background:#fbbf24;
+      border-left:4px solid #78350f;
+      border-top:4px solid #78350f;
+      border-radius:9px;
+      transform:rotate(45deg);
+      z-index:-1;
+    }
+
+    .owl-ear.left { left:10px; }
+    .owl-ear.right { right:10px; }
+
+    .owl-eye {
+      position:absolute;
+      top:32px;
+      width:31px;
+      height:31px;
+      border-radius:50%;
+      background:#fff;
+      border:4px solid #78350f;
+      z-index:2;
+    }
+
+    .owl-eye.left { left:20px; }
+    .owl-eye.right { right:20px; }
+
+    .owl-eye::after {
+      content:"";
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:#111827;
+      transform:translate(-50%,-50%);
+    }
+
+    .owl-beak {
+      position:absolute;
+      left:50%;
+      top:62px;
+      width:18px;
+      height:18px;
+      background:#f97316;
+      border:3px solid #78350f;
+      transform:translateX(-50%) rotate(45deg);
+      border-radius:4px;
+      z-index:2;
+    }
+
+    .owl-belly {
+      position:absolute;
+      left:28px;
+      right:28px;
+      bottom:6px;
+      height:38px;
+      border-radius:999px 999px 28px 28px;
+      background:#fff7ed;
+      border-top:3px solid rgba(120,53,15,.28);
+    }
+
+    .mini-passbook {
+      position:absolute;
+      left:12px;
+      bottom:13px;
+      width:58px;
+      height:52px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#7c3aed,#2563eb);
+      border:3px solid #0f172a;
+      transform:rotate(-8deg);
+    }
+
+    .mini-passbook::before {
+      content:"";
+      position:absolute;
+      left:11px;
+      right:11px;
+      top:13px;
+      height:7px;
+      border-radius:999px;
+      background:rgba(255,255,255,.62);
+      box-shadow:0 13px 0 rgba(255,255,255,.42), 0 26px 0 rgba(255,255,255,.30);
+    }
+
+    .badge-mini {
+      position:absolute;
+      right:14px;
+      top:14px;
+      padding:8px 10px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#ede9fe,#fef3c7);
+      color:#6d28d9;
+      font-size:12px;
+      font-weight:950;
+      box-shadow:var(--shadow2);
+      z-index:5;
+    }
+
+    .section {
+      padding:22px 0;
+    }
+
+    .tool-grid {
+      display:grid;
+      grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);
+      gap:22px;
+      align-items:start;
+    }
+
+    .panel {
+      padding:24px;
+      border-radius:var(--radius);
+      border:1px solid rgba(15,23,42,.08);
+      background:var(--white);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);
+    }
+
+    .panel h2 {
+      margin:0 0 12px;
+      font-size:27px;
+      line-height:1.2;
+      letter-spacing:-.052em;
+    }
+
+    .desc {
+      margin:-4px 0 18px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    .form {
+      display:grid;
+      gap:14px;
+    }
+
+    .field label {
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom:8px;
+      color:#122033;
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .field small {
+      color:var(--muted);
+      font-weight:750;
+    }
+
+    .input-wrap {
+      position:relative;
+    }
+
+    input,
+    select {
+      width:100%;
+      min-height:54px;
+      padding:14px 54px 14px 15px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.10);
+      background:rgba(255,255,255,.94);
+      color:#122033;
+      font-size:16px;
+      font-weight:850;
+      outline:none;
+      transition:.16s ease;
+    }
+
+    input:focus,
+    select:focus {
+      border-color:rgba(124,58,237,.46);
+      box-shadow:0 0 0 4px rgba(124,58,237,.12);
+    }
+
+    .unit {
+      position:absolute;
+      top:50%;
+      right:15px;
+      transform:translateY(-50%);
+      color:var(--muted);
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .row {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .toggle-row {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+      padding:6px;
+      border-radius:18px;
+      background:rgba(255,255,255,.72);
+      border:1px solid rgba(15,23,42,.08);
+    }
+
+    .toggle-row button {
+      min-height:44px;
+      border:0;
+      border-radius:14px;
+      background:transparent;
+      color:#475569;
+      font-size:14px;
+      font-weight:950;
+      transition:.16s ease;
+    }
+
+    .toggle-row button.active {
+      color:#fff;
+      background:linear-gradient(135deg,#7c3aed,#2563eb,#f59e0b);
+      box-shadow:0 12px 28px rgba(124,58,237,.18);
+    }
+
+    .detail-box {
+      display:grid;
+      gap:10px;
+      padding:14px;
+      border-radius:18px;
+      background:rgba(248,250,252,.78);
+      border:1px solid rgba(15,23,42,.08);
+    }
+
+    .detail-title {
+      color:#334155;
+      font-size:13px;
+      font-weight:950;
+    }
+
+    .preset {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .preset button {
+      padding:8px 11px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:#fff;
+      color:#334155;
+      font-size:12px;
+      font-weight:900;
+    }
+
+    .calc-btn {
+      width:100%;
+      min-height:58px;
+      margin-top:6px;
+      border:0;
+      border-radius:18px;
+      color:#fff;
+      background:linear-gradient(135deg,#7c3aed,#2563eb,#f59e0b);
+      font-size:17px;
+      font-weight:950;
+      box-shadow:0 16px 34px rgba(124,58,237,.22);
+    }
+
+    .reset-btn {
+      width:100%;
+      min-height:48px;
+      margin-top:10px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.86);
+      color:#122033;
+      font-weight:900;
+    }
+
+    .notice {
+      margin-top:12px;
+      padding:13px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(15,23,42,.08);
+      color:#526173;
+      font-size:13px;
+      line-height:1.75;
+      font-weight:760;
+      word-break:keep-all;
+    }
+
+    .warning {
+      border-color:rgba(245,158,11,.28);
+      background:rgba(255,251,235,.86);
+      color:#92400e;
+    }
+
+    .result-box {
+      display:grid;
+      gap:14px;
+    }
+
+    .result-main {
+      padding:24px;
+      border-radius:26px;
+      color:#122033;
+      background:
+        radial-gradient(circle at 84% 18%, rgba(255,255,255,.46), transparent 26%),
+        linear-gradient(135deg,#ddd6fe,#bfdbfe 48%,#fde68a);
+      box-shadow:var(--shadow2);
+    }
+
+    .result-main span {
+      display:block;
+      font-size:14px;
+      opacity:.82;
+      font-weight:900;
+    }
+
+    .result-main strong {
+      display:block;
+      margin-top:8px;
+      font-size:clamp(36px,5vw,58px);
+      line-height:1;
+      letter-spacing:-.06em;
+    }
+
+    .result-main em {
+      display:block;
+      margin-top:10px;
+      font-size:14px;
+      line-height:1.75;
+      font-style:normal;
+      font-weight:850;
+      opacity:.88;
+      word-break:keep-all;
+    }
+
+    .result-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .metric {
+      padding:18px;
+      border-radius:20px;
+      background:rgba(255,255,255,.84);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .metric span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .metric strong {
+      display:block;
+      margin-top:7px;
+      color:#122033;
+      font-size:24px;
+      letter-spacing:-.045em;
+    }
+
+    .timeline-result {
+      display:grid;
+      gap:10px;
+      margin-top:14px;
+    }
+
+    .timeline-item {
+      display:grid;
+      grid-template-columns:88px 1fr auto;
+      gap:10px;
+      align-items:center;
+      padding:13px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(15,23,42,.08);
+      color:#334155;
+      font-size:14px;
+      font-weight:850;
+    }
+
+    .timeline-item b {
+      color:#6d28d9;
+      font-size:13px;
+    }
+
+    .timeline-item strong {
+      color:#0f172a;
+      font-size:15px;
+      letter-spacing:-.025em;
+    }
+
+    .good {
+      color:#047857 !important;
+    }
+
+    .warn {
+      color:#d97706 !important;
+    }
+
+    .bad {
+      color:#e11d48 !important;
+    }
+
+    .guide-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .guide {
+      padding:20px;
+      border-radius:22px;
+      background:rgba(255,255,255,.80);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .guide b {
+      display:block;
+      margin-bottom:8px;
+      font-size:17px;
+      letter-spacing:-.03em;
+    }
+
+    .guide p {
+      margin:0;
+      color:#526173;
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    .formula {
+      margin-top:16px;
+      padding:17px;
+      border-radius:20px;
+      background:rgba(248,250,252,.90);
+      border:1px solid rgba(15,23,42,.08);
+      color:#334155;
+      font-size:14px;
+      line-height:1.8;
+      font-weight:780;
+      overflow-x:auto;
+    }
+
+    .related-grid {
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .related-card {
+      padding:16px;
+      border-radius:20px;
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      font-weight:900;
+      color:#24415f;
+      line-height:1.45;
+    }
+
+    footer {
+      padding:44px 0 54px;
+      color:var(--muted);
+      text-align:center;
+      font-size:13px;
+    }
+
+    @media (max-width:920px) {
+      .hero-grid,
+      .tool-grid {
+        grid-template-columns:1fr;
+      }
+
+      .hero {
+        padding-top:42px;
+      }
+    }
+
+    @media (max-width:720px) {
+      .related-grid {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+    }
+
+    @media (max-width:640px) {
+      .nav {
+        align-items:flex-start;
+        flex-direction:column;
+        padding:12px 0;
+      }
+
+      .nav-links {
+        width:100%;
+        overflow-x:auto;
+        padding-bottom:4px;
+      }
+
+      .hero-actions {
+        display:grid;
+      }
+
+      .btn {
+        width:100%;
+      }
+
+      .row,
+      .result-grid,
+      .guide-grid,
+      .related-grid,
+      .toggle-row {
+        grid-template-columns:1fr;
+      }
+
+      .visual {
+        min-height:405px;
+      }
+
+      .pension-book {
+        left:18px;
+        right:18px;
+        height:226px;
+      }
+
+      .book-title {
+        font-size:25px;
+      }
+
+      .coin-orbit {
+        right:24px;
+        width:112px;
+        height:112px;
+      }
+
+      .coin-big {
+        width:62px;
+        height:62px;
+        font-size:25px;
+      }
+
+      .coin-small {
+        width:24px;
+        height:24px;
+      }
+
+      .timeline {
+        left:35px;
+        right:35px;
+      }
+
+      .pension-card {
+        width:230px;
+        left:18px;
+      }
+
+      .pension-card strong {
+        font-size:27px;
+      }
+
+      .owl-card {
+        width:138px;
+        height:138px;
+        right:18px;
+      }
+
+      .owl-head {
+        left:25px;
+        top:34px;
+        width:90px;
+        height:82px;
+      }
+
+      .owl-eye {
+        top:27px;
+        width:25px;
+        height:25px;
+      }
+
+      .owl-eye.left { left:17px; }
+      .owl-eye.right { right:17px; }
+
+      .owl-beak {
+        top:53px;
+      }
+
+      .mini-passbook {
+        transform:scale(.78) rotate(-8deg);
+        left:5px;
+        bottom:4px;
+      }
+
+      .timeline-item {
+        grid-template-columns:1fr;
+        gap:4px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="../" aria-label="바로해결툴즈 메인으로 이동">
+        <div class="brand-mark">B</div>
+        <div>
+          바로해결툴즈
+          <small>연금 계산 · 노후 준비 · 바로 확인</small>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="주요 도구">
+        <a href="../">전체 도구</a>
+        <a href="../health-insurance-premium/">건강보험료</a>
+        <a href="../four-insurance/">4대보험</a>
+        <a href="../monthly-net-salary/">월급 실수령액</a>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="chips">
+            <span class="chip hot">👵 국민연금 예상수령액</span>
+            <span class="chip">월 예상액</span>
+            <span class="chip">회수기간 계산</span>
+          </div>
+
+          <h1>
+            내가 받을 국민연금<br>
+            <span class="gradient">대략 얼마인지 계산하세요</span>
+          </h1>
+
+          <p class="lead">
+            현재 나이, 예상 수급 나이, 가입기간, 월 납부보험료 또는 기준소득월액을 입력하면
+            <strong>국민연금 월 예상수령액, 총 납부액, 예상 수령 시작 시점, 회수기간</strong>을 한 번에 확인할 수 있습니다.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#calculator">예상수령액 계산하기</a>
+            <a class="btn btn-ghost" href="#guide">계산 기준 보기</a>
+          </div>
+        </div>
+
+        <div class="visual" aria-label="국민연금 예상수령액 조회 예시">
+          <div class="pension-book">
+            <div class="book-label">National Pension</div>
+            <div class="book-title">노후 월 예상액<br><span id="visualBookPay">약 86만원</span></div>
+            <div class="coin-orbit" aria-hidden="true">
+              <div class="coin-big">₩</div>
+              <div class="coin-small one"></div>
+              <div class="coin-small two"></div>
+              <div class="coin-small three"></div>
+            </div>
+            <div class="book-lines">
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+
+          <div class="timeline" aria-hidden="true">
+            <i></i>
+            <i></i>
+            <i></i>
+          </div>
+
+          <div class="pension-card">
+            <span>월 예상수령액</span>
+            <strong id="visualPay">약 86만원</strong>
+          </div>
+
+          <div class="owl-card" aria-hidden="true">
+            <div class="badge-mini">PEN</div>
+            <div class="owl-head">
+              <div class="owl-ear left"></div>
+              <div class="owl-ear right"></div>
+              <div class="owl-eye left"></div>
+              <div class="owl-eye right"></div>
+              <div class="owl-beak"></div>
+              <div class="owl-belly"></div>
+            </div>
+            <div class="mini-passbook"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="calculator">
+      <div class="wrap tool-grid">
+        <div class="panel">
+          <h2>국민연금 예상수령액 조회</h2>
+          <p class="desc">
+            월 납부보험료 기준 또는 기준소득월액 기준 중 편한 방식으로 입력하세요.
+            실제 공식 예상연금액과 다를 수 있으므로 노후 흐름을 가늠하는 참고용 계산기입니다.
+          </p>
+
+          <form class="form" onsubmit="event.preventDefault(); calculatePension();">
+            <div class="toggle-row" aria-label="입력 방식 선택">
+              <button type="button" id="premiumModeBtn" class="active" onclick="setMode('premium')">월 납부보험료 기준</button>
+              <button type="button" id="incomeModeBtn" onclick="setMode('income')">기준소득월액 기준</button>
+            </div>
+
+            <div id="premiumField" class="field">
+              <label for="monthlyPremium">
+                월 국민연금 보험료
+                <small>본인+사업주 전체 보험료 기준 권장</small>
+              </label>
+              <div class="input-wrap">
+                <input id="monthlyPremium" type="number" min="0" step="1000" value="270000" placeholder="예: 270000">
+                <span class="unit">원</span>
+              </div>
+            </div>
+
+            <div id="incomeField" class="field" style="display:none;">
+              <label for="monthlyIncome">
+                기준소득월액
+                <small>보험료 산정 기준소득</small>
+              </label>
+              <div class="input-wrap">
+                <input id="monthlyIncome" type="number" min="0" step="1000" value="3000000" placeholder="예: 3000000">
+                <span class="unit">원</span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="currentAge">
+                  현재 나이
+                  <small>만 나이 기준</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="currentAge" type="number" min="18" max="80" step="1" value="35" placeholder="예: 35">
+                  <span class="unit">세</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="startAge">
+                  예상 수급 나이
+                  <small>보통 65세 입력</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="startAge" type="number" min="55" max="75" step="1" value="65" placeholder="예: 65">
+                  <span class="unit">세</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="paidYears">
+                  이미 납부한 기간
+                  <small>현재까지 가입기간</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="paidYears" type="number" min="0" max="60" step="0.1" value="10" placeholder="예: 10">
+                  <span class="unit">년</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="futureYears">
+                  앞으로 납부할 기간
+                  <small>자동값 수정 가능</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="futureYears" type="number" min="0" max="60" step="0.1" value="30" placeholder="예: 30">
+                  <span class="unit">년</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-box">
+              <div class="detail-title">계산 가정값</div>
+
+              <div class="row">
+                <div class="field">
+                  <label for="premiumRate">
+                    국민연금 보험료율
+                    <small>전체 보험료율</small>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="premiumRate" type="number" min="0" max="20" step="0.1" value="9">
+                    <span class="unit">%</span>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="replacementRate">
+                    40년 가입 월 소득대체율
+                    <small>간편 추정용</small>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="replacementRate" type="number" min="0" max="100" step="0.1" value="40">
+                    <span class="unit">%</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="field">
+                  <label for="incomeGrowth">
+                    소득 증가율
+                    <small>연평균 가정</small>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="incomeGrowth" type="number" min="-10" max="20" step="0.1" value="1.5">
+                    <span class="unit">%</span>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="pensionAdjust">
+                    연금 조정계수
+                    <small>보수적 80~100%</small>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="pensionAdjust" type="number" min="30" max="150" step="1" value="90">
+                    <span class="unit">%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="preset">
+              <button type="button" onclick="fillExample('worker300')">월급 300만원 · 35세</button>
+              <button type="button" onclick="fillExample('worker400')">월급 400만원 · 40세</button>
+              <button type="button" onclick="fillExample('late')">45세 · 15년 납부</button>
+              <button type="button" onclick="fillExample('self')">지역·임의가입 예시</button>
+            </div>
+
+            <button class="calc-btn" type="submit">예상수령액 계산하기</button>
+            <button class="reset-btn" type="button" onclick="resetForm()">입력값 초기화</button>
+          </form>
+
+          <div class="notice warning">
+            이 계산기는 국민연금공단 공식 조회가 아닌 간편 추정용입니다. 실제 예상연금액은 전체 가입 이력,
+            기준소득월액 변동, A값, 재평가율, 수급개시연령, 조기·연기연금 여부에 따라 달라질 수 있습니다.
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>계산 결과</h2>
+          <p class="desc">
+            월 예상수령액, 총 납부액, 예상 수령 시작 나이, 회수기간, 가입기간을 나눠 확인하세요.
+          </p>
+
+          <div class="result-box">
+            <div class="result-main">
+              <span>월 예상수령액</span>
+              <strong id="monthlyPension">-</strong>
+              <em id="summaryText">값을 입력하고 계산 버튼을 눌러주세요.</em>
+            </div>
+
+            <div class="result-grid">
+              <div class="metric">
+                <span>연 예상수령액</span>
+                <strong id="annualPension">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>총 예상 납부액</span>
+                <strong id="totalPaid">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>총 가입기간</span>
+                <strong id="totalYears">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>예상 기준소득월액</span>
+                <strong id="estimatedIncome">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>수급 시작 나이</span>
+                <strong id="resultStartAge">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>수급까지 남은 기간</span>
+                <strong id="yearsToStart">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>납부액 회수기간</span>
+                <strong id="breakEvenYears" class="good">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>10년 수령 총액</span>
+                <strong id="tenYearReceive">-</strong>
+              </div>
+            </div>
+
+            <div class="timeline-result">
+              <div class="timeline-item">
+                <b>현재</b>
+                <span>현재 나이와 납부 이력 기준</span>
+                <strong id="timelineNow">-</strong>
+              </div>
+
+              <div class="timeline-item">
+                <b>납부완료</b>
+                <span>예상 가입기간 반영</span>
+                <strong id="timelinePaid">-</strong>
+              </div>
+
+              <div class="timeline-item">
+                <b>수령시작</b>
+                <span>예상 수급 나이 기준</span>
+                <strong id="timelineStart">-</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice">
+            총 납부액은 입력한 월 보험료와 예상 납부기간을 단순 합산한 값입니다.
+            실제 연금액은 공식 산식과 가입자 평균소득, 개인 가입이력에 따라 달라질 수 있습니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="guide">
+      <div class="wrap">
+        <div class="panel">
+          <h2>국민연금 예상수령액 계산 기준</h2>
+
+          <div class="guide-grid">
+            <div class="guide">
+              <b>가입기간</b>
+              <p>
+                국민연금은 가입기간이 길수록 예상 수령액이 커지는 구조입니다.
+                계산기에서는 이미 납부한 기간과 앞으로 납부할 기간을 합산합니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>기준소득월액</b>
+              <p>
+                월 납부보험료를 입력하면 보험료율로 역산해 기준소득월액을 추정합니다.
+                기준소득월액이 높을수록 예상 연금액도 커집니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>공식 조회 필요</b>
+              <p>
+                실제 예상연금액은 국민연금공단의 가입내역과 공식 산식으로 확인해야 합니다.
+                이 도구는 노후 흐름을 보는 간편 계산기입니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="formula">
+            <strong>기준소득월액 추정</strong><br>
+            = 월 국민연금 보험료 ÷ 국민연금 보험료율<br><br>
+
+            <strong>총 예상 납부액</strong><br>
+            = 월 국민연금 보험료 × 총 가입기간 × 12개월<br><br>
+
+            <strong>월 예상수령액 간편 추정</strong><br>
+            = 예상 기준소득월액 × 월 소득대체율 × 가입기간 반영률 × 연금 조정계수
+          </div>
+
+          <div class="notice warning">
+            이 계산기는 공식 국민연금 예상연금액 조회를 대체하지 않습니다. 정확한 금액은 국민연금공단 전자민원,
+            내연금 조회, 가입내역, 소득월액 변동, 조기·연기연금 선택 여부를 기준으로 확인하세요.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="panel">
+          <h2>같이 보면 좋은 도구</h2>
+          <p class="desc">
+            국민연금 외에도 건강보험료, 4대보험, 월급 실수령액, 연봉 실수령액 계산이 필요하면 다른 바로해결툴즈도 함께 확인할 수 있습니다.
+          </p>
+
+          <div class="related-grid">
+            <a class="related-card" href="../health-insurance-premium/">건강보험료 계산기</a>
+            <a class="related-card" href="../four-insurance/">4대보험 계산기</a>
+            <a class="related-card" href="../monthly-net-salary/">월급 실수령액 계산기</a>
+            <a class="related-card" href="../annual-net-salary/">연봉 실수령액 계산기</a>
+          </div>
+
+          <div class="notice">
+            바로해결툴즈는 월급·퇴직·세금·생활비 계산기를 계속 추가하고 있습니다.
+            계산 결과는 참고용이며 공식 연금액은 국민연금공단 조회를 함께 확인하세요.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 바로해결툴즈 · 국민연금 예상수령액 계산 결과는 참고용입니다. 실제 연금액은 가입기간, 기준소득월액, 재평가율, 수급개시연령, 공식 산식에 따라 달라질 수 있습니다.
+  </footer>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    let currentMode = "premium";
+
+    function num(id) {
+      const value = Number($(id).value);
+      return Number.isFinite(value) ? value : 0;
+    }
+
+    function setText(id, value) {
+      $(id).textContent = value;
+    }
+
+    function won(value) {
+      if (!Number.isFinite(value)) return "-";
+      return `${Math.round(value).toLocaleString("ko-KR")}원`;
+    }
+
+    function shortWon(value) {
+      if (!Number.isFinite(value)) return "-";
+
+      const rounded = Math.round(value);
+
+      if (rounded >= 100000000) {
+        return `약 ${(rounded / 100000000).toFixed(1)}억`;
+      }
+
+      if (rounded >= 10000) {
+        return `약 ${Math.round(rounded / 10000).toLocaleString("ko-KR")}만원`;
+      }
+
+      return `약 ${rounded.toLocaleString("ko-KR")}원`;
+    }
+
+    function formatYears(value) {
+      return `${Number(value).toLocaleString("ko-KR", { maximumFractionDigits: 1 })}년`;
+    }
+
+    function setMode(mode) {
+      currentMode = mode;
+
+      $("premiumModeBtn").classList.toggle("active", mode === "premium");
+      $("incomeModeBtn").classList.toggle("active", mode === "income");
+
+      $("premiumField").style.display = mode === "premium" ? "block" : "none";
+      $("incomeField").style.display = mode === "income" ? "block" : "none";
+
+      calculatePension();
+    }
+
+    function syncFutureYears() {
+      const currentAge = num("currentAge");
+      const startAge = num("startAge");
+      const paidYears = num("paidYears");
+      const remainYears = Math.max(startAge - currentAge, 0);
+      const maxFutureYears = Math.max(60 - currentAge, 0);
+      const suggested = Math.max(Math.min(remainYears, maxFutureYears), 0);
+
+      if (paidYears + suggested > 40) {
+        $("futureYears").value = Math.max(40 - paidYears, 0).toFixed(1);
+      } else {
+        $("futureYears").value = suggested.toFixed(1);
+      }
+    }
+
+    function calculatePension() {
+      const monthlyPremiumInput = num("monthlyPremium");
+      const monthlyIncomeInput = num("monthlyIncome");
+      const currentAge = num("currentAge");
+      const startAge = num("startAge");
+      const paidYears = Math.max(num("paidYears"), 0);
+      const futureYears = Math.max(num("futureYears"), 0);
+      const premiumRate = Math.max(num("premiumRate"), 0.1) / 100;
+      const replacementRate = num("replacementRate") / 100;
+      const incomeGrowth = num("incomeGrowth") / 100;
+      const pensionAdjust = num("pensionAdjust") / 100;
+
+      const totalYears = paidYears + futureYears;
+      const yearsToStart = Math.max(startAge - currentAge, 0);
+
+      const monthlyIncome = currentMode === "premium"
+        ? monthlyPremiumInput / premiumRate
+        : monthlyIncomeInput;
+
+      const monthlyPremium = currentMode === "premium"
+        ? monthlyPremiumInput
+        : monthlyIncomeInput * premiumRate;
+
+      const futureIncomeFactor = Math.pow(1 + incomeGrowth, Math.max(futureYears / 2, 0));
+      const estimatedIncome = monthlyIncome * futureIncomeFactor;
+
+      const periodFactor = Math.min(totalYears / 40, 1.35);
+      const monthlyReplacementRate = replacementRate * periodFactor;
+      const monthlyPension = Math.max(estimatedIncome * monthlyReplacementRate * pensionAdjust, 0);
+
+      const totalPaid = monthlyPremium * totalYears * 12;
+      const annualPension = monthlyPension * 12;
+      const breakEvenYears = annualPension > 0 ? totalPaid / annualPension : 0;
+      const tenYearReceive = annualPension * 10;
+
+      setText("monthlyPension", won(monthlyPension));
+      setText("annualPension", won(annualPension));
+      setText("totalPaid", won(totalPaid));
+      setText("totalYears", formatYears(totalYears));
+      setText("estimatedIncome", won(estimatedIncome));
+      setText("resultStartAge", `${startAge.toLocaleString("ko-KR")}세`);
+      setText("yearsToStart", formatYears(yearsToStart));
+      setText("breakEvenYears", annualPension > 0 ? formatYears(breakEvenYears) : "-");
+      setText("tenYearReceive", won(tenYearReceive));
+
+      setText("timelineNow", `${currentAge.toLocaleString("ko-KR")}세`);
+      setText("timelinePaid", formatYears(totalYears));
+      setText("timelineStart", `${startAge.toLocaleString("ko-KR")}세`);
+
+      setText("visualPay", shortWon(monthlyPension));
+      setText("visualBookPay", shortWon(monthlyPension));
+
+      const breakEl = $("breakEvenYears");
+      breakEl.className = breakEvenYears <= 10 ? "good" : breakEvenYears <= 15 ? "warn" : "bad";
+
+      let summary = "";
+
+      if (monthlyIncome <= 0 || totalYears <= 0) {
+        summary = "월 납부보험료 또는 기준소득월액, 가입기간이 0으로 입력되었습니다. 값을 입력하면 예상수령액을 계산할 수 있습니다.";
+      } else if (totalYears < 10) {
+        summary = `입력한 총 가입기간은 ${formatYears(totalYears)}입니다. 일반적으로 노령연금 수급에는 최소 가입기간 충족 여부가 중요하므로 공식 가입내역을 먼저 확인해야 합니다.`;
+      } else {
+        summary = `입력값 기준 총 가입기간은 ${formatYears(totalYears)}, 총 예상 납부액은 약 ${won(totalPaid)}입니다. 간편 추정 월 예상수령액은 약 ${won(monthlyPension)}이며, 납부액 회수기간은 약 ${formatYears(breakEvenYears)}입니다.`;
+      }
+
+      if (currentMode === "premium") {
+        summary += ` 월 보험료 ${won(monthlyPremium)} 기준으로 기준소득월액을 약 ${won(monthlyIncome)}으로 역산했습니다.`;
+      }
+
+      setText("summaryText", summary);
+    }
+
+    function fillExample(type) {
+      if (type === "worker300") {
+        setMode("premium");
+        $("monthlyPremium").value = "270000";
+        $("currentAge").value = "35";
+        $("startAge").value = "65";
+        $("paidYears").value = "10";
+        $("futureYears").value = "30";
+      }
+
+      if (type === "worker400") {
+        setMode("income");
+        $("monthlyIncome").value = "4000000";
+        $("currentAge").value = "40";
+        $("startAge").value = "65";
+        $("paidYears").value = "12";
+        $("futureYears").value = "25";
+      }
+
+      if (type === "late") {
+        setMode("premium");
+        $("monthlyPremium").value = "360000";
+        $("currentAge").value = "45";
+        $("startAge").value = "65";
+        $("paidYears").value = "15";
+        $("futureYears").value = "20";
+      }
+
+      if (type === "self") {
+        setMode("premium");
+        $("monthlyPremium").value = "180000";
+        $("currentAge").value = "38";
+        $("startAge").value = "65";
+        $("paidYears").value = "5";
+        $("futureYears").value = "27";
+      }
+
+      calculatePension();
+    }
+
+    function resetForm() {
+      setMode("premium");
+      $("monthlyPremium").value = "270000";
+      $("monthlyIncome").value = "3000000";
+      $("currentAge").value = "35";
+      $("startAge").value = "65";
+      $("paidYears").value = "10";
+      $("futureYears").value = "30";
+      $("premiumRate").value = "9";
+      $("replacementRate").value = "40";
+      $("incomeGrowth").value = "1.5";
+      $("pensionAdjust").value = "90";
+      calculatePension();
+    }
+
+    ["currentAge", "startAge"].forEach((id) => {
+      $(id).addEventListener("change", () => {
+        syncFutureYears();
+        calculatePension();
+      });
+    });
+
+    [
+      "monthlyPremium",
+      "monthlyIncome",
+      "paidYears",
+      "futureYears",
+      "premiumRate",
+      "replacementRate",
+      "incomeGrowth",
+      "pensionAdjust"
+    ].forEach((id) => {
+      $(id).addEventListener("input", calculatePension);
+      $(id).addEventListener("change", calculatePension);
+    });
+
+    calculatePension();
+  </script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'></script>
+  <!-- End Cloudflare Web Analytics -->
+</body>
+</html>
