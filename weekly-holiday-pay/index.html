@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>주휴수당 계산기｜알바 월급에서 빠지면 안 되는 돈｜바로해결툴즈</title>
+  <meta name="description" content="시급, 주 소정근로시간, 근무일수, 개근 여부를 입력하면 예상 주휴수당, 주급, 월 환산 금액을 바로 계산할 수 있는 무료 주휴수당 계산기입니다." />
+  <meta name="keywords" content="주휴수당 계산기, 주휴수당 계산, 알바 주휴수당, 시급 주휴수당, 주휴수당 조건, 주 15시간 주휴수당, 바로해결툴즈" />
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/weekly-holiday-pay/" />
+  <meta name="theme-color" content="#fff7ed" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="주휴수당 계산기｜알바 월급에서 빠지면 안 되는 돈" />
+  <meta property="og:description" content="시급과 주 근무시간을 입력하면 예상 주휴수당과 주급·월급 환산액을 바로 계산합니다." />
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/weekly-holiday-pay/" />
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"주휴수당 계산기",
+    "url":"https://barohaegyeol-tools.pages.dev/weekly-holiday-pay/",
+    "applicationCategory":"FinanceApplication",
+    "operatingSystem":"All",
+    "description":"시급, 주 소정근로시간, 근무일수, 개근 여부를 기준으로 예상 주휴수당과 주급·월급 환산액을 계산하는 무료 생활 계산기입니다.",
+    "publisher":{
+      "@type":"Organization",
+      "name":"바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg1:#fff7ed;
+      --bg2:#eff6ff;
+      --bg3:#fefce8;
+      --text:#0f172a;
+      --sub:#334155;
+      --muted:#64748b;
+      --line:rgba(15,23,42,.10);
+      --white:rgba(255,255,255,.88);
+      --yellow:#facc15;
+      --amber:#f59e0b;
+      --orange:#fb923c;
+      --blue:#2563eb;
+      --sky:#38bdf8;
+      --navy:#0f172a;
+      --green:#22c55e;
+      --teal:#14b8a6;
+      --red:#ef4444;
+      --purple:#7c3aed;
+      --shadow:0 24px 70px rgba(245,158,11,.15);
+      --shadow2:0 14px 34px rgba(15,23,42,.08);
+      --radius:28px;
+      --max:1180px;
+    }
+
+    * {
+      box-sizing:border-box;
+    }
+
+    html {
+      scroll-behavior:smooth;
+    }
+
+    body {
+      margin:0;
+      min-height:100vh;
+      color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;
+      line-height:1.65;
+      background:
+        radial-gradient(circle at 10% 8%, rgba(250,204,21,.24), transparent 25%),
+        radial-gradient(circle at 88% 10%, rgba(37,99,235,.16), transparent 24%),
+        radial-gradient(circle at 84% 88%, rgba(20,184,166,.12), transparent 25%),
+        linear-gradient(135deg,var(--bg1) 0%, var(--bg2) 48%, var(--bg3) 100%);
+      overflow-x:hidden;
+    }
+
+    body::before {
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.17;
+      background-image:
+        radial-gradient(circle, rgba(245,158,11,.28) 1px, transparent 1.2px),
+        radial-gradient(circle, rgba(37,99,235,.18) 1px, transparent 1.2px);
+      background-size:32px 32px, 76px 76px;
+      background-position:0 0, 22px 26px;
+      mask-image:linear-gradient(to bottom,#000 0%,#000 68%,transparent 100%);
+    }
+
+    a {
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button,
+    input,
+    select {
+      font:inherit;
+    }
+
+    button {
+      cursor:pointer;
+    }
+
+    .wrap {
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+    }
+
+    .topbar {
+      position:sticky;
+      top:0;
+      z-index:50;
+      border-bottom:1px solid rgba(15,23,42,.07);
+      background:rgba(255,247,237,.78);
+      backdrop-filter:blur(18px);
+    }
+
+    .nav {
+      min-height:68px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:950;
+      letter-spacing:-.045em;
+    }
+
+    .brand-mark {
+      width:42px;
+      height:42px;
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      background:conic-gradient(from 150deg,#f59e0b,#facc15,#2563eb,#38bdf8,#14b8a6,#f59e0b);
+      box-shadow:0 16px 36px rgba(245,158,11,.26);
+      font-weight:950;
+    }
+
+    .brand small {
+      display:block;
+      margin-top:1px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:-.02em;
+    }
+
+    .nav-links {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      white-space:nowrap;
+    }
+
+    .nav-links a {
+      padding:9px 13px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.78);
+      color:#26364a;
+      font-size:14px;
+      font-weight:850;
+      box-shadow:var(--shadow2);
+    }
+
+    .hero {
+      padding:58px 0 28px;
+    }
+
+    .hero-grid {
+      display:grid;
+      grid-template-columns:1.02fr .98fr;
+      align-items:center;
+      gap:32px;
+    }
+
+    .chips {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:16px;
+    }
+
+    .chip {
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.82);
+      color:#334155;
+      font-size:13px;
+      font-weight:900;
+      box-shadow:var(--shadow2);
+    }
+
+    .chip.hot {
+      color:#b45309;
+      background:linear-gradient(135deg,rgba(254,243,199,.98),rgba(255,255,255,.92));
+    }
+
+    h1 {
+      margin:0;
+      max-width:780px;
+      font-size:clamp(38px,6.1vw,74px);
+      line-height:1.04;
+      letter-spacing:-.078em;
+    }
+
+    .gradient {
+      color:transparent;
+      background:linear-gradient(90deg,#f59e0b 0%, #2563eb 48%, #14b8a6 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+    }
+
+    .lead {
+      margin:20px 0 0;
+      max-width:700px;
+      color:#34465c;
+      font-size:clamp(16px,2vw,19px);
+      line-height:1.82;
+      letter-spacing:-.015em;
+      word-break:keep-all;
+    }
+
+    .lead strong {
+      color:#b45309;
+      font-weight:950;
+    }
+
+    .hero-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:26px;
+    }
+
+    .btn {
+      min-height:50px;
+      padding:13px 18px;
+      border-radius:17px;
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      gap:8px;
+      border:1px solid transparent;
+      font-weight:950;
+      letter-spacing:-.025em;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+
+    .btn:hover {
+      transform:translateY(-2px);
+    }
+
+    .btn-primary {
+      color:#fff;
+      background:linear-gradient(135deg,#f59e0b,#2563eb,#14b8a6);
+      box-shadow:0 16px 38px rgba(245,158,11,.24);
+    }
+
+    .btn-ghost {
+      color:#122033;
+      background:rgba(255,255,255,.82);
+      border-color:rgba(15,23,42,.08);
+    }
+
+    .visual {
+      position:relative;
+      min-height:424px;
+      border-radius:40px;
+      border:1px solid rgba(15,23,42,.08);
+      background:
+        radial-gradient(circle at 78% 15%, rgba(250,204,21,.28), transparent 22%),
+        radial-gradient(circle at 17% 86%, rgba(37,99,235,.15), transparent 23%),
+        linear-gradient(145deg,rgba(255,255,255,.96),rgba(255,247,237,.82));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      padding:26px;
+    }
+
+    .visual-panel {
+      position:absolute;
+      left:26px;
+      right:26px;
+      top:26px;
+      height:188px;
+      border-radius:30px;
+      background:
+        linear-gradient(rgba(15,23,42,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,23,42,.045) 1px, transparent 1px),
+        linear-gradient(180deg,rgba(255,255,255,.96),rgba(255,251,235,.94));
+      background-size:38px 38px,38px 38px,auto;
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      overflow:hidden;
+    }
+
+    .work-line {
+      position:absolute;
+      left:28px;
+      right:28px;
+      bottom:26px;
+      height:62px;
+      border-radius:999px;
+      background:linear-gradient(90deg,#0f172a,#2563eb,#f59e0b);
+      opacity:.92;
+      overflow:hidden;
+    }
+
+    .work-line::before {
+      content:"";
+      position:absolute;
+      left:24px;
+      right:24px;
+      top:28px;
+      height:5px;
+      border-radius:999px;
+      background:repeating-linear-gradient(90deg,rgba(255,255,255,.82) 0 28px,transparent 28px 48px);
+    }
+
+    .time-sheet {
+      position:absolute;
+      left:44px;
+      top:42px;
+      width:232px;
+      height:144px;
+      border-radius:24px;
+      background:#fff;
+      border:3px solid #f59e0b;
+      box-shadow:0 18px 34px rgba(15,23,42,.12);
+      overflow:hidden;
+    }
+
+    .sheet-head {
+      height:36px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 14px;
+      background:linear-gradient(90deg,#fef3c7,#dbeafe);
+      color:#92400e;
+      font-weight:950;
+      font-size:13px;
+    }
+
+    .sheet-grid {
+      padding:14px;
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:8px;
+    }
+
+    .day-cell {
+      height:24px;
+      border-radius:9px;
+      background:#eff6ff;
+      border:1px solid #dbeafe;
+    }
+
+    .day-cell.on {
+      background:linear-gradient(135deg,#facc15,#fb923c);
+      border-color:#f59e0b;
+    }
+
+    .clock-card {
+      position:absolute;
+      right:42px;
+      top:44px;
+      width:148px;
+      height:148px;
+      border-radius:34px;
+      background:#fff;
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:0 22px 48px rgba(15,23,42,.15);
+      display:grid;
+      place-items:center;
+    }
+
+    .clock-face {
+      width:96px;
+      height:96px;
+      border-radius:50%;
+      background:linear-gradient(135deg,#dbeafe,#fff7ed);
+      border:5px solid #2563eb;
+      position:relative;
+    }
+
+    .clock-face::before {
+      content:"";
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:7px;
+      height:7px;
+      border-radius:999px;
+      background:#0f172a;
+      transform:translate(-50%,-50%);
+    }
+
+    .hand-one {
+      position:absolute;
+      left:50%;
+      top:22px;
+      width:5px;
+      height:32px;
+      border-radius:999px;
+      background:#f59e0b;
+      transform:translateX(-50%);
+      transform-origin:bottom;
+    }
+
+    .hand-two {
+      position:absolute;
+      left:50%;
+      top:48px;
+      width:34px;
+      height:5px;
+      border-radius:999px;
+      background:#0f172a;
+      transform-origin:left;
+    }
+
+    .result-ticket {
+      position:absolute;
+      left:28px;
+      bottom:26px;
+      width:292px;
+      padding:19px;
+      border-radius:26px;
+      background:linear-gradient(135deg,#fff,#fffbeb);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .result-ticket span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .result-ticket strong {
+      display:block;
+      margin-top:7px;
+      color:#b45309;
+      font-size:34px;
+      line-height:1;
+      letter-spacing:-.05em;
+    }
+
+    .cat-card {
+      position:absolute;
+      right:28px;
+      bottom:26px;
+      width:174px;
+      height:174px;
+      border-radius:38px;
+      border:1px solid rgba(15,23,42,.08);
+      background:linear-gradient(145deg,#fff,#dbeafe);
+      box-shadow:var(--shadow2);
+    }
+
+    .cat-head {
+      position:absolute;
+      left:36px;
+      top:54px;
+      width:102px;
+      height:86px;
+      border-radius:46px 46px 38px 38px;
+      background:#facc15;
+      border:4px solid #78350f;
+    }
+
+    .cat-ear {
+      position:absolute;
+      top:-18px;
+      width:34px;
+      height:34px;
+      background:#facc15;
+      border-left:4px solid #78350f;
+      border-top:4px solid #78350f;
+      border-radius:9px;
+      transform:rotate(45deg);
+      z-index:-1;
+    }
+
+    .cat-ear.left {
+      left:15px;
+    }
+
+    .cat-ear.right {
+      right:15px;
+    }
+
+    .cat-eye {
+      position:absolute;
+      top:31px;
+      width:10px;
+      height:13px;
+      border-radius:999px;
+      background:#111827;
+    }
+
+    .cat-eye.left {
+      left:29px;
+    }
+
+    .cat-eye.right {
+      right:29px;
+    }
+
+    .cat-nose {
+      position:absolute;
+      left:50%;
+      top:50px;
+      width:14px;
+      height:10px;
+      border-radius:999px;
+      background:#fb7185;
+      transform:translateX(-50%);
+    }
+
+    .cat-smile {
+      position:absolute;
+      left:50%;
+      top:62px;
+      width:28px;
+      height:13px;
+      border-bottom:3px solid #2563eb;
+      border-radius:0 0 999px 999px;
+      transform:translateX(-50%);
+    }
+
+    .coin-mini {
+      position:absolute;
+      left:15px;
+      bottom:16px;
+      width:56px;
+      height:56px;
+      border-radius:50%;
+      background:linear-gradient(135deg,#facc15,#f59e0b);
+      border:3px solid #78350f;
+      display:grid;
+      place-items:center;
+      color:#78350f;
+      font-weight:950;
+      transform:rotate(-8deg);
+    }
+
+    .badge-mini {
+      position:absolute;
+      right:14px;
+      top:14px;
+      padding:8px 10px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#fef3c7,#dbeafe);
+      color:#b45309;
+      font-size:12px;
+      font-weight:950;
+      box-shadow:var(--shadow2);
+      z-index:5;
+    }
+
+    .section {
+      padding:22px 0;
+    }
+
+    .tool-grid {
+      display:grid;
+      grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);
+      gap:22px;
+      align-items:start;
+    }
+
+    .panel {
+      padding:24px;
+      border-radius:var(--radius);
+      border:1px solid rgba(15,23,42,.08);
+      background:var(--white);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);
+    }
+
+    .panel h2 {
+      margin:0 0 12px;
+      font-size:27px;
+      line-height:1.2;
+      letter-spacing:-.052em;
+    }
+
+    .desc {
+      margin:-4px 0 18px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    .form {
+      display:grid;
+      gap:14px;
+    }
+
+    .field label {
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom:8px;
+      color:#122033;
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .field small {
+      color:var(--muted);
+      font-weight:750;
+    }
+
+    .input-wrap {
+      position:relative;
+    }
+
+    input,
+    select {
+      width:100%;
+      min-height:54px;
+      padding:14px 54px 14px 15px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.10);
+      background:rgba(255,255,255,.94);
+      color:#122033;
+      font-size:16px;
+      font-weight:850;
+      outline:none;
+      transition:.16s ease;
+    }
+
+    select {
+      padding-right:15px;
+      appearance:none;
+      cursor:pointer;
+    }
+
+    input:focus,
+    select:focus {
+      border-color:rgba(245,158,11,.50);
+      box-shadow:0 0 0 4px rgba(245,158,11,.13);
+    }
+
+    .unit {
+      position:absolute;
+      top:50%;
+      right:15px;
+      transform:translateY(-50%);
+      color:var(--muted);
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .row {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .preset {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .preset button {
+      padding:8px 11px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:#fff;
+      color:#334155;
+      font-size:12px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .calc-btn {
+      width:100%;
+      min-height:58px;
+      margin-top:6px;
+      border:0;
+      border-radius:18px;
+      color:#fff;
+      background:linear-gradient(135deg,#f59e0b,#2563eb,#14b8a6);
+      font-size:17px;
+      font-weight:950;
+      cursor:pointer;
+      box-shadow:0 16px 34px rgba(245,158,11,.24);
+    }
+
+    .reset-btn {
+      width:100%;
+      min-height:48px;
+      margin-top:10px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.86);
+      color:#122033;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .notice {
+      margin-top:12px;
+      padding:13px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(15,23,42,.08);
+      color:#526173;
+      font-size:13px;
+      line-height:1.75;
+      font-weight:760;
+      word-break:keep-all;
+    }
+
+    .warning {
+      border-color:rgba(245,158,11,.25);
+      background:rgba(255,251,235,.82);
+      color:#92400e;
+    }
+
+    .result-box {
+      display:grid;
+      gap:14px;
+    }
+
+    .result-main {
+      padding:24px;
+      border-radius:26px;
+      color:#122033;
+      background:
+        radial-gradient(circle at 84% 18%, rgba(255,255,255,.42), transparent 26%),
+        linear-gradient(135deg,#fde68a,#bfdbfe 54%,#99f6e4);
+      box-shadow:var(--shadow2);
+    }
+
+    .result-main span {
+      display:block;
+      font-size:14px;
+      opacity:.82;
+      font-weight:900;
+    }
+
+    .result-main strong {
+      display:block;
+      margin-top:8px;
+      font-size:clamp(36px,5vw,58px);
+      line-height:1;
+      letter-spacing:-.06em;
+    }
+
+    .result-main em {
+      display:block;
+      margin-top:10px;
+      font-size:14px;
+      line-height:1.75;
+      font-style:normal;
+      font-weight:850;
+      opacity:.88;
+      word-break:keep-all;
+    }
+
+    .result-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .metric {
+      padding:18px;
+      border-radius:20px;
+      background:rgba(255,255,255,.84);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .metric span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .metric strong {
+      display:block;
+      margin-top:7px;
+      color:#122033;
+      font-size:24px;
+      letter-spacing:-.045em;
+    }
+
+    .good {
+      color:#0f766e !important;
+    }
+
+    .warn {
+      color:#d97706 !important;
+    }
+
+    .bad {
+      color:#e11d48 !important;
+    }
+
+    .guide-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .guide {
+      padding:20px;
+      border-radius:22px;
+      background:rgba(255,255,255,.80);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .guide b {
+      display:block;
+      margin-bottom:8px;
+      font-size:17px;
+      letter-spacing:-.03em;
+    }
+
+    .guide p {
+      margin:0;
+      color:#526173;
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    .related-grid {
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .related-card {
+      padding:16px;
+      border-radius:20px;
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      font-weight:900;
+      color:#24415f;
+      line-height:1.45;
+    }
+
+    footer {
+      padding:44px 0 54px;
+      color:var(--muted);
+      text-align:center;
+      font-size:13px;
+    }
+
+    @media (max-width:920px) {
+      .hero-grid,
+      .tool-grid {
+        grid-template-columns:1fr;
+      }
+
+      .hero {
+        padding-top:42px;
+      }
+    }
+
+    @media (max-width:720px) {
+      .related-grid {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+    }
+
+    @media (max-width:640px) {
+      .nav {
+        align-items:flex-start;
+        flex-direction:column;
+        padding:12px 0;
+      }
+
+      .nav-links {
+        width:100%;
+        overflow-x:auto;
+        padding-bottom:4px;
+      }
+
+      .hero-actions {
+        display:grid;
+      }
+
+      .btn {
+        width:100%;
+      }
+
+      .row,
+      .result-grid,
+      .guide-grid,
+      .related-grid {
+        grid-template-columns:1fr;
+      }
+
+      .visual {
+        min-height:374px;
+      }
+
+      .time-sheet {
+        left:24px;
+        width:170px;
+      }
+
+      .clock-card {
+        right:24px;
+        width:120px;
+        height:134px;
+      }
+
+      .clock-face {
+        width:82px;
+        height:82px;
+      }
+
+      .result-ticket {
+        width:220px;
+      }
+
+      .cat-card {
+        width:138px;
+        height:138px;
+        right:18px;
+      }
+
+      .cat-head {
+        left:24px;
+        top:48px;
+        width:90px;
+        height:76px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="../" aria-label="바로해결툴즈 메인으로 이동">
+        <div class="brand-mark">B</div>
+        <div>
+          바로해결툴즈
+          <small>알바 급여 · 주휴수당 · 바로 확인</small>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="주요 도구">
+        <a href="../">전체 도구</a>
+        <a href="../severance-pay/">퇴직금</a>
+        <a href="../unemployment-benefit/">실업급여</a>
+        <a href="../loan-interest/">대출이자</a>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="chips">
+            <span class="chip hot">⏰ 주휴수당 계산</span>
+            <span class="chip">주 15시간 기준</span>
+            <span class="chip">개근 여부 확인</span>
+          </div>
+
+          <h1>
+            알바 월급에서<br>
+            <span class="gradient">주휴수당 빠지면 안 됩니다</span>
+          </h1>
+
+          <p class="lead">
+            시급, 주 소정근로시간, 근무일수, 개근 여부를 입력하면
+            <strong>예상 주휴수당, 주급, 월 환산 금액</strong>을 한 번에 계산합니다.
+            월급 받기 전 내가 받을 수 있는 금액을 먼저 확인하세요.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#calculator">주휴수당 계산하기</a>
+            <a class="btn btn-ghost" href="#guide">지급 조건 보기</a>
+          </div>
+        </div>
+
+        <div class="visual" aria-label="주휴수당 계산 예시">
+          <div class="visual-panel">
+            <div class="work-line"></div>
+
+            <div class="time-sheet">
+              <div class="sheet-head">
+                <span>근무표</span>
+                <span>WEEK</span>
+              </div>
+              <div class="sheet-grid">
+                <span class="day-cell on"></span>
+                <span class="day-cell on"></span>
+                <span class="day-cell on"></span>
+                <span class="day-cell on"></span>
+                <span class="day-cell on"></span>
+                <span class="day-cell"></span>
+                <span class="day-cell"></span>
+                <span class="day-cell on"></span>
+                <span class="day-cell on"></span>
+                <span class="day-cell on"></span>
+              </div>
+            </div>
+
+            <div class="clock-card">
+              <div class="clock-face">
+                <span class="hand-one"></span>
+                <span class="hand-two"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="result-ticket">
+            <span>예상 주휴수당</span>
+            <strong id="visualPay">약 8만원</strong>
+          </div>
+
+          <div class="cat-card" aria-hidden="true">
+            <div class="badge-mini">WEEK</div>
+            <div class="cat-head">
+              <div class="cat-ear left"></div>
+              <div class="cat-ear right"></div>
+              <div class="cat-eye left"></div>
+              <div class="cat-eye right"></div>
+              <div class="cat-nose"></div>
+              <div class="cat-smile"></div>
+            </div>
+            <div class="coin-mini">₩</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="calculator">
+      <div class="wrap tool-grid">
+        <div class="panel">
+          <h2>주휴수당 계산기</h2>
+          <p class="desc">
+            주 소정근로시간이 15시간 이상이고, 정해진 근무일을 개근한 경우를 기준으로 예상 주휴수당을 계산합니다.
+            주 40시간 미만 근로자는 비례 방식으로 예상 주휴시간을 계산합니다.
+          </p>
+
+          <form class="form" onsubmit="event.preventDefault(); calculateWeeklyPay();">
+            <div class="row">
+              <div class="field">
+                <label for="hourlyWage">
+                  시급
+                  <small>최저시급 변동 시 수정</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="hourlyWage" type="number" min="0" step="10" value="10320" placeholder="예: 10320">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="weeklyHours">
+                  주 소정근로시간
+                  <small>계약상 주 근무시간</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="weeklyHours" type="number" min="0" step="0.5" value="20" placeholder="예: 20">
+                  <span class="unit">시간</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="workDays">
+                  주 근무일수
+                  <small>예: 주 5일</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="workDays" type="number" min="1" max="7" step="1" value="5" placeholder="예: 5">
+                  <span class="unit">일</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="workedAllDays">
+                  소정근로일 개근 여부
+                  <small>결근 시 확인 필요</small>
+                </label>
+                <div class="input-wrap">
+                  <select id="workedAllDays">
+                    <option value="yes">이번 주 개근</option>
+                    <option value="no">결근 있음</option>
+                    <option value="check">지각·조퇴·근무변경 확인 필요</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="calcMethod">
+                  계산 방식
+                  <small>기본 비례 방식</small>
+                </label>
+                <div class="input-wrap">
+                  <select id="calcMethod">
+                    <option value="proportional">주 40시간 기준 비례 계산</option>
+                    <option value="dailyAverage">1일 평균 근로시간 기준</option>
+                    <option value="full8">주 40시간 이상 8시간 기준</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="weeksPerMonth">
+                  월 환산 주수
+                  <small>보통 4.345주</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="weeksPerMonth" type="number" min="1" max="6" step="0.001" value="4.345" placeholder="예: 4.345">
+                  <span class="unit">주</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="preset">
+              <button type="button" onclick="fillExample('part20')">주 20시간 알바</button>
+              <button type="button" onclick="fillExample('part15')">주 15시간 기준</button>
+              <button type="button" onclick="fillExample('full40')">주 40시간 근무</button>
+              <button type="button" onclick="fillExample('missed')">결근 예시</button>
+            </div>
+
+            <button class="calc-btn" type="submit">주휴수당 계산하기</button>
+            <button class="reset-btn" type="button" onclick="resetForm()">입력값 초기화</button>
+          </form>
+
+          <div class="notice warning">
+            계산 결과는 예상치입니다. 실제 주휴수당은 근로계약서의 소정근로시간, 개근 여부,
+            사업장 급여 산정 방식, 휴게시간 제외 여부, 시급 구성 항목에 따라 달라질 수 있습니다.
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>계산 결과</h2>
+          <p class="desc">
+            예상 주휴수당, 주휴시간, 주급, 월 환산 금액을 나눠 확인하세요.
+          </p>
+
+          <div class="result-box">
+            <div class="result-main">
+              <span>예상 주휴수당</span>
+              <strong id="weeklyHolidayPay">-</strong>
+              <em id="summaryText">값을 입력하고 계산 버튼을 눌러주세요.</em>
+            </div>
+
+            <div class="result-grid">
+              <div class="metric">
+                <span>예상 주휴시간</span>
+                <strong id="holidayHours">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>기본 주급</span>
+                <strong id="baseWeeklyPay">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>주휴 포함 주급</span>
+                <strong id="totalWeeklyPay">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>월 주휴수당 환산</span>
+                <strong id="monthlyHolidayPay">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>월급 환산</span>
+                <strong id="monthlyTotalPay">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>1일 평균 근로시간</span>
+                <strong id="dailyAverageHours">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>지급요건 체크</span>
+                <strong id="eligibility" class="good">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>주휴 포함 실질 시급</span>
+                <strong id="effectiveHourly">-</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice">
+            주휴수당은 “일을 더 해서 받는 추가 근무수당”이라기보다, 요건을 충족한 근로자에게 유급휴일을 부여하는 구조로 이해하면 쉽습니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="guide">
+      <div class="wrap">
+        <div class="panel">
+          <h2>주휴수당 지급 조건</h2>
+
+          <div class="guide-grid">
+            <div class="guide">
+              <b>주 15시간 이상</b>
+              <p>
+                일반적으로 1주 소정근로시간이 15시간 이상인지가 먼저 확인됩니다.
+                주 15시간 미만이면 주휴수당 지급 여부를 별도로 확인해야 합니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>소정근로일 개근</b>
+              <p>
+                근로계약에서 정한 근무일에 출근했는지가 중요합니다.
+                무단결근이 있으면 주휴수당 지급 판단이 달라질 수 있습니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>주휴시간 계산</b>
+              <p>
+                주 40시간 미만 근로자는 보통 주 근무시간을 40시간 기준으로 비례 환산해
+                예상 주휴시간을 계산합니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="notice warning">
+            지각, 조퇴, 대체근무, 휴게시간, 근로계약상 소정근로일 변경, 포괄임금 여부 등은 실제 지급액에 영향을 줄 수 있습니다.
+            정확한 금액은 근로계약서, 급여명세서, 사업장 급여 규정, 고용노동부 상담 기준을 함께 확인하세요.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="panel">
+          <h2>같이 보면 좋은 도구</h2>
+          <p class="desc">
+            알바 급여와 퇴사 전후 금액을 확인할 때는 퇴직금, 실업급여, 대출이자 계산도 함께 보면 좋습니다.
+          </p>
+
+          <div class="related-grid">
+            <a class="related-card" href="../">전체 도구 보기</a>
+            <a class="related-card" href="../severance-pay/">퇴직금 계산기</a>
+            <a class="related-card" href="../unemployment-benefit/">실업급여 계산기</a>
+            <a class="related-card" href="../loan-interest/">대출이자 계산기</a>
+          </div>
+
+          <div class="notice">
+            예정 도구: 최저시급 월급 계산기, 4대보험 계산기, 월급 실수령액 계산기, 연봉 실수령액 계산기.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 바로해결툴즈 · 주휴수당 계산 결과는 참고용입니다. 실제 지급 여부와 금액은 근로계약서, 소정근로시간, 개근 여부, 사업장 급여 기준에 따라 달라질 수 있습니다.
+  </footer>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    function num(id) {
+      const value = Number($(id).value);
+      return Number.isFinite(value) ? value : 0;
+    }
+
+    function setText(id, value) {
+      $(id).textContent = value;
+    }
+
+    function won(value) {
+      if (!Number.isFinite(value)) return "-";
+      return `${Math.round(value).toLocaleString("ko-KR")}원`;
+    }
+
+    function shortWon(value) {
+      if (!Number.isFinite(value)) return "-";
+
+      const rounded = Math.round(value);
+
+      if (rounded >= 100000000) {
+        return `약 ${(rounded / 100000000).toFixed(1)}억`;
+      }
+
+      if (rounded >= 10000) {
+        return `약 ${Math.round(rounded / 10000).toLocaleString("ko-KR")}만원`;
+      }
+
+      return `약 ${rounded.toLocaleString("ko-KR")}원`;
+    }
+
+    function hoursText(value) {
+      if (!Number.isFinite(value)) return "-";
+      return `${Number(value).toLocaleString("ko-KR", {
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 0
+      })}시간`;
+    }
+
+    function calculateHolidayHours(weeklyHours, workDays, method) {
+      if (weeklyHours <= 0) return 0;
+
+      if (method === "full8") {
+        return weeklyHours >= 40 ? 8 : Math.min(8, weeklyHours / 40 * 8);
+      }
+
+      if (method === "dailyAverage") {
+        const days = Math.max(workDays, 1);
+        return Math.min(8, weeklyHours / days);
+      }
+
+      return Math.min(8, weeklyHours / 40 * 8);
+    }
+
+    function calculateWeeklyPay() {
+      const hourlyWage = num("hourlyWage");
+      const weeklyHours = num("weeklyHours");
+      const workDays = Math.max(num("workDays"), 1);
+      const workedAllDays = $("workedAllDays").value;
+      const calcMethod = $("calcMethod").value;
+      const weeksPerMonth = Math.max(num("weeksPerMonth"), 1);
+
+      const holidayHours = calculateHolidayHours(weeklyHours, workDays, calcMethod);
+      const baseWeeklyPay = hourlyWage * weeklyHours;
+      const holidayPay = hourlyWage * holidayHours;
+      const totalWeeklyPay = baseWeeklyPay + holidayPay;
+      const monthlyHolidayPay = holidayPay * weeksPerMonth;
+      const monthlyTotalPay = totalWeeklyPay * weeksPerMonth;
+      const dailyAverageHours = weeklyHours / workDays;
+      const effectiveHourly = weeklyHours > 0 ? totalWeeklyPay / weeklyHours : 0;
+
+      const hasWeeklyHours = weeklyHours >= 15;
+      const hasAttendance = workedAllDays === "yes" || workedAllDays === "check";
+      const eligible = hasWeeklyHours && hasAttendance && hourlyWage > 0;
+
+      setText("weeklyHolidayPay", eligible ? won(holidayPay) : "지급요건 확인 필요");
+      setText("holidayHours", hoursText(holidayHours));
+      setText("baseWeeklyPay", won(baseWeeklyPay));
+      setText("totalWeeklyPay", eligible ? won(totalWeeklyPay) : won(baseWeeklyPay));
+      setText("monthlyHolidayPay", eligible ? won(monthlyHolidayPay) : "확인 필요");
+      setText("monthlyTotalPay", eligible ? won(monthlyTotalPay) : won(baseWeeklyPay * weeksPerMonth));
+      setText("dailyAverageHours", hoursText(dailyAverageHours));
+      setText("effectiveHourly", eligible ? won(effectiveHourly) : "확인 필요");
+      setText("visualPay", eligible ? shortWon(holidayPay) : "확인 필요");
+
+      const eligibilityEl = $("eligibility");
+      eligibilityEl.className = eligible ? "good" : "bad";
+      eligibilityEl.textContent = eligible ? "기본요건 가능" : "요건 확인 필요";
+
+      let summary = "";
+
+      if (hourlyWage <= 0) {
+        summary = "시급을 입력해야 주휴수당을 계산할 수 있습니다.";
+      } else if (!hasWeeklyHours) {
+        summary = `입력한 주 소정근로시간은 ${hoursText(weeklyHours)}입니다. 주 15시간 미만은 일반적인 주휴수당 지급요건 충족 여부를 먼저 확인해야 합니다.`;
+      } else if (workedAllDays === "no") {
+        summary = "결근이 있다고 입력되었습니다. 소정근로일 개근 여부에 따라 주휴수당 지급 판단이 달라질 수 있습니다.";
+      } else if (workedAllDays === "check") {
+        summary = `예상 주휴시간은 ${hoursText(holidayHours)}, 예상 주휴수당은 ${won(holidayPay)}입니다. 다만 지각·조퇴·근무변경이 있으면 실제 지급 기준을 확인해야 합니다.`;
+      } else {
+        summary = `입력값 기준 예상 주휴시간은 ${hoursText(holidayHours)}, 예상 주휴수당은 ${won(holidayPay)}입니다. 주휴 포함 주급은 약 ${won(totalWeeklyPay)}, 월 환산 금액은 약 ${won(monthlyTotalPay)}입니다.`;
+      }
+
+      setText("summaryText", summary);
+    }
+
+    function fillExample(type) {
+      $("workedAllDays").value = "yes";
+      $("calcMethod").value = "proportional";
+      $("weeksPerMonth").value = "4.345";
+
+      if (type === "part20") {
+        $("hourlyWage").value = "10320";
+        $("weeklyHours").value = "20";
+        $("workDays").value = "5";
+      }
+
+      if (type === "part15") {
+        $("hourlyWage").value = "10320";
+        $("weeklyHours").value = "15";
+        $("workDays").value = "3";
+      }
+
+      if (type === "full40") {
+        $("hourlyWage").value = "10320";
+        $("weeklyHours").value = "40";
+        $("workDays").value = "5";
+        $("calcMethod").value = "full8";
+      }
+
+      if (type === "missed") {
+        $("hourlyWage").value = "10320";
+        $("weeklyHours").value = "20";
+        $("workDays").value = "5";
+        $("workedAllDays").value = "no";
+      }
+
+      calculateWeeklyPay();
+    }
+
+    function resetForm() {
+      $("hourlyWage").value = "10320";
+      $("weeklyHours").value = "20";
+      $("workDays").value = "5";
+      $("workedAllDays").value = "yes";
+      $("calcMethod").value = "proportional";
+      $("weeksPerMonth").value = "4.345";
+      calculateWeeklyPay();
+    }
+
+    [
+      "hourlyWage",
+      "weeklyHours",
+      "workDays",
+      "workedAllDays",
+      "calcMethod",
+      "weeksPerMonth"
+    ].forEach((id) => {
+      $(id).addEventListener("input", calculateWeeklyPay);
+      $(id).addEventListener("change", calculateWeeklyPay);
+    });
+
+    calculateWeeklyPay();
+  </script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'></script>
+  <!-- End Cloudflare Web Analytics -->
+</body>
+</html>
