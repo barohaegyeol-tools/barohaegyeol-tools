@@ -1,0 +1,1754 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>도시가스 요금 계산기｜사용량·단가로 예상 가스비 계산｜바로해결툴즈</title>
+  <meta name="description" content="도시가스 사용량, 온압보정계수, 평균열량, MJ당 단가, 기본요금, 부가세를 입력하면 예상 도시가스 요금, 사용요금, 부가세, 월 납부액을 계산할 수 있는 무료 도시가스 요금 계산기입니다." />
+  <meta name="keywords" content="도시가스 요금 계산기, 가스요금 계산기, 도시가스 사용량 계산, 난방비 계산기, 가스비 계산, 도시가스 단가, 바로해결툴즈" />
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/city-gas-bill/" />
+  <meta name="theme-color" content="#fff7ed" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="도시가스 요금 계산기｜사용량·단가로 예상 가스비 계산" />
+  <meta property="og:description" content="도시가스 사용량과 단가를 입력하면 예상 사용요금, 기본요금, 부가세, 월 납부액을 바로 계산합니다." />
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/city-gas-bill/" />
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"도시가스 요금 계산기",
+    "url":"https://barohaegyeol-tools.pages.dev/city-gas-bill/",
+    "applicationCategory":"FinanceApplication",
+    "operatingSystem":"All",
+    "description":"도시가스 사용량, 온압보정계수, 평균열량, MJ당 단가, 기본요금, 부가세를 기준으로 예상 도시가스 요금을 계산하는 무료 생활비 계산기입니다.",
+    "publisher":{
+      "@type":"Organization",
+      "name":"바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg1:#fff7ed;
+      --bg2:#f8fafc;
+      --bg3:#fef3c7;
+      --ink:#0f172a;
+      --text:#27364a;
+      --muted:#64748b;
+      --line:rgba(15,23,42,.10);
+      --white:rgba(255,255,255,.88);
+
+      --brown:#78350f;
+      --dark-brown:#451a03;
+      --orange:#fb923c;
+      --deep-orange:#f97316;
+      --amber:#f59e0b;
+      --yellow:#facc15;
+      --red:#ef4444;
+      --rose:#fb7185;
+      --blue:#2563eb;
+      --sky:#38bdf8;
+      --mint:#14b8a6;
+      --green:#22c55e;
+      --purple:#7c3aed;
+
+      --shadow:0 24px 70px rgba(249,115,22,.16);
+      --shadow2:0 14px 34px rgba(15,23,42,.08);
+      --radius:28px;
+      --max:1180px;
+    }
+
+    * {
+      box-sizing:border-box;
+    }
+
+    html {
+      scroll-behavior:smooth;
+    }
+
+    body {
+      margin:0;
+      min-height:100vh;
+      color:var(--ink);
+      font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;
+      line-height:1.66;
+      background:
+        radial-gradient(circle at 9% 8%, rgba(249,115,22,.25), transparent 25%),
+        radial-gradient(circle at 88% 10%, rgba(120,53,15,.17), transparent 24%),
+        radial-gradient(circle at 80% 88%, rgba(245,158,11,.17), transparent 27%),
+        linear-gradient(135deg,var(--bg1) 0%, var(--bg2) 48%, var(--bg3) 100%);
+      overflow-x:hidden;
+    }
+
+    body::before {
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.18;
+      background-image:
+        radial-gradient(circle, rgba(249,115,22,.22) 1px, transparent 1.3px),
+        radial-gradient(circle, rgba(120,53,15,.14) 1px, transparent 1.3px);
+      background-size:34px 34px, 84px 84px;
+      background-position:0 0, 22px 28px;
+      mask-image:linear-gradient(to bottom,#000 0%,#000 68%,transparent 100%);
+    }
+
+    a {
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button,
+    input,
+    select {
+      font:inherit;
+    }
+
+    button {
+      cursor:pointer;
+    }
+
+    .wrap {
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+    }
+
+    .topbar {
+      position:sticky;
+      top:0;
+      z-index:70;
+      border-bottom:1px solid rgba(15,23,42,.07);
+      background:rgba(255,247,237,.78);
+      backdrop-filter:blur(18px);
+    }
+
+    .nav {
+      min-height:68px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:950;
+      letter-spacing:-.045em;
+    }
+
+    .brand-mark {
+      width:42px;
+      height:42px;
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      background:conic-gradient(from 145deg,#78350f,#f97316,#facc15,#ef4444,#451a03,#78350f);
+      box-shadow:0 16px 36px rgba(249,115,22,.25);
+      font-weight:950;
+    }
+
+    .brand small {
+      display:block;
+      margin-top:1px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:-.02em;
+    }
+
+    .nav-links {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      white-space:nowrap;
+    }
+
+    .nav-links a {
+      padding:9px 13px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.78);
+      color:#26364a;
+      font-size:14px;
+      font-weight:850;
+      box-shadow:var(--shadow2);
+    }
+
+    .hero {
+      padding:58px 0 28px;
+    }
+
+    .hero-grid {
+      display:grid;
+      grid-template-columns:1.02fr .98fr;
+      align-items:center;
+      gap:32px;
+    }
+
+    .chips {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:16px;
+    }
+
+    .chip {
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.82);
+      color:#334155;
+      font-size:13px;
+      font-weight:900;
+      box-shadow:var(--shadow2);
+    }
+
+    .chip.hot {
+      color:#c2410c;
+      background:linear-gradient(135deg,rgba(255,237,213,.98),rgba(255,255,255,.92));
+    }
+
+    h1 {
+      margin:0;
+      max-width:800px;
+      font-size:clamp(38px,6.1vw,74px);
+      line-height:1.04;
+      letter-spacing:-.078em;
+    }
+
+    .gradient {
+      color:transparent;
+      background:linear-gradient(90deg,#78350f 0%, #f97316 46%, #ef4444 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+    }
+
+    .lead {
+      margin:20px 0 0;
+      max-width:700px;
+      color:#34465c;
+      font-size:clamp(16px,2vw,19px);
+      line-height:1.82;
+      letter-spacing:-.015em;
+      word-break:keep-all;
+    }
+
+    .lead strong {
+      color:#c2410c;
+      font-weight:950;
+    }
+
+    .hero-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:26px;
+    }
+
+    .btn {
+      min-height:50px;
+      padding:13px 18px;
+      border-radius:17px;
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      gap:8px;
+      border:1px solid transparent;
+      font-weight:950;
+      letter-spacing:-.025em;
+      transition:.18s ease;
+    }
+
+    .btn:hover {
+      transform:translateY(-2px);
+    }
+
+    .btn-primary {
+      color:#fff;
+      background:linear-gradient(135deg,#78350f,#f97316,#ef4444);
+      box-shadow:0 16px 38px rgba(249,115,22,.24);
+    }
+
+    .btn-ghost {
+      color:#122033;
+      background:rgba(255,255,255,.82);
+      border-color:rgba(15,23,42,.08);
+    }
+
+    .visual {
+      position:relative;
+      min-height:430px;
+      border-radius:42px;
+      border:1px solid rgba(15,23,42,.08);
+      background:
+        radial-gradient(circle at 76% 15%, rgba(249,115,22,.20), transparent 22%),
+        radial-gradient(circle at 17% 86%, rgba(120,53,15,.17), transparent 24%),
+        linear-gradient(145deg,rgba(255,255,255,.96),rgba(255,247,237,.84));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      padding:26px;
+    }
+
+    .gas-panel {
+      position:absolute;
+      left:34px;
+      right:34px;
+      top:34px;
+      height:230px;
+      border-radius:36px;
+      background:
+        radial-gradient(circle at 84% 18%, rgba(255,255,255,.28), transparent 25%),
+        linear-gradient(135deg,#451a03,#78350f 42%,#f97316);
+      box-shadow:0 24px 60px rgba(69,26,3,.20);
+      overflow:hidden;
+    }
+
+    .gas-panel::before {
+      content:"";
+      position:absolute;
+      inset:18px;
+      border-radius:28px;
+      border:1px dashed rgba(255,255,255,.24);
+    }
+
+    .boiler {
+      position:absolute;
+      left:42px;
+      top:42px;
+      width:160px;
+      height:146px;
+      border-radius:28px;
+      background:#fff;
+      border:4px solid #0f172a;
+      box-shadow:0 18px 36px rgba(15,23,42,.18);
+      z-index:3;
+      padding:20px;
+    }
+
+    .boiler-screen {
+      height:40px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#dbeafe,#ccfbf1);
+      border:3px solid #0f172a;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#0f172a;
+      font-size:14px;
+      font-weight:950;
+      letter-spacing:-.03em;
+    }
+
+    .boiler-knobs {
+      display:flex;
+      gap:14px;
+      margin-top:18px;
+      justify-content:center;
+    }
+
+    .knob {
+      width:36px;
+      height:36px;
+      border-radius:50%;
+      background:linear-gradient(135deg,#facc15,#f97316);
+      border:4px solid #0f172a;
+      position:relative;
+    }
+
+    .knob::after {
+      content:"";
+      position:absolute;
+      left:50%;
+      top:5px;
+      width:4px;
+      height:13px;
+      border-radius:999px;
+      background:#0f172a;
+      transform:translateX(-50%);
+    }
+
+    .flame-wrap {
+      position:absolute;
+      right:48px;
+      top:42px;
+      width:150px;
+      height:150px;
+      border-radius:42px;
+      background:rgba(255,255,255,.18);
+      border:1px solid rgba(255,255,255,.26);
+      box-shadow:0 18px 38px rgba(15,23,42,.14);
+      z-index:3;
+    }
+
+    .flame {
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:78px;
+      height:102px;
+      background:linear-gradient(180deg,#facc15 0%,#f97316 55%,#ef4444 100%);
+      border:4px solid #451a03;
+      border-radius:50% 50% 50% 12px;
+      transform:translate(-50%,-50%) rotate(-45deg);
+      box-shadow:0 18px 36px rgba(239,68,68,.26);
+    }
+
+    .flame::before {
+      content:"";
+      position:absolute;
+      left:22px;
+      top:26px;
+      width:34px;
+      height:46px;
+      border-radius:50% 50% 50% 10px;
+      background:#fff7ed;
+      transform:rotate(0deg);
+    }
+
+    .pipe {
+      position:absolute;
+      left:72px;
+      right:88px;
+      bottom:36px;
+      height:18px;
+      border-radius:999px;
+      background:#facc15;
+      border:4px solid #0f172a;
+      z-index:2;
+    }
+
+    .pipe::after {
+      content:"";
+      position:absolute;
+      right:-52px;
+      top:-4px;
+      width:58px;
+      height:18px;
+      border-radius:999px;
+      background:#facc15;
+      border:4px solid #0f172a;
+    }
+
+    .bill-card {
+      position:absolute;
+      left:28px;
+      bottom:28px;
+      width:304px;
+      padding:20px;
+      border-radius:28px;
+      background:linear-gradient(135deg,#fff,#fff7ed);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      z-index:4;
+    }
+
+    .bill-card span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .bill-card strong {
+      display:block;
+      margin-top:7px;
+      color:#c2410c;
+      font-size:34px;
+      line-height:1;
+      letter-spacing:-.055em;
+    }
+
+    .bear-card {
+      position:absolute;
+      right:28px;
+      bottom:28px;
+      width:180px;
+      height:180px;
+      border-radius:42px;
+      border:1px solid rgba(15,23,42,.08);
+      background:linear-gradient(145deg,#fff,#fef3c7);
+      box-shadow:var(--shadow2);
+      z-index:4;
+    }
+
+    .bear-head {
+      position:absolute;
+      left:34px;
+      top:42px;
+      width:112px;
+      height:98px;
+      border-radius:54px 54px 42px 42px;
+      background:#b45309;
+      border:4px solid #451a03;
+    }
+
+    .bear-ear {
+      position:absolute;
+      top:-18px;
+      width:34px;
+      height:34px;
+      border-radius:50%;
+      background:#b45309;
+      border:4px solid #451a03;
+      z-index:-1;
+    }
+
+    .bear-ear.left { left:7px; }
+    .bear-ear.right { right:7px; }
+
+    .bear-eye {
+      position:absolute;
+      top:36px;
+      width:10px;
+      height:13px;
+      border-radius:999px;
+      background:#111827;
+    }
+
+    .bear-eye.left { left:32px; }
+    .bear-eye.right { right:32px; }
+
+    .bear-muzzle {
+      position:absolute;
+      left:50%;
+      top:54px;
+      width:48px;
+      height:32px;
+      border-radius:999px;
+      background:#fef3c7;
+      transform:translateX(-50%);
+    }
+
+    .bear-nose {
+      position:absolute;
+      left:50%;
+      top:60px;
+      width:16px;
+      height:11px;
+      border-radius:999px;
+      background:#111827;
+      transform:translateX(-50%);
+      z-index:2;
+    }
+
+    .bear-smile {
+      position:absolute;
+      left:50%;
+      top:73px;
+      width:28px;
+      height:13px;
+      border-bottom:3px solid #451a03;
+      border-radius:0 0 999px 999px;
+      transform:translateX(-50%);
+      z-index:2;
+    }
+
+    .meter-mini {
+      position:absolute;
+      left:13px;
+      bottom:13px;
+      width:58px;
+      height:52px;
+      border-radius:16px;
+      background:linear-gradient(135deg,#fff,#fed7aa);
+      border:3px solid #0f172a;
+      transform:rotate(-8deg);
+    }
+
+    .meter-mini::before {
+      content:"㎥";
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      color:#c2410c;
+      font-size:18px;
+      font-weight:950;
+    }
+
+    .badge-mini {
+      position:absolute;
+      right:14px;
+      top:14px;
+      padding:8px 10px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#ffedd5,#fef3c7);
+      color:#c2410c;
+      font-size:12px;
+      font-weight:950;
+      box-shadow:var(--shadow2);
+      z-index:5;
+    }
+
+    .section {
+      padding:22px 0;
+    }
+
+    .tool-grid {
+      display:grid;
+      grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);
+      gap:22px;
+      align-items:start;
+    }
+
+    .panel {
+      padding:24px;
+      border-radius:var(--radius);
+      border:1px solid rgba(15,23,42,.08);
+      background:var(--white);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);
+    }
+
+    .panel h2 {
+      margin:0 0 12px;
+      font-size:27px;
+      line-height:1.2;
+      letter-spacing:-.052em;
+    }
+
+    .desc {
+      margin:-4px 0 18px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    .form {
+      display:grid;
+      gap:14px;
+    }
+
+    .field label {
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom:8px;
+      color:#122033;
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .field small {
+      color:var(--muted);
+      font-weight:750;
+    }
+
+    .input-wrap {
+      position:relative;
+    }
+
+    input,
+    select {
+      width:100%;
+      min-height:54px;
+      padding:14px 54px 14px 15px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.10);
+      background:rgba(255,255,255,.94);
+      color:#122033;
+      font-size:16px;
+      font-weight:850;
+      outline:none;
+      transition:.16s ease;
+    }
+
+    input:focus,
+    select:focus {
+      border-color:rgba(249,115,22,.46);
+      box-shadow:0 0 0 4px rgba(249,115,22,.12);
+    }
+
+    .unit {
+      position:absolute;
+      top:50%;
+      right:15px;
+      transform:translateY(-50%);
+      color:var(--muted);
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .row {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .toggle-row {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+      padding:6px;
+      border-radius:18px;
+      background:rgba(255,255,255,.72);
+      border:1px solid rgba(15,23,42,.08);
+    }
+
+    .toggle-row button {
+      min-height:44px;
+      border:0;
+      border-radius:14px;
+      background:transparent;
+      color:#475569;
+      font-size:14px;
+      font-weight:950;
+      transition:.16s ease;
+    }
+
+    .toggle-row button.active {
+      color:#fff;
+      background:linear-gradient(135deg,#78350f,#f97316,#ef4444);
+      box-shadow:0 12px 28px rgba(249,115,22,.18);
+    }
+
+    .detail-box {
+      display:grid;
+      gap:10px;
+      padding:14px;
+      border-radius:18px;
+      background:rgba(248,250,252,.78);
+      border:1px solid rgba(15,23,42,.08);
+    }
+
+    .detail-title {
+      color:#334155;
+      font-size:13px;
+      font-weight:950;
+    }
+
+    .preset {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .preset button {
+      padding:8px 11px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:#fff;
+      color:#334155;
+      font-size:12px;
+      font-weight:900;
+    }
+
+    .calc-btn {
+      width:100%;
+      min-height:58px;
+      margin-top:6px;
+      border:0;
+      border-radius:18px;
+      color:#fff;
+      background:linear-gradient(135deg,#78350f,#f97316,#ef4444);
+      font-size:17px;
+      font-weight:950;
+      box-shadow:0 16px 34px rgba(249,115,22,.22);
+    }
+
+    .reset-btn {
+      width:100%;
+      min-height:48px;
+      margin-top:10px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.86);
+      color:#122033;
+      font-weight:900;
+    }
+
+    .notice {
+      margin-top:12px;
+      padding:13px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(15,23,42,.08);
+      color:#526173;
+      font-size:13px;
+      line-height:1.75;
+      font-weight:760;
+      word-break:keep-all;
+    }
+
+    .warning {
+      border-color:rgba(249,115,22,.25);
+      background:rgba(255,247,237,.84);
+      color:#9a3412;
+    }
+
+    .result-box {
+      display:grid;
+      gap:14px;
+    }
+
+    .result-main {
+      padding:24px;
+      border-radius:26px;
+      color:#122033;
+      background:
+        radial-gradient(circle at 84% 18%, rgba(255,255,255,.46), transparent 26%),
+        linear-gradient(135deg,#fed7aa,#fde68a 48%,#fecaca);
+      box-shadow:var(--shadow2);
+    }
+
+    .result-main span {
+      display:block;
+      font-size:14px;
+      opacity:.82;
+      font-weight:900;
+    }
+
+    .result-main strong {
+      display:block;
+      margin-top:8px;
+      font-size:clamp(36px,5vw,58px);
+      line-height:1;
+      letter-spacing:-.06em;
+    }
+
+    .result-main em {
+      display:block;
+      margin-top:10px;
+      font-size:14px;
+      line-height:1.75;
+      font-style:normal;
+      font-weight:850;
+      opacity:.88;
+      word-break:keep-all;
+    }
+
+    .result-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .metric {
+      padding:18px;
+      border-radius:20px;
+      background:rgba(255,255,255,.84);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .metric span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .metric strong {
+      display:block;
+      margin-top:7px;
+      color:#122033;
+      font-size:24px;
+      letter-spacing:-.045em;
+    }
+
+    .breakdown {
+      display:grid;
+      gap:10px;
+      margin-top:14px;
+    }
+
+    .breakdown-item {
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:10px;
+      align-items:center;
+      padding:13px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(15,23,42,.08);
+      color:#334155;
+      font-size:14px;
+      font-weight:850;
+    }
+
+    .breakdown-item strong {
+      color:#0f172a;
+      font-size:15px;
+      letter-spacing:-.025em;
+    }
+
+    .good {
+      color:#047857 !important;
+    }
+
+    .warn {
+      color:#d97706 !important;
+    }
+
+    .bad {
+      color:#e11d48 !important;
+    }
+
+    .guide-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .guide {
+      padding:20px;
+      border-radius:22px;
+      background:rgba(255,255,255,.80);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .guide b {
+      display:block;
+      margin-bottom:8px;
+      font-size:17px;
+      letter-spacing:-.03em;
+    }
+
+    .guide p {
+      margin:0;
+      color:#526173;
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    .formula {
+      margin-top:16px;
+      padding:17px;
+      border-radius:20px;
+      background:rgba(248,250,252,.90);
+      border:1px solid rgba(15,23,42,.08);
+      color:#334155;
+      font-size:14px;
+      line-height:1.8;
+      font-weight:780;
+      overflow-x:auto;
+    }
+
+    .related-grid {
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .related-card {
+      padding:16px;
+      border-radius:20px;
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      font-weight:900;
+      color:#24415f;
+      line-height:1.45;
+    }
+
+    footer {
+      padding:44px 0 54px;
+      color:var(--muted);
+      text-align:center;
+      font-size:13px;
+    }
+
+    @media (max-width:920px) {
+      .hero-grid,
+      .tool-grid {
+        grid-template-columns:1fr;
+      }
+
+      .hero {
+        padding-top:42px;
+      }
+    }
+
+    @media (max-width:720px) {
+      .related-grid {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+    }
+
+    @media (max-width:640px) {
+      .nav {
+        align-items:flex-start;
+        flex-direction:column;
+        padding:12px 0;
+      }
+
+      .nav-links {
+        width:100%;
+        overflow-x:auto;
+        padding-bottom:4px;
+      }
+
+      .hero-actions {
+        display:grid;
+      }
+
+      .btn {
+        width:100%;
+      }
+
+      .row,
+      .result-grid,
+      .guide-grid,
+      .related-grid,
+      .toggle-row {
+        grid-template-columns:1fr;
+      }
+
+      .visual {
+        min-height:410px;
+      }
+
+      .gas-panel {
+        left:18px;
+        right:18px;
+        height:228px;
+      }
+
+      .boiler {
+        left:26px;
+        width:130px;
+        height:132px;
+      }
+
+      .flame-wrap {
+        right:24px;
+        width:116px;
+        height:116px;
+      }
+
+      .flame {
+        width:60px;
+        height:78px;
+      }
+
+      .pipe {
+        left:52px;
+        right:68px;
+      }
+
+      .bill-card {
+        width:230px;
+        left:18px;
+      }
+
+      .bill-card strong {
+        font-size:27px;
+      }
+
+      .bear-card {
+        width:138px;
+        height:138px;
+        right:18px;
+      }
+
+      .bear-head {
+        left:25px;
+        top:38px;
+        width:90px;
+        height:80px;
+      }
+
+      .bear-eye {
+        top:31px;
+      }
+
+      .bear-muzzle {
+        top:47px;
+        width:42px;
+        height:29px;
+      }
+
+      .bear-nose {
+        top:53px;
+      }
+
+      .bear-smile {
+        top:65px;
+      }
+
+      .meter-mini {
+        transform:scale(.78) rotate(-8deg);
+        left:5px;
+        bottom:4px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="../" aria-label="바로해결툴즈 메인으로 이동">
+        <div class="brand-mark">B</div>
+        <div>
+          바로해결툴즈
+          <small>생활비 계산 · 도시가스 · 바로 확인</small>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="주요 도구">
+        <a href="../">전체 도구</a>
+        <a href="../apartment-management-fee/">아파트 관리비</a>
+        <a href="../taxi-fare/">택시비</a>
+        <a href="../highway-toll/">고속도로 통행료</a>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="chips">
+            <span class="chip hot">🔥 도시가스 요금 계산</span>
+            <span class="chip">사용량 ㎥</span>
+            <span class="chip">MJ 단가 입력</span>
+          </div>
+
+          <h1>
+            이번 달 도시가스비<br>
+            <span class="gradient">얼마 나올지 계산하세요</span>
+          </h1>
+
+          <p class="lead">
+            도시가스 사용량, 온압보정계수, 평균열량, MJ당 단가, 기본요금, 부가세를 입력하면
+            <strong>예상 사용요금, 기본요금, 부가세, 총 납부액</strong>을 한 번에 확인할 수 있습니다.
+            지역·용도별 단가가 다르므로 고지서 단가를 넣으면 더 정확합니다.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#calculator">도시가스 요금 계산하기</a>
+            <a class="btn btn-ghost" href="#guide">계산 기준 보기</a>
+          </div>
+        </div>
+
+        <div class="visual" aria-label="도시가스 요금 계산 예시">
+          <div class="gas-panel">
+            <div class="boiler">
+              <div class="boiler-screen" id="visualUsage">85㎥</div>
+              <div class="boiler-knobs">
+                <div class="knob"></div>
+                <div class="knob"></div>
+              </div>
+            </div>
+
+            <div class="flame-wrap">
+              <div class="flame"></div>
+            </div>
+
+            <div class="pipe"></div>
+          </div>
+
+          <div class="bill-card">
+            <span>예상 납부액</span>
+            <strong id="visualPay">약 9만원</strong>
+          </div>
+
+          <div class="bear-card" aria-hidden="true">
+            <div class="badge-mini">GAS</div>
+            <div class="bear-head">
+              <div class="bear-ear left"></div>
+              <div class="bear-ear right"></div>
+              <div class="bear-eye left"></div>
+              <div class="bear-eye right"></div>
+              <div class="bear-muzzle"></div>
+              <div class="bear-nose"></div>
+              <div class="bear-smile"></div>
+            </div>
+            <div class="meter-mini"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="calculator">
+      <div class="wrap tool-grid">
+        <div class="panel">
+          <h2>도시가스 요금 계산기</h2>
+          <p class="desc">
+            도시가스는 지역, 공급사, 용도, 계절, 단가에 따라 요금이 달라집니다.
+            고지서에 표시된 사용량과 단가를 입력하면 예상 요금을 더 현실적으로 계산할 수 있습니다.
+          </p>
+
+          <form class="form" onsubmit="event.preventDefault(); calculateGasBill();">
+            <div class="toggle-row" aria-label="입력 방식 선택">
+              <button type="button" id="usageModeBtn" class="active" onclick="setMode('usage')">사용량 기준</button>
+              <button type="button" id="meterModeBtn" onclick="setMode('meter')">계량기 지침 기준</button>
+            </div>
+
+            <div id="usageField" class="field">
+              <label for="gasUsage">
+                도시가스 사용량
+                <small>고지서 사용량</small>
+              </label>
+              <div class="input-wrap">
+                <input id="gasUsage" type="number" min="0" step="0.1" value="85" placeholder="예: 85">
+                <span class="unit">㎥</span>
+              </div>
+            </div>
+
+            <div id="meterFields" style="display:none;">
+              <div class="row">
+                <div class="field">
+                  <label for="currentMeter">
+                    현재 계량기 지침
+                    <small>이번 달</small>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="currentMeter" type="number" min="0" step="0.1" value="1250" placeholder="예: 1250">
+                    <span class="unit">㎥</span>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="previousMeter">
+                    전월 계량기 지침
+                    <small>지난 달</small>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="previousMeter" type="number" min="0" step="0.1" value="1165" placeholder="예: 1165">
+                    <span class="unit">㎥</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="correctionFactor">
+                  온압보정계수
+                  <small>기본 1.0000</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="correctionFactor" type="number" min="0" step="0.0001" value="1.0000" placeholder="예: 1.0000">
+                  <span class="unit">계수</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="heatingValue">
+                  평균열량
+                  <small>고지서 확인</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="heatingValue" type="number" min="0" step="0.01" value="43.0" placeholder="예: 43.0">
+                  <span class="unit">MJ/㎥</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-box">
+              <div class="detail-title">요금 단가 설정</div>
+
+              <div class="row">
+                <div class="field">
+                  <label for="unitPrice">
+                    사용요금 단가
+                    <small>MJ당 단가</small>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="unitPrice" type="number" min="0" step="0.0001" value="21.50" placeholder="예: 21.50">
+                    <span class="unit">원/MJ</span>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="basicCharge">
+                    기본요금
+                    <small>월 기본료</small>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="basicCharge" type="number" min="0" step="10" value="1000" placeholder="예: 1000">
+                    <span class="unit">원</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="field">
+                  <label for="discount">
+                    할인·감면
+                    <small>복지할인 등</small>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="discount" type="number" min="0" step="10" value="0" placeholder="예: 8000">
+                    <span class="unit">원</span>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="vatRate">
+                    부가세율
+                    <small>기본 10%</small>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="vatRate" type="number" min="0" max="30" step="0.1" value="10">
+                    <span class="unit">%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-box">
+              <div class="detail-title">부가 항목</div>
+
+              <div class="row">
+                <div class="field">
+                  <label for="lateFee">
+                    연체료·미납액
+                    <small>없으면 0</small>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="lateFee" type="number" min="0" step="10" value="0">
+                    <span class="unit">원</span>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="otherCharge">
+                    기타 부과액
+                    <small>계량기 교체비 등</small>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="otherCharge" type="number" min="0" step="10" value="0">
+                    <span class="unit">원</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="preset">
+              <button type="button" onclick="fillExample('small')">1인 가구 25㎥</button>
+              <button type="button" onclick="fillExample('normal')">일반 가구 85㎥</button>
+              <button type="button" onclick="fillExample('winter')">겨울 난방 180㎥</button>
+              <button type="button" onclick="fillExample('discount')">복지할인 예시</button>
+            </div>
+
+            <button class="calc-btn" type="submit">도시가스 요금 계산하기</button>
+            <button class="reset-btn" type="button" onclick="resetForm()">입력값 초기화</button>
+          </form>
+
+          <div class="notice warning">
+            계산 결과는 참고용입니다. 실제 도시가스 요금은 지역 공급사, 용도, 계절별 단가,
+            열량, 온압보정계수, 기본요금, 복지할인, 미납·정산금에 따라 달라질 수 있습니다.
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>계산 결과</h2>
+          <p class="desc">
+            예상 납부액, 사용요금, 기본요금, 부가세, 할인액, 총 사용열량을 나눠 확인하세요.
+          </p>
+
+          <div class="result-box">
+            <div class="result-main">
+              <span>예상 도시가스 납부액</span>
+              <strong id="totalBill">-</strong>
+              <em id="summaryText">값을 입력하고 계산 버튼을 눌러주세요.</em>
+            </div>
+
+            <div class="result-grid">
+              <div class="metric">
+                <span>사용량</span>
+                <strong id="resultUsage">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>총 사용열량</span>
+                <strong id="totalEnergy">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>사용요금</span>
+                <strong id="usageCharge">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>기본요금</span>
+                <strong id="resultBasicCharge">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>부가세</span>
+                <strong id="vatAmount">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>할인·감면</span>
+                <strong id="resultDiscount" class="good">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>㎥당 예상요금</span>
+                <strong id="pricePerM3">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>전월 대비 참고</span>
+                <strong id="usageLevel">-</strong>
+              </div>
+            </div>
+
+            <div class="breakdown">
+              <div class="breakdown-item">
+                <span>계산 전 소계</span>
+                <strong id="subtotal">-</strong>
+              </div>
+
+              <div class="breakdown-item">
+                <span>연체료·미납액</span>
+                <strong id="resultLateFee">-</strong>
+              </div>
+
+              <div class="breakdown-item">
+                <span>기타 부과액</span>
+                <strong id="resultOtherCharge">-</strong>
+              </div>
+
+              <div class="breakdown-item">
+                <span>적용 단가</span>
+                <strong id="resultUnitPrice">-</strong>
+              </div>
+
+              <div class="breakdown-item">
+                <span>온압보정계수 × 평균열량</span>
+                <strong id="resultEnergyFactor">-</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice">
+            고지서의 사용량, 평균열량, 온압보정계수, 단가가 다르면 실제 청구액과 차이가 날 수 있습니다.
+            공급사 고지서 항목을 그대로 입력하는 방식이 가장 정확합니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="guide">
+      <div class="wrap">
+        <div class="panel">
+          <h2>도시가스 요금 계산 기준</h2>
+
+          <div class="guide-grid">
+            <div class="guide">
+              <b>사용량 ㎥</b>
+              <p>
+                고지서에 표시되는 도시가스 사용량입니다.
+                계량기 지침 기준으로 계산할 때는 현재 지침에서 전월 지침을 빼서 사용량을 구합니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>사용열량 MJ</b>
+              <p>
+                도시가스 요금은 단순 ㎥가 아니라 온압보정계수와 평균열량을 반영한 사용열량 기준으로 계산됩니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>지역별 단가</b>
+              <p>
+                도시가스 단가는 지역, 공급사, 주택용·업무용 등 용도, 계절에 따라 다를 수 있습니다.
+                고지서 단가를 직접 입력하세요.
+              </p>
+            </div>
+          </div>
+
+          <div class="formula">
+            <strong>사용량</strong><br>
+            = 현재 계량기 지침 - 전월 계량기 지침<br><br>
+
+            <strong>총 사용열량</strong><br>
+            = 사용량(㎥) × 온압보정계수 × 평균열량(MJ/㎥)<br><br>
+
+            <strong>사용요금</strong><br>
+            = 총 사용열량(MJ) × MJ당 단가<br><br>
+
+            <strong>예상 납부액</strong><br>
+            = 사용요금 + 기본요금 + 부가세 + 연체료·기타부과액 - 할인·감면
+          </div>
+
+          <div class="notice warning">
+            이 계산기는 간편 추정용입니다. 실제 고지요금에는 공급사별 정산금, 미납금,
+            자동이체 할인, 복지할인, 계량기 교체비, 요금 조정분이 포함될 수 있습니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="panel">
+          <h2>같이 보면 좋은 도구</h2>
+          <p class="desc">
+            도시가스 요금 외에도 아파트 관리비, 택시비, 고속도로 통행료, 월급 실수령액 계산이 필요하면 다른 바로해결툴즈도 함께 확인할 수 있습니다.
+          </p>
+
+          <div class="related-grid">
+            <a class="related-card" href="../apartment-management-fee/">아파트 관리비 조회</a>
+            <a class="related-card" href="../taxi-fare/">택시비 계산기</a>
+            <a class="related-card" href="../highway-toll/">고속도로 통행료 조회</a>
+            <a class="related-card" href="../monthly-net-salary/">월급 실수령액 계산기</a>
+          </div>
+
+          <div class="notice">
+            바로해결툴즈는 월급·퇴직·세금·생활비 계산기를 계속 추가하고 있습니다.
+            계산 결과는 참고용이며 실제 납부액은 도시가스 고지서를 함께 확인하세요.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 바로해결툴즈 · 도시가스 요금 계산 결과는 참고용입니다. 실제 요금은 지역 공급사, 용도, 계절 단가, 열량, 보정계수, 정산금, 감면 여부에 따라 달라질 수 있습니다.
+  </footer>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    let currentMode = "usage";
+
+    function num(id) {
+      const value = Number($(id).value);
+      return Number.isFinite(value) ? value : 0;
+    }
+
+    function setText(id, value) {
+      $(id).textContent = value;
+    }
+
+    function won(value) {
+      if (!Number.isFinite(value)) return "-";
+      return `${Math.round(value).toLocaleString("ko-KR")}원`;
+    }
+
+    function shortWon(value) {
+      if (!Number.isFinite(value)) return "-";
+
+      const rounded = Math.round(value);
+
+      if (rounded >= 100000000) {
+        return `약 ${(rounded / 100000000).toFixed(1)}억`;
+      }
+
+      if (rounded >= 10000) {
+        return `약 ${Math.round(rounded / 10000).toLocaleString("ko-KR")}만원`;
+      }
+
+      return `약 ${rounded.toLocaleString("ko-KR")}원`;
+    }
+
+    function formatM3(value) {
+      return `${Number(value).toLocaleString("ko-KR", { maximumFractionDigits: 1 })}㎥`;
+    }
+
+    function formatMJ(value) {
+      return `${Number(value).toLocaleString("ko-KR", { maximumFractionDigits: 1 })}MJ`;
+    }
+
+    function setMode(mode) {
+      currentMode = mode;
+
+      $("usageModeBtn").classList.toggle("active", mode === "usage");
+      $("meterModeBtn").classList.toggle("active", mode === "meter");
+
+      $("usageField").style.display = mode === "usage" ? "block" : "none";
+      $("meterFields").style.display = mode === "meter" ? "block" : "none";
+
+      calculateGasBill();
+    }
+
+    function getUsage() {
+      if (currentMode === "usage") {
+        return Math.max(num("gasUsage"), 0);
+      }
+
+      return Math.max(num("currentMeter") - num("previousMeter"), 0);
+    }
+
+    function calculateGasBill() {
+      const usage = getUsage();
+      const correctionFactor = Math.max(num("correctionFactor"), 0);
+      const heatingValue = Math.max(num("heatingValue"), 0);
+      const unitPrice = Math.max(num("unitPrice"), 0);
+      const basicCharge = Math.max(num("basicCharge"), 0);
+      const discount = Math.max(num("discount"), 0);
+      const vatRate = Math.max(num("vatRate"), 0) / 100;
+      const lateFee = Math.max(num("lateFee"), 0);
+      const otherCharge = Math.max(num("otherCharge"), 0);
+
+      const totalEnergy = usage * correctionFactor * heatingValue;
+      const usageCharge = totalEnergy * unitPrice;
+      const beforeVat = Math.max(usageCharge + basicCharge - discount, 0);
+      const vatAmount = beforeVat * vatRate;
+      const subtotal = beforeVat + vatAmount;
+      const totalBill = subtotal + lateFee + otherCharge;
+      const pricePerM3 = usage > 0 ? totalBill / usage : 0;
+
+      let usageLevel = "보통";
+
+      if (usage <= 30) {
+        usageLevel = "적은 사용";
+      } else if (usage <= 100) {
+        usageLevel = "일반 사용";
+      } else if (usage <= 200) {
+        usageLevel = "난방 사용";
+      } else {
+        usageLevel = "고사용";
+      }
+
+      setText("totalBill", won(totalBill));
+      setText("resultUsage", formatM3(usage));
+      setText("totalEnergy", formatMJ(totalEnergy));
+      setText("usageCharge", won(usageCharge));
+      setText("resultBasicCharge", won(basicCharge));
+      setText("vatAmount", won(vatAmount));
+      setText("resultDiscount", won(discount));
+      setText("pricePerM3", usage > 0 ? `${Math.round(pricePerM3).toLocaleString("ko-KR")}원/㎥` : "-");
+      setText("usageLevel", usageLevel);
+
+      setText("subtotal", won(subtotal));
+      setText("resultLateFee", won(lateFee));
+      setText("resultOtherCharge", won(otherCharge));
+      setText("resultUnitPrice", `${unitPrice.toLocaleString("ko-KR", { maximumFractionDigits: 4 })}원/MJ`);
+      setText("resultEnergyFactor", `${correctionFactor.toLocaleString("ko-KR", { maximumFractionDigits: 4 })} × ${heatingValue.toLocaleString("ko-KR", { maximumFractionDigits: 2 })}MJ/㎥`);
+
+      setText("visualPay", shortWon(totalBill));
+      setText("visualUsage", formatM3(usage));
+
+      let summary = "";
+
+      if (usage <= 0) {
+        summary = "도시가스 사용량이 0으로 입력되었습니다. 사용량 또는 계량기 지침을 입력하면 예상 요금을 계산할 수 있습니다.";
+      } else {
+        summary = `입력값 기준 사용량은 ${formatM3(usage)}, 총 사용열량은 약 ${formatMJ(totalEnergy)}입니다. 예상 사용요금은 약 ${won(usageCharge)}, 부가세와 기본요금 등을 반영한 예상 납부액은 약 ${won(totalBill)}입니다.`;
+      }
+
+      if (discount > 0) {
+        summary += ` 할인·감면 ${won(discount)}을 반영했습니다.`;
+      }
+
+      if (lateFee + otherCharge > 0) {
+        summary += ` 연체료·기타 부과액 ${won(lateFee + otherCharge)}도 포함했습니다.`;
+      }
+
+      setText("summaryText", summary);
+    }
+
+    function fillExample(type) {
+      setMode("usage");
+
+      if (type === "small") {
+        $("gasUsage").value = "25";
+        $("correctionFactor").value = "1.0000";
+        $("heatingValue").value = "43.0";
+        $("unitPrice").value = "21.50";
+        $("basicCharge").value = "1000";
+        $("discount").value = "0";
+        $("vatRate").value = "10";
+        $("lateFee").value = "0";
+        $("otherCharge").value = "0";
+      }
+
+      if (type === "normal") {
+        $("gasUsage").value = "85";
+        $("correctionFactor").value = "1.0000";
+        $("heatingValue").value = "43.0";
+        $("unitPrice").value = "21.50";
+        $("basicCharge").value = "1000";
+        $("discount").value = "0";
+        $("vatRate").value = "10";
+        $("lateFee").value = "0";
+        $("otherCharge").value = "0";
+      }
+
+      if (type === "winter") {
+        $("gasUsage").value = "180";
+        $("correctionFactor").value = "1.0000";
+        $("heatingValue").value = "43.0";
+        $("unitPrice").value = "21.50";
+        $("basicCharge").value = "1000";
+        $("discount").value = "0";
+        $("vatRate").value = "10";
+        $("lateFee").value = "0";
+        $("otherCharge").value = "0";
+      }
+
+      if (type === "discount") {
+        $("gasUsage").value = "120";
+        $("correctionFactor").value = "1.0000";
+        $("heatingValue").value = "43.0";
+        $("unitPrice").value = "21.50";
+        $("basicCharge").value = "1000";
+        $("discount").value = "8000";
+        $("vatRate").value = "10";
+        $("lateFee").value = "0";
+        $("otherCharge").value = "0";
+      }
+
+      calculateGasBill();
+    }
+
+    function resetForm() {
+      setMode("usage");
+      $("gasUsage").value = "85";
+      $("currentMeter").value = "1250";
+      $("previousMeter").value = "1165";
+      $("correctionFactor").value = "1.0000";
+      $("heatingValue").value = "43.0";
+      $("unitPrice").value = "21.50";
+      $("basicCharge").value = "1000";
+      $("discount").value = "0";
+      $("vatRate").value = "10";
+      $("lateFee").value = "0";
+      $("otherCharge").value = "0";
+      calculateGasBill();
+    }
+
+    [
+      "gasUsage",
+      "currentMeter",
+      "previousMeter",
+      "correctionFactor",
+      "heatingValue",
+      "unitPrice",
+      "basicCharge",
+      "discount",
+      "vatRate",
+      "lateFee",
+      "otherCharge"
+    ].forEach((id) => {
+      $(id).addEventListener("input", calculateGasBill);
+      $(id).addEventListener("change", calculateGasBill);
+    });
+
+    calculateGasBill();
+  </script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'></script>
+  <!-- End Cloudflare Web Analytics -->
+</body>
+</html>
