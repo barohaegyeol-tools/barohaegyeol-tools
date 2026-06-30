@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>건강보험료 계산기｜직장가입자·지역가입자 예상 보험료 계산｜바로해결툴즈</title>
+  <meta name="description" content="월 보수, 건강보험료율, 장기요양보험료율, 보수 외 소득, 지역가입자 보험료 점수를 입력하면 예상 건강보험료와 장기요양보험료, 총 납부액을 계산할 수 있는 무료 건강보험료 계산기입니다." />
+  <meta name="keywords" content="건강보험료 계산기, 건강보험료 계산, 장기요양보험료 계산, 직장가입자 건강보험료, 지역가입자 건강보험료, 4대보험 계산, 바로해결툴즈" />
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/health-insurance-premium/" />
+  <meta name="theme-color" content="#ecfdf5" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="건강보험료 계산기｜직장가입자·지역가입자 예상 보험료 계산" />
+  <meta property="og:description" content="월 보수와 보험료율을 입력하면 예상 건강보험료, 장기요양보험료, 총 납부액을 바로 계산합니다." />
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/health-insurance-premium/" />
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"건강보험료 계산기",
+    "url":"https://barohaegyeol-tools.pages.dev/health-insurance-premium/",
+    "applicationCategory":"FinanceApplication",
+    "operatingSystem":"All",
+    "description":"월 보수, 건강보험료율, 장기요양보험료율, 보수 외 소득, 지역가입자 보험료 점수를 기준으로 예상 건강보험료와 장기요양보험료를 계산하는 무료 생활 계산기입니다.",
+    "publisher":{
+      "@type":"Organization",
+      "name":"바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg1:#ecfdf5;
+      --bg2:#f8fafc;
+      --bg3:#eff6ff;
+      --ink:#0f172a;
+      --text:#27364a;
+      --muted:#64748b;
+      --line:rgba(15,23,42,.10);
+      --white:rgba(255,255,255,.88);
+
+      --navy:#0f172a;
+      --green:#22c55e;
+      --emerald:#10b981;
+      --teal:#14b8a6;
+      --mint:#34d399;
+      --blue:#2563eb;
+      --sky:#38bdf8;
+      --cyan:#06b6d4;
+      --purple:#7c3aed;
+      --amber:#f59e0b;
+      --orange:#fb923c;
+      --rose:#fb7185;
+      --red:#ef4444;
+
+      --shadow:0 24px 70px rgba(16,185,129,.15);
+      --shadow2:0 14px 34px rgba(15,23,42,.08);
+      --radius:28px;
+      --max:1180px;
+    }
+
+    * {
+      box-sizing:border-box;
+    }
+
+    html {
+      scroll-behavior:smooth;
+    }
+
+    body {
+      margin:0;
+      min-height:100vh;
+      color:var(--ink);
+      font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;
+      line-height:1.66;
+      background:
+        radial-gradient(circle at 9% 8%, rgba(16,185,129,.24), transparent 25%),
+        radial-gradient(circle at 88% 10%, rgba(37,99,235,.15), transparent 25%),
+        radial-gradient(circle at 78% 88%, rgba(56,189,248,.13), transparent 27%),
+        linear-gradient(135deg,var(--bg1) 0%, var(--bg2) 48%, var(--bg3) 100%);
+      overflow-x:hidden;
+    }
+
+    body::before {
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.19;
+      background-image:
+        radial-gradient(circle, rgba(16,185,129,.22) 1px, transparent 1.3px),
+        radial-gradient(circle, rgba(37,99,235,.13) 1px, transparent 1.3px);
+      background-size:34px 34px, 84px 84px;
+      background-position:0 0, 22px 28px;
+      mask-image:linear-gradient(to bottom,#000 0%,#000 68%,transparent 100%);
+    }
+
+    a {
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button,
+    input,
+    select {
+      font:inherit;
+    }
+
+    button {
+      cursor:pointer;
+    }
+
+    .wrap {
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+    }
+
+    .topbar {
+      position:sticky;
+      top:0;
+      z-index:70;
+      border-bottom:1px solid rgba(15,23,42,.07);
+      background:rgba(236,253,245,.78);
+      backdrop-filter:blur(18px);
+    }
+
+    .nav {
+      min-height:68px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:950;
+      letter-spacing:-.045em;
+    }
+
+    .brand-mark {
+      width:42px;
+      height:42px;
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      background:conic-gradient(from 145deg,#10b981,#22c55e,#38bdf8,#2563eb,#7c3aed,#10b981);
+      box-shadow:0 16px 36px rgba(16,185,129,.25);
+      font-weight:950;
+    }
+
+    .brand small {
+      display:block;
+      margin-top:1px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:-.02em;
+    }
+
+    .nav-links {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      white-space:nowrap;
+    }
+
+    .nav-links a {
+      padding:9px 13px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.78);
+      color:#26364a;
+      font-size:14px;
+      font-weight:850;
+      box-shadow:var(--shadow2);
+    }
+
+    .hero {
+      padding:58px 0 28px;
+    }
+
+    .hero-grid {
+      display:grid;
+      grid-template-columns:1.02fr .98fr;
+      align-items:center;
+      gap:32px;
+    }
+
+    .chips {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:16px;
+    }
+
+    .chip {
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.82);
+      color:#334155;
+      font-size:13px;
+      font-weight:900;
+      box-shadow:var(--shadow2);
+    }
+
+    .chip.hot {
+      color:#047857;
+      background:linear-gradient(135deg,rgba(209,250,229,.98),rgba(255,255,255,.92));
+    }
+
+    h1 {
+      margin:0;
+      max-width:800px;
+      font-size:clamp(38px,6.1vw,74px);
+      line-height:1.04;
+      letter-spacing:-.078em;
+    }
+
+    .gradient {
+      color:transparent;
+      background:linear-gradient(90deg,#047857 0%, #14b8a6 44%, #2563eb 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+    }
+
+    .lead {
+      margin:20px 0 0;
+      max-width:700px;
+      color:#34465c;
+      font-size:clamp(16px,2vw,19px);
+      line-height:1.82;
+      letter-spacing:-.015em;
+      word-break:keep-all;
+    }
+
+    .lead strong {
+      color:#047857;
+      font-weight:950;
+    }
+
+    .hero-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:26px;
+    }
+
+    .btn {
+      min-height:50px;
+      padding:13px 18px;
+      border-radius:17px;
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      gap:8px;
+      border:1px solid transparent;
+      font-weight:950;
+      letter-spacing:-.025em;
+      transition:.18s ease;
+    }
+
+    .btn:hover {
+      transform:translateY(-2px);
+    }
+
+    .btn-primary {
+      color:#fff;
+      background:linear-gradient(135deg,#047857,#14b8a6,#2563eb);
+      box-shadow:0 16px 38px rgba(16,185,129,.24);
+    }
+
+    .btn-ghost {
+      color:#122033;
+      background:rgba(255,255,255,.82);
+      border-color:rgba(15,23,42,.08);
+    }
+
+    .visual {
+      position:relative;
+      min-height:430px;
+      border-radius:42px;
+      border:1px solid rgba(15,23,42,.08);
+      background:
+        radial-gradient(circle at 76% 15%, rgba(37,99,235,.18), transparent 22%),
+        radial-gradient(circle at 17% 86%, rgba(16,185,129,.24), transparent 24%),
+        linear-gradient(145deg,rgba(255,255,255,.96),rgba(236,253,245,.82));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      padding:26px;
+    }
+
+    .health-card {
+      position:absolute;
+      left:34px;
+      right:34px;
+      top:34px;
+      height:226px;
+      border-radius:36px;
+      background:
+        radial-gradient(circle at 84% 18%, rgba(255,255,255,.35), transparent 25%),
+        linear-gradient(135deg,#047857,#14b8a6 46%,#2563eb);
+      box-shadow:0 24px 60px rgba(15,118,110,.18);
+      overflow:hidden;
+    }
+
+    .health-card::before {
+      content:"";
+      position:absolute;
+      inset:18px;
+      border-radius:28px;
+      border:1px dashed rgba(255,255,255,.24);
+    }
+
+    .cross {
+      position:absolute;
+      left:34px;
+      top:34px;
+      width:74px;
+      height:74px;
+      border-radius:24px;
+      background:#fff;
+      box-shadow:0 14px 30px rgba(15,23,42,.16);
+    }
+
+    .cross::before,
+    .cross::after {
+      content:"";
+      position:absolute;
+      left:50%;
+      top:50%;
+      border-radius:999px;
+      background:#10b981;
+      transform:translate(-50%,-50%);
+    }
+
+    .cross::before {
+      width:42px;
+      height:14px;
+    }
+
+    .cross::after {
+      width:14px;
+      height:42px;
+    }
+
+    .card-title {
+      position:absolute;
+      left:34px;
+      top:126px;
+      color:#d1fae5;
+      font-size:13px;
+      font-weight:900;
+    }
+
+    .card-money {
+      position:absolute;
+      left:34px;
+      top:151px;
+      color:#fff;
+      font-size:32px;
+      line-height:1;
+      font-weight:950;
+      letter-spacing:-.055em;
+    }
+
+    .pill-pack {
+      position:absolute;
+      right:38px;
+      top:44px;
+      width:152px;
+      height:104px;
+      border-radius:26px;
+      background:#fff;
+      border:1px solid rgba(255,255,255,.82);
+      box-shadow:0 18px 38px rgba(15,23,42,.16);
+      padding:16px;
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:10px;
+    }
+
+    .pill {
+      border-radius:999px;
+      background:linear-gradient(90deg,#bfdbfe 0 50%,#ccfbf1 50% 100%);
+      border:2px solid rgba(15,23,42,.08);
+    }
+
+    .hospital-line {
+      position:absolute;
+      left:34px;
+      right:34px;
+      bottom:30px;
+      display:grid;
+      grid-template-columns:1fr .72fr;
+      gap:10px;
+    }
+
+    .hospital-line span {
+      height:8px;
+      border-radius:999px;
+      background:rgba(255,255,255,.34);
+    }
+
+    .premium-card {
+      position:absolute;
+      left:28px;
+      bottom:28px;
+      width:304px;
+      padding:20px;
+      border-radius:28px;
+      background:linear-gradient(135deg,#fff,#ecfdf5);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      z-index:4;
+    }
+
+    .premium-card span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .premium-card strong {
+      display:block;
+      margin-top:7px;
+      color:#047857;
+      font-size:34px;
+      line-height:1;
+      letter-spacing:-.055em;
+    }
+
+    .doctor-card {
+      position:absolute;
+      right:28px;
+      bottom:28px;
+      width:180px;
+      height:180px;
+      border-radius:42px;
+      border:1px solid rgba(15,23,42,.08);
+      background:linear-gradient(145deg,#fff,#dbeafe);
+      box-shadow:var(--shadow2);
+      z-index:4;
+    }
+
+    .doctor-head {
+      position:absolute;
+      left:36px;
+      top:42px;
+      width:108px;
+      height:98px;
+      border-radius:50px 50px 42px 42px;
+      background:#fde2bd;
+      border:4px solid #78350f;
+    }
+
+    .doctor-hair {
+      position:absolute;
+      left:8px;
+      right:8px;
+      top:-7px;
+      height:34px;
+      border-radius:38px 38px 16px 16px;
+      background:#334155;
+      z-index:1;
+    }
+
+    .doctor-eye {
+      position:absolute;
+      top:40px;
+      width:10px;
+      height:13px;
+      border-radius:999px;
+      background:#111827;
+      z-index:2;
+    }
+
+    .doctor-eye.left { left:30px; }
+    .doctor-eye.right { right:30px; }
+
+    .doctor-nose {
+      position:absolute;
+      left:50%;
+      top:59px;
+      width:14px;
+      height:10px;
+      border-radius:999px;
+      background:#111827;
+      transform:translateX(-50%);
+      z-index:2;
+    }
+
+    .doctor-smile {
+      position:absolute;
+      left:50%;
+      top:72px;
+      width:30px;
+      height:14px;
+      border-bottom:3px solid #047857;
+      border-radius:0 0 999px 999px;
+      transform:translateX(-50%);
+      z-index:2;
+    }
+
+    .stethoscope {
+      position:absolute;
+      left:15px;
+      bottom:13px;
+      width:58px;
+      height:52px;
+      border-radius:18px;
+      background:linear-gradient(135deg,#fff,#ccfbf1);
+      border:3px solid #0f172a;
+      transform:rotate(-8deg);
+    }
+
+    .stethoscope::before {
+      content:"";
+      position:absolute;
+      left:13px;
+      top:9px;
+      width:27px;
+      height:27px;
+      border:4px solid #2563eb;
+      border-top-color:transparent;
+      border-radius:50%;
+    }
+
+    .stethoscope::after {
+      content:"";
+      position:absolute;
+      right:7px;
+      bottom:7px;
+      width:13px;
+      height:13px;
+      border-radius:50%;
+      background:#2563eb;
+    }
+
+    .badge-mini {
+      position:absolute;
+      right:14px;
+      top:14px;
+      padding:8px 10px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#d1fae5,#dbeafe);
+      color:#047857;
+      font-size:12px;
+      font-weight:950;
+      box-shadow:var(--shadow2);
+      z-index:5;
+    }
+
+    .section {
+      padding:22px 0;
+    }
+
+    .tool-grid {
+      display:grid;
+      grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);
+      gap:22px;
+      align-items:start;
+    }
+
+    .panel {
+      padding:24px;
+      border-radius:var(--radius);
+      border:1px solid rgba(15,23,42,.08);
+      background:var(--white);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);
+    }
+
+    .panel h2 {
+      margin:0 0 12px;
+      font-size:27px;
+      line-height:1.2;
+      letter-spacing:-.052em;
+    }
+
+    .desc {
+      margin:-4px 0 18px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    .form {
+      display:grid;
+      gap:14px;
+    }
+
+    .field label {
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom:8px;
+      color:#122033;
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .field small {
+      color:var(--muted);
+      font-weight:750;
+    }
+
+    .input-wrap {
+      position:relative;
+    }
+
+    input,
+    select {
+      width:100%;
+      min-height:54px;
+      padding:14px 54px 14px 15px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.10);
+      background:rgba(255,255,255,.94);
+      color:#122033;
+      font-size:16px;
+      font-weight:850;
+      outline:none;
+      transition:.16s ease;
+    }
+
+    input:focus,
+    select:focus {
+      border-color:rgba(16,185,129,.46);
+      box-shadow:0 0 0 4px rgba(16,185,129,.12);
+    }
+
+    .unit {
+      position:absolute;
+      top:50%;
+      right:15px;
+      transform:translateY(-50%);
+      color:var(--muted);
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .row {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .toggle-row {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+      padding:6px;
+      border-radius:18px;
+      background:rgba(255,255,255,.72);
+      border:1px solid rgba(15,23,42,.08);
+    }
+
+    .toggle-row button {
+      min-height:44px;
+      border:0;
+      border-radius:14px;
+      background:transparent;
+      color:#475569;
+      font-size:14px;
+      font-weight:950;
+      transition:.16s ease;
+    }
+
+    .toggle-row button.active {
+      color:#fff;
+      background:linear-gradient(135deg,#047857,#14b8a6,#2563eb);
+      box-shadow:0 12px 28px rgba(16,185,129,.18);
+    }
+
+    .detail-box {
+      display:grid;
+      gap:10px;
+      padding:14px;
+      border-radius:18px;
+      background:rgba(248,250,252,.78);
+      border:1px solid rgba(15,23,42,.08);
+    }
+
+    .detail-title {
+      color:#334155;
+      font-size:13px;
+      font-weight:950;
+    }
+
+    .preset {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .preset button {
+      padding:8px 11px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:#fff;
+      color:#334155;
+      font-size:12px;
+      font-weight:900;
+    }
+
+    .calc-btn {
+      width:100%;
+      min-height:58px;
+      margin-top:6px;
+      border:0;
+      border-radius:18px;
+      color:#fff;
+      background:linear-gradient(135deg,#047857,#14b8a6,#2563eb);
+      font-size:17px;
+      font-weight:950;
+      box-shadow:0 16px 34px rgba(16,185,129,.22);
+    }
+
+    .reset-btn {
+      width:100%;
+      min-height:48px;
+      margin-top:10px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.86);
+      color:#122033;
+      font-weight:900;
+    }
+
+    .notice {
+      margin-top:12px;
+      padding:13px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(15,23,42,.08);
+      color:#526173;
+      font-size:13px;
+      line-height:1.75;
+      font-weight:760;
+      word-break:keep-all;
+    }
+
+    .warning {
+      border-color:rgba(16,185,129,.25);
+      background:rgba(236,253,245,.84);
+      color:#047857;
+    }
+
+    .result-box {
+      display:grid;
+      gap:14px;
+    }
+
+    .result-main {
+      padding:24px;
+      border-radius:26px;
+      color:#122033;
+      background:
+        radial-gradient(circle at 84% 18%, rgba(255,255,255,.46), transparent 26%),
+        linear-gradient(135deg,#bbf7d0,#99f6e4 48%,#bfdbfe);
+      box-shadow:var(--shadow2);
+    }
+
+    .result-main span {
+      display:block;
+      font-size:14px;
+      opacity:.82;
+      font-weight:900;
+    }
+
+    .result-main strong {
+      display:block;
+      margin-top:8px;
+      font-size:clamp(36px,5vw,58px);
+      line-height:1;
+      letter-spacing:-.06em;
+    }
+
+    .result-main em {
+      display:block;
+      margin-top:10px;
+      font-size:14px;
+      line-height:1.75;
+      font-style:normal;
+      font-weight:850;
+      opacity:.88;
+      word-break:keep-all;
+    }
+
+    .result-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .metric {
+      padding:18px;
+      border-radius:20px;
+      background:rgba(255,255,255,.84);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .metric span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .metric strong {
+      display:block;
+      margin-top:7px;
+      color:#122033;
+      font-size:24px;
+      letter-spacing:-.045em;
+    }
+
+    .breakdown {
+      display:grid;
+      gap:10px;
+      margin-top:14px;
+    }
+
+    .breakdown-item {
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:10px;
+      align-items:center;
+      padding:13px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(15,23,42,.08);
+      color:#334155;
+      font-size:14px;
+      font-weight:850;
+    }
+
+    .breakdown-item strong {
+      color:#0f172a;
+      font-size:15px;
+      letter-spacing:-.025em;
+    }
+
+    .good {
+      color:#047857 !important;
+    }
+
+    .warn {
+      color:#d97706 !important;
+    }
+
+    .bad {
+      color:#e11d48 !important;
+    }
+
+    .guide-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .guide {
+      padding:20px;
+      border-radius:22px;
+      background:rgba(255,255,255,.80);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .guide b {
+      display:block;
+      margin-bottom:8px;
+      font-size:17px;
+      letter-spacing:-.03em;
+    }
+
+    .guide p {
+      margin:0;
+      color:#526173;
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    .formula {
+      margin-top:16px;
+      padding:17px;
+      border-radius:20px;
+      background:rgba(248,250,252,.90);
+      border:1px solid rgba(15,23,42,.08);
+      color:#334155;
+      font-size:14px;
+      line-height:1.8;
+      font-weight:780;
+      overflow-x:auto;
+    }
+
+    .related-grid {
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .related-card {
+      padding:16px;
+      border-radius:20px;
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      font-weight:900;
+      color:#24415f;
+      line-height:1.45;
+    }
+
+    footer {
+      padding:44px 0 54px;
+      color:var(--muted);
+      text-align:center;
+      font-size:13px;
+    }
+
+    @media (max-width:920px) {
+      .hero-grid,
+      .tool-grid {
+        grid-template-columns:1fr;
+      }
+
+      .hero {
+        padding-top:42px;
+      }
+    }
+
+    @media (max-width:720px) {
+      .related-grid {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+    }
+
+    @media (max-width:640px) {
+      .nav {
+        align-items:flex-start;
+        flex-direction:column;
+        padding:12px 0;
+      }
+
+      .nav-links {
+        width:100%;
+        overflow-x:auto;
+        padding-bottom:4px;
+      }
+
+      .hero-actions {
+        display:grid;
+      }
+
+      .btn {
+        width:100%;
+      }
+
+      .row,
+      .result-grid,
+      .guide-grid,
+      .related-grid,
+      .toggle-row {
+        grid-template-columns:1fr;
+      }
+
+      .visual {
+        min-height:400px;
+      }
+
+      .health-card {
+        left:18px;
+        right:18px;
+        height:220px;
+      }
+
+      .card-money {
+        font-size:27px;
+      }
+
+      .pill-pack {
+        right:24px;
+        width:116px;
+        height:88px;
+        gap:7px;
+      }
+
+      .premium-card {
+        width:230px;
+        left:18px;
+      }
+
+      .premium-card strong {
+        font-size:27px;
+      }
+
+      .doctor-card {
+        width:138px;
+        height:138px;
+        right:18px;
+      }
+
+      .doctor-head {
+        left:25px;
+        top:38px;
+        width:90px;
+        height:82px;
+      }
+
+      .doctor-eye {
+        top:33px;
+      }
+
+      .doctor-nose {
+        top:51px;
+      }
+
+      .doctor-smile {
+        top:64px;
+      }
+
+      .stethoscope {
+        transform:scale(.78) rotate(-8deg);
+        left:5px;
+        bottom:4px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="../" aria-label="바로해결툴즈 메인으로 이동">
+        <div class="brand-mark">B</div>
+        <div>
+          바로해결툴즈
+          <small>보험료 계산 · 건강보험 · 바로 확인</small>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="주요 도구">
+        <a href="../">전체 도구</a>
+        <a href="../four-insurance/">4대보험</a>
+        <a href="../monthly-net-salary/">월급 실수령액</a>
+        <a href="../national-pension/">국민연금</a>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="chips">
+            <span class="chip hot">🏥 건강보험료 계산</span>
+            <span class="chip">직장가입자</span>
+            <span class="chip">지역가입자</span>
+          </div>
+
+          <h1>
+            매달 빠지는 건강보험료<br>
+            <span class="gradient">얼마인지 바로 계산하세요</span>
+          </h1>
+
+          <p class="lead">
+            월 보수, 건강보험료율, 장기요양보험료율, 보수 외 소득 또는 지역가입자 보험료 점수를 입력하면
+            <strong>예상 건강보험료, 장기요양보험료, 총 납부액</strong>을 한 번에 확인할 수 있습니다.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#calculator">건강보험료 계산하기</a>
+            <a class="btn btn-ghost" href="#guide">계산 기준 보기</a>
+          </div>
+        </div>
+
+        <div class="visual" aria-label="건강보험료 계산 예시">
+          <div class="health-card">
+            <div class="cross"></div>
+            <div class="card-title">Monthly Premium</div>
+            <div class="card-money" id="visualPremium">약 12만원</div>
+            <div class="pill-pack" aria-hidden="true">
+              <span class="pill"></span>
+              <span class="pill"></span>
+              <span class="pill"></span>
+              <span class="pill"></span>
+            </div>
+            <div class="hospital-line">
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+
+          <div class="premium-card">
+            <span>예상 총 납부액</span>
+            <strong id="visualPay">약 12만원</strong>
+          </div>
+
+          <div class="doctor-card" aria-hidden="true">
+            <div class="badge-mini">CARE</div>
+            <div class="doctor-head">
+              <div class="doctor-hair"></div>
+              <div class="doctor-eye left"></div>
+              <div class="doctor-eye right"></div>
+              <div class="doctor-nose"></div>
+              <div class="doctor-smile"></div>
+            </div>
+            <div class="stethoscope"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="calculator">
+      <div class="wrap tool-grid">
+        <div class="panel">
+          <h2>건강보험료 계산기</h2>
+          <p class="desc">
+            직장가입자는 월 보수 기준, 지역가입자는 보험료 점수 기준으로 계산합니다.
+            보험료율은 기본값을 넣어두었지만 실제 적용 연도에 맞게 수정할 수 있습니다.
+          </p>
+
+          <form class="form" onsubmit="event.preventDefault(); calculateHealthPremium();">
+            <div class="toggle-row" aria-label="가입 유형 선택">
+              <button type="button" id="employeeModeBtn" class="active" onclick="setMode('employee')">직장가입자</button>
+              <button type="button" id="localModeBtn" onclick="setMode('local')">지역가입자</button>
+            </div>
+
+            <div id="employeeFields">
+              <div class="field">
+                <label for="monthlySalary">
+                  월 보수월액
+                  <small>세전 월급 기준</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="monthlySalary" type="number" min="0" step="1000" value="3000000" placeholder="예: 3000000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="field">
+                  <label for="extraIncome">
+                    월 보수 외 소득
+                    <small>선택 입력</small>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="extraIncome" type="number" min="0" step="1000" value="0" placeholder="예: 500000">
+                    <span class="unit">원</span>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="workerShare">
+                    근로자 부담률
+                    <small>본인 부담분</small>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="workerShare" type="number" min="0" max="100" step="1" value="50" placeholder="예: 50">
+                    <span class="unit">%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="localFields" style="display:none;">
+              <div class="row">
+                <div class="field">
+                  <label for="localPoints">
+                    지역가입자 보험료 점수
+                    <small>소득·재산·자동차 등</small>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="localPoints" type="number" min="0" step="0.01" value="500" placeholder="예: 500">
+                    <span class="unit">점</span>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="pointValue">
+                    점수당 금액
+                    <small>수정 가능</small>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="pointValue" type="number" min="0" step="0.1" value="208.4" placeholder="예: 208.4">
+                    <span class="unit">원</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-box">
+              <div class="detail-title">보험료율 설정</div>
+
+              <div class="row">
+                <div class="field">
+                  <label for="healthRate">
+                    건강보험료율
+                    <small>전체 보험료율</small>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="healthRate" type="number" min="0" max="20" step="0.001" value="7.19">
+                    <span class="unit">%</span>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="careRate">
+                    장기요양보험료율
+                    <small>건강보험료 기준</small>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="careRate" type="number" min="0" max="30" step="0.01" value="13.14">
+                    <span class="unit">%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="preset">
+              <button type="button" onclick="fillExample('salary250')">직장 월 250만원</button>
+              <button type="button" onclick="fillExample('salary300')">직장 월 300만원</button>
+              <button type="button" onclick="fillExample('salary500')">직장 월 500만원</button>
+              <button type="button" onclick="fillExample('local')">지역가입자 예시</button>
+            </div>
+
+            <button class="calc-btn" type="submit">건강보험료 계산하기</button>
+            <button class="reset-btn" type="button" onclick="resetForm()">입력값 초기화</button>
+          </form>
+
+          <div class="notice warning">
+            계산 결과는 참고용입니다. 실제 건강보험료는 보수월액, 보수 외 소득, 지역가입자 산정점수,
+            보험료 상·하한액, 감면 여부, 정산 시점에 따라 달라질 수 있습니다.
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>계산 결과</h2>
+          <p class="desc">
+            건강보험료, 장기요양보험료, 총 납부액, 사용자 부담분 또는 근로자 부담분을 나눠 확인하세요.
+          </p>
+
+          <div class="result-box">
+            <div class="result-main">
+              <span>예상 총 납부액</span>
+              <strong id="totalPremium">-</strong>
+              <em id="summaryText">값을 입력하고 계산 버튼을 눌러주세요.</em>
+            </div>
+
+            <div class="result-grid">
+              <div class="metric">
+                <span>건강보험료</span>
+                <strong id="healthPremium">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>장기요양보험료</span>
+                <strong id="carePremium">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>본인 납부 예상액</span>
+                <strong id="selfPremium" class="good">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>사업주 부담 추정</span>
+                <strong id="companyPremium">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>산정 기준금액</span>
+                <strong id="baseAmount">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>연간 본인 부담</span>
+                <strong id="annualSelfPremium">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>가입 유형</span>
+                <strong id="modeText">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>장기요양 비중</span>
+                <strong id="careRatio">-</strong>
+              </div>
+            </div>
+
+            <div class="breakdown">
+              <div class="breakdown-item">
+                <span>월 보수·점수 기준 보험료</span>
+                <strong id="baseHealthPremium">-</strong>
+              </div>
+              <div class="breakdown-item">
+                <span>보수 외 소득 추가 보험료</span>
+                <strong id="extraHealthPremium">-</strong>
+              </div>
+              <div class="breakdown-item">
+                <span>건강보험료율</span>
+                <strong id="resultHealthRate">-</strong>
+              </div>
+              <div class="breakdown-item">
+                <span>장기요양보험료율</span>
+                <strong id="resultCareRate">-</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice">
+            직장가입자는 일반적으로 건강보험료를 근로자와 사업주가 나누어 부담합니다.
+            지역가입자는 산정점수에 점수당 금액을 곱해 보험료를 계산하는 구조로 이해하면 됩니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="guide">
+      <div class="wrap">
+        <div class="panel">
+          <h2>건강보험료 계산 기준</h2>
+
+          <div class="guide-grid">
+            <div class="guide">
+              <b>직장가입자</b>
+              <p>
+                월 보수월액에 건강보험료율을 곱해 보험료를 계산하고, 근로자와 사업주가 정해진 비율로 나누어 부담합니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>장기요양보험료</b>
+              <p>
+                장기요양보험료는 건강보험료에 장기요양보험료율을 곱해 계산합니다.
+                건강보험료와 함께 고지되는 항목입니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>지역가입자</b>
+              <p>
+                지역가입자는 소득, 재산, 자동차 등을 반영한 보험료 점수와 점수당 금액을 기준으로 보험료를 산정합니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="formula">
+            <strong>직장가입자 건강보험료</strong><br>
+            = 월 보수월액 × 건강보험료율<br><br>
+
+            <strong>장기요양보험료</strong><br>
+            = 건강보험료 × 장기요양보험료율<br><br>
+
+            <strong>지역가입자 건강보험료</strong><br>
+            = 보험료 점수 × 점수당 금액<br><br>
+
+            <strong>총 납부액</strong><br>
+            = 건강보험료 + 장기요양보험료
+          </div>
+
+          <div class="notice warning">
+            실제 보험료는 건강보험공단 고지 기준과 다를 수 있습니다. 보수월액 상·하한, 소득월액보험료,
+            지역가입자 점수 산정, 경감·감면, 정산 보험료가 있으면 결과가 달라집니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="panel">
+          <h2>같이 보면 좋은 도구</h2>
+          <p class="desc">
+            건강보험료 외에도 4대보험, 월급 실수령액, 연봉 실수령액, 국민연금 계산이 필요하면 다른 바로해결툴즈도 함께 확인할 수 있습니다.
+          </p>
+
+          <div class="related-grid">
+            <a class="related-card" href="../four-insurance/">4대보험 계산기</a>
+            <a class="related-card" href="../monthly-net-salary/">월급 실수령액 계산기</a>
+            <a class="related-card" href="../annual-net-salary/">연봉 실수령액 계산기</a>
+            <a class="related-card" href="../national-pension/">국민연금 예상수령액 조회</a>
+          </div>
+
+          <div class="notice">
+            바로해결툴즈는 월급·퇴직·세금·생활비 계산기를 계속 추가하고 있습니다.
+            계산 결과는 참고용이며 실제 보험료 확인은 건강보험공단 고지내역을 함께 확인하세요.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 바로해결툴즈 · 건강보험료 계산 결과는 참고용입니다. 실제 보험료는 건강보험공단 산정 기준, 보수월액, 소득월액, 지역가입자 점수, 경감·정산 여부에 따라 달라질 수 있습니다.
+  </footer>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    let currentMode = "employee";
+
+    function num(id) {
+      const value = Number($(id).value);
+      return Number.isFinite(value) ? value : 0;
+    }
+
+    function setText(id, value) {
+      $(id).textContent = value;
+    }
+
+    function won(value) {
+      if (!Number.isFinite(value)) return "-";
+      return `${Math.round(value).toLocaleString("ko-KR")}원`;
+    }
+
+    function shortWon(value) {
+      if (!Number.isFinite(value)) return "-";
+
+      const rounded = Math.round(value);
+
+      if (rounded >= 100000000) {
+        return `약 ${(rounded / 100000000).toFixed(1)}억`;
+      }
+
+      if (rounded >= 10000) {
+        return `약 ${Math.round(rounded / 10000).toLocaleString("ko-KR")}만원`;
+      }
+
+      return `약 ${rounded.toLocaleString("ko-KR")}원`;
+    }
+
+    function setMode(mode) {
+      currentMode = mode;
+
+      $("employeeModeBtn").classList.toggle("active", mode === "employee");
+      $("localModeBtn").classList.toggle("active", mode === "local");
+
+      $("employeeFields").style.display = mode === "employee" ? "block" : "none";
+      $("localFields").style.display = mode === "local" ? "block" : "none";
+
+      calculateHealthPremium();
+    }
+
+    function calculateHealthPremium() {
+      const healthRate = num("healthRate") / 100;
+      const careRate = num("careRate") / 100;
+
+      let baseAmount = 0;
+      let baseHealthPremium = 0;
+      let extraHealthPremium = 0;
+      let healthPremium = 0;
+      let selfPremium = 0;
+      let companyPremium = 0;
+
+      if (currentMode === "employee") {
+        const monthlySalary = num("monthlySalary");
+        const extraIncome = num("extraIncome");
+        const workerShare = Math.min(Math.max(num("workerShare"), 0), 100) / 100;
+
+        baseAmount = monthlySalary;
+        baseHealthPremium = monthlySalary * healthRate;
+        extraHealthPremium = extraIncome * healthRate;
+        healthPremium = baseHealthPremium + extraHealthPremium;
+
+        selfPremium = (baseHealthPremium * workerShare) + extraHealthPremium;
+        companyPremium = baseHealthPremium * (1 - workerShare);
+      } else {
+        const localPoints = num("localPoints");
+        const pointValue = num("pointValue");
+
+        baseAmount = localPoints;
+        baseHealthPremium = localPoints * pointValue;
+        extraHealthPremium = 0;
+        healthPremium = baseHealthPremium;
+        selfPremium = healthPremium;
+        companyPremium = 0;
+      }
+
+      const carePremium = healthPremium * careRate;
+      const selfCarePremium = selfPremium * careRate;
+      const companyCarePremium = companyPremium * careRate;
+
+      const totalPremium = healthPremium + carePremium;
+      const totalSelfPremium = selfPremium + selfCarePremium;
+      const totalCompanyPremium = companyPremium + companyCarePremium;
+      const careRatio = totalPremium > 0 ? carePremium / totalPremium * 100 : 0;
+
+      setText("totalPremium", won(totalPremium));
+      setText("healthPremium", won(healthPremium));
+      setText("carePremium", won(carePremium));
+      setText("selfPremium", won(totalSelfPremium));
+      setText("companyPremium", currentMode === "employee" ? won(totalCompanyPremium) : "해당 없음");
+      setText("baseAmount", currentMode === "employee" ? won(baseAmount) : `${baseAmount.toLocaleString("ko-KR")}점`);
+      setText("annualSelfPremium", won(totalSelfPremium * 12));
+      setText("modeText", currentMode === "employee" ? "직장가입자" : "지역가입자");
+      setText("careRatio", `${careRatio.toFixed(1)}%`);
+
+      setText("baseHealthPremium", won(baseHealthPremium));
+      setText("extraHealthPremium", won(extraHealthPremium));
+      setText("resultHealthRate", `${(healthRate * 100).toFixed(3)}%`);
+      setText("resultCareRate", `${(careRate * 100).toFixed(2)}%`);
+
+      setText("visualPremium", shortWon(totalSelfPremium));
+      setText("visualPay", shortWon(totalSelfPremium));
+
+      let summary = "";
+
+      if (currentMode === "employee") {
+        const monthlySalary = num("monthlySalary");
+        const extraIncome = num("extraIncome");
+
+        if (monthlySalary <= 0 && extraIncome <= 0) {
+          summary = "월 보수월액이 0원으로 입력되었습니다. 세전 월급 또는 보수 외 소득을 입력하면 건강보험료를 계산할 수 있습니다.";
+        } else {
+          summary = `직장가입자 기준 월 보수월액 ${won(monthlySalary)}에 건강보험료율 ${(healthRate * 100).toFixed(3)}%를 적용했습니다. 예상 본인 납부액은 건강보험과 장기요양을 합쳐 약 ${won(totalSelfPremium)}입니다.`;
+        }
+
+        if (extraIncome > 0) {
+          summary += ` 보수 외 소득 ${won(extraIncome)}에 대한 추가 보험료도 함께 반영했습니다.`;
+        }
+      } else {
+        const localPoints = num("localPoints");
+        const pointValue = num("pointValue");
+
+        if (localPoints <= 0 || pointValue <= 0) {
+          summary = "지역가입자 보험료 점수 또는 점수당 금액이 0으로 입력되었습니다. 값을 입력하면 예상 보험료를 계산할 수 있습니다.";
+        } else {
+          summary = `지역가입자 기준 보험료 점수 ${localPoints.toLocaleString("ko-KR")}점에 점수당 ${won(pointValue)}을 적용했습니다. 예상 총 납부액은 약 ${won(totalSelfPremium)}입니다.`;
+        }
+      }
+
+      setText("summaryText", summary);
+    }
+
+    function fillExample(type) {
+      if (type === "salary250") {
+        setMode("employee");
+        $("monthlySalary").value = "2500000";
+        $("extraIncome").value = "0";
+        $("workerShare").value = "50";
+      }
+
+      if (type === "salary300") {
+        setMode("employee");
+        $("monthlySalary").value = "3000000";
+        $("extraIncome").value = "0";
+        $("workerShare").value = "50";
+      }
+
+      if (type === "salary500") {
+        setMode("employee");
+        $("monthlySalary").value = "5000000";
+        $("extraIncome").value = "300000";
+        $("workerShare").value = "50";
+      }
+
+      if (type === "local") {
+        setMode("local");
+        $("localPoints").value = "500";
+        $("pointValue").value = "208.4";
+      }
+
+      calculateHealthPremium();
+    }
+
+    function resetForm() {
+      setMode("employee");
+      $("monthlySalary").value = "3000000";
+      $("extraIncome").value = "0";
+      $("workerShare").value = "50";
+      $("localPoints").value = "500";
+      $("pointValue").value = "208.4";
+      $("healthRate").value = "7.19";
+      $("careRate").value = "13.14";
+      calculateHealthPremium();
+    }
+
+    [
+      "monthlySalary",
+      "extraIncome",
+      "workerShare",
+      "localPoints",
+      "pointValue",
+      "healthRate",
+      "careRate"
+    ].forEach((id) => {
+      $(id).addEventListener("input", calculateHealthPremium);
+      $(id).addEventListener("change", calculateHealthPremium);
+    });
+
+    calculateHealthPremium();
+  </script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'></script>
+  <!-- End Cloudflare Web Analytics -->
+</body>
+</html>
