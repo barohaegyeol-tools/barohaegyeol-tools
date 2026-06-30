@@ -1,0 +1,1751 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>취득세 계산기｜아파트·자동차 살 때 세금 얼마일까｜바로해결툴즈</title>
+  <meta name="description" content="아파트, 주택, 상가, 토지, 자동차 취득가액을 입력하면 예상 취득세, 지방교육세, 농어촌특별세, 총 납부세액을 계산하는 무료 취득세 계산기입니다." />
+  <meta name="keywords" content="취득세 계산기, 아파트 취득세 계산기, 주택 취득세, 자동차 취득세 계산기, 부동산 취득세, 지방교육세, 농어촌특별세, 바로해결툴즈" />
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/acquisition-tax/" />
+  <meta name="theme-color" content="#f0fdf4" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="취득세 계산기｜아파트·자동차 세금 확인" />
+  <meta property="og:description" content="취득가액과 자산 종류를 입력하면 취득세, 지방교육세, 농어촌특별세, 총 납부세액을 바로 계산합니다." />
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/acquisition-tax/" />
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"취득세 계산기",
+    "url":"https://barohaegyeol-tools.pages.dev/acquisition-tax/",
+    "applicationCategory":"FinanceApplication",
+    "operatingSystem":"All",
+    "description":"아파트, 주택, 상가, 토지, 자동차 취득가액을 기준으로 예상 취득세, 지방교육세, 농어촌특별세를 계산하는 무료 생활 계산기입니다.",
+    "publisher":{
+      "@type":"Organization",
+      "name":"바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg1:#f0fdf4;
+      --bg2:#eff6ff;
+      --bg3:#fff7ed;
+      --text:#0f172a;
+      --sub:#334155;
+      --muted:#64748b;
+      --line:rgba(15,23,42,.10);
+      --white:rgba(255,255,255,.88);
+
+      --green:#22c55e;
+      --teal:#14b8a6;
+      --blue:#2563eb;
+      --sky:#38bdf8;
+      --orange:#f97316;
+      --amber:#f59e0b;
+      --yellow:#facc15;
+      --purple:#7c3aed;
+      --red:#ef4444;
+      --navy:#0f172a;
+
+      --shadow:0 24px 70px rgba(20,184,166,.15);
+      --shadow2:0 14px 34px rgba(15,23,42,.08);
+      --radius:28px;
+      --max:1180px;
+    }
+
+    * {
+      box-sizing:border-box;
+    }
+
+    html {
+      scroll-behavior:smooth;
+    }
+
+    body {
+      margin:0;
+      min-height:100vh;
+      color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;
+      line-height:1.65;
+      background:
+        radial-gradient(circle at 10% 8%, rgba(20,184,166,.22), transparent 25%),
+        radial-gradient(circle at 88% 10%, rgba(249,115,22,.18), transparent 24%),
+        radial-gradient(circle at 84% 88%, rgba(37,99,235,.13), transparent 25%),
+        linear-gradient(135deg,var(--bg1) 0%, var(--bg2) 48%, var(--bg3) 100%);
+      overflow-x:hidden;
+    }
+
+    body::before {
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.17;
+      background-image:
+        radial-gradient(circle, rgba(20,184,166,.26) 1px, transparent 1.2px),
+        radial-gradient(circle, rgba(249,115,22,.18) 1px, transparent 1.2px);
+      background-size:32px 32px, 76px 76px;
+      background-position:0 0, 22px 26px;
+      mask-image:linear-gradient(to bottom,#000 0%,#000 68%,transparent 100%);
+    }
+
+    a {
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button,
+    input,
+    select {
+      font:inherit;
+    }
+
+    button {
+      cursor:pointer;
+    }
+
+    .wrap {
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+    }
+
+    .topbar {
+      position:sticky;
+      top:0;
+      z-index:50;
+      border-bottom:1px solid rgba(15,23,42,.07);
+      background:rgba(240,253,244,.78);
+      backdrop-filter:blur(18px);
+    }
+
+    .nav {
+      min-height:68px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:950;
+      letter-spacing:-.045em;
+    }
+
+    .brand-mark {
+      width:42px;
+      height:42px;
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      background:conic-gradient(from 150deg,#14b8a6,#22c55e,#f97316,#2563eb,#7c3aed,#14b8a6);
+      box-shadow:0 16px 36px rgba(20,184,166,.26);
+      font-weight:950;
+    }
+
+    .brand small {
+      display:block;
+      margin-top:1px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:-.02em;
+    }
+
+    .nav-links {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      white-space:nowrap;
+    }
+
+    .nav-links a {
+      padding:9px 13px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.78);
+      color:#26364a;
+      font-size:14px;
+      font-weight:850;
+      box-shadow:var(--shadow2);
+    }
+
+    .hero {
+      padding:58px 0 28px;
+    }
+
+    .hero-grid {
+      display:grid;
+      grid-template-columns:1.02fr .98fr;
+      align-items:center;
+      gap:32px;
+    }
+
+    .chips {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:16px;
+    }
+
+    .chip {
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.82);
+      color:#334155;
+      font-size:13px;
+      font-weight:900;
+      box-shadow:var(--shadow2);
+    }
+
+    .chip.hot {
+      color:#0f766e;
+      background:linear-gradient(135deg,rgba(204,251,241,.98),rgba(255,255,255,.92));
+    }
+
+    h1 {
+      margin:0;
+      max-width:780px;
+      font-size:clamp(38px,6.1vw,74px);
+      line-height:1.04;
+      letter-spacing:-.078em;
+    }
+
+    .gradient {
+      color:transparent;
+      background:linear-gradient(90deg,#14b8a6 0%, #f97316 46%, #2563eb 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+    }
+
+    .lead {
+      margin:20px 0 0;
+      max-width:700px;
+      color:#34465c;
+      font-size:clamp(16px,2vw,19px);
+      line-height:1.82;
+      letter-spacing:-.015em;
+      word-break:keep-all;
+    }
+
+    .lead strong {
+      color:#0f766e;
+      font-weight:950;
+    }
+
+    .hero-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:26px;
+    }
+
+    .btn {
+      min-height:50px;
+      padding:13px 18px;
+      border-radius:17px;
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      gap:8px;
+      border:1px solid transparent;
+      font-weight:950;
+      letter-spacing:-.025em;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+
+    .btn:hover {
+      transform:translateY(-2px);
+    }
+
+    .btn-primary {
+      color:#fff;
+      background:linear-gradient(135deg,#14b8a6,#f97316,#2563eb);
+      box-shadow:0 16px 38px rgba(20,184,166,.24);
+    }
+
+    .btn-ghost {
+      color:#122033;
+      background:rgba(255,255,255,.82);
+      border-color:rgba(15,23,42,.08);
+    }
+
+    .visual {
+      position:relative;
+      min-height:426px;
+      border-radius:40px;
+      border:1px solid rgba(15,23,42,.08);
+      background:
+        radial-gradient(circle at 78% 15%, rgba(249,115,22,.24), transparent 22%),
+        radial-gradient(circle at 17% 86%, rgba(20,184,166,.18), transparent 23%),
+        linear-gradient(145deg,rgba(255,255,255,.96),rgba(240,253,244,.82));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      padding:26px;
+    }
+
+    .visual-panel {
+      position:absolute;
+      left:26px;
+      right:26px;
+      top:26px;
+      height:188px;
+      border-radius:30px;
+      background:
+        linear-gradient(rgba(15,23,42,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,23,42,.045) 1px, transparent 1px),
+        linear-gradient(180deg,rgba(255,255,255,.96),rgba(240,253,250,.94));
+      background-size:38px 38px,38px 38px,auto;
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      overflow:hidden;
+    }
+
+    .road {
+      position:absolute;
+      left:28px;
+      right:28px;
+      bottom:26px;
+      height:62px;
+      border-radius:999px;
+      background:linear-gradient(90deg,#0f172a,#14b8a6,#2563eb);
+      opacity:.92;
+      overflow:hidden;
+    }
+
+    .road::before {
+      content:"";
+      position:absolute;
+      left:24px;
+      right:24px;
+      top:28px;
+      height:5px;
+      border-radius:999px;
+      background:repeating-linear-gradient(90deg,rgba(255,255,255,.82) 0 28px,transparent 28px 48px);
+    }
+
+    .house-card {
+      position:absolute;
+      left:42px;
+      top:42px;
+      width:228px;
+      height:146px;
+      border-radius:26px;
+      background:#fff;
+      border:3px solid #14b8a6;
+      box-shadow:0 18px 34px rgba(15,23,42,.12);
+      overflow:hidden;
+    }
+
+    .house-roof {
+      position:absolute;
+      left:35px;
+      top:24px;
+      width:96px;
+      height:96px;
+      background:linear-gradient(135deg,#f97316,#facc15);
+      transform:rotate(45deg);
+      border-radius:14px;
+      border:4px solid #7c2d12;
+    }
+
+    .house-body {
+      position:absolute;
+      left:48px;
+      top:66px;
+      width:122px;
+      height:74px;
+      border-radius:16px 16px 0 0;
+      background:linear-gradient(135deg,#ccfbf1,#dbeafe);
+      border:4px solid #0f766e;
+    }
+
+    .house-door {
+      position:absolute;
+      left:92px;
+      bottom:0;
+      width:31px;
+      height:44px;
+      border-radius:10px 10px 0 0;
+      background:#2563eb;
+    }
+
+    .key-card {
+      position:absolute;
+      right:40px;
+      top:42px;
+      width:156px;
+      height:156px;
+      border-radius:34px;
+      background:#fff;
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:0 22px 48px rgba(15,23,42,.15);
+      display:grid;
+      place-items:center;
+    }
+
+    .key {
+      width:104px;
+      height:104px;
+      position:relative;
+      transform:rotate(-25deg);
+    }
+
+    .key-ring {
+      position:absolute;
+      left:8px;
+      top:20px;
+      width:54px;
+      height:54px;
+      border-radius:50%;
+      border:13px solid #f97316;
+    }
+
+    .key-stick {
+      position:absolute;
+      left:58px;
+      top:43px;
+      width:54px;
+      height:15px;
+      border-radius:999px;
+      background:#2563eb;
+    }
+
+    .key-tooth {
+      position:absolute;
+      right:6px;
+      top:56px;
+      width:16px;
+      height:25px;
+      background:#2563eb;
+      border-radius:0 0 7px 7px;
+    }
+
+    .car-mini {
+      position:absolute;
+      left:145px;
+      bottom:34px;
+      width:74px;
+      height:38px;
+      border-radius:19px 22px 12px 12px;
+      background:#f97316;
+      border:3px solid #7c2d12;
+      box-shadow:0 12px 24px rgba(15,23,42,.12);
+    }
+
+    .car-mini::before {
+      content:"";
+      position:absolute;
+      left:19px;
+      top:-18px;
+      width:38px;
+      height:24px;
+      border-radius:18px 18px 5px 5px;
+      background:#bae6fd;
+      border:3px solid #7c2d12;
+    }
+
+    .car-mini::after {
+      content:"";
+      position:absolute;
+      left:8px;
+      right:8px;
+      bottom:-10px;
+      height:16px;
+      background:radial-gradient(circle at 10px 8px,#0f172a 0 7px,transparent 8px),
+                 radial-gradient(circle at calc(100% - 10px) 8px,#0f172a 0 7px,transparent 8px);
+    }
+
+    .result-ticket {
+      position:absolute;
+      left:28px;
+      bottom:26px;
+      width:292px;
+      padding:19px;
+      border-radius:26px;
+      background:linear-gradient(135deg,#fff,#f0fdf4);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .result-ticket span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .result-ticket strong {
+      display:block;
+      margin-top:7px;
+      color:#0f766e;
+      font-size:34px;
+      line-height:1;
+      letter-spacing:-.05em;
+    }
+
+    .panda-card {
+      position:absolute;
+      right:28px;
+      bottom:26px;
+      width:174px;
+      height:174px;
+      border-radius:38px;
+      border:1px solid rgba(15,23,42,.08);
+      background:linear-gradient(145deg,#fff,#dbeafe);
+      box-shadow:var(--shadow2);
+    }
+
+    .panda-head {
+      position:absolute;
+      left:36px;
+      top:50px;
+      width:102px;
+      height:92px;
+      border-radius:48px 48px 40px 40px;
+      background:#fff;
+      border:4px solid #0f172a;
+    }
+
+    .panda-ear {
+      position:absolute;
+      top:-16px;
+      width:34px;
+      height:34px;
+      border-radius:50%;
+      background:#0f172a;
+      z-index:-1;
+    }
+
+    .panda-ear.left {
+      left:5px;
+    }
+
+    .panda-ear.right {
+      right:5px;
+    }
+
+    .panda-eye-patch {
+      position:absolute;
+      top:28px;
+      width:24px;
+      height:29px;
+      border-radius:50%;
+      background:#0f172a;
+    }
+
+    .panda-eye-patch.left {
+      left:23px;
+      transform:rotate(-18deg);
+    }
+
+    .panda-eye-patch.right {
+      right:23px;
+      transform:rotate(18deg);
+    }
+
+    .panda-eye {
+      position:absolute;
+      left:8px;
+      top:9px;
+      width:7px;
+      height:9px;
+      border-radius:999px;
+      background:#fff;
+    }
+
+    .panda-nose {
+      position:absolute;
+      left:50%;
+      top:55px;
+      width:16px;
+      height:12px;
+      border-radius:999px;
+      background:#0f172a;
+      transform:translateX(-50%);
+    }
+
+    .panda-smile {
+      position:absolute;
+      left:50%;
+      top:69px;
+      width:30px;
+      height:14px;
+      border-bottom:3px solid #14b8a6;
+      border-radius:0 0 999px 999px;
+      transform:translateX(-50%);
+    }
+
+    .tax-mini {
+      position:absolute;
+      left:15px;
+      bottom:16px;
+      width:58px;
+      height:46px;
+      border-radius:13px;
+      background:linear-gradient(135deg,#14b8a6,#2563eb);
+      border:3px solid #0f172a;
+      transform:rotate(-8deg);
+    }
+
+    .tax-mini::before,
+    .tax-mini::after {
+      content:"";
+      position:absolute;
+      left:10px;
+      right:10px;
+      height:5px;
+      border-radius:999px;
+      background:#fff;
+    }
+
+    .tax-mini::before {
+      top:13px;
+    }
+
+    .tax-mini::after {
+      top:25px;
+      width:24px;
+    }
+
+    .badge-mini {
+      position:absolute;
+      right:14px;
+      top:14px;
+      padding:8px 10px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#ccfbf1,#ffedd5);
+      color:#0f766e;
+      font-size:12px;
+      font-weight:950;
+      box-shadow:var(--shadow2);
+      z-index:5;
+    }
+
+    .section {
+      padding:22px 0;
+    }
+
+    .tool-grid {
+      display:grid;
+      grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);
+      gap:22px;
+      align-items:start;
+    }
+
+    .panel {
+      padding:24px;
+      border-radius:var(--radius);
+      border:1px solid rgba(15,23,42,.08);
+      background:var(--white);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);
+    }
+
+    .panel h2 {
+      margin:0 0 12px;
+      font-size:27px;
+      line-height:1.2;
+      letter-spacing:-.052em;
+    }
+
+    .desc {
+      margin:-4px 0 18px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    .form {
+      display:grid;
+      gap:14px;
+    }
+
+    .field label {
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom:8px;
+      color:#122033;
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .field small {
+      color:var(--muted);
+      font-weight:750;
+    }
+
+    .input-wrap {
+      position:relative;
+    }
+
+    input,
+    select {
+      width:100%;
+      min-height:54px;
+      padding:14px 54px 14px 15px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.10);
+      background:rgba(255,255,255,.94);
+      color:#122033;
+      font-size:16px;
+      font-weight:850;
+      outline:none;
+      transition:.16s ease;
+    }
+
+    select {
+      padding-right:15px;
+      appearance:none;
+      cursor:pointer;
+    }
+
+    input:focus,
+    select:focus {
+      border-color:rgba(20,184,166,.50);
+      box-shadow:0 0 0 4px rgba(20,184,166,.12);
+    }
+
+    .unit {
+      position:absolute;
+      top:50%;
+      right:15px;
+      transform:translateY(-50%);
+      color:var(--muted);
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .row {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .preset {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .preset button {
+      padding:8px 11px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:#fff;
+      color:#334155;
+      font-size:12px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .calc-btn {
+      width:100%;
+      min-height:58px;
+      margin-top:6px;
+      border:0;
+      border-radius:18px;
+      color:#fff;
+      background:linear-gradient(135deg,#14b8a6,#f97316,#2563eb);
+      font-size:17px;
+      font-weight:950;
+      cursor:pointer;
+      box-shadow:0 16px 34px rgba(20,184,166,.24);
+    }
+
+    .reset-btn {
+      width:100%;
+      min-height:48px;
+      margin-top:10px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.86);
+      color:#122033;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .notice {
+      margin-top:12px;
+      padding:13px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(15,23,42,.08);
+      color:#526173;
+      font-size:13px;
+      line-height:1.75;
+      font-weight:760;
+      word-break:keep-all;
+    }
+
+    .warning {
+      border-color:rgba(245,158,11,.25);
+      background:rgba(255,251,235,.82);
+      color:#92400e;
+    }
+
+    .result-box {
+      display:grid;
+      gap:14px;
+    }
+
+    .result-main {
+      padding:24px;
+      border-radius:26px;
+      color:#122033;
+      background:
+        radial-gradient(circle at 84% 18%, rgba(255,255,255,.42), transparent 26%),
+        linear-gradient(135deg,#99f6e4,#fed7aa 54%,#bfdbfe);
+      box-shadow:var(--shadow2);
+    }
+
+    .result-main span {
+      display:block;
+      font-size:14px;
+      opacity:.82;
+      font-weight:900;
+    }
+
+    .result-main strong {
+      display:block;
+      margin-top:8px;
+      font-size:clamp(36px,5vw,58px);
+      line-height:1;
+      letter-spacing:-.06em;
+    }
+
+    .result-main em {
+      display:block;
+      margin-top:10px;
+      font-size:14px;
+      line-height:1.75;
+      font-style:normal;
+      font-weight:850;
+      opacity:.88;
+      word-break:keep-all;
+    }
+
+    .result-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .metric {
+      padding:18px;
+      border-radius:20px;
+      background:rgba(255,255,255,.84);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .metric span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .metric strong {
+      display:block;
+      margin-top:7px;
+      color:#122033;
+      font-size:24px;
+      letter-spacing:-.045em;
+    }
+
+    .metric.full {
+      grid-column:1/-1;
+    }
+
+    .good {
+      color:#0f766e !important;
+    }
+
+    .warn {
+      color:#d97706 !important;
+    }
+
+    .bad {
+      color:#e11d48 !important;
+    }
+
+    .guide-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .guide {
+      padding:20px;
+      border-radius:22px;
+      background:rgba(255,255,255,.80);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .guide b {
+      display:block;
+      margin-bottom:8px;
+      font-size:17px;
+      letter-spacing:-.03em;
+    }
+
+    .guide p {
+      margin:0;
+      color:#526173;
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    .related-grid {
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .related-card {
+      padding:16px;
+      border-radius:20px;
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      font-weight:900;
+      color:#24415f;
+      line-height:1.45;
+    }
+
+    footer {
+      padding:44px 0 54px;
+      color:var(--muted);
+      text-align:center;
+      font-size:13px;
+    }
+
+    @media (max-width:920px) {
+      .hero-grid,
+      .tool-grid {
+        grid-template-columns:1fr;
+      }
+
+      .hero {
+        padding-top:42px;
+      }
+    }
+
+    @media (max-width:720px) {
+      .related-grid {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+    }
+
+    @media (max-width:640px) {
+      .nav {
+        align-items:flex-start;
+        flex-direction:column;
+        padding:12px 0;
+      }
+
+      .nav-links {
+        width:100%;
+        overflow-x:auto;
+        padding-bottom:4px;
+      }
+
+      .hero-actions {
+        display:grid;
+      }
+
+      .btn {
+        width:100%;
+      }
+
+      .row,
+      .result-grid,
+      .guide-grid,
+      .related-grid {
+        grid-template-columns:1fr;
+      }
+
+      .visual {
+        min-height:374px;
+      }
+
+      .house-card {
+        left:24px;
+        width:172px;
+      }
+
+      .key-card {
+        right:24px;
+        width:122px;
+        height:138px;
+      }
+
+      .key {
+        transform:scale(.78) rotate(-25deg);
+      }
+
+      .result-ticket {
+        width:220px;
+      }
+
+      .panda-card {
+        width:138px;
+        height:138px;
+        right:18px;
+      }
+
+      .panda-head {
+        left:24px;
+        top:46px;
+        width:90px;
+        height:82px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="../" aria-label="바로해결툴즈 메인으로 이동">
+        <div class="brand-mark">B</div>
+        <div>
+          바로해결툴즈
+          <small>부동산 · 자동차 취득세 · 바로 확인</small>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="주요 도구">
+        <a href="../">전체 도구</a>
+        <a href="../global-income-tax/">종합소득세</a>
+        <a href="../annual-net-salary/">연봉 실수령액</a>
+        <a href="../car-tax/">자동차세</a>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="chips">
+            <span class="chip hot">🏠 취득세 계산</span>
+            <span class="chip">아파트·주택</span>
+            <span class="chip">자동차까지 확인</span>
+          </div>
+
+          <h1>
+            집이나 차 살 때<br>
+            <span class="gradient">취득세 먼저 계산하세요</span>
+          </h1>
+
+          <p class="lead">
+            취득가액, 자산 종류, 주택 면적, 주택 수, 자동차 종류를 입력하면
+            <strong>취득세, 지방교육세, 농어촌특별세, 총 예상 납부액</strong>을 계산합니다.
+            계약 전에 실제 들어갈 세금 규모부터 확인하세요.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#calculator">취득세 계산하기</a>
+            <a class="btn btn-ghost" href="#guide">계산 기준 보기</a>
+          </div>
+        </div>
+
+        <div class="visual" aria-label="취득세 계산 예시">
+          <div class="visual-panel">
+            <div class="road"></div>
+
+            <div class="house-card">
+              <div class="house-roof"></div>
+              <div class="house-body">
+                <div class="house-door"></div>
+              </div>
+              <div class="car-mini"></div>
+            </div>
+
+            <div class="key-card">
+              <div class="key">
+                <div class="key-ring"></div>
+                <div class="key-stick"></div>
+                <div class="key-tooth"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="result-ticket">
+            <span>총 예상 취득세</span>
+            <strong id="visualTax">약 660만원</strong>
+          </div>
+
+          <div class="panda-card" aria-hidden="true">
+            <div class="badge-mini">BUY</div>
+            <div class="panda-head">
+              <div class="panda-ear left"></div>
+              <div class="panda-ear right"></div>
+              <div class="panda-eye-patch left"><span class="panda-eye"></span></div>
+              <div class="panda-eye-patch right"><span class="panda-eye"></span></div>
+              <div class="panda-nose"></div>
+              <div class="panda-smile"></div>
+            </div>
+            <div class="tax-mini"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="calculator">
+      <div class="wrap tool-grid">
+        <div class="panel">
+          <h2>취득세 계산기</h2>
+          <p class="desc">
+            아파트·주택, 상가·토지, 자동차 취득세를 간편 계산합니다.
+            자동요율을 적용할 수 있고, 실제 조건이 다르면 취득세율·지방교육세율·농특세율을 직접 수정할 수 있습니다.
+          </p>
+
+          <form class="form" onsubmit="event.preventDefault(); calculateTax();">
+            <div class="row">
+              <div class="field">
+                <label for="assetType">
+                  취득 자산
+                  <small>주택·일반부동산·자동차</small>
+                </label>
+                <div class="input-wrap">
+                  <select id="assetType" onchange="syncRates();">
+                    <option value="house">아파트·주택</option>
+                    <option value="generalRealEstate">상가·오피스텔·토지 등</option>
+                    <option value="car">자동차</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="purchasePrice">
+                  취득가액
+                  <small>매매가·과세표준</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="purchasePrice" type="number" min="0" step="1000000" value="600000000" placeholder="예: 600000000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row house-only">
+              <div class="field">
+                <label for="houseMode">
+                  주택 취득 유형
+                  <small>자동요율 기준</small>
+                </label>
+                <div class="input-wrap">
+                  <select id="houseMode" onchange="syncRates();">
+                    <option value="basic">일반 주택 1~3% 자동</option>
+                    <option value="heavy8">중과 8% 직접 적용</option>
+                    <option value="heavy12">중과 12% 직접 적용</option>
+                    <option value="manual">직접 입력</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="houseArea">
+                  주택 전용면적
+                  <small>농특세 참고</small>
+                </label>
+                <div class="input-wrap">
+                  <select id="houseArea" onchange="syncRates();">
+                    <option value="under85">85㎡ 이하</option>
+                    <option value="over85">85㎡ 초과</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row car-only">
+              <div class="field">
+                <label for="carType">
+                  자동차 종류
+                  <small>자동요율 기준</small>
+                </label>
+                <div class="input-wrap">
+                  <select id="carType" onchange="syncRates();">
+                    <option value="passenger">비영업용 승용차 7%</option>
+                    <option value="compact">경차 4%</option>
+                    <option value="business">영업용 자동차 4%</option>
+                    <option value="other">기타 차량 5%</option>
+                    <option value="manual">직접 입력</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="discountAmount">
+                  감면·공제액
+                  <small>있으면 입력</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="discountAmount" type="number" min="0" step="10000" value="0" placeholder="예: 750000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="acquisitionRate">
+                  취득세율
+                  <small>자동 적용 후 수정 가능</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="acquisitionRate" type="number" min="0" step="0.001" value="1">
+                  <span class="unit">%</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="localEducationRate">
+                  지방교육세율
+                  <small>취득가액 기준 간편</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="localEducationRate" type="number" min="0" step="0.001" value="0.1">
+                  <span class="unit">%</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="specialRuralRate">
+                  농어촌특별세율
+                  <small>해당 시 입력</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="specialRuralRate" type="number" min="0" step="0.001" value="0">
+                  <span class="unit">%</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="roundingMode">
+                  반올림 방식
+                  <small>간편 계산</small>
+                </label>
+                <div class="input-wrap">
+                  <select id="roundingMode">
+                    <option value="round">원 단위 반올림</option>
+                    <option value="floor">원 단위 버림</option>
+                    <option value="ceil">원 단위 올림</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="preset">
+              <button type="button" onclick="fillExample('apt6')">아파트 6억</button>
+              <button type="button" onclick="fillExample('apt8')">아파트 8억</button>
+              <button type="button" onclick="fillExample('heavy')">주택 중과 8%</button>
+              <button type="button" onclick="fillExample('store')">상가 3억</button>
+              <button type="button" onclick="fillExample('car')">자동차 3천만원</button>
+            </div>
+
+            <button class="calc-btn" type="submit">취득세 계산하기</button>
+            <button class="reset-btn" type="button" onclick="resetForm()">입력값 초기화</button>
+          </form>
+
+          <div class="notice warning">
+            취득세는 자산 종류, 취득 원인, 주택 수, 조정대상지역, 면적, 생애최초·신혼부부·다자녀 감면,
+            차량 감면, 지자체 처리 기준에 따라 달라질 수 있습니다. 실제 납부 전 위택스·지자체 고지 기준을 확인하세요.
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>계산 결과</h2>
+          <p class="desc">
+            취득세, 지방교육세, 농어촌특별세, 감면 후 총 납부 예상액을 나눠 확인하세요.
+          </p>
+
+          <div class="result-box">
+            <div class="result-main">
+              <span>총 예상 납부세액</span>
+              <strong id="totalTax">-</strong>
+              <em id="summaryText">값을 입력하고 계산 버튼을 눌러주세요.</em>
+            </div>
+
+            <div class="result-grid">
+              <div class="metric">
+                <span>취득세</span>
+                <strong id="acquisitionTax">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>지방교육세</span>
+                <strong id="localEducationTax">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>농어촌특별세</span>
+                <strong id="specialRuralTax">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>감면·공제액</span>
+                <strong id="discountTax" class="good">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>세전 합계</span>
+                <strong id="beforeDiscountTax">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>실부담률</span>
+                <strong id="effectiveRate">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>적용 취득세율</span>
+                <strong id="appliedAcquisitionRate">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>적용 총 세율</span>
+                <strong id="appliedTotalRate">-</strong>
+              </div>
+
+              <div class="metric full">
+                <span>자동요율 메모</span>
+                <strong id="rateMemo">-</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice">
+            이 계산기는 취득가액에 세율을 곱하는 간편 구조입니다.
+            실제 취득세 과세표준, 감면, 중과, 부가세·차량가액 포함 여부는 거래 형태에 따라 달라질 수 있습니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="guide">
+      <div class="wrap">
+        <div class="panel">
+          <h2>취득세 계산 기준</h2>
+
+          <div class="guide-grid">
+            <div class="guide">
+              <b>주택 취득세</b>
+              <p>
+                일반 주택은 취득가액 구간에 따라 1~3% 구조로 간편 계산했습니다.
+                다주택·법인·조정대상지역 등은 중과세율이 적용될 수 있어 별도로 선택할 수 있게 했습니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>일반 부동산</b>
+              <p>
+                상가, 오피스텔, 토지 등은 기본적으로 일반 부동산 취득세율을 입력값으로 계산합니다.
+                거래 유형과 감면 여부에 따라 실제 세액은 달라질 수 있습니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>자동차 취득세</b>
+              <p>
+                비영업용 승용차, 경차, 영업용 차량 등 종류별 간편 세율을 적용했습니다.
+                친환경차·다자녀 등 감면은 감면액 입력란에 직접 반영하세요.
+              </p>
+            </div>
+          </div>
+
+          <div class="notice warning">
+            취득세율과 감면 조건은 변경될 수 있고, 취득 당시의 법령·지자체 고지 기준이 중요합니다.
+            이 계산기는 계약 전 세금 규모를 빠르게 가늠하기 위한 참고용입니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="panel">
+          <h2>같이 보면 좋은 도구</h2>
+          <p class="desc">
+            취득세를 확인했다면 자동차세, 종합소득세, 연봉 실수령액, 대출이자도 함께 확인해보세요.
+          </p>
+
+          <div class="related-grid">
+            <a class="related-card" href="../">전체 도구 보기</a>
+            <a class="related-card" href="../car-tax/">자동차세 계산기</a>
+            <a class="related-card" href="../loan-interest/">대출이자 계산기</a>
+            <a class="related-card" href="../global-income-tax/">종합소득세 계산기</a>
+          </div>
+
+          <div class="notice">
+            예정 도구: 양도소득세 계산기, 부가세 계산기, 건강보험료 계산기, 상속세 계산기.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 바로해결툴즈 · 취득세 계산 결과는 참고용입니다. 실제 납부세액은 위택스, 지자체 고지서, 세무전문가 확인이 필요합니다.
+  </footer>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    function num(id) {
+      const value = Number($(id).value);
+      return Number.isFinite(value) ? value : 0;
+    }
+
+    function setText(id, value) {
+      $(id).textContent = value;
+    }
+
+    function won(value) {
+      if (!Number.isFinite(value)) return "-";
+      return `${Math.round(value).toLocaleString("ko-KR")}원`;
+    }
+
+    function shortWon(value) {
+      if (!Number.isFinite(value)) return "-";
+
+      const rounded = Math.round(Math.abs(value));
+
+      if (rounded >= 100000000) {
+        return `약 ${(rounded / 100000000).toFixed(1)}억`;
+      }
+
+      if (rounded >= 10000) {
+        return `약 ${Math.round(rounded / 10000).toLocaleString("ko-KR")}만원`;
+      }
+
+      return `약 ${rounded.toLocaleString("ko-KR")}원`;
+    }
+
+    function percent(value) {
+      if (!Number.isFinite(value)) return "-";
+      return `${value.toLocaleString("ko-KR", {
+        maximumFractionDigits: 3,
+        minimumFractionDigits: 0
+      })}%`;
+    }
+
+    function rate(value) {
+      return value / 100;
+    }
+
+    function applyRounding(value) {
+      const mode = $("roundingMode").value;
+
+      if (!Number.isFinite(value)) return 0;
+      if (mode === "floor") return Math.floor(value);
+      if (mode === "ceil") return Math.ceil(value);
+      return Math.round(value);
+    }
+
+    function getBasicHouseRate(price) {
+      const eok = price / 100000000;
+
+      if (price <= 600000000) {
+        return 1;
+      }
+
+      if (price <= 900000000) {
+        return Math.max(1, Math.min(3, eok * 2 / 3 - 3));
+      }
+
+      return 3;
+    }
+
+    function setVisibility() {
+      const assetType = $("assetType").value;
+      const houseOnly = document.querySelectorAll(".house-only");
+      const carOnly = document.querySelectorAll(".car-only");
+
+      houseOnly.forEach((el) => {
+        el.style.display = assetType === "house" ? "grid" : "none";
+      });
+
+      carOnly.forEach((el) => {
+        el.style.display = assetType === "car" ? "grid" : "none";
+      });
+    }
+
+    function syncRates() {
+      const assetType = $("assetType").value;
+      const price = num("purchasePrice");
+
+      setVisibility();
+
+      let acquisitionRate = 0;
+      let localEducationRate = 0;
+      let specialRuralRate = 0;
+
+      if (assetType === "house") {
+        const houseMode = $("houseMode").value;
+        const houseArea = $("houseArea").value;
+
+        if (houseMode === "basic") {
+          acquisitionRate = getBasicHouseRate(price);
+          localEducationRate = acquisitionRate * 0.1;
+          specialRuralRate = houseArea === "over85" ? 0.2 : 0;
+        }
+
+        if (houseMode === "heavy8") {
+          acquisitionRate = 8;
+          localEducationRate = 0.4;
+          specialRuralRate = houseArea === "over85" ? 0.6 : 0;
+        }
+
+        if (houseMode === "heavy12") {
+          acquisitionRate = 12;
+          localEducationRate = 0.4;
+          specialRuralRate = houseArea === "over85" ? 1.0 : 0;
+        }
+
+        if (houseMode !== "manual") {
+          $("acquisitionRate").value = roundRate(acquisitionRate);
+          $("localEducationRate").value = roundRate(localEducationRate);
+          $("specialRuralRate").value = roundRate(specialRuralRate);
+        }
+      }
+
+      if (assetType === "generalRealEstate") {
+        $("acquisitionRate").value = "4";
+        $("localEducationRate").value = "0.4";
+        $("specialRuralRate").value = "0.2";
+        $("discountAmount").value = $("discountAmount").value || "0";
+      }
+
+      if (assetType === "car") {
+        const carType = $("carType").value;
+
+        if (carType === "passenger") {
+          acquisitionRate = 7;
+        }
+
+        if (carType === "compact") {
+          acquisitionRate = 4;
+        }
+
+        if (carType === "business") {
+          acquisitionRate = 4;
+        }
+
+        if (carType === "other") {
+          acquisitionRate = 5;
+        }
+
+        if (carType !== "manual") {
+          $("acquisitionRate").value = roundRate(acquisitionRate);
+          $("localEducationRate").value = "0";
+          $("specialRuralRate").value = "0";
+        }
+      }
+
+      calculateTax();
+    }
+
+    function roundRate(value) {
+      return Number(value).toLocaleString("ko-KR", {
+        maximumFractionDigits: 3,
+        minimumFractionDigits: 0
+      });
+    }
+
+    function getMemo() {
+      const assetType = $("assetType").value;
+      const price = num("purchasePrice");
+
+      if (assetType === "house") {
+        const mode = $("houseMode").value;
+        const area = $("houseArea").value === "over85" ? "85㎡ 초과" : "85㎡ 이하";
+
+        if (mode === "basic") {
+          return `일반 주택 자동요율 ${percent(getBasicHouseRate(price))}, ${area} 기준입니다.`;
+        }
+
+        if (mode === "heavy8") {
+          return `주택 중과 8% 간편 적용, ${area} 기준입니다. 실제 중과 여부는 주택 수와 지역 조건을 확인해야 합니다.`;
+        }
+
+        if (mode === "heavy12") {
+          return `주택 중과 12% 간편 적용, ${area} 기준입니다. 실제 중과 여부는 주택 수와 지역 조건을 확인해야 합니다.`;
+        }
+
+        return `직접 입력한 주택 취득세율 기준입니다.`;
+      }
+
+      if (assetType === "generalRealEstate") {
+        return "상가·오피스텔·토지 등 일반 부동산 간편요율 기준입니다.";
+      }
+
+      const carTypeText = {
+        passenger:"비영업용 승용차",
+        compact:"경차",
+        business:"영업용 자동차",
+        other:"기타 차량",
+        manual:"직접 입력 차량"
+      }[$("carType").value];
+
+      return `${carTypeText} 취득세 간편요율 기준입니다. 차량 감면은 감면·공제액에 직접 입력하세요.`;
+    }
+
+    function getAssetLabel() {
+      const assetType = $("assetType").value;
+
+      if (assetType === "house") return "아파트·주택";
+      if (assetType === "generalRealEstate") return "상가·오피스텔·토지";
+      return "자동차";
+    }
+
+    function calculateTax() {
+      const price = num("purchasePrice");
+      const acquisitionRate = num("acquisitionRate");
+      const localEducationRate = num("localEducationRate");
+      const specialRuralRate = num("specialRuralRate");
+      const discountAmount = Math.min(num("discountAmount"), price);
+
+      const acquisitionTax = applyRounding(price * rate(acquisitionRate));
+      const localEducationTax = applyRounding(price * rate(localEducationRate));
+      const specialRuralTax = applyRounding(price * rate(specialRuralRate));
+      const beforeDiscount = acquisitionTax + localEducationTax + specialRuralTax;
+      const totalTax = Math.max(beforeDiscount - discountAmount, 0);
+
+      const totalRate = acquisitionRate + localEducationRate + specialRuralRate;
+      const effectiveRate = price > 0 ? totalTax / price * 100 : 0;
+
+      setText("acquisitionTax", won(acquisitionTax));
+      setText("localEducationTax", won(localEducationTax));
+      setText("specialRuralTax", won(specialRuralTax));
+      setText("discountTax", discountAmount > 0 ? `-${won(discountAmount)}` : "0원");
+      setText("beforeDiscountTax", won(beforeDiscount));
+      setText("totalTax", won(totalTax));
+      setText("effectiveRate", percent(effectiveRate));
+      setText("appliedAcquisitionRate", percent(acquisitionRate));
+      setText("appliedTotalRate", percent(totalRate));
+      setText("rateMemo", getMemo());
+      setText("visualTax", shortWon(totalTax));
+
+      const summary = `${getAssetLabel()} 취득가액 ${won(price)} 기준 취득세는 ${won(acquisitionTax)}, 지방교육세는 ${won(localEducationTax)}, 농어촌특별세는 ${won(specialRuralTax)}입니다. 감면·공제 ${won(discountAmount)}을 반영한 총 예상 납부세액은 약 ${won(totalTax)}입니다.`;
+
+      setText("summaryText", summary);
+    }
+
+    function fillExample(type) {
+      $("discountAmount").value = "0";
+      $("roundingMode").value = "round";
+
+      if (type === "apt6") {
+        $("assetType").value = "house";
+        $("purchasePrice").value = "600000000";
+        $("houseMode").value = "basic";
+        $("houseArea").value = "under85";
+      }
+
+      if (type === "apt8") {
+        $("assetType").value = "house";
+        $("purchasePrice").value = "800000000";
+        $("houseMode").value = "basic";
+        $("houseArea").value = "over85";
+      }
+
+      if (type === "heavy") {
+        $("assetType").value = "house";
+        $("purchasePrice").value = "600000000";
+        $("houseMode").value = "heavy8";
+        $("houseArea").value = "over85";
+      }
+
+      if (type === "store") {
+        $("assetType").value = "generalRealEstate";
+        $("purchasePrice").value = "300000000";
+      }
+
+      if (type === "car") {
+        $("assetType").value = "car";
+        $("purchasePrice").value = "30000000";
+        $("carType").value = "passenger";
+      }
+
+      syncRates();
+    }
+
+    function resetForm() {
+      $("assetType").value = "house";
+      $("purchasePrice").value = "600000000";
+      $("houseMode").value = "basic";
+      $("houseArea").value = "under85";
+      $("carType").value = "passenger";
+      $("discountAmount").value = "0";
+      $("roundingMode").value = "round";
+      syncRates();
+    }
+
+    [
+      "assetType",
+      "purchasePrice",
+      "houseMode",
+      "houseArea",
+      "carType",
+      "discountAmount",
+      "acquisitionRate",
+      "localEducationRate",
+      "specialRuralRate",
+      "roundingMode"
+    ].forEach((id) => {
+      $(id).addEventListener("input", () => {
+        if (id === "purchasePrice" || id === "assetType" || id === "houseMode" || id === "houseArea" || id === "carType") {
+          syncRates();
+        } else {
+          calculateTax();
+        }
+      });
+
+      $(id).addEventListener("change", () => {
+        if (id === "purchasePrice" || id === "assetType" || id === "houseMode" || id === "houseArea" || id === "carType") {
+          syncRates();
+        } else {
+          calculateTax();
+        }
+      });
+    });
+
+    syncRates();
+  </script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'></script>
+  <!-- End Cloudflare Web Analytics -->
+</body>
+</html>
