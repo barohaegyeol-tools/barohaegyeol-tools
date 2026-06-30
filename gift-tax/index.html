@@ -1,0 +1,1728 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>증여세 계산기｜가족 간 증여세·공제한도 간편 계산｜바로해결툴즈</title>
+  <meta name="description" content="증여재산가액, 10년 이내 사전증여, 채무인수액, 증여재산공제, 혼인·출산 추가공제, 세대생략 할증을 입력하면 예상 증여세와 신고세액공제 후 납부세액을 계산할 수 있는 무료 증여세 계산기입니다." />
+  <meta name="keywords" content="증여세 계산기, 증여세 공제한도, 가족간 증여세, 자녀 증여세, 배우자 증여세, 증여세율, 증여세 계산, 바로해결툴즈" />
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/gift-tax/" />
+  <meta name="theme-color" content="#fff1f2" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="증여세 계산기｜가족 간 증여세·공제한도 간편 계산" />
+  <meta property="og:description" content="증여금액과 관계별 공제를 입력하면 예상 증여세, 신고세액공제, 최종 납부세액을 바로 계산합니다." />
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/gift-tax/" />
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"증여세 계산기",
+    "url":"https://barohaegyeol-tools.pages.dev/gift-tax/",
+    "applicationCategory":"FinanceApplication",
+    "operatingSystem":"All",
+    "description":"증여재산가액, 사전증여, 채무인수액, 관계별 증여재산공제, 혼인·출산 추가공제, 세대생략 할증을 기준으로 예상 증여세를 계산하는 무료 세금 계산기입니다.",
+    "publisher":{
+      "@type":"Organization",
+      "name":"바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg1:#fff1f2;
+      --bg2:#f8fafc;
+      --bg3:#f5f3ff;
+      --ink:#0f172a;
+      --text:#27364a;
+      --muted:#64748b;
+      --line:rgba(15,23,42,.10);
+      --white:rgba(255,255,255,.88);
+
+      --navy:#0f172a;
+      --slate:#334155;
+      --pink:#ec4899;
+      --rose:#fb7185;
+      --red:#ef4444;
+      --purple:#7c3aed;
+      --violet:#8b5cf6;
+      --blue:#2563eb;
+      --sky:#38bdf8;
+      --gold:#f59e0b;
+      --yellow:#facc15;
+      --orange:#fb923c;
+      --mint:#14b8a6;
+      --green:#22c55e;
+
+      --shadow:0 24px 70px rgba(236,72,153,.15);
+      --shadow2:0 14px 34px rgba(15,23,42,.08);
+      --radius:28px;
+      --max:1180px;
+    }
+
+    * {
+      box-sizing:border-box;
+    }
+
+    html {
+      scroll-behavior:smooth;
+    }
+
+    body {
+      margin:0;
+      min-height:100vh;
+      color:var(--ink);
+      font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;
+      line-height:1.66;
+      background:
+        radial-gradient(circle at 9% 8%, rgba(236,72,153,.22), transparent 25%),
+        radial-gradient(circle at 88% 10%, rgba(15,23,42,.12), transparent 24%),
+        radial-gradient(circle at 80% 88%, rgba(124,58,237,.13), transparent 27%),
+        linear-gradient(135deg,var(--bg1) 0%, var(--bg2) 48%, var(--bg3) 100%);
+      overflow-x:hidden;
+    }
+
+    body::before {
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.18;
+      background-image:
+        radial-gradient(circle, rgba(236,72,153,.20) 1px, transparent 1.3px),
+        radial-gradient(circle, rgba(15,23,42,.12) 1px, transparent 1.3px);
+      background-size:34px 34px, 84px 84px;
+      background-position:0 0, 22px 28px;
+      mask-image:linear-gradient(to bottom,#000 0%,#000 68%,transparent 100%);
+    }
+
+    a {
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button,
+    input,
+    select {
+      font:inherit;
+    }
+
+    button {
+      cursor:pointer;
+    }
+
+    .wrap {
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+    }
+
+    .topbar {
+      position:sticky;
+      top:0;
+      z-index:70;
+      border-bottom:1px solid rgba(15,23,42,.07);
+      background:rgba(255,241,242,.78);
+      backdrop-filter:blur(18px);
+    }
+
+    .nav {
+      min-height:68px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:950;
+      letter-spacing:-.045em;
+    }
+
+    .brand-mark {
+      width:42px;
+      height:42px;
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      background:conic-gradient(from 145deg,#ec4899,#fb7185,#0f172a,#7c3aed,#f59e0b,#ec4899);
+      box-shadow:0 16px 36px rgba(236,72,153,.25);
+      font-weight:950;
+    }
+
+    .brand small {
+      display:block;
+      margin-top:1px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:-.02em;
+    }
+
+    .nav-links {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      white-space:nowrap;
+    }
+
+    .nav-links a {
+      padding:9px 13px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.78);
+      color:#26364a;
+      font-size:14px;
+      font-weight:850;
+      box-shadow:var(--shadow2);
+    }
+
+    .hero {
+      padding:58px 0 28px;
+    }
+
+    .hero-grid {
+      display:grid;
+      grid-template-columns:1.02fr .98fr;
+      align-items:center;
+      gap:32px;
+    }
+
+    .chips {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:16px;
+    }
+
+    .chip {
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.82);
+      color:#334155;
+      font-size:13px;
+      font-weight:900;
+      box-shadow:var(--shadow2);
+    }
+
+    .chip.hot {
+      color:#be185d;
+      background:linear-gradient(135deg,rgba(252,231,243,.98),rgba(255,255,255,.92));
+    }
+
+    h1 {
+      margin:0;
+      max-width:800px;
+      font-size:clamp(38px,6.1vw,74px);
+      line-height:1.04;
+      letter-spacing:-.078em;
+    }
+
+    .gradient {
+      color:transparent;
+      background:linear-gradient(90deg,#ec4899 0%, #0f172a 45%, #7c3aed 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+    }
+
+    .lead {
+      margin:20px 0 0;
+      max-width:700px;
+      color:#34465c;
+      font-size:clamp(16px,2vw,19px);
+      line-height:1.82;
+      letter-spacing:-.015em;
+      word-break:keep-all;
+    }
+
+    .lead strong {
+      color:#be185d;
+      font-weight:950;
+    }
+
+    .hero-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:26px;
+    }
+
+    .btn {
+      min-height:50px;
+      padding:13px 18px;
+      border-radius:17px;
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      gap:8px;
+      border:1px solid transparent;
+      font-weight:950;
+      letter-spacing:-.025em;
+      transition:.18s ease;
+    }
+
+    .btn:hover {
+      transform:translateY(-2px);
+    }
+
+    .btn-primary {
+      color:#fff;
+      background:linear-gradient(135deg,#ec4899,#0f172a,#7c3aed);
+      box-shadow:0 16px 38px rgba(236,72,153,.24);
+    }
+
+    .btn-ghost {
+      color:#122033;
+      background:rgba(255,255,255,.82);
+      border-color:rgba(15,23,42,.08);
+    }
+
+    .visual {
+      position:relative;
+      min-height:430px;
+      border-radius:42px;
+      border:1px solid rgba(15,23,42,.08);
+      background:
+        radial-gradient(circle at 76% 15%, rgba(236,72,153,.18), transparent 22%),
+        radial-gradient(circle at 17% 86%, rgba(15,23,42,.16), transparent 24%),
+        linear-gradient(145deg,rgba(255,255,255,.96),rgba(255,241,242,.82));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      padding:26px;
+    }
+
+    .gift-scene {
+      position:absolute;
+      left:34px;
+      right:34px;
+      top:34px;
+      height:228px;
+      border-radius:36px;
+      background:
+        radial-gradient(circle at 86% 18%, rgba(255,255,255,.28), transparent 25%),
+        linear-gradient(135deg,#0f172a,#7c3aed 45%,#ec4899);
+      box-shadow:0 24px 60px rgba(15,23,42,.20);
+      overflow:hidden;
+    }
+
+    .gift-scene::before {
+      content:"";
+      position:absolute;
+      inset:18px;
+      border-radius:28px;
+      border:1px dashed rgba(255,255,255,.24);
+    }
+
+    .gift-box {
+      position:absolute;
+      left:48px;
+      top:90px;
+      width:156px;
+      height:98px;
+      border-radius:22px;
+      background:linear-gradient(135deg,#fce7f3,#fb7185);
+      border:4px solid #0f172a;
+      box-shadow:0 18px 36px rgba(15,23,42,.18);
+      z-index:3;
+    }
+
+    .gift-box::before {
+      content:"";
+      position:absolute;
+      left:62px;
+      top:-4px;
+      bottom:-4px;
+      width:28px;
+      background:#facc15;
+      border-left:4px solid #0f172a;
+      border-right:4px solid #0f172a;
+    }
+
+    .gift-box::after {
+      content:"";
+      position:absolute;
+      left:-4px;
+      right:-4px;
+      top:31px;
+      height:28px;
+      background:#facc15;
+      border-top:4px solid #0f172a;
+      border-bottom:4px solid #0f172a;
+    }
+
+    .ribbon-left,
+    .ribbon-right {
+      position:absolute;
+      top:-44px;
+      width:52px;
+      height:42px;
+      border:4px solid #0f172a;
+      background:#facc15;
+      border-radius:50% 50% 10px 50%;
+      z-index:4;
+    }
+
+    .ribbon-left {
+      left:37px;
+      transform:rotate(-28deg);
+    }
+
+    .ribbon-right {
+      right:37px;
+      transform:scaleX(-1) rotate(-28deg);
+    }
+
+    .cash-card {
+      position:absolute;
+      right:42px;
+      top:50px;
+      width:174px;
+      height:136px;
+      border-radius:28px;
+      background:#fff;
+      border:3px solid #0f172a;
+      box-shadow:0 18px 38px rgba(15,23,42,.18);
+      padding:18px;
+      transform:rotate(4deg);
+      z-index:4;
+    }
+
+    .cash-card strong {
+      display:block;
+      color:#be185d;
+      font-size:18px;
+      letter-spacing:-.04em;
+    }
+
+    .cash-lines {
+      display:grid;
+      gap:9px;
+      margin-top:14px;
+    }
+
+    .cash-lines span {
+      height:8px;
+      border-radius:999px;
+      background:#fce7f3;
+    }
+
+    .cash-lines span:nth-child(2) {
+      width:72%;
+      background:#ede9fe;
+    }
+
+    .cash-lines span:nth-child(3) {
+      width:86%;
+      background:#ffedd5;
+    }
+
+    .deduct-tag {
+      position:absolute;
+      left:56px;
+      bottom:28px;
+      padding:10px 14px;
+      border-radius:999px;
+      color:#0f172a;
+      background:#facc15;
+      border:3px solid #0f172a;
+      font-size:13px;
+      font-weight:950;
+      z-index:5;
+      box-shadow:0 12px 26px rgba(15,23,42,.14);
+    }
+
+    .tax-card {
+      position:absolute;
+      left:28px;
+      bottom:28px;
+      width:304px;
+      padding:20px;
+      border-radius:28px;
+      background:linear-gradient(135deg,#fff,#fff1f2);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      z-index:4;
+    }
+
+    .tax-card span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .tax-card strong {
+      display:block;
+      margin-top:7px;
+      color:#be185d;
+      font-size:34px;
+      line-height:1;
+      letter-spacing:-.055em;
+    }
+
+    .cat-card {
+      position:absolute;
+      right:28px;
+      bottom:28px;
+      width:180px;
+      height:180px;
+      border-radius:42px;
+      border:1px solid rgba(15,23,42,.08);
+      background:linear-gradient(145deg,#fff,#f5f3ff);
+      box-shadow:var(--shadow2);
+      z-index:4;
+    }
+
+    .cat-head {
+      position:absolute;
+      left:34px;
+      top:42px;
+      width:112px;
+      height:98px;
+      border-radius:54px 54px 42px 42px;
+      background:#f9a8d4;
+      border:4px solid #831843;
+    }
+
+    .cat-ear {
+      position:absolute;
+      top:-24px;
+      width:38px;
+      height:38px;
+      background:#f9a8d4;
+      border-left:4px solid #831843;
+      border-top:4px solid #831843;
+      border-radius:10px;
+      transform:rotate(45deg);
+      z-index:-1;
+    }
+
+    .cat-ear.left { left:9px; }
+    .cat-ear.right { right:9px; }
+
+    .cat-eye {
+      position:absolute;
+      top:36px;
+      width:10px;
+      height:14px;
+      border-radius:999px;
+      background:#111827;
+    }
+
+    .cat-eye.left { left:32px; }
+    .cat-eye.right { right:32px; }
+
+    .cat-nose {
+      position:absolute;
+      left:50%;
+      top:58px;
+      width:15px;
+      height:11px;
+      border-radius:999px;
+      background:#111827;
+      transform:translateX(-50%);
+    }
+
+    .cat-smile {
+      position:absolute;
+      left:50%;
+      top:72px;
+      width:30px;
+      height:14px;
+      border-bottom:3px solid #831843;
+      border-radius:0 0 999px 999px;
+      transform:translateX(-50%);
+    }
+
+    .coin-pouch {
+      position:absolute;
+      left:13px;
+      bottom:13px;
+      width:58px;
+      height:52px;
+      border-radius:18px;
+      background:linear-gradient(135deg,#0f172a,#7c3aed);
+      border:3px solid #0f172a;
+      transform:rotate(-8deg);
+    }
+
+    .coin-pouch::before {
+      content:"₩";
+      position:absolute;
+      left:50%;
+      top:51%;
+      transform:translate(-50%,-50%);
+      color:#facc15;
+      font-size:22px;
+      font-weight:950;
+    }
+
+    .coin-pouch::after {
+      content:"";
+      position:absolute;
+      left:16px;
+      top:-11px;
+      width:24px;
+      height:18px;
+      border-radius:10px 10px 3px 3px;
+      background:#facc15;
+      border:3px solid #0f172a;
+    }
+
+    .badge-mini {
+      position:absolute;
+      right:14px;
+      top:14px;
+      padding:8px 10px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#fce7f3,#ede9fe);
+      color:#be185d;
+      font-size:12px;
+      font-weight:950;
+      box-shadow:var(--shadow2);
+      z-index:5;
+    }
+
+    .section {
+      padding:22px 0;
+    }
+
+    .tool-grid {
+      display:grid;
+      grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);
+      gap:22px;
+      align-items:start;
+    }
+
+    .panel {
+      padding:24px;
+      border-radius:var(--radius);
+      border:1px solid rgba(15,23,42,.08);
+      background:var(--white);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);
+    }
+
+    .panel h2 {
+      margin:0 0 12px;
+      font-size:27px;
+      line-height:1.2;
+      letter-spacing:-.052em;
+    }
+
+    .desc {
+      margin:-4px 0 18px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    .form {
+      display:grid;
+      gap:14px;
+    }
+
+    .field label {
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom:8px;
+      color:#122033;
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .field small {
+      color:var(--muted);
+      font-weight:750;
+    }
+
+    .input-wrap {
+      position:relative;
+    }
+
+    input,
+    select {
+      width:100%;
+      min-height:54px;
+      padding:14px 54px 14px 15px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.10);
+      background:rgba(255,255,255,.94);
+      color:#122033;
+      font-size:16px;
+      font-weight:850;
+      outline:none;
+      transition:.16s ease;
+    }
+
+    input:focus,
+    select:focus {
+      border-color:rgba(236,72,153,.46);
+      box-shadow:0 0 0 4px rgba(236,72,153,.12);
+    }
+
+    .unit {
+      position:absolute;
+      top:50%;
+      right:15px;
+      transform:translateY(-50%);
+      color:var(--muted);
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .row {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .detail-box {
+      display:grid;
+      gap:10px;
+      padding:14px;
+      border-radius:18px;
+      background:rgba(248,250,252,.78);
+      border:1px solid rgba(15,23,42,.08);
+    }
+
+    .detail-title {
+      color:#334155;
+      font-size:13px;
+      font-weight:950;
+    }
+
+    .preset {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .preset button {
+      padding:8px 11px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:#fff;
+      color:#334155;
+      font-size:12px;
+      font-weight:900;
+    }
+
+    .calc-btn {
+      width:100%;
+      min-height:58px;
+      margin-top:6px;
+      border:0;
+      border-radius:18px;
+      color:#fff;
+      background:linear-gradient(135deg,#ec4899,#0f172a,#7c3aed);
+      font-size:17px;
+      font-weight:950;
+      box-shadow:0 16px 34px rgba(236,72,153,.22);
+    }
+
+    .reset-btn {
+      width:100%;
+      min-height:48px;
+      margin-top:10px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.86);
+      color:#122033;
+      font-weight:900;
+    }
+
+    .notice {
+      margin-top:12px;
+      padding:13px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(15,23,42,.08);
+      color:#526173;
+      font-size:13px;
+      line-height:1.75;
+      font-weight:760;
+      word-break:keep-all;
+    }
+
+    .warning {
+      border-color:rgba(236,72,153,.25);
+      background:rgba(253,242,248,.84);
+      color:#9d174d;
+    }
+
+    .result-box {
+      display:grid;
+      gap:14px;
+    }
+
+    .result-main {
+      padding:24px;
+      border-radius:26px;
+      color:#122033;
+      background:
+        radial-gradient(circle at 84% 18%, rgba(255,255,255,.46), transparent 26%),
+        linear-gradient(135deg,#fbcfe8,#e9d5ff 48%,#cbd5e1);
+      box-shadow:var(--shadow2);
+    }
+
+    .result-main span {
+      display:block;
+      font-size:14px;
+      opacity:.82;
+      font-weight:900;
+    }
+
+    .result-main strong {
+      display:block;
+      margin-top:8px;
+      font-size:clamp(36px,5vw,58px);
+      line-height:1;
+      letter-spacing:-.06em;
+    }
+
+    .result-main em {
+      display:block;
+      margin-top:10px;
+      font-size:14px;
+      line-height:1.75;
+      font-style:normal;
+      font-weight:850;
+      opacity:.88;
+      word-break:keep-all;
+    }
+
+    .result-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .metric {
+      padding:18px;
+      border-radius:20px;
+      background:rgba(255,255,255,.84);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .metric span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .metric strong {
+      display:block;
+      margin-top:7px;
+      color:#122033;
+      font-size:24px;
+      letter-spacing:-.045em;
+    }
+
+    .breakdown {
+      display:grid;
+      gap:10px;
+      margin-top:14px;
+    }
+
+    .breakdown-item {
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:10px;
+      align-items:center;
+      padding:13px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(15,23,42,.08);
+      color:#334155;
+      font-size:14px;
+      font-weight:850;
+    }
+
+    .breakdown-item strong {
+      color:#0f172a;
+      font-size:15px;
+      letter-spacing:-.025em;
+    }
+
+    .good {
+      color:#047857 !important;
+    }
+
+    .warn {
+      color:#d97706 !important;
+    }
+
+    .bad {
+      color:#e11d48 !important;
+    }
+
+    .guide-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .guide {
+      padding:20px;
+      border-radius:22px;
+      background:rgba(255,255,255,.80);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .guide b {
+      display:block;
+      margin-bottom:8px;
+      font-size:17px;
+      letter-spacing:-.03em;
+    }
+
+    .guide p {
+      margin:0;
+      color:#526173;
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    .formula {
+      margin-top:16px;
+      padding:17px;
+      border-radius:20px;
+      background:rgba(248,250,252,.90);
+      border:1px solid rgba(15,23,42,.08);
+      color:#334155;
+      font-size:14px;
+      line-height:1.8;
+      font-weight:780;
+      overflow-x:auto;
+    }
+
+    .related-grid {
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .related-card {
+      padding:16px;
+      border-radius:20px;
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      font-weight:900;
+      color:#24415f;
+      line-height:1.45;
+    }
+
+    footer {
+      padding:44px 0 54px;
+      color:var(--muted);
+      text-align:center;
+      font-size:13px;
+    }
+
+    @media (max-width:920px) {
+      .hero-grid,
+      .tool-grid {
+        grid-template-columns:1fr;
+      }
+
+      .hero {
+        padding-top:42px;
+      }
+    }
+
+    @media (max-width:720px) {
+      .related-grid {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+    }
+
+    @media (max-width:640px) {
+      .nav {
+        align-items:flex-start;
+        flex-direction:column;
+        padding:12px 0;
+      }
+
+      .nav-links {
+        width:100%;
+        overflow-x:auto;
+        padding-bottom:4px;
+      }
+
+      .hero-actions {
+        display:grid;
+      }
+
+      .btn {
+        width:100%;
+      }
+
+      .row,
+      .result-grid,
+      .guide-grid,
+      .related-grid {
+        grid-template-columns:1fr;
+      }
+
+      .visual {
+        min-height:410px;
+      }
+
+      .gift-scene {
+        left:18px;
+        right:18px;
+        height:228px;
+      }
+
+      .gift-box {
+        left:28px;
+        width:126px;
+        height:90px;
+      }
+
+      .gift-box::before {
+        left:48px;
+      }
+
+      .cash-card {
+        right:24px;
+        width:138px;
+        height:126px;
+        padding:15px;
+      }
+
+      .deduct-tag {
+        left:31px;
+        font-size:12px;
+      }
+
+      .tax-card {
+        width:230px;
+        left:18px;
+      }
+
+      .tax-card strong {
+        font-size:27px;
+      }
+
+      .cat-card {
+        width:138px;
+        height:138px;
+        right:18px;
+      }
+
+      .cat-head {
+        left:25px;
+        top:38px;
+        width:90px;
+        height:80px;
+      }
+
+      .cat-eye {
+        top:31px;
+      }
+
+      .cat-nose {
+        top:51px;
+      }
+
+      .cat-smile {
+        top:64px;
+      }
+
+      .coin-pouch {
+        transform:scale(.78) rotate(-8deg);
+        left:5px;
+        bottom:4px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="../" aria-label="바로해결툴즈 메인으로 이동">
+        <div class="brand-mark">B</div>
+        <div>
+          바로해결툴즈
+          <small>세금 계산 · 증여세 · 바로 확인</small>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="주요 도구">
+        <a href="../">전체 도구</a>
+        <a href="../inheritance-tax/">상속세</a>
+        <a href="../capital-gains-tax/">양도소득세</a>
+        <a href="../acquisition-tax/">취득세</a>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="chips">
+            <span class="chip hot">🎁 증여세 계산</span>
+            <span class="chip">관계별 공제</span>
+            <span class="chip">10년 합산</span>
+          </div>
+
+          <h1>
+            가족에게 돈을 줄 때<br>
+            <span class="gradient">증여세부터 계산하세요</span>
+          </h1>
+
+          <p class="lead">
+            증여재산가액, 사전증여, 채무인수액, 관계별 공제한도, 혼인·출산 추가공제, 세대생략 할증을 입력하면
+            <strong>과세표준, 산출세액, 신고세액공제, 예상 납부세액</strong>을 한 번에 확인할 수 있습니다.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#calculator">증여세 계산하기</a>
+            <a class="btn btn-ghost" href="#guide">계산 기준 보기</a>
+          </div>
+        </div>
+
+        <div class="visual" aria-label="증여세 계산 예시">
+          <div class="gift-scene">
+            <div class="gift-box">
+              <div class="ribbon-left"></div>
+              <div class="ribbon-right"></div>
+            </div>
+
+            <div class="cash-card">
+              <strong>GIFT TAX</strong>
+              <div class="cash-lines">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+
+            <div class="deduct-tag" id="visualDeduction">공제 5,000만원</div>
+          </div>
+
+          <div class="tax-card">
+            <span>예상 납부세액</span>
+            <strong id="visualPay">약 485만원</strong>
+          </div>
+
+          <div class="cat-card" aria-hidden="true">
+            <div class="badge-mini">GIFT</div>
+            <div class="cat-head">
+              <div class="cat-ear left"></div>
+              <div class="cat-ear right"></div>
+              <div class="cat-eye left"></div>
+              <div class="cat-eye right"></div>
+              <div class="cat-nose"></div>
+              <div class="cat-smile"></div>
+            </div>
+            <div class="coin-pouch"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="calculator">
+      <div class="wrap tool-grid">
+        <div class="panel">
+          <h2>증여세 계산기</h2>
+          <p class="desc">
+            증여자와 수증자의 관계에 따라 공제한도가 달라집니다.
+            10년 이내 같은 사람에게 받은 증여가 있다면 사전증여 금액도 함께 입력하세요.
+          </p>
+
+          <form class="form" onsubmit="event.preventDefault(); calculateGiftTax();">
+            <div class="field">
+              <label for="relationship">
+                증여자와의 관계
+                <small>10년 합산 공제 기준</small>
+              </label>
+              <select id="relationship">
+                <option value="spouse">배우자 → 배우자</option>
+                <option value="ascendantAdult" selected>직계존속 → 성년 자녀</option>
+                <option value="ascendantMinor">직계존속 → 미성년 자녀</option>
+                <option value="descendant">직계비속 → 직계존속</option>
+                <option value="relative">기타 친족</option>
+                <option value="other">그 외의 자</option>
+                <option value="custom">직접 입력</option>
+              </select>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="giftValue">
+                  이번 증여재산가액
+                  <small>현금·부동산·주식 등</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="giftValue" type="number" min="0" step="10000" value="100000000" placeholder="예: 100000000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="previousGifts">
+                  10년 이내 사전증여
+                  <small>같은 증여자 기준</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="previousGifts" type="number" min="0" step="10000" value="0" placeholder="예: 30000000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="debts">
+                  채무인수액
+                  <small>부담부증여 등</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="debts" type="number" min="0" step="10000" value="0" placeholder="예: 50000000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="appraisalFee">
+                  감정평가수수료 등
+                  <small>선택 입력</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="appraisalFee" type="number" min="0" step="10000" value="0" placeholder="예: 500000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-box">
+              <div class="detail-title">공제 설정</div>
+
+              <div class="row">
+                <div class="field">
+                  <label for="giftDeduction">
+                    증여재산공제
+                    <small>관계 선택 시 자동</small>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="giftDeduction" type="number" min="0" step="10000" value="50000000" placeholder="예: 50000000">
+                    <span class="unit">원</span>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="marriageBirthDeduction">
+                    혼인·출산 추가공제
+                    <small>해당 시 최대 1억원</small>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="marriageBirthDeduction" type="number" min="0" step="10000" value="0" placeholder="예: 100000000">
+                    <span class="unit">원</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-box">
+              <div class="detail-title">세액 조정</div>
+
+              <div class="row">
+                <div class="field">
+                  <label for="generationSkippingRate">
+                    세대생략 할증률
+                    <small>없으면 0</small>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="generationSkippingRate" type="number" min="0" max="100" step="1" value="0">
+                    <span class="unit">%</span>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="filingCreditRate">
+                    신고세액공제율
+                    <small>기한 내 신고 시</small>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="filingCreditRate" type="number" min="0" max="20" step="0.1" value="3">
+                    <span class="unit">%</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="extraTaxCredit">
+                  기타 세액공제·감면
+                  <small>없으면 0</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="extraTaxCredit" type="number" min="0" step="10000" value="0">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="preset">
+              <button type="button" onclick="fillExample('child100')">성년 자녀 1억원</button>
+              <button type="button" onclick="fillExample('child200')">성년 자녀 2억원</button>
+              <button type="button" onclick="fillExample('spouse700')">배우자 7억원</button>
+              <button type="button" onclick="fillExample('minor100')">미성년 자녀 1억원</button>
+            </div>
+
+            <button class="calc-btn" type="submit">증여세 계산하기</button>
+            <button class="reset-btn" type="button" onclick="resetForm()">입력값 초기화</button>
+          </form>
+
+          <div class="notice warning">
+            계산 결과는 참고용입니다. 실제 증여세는 10년 합산 증여, 재산 평가방법, 부담부증여,
+            비과세·과세가액 불산입, 특례공제, 신고기한, 세법 개정에 따라 달라질 수 있습니다.
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>계산 결과</h2>
+          <p class="desc">
+            증여세 과세가액, 공제액, 과세표준, 산출세액, 신고세액공제, 최종 납부세액을 나눠 확인하세요.
+          </p>
+
+          <div class="result-box">
+            <div class="result-main">
+              <span>예상 납부세액</span>
+              <strong id="finalTax">-</strong>
+              <em id="summaryText">값을 입력하고 계산 버튼을 눌러주세요.</em>
+            </div>
+
+            <div class="result-grid">
+              <div class="metric">
+                <span>증여세 과세가액</span>
+                <strong id="taxableGiftValue">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>총 공제액</span>
+                <strong id="totalDeduction" class="good">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>과세표준</span>
+                <strong id="taxBase">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>산출세액</span>
+                <strong id="calculatedTax" class="bad">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>세대생략 할증</span>
+                <strong id="generationSkippingTax">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>신고세액공제</span>
+                <strong id="filingCredit" class="good">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>적용 세율 구간</span>
+                <strong id="taxBracketText">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>실효세율</span>
+                <strong id="effectiveRate">-</strong>
+              </div>
+            </div>
+
+            <div class="breakdown">
+              <div class="breakdown-item">
+                <span>이번 증여재산가액</span>
+                <strong id="resultGiftValue">-</strong>
+              </div>
+
+              <div class="breakdown-item">
+                <span>사전증여 합산액</span>
+                <strong id="resultPreviousGifts">-</strong>
+              </div>
+
+              <div class="breakdown-item">
+                <span>채무·수수료 차감</span>
+                <strong id="resultMinusItems">-</strong>
+              </div>
+
+              <div class="breakdown-item">
+                <span>기본 증여재산공제</span>
+                <strong id="resultGiftDeduction">-</strong>
+              </div>
+
+              <div class="breakdown-item">
+                <span>혼인·출산 추가공제</span>
+                <strong id="resultMarriageBirthDeduction">-</strong>
+              </div>
+
+              <div class="breakdown-item">
+                <span>세액공제·감면</span>
+                <strong id="resultTaxCredits">-</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice">
+            사전증여가 있는 경우 실제 계산에서는 과거 증여 당시 납부세액, 동일인 판단,
+            증여재산공제 사용액을 함께 확인해야 합니다. 이 도구는 간편 추정용입니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="guide">
+      <div class="wrap">
+        <div class="panel">
+          <h2>증여세 계산 기준</h2>
+
+          <div class="guide-grid">
+            <div class="guide">
+              <b>관계별 공제</b>
+              <p>
+                배우자, 직계존속, 직계비속, 기타 친족 등 관계에 따라 10년간 합산 공제한도가 다릅니다.
+                같은 사람에게 받은 증여는 10년 기준으로 함께 봅니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>사전증여 합산</b>
+              <p>
+                같은 증여자에게 10년 이내 받은 금액이 있으면 이번 증여와 합산해 과세가액을 계산해야 합니다.
+                실제 신고에서는 이미 납부한 세액도 함께 검토합니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>세대생략 할증</b>
+              <p>
+                조부모가 손자녀에게 직접 증여하는 등 세대를 건너뛰는 증여는 할증이 붙을 수 있습니다.
+                해당 시 할증률을 직접 입력하세요.
+              </p>
+            </div>
+          </div>
+
+          <div class="formula">
+            <strong>증여세 과세가액</strong><br>
+            = 이번 증여재산가액 + 10년 이내 사전증여 - 채무인수액 - 감정평가수수료 등<br><br>
+
+            <strong>과세표준</strong><br>
+            = 증여세 과세가액 - 증여재산공제 - 혼인·출산 추가공제<br><br>
+
+            <strong>증여세 산출세액</strong><br>
+            = 과세표준 × 세율 - 누진공제<br><br>
+
+            <strong>예상 납부세액</strong><br>
+            = 산출세액 + 세대생략 할증 - 신고세액공제 - 기타 세액공제
+          </div>
+
+          <div class="notice warning">
+            이 계산기는 간편 추정용입니다. 실제 증여세는 재산 평가, 부담부증여, 10년 합산,
+            특례공제, 신고세액공제, 세대생략 할증, 비과세 여부에 따라 달라질 수 있습니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="panel">
+          <h2>같이 보면 좋은 도구</h2>
+          <p class="desc">
+            증여세 외에도 상속세, 양도소득세, 취득세, 종합소득세 계산이 필요하면 다른 바로해결툴즈도 함께 확인할 수 있습니다.
+          </p>
+
+          <div class="related-grid">
+            <a class="related-card" href="../inheritance-tax/">상속세 계산기</a>
+            <a class="related-card" href="../capital-gains-tax/">양도소득세 계산기</a>
+            <a class="related-card" href="../acquisition-tax/">취득세 계산기</a>
+            <a class="related-card" href="../comprehensive-income-tax/">종합소득세 계산기</a>
+          </div>
+
+          <div class="notice">
+            바로해결툴즈는 월급·퇴직·세금·생활비 계산기를 계속 추가하고 있습니다.
+            계산 결과는 참고용이며 실제 신고 전에는 세무 기준을 반드시 확인하세요.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 바로해결툴즈 · 증여세 계산 결과는 참고용입니다. 실제 신고세액은 증여자와 수증자의 관계, 사전증여, 공제 사용액, 재산 평가, 세법 개정에 따라 달라질 수 있습니다.
+  </footer>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    const deductionMap = {
+      spouse: 600000000,
+      ascendantAdult: 50000000,
+      ascendantMinor: 20000000,
+      descendant: 50000000,
+      relative: 10000000,
+      other: 0
+    };
+
+    const relationshipLabelMap = {
+      spouse: "배우자",
+      ascendantAdult: "직계존속 → 성년 자녀",
+      ascendantMinor: "직계존속 → 미성년 자녀",
+      descendant: "직계비속 → 직계존속",
+      relative: "기타 친족",
+      other: "그 외의 자",
+      custom: "직접 입력"
+    };
+
+    function num(id) {
+      const value = Number($(id).value);
+      return Number.isFinite(value) ? value : 0;
+    }
+
+    function setText(id, value) {
+      $(id).textContent = value;
+    }
+
+    function won(value) {
+      if (!Number.isFinite(value)) return "-";
+      return `${Math.round(value).toLocaleString("ko-KR")}원`;
+    }
+
+    function shortWon(value) {
+      if (!Number.isFinite(value)) return "-";
+
+      const rounded = Math.round(value);
+
+      if (rounded >= 100000000) {
+        return `약 ${(rounded / 100000000).toFixed(1)}억`;
+      }
+
+      if (rounded >= 10000) {
+        return `약 ${Math.round(rounded / 10000).toLocaleString("ko-KR")}만원`;
+      }
+
+      return `약 ${rounded.toLocaleString("ko-KR")}원`;
+    }
+
+    function calculateProgressiveGiftTax(taxBase) {
+      const brackets = [
+        { limit: 100000000, rate: 0.10, deduction: 0, label: "1억원 이하 · 10%" },
+        { limit: 500000000, rate: 0.20, deduction: 10000000, label: "5억원 이하 · 20%" },
+        { limit: 1000000000, rate: 0.30, deduction: 60000000, label: "10억원 이하 · 30%" },
+        { limit: 3000000000, rate: 0.40, deduction: 160000000, label: "30억원 이하 · 40%" },
+        { limit: Infinity, rate: 0.50, deduction: 460000000, label: "30억원 초과 · 50%" }
+      ];
+
+      const bracket = brackets.find((item) => taxBase <= item.limit);
+      const tax = Math.max(taxBase * bracket.rate - bracket.deduction, 0);
+
+      return {
+        tax,
+        label: bracket.label,
+        rate: bracket.rate
+      };
+    }
+
+    function updateDeductionByRelationship() {
+      const relationship = $("relationship").value;
+
+      if (relationship !== "custom") {
+        $("giftDeduction").value = deductionMap[relationship];
+      }
+
+      calculateGiftTax();
+    }
+
+    function calculateGiftTax() {
+      const relationship = $("relationship").value;
+      const giftValue = num("giftValue");
+      const previousGifts = num("previousGifts");
+      const debts = num("debts");
+      const appraisalFee = num("appraisalFee");
+      const giftDeduction = num("giftDeduction");
+      const marriageBirthDeduction = Math.min(num("marriageBirthDeduction"), 100000000);
+      const generationSkippingRate = num("generationSkippingRate") / 100;
+      const filingCreditRate = num("filingCreditRate") / 100;
+      const extraTaxCredit = num("extraTaxCredit");
+
+      const taxableGiftValue = Math.max(giftValue + previousGifts - debts - appraisalFee, 0);
+      const totalDeduction = Math.min(giftDeduction + marriageBirthDeduction, taxableGiftValue);
+      const taxBase = Math.max(taxableGiftValue - totalDeduction, 0);
+
+      const taxResult = calculateProgressiveGiftTax(taxBase);
+      const calculatedTax = taxResult.tax;
+      const generationSkippingTax = calculatedTax * generationSkippingRate;
+      const taxBeforeCredits = calculatedTax + generationSkippingTax;
+      const filingCredit = taxBeforeCredits * filingCreditRate;
+      const finalTax = Math.max(taxBeforeCredits - filingCredit - extraTaxCredit, 0);
+      const effectiveRate = giftValue > 0 ? finalTax / giftValue * 100 : 0;
+
+      setText("finalTax", won(finalTax));
+      setText("taxableGiftValue", won(taxableGiftValue));
+      setText("totalDeduction", won(totalDeduction));
+      setText("taxBase", won(taxBase));
+      setText("calculatedTax", won(calculatedTax));
+      setText("generationSkippingTax", won(generationSkippingTax));
+      setText("filingCredit", won(filingCredit));
+      setText("taxBracketText", taxResult.label);
+      setText("effectiveRate", `${effectiveRate.toFixed(1)}%`);
+
+      setText("resultGiftValue", won(giftValue));
+      setText("resultPreviousGifts", won(previousGifts));
+      setText("resultMinusItems", won(debts + appraisalFee));
+      setText("resultGiftDeduction", won(giftDeduction));
+      setText("resultMarriageBirthDeduction", won(marriageBirthDeduction));
+      setText("resultTaxCredits", won(filingCredit + extraTaxCredit));
+
+      setText("visualPay", shortWon(finalTax));
+      setText("visualDeduction", `공제 ${shortWon(totalDeduction).replace("약 ", "")}`);
+
+      let summary = "";
+
+      if (giftValue <= 0) {
+        summary = "이번 증여재산가액이 0원으로 입력되었습니다. 증여금액을 입력하면 예상 증여세를 계산할 수 있습니다.";
+      } else if (taxBase <= 0) {
+        summary = `입력값 기준 증여세 과세가액은 약 ${won(taxableGiftValue)}이고, 총 공제액 ${won(totalDeduction)} 적용 후 과세표준이 0원으로 계산되어 예상 납부세액은 0원입니다.`;
+      } else {
+        summary = `${relationshipLabelMap[relationship]} 기준으로 증여세 과세가액은 약 ${won(taxableGiftValue)}, 과세표준은 약 ${won(taxBase)}입니다. 신고세액공제와 세액조정을 반영한 예상 납부세액은 약 ${won(finalTax)}입니다.`;
+      }
+
+      if (previousGifts > 0) {
+        summary += ` 10년 이내 사전증여 ${won(previousGifts)}을 합산했습니다.`;
+      }
+
+      if (generationSkippingRate > 0) {
+        summary += ` 세대생략 할증률 ${(generationSkippingRate * 100).toFixed(0)}%를 추가 반영했습니다.`;
+      }
+
+      setText("summaryText", summary);
+    }
+
+    function fillExample(type) {
+      if (type === "child100") {
+        $("relationship").value = "ascendantAdult";
+        $("giftValue").value = "100000000";
+        $("previousGifts").value = "0";
+        $("debts").value = "0";
+        $("appraisalFee").value = "0";
+        $("marriageBirthDeduction").value = "0";
+        $("generationSkippingRate").value = "0";
+        $("filingCreditRate").value = "3";
+        $("extraTaxCredit").value = "0";
+        updateDeductionByRelationship();
+      }
+
+      if (type === "child200") {
+        $("relationship").value = "ascendantAdult";
+        $("giftValue").value = "200000000";
+        $("previousGifts").value = "0";
+        $("debts").value = "0";
+        $("appraisalFee").value = "0";
+        $("marriageBirthDeduction").value = "0";
+        $("generationSkippingRate").value = "0";
+        $("filingCreditRate").value = "3";
+        $("extraTaxCredit").value = "0";
+        updateDeductionByRelationship();
+      }
+
+      if (type === "spouse700") {
+        $("relationship").value = "spouse";
+        $("giftValue").value = "700000000";
+        $("previousGifts").value = "0";
+        $("debts").value = "0";
+        $("appraisalFee").value = "0";
+        $("marriageBirthDeduction").value = "0";
+        $("generationSkippingRate").value = "0";
+        $("filingCreditRate").value = "3";
+        $("extraTaxCredit").value = "0";
+        updateDeductionByRelationship();
+      }
+
+      if (type === "minor100") {
+        $("relationship").value = "ascendantMinor";
+        $("giftValue").value = "100000000";
+        $("previousGifts").value = "0";
+        $("debts").value = "0";
+        $("appraisalFee").value = "0";
+        $("marriageBirthDeduction").value = "0";
+        $("generationSkippingRate").value = "0";
+        $("filingCreditRate").value = "3";
+        $("extraTaxCredit").value = "0";
+        updateDeductionByRelationship();
+      }
+
+      calculateGiftTax();
+    }
+
+    function resetForm() {
+      $("relationship").value = "ascendantAdult";
+      $("giftValue").value = "100000000";
+      $("previousGifts").value = "0";
+      $("debts").value = "0";
+      $("appraisalFee").value = "0";
+      $("giftDeduction").value = "50000000";
+      $("marriageBirthDeduction").value = "0";
+      $("generationSkippingRate").value = "0";
+      $("filingCreditRate").value = "3";
+      $("extraTaxCredit").value = "0";
+      calculateGiftTax();
+    }
+
+    [
+      "giftValue",
+      "previousGifts",
+      "debts",
+      "appraisalFee",
+      "giftDeduction",
+      "marriageBirthDeduction",
+      "generationSkippingRate",
+      "filingCreditRate",
+      "extraTaxCredit"
+    ].forEach((id) => {
+      $(id).addEventListener("input", calculateGiftTax);
+      $(id).addEventListener("change", calculateGiftTax);
+    });
+
+    $("relationship").addEventListener("change", updateDeductionByRelationship);
+
+    calculateGiftTax();
+  </script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'></script>
+  <!-- End Cloudflare Web Analytics -->
+</body>
+</html>
