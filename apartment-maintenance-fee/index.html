@@ -1,0 +1,1682 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>아파트 관리비 조회｜우리 집 관리비 평균보다 비쌀까｜바로해결툴즈</title>
+  <meta name="description" content="아파트 관리비 고지서 금액과 전용면적을 입력하면 ㎡당 관리비, 평균 대비 차이, 연간 초과 부담액을 계산하고 K-apt 공식 관리비 조회로 이동할 수 있습니다." />
+  <meta name="keywords" content="아파트 관리비 조회, 아파트 관리비 계산기, K-apt 관리비 조회, 공동주택관리정보시스템, 관리비 평균 비교, 관리비 절약, 바로해결툴즈" />
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/apartment-maintenance-fee/" />
+  <meta name="theme-color" content="#ecfeff" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="아파트 관리비 조회｜우리 집 관리비 평균보다 비쌀까" />
+  <meta property="og:description" content="고지서 금액과 전용면적을 입력하면 ㎡당 관리비와 평균 대비 차이를 바로 계산합니다." />
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/apartment-maintenance-fee/" />
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"아파트 관리비 조회",
+    "url":"https://barohaegyeol-tools.pages.dev/apartment-maintenance-fee/",
+    "applicationCategory":"FinanceApplication",
+    "operatingSystem":"All",
+    "description":"아파트 관리비 고지서 금액, 전용면적, 비교 기준 단가를 기준으로 ㎡당 관리비와 평균 대비 차이를 계산하고 공식 관리비 조회로 연결하는 무료 생활 도구입니다.",
+    "publisher":{
+      "@type":"Organization",
+      "name":"바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg1:#ecfeff;
+      --bg2:#eff6ff;
+      --bg3:#f0fdf4;
+      --text:#0f172a;
+      --sub:#334155;
+      --muted:#64748b;
+      --line:rgba(15,23,42,.10);
+      --white:rgba(255,255,255,.88);
+
+      --sky:#38bdf8;
+      --cyan:#06b6d4;
+      --teal:#14b8a6;
+      --green:#22c55e;
+      --blue:#2563eb;
+      --navy:#0f172a;
+      --amber:#f59e0b;
+      --orange:#fb923c;
+      --red:#ef4444;
+      --purple:#7c3aed;
+
+      --shadow:0 24px 70px rgba(6,182,212,.15);
+      --shadow2:0 14px 34px rgba(15,23,42,.08);
+      --radius:28px;
+      --max:1180px;
+    }
+
+    * {
+      box-sizing:border-box;
+    }
+
+    html {
+      scroll-behavior:smooth;
+    }
+
+    body {
+      margin:0;
+      min-height:100vh;
+      color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;
+      line-height:1.65;
+      background:
+        radial-gradient(circle at 10% 8%, rgba(6,182,212,.23), transparent 25%),
+        radial-gradient(circle at 88% 10%, rgba(34,197,94,.17), transparent 24%),
+        radial-gradient(circle at 84% 88%, rgba(37,99,235,.13), transparent 25%),
+        linear-gradient(135deg,var(--bg1) 0%, var(--bg2) 48%, var(--bg3) 100%);
+      overflow-x:hidden;
+    }
+
+    body::before {
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.17;
+      background-image:
+        radial-gradient(circle, rgba(6,182,212,.26) 1px, transparent 1.2px),
+        radial-gradient(circle, rgba(34,197,94,.18) 1px, transparent 1.2px);
+      background-size:32px 32px, 76px 76px;
+      background-position:0 0, 22px 26px;
+      mask-image:linear-gradient(to bottom,#000 0%,#000 68%,transparent 100%);
+    }
+
+    a {
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button,
+    input,
+    select {
+      font:inherit;
+    }
+
+    button {
+      cursor:pointer;
+    }
+
+    .wrap {
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+    }
+
+    .topbar {
+      position:sticky;
+      top:0;
+      z-index:50;
+      border-bottom:1px solid rgba(15,23,42,.07);
+      background:rgba(236,254,255,.78);
+      backdrop-filter:blur(18px);
+    }
+
+    .nav {
+      min-height:68px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:950;
+      letter-spacing:-.045em;
+    }
+
+    .brand-mark {
+      width:42px;
+      height:42px;
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      background:conic-gradient(from 150deg,#06b6d4,#14b8a6,#22c55e,#2563eb,#7c3aed,#06b6d4);
+      box-shadow:0 16px 36px rgba(6,182,212,.26);
+      font-weight:950;
+    }
+
+    .brand small {
+      display:block;
+      margin-top:1px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:-.02em;
+    }
+
+    .nav-links {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      white-space:nowrap;
+    }
+
+    .nav-links a {
+      padding:9px 13px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.78);
+      color:#26364a;
+      font-size:14px;
+      font-weight:850;
+      box-shadow:var(--shadow2);
+    }
+
+    .hero {
+      padding:58px 0 28px;
+    }
+
+    .hero-grid {
+      display:grid;
+      grid-template-columns:1.02fr .98fr;
+      align-items:center;
+      gap:32px;
+    }
+
+    .chips {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:16px;
+    }
+
+    .chip {
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.82);
+      color:#334155;
+      font-size:13px;
+      font-weight:900;
+      box-shadow:var(--shadow2);
+    }
+
+    .chip.hot {
+      color:#0f766e;
+      background:linear-gradient(135deg,rgba(204,251,241,.98),rgba(255,255,255,.92));
+    }
+
+    h1 {
+      margin:0;
+      max-width:780px;
+      font-size:clamp(38px,6.1vw,74px);
+      line-height:1.04;
+      letter-spacing:-.078em;
+    }
+
+    .gradient {
+      color:transparent;
+      background:linear-gradient(90deg,#06b6d4 0%, #14b8a6 43%, #2563eb 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+    }
+
+    .lead {
+      margin:20px 0 0;
+      max-width:700px;
+      color:#34465c;
+      font-size:clamp(16px,2vw,19px);
+      line-height:1.82;
+      letter-spacing:-.015em;
+      word-break:keep-all;
+    }
+
+    .lead strong {
+      color:#0f766e;
+      font-weight:950;
+    }
+
+    .hero-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:26px;
+    }
+
+    .btn {
+      min-height:50px;
+      padding:13px 18px;
+      border-radius:17px;
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      gap:8px;
+      border:1px solid transparent;
+      font-weight:950;
+      letter-spacing:-.025em;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+
+    .btn:hover {
+      transform:translateY(-2px);
+    }
+
+    .btn-primary {
+      color:#fff;
+      background:linear-gradient(135deg,#06b6d4,#14b8a6,#2563eb);
+      box-shadow:0 16px 38px rgba(6,182,212,.24);
+    }
+
+    .btn-ghost {
+      color:#122033;
+      background:rgba(255,255,255,.82);
+      border-color:rgba(15,23,42,.08);
+    }
+
+    .visual {
+      position:relative;
+      min-height:426px;
+      border-radius:40px;
+      border:1px solid rgba(15,23,42,.08);
+      background:
+        radial-gradient(circle at 78% 15%, rgba(56,189,248,.23), transparent 22%),
+        radial-gradient(circle at 17% 86%, rgba(34,197,94,.16), transparent 23%),
+        linear-gradient(145deg,rgba(255,255,255,.96),rgba(236,254,255,.82));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      padding:26px;
+    }
+
+    .visual-panel {
+      position:absolute;
+      left:26px;
+      right:26px;
+      top:26px;
+      height:188px;
+      border-radius:30px;
+      background:
+        linear-gradient(rgba(15,23,42,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,23,42,.045) 1px, transparent 1px),
+        linear-gradient(180deg,rgba(255,255,255,.96),rgba(240,249,255,.94));
+      background-size:38px 38px,38px 38px,auto;
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      overflow:hidden;
+    }
+
+    .apt-ground {
+      position:absolute;
+      left:28px;
+      right:28px;
+      bottom:26px;
+      height:62px;
+      border-radius:999px;
+      background:linear-gradient(90deg,#0f172a,#06b6d4,#22c55e);
+      opacity:.92;
+      overflow:hidden;
+    }
+
+    .apt-ground::before {
+      content:"";
+      position:absolute;
+      left:24px;
+      right:24px;
+      top:28px;
+      height:5px;
+      border-radius:999px;
+      background:repeating-linear-gradient(90deg,rgba(255,255,255,.82) 0 28px,transparent 28px 48px);
+    }
+
+    .building-card {
+      position:absolute;
+      left:42px;
+      top:34px;
+      width:236px;
+      height:154px;
+      border-radius:26px;
+      background:#fff;
+      border:3px solid #06b6d4;
+      box-shadow:0 18px 34px rgba(15,23,42,.12);
+      overflow:hidden;
+    }
+
+    .tower {
+      position:absolute;
+      left:42px;
+      bottom:0;
+      width:72px;
+      height:126px;
+      border-radius:17px 17px 0 0;
+      background:linear-gradient(180deg,#dbeafe,#ecfeff);
+      border:3px solid #0e7490;
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:7px;
+      padding:13px 10px;
+    }
+
+    .tower.two {
+      left:122px;
+      height:144px;
+      background:linear-gradient(180deg,#ccfbf1,#eff6ff);
+      border-color:#0f766e;
+    }
+
+    .tower span {
+      border-radius:6px;
+      background:#38bdf8;
+      box-shadow:inset 0 -3px 0 rgba(255,255,255,.45);
+    }
+
+    .receipt-card {
+      position:absolute;
+      right:40px;
+      top:42px;
+      width:156px;
+      height:156px;
+      border-radius:34px;
+      background:#fff;
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:0 22px 48px rgba(15,23,42,.15);
+      display:grid;
+      place-items:center;
+    }
+
+    .receipt {
+      width:100px;
+      height:118px;
+      border-radius:18px;
+      background:linear-gradient(180deg,#fff,#ecfeff);
+      border:4px solid #2563eb;
+      position:relative;
+      box-shadow:0 14px 28px rgba(37,99,235,.15);
+    }
+
+    .receipt::before,
+    .receipt::after {
+      content:"";
+      position:absolute;
+      left:17px;
+      right:17px;
+      height:8px;
+      border-radius:999px;
+      background:#06b6d4;
+    }
+
+    .receipt::before {
+      top:30px;
+    }
+
+    .receipt::after {
+      top:51px;
+      right:36px;
+      background:#22c55e;
+    }
+
+    .receipt-total {
+      position:absolute;
+      left:17px;
+      right:17px;
+      bottom:22px;
+      height:15px;
+      border-radius:999px;
+      background:#f59e0b;
+    }
+
+    .result-ticket {
+      position:absolute;
+      left:28px;
+      bottom:26px;
+      width:292px;
+      padding:19px;
+      border-radius:26px;
+      background:linear-gradient(135deg,#fff,#ecfeff);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .result-ticket span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .result-ticket strong {
+      display:block;
+      margin-top:7px;
+      color:#0f766e;
+      font-size:34px;
+      line-height:1;
+      letter-spacing:-.05em;
+    }
+
+    .koala-card {
+      position:absolute;
+      right:28px;
+      bottom:26px;
+      width:174px;
+      height:174px;
+      border-radius:38px;
+      border:1px solid rgba(15,23,42,.08);
+      background:linear-gradient(145deg,#fff,#dbeafe);
+      box-shadow:var(--shadow2);
+    }
+
+    .koala-head {
+      position:absolute;
+      left:36px;
+      top:50px;
+      width:102px;
+      height:92px;
+      border-radius:48px 48px 42px 42px;
+      background:#cbd5e1;
+      border:4px solid #334155;
+    }
+
+    .koala-ear {
+      position:absolute;
+      top:-20px;
+      width:39px;
+      height:39px;
+      border-radius:50%;
+      background:#94a3b8;
+      border:4px solid #334155;
+      z-index:-1;
+    }
+
+    .koala-ear.left {
+      left:-5px;
+    }
+
+    .koala-ear.right {
+      right:-5px;
+    }
+
+    .koala-eye {
+      position:absolute;
+      top:32px;
+      width:10px;
+      height:13px;
+      border-radius:999px;
+      background:#111827;
+    }
+
+    .koala-eye.left {
+      left:29px;
+    }
+
+    .koala-eye.right {
+      right:29px;
+    }
+
+    .koala-nose {
+      position:absolute;
+      left:50%;
+      top:50px;
+      width:24px;
+      height:20px;
+      border-radius:999px;
+      background:#111827;
+      transform:translateX(-50%);
+    }
+
+    .koala-smile {
+      position:absolute;
+      left:50%;
+      top:72px;
+      width:30px;
+      height:14px;
+      border-bottom:3px solid #14b8a6;
+      border-radius:0 0 999px 999px;
+      transform:translateX(-50%);
+    }
+
+    .bill-mini {
+      position:absolute;
+      left:15px;
+      bottom:16px;
+      width:58px;
+      height:46px;
+      border-radius:13px;
+      background:linear-gradient(135deg,#06b6d4,#22c55e);
+      border:3px solid #0f172a;
+      transform:rotate(-8deg);
+    }
+
+    .bill-mini::before,
+    .bill-mini::after {
+      content:"";
+      position:absolute;
+      left:10px;
+      right:10px;
+      height:5px;
+      border-radius:999px;
+      background:#fff;
+    }
+
+    .bill-mini::before {
+      top:13px;
+    }
+
+    .bill-mini::after {
+      top:25px;
+      width:24px;
+    }
+
+    .badge-mini {
+      position:absolute;
+      right:14px;
+      top:14px;
+      padding:8px 10px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#ccfbf1,#dbeafe);
+      color:#0f766e;
+      font-size:12px;
+      font-weight:950;
+      box-shadow:var(--shadow2);
+      z-index:5;
+    }
+
+    .section {
+      padding:22px 0;
+    }
+
+    .tool-grid {
+      display:grid;
+      grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);
+      gap:22px;
+      align-items:start;
+    }
+
+    .panel {
+      padding:24px;
+      border-radius:var(--radius);
+      border:1px solid rgba(15,23,42,.08);
+      background:var(--white);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);
+    }
+
+    .panel h2 {
+      margin:0 0 12px;
+      font-size:27px;
+      line-height:1.2;
+      letter-spacing:-.052em;
+    }
+
+    .desc {
+      margin:-4px 0 18px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    .form {
+      display:grid;
+      gap:14px;
+    }
+
+    .field label {
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom:8px;
+      color:#122033;
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .field small {
+      color:var(--muted);
+      font-weight:750;
+    }
+
+    .input-wrap {
+      position:relative;
+    }
+
+    input,
+    select {
+      width:100%;
+      min-height:54px;
+      padding:14px 54px 14px 15px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.10);
+      background:rgba(255,255,255,.94);
+      color:#122033;
+      font-size:16px;
+      font-weight:850;
+      outline:none;
+      transition:.16s ease;
+    }
+
+    select {
+      padding-right:15px;
+      appearance:none;
+      cursor:pointer;
+    }
+
+    input:focus,
+    select:focus {
+      border-color:rgba(6,182,212,.50);
+      box-shadow:0 0 0 4px rgba(6,182,212,.12);
+    }
+
+    .unit {
+      position:absolute;
+      top:50%;
+      right:15px;
+      transform:translateY(-50%);
+      color:var(--muted);
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .row {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .preset {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .preset button {
+      padding:8px 11px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:#fff;
+      color:#334155;
+      font-size:12px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .calc-btn {
+      width:100%;
+      min-height:58px;
+      margin-top:6px;
+      border:0;
+      border-radius:18px;
+      color:#fff;
+      background:linear-gradient(135deg,#06b6d4,#14b8a6,#2563eb);
+      font-size:17px;
+      font-weight:950;
+      cursor:pointer;
+      box-shadow:0 16px 34px rgba(6,182,212,.24);
+    }
+
+    .reset-btn {
+      width:100%;
+      min-height:48px;
+      margin-top:10px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.86);
+      color:#122033;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .notice {
+      margin-top:12px;
+      padding:13px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(15,23,42,.08);
+      color:#526173;
+      font-size:13px;
+      line-height:1.75;
+      font-weight:760;
+      word-break:keep-all;
+    }
+
+    .warning {
+      border-color:rgba(245,158,11,.25);
+      background:rgba(255,251,235,.82);
+      color:#92400e;
+    }
+
+    .official-box {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding:15px;
+      border-radius:18px;
+      background:linear-gradient(135deg,#0f172a,#1e293b);
+      color:#fff;
+      margin-top:14px;
+    }
+
+    .official-box strong {
+      display:block;
+      font-size:15px;
+      letter-spacing:-.02em;
+    }
+
+    .official-box span {
+      display:block;
+      margin-top:3px;
+      color:#cbd5e1;
+      font-size:12px;
+      line-height:1.55;
+      font-weight:760;
+    }
+
+    .official-box a {
+      flex:0 0 auto;
+      padding:10px 12px;
+      border-radius:14px;
+      background:#fff;
+      color:#0f172a;
+      font-size:13px;
+      font-weight:950;
+    }
+
+    .result-box {
+      display:grid;
+      gap:14px;
+    }
+
+    .result-main {
+      padding:24px;
+      border-radius:26px;
+      color:#122033;
+      background:
+        radial-gradient(circle at 84% 18%, rgba(255,255,255,.42), transparent 26%),
+        linear-gradient(135deg,#a5f3fc,#99f6e4 54%,#bfdbfe);
+      box-shadow:var(--shadow2);
+    }
+
+    .result-main span {
+      display:block;
+      font-size:14px;
+      opacity:.82;
+      font-weight:900;
+    }
+
+    .result-main strong {
+      display:block;
+      margin-top:8px;
+      font-size:clamp(36px,5vw,58px);
+      line-height:1;
+      letter-spacing:-.06em;
+    }
+
+    .result-main em {
+      display:block;
+      margin-top:10px;
+      font-size:14px;
+      line-height:1.75;
+      font-style:normal;
+      font-weight:850;
+      opacity:.88;
+      word-break:keep-all;
+    }
+
+    .result-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .metric {
+      padding:18px;
+      border-radius:20px;
+      background:rgba(255,255,255,.84);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .metric span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .metric strong {
+      display:block;
+      margin-top:7px;
+      color:#122033;
+      font-size:24px;
+      letter-spacing:-.045em;
+    }
+
+    .metric.full {
+      grid-column:1/-1;
+    }
+
+    .good {
+      color:#0f766e !important;
+    }
+
+    .warn {
+      color:#d97706 !important;
+    }
+
+    .bad {
+      color:#e11d48 !important;
+    }
+
+    .guide-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .guide {
+      padding:20px;
+      border-radius:22px;
+      background:rgba(255,255,255,.80);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .guide b {
+      display:block;
+      margin-bottom:8px;
+      font-size:17px;
+      letter-spacing:-.03em;
+    }
+
+    .guide p {
+      margin:0;
+      color:#526173;
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    .related-grid {
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .related-card {
+      padding:16px;
+      border-radius:20px;
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      font-weight:900;
+      color:#24415f;
+      line-height:1.45;
+    }
+
+    footer {
+      padding:44px 0 54px;
+      color:var(--muted);
+      text-align:center;
+      font-size:13px;
+    }
+
+    @media (max-width:920px) {
+      .hero-grid,
+      .tool-grid {
+        grid-template-columns:1fr;
+      }
+
+      .hero {
+        padding-top:42px;
+      }
+    }
+
+    @media (max-width:720px) {
+      .related-grid {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+
+      .official-box {
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      .official-box a {
+        width:100%;
+        text-align:center;
+      }
+    }
+
+    @media (max-width:640px) {
+      .nav {
+        align-items:flex-start;
+        flex-direction:column;
+        padding:12px 0;
+      }
+
+      .nav-links {
+        width:100%;
+        overflow-x:auto;
+        padding-bottom:4px;
+      }
+
+      .hero-actions {
+        display:grid;
+      }
+
+      .btn {
+        width:100%;
+      }
+
+      .row,
+      .result-grid,
+      .guide-grid,
+      .related-grid {
+        grid-template-columns:1fr;
+      }
+
+      .visual {
+        min-height:374px;
+      }
+
+      .building-card {
+        left:24px;
+        width:172px;
+      }
+
+      .tower {
+        left:27px;
+        width:56px;
+      }
+
+      .tower.two {
+        left:88px;
+      }
+
+      .receipt-card {
+        right:24px;
+        width:122px;
+        height:138px;
+      }
+
+      .receipt {
+        transform:scale(.78);
+      }
+
+      .result-ticket {
+        width:220px;
+      }
+
+      .koala-card {
+        width:138px;
+        height:138px;
+        right:18px;
+      }
+
+      .koala-head {
+        left:24px;
+        top:46px;
+        width:90px;
+        height:82px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="../" aria-label="바로해결툴즈 메인으로 이동">
+        <div class="brand-mark">B</div>
+        <div>
+          바로해결툴즈
+          <small>아파트 관리비 · 평균 비교 · 바로 확인</small>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="주요 도구">
+        <a href="../">전체 도구</a>
+        <a href="../moving-cost/">이사비용</a>
+        <a href="../rent-conversion/">전월세 전환</a>
+        <a href="../loan-interest/">대출이자</a>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="chips">
+            <span class="chip hot">🏢 관리비 조회</span>
+            <span class="chip">K-apt 공식조회 연결</span>
+            <span class="chip">㎡당 관리비 비교</span>
+          </div>
+
+          <h1>
+            우리 집 관리비<br>
+            <span class="gradient">평균보다 비싼지 확인하세요</span>
+          </h1>
+
+          <p class="lead">
+            관리비 고지서 금액과 전용면적을 입력하면
+            <strong>㎡당 관리비, 평균 대비 차이, 월 초과 부담액, 연간 초과 부담액</strong>을 계산합니다.
+            실제 단지별 관리비 원자료는 K-apt 공식 조회에서 확인하고, 여기서 바로 비교하세요.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#calculator">관리비 비교하기</a>
+            <a class="btn btn-ghost" href="https://www.k-apt.go.kr/" target="_blank" rel="noopener">K-apt 공식 조회 열기</a>
+          </div>
+        </div>
+
+        <div class="visual" aria-label="아파트 관리비 조회 예시">
+          <div class="visual-panel">
+            <div class="apt-ground"></div>
+
+            <div class="building-card">
+              <div class="tower">
+                <span></span><span></span>
+                <span></span><span></span>
+                <span></span><span></span>
+                <span></span><span></span>
+              </div>
+              <div class="tower two">
+                <span></span><span></span>
+                <span></span><span></span>
+                <span></span><span></span>
+                <span></span><span></span>
+              </div>
+            </div>
+
+            <div class="receipt-card">
+              <div class="receipt">
+                <div class="receipt-total"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="result-ticket">
+            <span>㎡당 관리비</span>
+            <strong id="visualFee">약 3,000원</strong>
+          </div>
+
+          <div class="koala-card" aria-hidden="true">
+            <div class="badge-mini">APT</div>
+            <div class="koala-head">
+              <div class="koala-ear left"></div>
+              <div class="koala-ear right"></div>
+              <div class="koala-eye left"></div>
+              <div class="koala-eye right"></div>
+              <div class="koala-nose"></div>
+              <div class="koala-smile"></div>
+            </div>
+            <div class="bill-mini"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="calculator">
+      <div class="wrap tool-grid">
+        <div class="panel">
+          <h2>아파트 관리비 비교 계산기</h2>
+          <p class="desc">
+            관리비 고지서의 월 납부금액과 전용면적을 입력하면 ㎡당 관리비를 계산합니다.
+            비교 기준 단가는 K-apt에서 같은 지역·비슷한 면적 단지를 조회한 뒤 직접 입력하면 가장 정확합니다.
+          </p>
+
+          <form class="form" onsubmit="event.preventDefault(); calculateFee();">
+            <div class="row">
+              <div class="field">
+                <label for="monthlyFee">
+                  월 관리비 총액
+                  <small>고지서 납부금액</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="monthlyFee" type="number" min="0" step="1000" value="255000" placeholder="예: 255000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="exclusiveArea">
+                  전용면적
+                  <small>㎡ 기준</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="exclusiveArea" type="number" min="1" step="0.01" value="84.9" placeholder="예: 84.9">
+                  <span class="unit">㎡</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="baseFee">
+                  비교 기준 ㎡당 관리비
+                  <small>K-apt 조회값 입력</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="baseFee" type="number" min="0" step="10" value="3000" placeholder="예: 3000">
+                  <span class="unit">원/㎡</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="householdCount">
+                  단지 세대수
+                  <small>선택 입력</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="householdCount" type="number" min="0" step="1" value="800" placeholder="예: 800">
+                  <span class="unit">세대</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="commonFee">
+                  공용관리비
+                  <small>있으면 입력</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="commonFee" type="number" min="0" step="1000" value="110000" placeholder="예: 110000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="usageFee">
+                  개별사용료
+                  <small>전기·수도·난방 등</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="usageFee" type="number" min="0" step="1000" value="115000" placeholder="예: 115000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="repairReserve">
+                  장기수선충당금
+                  <small>자가·전월세 확인</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="repairReserve" type="number" min="0" step="1000" value="30000" placeholder="예: 30000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="heatingType">
+                  난방 방식
+                  <small>비교 참고</small>
+                </label>
+                <div class="input-wrap">
+                  <select id="heatingType">
+                    <option value="district">지역난방</option>
+                    <option value="individual">개별난방</option>
+                    <option value="central">중앙난방</option>
+                    <option value="unknown">모름</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="preset">
+              <button type="button" onclick="fillExample('low')">84㎡ 낮은 편</button>
+              <button type="button" onclick="fillExample('normal')">84㎡ 보통 예시</button>
+              <button type="button" onclick="fillExample('high')">84㎡ 높은 편</button>
+              <button type="button" onclick="fillExample('large')">대형 평형</button>
+              <button type="button" onclick="fillExample('small')">소형 평형</button>
+            </div>
+
+            <button class="calc-btn" type="submit">관리비 비교하기</button>
+            <button class="reset-btn" type="button" onclick="resetForm()">입력값 초기화</button>
+          </form>
+
+          <div class="official-box">
+            <div>
+              <strong>K-apt 공식 관리비 조회</strong>
+              <span>단지명·지역·월별 관리비 원자료는 공식 조회에서 확인한 뒤 비교 기준값으로 입력하세요.</span>
+            </div>
+            <a href="https://www.k-apt.go.kr/" target="_blank" rel="noopener">공식 조회 열기</a>
+          </div>
+
+          <div class="notice warning">
+            관리비는 난방 방식, 세대수, 준공연도, 커뮤니티 시설, 경비·청소 인력, 주차장, 승강기,
+            전기·수도·난방 사용량, 계절에 따라 크게 달라질 수 있습니다.
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>계산 결과</h2>
+          <p class="desc">
+            ㎡당 관리비, 평균 대비 차이, 월·연간 초과 부담액을 확인하세요.
+          </p>
+
+          <div class="result-box">
+            <div class="result-main">
+              <span id="mainLabel">㎡당 관리비</span>
+              <strong id="feePerM2">-</strong>
+              <em id="summaryText">값을 입력하고 계산 버튼을 눌러주세요.</em>
+            </div>
+
+            <div class="result-grid">
+              <div class="metric">
+                <span>월 관리비 총액</span>
+                <strong id="monthlyFeeResult">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>비교 기준 금액</span>
+                <strong id="baseTotalFee">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>월 차이</span>
+                <strong id="monthlyGap">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>연간 차이</span>
+                <strong id="annualGap">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>평균 대비</span>
+                <strong id="gapRate">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>관리비 상태</span>
+                <strong id="feeStatus">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>공용관리비 비중</span>
+                <strong id="commonRatio">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>개별사용료 비중</span>
+                <strong id="usageRatio">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>장기수선충당금 비중</span>
+                <strong id="repairRatio">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>세대수 참고</span>
+                <strong id="householdMemo">-</strong>
+              </div>
+
+              <div class="metric full">
+                <span>점검 포인트</span>
+                <strong id="checkPoint">-</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice">
+            전월세 거주자는 장기수선충당금이 고지서에 포함되어 있는지 확인하세요.
+            장기수선충당금은 일반적인 월 사용료와 성격이 다르므로 별도 확인이 필요합니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="guide">
+      <div class="wrap">
+        <div class="panel">
+          <h2>관리비 조회·비교 기준</h2>
+
+          <div class="guide-grid">
+            <div class="guide">
+              <b>K-apt 공식 조회</b>
+              <p>
+                단지별 관리비는 공동주택관리정보시스템에서 조회하는 것이 기본입니다.
+                단지명, 지역, 월별 관리비를 확인한 뒤 비교 기준 단가를 입력하세요.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>㎡당 관리비 비교</b>
+              <p>
+                총액만 보면 평형 차이 때문에 왜곡될 수 있습니다.
+                전용면적으로 나눈 ㎡당 관리비를 봐야 비슷한 면적끼리 비교하기 쉽습니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>항목별 분리</b>
+              <p>
+                공용관리비, 개별사용료, 장기수선충당금은 성격이 다릅니다.
+                관리비가 높다면 어떤 항목이 높은지 먼저 분리해서 봐야 합니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="notice warning">
+            이 도구는 실시간 K-apt 데이터를 직접 불러오는 방식이 아니라, 공식 조회값과 고지서 금액을 입력해 비교하는 계산기입니다.
+            실제 고지·부과 내역은 관리사무소, K-apt, 고지서 원본 기준을 확인하세요.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="panel">
+          <h2>같이 보면 좋은 도구</h2>
+          <p class="desc">
+            관리비를 확인했다면 이사비용, 전월세 전환, 대출이자 계산도 함께 확인해보세요.
+          </p>
+
+          <div class="related-grid">
+            <a class="related-card" href="../">전체 도구 보기</a>
+            <a class="related-card" href="../moving-cost/">이사비용 계산기</a>
+            <a class="related-card" href="../rent-conversion/">전월세 전환 계산기</a>
+            <a class="related-card" href="../loan-interest/">대출이자 계산기</a>
+          </div>
+
+          <div class="notice">
+            예정 도구: 도시가스 요금 계산기, 고속도로 통행료 조회, 건강보험료 계산기, 부가세 계산기.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 바로해결툴즈 · 아파트 관리비 비교 결과는 참고용입니다. 실제 관리비 원자료는 K-apt, 관리사무소, 고지서 원본을 확인하세요.
+  </footer>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    function num(id) {
+      const value = Number($(id).value);
+      return Number.isFinite(value) ? value : 0;
+    }
+
+    function setText(id, value) {
+      $(id).textContent = value;
+    }
+
+    function won(value) {
+      if (!Number.isFinite(value)) return "-";
+      return `${Math.round(value).toLocaleString("ko-KR")}원`;
+    }
+
+    function wonPerM2(value) {
+      if (!Number.isFinite(value)) return "-";
+      return `${Math.round(value).toLocaleString("ko-KR")}원/㎡`;
+    }
+
+    function signedWon(value) {
+      if (!Number.isFinite(value)) return "-";
+      const sign = value > 0 ? "+" : value < 0 ? "-" : "";
+      return `${sign}${Math.round(Math.abs(value)).toLocaleString("ko-KR")}원`;
+    }
+
+    function percent(value) {
+      if (!Number.isFinite(value)) return "-";
+      const sign = value > 0 ? "+" : "";
+      return `${sign}${value.toLocaleString("ko-KR", {
+        maximumFractionDigits: 1,
+        minimumFractionDigits: 0
+      })}%`;
+    }
+
+    function ratio(part, total) {
+      if (!total || total <= 0) return 0;
+      return part / total * 100;
+    }
+
+    function getStatus(gapRateValue) {
+      if (gapRateValue >= 20) {
+        return {
+          text: "높은 편",
+          cls: "bad"
+        };
+      }
+
+      if (gapRateValue >= 8) {
+        return {
+          text: "약간 높은 편",
+          cls: "warn"
+        };
+      }
+
+      if (gapRateValue <= -15) {
+        return {
+          text: "낮은 편",
+          cls: "good"
+        };
+      }
+
+      return {
+        text: "평균권",
+        cls: "good"
+      };
+    }
+
+    function getCheckPoint(commonRatioValue, usageRatioValue, repairRatioValue, statusText) {
+      if (statusText === "높은 편" || statusText === "약간 높은 편") {
+        if (usageRatioValue >= 50) {
+          return "개별사용료 비중이 높습니다. 전기·수도·난방·온수 사용량과 계절 요인을 먼저 확인하세요.";
+        }
+
+        if (commonRatioValue >= 50) {
+          return "공용관리비 비중이 높습니다. 경비·청소·승강기·공용전기·위탁관리비 항목을 확인하세요.";
+        }
+
+        if (repairRatioValue >= 15) {
+          return "장기수선충당금 비중이 높습니다. 자가·전월세 여부에 따라 별도 정산 필요성을 확인하세요.";
+        }
+
+        return "총액이 비교 기준보다 높습니다. K-apt에서 같은 지역·비슷한 면적 단지와 월별로 비교하세요.";
+      }
+
+      if (statusText === "낮은 편") {
+        return "비교 기준보다 낮은 편입니다. 다만 개별사용료가 빠진 금액인지, 일부 항목이 별도 청구되는지 확인하세요.";
+      }
+
+      return "평균권으로 보입니다. 그래도 공용관리비와 개별사용료 비중을 나눠 보면 절약 포인트를 찾기 쉽습니다.";
+    }
+
+    function getHouseholdMemo(count) {
+      if (!count || count <= 0) return "미입력";
+
+      if (count < 300) return "소규모 단지";
+      if (count < 1000) return "중간 규모";
+      return "대단지";
+    }
+
+    function calculateFee() {
+      const monthlyFee = num("monthlyFee");
+      const area = Math.max(num("exclusiveArea"), 1);
+      const baseFee = num("baseFee");
+      const householdCount = num("householdCount");
+      const commonFee = num("commonFee");
+      const usageFee = num("usageFee");
+      const repairReserve = num("repairReserve");
+      const heatingType = $("heatingType").value;
+
+      const feePerM2 = monthlyFee / area;
+      const baseTotal = baseFee * area;
+      const monthlyGap = monthlyFee - baseTotal;
+      const annualGap = monthlyGap * 12;
+      const gapRateValue = baseTotal > 0 ? monthlyGap / baseTotal * 100 : 0;
+
+      const commonRatioValue = ratio(commonFee, monthlyFee);
+      const usageRatioValue = ratio(usageFee, monthlyFee);
+      const repairRatioValue = ratio(repairReserve, monthlyFee);
+
+      const status = getStatus(gapRateValue);
+      const checkPoint = getCheckPoint(commonRatioValue, usageRatioValue, repairRatioValue, status.text);
+
+      setText("feePerM2", wonPerM2(feePerM2));
+      setText("monthlyFeeResult", won(monthlyFee));
+      setText("baseTotalFee", won(baseTotal));
+      setText("monthlyGap", signedWon(monthlyGap));
+      setText("annualGap", signedWon(annualGap));
+      setText("gapRate", percent(gapRateValue));
+      setText("feeStatus", status.text);
+      setText("commonRatio", percent(commonRatioValue));
+      setText("usageRatio", percent(usageRatioValue));
+      setText("repairRatio", percent(repairRatioValue));
+      setText("householdMemo", getHouseholdMemo(householdCount));
+      setText("checkPoint", checkPoint);
+      setText("visualFee", wonPerM2(feePerM2));
+
+      const feeStatusEl = $("feeStatus");
+      feeStatusEl.className = status.cls;
+
+      const monthlyGapEl = $("monthlyGap");
+      monthlyGapEl.className = monthlyGap > 0 ? "bad" : monthlyGap < 0 ? "good" : "";
+
+      const annualGapEl = $("annualGap");
+      annualGapEl.className = monthlyGap > 0 ? "bad" : monthlyGap < 0 ? "good" : "";
+
+      const gapRateEl = $("gapRate");
+      gapRateEl.className = monthlyGap > 0 ? "bad" : monthlyGap < 0 ? "good" : "";
+
+      const heatingText = {
+        district:"지역난방",
+        individual:"개별난방",
+        central:"중앙난방",
+        unknown:"난방방식 미입력"
+      }[heatingType];
+
+      let summary = "";
+
+      if (baseFee <= 0) {
+        summary = `월 관리비 ${won(monthlyFee)}, 전용면적 ${area.toLocaleString("ko-KR")}㎡ 기준 ㎡당 관리비는 ${wonPerM2(feePerM2)}입니다. K-apt에서 비교 기준 ㎡당 관리비를 확인해 입력하면 평균 대비 차이까지 볼 수 있습니다.`;
+      } else if (monthlyGap > 0) {
+        summary = `${heatingText} 기준으로 입력된 우리 집 ㎡당 관리비는 ${wonPerM2(feePerM2)}입니다. 비교 기준 ${wonPerM2(baseFee)}보다 월 ${won(monthlyGap)}, 연간 약 ${won(annualGap)} 높은 계산입니다.`;
+      } else if (monthlyGap < 0) {
+        summary = `${heatingText} 기준으로 입력된 우리 집 ㎡당 관리비는 ${wonPerM2(feePerM2)}입니다. 비교 기준 ${wonPerM2(baseFee)}보다 월 ${won(Math.abs(monthlyGap))}, 연간 약 ${won(Math.abs(annualGap))} 낮은 계산입니다.`;
+      } else {
+        summary = `${heatingText} 기준으로 입력된 우리 집 관리비는 비교 기준과 거의 같습니다. 항목별 비중을 보고 공용관리비·개별사용료·장기수선충당금을 따로 확인하세요.`;
+      }
+
+      setText("summaryText", summary);
+    }
+
+    function fillExample(type) {
+      if (type === "low") {
+        $("monthlyFee").value = "220000";
+        $("exclusiveArea").value = "84.9";
+        $("baseFee").value = "3000";
+        $("householdCount").value = "1200";
+        $("commonFee").value = "95000";
+        $("usageFee").value = "95000";
+        $("repairReserve").value = "30000";
+        $("heatingType").value = "district";
+      }
+
+      if (type === "normal") {
+        $("monthlyFee").value = "255000";
+        $("exclusiveArea").value = "84.9";
+        $("baseFee").value = "3000";
+        $("householdCount").value = "800";
+        $("commonFee").value = "110000";
+        $("usageFee").value = "115000";
+        $("repairReserve").value = "30000";
+        $("heatingType").value = "district";
+      }
+
+      if (type === "high") {
+        $("monthlyFee").value = "340000";
+        $("exclusiveArea").value = "84.9";
+        $("baseFee").value = "3000";
+        $("householdCount").value = "450";
+        $("commonFee").value = "170000";
+        $("usageFee").value = "130000";
+        $("repairReserve").value = "40000";
+        $("heatingType").value = "central";
+      }
+
+      if (type === "large") {
+        $("monthlyFee").value = "460000";
+        $("exclusiveArea").value = "134.5";
+        $("baseFee").value = "3100";
+        $("householdCount").value = "900";
+        $("commonFee").value = "200000";
+        $("usageFee").value = "210000";
+        $("repairReserve").value = "50000";
+        $("heatingType").value = "individual";
+      }
+
+      if (type === "small") {
+        $("monthlyFee").value = "145000";
+        $("exclusiveArea").value = "49.5";
+        $("baseFee").value = "3100";
+        $("householdCount").value = "600";
+        $("commonFee").value = "70000";
+        $("usageFee").value = "60000";
+        $("repairReserve").value = "15000";
+        $("heatingType").value = "district";
+      }
+
+      calculateFee();
+    }
+
+    function resetForm() {
+      $("monthlyFee").value = "255000";
+      $("exclusiveArea").value = "84.9";
+      $("baseFee").value = "3000";
+      $("householdCount").value = "800";
+      $("commonFee").value = "110000";
+      $("usageFee").value = "115000";
+      $("repairReserve").value = "30000";
+      $("heatingType").value = "district";
+      calculateFee();
+    }
+
+    [
+      "monthlyFee",
+      "exclusiveArea",
+      "baseFee",
+      "householdCount",
+      "commonFee",
+      "usageFee",
+      "repairReserve",
+      "heatingType"
+    ].forEach((id) => {
+      $(id).addEventListener("input", calculateFee);
+      $(id).addEventListener("change", calculateFee);
+    });
+
+    calculateFee();
+  </script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'></script>
+  <!-- End Cloudflare Web Analytics -->
+</body>
+</html>
