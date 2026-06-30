@@ -1,0 +1,2019 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>계산기｜사칙연산·퍼센트 계산·계산 기록 저장｜바로해결툴즈</title>
+  <meta name="description" content="사칙연산, 괄호 계산, 퍼센트 계산, 증가율·감소율·비율 계산, 메모리 기능, 계산 기록 저장, 키보드 입력까지 지원하는 무료 온라인 계산기입니다." />
+  <meta name="keywords" content="계산기, 온라인 계산기, 사칙연산 계산기, 퍼센트 계산기, 비율 계산기, 증가율 계산기, 감소율 계산기, 무료 계산기, 바로해결툴즈" />
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/calculator/" />
+  <meta name="theme-color" content="#eef2ff" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="계산기｜사칙연산·퍼센트 계산·계산 기록 저장" />
+  <meta property="og:description" content="기본 사칙연산부터 퍼센트 전환, 증가율·감소율, 계산 기록 저장까지 한 번에 쓰는 무료 온라인 계산기입니다." />
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/calculator/" />
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"계산기",
+    "url":"https://barohaegyeol-tools.pages.dev/calculator/",
+    "applicationCategory":"UtilityApplication",
+    "operatingSystem":"All",
+    "description":"사칙연산, 괄호 계산, 퍼센트 계산, 증가율·감소율 계산, 메모리 기능, 계산 기록 저장을 지원하는 무료 온라인 계산기입니다.",
+    "publisher":{
+      "@type":"Organization",
+      "name":"바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg1:#eef2ff;
+      --bg2:#f8fafc;
+      --bg3:#ecfeff;
+      --ink:#0f172a;
+      --text:#27364a;
+      --muted:#64748b;
+      --line:rgba(15,23,42,.10);
+      --white:rgba(255,255,255,.88);
+
+      --navy:#0f172a;
+      --blue:#2563eb;
+      --indigo:#4f46e5;
+      --violet:#7c3aed;
+      --purple:#8b5cf6;
+      --cyan:#06b6d4;
+      --sky:#38bdf8;
+      --teal:#14b8a6;
+      --green:#22c55e;
+      --amber:#f59e0b;
+      --orange:#f97316;
+      --rose:#fb7185;
+      --red:#ef4444;
+
+      --shadow:0 24px 70px rgba(79,70,229,.16);
+      --shadow2:0 14px 34px rgba(15,23,42,.08);
+      --radius:28px;
+      --max:1180px;
+    }
+
+    * {
+      box-sizing:border-box;
+    }
+
+    html {
+      scroll-behavior:smooth;
+    }
+
+    body {
+      margin:0;
+      min-height:100vh;
+      color:var(--ink);
+      font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;
+      line-height:1.66;
+      background:
+        radial-gradient(circle at 9% 8%, rgba(79,70,229,.22), transparent 25%),
+        radial-gradient(circle at 88% 10%, rgba(6,182,212,.18), transparent 25%),
+        radial-gradient(circle at 78% 88%, rgba(124,58,237,.13), transparent 27%),
+        linear-gradient(135deg,var(--bg1) 0%, var(--bg2) 48%, var(--bg3) 100%);
+      overflow-x:hidden;
+    }
+
+    body::before {
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.18;
+      background-image:
+        linear-gradient(rgba(15,23,42,.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,23,42,.055) 1px, transparent 1px),
+        radial-gradient(circle, rgba(79,70,229,.17) 1px, transparent 1.3px);
+      background-size:44px 44px,44px 44px,86px 86px;
+      background-position:0 0,0 0,22px 28px;
+      mask-image:linear-gradient(to bottom,#000 0%,#000 68%,transparent 100%);
+    }
+
+    a {
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button,
+    input,
+    select {
+      font:inherit;
+    }
+
+    button {
+      cursor:pointer;
+    }
+
+    .wrap {
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+    }
+
+    .topbar {
+      position:sticky;
+      top:0;
+      z-index:70;
+      border-bottom:1px solid rgba(15,23,42,.07);
+      background:rgba(238,242,255,.78);
+      backdrop-filter:blur(18px);
+    }
+
+    .nav {
+      min-height:68px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:950;
+      letter-spacing:-.045em;
+    }
+
+    .brand-mark {
+      width:42px;
+      height:42px;
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      background:conic-gradient(from 145deg,#4f46e5,#7c3aed,#06b6d4,#14b8a6,#0f172a,#4f46e5);
+      box-shadow:0 16px 36px rgba(79,70,229,.25);
+      font-weight:950;
+    }
+
+    .brand small {
+      display:block;
+      margin-top:1px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:-.02em;
+    }
+
+    .nav-links {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      white-space:nowrap;
+    }
+
+    .nav-links a {
+      padding:9px 13px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.78);
+      color:#26364a;
+      font-size:14px;
+      font-weight:850;
+      box-shadow:var(--shadow2);
+    }
+
+    .hero {
+      padding:58px 0 28px;
+    }
+
+    .hero-grid {
+      display:grid;
+      grid-template-columns:1.02fr .98fr;
+      align-items:center;
+      gap:32px;
+    }
+
+    .chips {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:16px;
+    }
+
+    .chip {
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.82);
+      color:#334155;
+      font-size:13px;
+      font-weight:900;
+      box-shadow:var(--shadow2);
+    }
+
+    .chip.hot {
+      color:#3730a3;
+      background:linear-gradient(135deg,rgba(224,231,255,.98),rgba(255,255,255,.92));
+    }
+
+    h1 {
+      margin:0;
+      max-width:800px;
+      font-size:clamp(38px,6.1vw,74px);
+      line-height:1.04;
+      letter-spacing:-.078em;
+    }
+
+    .gradient {
+      color:transparent;
+      background:linear-gradient(90deg,#4f46e5 0%, #7c3aed 42%, #06b6d4 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+    }
+
+    .lead {
+      margin:20px 0 0;
+      max-width:700px;
+      color:#34465c;
+      font-size:clamp(16px,2vw,19px);
+      line-height:1.82;
+      letter-spacing:-.015em;
+      word-break:keep-all;
+    }
+
+    .lead strong {
+      color:#3730a3;
+      font-weight:950;
+    }
+
+    .hero-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:26px;
+    }
+
+    .btn {
+      min-height:50px;
+      padding:13px 18px;
+      border-radius:17px;
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      gap:8px;
+      border:1px solid transparent;
+      font-weight:950;
+      letter-spacing:-.025em;
+      transition:.18s ease;
+    }
+
+    .btn:hover {
+      transform:translateY(-2px);
+    }
+
+    .btn-primary {
+      color:#fff;
+      background:linear-gradient(135deg,#4f46e5,#7c3aed,#06b6d4);
+      box-shadow:0 16px 38px rgba(79,70,229,.24);
+    }
+
+    .btn-ghost {
+      color:#122033;
+      background:rgba(255,255,255,.82);
+      border-color:rgba(15,23,42,.08);
+    }
+
+    .visual {
+      position:relative;
+      min-height:430px;
+      border-radius:42px;
+      border:1px solid rgba(15,23,42,.08);
+      background:
+        radial-gradient(circle at 76% 15%, rgba(6,182,212,.20), transparent 22%),
+        radial-gradient(circle at 17% 86%, rgba(79,70,229,.22), transparent 24%),
+        linear-gradient(145deg,rgba(255,255,255,.96),rgba(238,242,255,.82));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      padding:26px;
+    }
+
+    .visual-calc {
+      position:absolute;
+      left:44px;
+      top:36px;
+      width:300px;
+      height:360px;
+      border-radius:38px;
+      background:
+        radial-gradient(circle at 82% 12%, rgba(255,255,255,.44), transparent 24%),
+        linear-gradient(145deg,#111827,#1e1b4b 46%,#4f46e5);
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow:0 28px 70px rgba(15,23,42,.28);
+      padding:22px;
+      transform:rotate(-3deg);
+    }
+
+    .visual-screen {
+      height:88px;
+      border-radius:25px;
+      background:linear-gradient(135deg,#ecfeff,#eef2ff);
+      border:1px solid rgba(255,255,255,.75);
+      box-shadow:inset 0 2px 8px rgba(15,23,42,.10);
+      padding:16px;
+      text-align:right;
+    }
+
+    .visual-screen span {
+      display:block;
+      color:#64748b;
+      font-size:13px;
+      font-weight:900;
+    }
+
+    .visual-screen strong {
+      display:block;
+      margin-top:5px;
+      color:#0f172a;
+      font-size:30px;
+      line-height:1;
+      letter-spacing:-.055em;
+    }
+
+    .visual-keys {
+      margin-top:22px;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:10px;
+    }
+
+    .visual-key {
+      height:44px;
+      border-radius:15px;
+      background:rgba(255,255,255,.13);
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.12);
+    }
+
+    .visual-key.op {
+      background:linear-gradient(135deg,#06b6d4,#7c3aed);
+    }
+
+    .visual-key.equal {
+      grid-column:span 2;
+      background:linear-gradient(135deg,#14b8a6,#22c55e);
+    }
+
+    .float-card {
+      position:absolute;
+      right:34px;
+      top:62px;
+      width:210px;
+      padding:20px;
+      border-radius:28px;
+      background:linear-gradient(145deg,#fff,#ecfeff);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      z-index:4;
+    }
+
+    .float-card span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .float-card strong {
+      display:block;
+      margin-top:7px;
+      color:#3730a3;
+      font-size:32px;
+      line-height:1;
+      letter-spacing:-.055em;
+    }
+
+    .percent-orb {
+      position:absolute;
+      right:42px;
+      bottom:42px;
+      width:174px;
+      height:174px;
+      border-radius:46px;
+      background:
+        radial-gradient(circle at 30% 22%, rgba(255,255,255,.86), transparent 28%),
+        linear-gradient(135deg,#06b6d4,#7c3aed);
+      box-shadow:0 24px 52px rgba(79,70,229,.24);
+      display:grid;
+      place-items:center;
+      color:#fff;
+      font-size:54px;
+      font-weight:950;
+      letter-spacing:-.07em;
+      z-index:3;
+    }
+
+    .percent-orb::before,
+    .percent-orb::after {
+      content:"";
+      position:absolute;
+      border-radius:999px;
+      background:rgba(255,255,255,.88);
+    }
+
+    .percent-orb::before {
+      width:42px;
+      height:42px;
+      left:33px;
+      top:35px;
+    }
+
+    .percent-orb::after {
+      width:42px;
+      height:42px;
+      right:33px;
+      bottom:35px;
+    }
+
+    .percent-line {
+      position:absolute;
+      width:100px;
+      height:12px;
+      border-radius:999px;
+      background:#fff;
+      transform:rotate(-45deg);
+    }
+
+    .section {
+      padding:22px 0;
+    }
+
+    .tool-grid {
+      display:grid;
+      grid-template-columns:minmax(0,.98fr) minmax(0,1.02fr);
+      gap:22px;
+      align-items:start;
+    }
+
+    .panel {
+      padding:24px;
+      border-radius:var(--radius);
+      border:1px solid rgba(15,23,42,.08);
+      background:var(--white);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);
+    }
+
+    .panel h2 {
+      margin:0 0 12px;
+      font-size:27px;
+      line-height:1.2;
+      letter-spacing:-.052em;
+    }
+
+    .desc {
+      margin:-4px 0 18px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    .calculator-shell {
+      padding:18px;
+      border-radius:32px;
+      background:
+        radial-gradient(circle at 82% 10%, rgba(6,182,212,.16), transparent 28%),
+        linear-gradient(145deg,#0f172a,#111827 44%,#312e81);
+      box-shadow:0 24px 60px rgba(15,23,42,.22);
+    }
+
+    .display {
+      min-height:132px;
+      padding:18px;
+      border-radius:26px;
+      background:linear-gradient(135deg,#f8fafc,#eef2ff);
+      border:1px solid rgba(255,255,255,.72);
+      text-align:right;
+      overflow:hidden;
+    }
+
+    .expression {
+      min-height:30px;
+      color:#64748b;
+      font-size:18px;
+      font-weight:850;
+      letter-spacing:-.02em;
+      word-break:break-all;
+    }
+
+    .preview {
+      margin-top:8px;
+      min-height:52px;
+      color:#0f172a;
+      font-size:clamp(32px,5vw,52px);
+      line-height:1;
+      font-weight:950;
+      letter-spacing:-.065em;
+      word-break:break-all;
+    }
+
+    .sub-status {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      margin-top:14px;
+      color:#64748b;
+      font-size:12px;
+      font-weight:850;
+    }
+
+    .copy-btn {
+      border:0;
+      border-radius:999px;
+      padding:7px 11px;
+      color:#fff;
+      background:linear-gradient(135deg,#4f46e5,#06b6d4);
+      font-size:12px;
+      font-weight:950;
+    }
+
+    .keys {
+      margin-top:14px;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:10px;
+    }
+
+    .key {
+      min-height:60px;
+      border:0;
+      border-radius:20px;
+      color:#e5e7eb;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.10), 0 10px 22px rgba(0,0,0,.16);
+      font-size:19px;
+      font-weight:950;
+      transition:.14s ease;
+    }
+
+    .key:hover {
+      transform:translateY(-2px);
+      background:rgba(255,255,255,.16);
+    }
+
+    .key:active {
+      transform:translateY(1px) scale(.99);
+    }
+
+    .key.utility {
+      color:#e0e7ff;
+      background:rgba(79,70,229,.26);
+    }
+
+    .key.operator {
+      color:#fff;
+      background:linear-gradient(135deg,#4f46e5,#7c3aed);
+    }
+
+    .key.memory {
+      color:#cffafe;
+      background:rgba(6,182,212,.22);
+    }
+
+    .key.danger {
+      color:#fff;
+      background:linear-gradient(135deg,#ef4444,#fb7185);
+    }
+
+    .key.equal {
+      grid-column:span 2;
+      color:#fff;
+      background:linear-gradient(135deg,#14b8a6,#06b6d4,#4f46e5);
+    }
+
+    .side-grid {
+      display:grid;
+      gap:18px;
+    }
+
+    .quick-panel {
+      padding:20px;
+      border-radius:26px;
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .quick-panel h3 {
+      margin:0 0 12px;
+      font-size:20px;
+      letter-spacing:-.045em;
+    }
+
+    .quick-form {
+      display:grid;
+      gap:12px;
+    }
+
+    .field label {
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom:8px;
+      color:#122033;
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .field small {
+      color:var(--muted);
+      font-weight:750;
+    }
+
+    .input-wrap {
+      position:relative;
+    }
+
+    input,
+    select {
+      width:100%;
+      min-height:52px;
+      padding:13px 54px 13px 14px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.10);
+      background:rgba(255,255,255,.94);
+      color:#122033;
+      font-size:16px;
+      font-weight:850;
+      outline:none;
+      transition:.16s ease;
+    }
+
+    input:focus,
+    select:focus {
+      border-color:rgba(79,70,229,.46);
+      box-shadow:0 0 0 4px rgba(79,70,229,.12);
+    }
+
+    .unit {
+      position:absolute;
+      top:50%;
+      right:15px;
+      transform:translateY(-50%);
+      color:var(--muted);
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .row {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .percent-result {
+      padding:18px;
+      border-radius:22px;
+      background:
+        radial-gradient(circle at 82% 18%, rgba(255,255,255,.46), transparent 26%),
+        linear-gradient(135deg,#e0e7ff,#cffafe);
+      box-shadow:var(--shadow2);
+    }
+
+    .percent-result span {
+      display:block;
+      color:#64748b;
+      font-size:13px;
+      font-weight:900;
+    }
+
+    .percent-result strong {
+      display:block;
+      margin-top:6px;
+      color:#3730a3;
+      font-size:34px;
+      line-height:1;
+      letter-spacing:-.055em;
+      word-break:break-all;
+    }
+
+    .action-row {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+    }
+
+    .small-btn {
+      min-height:44px;
+      border:0;
+      border-radius:15px;
+      color:#fff;
+      background:linear-gradient(135deg,#4f46e5,#7c3aed,#06b6d4);
+      font-size:14px;
+      font-weight:950;
+      box-shadow:0 12px 26px rgba(79,70,229,.16);
+    }
+
+    .small-btn.ghost {
+      color:#122033;
+      background:rgba(255,255,255,.88);
+      border:1px solid rgba(15,23,42,.08);
+    }
+
+    .history-list {
+      display:grid;
+      gap:10px;
+      max-height:260px;
+      overflow:auto;
+      padding-right:2px;
+    }
+
+    .history-item {
+      width:100%;
+      text-align:left;
+      padding:13px 14px;
+      border:1px solid rgba(15,23,42,.08);
+      border-radius:16px;
+      background:rgba(255,255,255,.82);
+      color:#334155;
+      font-weight:850;
+      line-height:1.4;
+    }
+
+    .history-item b {
+      display:block;
+      color:#0f172a;
+      font-size:16px;
+      word-break:break-all;
+    }
+
+    .history-item span {
+      display:block;
+      margin-top:4px;
+      color:#64748b;
+      font-size:12px;
+      word-break:break-all;
+    }
+
+    .empty {
+      padding:16px;
+      border-radius:16px;
+      background:rgba(248,250,252,.86);
+      color:#64748b;
+      font-size:14px;
+      font-weight:850;
+      text-align:center;
+    }
+
+    .notice {
+      margin-top:12px;
+      padding:13px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(15,23,42,.08);
+      color:#526173;
+      font-size:13px;
+      line-height:1.75;
+      font-weight:760;
+      word-break:keep-all;
+    }
+
+    .guide-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .guide {
+      padding:20px;
+      border-radius:22px;
+      background:rgba(255,255,255,.80);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .guide b {
+      display:block;
+      margin-bottom:8px;
+      font-size:17px;
+      letter-spacing:-.03em;
+    }
+
+    .guide p {
+      margin:0;
+      color:#526173;
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    .related-grid {
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .related-card {
+      padding:16px;
+      border-radius:20px;
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      font-weight:900;
+      color:#24415f;
+      line-height:1.45;
+    }
+
+    footer {
+      padding:44px 0 54px;
+      color:var(--muted);
+      text-align:center;
+      font-size:13px;
+    }
+
+    @media (max-width:980px) {
+      .hero-grid,
+      .tool-grid {
+        grid-template-columns:1fr;
+      }
+
+      .hero {
+        padding-top:42px;
+      }
+
+      .visual {
+        min-height:390px;
+      }
+    }
+
+    @media (max-width:720px) {
+      .related-grid {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+    }
+
+    @media (max-width:640px) {
+      .nav {
+        align-items:flex-start;
+        flex-direction:column;
+        padding:12px 0;
+      }
+
+      .nav-links {
+        width:100%;
+        overflow-x:auto;
+        padding-bottom:4px;
+      }
+
+      .hero-actions {
+        display:grid;
+      }
+
+      .btn {
+        width:100%;
+      }
+
+      .row,
+      .guide-grid,
+      .related-grid,
+      .action-row {
+        grid-template-columns:1fr;
+      }
+
+      .visual {
+        min-height:370px;
+      }
+
+      .visual-calc {
+        left:22px;
+        top:34px;
+        width:245px;
+        height:310px;
+        padding:18px;
+      }
+
+      .visual-screen {
+        height:74px;
+      }
+
+      .visual-screen strong {
+        font-size:24px;
+      }
+
+      .visual-keys {
+        margin-top:18px;
+        gap:8px;
+      }
+
+      .visual-key {
+        height:36px;
+      }
+
+      .float-card {
+        right:18px;
+        top:50px;
+        width:160px;
+        padding:15px;
+      }
+
+      .float-card strong {
+        font-size:24px;
+      }
+
+      .percent-orb {
+        right:24px;
+        bottom:34px;
+        width:126px;
+        height:126px;
+        border-radius:34px;
+      }
+
+      .percent-orb::before,
+      .percent-orb::after {
+        width:29px;
+        height:29px;
+      }
+
+      .percent-orb::before {
+        left:25px;
+        top:25px;
+      }
+
+      .percent-orb::after {
+        right:25px;
+        bottom:25px;
+      }
+
+      .percent-line {
+        width:76px;
+        height:9px;
+      }
+
+      .calculator-shell {
+        padding:14px;
+      }
+
+      .keys {
+        gap:8px;
+      }
+
+      .key {
+        min-height:54px;
+        border-radius:17px;
+        font-size:17px;
+      }
+
+      .display {
+        min-height:118px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="../" aria-label="바로해결툴즈 메인으로 이동">
+        <div class="brand-mark">B</div>
+        <div>
+          바로해결툴즈
+          <small>사칙연산 · 퍼센트 · 계산 기록</small>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="주요 도구">
+        <a href="../">전체 도구</a>
+        <a href="../vat-calculator/">부가세</a>
+        <a href="../comprehensive-income-tax/">종합소득세</a>
+        <a href="../monthly-net-salary/">월급 실수령액</a>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="chips">
+            <span class="chip hot">🧮 프리미엄 계산기</span>
+            <span class="chip">사칙연산·괄호</span>
+            <span class="chip">퍼센트 전환</span>
+            <span class="chip">계산 기록 저장</span>
+          </div>
+
+          <h1>
+            네이버보다 더 편하게 쓰는<br>
+            <span class="gradient">진짜 실사용 계산기</span>
+          </h1>
+
+          <p class="lead">
+            기본 사칙연산, 괄호 계산, 퍼센트 전환, 증가율·감소율·비율 계산, 메모리 기능,
+            계산 기록 저장, 키보드 입력까지 지원합니다.
+            <strong>한 번 열어두면 계속 쓰는 계산기</strong>로 만들었습니다.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#calculator">계산기 바로 쓰기</a>
+            <a class="btn btn-ghost" href="#percent">퍼센트 계산 보기</a>
+          </div>
+        </div>
+
+        <div class="visual" aria-label="온라인 계산기 미리보기">
+          <div class="visual-calc" aria-hidden="true">
+            <div class="visual-screen">
+              <span>Smart Calculator</span>
+              <strong>12,345.67</strong>
+            </div>
+            <div class="visual-keys">
+              <span class="visual-key"></span>
+              <span class="visual-key"></span>
+              <span class="visual-key op"></span>
+              <span class="visual-key op"></span>
+              <span class="visual-key"></span>
+              <span class="visual-key"></span>
+              <span class="visual-key"></span>
+              <span class="visual-key op"></span>
+              <span class="visual-key"></span>
+              <span class="visual-key"></span>
+              <span class="visual-key"></span>
+              <span class="visual-key op"></span>
+              <span class="visual-key"></span>
+              <span class="visual-key"></span>
+              <span class="visual-key equal"></span>
+            </div>
+          </div>
+
+          <div class="float-card">
+            <span>빠른 퍼센트</span>
+            <strong>25% → 0.25</strong>
+          </div>
+
+          <div class="percent-orb" aria-hidden="true">
+            <span class="percent-line"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="calculator">
+      <div class="wrap tool-grid">
+        <div class="panel">
+          <h2>기본 계산기</h2>
+          <p class="desc">
+            숫자 버튼 또는 키보드로 입력하세요. 사칙연산, 괄호, 소수점, 퍼센트, 메모리 기능을 지원합니다.
+          </p>
+
+          <div class="calculator-shell">
+            <div class="display" aria-live="polite">
+              <div class="expression" id="expressionDisplay">0</div>
+              <div class="preview" id="resultDisplay">0</div>
+              <div class="sub-status">
+                <span id="statusText">키보드 입력 가능 · Enter 계산 · Esc 초기화</span>
+                <button class="copy-btn" type="button" onclick="copyCurrentResult()">결과 복사</button>
+              </div>
+            </div>
+
+            <div class="keys" aria-label="계산기 버튼">
+              <button class="key danger" type="button" data-action="clear">AC</button>
+              <button class="key memory" type="button" data-action="memoryClear">MC</button>
+              <button class="key memory" type="button" data-action="memoryRecall">MR</button>
+              <button class="key utility" type="button" data-action="backspace">⌫</button>
+
+              <button class="key memory" type="button" data-action="memoryAdd">M+</button>
+              <button class="key memory" type="button" data-action="memorySubtract">M-</button>
+              <button class="key utility" type="button" data-action="paren">()</button>
+              <button class="key operator" type="button" data-value="%">%</button>
+
+              <button class="key" type="button" data-value="7">7</button>
+              <button class="key" type="button" data-value="8">8</button>
+              <button class="key" type="button" data-value="9">9</button>
+              <button class="key operator" type="button" data-value="/">÷</button>
+
+              <button class="key" type="button" data-value="4">4</button>
+              <button class="key" type="button" data-value="5">5</button>
+              <button class="key" type="button" data-value="6">6</button>
+              <button class="key operator" type="button" data-value="*">×</button>
+
+              <button class="key" type="button" data-value="1">1</button>
+              <button class="key" type="button" data-value="2">2</button>
+              <button class="key" type="button" data-value="3">3</button>
+              <button class="key operator" type="button" data-value="-">−</button>
+
+              <button class="key utility" type="button" data-action="toggleSign">±</button>
+              <button class="key" type="button" data-value="0">0</button>
+              <button class="key" type="button" data-value=".">.</button>
+              <button class="key operator" type="button" data-value="+">+</button>
+
+              <button class="key utility" type="button" data-value="00">00</button>
+              <button class="key utility" type="button" data-action="clearEntry">CE</button>
+              <button class="key equal" type="button" data-action="calculate">=</button>
+            </div>
+          </div>
+
+          <div class="notice">
+            % 버튼은 현재 숫자를 100으로 나누는 방식으로 반영됩니다. “10만원의 20%”, “얼마에서 몇 % 증가”처럼 정확한 퍼센트 계산은 오른쪽 퍼센트 계산기를 사용하세요.
+          </div>
+        </div>
+
+        <div class="side-grid">
+          <div class="quick-panel" id="percent">
+            <h3>퍼센트 빠른 계산</h3>
+            <p class="desc">
+              비율, 증가율, 감소율, 퍼센트↔소수 변환을 바로 계산합니다.
+            </p>
+
+            <div class="quick-form">
+              <div class="field">
+                <label for="percentMode">
+                  계산 방식
+                  <small>원하는 퍼센트 계산 선택</small>
+                </label>
+                <select id="percentMode">
+                  <option value="value" selected>A의 B%는?</option>
+                  <option value="ratio">A는 B의 몇 %?</option>
+                  <option value="increase">A에서 B% 증가하면?</option>
+                  <option value="decrease">A에서 B% 감소하면?</option>
+                  <option value="change">A에서 B가 되면 몇 % 변화?</option>
+                  <option value="toPercent">소수 → 퍼센트</option>
+                  <option value="toDecimal">퍼센트 → 소수</option>
+                </select>
+              </div>
+
+              <div class="row">
+                <div class="field">
+                  <label for="percentA">
+                    A 값
+                    <small id="percentALabel">기준 금액</small>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="percentA" type="number" step="any" value="100000" placeholder="예: 100000">
+                    <span class="unit" id="percentAUnit">원</span>
+                  </div>
+                </div>
+
+                <div class="field" id="percentBField">
+                  <label for="percentB">
+                    B 값
+                    <small id="percentBLabel">퍼센트</small>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="percentB" type="number" step="any" value="20" placeholder="예: 20">
+                    <span class="unit" id="percentBUnit">%</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="percent-result">
+                <span id="percentResultLabel">계산 결과</span>
+                <strong id="percentResult">20,000</strong>
+              </div>
+
+              <div class="action-row">
+                <button class="small-btn" type="button" onclick="sendPercentToCalculator()">결과를 계산기로</button>
+                <button class="small-btn ghost" type="button" onclick="copyPercentResult()">퍼센트 결과 복사</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="quick-panel">
+            <h3>계산 기록</h3>
+            <p class="desc">
+              최근 계산 기록은 이 브라우저에 자동 저장됩니다. 기록을 누르면 다시 계산기에 넣을 수 있습니다.
+            </p>
+
+            <div class="history-list" id="historyList">
+              <div class="empty">아직 계산 기록이 없습니다.</div>
+            </div>
+
+            <div class="action-row" style="margin-top:12px;">
+              <button class="small-btn ghost" type="button" onclick="clearHistory()">기록 전체 삭제</button>
+              <button class="small-btn" type="button" onclick="copyHistory()">기록 복사</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="guide">
+      <div class="wrap">
+        <div class="panel">
+          <h2>이 계산기 기능</h2>
+
+          <div class="guide-grid">
+            <div class="guide">
+              <b>기본 계산</b>
+              <p>
+                더하기, 빼기, 곱하기, 나누기, 괄호, 소수점, 음수 계산을 지원합니다.
+                키보드 입력도 가능해서 PC에서 빠르게 사용할 수 있습니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>퍼센트 계산</b>
+              <p>
+                A의 B%, A는 B의 몇 %, 증가율, 감소율, 소수와 퍼센트 전환까지 바로 계산할 수 있습니다.
+                쇼핑·세금·수익률 계산에 유용합니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>기록과 메모리</b>
+              <p>
+                최근 계산 기록을 저장하고, M+, M-, MR, MC 메모리 기능을 지원합니다.
+                반복 계산할 때 계산기를 다시 열어도 흐름을 이어갈 수 있습니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="notice">
+            계산 기록과 메모리 값은 사용자의 브라우저에만 저장됩니다. 브라우저 캐시를 삭제하거나 시크릿 모드를 사용하면 기록이 유지되지 않을 수 있습니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="panel">
+          <h2>같이 보면 좋은 도구</h2>
+          <p class="desc">
+            기본 계산 외에도 세금, 급여, 보험료 계산이 필요하면 다른 바로해결툴즈도 함께 사용할 수 있습니다.
+          </p>
+
+          <div class="related-grid">
+            <a class="related-card" href="../vat-calculator/">부가세 계산기</a>
+            <a class="related-card" href="../comprehensive-income-tax/">종합소득세 계산기</a>
+            <a class="related-card" href="../monthly-net-salary/">월급 실수령액 계산기</a>
+            <a class="related-card" href="../four-insurance/">4대보험 계산기</a>
+          </div>
+
+          <div class="notice">
+            바로해결툴즈는 세금·급여·생활비·보험료 계산기를 계속 추가하고 있습니다.
+            이 계산기는 일상 계산과 빠른 검산을 위한 참고용 도구입니다.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 바로해결툴즈 · 계산 결과는 참고용입니다. 중요한 계약, 세금 신고, 투자 판단에는 원자료와 전문가 검토를 함께 확인하세요.
+  </footer>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    const STORAGE_KEY = "baro_smart_calculator_history";
+    const MEMORY_KEY = "baro_smart_calculator_memory";
+
+    const state = {
+      expression: "",
+      lastResult: 0,
+      memory: Number(localStorage.getItem(MEMORY_KEY) || 0),
+      justEvaluated: false,
+      lastPercentResult: 0
+    };
+
+    function displayExpression(expression) {
+      if (!expression) return "0";
+
+      return expression
+        .replaceAll("*", "×")
+        .replaceAll("/", "÷")
+        .replaceAll("-", "−");
+    }
+
+    function cleanNumber(value) {
+      if (!Number.isFinite(value)) return "0";
+
+      const rounded = Math.abs(value) < 1e-12 ? 0 : value;
+      const fixed = Number.isInteger(rounded)
+        ? String(rounded)
+        : Number(rounded.toFixed(12)).toString();
+
+      return fixed;
+    }
+
+    function formatNumber(value) {
+      if (!Number.isFinite(value)) return "오류";
+
+      const cleaned = Math.abs(value) < 1e-12 ? 0 : value;
+
+      if (Math.abs(cleaned) >= 1e15 || (Math.abs(cleaned) > 0 && Math.abs(cleaned) < 1e-8)) {
+        return cleaned.toExponential(8);
+      }
+
+      const decimals = Number.isInteger(cleaned) ? 0 : 10;
+
+      return cleaned.toLocaleString("ko-KR", {
+        maximumFractionDigits: decimals
+      });
+    }
+
+    function setStatus(text) {
+      $("statusText").textContent = text;
+    }
+
+    function updateDisplay() {
+      $("expressionDisplay").textContent = displayExpression(state.expression);
+
+      if (!state.expression) {
+        $("resultDisplay").textContent = "0";
+        setStatus(`메모리 ${formatNumber(state.memory)} · 키보드 입력 가능`);
+        return;
+      }
+
+      try {
+        const value = evaluateExpression(state.expression);
+        $("resultDisplay").textContent = formatNumber(value);
+        setStatus(`미리보기 · 메모리 ${formatNumber(state.memory)}`);
+      } catch (error) {
+        $("resultDisplay").textContent = " ";
+        setStatus("계산식을 입력하는 중입니다.");
+      }
+    }
+
+    function tokenize(expression) {
+      const input = expression.replaceAll(",", "").replace(/\s+/g, "");
+      const tokens = [];
+      let i = 0;
+
+      while (i < input.length) {
+        const char = input[i];
+
+        if (/[0-9.]/.test(char)) {
+          let number = char;
+          i += 1;
+
+          while (i < input.length && /[0-9.]/.test(input[i])) {
+            number += input[i];
+            i += 1;
+          }
+
+          if ((number.match(/\./g) || []).length > 1) {
+            throw new Error("Invalid number");
+          }
+
+          tokens.push({
+            type: "number",
+            value: Number(number)
+          });
+
+          continue;
+        }
+
+        if ("+-*/()%".includes(char)) {
+          tokens.push({
+            type: "operator",
+            value: char
+          });
+          i += 1;
+          continue;
+        }
+
+        throw new Error("Invalid character");
+      }
+
+      return tokens;
+    }
+
+    function evaluateExpression(expression) {
+      const tokens = tokenize(expression);
+      let position = 0;
+
+      function peek() {
+        return tokens[position];
+      }
+
+      function consume() {
+        return tokens[position++];
+      }
+
+      function parseExpression() {
+        let value = parseTerm();
+
+        while (peek() && (peek().value === "+" || peek().value === "-")) {
+          const operator = consume().value;
+          const right = parseTerm();
+
+          if (operator === "+") value += right;
+          if (operator === "-") value -= right;
+        }
+
+        return value;
+      }
+
+      function parseTerm() {
+        let value = parseFactor();
+
+        while (peek() && (peek().value === "*" || peek().value === "/")) {
+          const operator = consume().value;
+          const right = parseFactor();
+
+          if (operator === "*") value *= right;
+
+          if (operator === "/") {
+            if (right === 0) throw new Error("Division by zero");
+            value /= right;
+          }
+        }
+
+        return value;
+      }
+
+      function parseFactor() {
+        const token = peek();
+
+        if (!token) throw new Error("Unexpected end");
+
+        if (token.value === "+") {
+          consume();
+          return parseFactor();
+        }
+
+        if (token.value === "-") {
+          consume();
+          return -parseFactor();
+        }
+
+        let value;
+
+        if (token.value === "(") {
+          consume();
+          value = parseExpression();
+
+          if (!peek() || peek().value !== ")") {
+            throw new Error("Missing closing parenthesis");
+          }
+
+          consume();
+        } else if (token.type === "number") {
+          value = consume().value;
+        } else {
+          throw new Error("Unexpected token");
+        }
+
+        while (peek() && peek().value === "%") {
+          consume();
+          value = value / 100;
+        }
+
+        return value;
+      }
+
+      const result = parseExpression();
+
+      if (position < tokens.length) {
+        throw new Error("Unexpected token");
+      }
+
+      if (!Number.isFinite(result)) {
+        throw new Error("Invalid result");
+      }
+
+      return result;
+    }
+
+    function isOperator(char) {
+      return ["+", "-", "*", "/"].includes(char);
+    }
+
+    function lastChar() {
+      return state.expression.slice(-1);
+    }
+
+    function getCurrentNumberRange() {
+      const expression = state.expression;
+      let end = expression.length;
+      let start = end - 1;
+
+      while (start >= 0 && /[0-9.]/.test(expression[start])) {
+        start -= 1;
+      }
+
+      return {
+        start: start + 1,
+        end
+      };
+    }
+
+    function inputValue(value) {
+      if (state.justEvaluated && /[0-9.]/.test(value)) {
+        state.expression = "";
+      }
+
+      state.justEvaluated = false;
+
+      if (value === ".") {
+        const range = getCurrentNumberRange();
+        const currentNumber = state.expression.slice(range.start, range.end);
+
+        if (currentNumber.includes(".")) {
+          updateDisplay();
+          return;
+        }
+
+        if (!currentNumber) {
+          state.expression += "0";
+        }
+      }
+
+      if (isOperator(value)) {
+        if (!state.expression) {
+          if (value === "-") {
+            state.expression = "-";
+          }
+
+          updateDisplay();
+          return;
+        }
+
+        const last = lastChar();
+
+        if (isOperator(last)) {
+          state.expression = state.expression.slice(0, -1) + value;
+          updateDisplay();
+          return;
+        }
+
+        if (last === "(" && value !== "-") {
+          updateDisplay();
+          return;
+        }
+      }
+
+      if (value === "%") {
+        if (!/[0-9)]/.test(lastChar())) {
+          updateDisplay();
+          return;
+        }
+      }
+
+      if (value === "00") {
+        const last = lastChar();
+
+        if (!last || isOperator(last) || last === "(") {
+          state.expression += "0";
+        } else {
+          state.expression += "00";
+        }
+
+        updateDisplay();
+        return;
+      }
+
+      state.expression += value;
+      updateDisplay();
+    }
+
+    function inputParen() {
+      if (state.justEvaluated) {
+        state.expression = "";
+        state.justEvaluated = false;
+      }
+
+      const openCount = (state.expression.match(/\(/g) || []).length;
+      const closeCount = (state.expression.match(/\)/g) || []).length;
+      const last = lastChar();
+
+      if (!state.expression || isOperator(last) || last === "(") {
+        state.expression += "(";
+      } else if (openCount > closeCount) {
+        state.expression += ")";
+      } else {
+        state.expression += "*(";
+      }
+
+      updateDisplay();
+    }
+
+    function clearAll() {
+      state.expression = "";
+      state.justEvaluated = false;
+      state.lastResult = 0;
+      updateDisplay();
+    }
+
+    function clearEntry() {
+      const range = getCurrentNumberRange();
+
+      if (range.start < range.end) {
+        state.expression = state.expression.slice(0, range.start) + state.expression.slice(range.end);
+      } else {
+        state.expression = "";
+      }
+
+      state.justEvaluated = false;
+      updateDisplay();
+    }
+
+    function backspace() {
+      if (state.justEvaluated) {
+        state.expression = "";
+        state.justEvaluated = false;
+      } else {
+        state.expression = state.expression.slice(0, -1);
+      }
+
+      updateDisplay();
+    }
+
+    function toggleSign() {
+      if (!state.expression) {
+        state.expression = "-";
+        updateDisplay();
+        return;
+      }
+
+      const range = getCurrentNumberRange();
+
+      if (range.start >= range.end) {
+        updateDisplay();
+        return;
+      }
+
+      const before = state.expression.slice(0, range.start);
+      const number = state.expression.slice(range.start, range.end);
+      const after = state.expression.slice(range.end);
+
+      if (before.endsWith("-") && (before.length === 1 || isOperator(before[before.length - 2]) || before[before.length - 2] === "(")) {
+        state.expression = before.slice(0, -1) + number + after;
+      } else {
+        state.expression = before + "-" + number + after;
+      }
+
+      updateDisplay();
+    }
+
+    function calculate() {
+      if (!state.expression) return;
+
+      try {
+        const value = evaluateExpression(state.expression);
+        const recordExpression = state.expression;
+        const recordResult = cleanNumber(value);
+
+        state.lastResult = value;
+        state.expression = recordResult;
+        state.justEvaluated = true;
+
+        addHistory(recordExpression, value);
+        $("expressionDisplay").textContent = displayExpression(recordExpression);
+        $("resultDisplay").textContent = formatNumber(value);
+        setStatus("계산 완료 · 결과를 이어서 계산할 수 있습니다.");
+      } catch (error) {
+        $("resultDisplay").textContent = "오류";
+        setStatus("계산식을 확인하세요. 0으로 나누기 또는 괄호 오류가 있을 수 있습니다.");
+      }
+    }
+
+    function getCurrentValue() {
+      if (!state.expression) return 0;
+
+      try {
+        return evaluateExpression(state.expression);
+      } catch (error) {
+        return state.lastResult || 0;
+      }
+    }
+
+    function memorySave() {
+      localStorage.setItem(MEMORY_KEY, String(state.memory));
+      updateDisplay();
+    }
+
+    function memoryClear() {
+      state.memory = 0;
+      memorySave();
+      setStatus("메모리를 초기화했습니다.");
+    }
+
+    function memoryRecall() {
+      const value = cleanNumber(state.memory);
+
+      if (state.justEvaluated) {
+        state.expression = "";
+        state.justEvaluated = false;
+      }
+
+      if (state.expression && /[0-9)]%?$/.test(state.expression)) {
+        state.expression += "*" + value;
+      } else {
+        state.expression += value;
+      }
+
+      updateDisplay();
+    }
+
+    function memoryAdd() {
+      state.memory += getCurrentValue();
+      memorySave();
+      setStatus(`메모리에 더했습니다. 현재 메모리 ${formatNumber(state.memory)}`);
+    }
+
+    function memorySubtract() {
+      state.memory -= getCurrentValue();
+      memorySave();
+      setStatus(`메모리에서 뺐습니다. 현재 메모리 ${formatNumber(state.memory)}`);
+    }
+
+    function copyText(text) {
+      if (!navigator.clipboard) {
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        textarea.remove();
+        return;
+      }
+
+      navigator.clipboard.writeText(text);
+    }
+
+    function copyCurrentResult() {
+      const value = getCurrentValue();
+      copyText(cleanNumber(value));
+      setStatus("현재 결과를 복사했습니다.");
+    }
+
+    function getHistory() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function saveHistory(history) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(history.slice(0, 12)));
+      renderHistory();
+    }
+
+    function addHistory(expression, result) {
+      const history = getHistory();
+      history.unshift({
+        expression,
+        result: cleanNumber(result),
+        time: new Date().toLocaleString("ko-KR", {
+          month:"2-digit",
+          day:"2-digit",
+          hour:"2-digit",
+          minute:"2-digit"
+        })
+      });
+
+      saveHistory(history);
+    }
+
+    function renderHistory() {
+      const history = getHistory();
+      const list = $("historyList");
+
+      if (!history.length) {
+        list.innerHTML = '<div class="empty">아직 계산 기록이 없습니다.</div>';
+        return;
+      }
+
+      list.innerHTML = history.map((item, index) => `
+        <button class="history-item" type="button" onclick="loadHistory(${index})">
+          <b>${formatNumber(Number(item.result))}</b>
+          <span>${displayExpression(item.expression)} = ${item.result} · ${item.time}</span>
+        </button>
+      `).join("");
+    }
+
+    function loadHistory(index) {
+      const history = getHistory();
+      const item = history[index];
+
+      if (!item) return;
+
+      state.expression = item.result;
+      state.justEvaluated = true;
+      state.lastResult = Number(item.result);
+      updateDisplay();
+      setStatus("선택한 기록을 계산기에 불러왔습니다.");
+    }
+
+    function clearHistory() {
+      localStorage.removeItem(STORAGE_KEY);
+      renderHistory();
+      setStatus("계산 기록을 삭제했습니다.");
+    }
+
+    function copyHistory() {
+      const history = getHistory();
+
+      if (!history.length) {
+        setStatus("복사할 계산 기록이 없습니다.");
+        return;
+      }
+
+      const text = history
+        .map((item) => `${displayExpression(item.expression)} = ${item.result}`)
+        .join("\n");
+
+      copyText(text);
+      setStatus("계산 기록을 복사했습니다.");
+    }
+
+    function updatePercentLabels() {
+      const mode = $("percentMode").value;
+      const bField = $("percentBField");
+
+      bField.style.display = ["toPercent", "toDecimal"].includes(mode) ? "none" : "block";
+
+      const labels = {
+        value:["기준 금액", "원", "퍼센트", "%"],
+        ratio:["부분 값", "", "전체 값", ""],
+        increase:["기준 값", "", "증가율", "%"],
+        decrease:["기준 값", "", "감소율", "%"],
+        change:["기존 값", "", "변경 값", ""],
+        toPercent:["소수 값", "", "", ""],
+        toDecimal:["퍼센트 값", "%", "", ""]
+      };
+
+      const selected = labels[mode];
+
+      $("percentALabel").textContent = selected[0];
+      $("percentAUnit").textContent = selected[1];
+      $("percentBLabel").textContent = selected[2];
+      $("percentBUnit").textContent = selected[3];
+
+      calculatePercent();
+    }
+
+    function calculatePercent() {
+      const mode = $("percentMode").value;
+      const a = Number($("percentA").value);
+      const b = Number($("percentB").value);
+      let result = 0;
+      let label = "계산 결과";
+
+      if (!Number.isFinite(a) || !Number.isFinite(b)) {
+        $("percentResult").textContent = "-";
+        return;
+      }
+
+      if (mode === "value") {
+        result = a * b / 100;
+        label = `${formatNumber(a)}의 ${formatNumber(b)}%`;
+      }
+
+      if (mode === "ratio") {
+        result = b === 0 ? NaN : a / b * 100;
+        label = `${formatNumber(a)}는 ${formatNumber(b)}의 몇 %`;
+      }
+
+      if (mode === "increase") {
+        result = a * (1 + b / 100);
+        label = `${formatNumber(a)}에서 ${formatNumber(b)}% 증가`;
+      }
+
+      if (mode === "decrease") {
+        result = a * (1 - b / 100);
+        label = `${formatNumber(a)}에서 ${formatNumber(b)}% 감소`;
+      }
+
+      if (mode === "change") {
+        result = a === 0 ? NaN : (b - a) / a * 100;
+        label = `${formatNumber(a)} → ${formatNumber(b)} 변화율`;
+      }
+
+      if (mode === "toPercent") {
+        result = a * 100;
+        label = "소수 → 퍼센트";
+      }
+
+      if (mode === "toDecimal") {
+        result = a / 100;
+        label = "퍼센트 → 소수";
+      }
+
+      state.lastPercentResult = result;
+
+      $("percentResultLabel").textContent = label;
+
+      if (!Number.isFinite(result)) {
+        $("percentResult").textContent = "계산 불가";
+        return;
+      }
+
+      if (["ratio", "change", "toPercent"].includes(mode)) {
+        $("percentResult").textContent = `${formatNumber(result)}%`;
+      } else {
+        $("percentResult").textContent = formatNumber(result);
+      }
+    }
+
+    function sendPercentToCalculator() {
+      if (!Number.isFinite(state.lastPercentResult)) return;
+
+      state.expression = cleanNumber(state.lastPercentResult);
+      state.justEvaluated = true;
+      state.lastResult = state.lastPercentResult;
+      updateDisplay();
+      setStatus("퍼센트 계산 결과를 계산기로 보냈습니다.");
+    }
+
+    function copyPercentResult() {
+      if (!Number.isFinite(state.lastPercentResult)) return;
+
+      copyText(cleanNumber(state.lastPercentResult));
+      setStatus("퍼센트 계산 결과를 복사했습니다.");
+    }
+
+    document.querySelectorAll("[data-value]").forEach((button) => {
+      button.addEventListener("click", () => inputValue(button.dataset.value));
+    });
+
+    document.querySelectorAll("[data-action]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const action = button.dataset.action;
+
+        if (action === "clear") clearAll();
+        if (action === "clearEntry") clearEntry();
+        if (action === "backspace") backspace();
+        if (action === "calculate") calculate();
+        if (action === "paren") inputParen();
+        if (action === "toggleSign") toggleSign();
+        if (action === "memoryClear") memoryClear();
+        if (action === "memoryRecall") memoryRecall();
+        if (action === "memoryAdd") memoryAdd();
+        if (action === "memorySubtract") memorySubtract();
+      });
+    });
+
+    document.addEventListener("keydown", (event) => {
+      const key = event.key;
+
+      if (/^[0-9]$/.test(key)) {
+        inputValue(key);
+        event.preventDefault();
+      }
+
+      if (key === ".") {
+        inputValue(".");
+        event.preventDefault();
+      }
+
+      if (["+", "-", "*", "/"].includes(key)) {
+        inputValue(key);
+        event.preventDefault();
+      }
+
+      if (key === "%") {
+        inputValue("%");
+        event.preventDefault();
+      }
+
+      if (key === "(" || key === ")") {
+        inputValue(key);
+        event.preventDefault();
+      }
+
+      if (key === "Enter" || key === "=") {
+        calculate();
+        event.preventDefault();
+      }
+
+      if (key === "Backspace") {
+        backspace();
+        event.preventDefault();
+      }
+
+      if (key === "Escape") {
+        clearAll();
+        event.preventDefault();
+      }
+    });
+
+    ["percentMode", "percentA", "percentB"].forEach((id) => {
+      $(id).addEventListener("input", updatePercentLabels);
+      $(id).addEventListener("change", updatePercentLabels);
+    });
+
+    updateDisplay();
+    renderHistory();
+    updatePercentLabels();
+  </script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'></script>
+  <!-- End Cloudflare Web Analytics -->
+</body>
+</html>
