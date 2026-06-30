@@ -1,0 +1,1701 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>고속도로 통행료 조회｜장거리 운전 전 비용 먼저 확인｜바로해결툴즈</title>
+  <meta name="description" content="출발 전 고속도로 통행료 공식 조회로 이동하고, 주행거리·차종·할인율을 입력해 예상 통행료와 왕복 비용, 유류비 포함 총 이동비를 계산합니다." />
+  <meta name="keywords" content="고속도로 통행료 조회, 통행료 계산기, 고속도로 요금 조회, 하이패스 통행료, 한국도로공사 통행요금조회, 장거리 운전 비용, 바로해결툴즈" />
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/highway-toll/" />
+  <meta name="theme-color" content="#eff6ff" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="고속도로 통행료 조회｜장거리 운전 비용 확인" />
+  <meta property="og:description" content="고속도로 통행료 공식 조회로 이동하고, 거리·차종·할인율 기준 예상 통행료와 왕복 비용을 계산합니다." />
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/highway-toll/" />
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"고속도로 통행료 조회",
+    "url":"https://barohaegyeol-tools.pages.dev/highway-toll/",
+    "applicationCategory":"FinanceApplication",
+    "operatingSystem":"All",
+    "description":"고속도로 통행료 공식 조회로 이동하고 주행거리, 차종, 할인율, 유류비를 기준으로 예상 장거리 운전 비용을 계산하는 무료 생활 도구입니다.",
+    "publisher":{
+      "@type":"Organization",
+      "name":"바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg1:#eff6ff;
+      --bg2:#ecfeff;
+      --bg3:#f0fdf4;
+      --text:#0f172a;
+      --sub:#334155;
+      --muted:#64748b;
+      --line:rgba(15,23,42,.10);
+      --white:rgba(255,255,255,.88);
+
+      --blue:#2563eb;
+      --sky:#38bdf8;
+      --cyan:#06b6d4;
+      --teal:#14b8a6;
+      --green:#22c55e;
+      --lime:#84cc16;
+      --yellow:#facc15;
+      --amber:#f59e0b;
+      --orange:#fb923c;
+      --red:#ef4444;
+      --purple:#7c3aed;
+      --navy:#0f172a;
+
+      --shadow:0 24px 70px rgba(37,99,235,.15);
+      --shadow2:0 14px 34px rgba(15,23,42,.08);
+      --radius:28px;
+      --max:1180px;
+    }
+
+    * {
+      box-sizing:border-box;
+    }
+
+    html {
+      scroll-behavior:smooth;
+    }
+
+    body {
+      margin:0;
+      min-height:100vh;
+      color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;
+      line-height:1.65;
+      background:
+        radial-gradient(circle at 10% 8%, rgba(37,99,235,.21), transparent 25%),
+        radial-gradient(circle at 88% 10%, rgba(34,197,94,.18), transparent 24%),
+        radial-gradient(circle at 84% 88%, rgba(56,189,248,.13), transparent 25%),
+        linear-gradient(135deg,var(--bg1) 0%, var(--bg2) 48%, var(--bg3) 100%);
+      overflow-x:hidden;
+    }
+
+    body::before {
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.17;
+      background-image:
+        radial-gradient(circle, rgba(37,99,235,.24) 1px, transparent 1.2px),
+        radial-gradient(circle, rgba(34,197,94,.18) 1px, transparent 1.2px);
+      background-size:32px 32px, 76px 76px;
+      background-position:0 0, 22px 26px;
+      mask-image:linear-gradient(to bottom,#000 0%,#000 68%,transparent 100%);
+    }
+
+    a {
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button,
+    input,
+    select {
+      font:inherit;
+    }
+
+    button {
+      cursor:pointer;
+    }
+
+    .wrap {
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+    }
+
+    .topbar {
+      position:sticky;
+      top:0;
+      z-index:50;
+      border-bottom:1px solid rgba(15,23,42,.07);
+      background:rgba(239,246,255,.78);
+      backdrop-filter:blur(18px);
+    }
+
+    .nav {
+      min-height:68px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:950;
+      letter-spacing:-.045em;
+    }
+
+    .brand-mark {
+      width:42px;
+      height:42px;
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      background:conic-gradient(from 150deg,#2563eb,#38bdf8,#22c55e,#facc15,#0f172a,#2563eb);
+      box-shadow:0 16px 36px rgba(37,99,235,.26);
+      font-weight:950;
+    }
+
+    .brand small {
+      display:block;
+      margin-top:1px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:-.02em;
+    }
+
+    .nav-links {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      white-space:nowrap;
+    }
+
+    .nav-links a {
+      padding:9px 13px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.78);
+      color:#26364a;
+      font-size:14px;
+      font-weight:850;
+      box-shadow:var(--shadow2);
+    }
+
+    .hero {
+      padding:58px 0 28px;
+    }
+
+    .hero-grid {
+      display:grid;
+      grid-template-columns:1.02fr .98fr;
+      align-items:center;
+      gap:32px;
+    }
+
+    .chips {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:16px;
+    }
+
+    .chip {
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.82);
+      color:#334155;
+      font-size:13px;
+      font-weight:900;
+      box-shadow:var(--shadow2);
+    }
+
+    .chip.hot {
+      color:#1d4ed8;
+      background:linear-gradient(135deg,rgba(219,234,254,.98),rgba(255,255,255,.92));
+    }
+
+    h1 {
+      margin:0;
+      max-width:780px;
+      font-size:clamp(38px,6.1vw,74px);
+      line-height:1.04;
+      letter-spacing:-.078em;
+    }
+
+    .gradient {
+      color:transparent;
+      background:linear-gradient(90deg,#2563eb 0%, #14b8a6 48%, #facc15 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+    }
+
+    .lead {
+      margin:20px 0 0;
+      max-width:700px;
+      color:#34465c;
+      font-size:clamp(16px,2vw,19px);
+      line-height:1.82;
+      letter-spacing:-.015em;
+      word-break:keep-all;
+    }
+
+    .lead strong {
+      color:#1d4ed8;
+      font-weight:950;
+    }
+
+    .hero-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:26px;
+    }
+
+    .btn {
+      min-height:50px;
+      padding:13px 18px;
+      border-radius:17px;
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      gap:8px;
+      border:1px solid transparent;
+      font-weight:950;
+      letter-spacing:-.025em;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+
+    .btn:hover {
+      transform:translateY(-2px);
+    }
+
+    .btn-primary {
+      color:#fff;
+      background:linear-gradient(135deg,#2563eb,#14b8a6,#facc15);
+      box-shadow:0 16px 38px rgba(37,99,235,.24);
+    }
+
+    .btn-ghost {
+      color:#122033;
+      background:rgba(255,255,255,.82);
+      border-color:rgba(15,23,42,.08);
+    }
+
+    .visual {
+      position:relative;
+      min-height:426px;
+      border-radius:40px;
+      border:1px solid rgba(15,23,42,.08);
+      background:
+        radial-gradient(circle at 78% 15%, rgba(250,204,21,.23), transparent 22%),
+        radial-gradient(circle at 17% 86%, rgba(37,99,235,.17), transparent 23%),
+        linear-gradient(145deg,rgba(255,255,255,.96),rgba(239,246,255,.82));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      padding:26px;
+    }
+
+    .visual-panel {
+      position:absolute;
+      left:26px;
+      right:26px;
+      top:26px;
+      height:188px;
+      border-radius:30px;
+      background:
+        linear-gradient(rgba(15,23,42,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,23,42,.045) 1px, transparent 1px),
+        linear-gradient(180deg,rgba(255,255,255,.96),rgba(239,246,255,.94));
+      background-size:38px 38px,38px 38px,auto;
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      overflow:hidden;
+    }
+
+    .highway {
+      position:absolute;
+      left:28px;
+      right:28px;
+      bottom:26px;
+      height:66px;
+      border-radius:999px;
+      background:linear-gradient(90deg,#0f172a,#334155,#2563eb);
+      overflow:hidden;
+      opacity:.96;
+    }
+
+    .highway::before {
+      content:"";
+      position:absolute;
+      left:24px;
+      right:24px;
+      top:30px;
+      height:5px;
+      border-radius:999px;
+      background:repeating-linear-gradient(90deg,#facc15 0 28px,transparent 28px 52px);
+    }
+
+    .tollgate {
+      position:absolute;
+      left:42px;
+      top:40px;
+      width:238px;
+      height:148px;
+      border-radius:26px;
+      background:#fff;
+      border:3px solid #2563eb;
+      box-shadow:0 18px 34px rgba(15,23,42,.12);
+      overflow:hidden;
+    }
+
+    .gate-roof {
+      position:absolute;
+      left:22px;
+      right:22px;
+      top:22px;
+      height:34px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#2563eb,#14b8a6);
+    }
+
+    .gate-pillars {
+      position:absolute;
+      left:34px;
+      right:34px;
+      top:62px;
+      bottom:0;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:12px;
+    }
+
+    .gate-pillars span {
+      border-radius:12px 12px 0 0;
+      background:linear-gradient(180deg,#dbeafe,#ecfeff);
+      border:3px solid #1d4ed8;
+      border-bottom:0;
+    }
+
+    .sign-card {
+      position:absolute;
+      right:40px;
+      top:42px;
+      width:156px;
+      height:156px;
+      border-radius:34px;
+      background:#fff;
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:0 22px 48px rgba(15,23,42,.15);
+      display:grid;
+      place-items:center;
+    }
+
+    .sign-board {
+      width:108px;
+      height:78px;
+      border-radius:20px;
+      background:linear-gradient(135deg,#0f172a,#2563eb);
+      color:#fff;
+      display:grid;
+      place-items:center;
+      font-size:22px;
+      font-weight:950;
+      letter-spacing:-.05em;
+      box-shadow:0 18px 34px rgba(37,99,235,.18);
+    }
+
+    .sign-pole {
+      width:18px;
+      height:42px;
+      margin:-14px auto 0;
+      border-radius:999px;
+      background:#334155;
+    }
+
+    .car-mini {
+      position:absolute;
+      left:142px;
+      bottom:34px;
+      width:82px;
+      height:42px;
+      border-radius:22px 24px 13px 13px;
+      background:#facc15;
+      border:3px solid #78350f;
+      box-shadow:0 12px 24px rgba(15,23,42,.12);
+    }
+
+    .car-mini::before {
+      content:"";
+      position:absolute;
+      left:21px;
+      top:-19px;
+      width:40px;
+      height:25px;
+      border-radius:18px 18px 5px 5px;
+      background:#bae6fd;
+      border:3px solid #78350f;
+    }
+
+    .car-mini::after {
+      content:"";
+      position:absolute;
+      left:8px;
+      right:8px;
+      bottom:-10px;
+      height:16px;
+      background:
+        radial-gradient(circle at 11px 8px,#0f172a 0 7px,transparent 8px),
+        radial-gradient(circle at calc(100% - 11px) 8px,#0f172a 0 7px,transparent 8px);
+    }
+
+    .result-ticket {
+      position:absolute;
+      left:28px;
+      bottom:26px;
+      width:292px;
+      padding:19px;
+      border-radius:26px;
+      background:linear-gradient(135deg,#fff,#eff6ff);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .result-ticket span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .result-ticket strong {
+      display:block;
+      margin-top:7px;
+      color:#1d4ed8;
+      font-size:34px;
+      line-height:1;
+      letter-spacing:-.05em;
+    }
+
+    .raccoon-card {
+      position:absolute;
+      right:28px;
+      bottom:26px;
+      width:174px;
+      height:174px;
+      border-radius:38px;
+      border:1px solid rgba(15,23,42,.08);
+      background:linear-gradient(145deg,#fff,#dcfce7);
+      box-shadow:var(--shadow2);
+    }
+
+    .raccoon-head {
+      position:absolute;
+      left:36px;
+      top:52px;
+      width:102px;
+      height:88px;
+      border-radius:46px 46px 38px 38px;
+      background:#94a3b8;
+      border:4px solid #334155;
+    }
+
+    .raccoon-ear {
+      position:absolute;
+      top:-20px;
+      width:35px;
+      height:35px;
+      background:#94a3b8;
+      border-left:4px solid #334155;
+      border-top:4px solid #334155;
+      border-radius:9px;
+      transform:rotate(45deg);
+      z-index:-1;
+    }
+
+    .raccoon-ear.left { left:12px; }
+    .raccoon-ear.right { right:12px; }
+
+    .mask {
+      position:absolute;
+      left:17px;
+      right:17px;
+      top:29px;
+      height:27px;
+      border-radius:999px;
+      background:#0f172a;
+    }
+
+    .raccoon-eye {
+      position:absolute;
+      top:36px;
+      width:9px;
+      height:12px;
+      border-radius:999px;
+      background:#fff;
+      z-index:2;
+    }
+
+    .raccoon-eye.left { left:31px; }
+    .raccoon-eye.right { right:31px; }
+
+    .raccoon-nose {
+      position:absolute;
+      left:50%;
+      top:57px;
+      width:17px;
+      height:12px;
+      border-radius:999px;
+      background:#111827;
+      transform:translateX(-50%);
+      z-index:3;
+    }
+
+    .raccoon-smile {
+      position:absolute;
+      left:50%;
+      top:70px;
+      width:30px;
+      height:14px;
+      border-bottom:3px solid #22c55e;
+      border-radius:0 0 999px 999px;
+      transform:translateX(-50%);
+      z-index:3;
+    }
+
+    .hipass-mini {
+      position:absolute;
+      left:15px;
+      bottom:16px;
+      width:58px;
+      height:46px;
+      border-radius:13px;
+      background:linear-gradient(135deg,#2563eb,#14b8a6);
+      border:3px solid #0f172a;
+      transform:rotate(-8deg);
+    }
+
+    .hipass-mini::before,
+    .hipass-mini::after {
+      content:"";
+      position:absolute;
+      left:10px;
+      right:10px;
+      height:5px;
+      border-radius:999px;
+      background:#fff;
+    }
+
+    .hipass-mini::before { top:13px; }
+    .hipass-mini::after { top:25px; width:24px; }
+
+    .badge-mini {
+      position:absolute;
+      right:14px;
+      top:14px;
+      padding:8px 10px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#dbeafe,#dcfce7);
+      color:#1d4ed8;
+      font-size:12px;
+      font-weight:950;
+      box-shadow:var(--shadow2);
+      z-index:5;
+    }
+
+    .section {
+      padding:22px 0;
+    }
+
+    .tool-grid {
+      display:grid;
+      grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);
+      gap:22px;
+      align-items:start;
+    }
+
+    .panel {
+      padding:24px;
+      border-radius:var(--radius);
+      border:1px solid rgba(15,23,42,.08);
+      background:var(--white);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);
+    }
+
+    .panel h2 {
+      margin:0 0 12px;
+      font-size:27px;
+      line-height:1.2;
+      letter-spacing:-.052em;
+    }
+
+    .desc {
+      margin:-4px 0 18px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    .form {
+      display:grid;
+      gap:14px;
+    }
+
+    .field label {
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom:8px;
+      color:#122033;
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .field small {
+      color:var(--muted);
+      font-weight:750;
+    }
+
+    .input-wrap {
+      position:relative;
+    }
+
+    input,
+    select {
+      width:100%;
+      min-height:54px;
+      padding:14px 54px 14px 15px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.10);
+      background:rgba(255,255,255,.94);
+      color:#122033;
+      font-size:16px;
+      font-weight:850;
+      outline:none;
+      transition:.16s ease;
+    }
+
+    select {
+      padding-right:15px;
+      appearance:none;
+      cursor:pointer;
+    }
+
+    input:focus,
+    select:focus {
+      border-color:rgba(37,99,235,.50);
+      box-shadow:0 0 0 4px rgba(37,99,235,.12);
+    }
+
+    .unit {
+      position:absolute;
+      top:50%;
+      right:15px;
+      transform:translateY(-50%);
+      color:var(--muted);
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .row {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .preset {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .preset button {
+      padding:8px 11px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:#fff;
+      color:#334155;
+      font-size:12px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .calc-btn {
+      width:100%;
+      min-height:58px;
+      margin-top:6px;
+      border:0;
+      border-radius:18px;
+      color:#fff;
+      background:linear-gradient(135deg,#2563eb,#14b8a6,#facc15);
+      font-size:17px;
+      font-weight:950;
+      cursor:pointer;
+      box-shadow:0 16px 34px rgba(37,99,235,.24);
+    }
+
+    .reset-btn {
+      width:100%;
+      min-height:48px;
+      margin-top:10px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.86);
+      color:#122033;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .notice {
+      margin-top:12px;
+      padding:13px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(15,23,42,.08);
+      color:#526173;
+      font-size:13px;
+      line-height:1.75;
+      font-weight:760;
+      word-break:keep-all;
+    }
+
+    .warning {
+      border-color:rgba(245,158,11,.25);
+      background:rgba(255,251,235,.82);
+      color:#92400e;
+    }
+
+    .official-box {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding:15px;
+      border-radius:18px;
+      background:linear-gradient(135deg,#0f172a,#1e293b);
+      color:#fff;
+      margin-top:14px;
+    }
+
+    .official-box strong {
+      display:block;
+      font-size:15px;
+      letter-spacing:-.02em;
+    }
+
+    .official-box span {
+      display:block;
+      margin-top:3px;
+      color:#cbd5e1;
+      font-size:12px;
+      line-height:1.55;
+      font-weight:760;
+    }
+
+    .official-box a {
+      flex:0 0 auto;
+      padding:10px 12px;
+      border-radius:14px;
+      background:#fff;
+      color:#0f172a;
+      font-size:13px;
+      font-weight:950;
+    }
+
+    .result-box {
+      display:grid;
+      gap:14px;
+    }
+
+    .result-main {
+      padding:24px;
+      border-radius:26px;
+      color:#122033;
+      background:
+        radial-gradient(circle at 84% 18%, rgba(255,255,255,.42), transparent 26%),
+        linear-gradient(135deg,#bfdbfe,#99f6e4 54%,#fef08a);
+      box-shadow:var(--shadow2);
+    }
+
+    .result-main span {
+      display:block;
+      font-size:14px;
+      opacity:.82;
+      font-weight:900;
+    }
+
+    .result-main strong {
+      display:block;
+      margin-top:8px;
+      font-size:clamp(36px,5vw,58px);
+      line-height:1;
+      letter-spacing:-.06em;
+    }
+
+    .result-main em {
+      display:block;
+      margin-top:10px;
+      font-size:14px;
+      line-height:1.75;
+      font-style:normal;
+      font-weight:850;
+      opacity:.88;
+      word-break:keep-all;
+    }
+
+    .result-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .metric {
+      padding:18px;
+      border-radius:20px;
+      background:rgba(255,255,255,.84);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .metric span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .metric strong {
+      display:block;
+      margin-top:7px;
+      color:#122033;
+      font-size:24px;
+      letter-spacing:-.045em;
+    }
+
+    .metric.full {
+      grid-column:1/-1;
+    }
+
+    .good {
+      color:#0f766e !important;
+    }
+
+    .warn {
+      color:#d97706 !important;
+    }
+
+    .bad {
+      color:#e11d48 !important;
+    }
+
+    .guide-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .guide {
+      padding:20px;
+      border-radius:22px;
+      background:rgba(255,255,255,.80);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .guide b {
+      display:block;
+      margin-bottom:8px;
+      font-size:17px;
+      letter-spacing:-.03em;
+    }
+
+    .guide p {
+      margin:0;
+      color:#526173;
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    .related-grid {
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .related-card {
+      padding:16px;
+      border-radius:20px;
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      font-weight:900;
+      color:#24415f;
+      line-height:1.45;
+    }
+
+    footer {
+      padding:44px 0 54px;
+      color:var(--muted);
+      text-align:center;
+      font-size:13px;
+    }
+
+    @media (max-width:920px) {
+      .hero-grid,
+      .tool-grid {
+        grid-template-columns:1fr;
+      }
+
+      .hero {
+        padding-top:42px;
+      }
+    }
+
+    @media (max-width:720px) {
+      .related-grid {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+
+      .official-box {
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      .official-box a {
+        width:100%;
+        text-align:center;
+      }
+    }
+
+    @media (max-width:640px) {
+      .nav {
+        align-items:flex-start;
+        flex-direction:column;
+        padding:12px 0;
+      }
+
+      .nav-links {
+        width:100%;
+        overflow-x:auto;
+        padding-bottom:4px;
+      }
+
+      .hero-actions {
+        display:grid;
+      }
+
+      .btn {
+        width:100%;
+      }
+
+      .row,
+      .result-grid,
+      .guide-grid,
+      .related-grid {
+        grid-template-columns:1fr;
+      }
+
+      .visual {
+        min-height:374px;
+      }
+
+      .tollgate {
+        left:24px;
+        width:172px;
+      }
+
+      .gate-pillars {
+        left:22px;
+        right:22px;
+        gap:7px;
+      }
+
+      .sign-card {
+        right:24px;
+        width:122px;
+        height:138px;
+      }
+
+      .sign-board {
+        width:86px;
+        height:62px;
+        font-size:18px;
+      }
+
+      .result-ticket {
+        width:220px;
+      }
+
+      .raccoon-card {
+        width:138px;
+        height:138px;
+        right:18px;
+      }
+
+      .raccoon-head {
+        left:24px;
+        top:48px;
+        width:90px;
+        height:76px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="../" aria-label="바로해결툴즈 메인으로 이동">
+        <div class="brand-mark">B</div>
+        <div>
+          바로해결툴즈
+          <small>통행료 조회 · 장거리 비용 · 바로 확인</small>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="주요 도구">
+        <a href="../">전체 도구</a>
+        <a href="../car-tax/">자동차세</a>
+        <a href="../travel-budget/">여행경비</a>
+        <a href="../loan-interest/">대출이자</a>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="chips">
+            <span class="chip hot">🛣️ 통행료 조회</span>
+            <span class="chip">공식 조회 연결</span>
+            <span class="chip">왕복 비용 계산</span>
+          </div>
+
+          <h1>
+            장거리 운전 전<br>
+            <span class="gradient">통행료부터 확인하세요</span>
+          </h1>
+
+          <p class="lead">
+            고속도로 통행료는 출발·도착 영업소와 차종에 따라 달라집니다.
+            <strong>공식 통행요금조회로 실제 요금을 확인하고,</strong>
+            여기서는 주행거리·차종·할인율을 넣어 왕복 통행료와 유류비 포함 이동비를 빠르게 계산하세요.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#calculator">예상 비용 계산하기</a>
+            <a class="btn btn-ghost" href="https://www.ex.co.kr/" target="_blank" rel="noopener">한국도로공사 열기</a>
+          </div>
+        </div>
+
+        <div class="visual" aria-label="고속도로 통행료 조회 예시">
+          <div class="visual-panel">
+            <div class="highway"></div>
+
+            <div class="tollgate">
+              <div class="gate-roof"></div>
+              <div class="gate-pillars">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <div class="car-mini"></div>
+            </div>
+
+            <div class="sign-card">
+              <div>
+                <div class="sign-board">TOLL</div>
+                <div class="sign-pole"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="result-ticket">
+            <span>예상 왕복 통행료</span>
+            <strong id="visualToll">약 20,000원</strong>
+          </div>
+
+          <div class="raccoon-card" aria-hidden="true">
+            <div class="badge-mini">HI-PASS</div>
+            <div class="raccoon-head">
+              <div class="raccoon-ear left"></div>
+              <div class="raccoon-ear right"></div>
+              <div class="mask"></div>
+              <div class="raccoon-eye left"></div>
+              <div class="raccoon-eye right"></div>
+              <div class="raccoon-nose"></div>
+              <div class="raccoon-smile"></div>
+            </div>
+            <div class="hipass-mini"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="calculator">
+      <div class="wrap tool-grid">
+        <div class="panel">
+          <h2>고속도로 통행료 예상 계산기</h2>
+          <p class="desc">
+            공식 조회에서 확인한 편도 통행료를 입력하면 가장 정확합니다.
+            아직 모르면 거리·차종·기본요금·km당 단가로 간편 예상액을 계산하세요.
+          </p>
+
+          <form class="form" onsubmit="event.preventDefault(); calculateToll();">
+            <div class="row">
+              <div class="field">
+                <label for="calcMode">
+                  계산 방식
+                  <small>공식요금 입력 권장</small>
+                </label>
+                <div class="input-wrap">
+                  <select id="calcMode">
+                    <option value="official">공식 조회 요금 직접 입력</option>
+                    <option value="estimate">거리 기준 간편 예상</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="oneWayOfficialToll">
+                  공식 조회 편도 통행료
+                  <small>알면 가장 정확</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="oneWayOfficialToll" type="number" min="0" step="100" value="10000" placeholder="예: 10000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="distanceKm">
+                  편도 주행거리
+                  <small>대략 거리</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="distanceKm" type="number" min="0" step="1" value="180" placeholder="예: 180">
+                  <span class="unit">km</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="vehicleClass">
+                  차종
+                  <small>간편 배율</small>
+                </label>
+                <div class="input-wrap">
+                  <select id="vehicleClass">
+                    <option value="compact">경차 · 50% 적용</option>
+                    <option value="class1" selected>1종 승용차·소형차</option>
+                    <option value="class2">2종 중형차</option>
+                    <option value="class3">3종 대형차</option>
+                    <option value="class4">4종 대형화물</option>
+                    <option value="class5">5종 특수화물</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="baseFee">
+                  기본요금
+                  <small>예상 계산용</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="baseFee" type="number" min="0" step="100" value="1000" placeholder="예: 1000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="perKmRate">
+                  km당 예상 단가
+                  <small>직접 조정</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="perKmRate" type="number" min="0" step="1" value="50" placeholder="예: 50">
+                  <span class="unit">원/km</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="tripType">
+                  이동 방식
+                  <small>편도·왕복</small>
+                </label>
+                <div class="input-wrap">
+                  <select id="tripType">
+                    <option value="oneway">편도</option>
+                    <option value="round" selected>왕복</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="discountRate">
+                  할인율
+                  <small>경차 외 추가 할인</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="discountRate" type="number" min="0" max="100" step="0.1" value="0" placeholder="예: 10">
+                  <span class="unit">%</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="fuelEfficiency">
+                  차량 연비
+                  <small>유류비 계산용</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="fuelEfficiency" type="number" min="1" step="0.1" value="12" placeholder="예: 12">
+                  <span class="unit">km/L</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="fuelPrice">
+                  유류 단가
+                  <small>원/L</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="fuelPrice" type="number" min="0" step="10" value="1650" placeholder="예: 1650">
+                  <span class="unit">원/L</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="preset">
+              <button type="button" onclick="fillExample('seoulBusan')">서울→부산 예시</button>
+              <button type="button" onclick="fillExample('seoulGangneung')">서울→강릉 예시</button>
+              <button type="button" onclick="fillExample('shortTrip')">근교 왕복</button>
+              <button type="button" onclick="fillExample('compactCar')">경차 할인</button>
+              <button type="button" onclick="fillExample('truck')">화물차 예시</button>
+            </div>
+
+            <button class="calc-btn" type="submit">통행료 계산하기</button>
+            <button class="reset-btn" type="button" onclick="resetForm()">입력값 초기화</button>
+          </form>
+
+          <div class="official-box">
+            <div>
+              <strong>한국도로공사 통행요금조회 확인</strong>
+              <span>실제 통행료는 출발·도착 영업소, 경로, 차종, 할인 조건에 따라 달라집니다.</span>
+            </div>
+            <a href="https://www.ex.co.kr/" target="_blank" rel="noopener">공식 사이트 열기</a>
+          </div>
+
+          <div class="notice warning">
+            이 계산기는 장거리 운전 비용을 빠르게 가늠하는 참고용입니다. 실제 고속도로 통행료는 한국도로공사 통행요금조회,
+            민자고속도로, 하이패스 할인, 경차·화물차·시간대 할인, 우회 경로에 따라 달라질 수 있습니다.
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>계산 결과</h2>
+          <p class="desc">
+            편도 통행료, 왕복 통행료, 유류비, 총 이동비를 나눠 확인하세요.
+          </p>
+
+          <div class="result-box">
+            <div class="result-main">
+              <span id="mainLabel">예상 총 이동비</span>
+              <strong id="totalTripCost">-</strong>
+              <em id="summaryText">값을 입력하고 계산 버튼을 눌러주세요.</em>
+            </div>
+
+            <div class="result-grid">
+              <div class="metric">
+                <span>편도 통행료</span>
+                <strong id="oneWayToll">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>왕복 통행료</span>
+                <strong id="roundTripToll">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>할인 전 통행료</span>
+                <strong id="beforeDiscountToll">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>할인액</span>
+                <strong id="discountAmount" class="good">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>예상 유류비</span>
+                <strong id="fuelCost">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>예상 사용 연료</span>
+                <strong id="fuelLiters">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>총 주행거리</span>
+                <strong id="totalDistance">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>1km당 총비용</span>
+                <strong id="costPerKm">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>차종 배율</span>
+                <strong id="vehicleMultiplierText">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>계산 방식</span>
+                <strong id="calcModeText">-</strong>
+              </div>
+
+              <div class="metric full">
+                <span>점검 포인트</span>
+                <strong id="checkPoint">-</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice">
+            통행료만 보면 실제 이동비를 과소평가하기 쉽습니다. 장거리 운전은 통행료와 유류비를 같이 봐야 실제 부담액이 보입니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="guide">
+      <div class="wrap">
+        <div class="panel">
+          <h2>고속도로 통행료 확인 기준</h2>
+
+          <div class="guide-grid">
+            <div class="guide">
+              <b>공식 조회 우선</b>
+              <p>
+                실제 통행료는 출발 영업소, 도착 영업소, 경로, 차종에 따라 달라집니다.
+                정확한 금액은 한국도로공사 통행요금조회에서 먼저 확인하는 것이 안전합니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>민자도로 변수</b>
+              <p>
+                일부 구간은 민자고속도로가 포함될 수 있습니다.
+                같은 목적지라도 경로 선택에 따라 통행료가 달라질 수 있습니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>총 이동비 확인</b>
+              <p>
+                여행·출장 예산은 통행료만 보면 부족합니다.
+                왕복 여부, 유류비, 연비, 주차비까지 함께 봐야 실제 비용에 가깝습니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="notice warning">
+            이 도구는 공식 실시간 요금 데이터를 직접 불러오는 방식이 아닙니다.
+            공식 조회 결과를 직접 입력하거나 거리 기준으로 간편 예상하는 도구입니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="panel">
+          <h2>같이 보면 좋은 도구</h2>
+          <p class="desc">
+            장거리 이동 비용을 확인했다면 자동차세, 여행경비, 대출이자 계산도 함께 확인해보세요.
+          </p>
+
+          <div class="related-grid">
+            <a class="related-card" href="../">전체 도구 보기</a>
+            <a class="related-card" href="../car-tax/">자동차세 계산기</a>
+            <a class="related-card" href="../travel-budget/">여행경비 계산기</a>
+            <a class="related-card" href="../loan-interest/">대출이자 계산기</a>
+          </div>
+
+          <div class="notice">
+            예정 도구: 도시가스 요금 계산기, 택시비 계산기, 부가세 계산기, 건강보험료 계산기.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 바로해결툴즈 · 고속도로 통행료 계산 결과는 참고용입니다. 실제 통행료는 한국도로공사 공식 통행요금조회 기준을 확인하세요.
+  </footer>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    function num(id) {
+      const value = Number($(id).value);
+      return Number.isFinite(value) ? value : 0;
+    }
+
+    function setText(id, value) {
+      $(id).textContent = value;
+    }
+
+    function won(value) {
+      if (!Number.isFinite(value)) return "-";
+      return `${Math.round(value).toLocaleString("ko-KR")}원`;
+    }
+
+    function shortWon(value) {
+      if (!Number.isFinite(value)) return "-";
+
+      const rounded = Math.round(Math.abs(value));
+
+      if (rounded >= 100000000) {
+        return `약 ${(rounded / 100000000).toFixed(1)}억`;
+      }
+
+      if (rounded >= 10000) {
+        return `약 ${Math.round(rounded / 10000).toLocaleString("ko-KR")}만원`;
+      }
+
+      return `약 ${rounded.toLocaleString("ko-KR")}원`;
+    }
+
+    function kmText(value) {
+      if (!Number.isFinite(value)) return "-";
+      return `${value.toLocaleString("ko-KR", {
+        maximumFractionDigits: 1,
+        minimumFractionDigits: 0
+      })}km`;
+    }
+
+    function literText(value) {
+      if (!Number.isFinite(value)) return "-";
+      return `${value.toLocaleString("ko-KR", {
+        maximumFractionDigits: 1,
+        minimumFractionDigits: 0
+      })}L`;
+    }
+
+    function getMultiplier() {
+      const vehicleClass = $("vehicleClass").value;
+
+      const data = {
+        compact:0.5,
+        class1:1,
+        class2:1.08,
+        class3:1.15,
+        class4:1.65,
+        class5:2.05
+      };
+
+      return data[vehicleClass] || 1;
+    }
+
+    function getVehicleLabel() {
+      const vehicleClass = $("vehicleClass").value;
+
+      const data = {
+        compact:"경차",
+        class1:"1종 승용차·소형차",
+        class2:"2종 중형차",
+        class3:"3종 대형차",
+        class4:"4종 대형화물",
+        class5:"5종 특수화물"
+      };
+
+      return data[vehicleClass] || "1종 승용차·소형차";
+    }
+
+    function getModeLabel() {
+      return $("calcMode").value === "official" ? "공식요금 직접입력" : "거리 기준 예상";
+    }
+
+    function calculateToll() {
+      const calcMode = $("calcMode").value;
+      const officialToll = num("oneWayOfficialToll");
+      const distanceKm = num("distanceKm");
+      const baseFee = num("baseFee");
+      const perKmRate = num("perKmRate");
+      const multiplier = getMultiplier();
+      const tripCount = $("tripType").value === "round" ? 2 : 1;
+      const discountRate = Math.min(Math.max(num("discountRate"), 0), 100);
+      const fuelEfficiency = Math.max(num("fuelEfficiency"), 1);
+      const fuelPrice = num("fuelPrice");
+
+      let oneWayBeforeDiscount = 0;
+
+      if (calcMode === "official") {
+        oneWayBeforeDiscount = officialToll;
+      } else {
+        oneWayBeforeDiscount = (baseFee + distanceKm * perKmRate) * multiplier;
+      }
+
+      const oneWayDiscount = oneWayBeforeDiscount * (discountRate / 100);
+      const oneWayToll = Math.max(oneWayBeforeDiscount - oneWayDiscount, 0);
+
+      const beforeDiscountToll = oneWayBeforeDiscount * tripCount;
+      const discountAmount = oneWayDiscount * tripCount;
+      const totalToll = oneWayToll * tripCount;
+
+      const totalDistance = distanceKm * tripCount;
+      const fuelLiters = totalDistance / fuelEfficiency;
+      const fuelCost = fuelLiters * fuelPrice;
+      const totalTripCost = totalToll + fuelCost;
+      const costPerKm = totalDistance > 0 ? totalTripCost / totalDistance : 0;
+
+      setText("totalTripCost", won(totalTripCost));
+      setText("oneWayToll", won(oneWayToll));
+      setText("roundTripToll", won(totalToll));
+      setText("beforeDiscountToll", won(beforeDiscountToll));
+      setText("discountAmount", discountAmount > 0 ? `-${won(discountAmount)}` : "0원");
+      setText("fuelCost", won(fuelCost));
+      setText("fuelLiters", literText(fuelLiters));
+      setText("totalDistance", kmText(totalDistance));
+      setText("costPerKm", `${won(costPerKm)}/km`);
+      setText("vehicleMultiplierText", `${getVehicleLabel()} × ${multiplier}`);
+      setText("calcModeText", getModeLabel());
+      setText("visualToll", shortWon(totalToll));
+
+      let checkPoint = "";
+
+      if (calcMode === "official") {
+        checkPoint = "공식 조회 편도 통행료를 직접 입력했으므로 통행료 계산 신뢰도가 높습니다. 다만 민자구간, 할인 조건, 경로 변경은 다시 확인하세요.";
+      } else {
+        checkPoint = "거리 기준 예상 계산입니다. 실제 통행료는 영업소 조합과 경로에 따라 달라지므로 출발 전 공식 통행요금조회에서 한 번 더 확인하세요.";
+      }
+
+      if (fuelCost > totalToll) {
+        checkPoint += " 이번 이동은 통행료보다 유류비 부담이 더 큽니다.";
+      } else {
+        checkPoint += " 이번 이동은 통행료 비중도 무시하기 어렵습니다.";
+      }
+
+      setText("checkPoint", checkPoint);
+
+      const tripText = tripCount === 2 ? "왕복" : "편도";
+      const summary = `${getVehicleLabel()} 기준 ${tripText} 총 주행거리 ${kmText(totalDistance)}입니다. 예상 통행료는 ${won(totalToll)}, 예상 유류비는 ${won(fuelCost)}이며, 총 이동비는 약 ${won(totalTripCost)}입니다.`;
+
+      setText("summaryText", summary);
+    }
+
+    function fillExample(type) {
+      $("discountRate").value = "0";
+      $("fuelEfficiency").value = "12";
+      $("fuelPrice").value = "1650";
+      $("tripType").value = "round";
+      $("vehicleClass").value = "class1";
+
+      if (type === "seoulBusan") {
+        $("calcMode").value = "estimate";
+        $("oneWayOfficialToll").value = "0";
+        $("distanceKm").value = "400";
+        $("baseFee").value = "1000";
+        $("perKmRate").value = "55";
+      }
+
+      if (type === "seoulGangneung") {
+        $("calcMode").value = "estimate";
+        $("oneWayOfficialToll").value = "0";
+        $("distanceKm").value = "230";
+        $("baseFee").value = "1000";
+        $("perKmRate").value = "52";
+      }
+
+      if (type === "shortTrip") {
+        $("calcMode").value = "estimate";
+        $("oneWayOfficialToll").value = "0";
+        $("distanceKm").value = "65";
+        $("baseFee").value = "1000";
+        $("perKmRate").value = "48";
+      }
+
+      if (type === "compactCar") {
+        $("calcMode").value = "estimate";
+        $("oneWayOfficialToll").value = "0";
+        $("distanceKm").value = "180";
+        $("baseFee").value = "1000";
+        $("perKmRate").value = "50";
+        $("vehicleClass").value = "compact";
+      }
+
+      if (type === "truck") {
+        $("calcMode").value = "estimate";
+        $("oneWayOfficialToll").value = "0";
+        $("distanceKm").value = "180";
+        $("baseFee").value = "1000";
+        $("perKmRate").value = "50";
+        $("vehicleClass").value = "class4";
+      }
+
+      calculateToll();
+    }
+
+    function resetForm() {
+      $("calcMode").value = "official";
+      $("oneWayOfficialToll").value = "10000";
+      $("distanceKm").value = "180";
+      $("vehicleClass").value = "class1";
+      $("baseFee").value = "1000";
+      $("perKmRate").value = "50";
+      $("tripType").value = "round";
+      $("discountRate").value = "0";
+      $("fuelEfficiency").value = "12";
+      $("fuelPrice").value = "1650";
+      calculateToll();
+    }
+
+    [
+      "calcMode",
+      "oneWayOfficialToll",
+      "distanceKm",
+      "vehicleClass",
+      "baseFee",
+      "perKmRate",
+      "tripType",
+      "discountRate",
+      "fuelEfficiency",
+      "fuelPrice"
+    ].forEach((id) => {
+      $(id).addEventListener("input", calculateToll);
+      $(id).addEventListener("change", calculateToll);
+    });
+
+    calculateToll();
+  </script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'></script>
+  <!-- End Cloudflare Web Analytics -->
+</body>
+</html>
