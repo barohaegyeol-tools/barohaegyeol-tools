@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>종합소득세 계산기｜프리랜서·부업 소득 세금 먼저 보기｜바로해결툴즈</title>
+  <meta name="description" content="프리랜서 수입, 부업 소득, 필요경비, 소득공제, 세액공제, 기납부세액을 입력하면 예상 종합소득세와 지방소득세, 납부·환급 예상액을 계산합니다." />
+  <meta name="keywords" content="종합소득세 계산기, 프리랜서 세금 계산기, 부업 세금 계산, 종소세 계산기, 3.3 환급 계산, 종합소득세 환급, 바로해결툴즈" />
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/global-income-tax/" />
+  <meta name="theme-color" content="#fff7ed" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="종합소득세 계산기｜프리랜서·부업 세금 확인" />
+  <meta property="og:description" content="수입과 필요경비를 입력하면 예상 종합소득세, 지방소득세, 납부·환급 예상액을 바로 계산합니다." />
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/global-income-tax/" />
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"종합소득세 계산기",
+    "url":"https://barohaegyeol-tools.pages.dev/global-income-tax/",
+    "applicationCategory":"FinanceApplication",
+    "operatingSystem":"All",
+    "description":"프리랜서 수입, 부업 소득, 필요경비, 소득공제, 세액공제, 기납부세액을 기준으로 예상 종합소득세와 지방소득세를 계산하는 무료 생활 계산기입니다.",
+    "publisher":{
+      "@type":"Organization",
+      "name":"바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg1:#fff7ed;
+      --bg2:#f8fafc;
+      --bg3:#eff6ff;
+      --text:#0f172a;
+      --sub:#334155;
+      --muted:#64748b;
+      --line:rgba(15,23,42,.10);
+      --white:rgba(255,255,255,.88);
+
+      --orange:#f97316;
+      --amber:#f59e0b;
+      --yellow:#facc15;
+      --navy:#0f172a;
+      --blue:#2563eb;
+      --sky:#38bdf8;
+      --green:#22c55e;
+      --teal:#14b8a6;
+      --purple:#7c3aed;
+      --red:#ef4444;
+
+      --shadow:0 24px 70px rgba(249,115,22,.15);
+      --shadow2:0 14px 34px rgba(15,23,42,.08);
+      --radius:28px;
+      --max:1180px;
+    }
+
+    * {
+      box-sizing:border-box;
+    }
+
+    html {
+      scroll-behavior:smooth;
+    }
+
+    body {
+      margin:0;
+      min-height:100vh;
+      color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;
+      line-height:1.65;
+      background:
+        radial-gradient(circle at 10% 8%, rgba(249,115,22,.22), transparent 25%),
+        radial-gradient(circle at 88% 10%, rgba(37,99,235,.16), transparent 24%),
+        radial-gradient(circle at 84% 88%, rgba(20,184,166,.12), transparent 25%),
+        linear-gradient(135deg,var(--bg1) 0%, var(--bg2) 48%, var(--bg3) 100%);
+      overflow-x:hidden;
+    }
+
+    body::before {
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.17;
+      background-image:
+        radial-gradient(circle, rgba(249,115,22,.26) 1px, transparent 1.2px),
+        radial-gradient(circle, rgba(37,99,235,.17) 1px, transparent 1.2px);
+      background-size:32px 32px, 76px 76px;
+      background-position:0 0, 22px 26px;
+      mask-image:linear-gradient(to bottom,#000 0%,#000 68%,transparent 100%);
+    }
+
+    a {
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button,
+    input,
+    select {
+      font:inherit;
+    }
+
+    button {
+      cursor:pointer;
+    }
+
+    .wrap {
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+    }
+
+    .topbar {
+      position:sticky;
+      top:0;
+      z-index:50;
+      border-bottom:1px solid rgba(15,23,42,.07);
+      background:rgba(255,247,237,.78);
+      backdrop-filter:blur(18px);
+    }
+
+    .nav {
+      min-height:68px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:950;
+      letter-spacing:-.045em;
+    }
+
+    .brand-mark {
+      width:42px;
+      height:42px;
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      background:conic-gradient(from 150deg,#f97316,#facc15,#2563eb,#14b8a6,#0f172a,#f97316);
+      box-shadow:0 16px 36px rgba(249,115,22,.26);
+      font-weight:950;
+    }
+
+    .brand small {
+      display:block;
+      margin-top:1px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:-.02em;
+    }
+
+    .nav-links {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      white-space:nowrap;
+    }
+
+    .nav-links a {
+      padding:9px 13px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.78);
+      color:#26364a;
+      font-size:14px;
+      font-weight:850;
+      box-shadow:var(--shadow2);
+    }
+
+    .hero {
+      padding:58px 0 28px;
+    }
+
+    .hero-grid {
+      display:grid;
+      grid-template-columns:1.02fr .98fr;
+      align-items:center;
+      gap:32px;
+    }
+
+    .chips {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:16px;
+    }
+
+    .chip {
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.82);
+      color:#334155;
+      font-size:13px;
+      font-weight:900;
+      box-shadow:var(--shadow2);
+    }
+
+    .chip.hot {
+      color:#c2410c;
+      background:linear-gradient(135deg,rgba(255,237,213,.98),rgba(255,255,255,.92));
+    }
+
+    h1 {
+      margin:0;
+      max-width:780px;
+      font-size:clamp(38px,6.1vw,74px);
+      line-height:1.04;
+      letter-spacing:-.078em;
+    }
+
+    .gradient {
+      color:transparent;
+      background:linear-gradient(90deg,#f97316 0%, #2563eb 48%, #14b8a6 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+    }
+
+    .lead {
+      margin:20px 0 0;
+      max-width:700px;
+      color:#34465c;
+      font-size:clamp(16px,2vw,19px);
+      line-height:1.82;
+      letter-spacing:-.015em;
+      word-break:keep-all;
+    }
+
+    .lead strong {
+      color:#c2410c;
+      font-weight:950;
+    }
+
+    .hero-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:26px;
+    }
+
+    .btn {
+      min-height:50px;
+      padding:13px 18px;
+      border-radius:17px;
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      gap:8px;
+      border:1px solid transparent;
+      font-weight:950;
+      letter-spacing:-.025em;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+
+    .btn:hover {
+      transform:translateY(-2px);
+    }
+
+    .btn-primary {
+      color:#fff;
+      background:linear-gradient(135deg,#f97316,#2563eb,#14b8a6);
+      box-shadow:0 16px 38px rgba(249,115,22,.24);
+    }
+
+    .btn-ghost {
+      color:#122033;
+      background:rgba(255,255,255,.82);
+      border-color:rgba(15,23,42,.08);
+    }
+
+    .visual {
+      position:relative;
+      min-height:426px;
+      border-radius:40px;
+      border:1px solid rgba(15,23,42,.08);
+      background:
+        radial-gradient(circle at 78% 15%, rgba(250,204,21,.24), transparent 22%),
+        radial-gradient(circle at 17% 86%, rgba(249,115,22,.18), transparent 23%),
+        linear-gradient(145deg,rgba(255,255,255,.96),rgba(255,247,237,.82));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      padding:26px;
+    }
+
+    .visual-panel {
+      position:absolute;
+      left:26px;
+      right:26px;
+      top:26px;
+      height:188px;
+      border-radius:30px;
+      background:
+        linear-gradient(rgba(15,23,42,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,23,42,.045) 1px, transparent 1px),
+        linear-gradient(180deg,rgba(255,255,255,.96),rgba(255,251,235,.94));
+      background-size:38px 38px,38px 38px,auto;
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      overflow:hidden;
+    }
+
+    .tax-line {
+      position:absolute;
+      left:28px;
+      right:28px;
+      bottom:26px;
+      height:62px;
+      border-radius:999px;
+      background:linear-gradient(90deg,#0f172a,#f97316,#2563eb);
+      opacity:.92;
+      overflow:hidden;
+    }
+
+    .tax-line::before {
+      content:"";
+      position:absolute;
+      left:24px;
+      right:24px;
+      top:28px;
+      height:5px;
+      border-radius:999px;
+      background:repeating-linear-gradient(90deg,rgba(255,255,255,.82) 0 28px,transparent 28px 48px);
+    }
+
+    .ledger {
+      position:absolute;
+      left:42px;
+      top:42px;
+      width:232px;
+      height:146px;
+      border-radius:24px;
+      background:#fff;
+      border:3px solid #f97316;
+      box-shadow:0 18px 34px rgba(15,23,42,.12);
+      overflow:hidden;
+      transform:rotate(-2deg);
+    }
+
+    .ledger-head {
+      height:36px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 14px;
+      background:linear-gradient(90deg,#ffedd5,#dbeafe);
+      color:#c2410c;
+      font-weight:950;
+      font-size:13px;
+    }
+
+    .ledger-lines {
+      padding:15px;
+      display:grid;
+      gap:9px;
+    }
+
+    .ledger-row {
+      display:grid;
+      grid-template-columns:1fr 78px;
+      gap:10px;
+      align-items:center;
+    }
+
+    .ledger-row span {
+      height:8px;
+      border-radius:999px;
+      background:#fed7aa;
+    }
+
+    .ledger-row strong {
+      height:12px;
+      border-radius:999px;
+      background:#bfdbfe;
+    }
+
+    .stamp-card {
+      position:absolute;
+      right:40px;
+      top:42px;
+      width:156px;
+      height:156px;
+      border-radius:34px;
+      background:#fff;
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:0 22px 48px rgba(15,23,42,.15);
+      display:grid;
+      place-items:center;
+    }
+
+    .stamp {
+      width:104px;
+      height:104px;
+      border-radius:28px;
+      background:linear-gradient(135deg,#f97316,#2563eb);
+      color:#fff;
+      display:grid;
+      place-items:center;
+      font-size:27px;
+      font-weight:950;
+      letter-spacing:-.06em;
+      transform:rotate(-8deg);
+      box-shadow:0 18px 34px rgba(249,115,22,.22);
+    }
+
+    .stamp::after {
+      content:"TAX";
+      position:absolute;
+      inset:17px;
+      border:3px solid rgba(255,255,255,.70);
+      border-radius:20px;
+      display:grid;
+      place-items:center;
+    }
+
+    .result-ticket {
+      position:absolute;
+      left:28px;
+      bottom:26px;
+      width:292px;
+      padding:19px;
+      border-radius:26px;
+      background:linear-gradient(135deg,#fff,#fff7ed);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .result-ticket span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .result-ticket strong {
+      display:block;
+      margin-top:7px;
+      color:#c2410c;
+      font-size:34px;
+      line-height:1;
+      letter-spacing:-.05em;
+    }
+
+    .tiger-card {
+      position:absolute;
+      right:28px;
+      bottom:26px;
+      width:174px;
+      height:174px;
+      border-radius:38px;
+      border:1px solid rgba(15,23,42,.08);
+      background:linear-gradient(145deg,#fff,#dbeafe);
+      box-shadow:var(--shadow2);
+    }
+
+    .tiger-head {
+      position:absolute;
+      left:36px;
+      top:52px;
+      width:102px;
+      height:88px;
+      border-radius:46px 46px 38px 38px;
+      background:#fb923c;
+      border:4px solid #7c2d12;
+    }
+
+    .tiger-ear {
+      position:absolute;
+      top:-20px;
+      width:35px;
+      height:35px;
+      background:#fb923c;
+      border-left:4px solid #7c2d12;
+      border-top:4px solid #7c2d12;
+      border-radius:9px;
+      transform:rotate(45deg);
+      z-index:-1;
+    }
+
+    .tiger-ear.left {
+      left:12px;
+    }
+
+    .tiger-ear.right {
+      right:12px;
+    }
+
+    .stripe {
+      position:absolute;
+      top:14px;
+      width:8px;
+      height:22px;
+      border-radius:999px;
+      background:#7c2d12;
+    }
+
+    .stripe.one {
+      left:31px;
+      transform:rotate(-18deg);
+    }
+
+    .stripe.two {
+      left:47px;
+    }
+
+    .stripe.three {
+      right:31px;
+      transform:rotate(18deg);
+    }
+
+    .tiger-eye {
+      position:absolute;
+      top:34px;
+      width:10px;
+      height:13px;
+      border-radius:999px;
+      background:#111827;
+    }
+
+    .tiger-eye.left {
+      left:29px;
+    }
+
+    .tiger-eye.right {
+      right:29px;
+    }
+
+    .tiger-nose {
+      position:absolute;
+      left:50%;
+      top:56px;
+      width:17px;
+      height:12px;
+      border-radius:999px;
+      background:#111827;
+      transform:translateX(-50%);
+    }
+
+    .tiger-smile {
+      position:absolute;
+      left:50%;
+      top:70px;
+      width:30px;
+      height:14px;
+      border-bottom:3px solid #2563eb;
+      border-radius:0 0 999px 999px;
+      transform:translateX(-50%);
+    }
+
+    .coin-mini {
+      position:absolute;
+      left:15px;
+      bottom:16px;
+      width:56px;
+      height:56px;
+      border-radius:50%;
+      background:linear-gradient(135deg,#facc15,#f59e0b);
+      border:3px solid #78350f;
+      display:grid;
+      place-items:center;
+      color:#78350f;
+      font-weight:950;
+      transform:rotate(-8deg);
+    }
+
+    .badge-mini {
+      position:absolute;
+      right:14px;
+      top:14px;
+      padding:8px 10px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#ffedd5,#dbeafe);
+      color:#c2410c;
+      font-size:12px;
+      font-weight:950;
+      box-shadow:var(--shadow2);
+      z-index:5;
+    }
+
+    .section {
+      padding:22px 0;
+    }
+
+    .tool-grid {
+      display:grid;
+      grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);
+      gap:22px;
+      align-items:start;
+    }
+
+    .panel {
+      padding:24px;
+      border-radius:var(--radius);
+      border:1px solid rgba(15,23,42,.08);
+      background:var(--white);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);
+    }
+
+    .panel h2 {
+      margin:0 0 12px;
+      font-size:27px;
+      line-height:1.2;
+      letter-spacing:-.052em;
+    }
+
+    .desc {
+      margin:-4px 0 18px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    .form {
+      display:grid;
+      gap:14px;
+    }
+
+    .field label {
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom:8px;
+      color:#122033;
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .field small {
+      color:var(--muted);
+      font-weight:750;
+    }
+
+    .input-wrap {
+      position:relative;
+    }
+
+    input,
+    select {
+      width:100%;
+      min-height:54px;
+      padding:14px 54px 14px 15px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.10);
+      background:rgba(255,255,255,.94);
+      color:#122033;
+      font-size:16px;
+      font-weight:850;
+      outline:none;
+      transition:.16s ease;
+    }
+
+    select {
+      padding-right:15px;
+      appearance:none;
+      cursor:pointer;
+    }
+
+    input:focus,
+    select:focus {
+      border-color:rgba(249,115,22,.50);
+      box-shadow:0 0 0 4px rgba(249,115,22,.12);
+    }
+
+    .unit {
+      position:absolute;
+      top:50%;
+      right:15px;
+      transform:translateY(-50%);
+      color:var(--muted);
+      font-size:14px;
+      font-weight:900;
+    }
+
+    .row {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .preset {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .preset button {
+      padding:8px 11px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.08);
+      background:#fff;
+      color:#334155;
+      font-size:12px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .calc-btn {
+      width:100%;
+      min-height:58px;
+      margin-top:6px;
+      border:0;
+      border-radius:18px;
+      color:#fff;
+      background:linear-gradient(135deg,#f97316,#2563eb,#14b8a6);
+      font-size:17px;
+      font-weight:950;
+      cursor:pointer;
+      box-shadow:0 16px 34px rgba(249,115,22,.24);
+    }
+
+    .reset-btn {
+      width:100%;
+      min-height:48px;
+      margin-top:10px;
+      border-radius:16px;
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(255,255,255,.86);
+      color:#122033;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .notice {
+      margin-top:12px;
+      padding:13px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(15,23,42,.08);
+      color:#526173;
+      font-size:13px;
+      line-height:1.75;
+      font-weight:760;
+      word-break:keep-all;
+    }
+
+    .warning {
+      border-color:rgba(245,158,11,.25);
+      background:rgba(255,251,235,.82);
+      color:#92400e;
+    }
+
+    .result-box {
+      display:grid;
+      gap:14px;
+    }
+
+    .result-main {
+      padding:24px;
+      border-radius:26px;
+      color:#122033;
+      background:
+        radial-gradient(circle at 84% 18%, rgba(255,255,255,.42), transparent 26%),
+        linear-gradient(135deg,#fed7aa,#bfdbfe 54%,#99f6e4);
+      box-shadow:var(--shadow2);
+    }
+
+    .result-main span {
+      display:block;
+      font-size:14px;
+      opacity:.82;
+      font-weight:900;
+    }
+
+    .result-main strong {
+      display:block;
+      margin-top:8px;
+      font-size:clamp(36px,5vw,58px);
+      line-height:1;
+      letter-spacing:-.06em;
+    }
+
+    .result-main em {
+      display:block;
+      margin-top:10px;
+      font-size:14px;
+      line-height:1.75;
+      font-style:normal;
+      font-weight:850;
+      opacity:.88;
+      word-break:keep-all;
+    }
+
+    .result-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .metric {
+      padding:18px;
+      border-radius:20px;
+      background:rgba(255,255,255,.84);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .metric span {
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .metric strong {
+      display:block;
+      margin-top:7px;
+      color:#122033;
+      font-size:24px;
+      letter-spacing:-.045em;
+    }
+
+    .metric.full {
+      grid-column:1/-1;
+    }
+
+    .good {
+      color:#0f766e !important;
+    }
+
+    .warn {
+      color:#d97706 !important;
+    }
+
+    .bad {
+      color:#e11d48 !important;
+    }
+
+    .guide-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .guide {
+      padding:20px;
+      border-radius:22px;
+      background:rgba(255,255,255,.80);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+    }
+
+    .guide b {
+      display:block;
+      margin-bottom:8px;
+      font-size:17px;
+      letter-spacing:-.03em;
+    }
+
+    .guide p {
+      margin:0;
+      color:#526173;
+      font-size:14px;
+      line-height:1.75;
+      word-break:keep-all;
+    }
+
+    .related-grid {
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .related-card {
+      padding:16px;
+      border-radius:20px;
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:var(--shadow2);
+      font-weight:900;
+      color:#24415f;
+      line-height:1.45;
+    }
+
+    footer {
+      padding:44px 0 54px;
+      color:var(--muted);
+      text-align:center;
+      font-size:13px;
+    }
+
+    @media (max-width:920px) {
+      .hero-grid,
+      .tool-grid {
+        grid-template-columns:1fr;
+      }
+
+      .hero {
+        padding-top:42px;
+      }
+    }
+
+    @media (max-width:720px) {
+      .related-grid {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+    }
+
+    @media (max-width:640px) {
+      .nav {
+        align-items:flex-start;
+        flex-direction:column;
+        padding:12px 0;
+      }
+
+      .nav-links {
+        width:100%;
+        overflow-x:auto;
+        padding-bottom:4px;
+      }
+
+      .hero-actions {
+        display:grid;
+      }
+
+      .btn {
+        width:100%;
+      }
+
+      .row,
+      .result-grid,
+      .guide-grid,
+      .related-grid {
+        grid-template-columns:1fr;
+      }
+
+      .visual {
+        min-height:374px;
+      }
+
+      .ledger {
+        left:24px;
+        width:172px;
+      }
+
+      .stamp-card {
+        right:24px;
+        width:122px;
+        height:138px;
+      }
+
+      .stamp {
+        width:82px;
+        height:82px;
+      }
+
+      .result-ticket {
+        width:220px;
+      }
+
+      .tiger-card {
+        width:138px;
+        height:138px;
+        right:18px;
+      }
+
+      .tiger-head {
+        left:24px;
+        top:48px;
+        width:90px;
+        height:76px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="../" aria-label="바로해결툴즈 메인으로 이동">
+        <div class="brand-mark">B</div>
+        <div>
+          바로해결툴즈
+          <small>세금 계산 · 종합소득세 · 바로 확인</small>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="주요 도구">
+        <a href="../">전체 도구</a>
+        <a href="../annual-net-salary/">연봉 실수령액</a>
+        <a href="../four-insurance/">4대보험</a>
+        <a href="../loan-interest/">대출이자</a>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="chips">
+            <span class="chip hot">📒 종합소득세 계산</span>
+            <span class="chip">프리랜서·부업</span>
+            <span class="chip">납부·환급 예상</span>
+          </div>
+
+          <h1>
+            프리랜서·부업 소득세<br>
+            <span class="gradient">신고 전에 먼저 계산하세요</span>
+          </h1>
+
+          <p class="lead">
+            수입금액, 필요경비, 소득공제, 세액공제, 기납부세액을 입력하면
+            <strong>예상 종합소득세, 지방소득세, 추가 납부 또는 환급 예상액</strong>을 계산합니다.
+            5월 신고 전에 대략적인 세금 규모부터 확인하세요.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#calculator">종합소득세 계산하기</a>
+            <a class="btn btn-ghost" href="#guide">계산 기준 보기</a>
+          </div>
+        </div>
+
+        <div class="visual" aria-label="종합소득세 계산 예시">
+          <div class="visual-panel">
+            <div class="tax-line"></div>
+
+            <div class="ledger">
+              <div class="ledger-head">
+                <span>수입·경비 장부</span>
+                <span>TAX</span>
+              </div>
+              <div class="ledger-lines">
+                <div class="ledger-row"><span></span><strong></strong></div>
+                <div class="ledger-row"><span></span><strong></strong></div>
+                <div class="ledger-row"><span></span><strong></strong></div>
+                <div class="ledger-row"><span></span><strong></strong></div>
+              </div>
+            </div>
+
+            <div class="stamp-card">
+              <div class="stamp"></div>
+            </div>
+          </div>
+
+          <div class="result-ticket">
+            <span>예상 납부세액</span>
+            <strong id="visualTax">약 55만원</strong>
+          </div>
+
+          <div class="tiger-card" aria-hidden="true">
+            <div class="badge-mini">TAX</div>
+            <div class="tiger-head">
+              <div class="tiger-ear left"></div>
+              <div class="tiger-ear right"></div>
+              <div class="stripe one"></div>
+              <div class="stripe two"></div>
+              <div class="stripe three"></div>
+              <div class="tiger-eye left"></div>
+              <div class="tiger-eye right"></div>
+              <div class="tiger-nose"></div>
+              <div class="tiger-smile"></div>
+            </div>
+            <div class="coin-mini">₩</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="calculator">
+      <div class="wrap tool-grid">
+        <div class="panel">
+          <h2>종합소득세 계산기</h2>
+          <p class="desc">
+            프리랜서·부업·사업소득을 간편 계산하는 구조입니다.
+            수입에서 필요경비를 빼고, 소득공제와 세액공제, 기납부세액을 반영해 예상 납부·환급액을 계산합니다.
+          </p>
+
+          <form class="form" onsubmit="event.preventDefault(); calculateTax();">
+            <div class="row">
+              <div class="field">
+                <label for="businessRevenue">
+                  사업·프리랜서 수입금액
+                  <small>연간 총수입</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="businessRevenue" type="number" min="0" step="100000" value="30000000" placeholder="예: 30000000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="necessaryExpense">
+                  필요경비
+                  <small>증빙 가능한 경비</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="necessaryExpense" type="number" min="0" step="100000" value="12000000" placeholder="예: 12000000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="otherIncomeAmount">
+                  기타 종합과세 소득금액
+                  <small>있으면 입력</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="otherIncomeAmount" type="number" min="0" step="100000" value="0" placeholder="예: 3000000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="earnedIncomeAmount">
+                  근로소득금액
+                  <small>있으면 입력</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="earnedIncomeAmount" type="number" min="0" step="100000" value="0" placeholder="예: 10000000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="personalDeductionCount">
+                  기본공제 대상자 수
+                  <small>본인 포함</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="personalDeductionCount" type="number" min="1" max="10" step="1" value="1">
+                  <span class="unit">명</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="additionalDeduction">
+                  추가 소득공제
+                  <small>연금·보험료 등</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="additionalDeduction" type="number" min="0" step="100000" value="0">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="taxCredit">
+                  세액공제
+                  <small>있으면 입력</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="taxCredit" type="number" min="0" step="10000" value="0">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="prepaidTax">
+                  기납부세액
+                  <small>3.3% 원천징수 등</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="prepaidTax" type="number" min="0" step="10000" value="990000">
+                  <span class="unit">원</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="localTaxRate">
+                  지방소득세율
+                  <small>소득세의 10%</small>
+                </label>
+                <div class="input-wrap">
+                  <input id="localTaxRate" type="number" min="0" step="0.1" value="10">
+                  <span class="unit">%</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="roundingMode">
+                  반올림 방식
+                  <small>간편 계산</small>
+                </label>
+                <div class="input-wrap">
+                  <select id="roundingMode">
+                    <option value="round">원 단위 반올림</option>
+                    <option value="floor">원 단위 버림</option>
+                    <option value="ceil">원 단위 올림</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="preset">
+              <button type="button" onclick="fillExample('freelancer3000')">수입 3000 · 경비 40%</button>
+              <button type="button" onclick="fillExample('sideJob1000')">부업 1000만원</button>
+              <button type="button" onclick="fillExample('creator5000')">크리에이터 5000만원</button>
+              <button type="button" onclick="fillExample('expenseHigh')">경비 많은 예시</button>
+            </div>
+
+            <button class="calc-btn" type="submit">종합소득세 계산하기</button>
+            <button class="reset-btn" type="button" onclick="resetForm()">입력값 초기화</button>
+          </form>
+
+          <div class="notice warning">
+            이 계산기는 간편 예상 계산기입니다. 실제 종합소득세는 장부작성 여부, 추계신고, 단순경비율·기준경비율,
+            각종 소득공제·세액공제, 가산세, 중간예납, 기납부세액, 세무대리 신고 여부에 따라 달라질 수 있습니다.
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>계산 결과</h2>
+          <p class="desc">
+            종합소득금액, 과세표준, 산출세액, 지방소득세, 납부·환급 예상액을 나눠 확인하세요.
+          </p>
+
+          <div class="result-box">
+            <div class="result-main">
+              <span id="mainResultLabel">예상 추가 납부액</span>
+              <strong id="finalResult">-</strong>
+              <em id="summaryText">값을 입력하고 계산 버튼을 눌러주세요.</em>
+            </div>
+
+            <div class="result-grid">
+              <div class="metric">
+                <span>사업소득금액</span>
+                <strong id="businessIncome">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>종합소득금액</span>
+                <strong id="globalIncome">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>기본공제</span>
+                <strong id="personalDeduction">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>소득공제 합계</span>
+                <strong id="totalDeduction">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>과세표준</span>
+                <strong id="taxBase">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>적용 세율 구간</span>
+                <strong id="taxBracket">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>종합소득세 산출세액</span>
+                <strong id="incomeTax">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>세액공제 후 소득세</span>
+                <strong id="afterCreditTax">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>지방소득세</span>
+                <strong id="localTax">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>총 결정세액</span>
+                <strong id="totalTax">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>기납부세액</span>
+                <strong id="paidTax">-</strong>
+              </div>
+
+              <div class="metric">
+                <span>실효세율</span>
+                <strong id="effectiveRate">-</strong>
+              </div>
+
+              <div class="metric full">
+                <span>납부·환급 예상</span>
+                <strong id="payOrRefund">-</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice">
+            기납부세액에는 프리랜서 3.3% 원천징수, 중간예납, 이미 납부한 세액 등을 입력하면 됩니다.
+            실제 신고 결과와 다를 수 있으므로 참고용으로만 활용하세요.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="guide">
+      <div class="wrap">
+        <div class="panel">
+          <h2>종합소득세 계산 기준</h2>
+
+          <div class="guide-grid">
+            <div class="guide">
+              <b>수입금액과 필요경비</b>
+              <p>
+                프리랜서·사업소득은 수입금액에서 필요경비를 뺀 금액을 기준으로 봅니다.
+                실제 경비 인정 여부는 증빙과 신고 방식에 따라 달라질 수 있습니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>소득공제</b>
+              <p>
+                기본공제는 본인 포함 인원 기준으로 간편 계산했습니다.
+                추가 공제는 연금보험료, 기타 소득공제 등을 직접 입력하는 방식입니다.
+              </p>
+            </div>
+
+            <div class="guide">
+              <b>누진세율</b>
+              <p>
+                과세표준이 높아질수록 높은 세율 구간이 적용됩니다.
+                계산기는 기본세율과 누진공제 구조를 활용해 예상 세액을 계산합니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="notice warning">
+            실제 종합소득세 신고는 소득 종류, 사업자 유형, 장부 작성 여부, 경비율 적용,
+            세액공제, 감면, 가산세, 기납부세액에 따라 결과가 크게 달라질 수 있습니다.
+            정확한 신고 전에는 홈택스 또는 세무전문가 확인이 필요합니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="panel">
+          <h2>같이 보면 좋은 도구</h2>
+          <p class="desc">
+            종합소득세를 확인했다면 연봉 실수령액, 4대보험, 대출이자 계산도 함께 확인해보세요.
+          </p>
+
+          <div class="related-grid">
+            <a class="related-card" href="../">전체 도구 보기</a>
+            <a class="related-card" href="../annual-net-salary/">연봉 실수령액 계산기</a>
+            <a class="related-card" href="../four-insurance/">4대보험 계산기</a>
+            <a class="related-card" href="../loan-interest/">대출이자 계산기</a>
+          </div>
+
+          <div class="notice">
+            예정 도구: 부가세 계산기, 건강보험료 계산기, 월급 실수령액 계산기, 양도소득세 계산기.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 바로해결툴즈 · 종합소득세 계산 결과는 참고용입니다. 실제 신고세액은 홈택스 신고 결과와 다를 수 있습니다.
+  </footer>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    function num(id) {
+      const value = Number($(id).value);
+      return Number.isFinite(value) ? value : 0;
+    }
+
+    function setText(id, value) {
+      $(id).textContent = value;
+    }
+
+    function applyRounding(value) {
+      const mode = $("roundingMode").value;
+
+      if (!Number.isFinite(value)) return 0;
+      if (mode === "floor") return Math.floor(value);
+      if (mode === "ceil") return Math.ceil(value);
+      return Math.round(value);
+    }
+
+    function won(value) {
+      if (!Number.isFinite(value)) return "-";
+      return `${Math.round(value).toLocaleString("ko-KR")}원`;
+    }
+
+    function signedWon(value) {
+      if (!Number.isFinite(value)) return "-";
+      const rounded = Math.round(Math.abs(value));
+      return `${rounded.toLocaleString("ko-KR")}원`;
+    }
+
+    function shortWon(value) {
+      if (!Number.isFinite(value)) return "-";
+
+      const rounded = Math.round(Math.abs(value));
+
+      if (rounded >= 100000000) {
+        return `약 ${(rounded / 100000000).toFixed(1)}억`;
+      }
+
+      if (rounded >= 10000) {
+        return `약 ${Math.round(rounded / 10000).toLocaleString("ko-KR")}만원`;
+      }
+
+      return `약 ${rounded.toLocaleString("ko-KR")}원`;
+    }
+
+    function percent(value) {
+      if (!Number.isFinite(value)) return "-";
+      return `${value.toLocaleString("ko-KR", {
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 1
+      })}%`;
+    }
+
+    function progressiveTax(taxBase) {
+      const base = Math.max(taxBase, 0);
+
+      if (base <= 14000000) {
+        return {
+          tax: base * 0.06,
+          label: "6% 구간"
+        };
+      }
+
+      if (base <= 50000000) {
+        return {
+          tax: base * 0.15 - 1260000,
+          label: "15% 구간"
+        };
+      }
+
+      if (base <= 88000000) {
+        return {
+          tax: base * 0.24 - 5760000,
+          label: "24% 구간"
+        };
+      }
+
+      if (base <= 150000000) {
+        return {
+          tax: base * 0.35 - 15440000,
+          label: "35% 구간"
+        };
+      }
+
+      if (base <= 300000000) {
+        return {
+          tax: base * 0.38 - 19940000,
+          label: "38% 구간"
+        };
+      }
+
+      if (base <= 500000000) {
+        return {
+          tax: base * 0.40 - 25940000,
+          label: "40% 구간"
+        };
+      }
+
+      if (base <= 1000000000) {
+        return {
+          tax: base * 0.42 - 35940000,
+          label: "42% 구간"
+        };
+      }
+
+      return {
+        tax: base * 0.45 - 65940000,
+        label: "45% 구간"
+      };
+    }
+
+    function calculateTax() {
+      const businessRevenue = num("businessRevenue");
+      const necessaryExpense = Math.min(num("necessaryExpense"), businessRevenue);
+      const otherIncomeAmount = num("otherIncomeAmount");
+      const earnedIncomeAmount = num("earnedIncomeAmount");
+      const personalDeductionCount = Math.max(Math.floor(num("personalDeductionCount")), 1);
+      const additionalDeduction = num("additionalDeduction");
+      const taxCredit = num("taxCredit");
+      const prepaidTax = num("prepaidTax");
+      const localTaxRate = num("localTaxRate");
+
+      const businessIncome = Math.max(businessRevenue - necessaryExpense, 0);
+      const globalIncome = businessIncome + otherIncomeAmount + earnedIncomeAmount;
+
+      const personalDeduction = personalDeductionCount * 1500000;
+      const totalDeduction = personalDeduction + additionalDeduction;
+      const taxBase = Math.max(globalIncome - totalDeduction, 0);
+
+      const progressive = progressiveTax(taxBase);
+      const incomeTax = applyRounding(Math.max(progressive.tax, 0));
+      const afterCreditTax = applyRounding(Math.max(incomeTax - taxCredit, 0));
+      const localTax = applyRounding(afterCreditTax * (localTaxRate / 100));
+      const totalTax = afterCreditTax + localTax;
+      const finalAmount = totalTax - prepaidTax;
+      const effectiveRate = globalIncome > 0 ? totalTax / globalIncome * 100 : 0;
+
+      setText("businessIncome", won(businessIncome));
+      setText("globalIncome", won(globalIncome));
+      setText("personalDeduction", won(personalDeduction));
+      setText("totalDeduction", won(totalDeduction));
+      setText("taxBase", won(taxBase));
+      setText("taxBracket", progressive.label);
+      setText("incomeTax", won(incomeTax));
+      setText("afterCreditTax", won(afterCreditTax));
+      setText("localTax", won(localTax));
+      setText("totalTax", won(totalTax));
+      setText("paidTax", won(prepaidTax));
+      setText("effectiveRate", percent(effectiveRate));
+
+      const finalResultEl = $("finalResult");
+      const payOrRefundEl = $("payOrRefund");
+      const mainLabelEl = $("mainResultLabel");
+
+      if (finalAmount >= 0) {
+        mainLabelEl.textContent = "예상 추가 납부액";
+        finalResultEl.textContent = signedWon(finalAmount);
+        payOrRefundEl.textContent = `추가 납부 ${signedWon(finalAmount)}`;
+        finalResultEl.className = "";
+        payOrRefundEl.className = "bad";
+        setText("visualTax", shortWon(finalAmount));
+      } else {
+        mainLabelEl.textContent = "예상 환급액";
+        finalResultEl.textContent = signedWon(finalAmount);
+        payOrRefundEl.textContent = `환급 예상 ${signedWon(finalAmount)}`;
+        finalResultEl.className = "good";
+        payOrRefundEl.className = "good";
+        setText("visualTax", shortWon(finalAmount));
+      }
+
+      let summary = "";
+
+      if (globalIncome <= 0) {
+        summary = "수입금액과 필요경비를 입력하면 예상 종합소득세가 계산됩니다.";
+      } else if (finalAmount >= 0) {
+        summary = `종합소득금액은 ${won(globalIncome)}, 과세표준은 ${won(taxBase)}입니다. 총 결정세액은 ${won(totalTax)}이며, 기납부세액 ${won(prepaidTax)}을 반영하면 약 ${won(finalAmount)} 추가 납부 예상입니다.`;
+      } else {
+        summary = `종합소득금액은 ${won(globalIncome)}, 과세표준은 ${won(taxBase)}입니다. 총 결정세액은 ${won(totalTax)}이며, 기납부세액 ${won(prepaidTax)}을 반영하면 약 ${won(Math.abs(finalAmount))} 환급 예상입니다.`;
+      }
+
+      setText("summaryText", summary);
+    }
+
+    function fillExample(type) {
+      $("personalDeductionCount").value = "1";
+      $("additionalDeduction").value = "0";
+      $("taxCredit").value = "0";
+      $("localTaxRate").value = "10";
+      $("roundingMode").value = "round";
+
+      if (type === "freelancer3000") {
+        $("businessRevenue").value = "30000000";
+        $("necessaryExpense").value = "12000000";
+        $("otherIncomeAmount").value = "0";
+        $("earnedIncomeAmount").value = "0";
+        $("prepaidTax").value = "990000";
+      }
+
+      if (type === "sideJob1000") {
+        $("businessRevenue").value = "10000000";
+        $("necessaryExpense").value = "3000000";
+        $("otherIncomeAmount").value = "0";
+        $("earnedIncomeAmount").value = "0";
+        $("prepaidTax").value = "330000";
+      }
+
+      if (type === "creator5000") {
+        $("businessRevenue").value = "50000000";
+        $("necessaryExpense").value = "18000000";
+        $("otherIncomeAmount").value = "0";
+        $("earnedIncomeAmount").value = "0";
+        $("prepaidTax").value = "1650000";
+      }
+
+      if (type === "expenseHigh") {
+        $("businessRevenue").value = "40000000";
+        $("necessaryExpense").value = "28000000";
+        $("otherIncomeAmount").value = "0";
+        $("earnedIncomeAmount").value = "0";
+        $("prepaidTax").value = "1320000";
+      }
+
+      calculateTax();
+    }
+
+    function resetForm() {
+      $("businessRevenue").value = "30000000";
+      $("necessaryExpense").value = "12000000";
+      $("otherIncomeAmount").value = "0";
+      $("earnedIncomeAmount").value = "0";
+      $("personalDeductionCount").value = "1";
+      $("additionalDeduction").value = "0";
+      $("taxCredit").value = "0";
+      $("prepaidTax").value = "990000";
+      $("localTaxRate").value = "10";
+      $("roundingMode").value = "round";
+      calculateTax();
+    }
+
+    [
+      "businessRevenue",
+      "necessaryExpense",
+      "otherIncomeAmount",
+      "earnedIncomeAmount",
+      "personalDeductionCount",
+      "additionalDeduction",
+      "taxCredit",
+      "prepaidTax",
+      "localTaxRate",
+      "roundingMode"
+    ].forEach((id) => {
+      $(id).addEventListener("input", calculateTax);
+      $(id).addEventListener("change", calculateTax);
+    });
+
+    calculateTax();
+  </script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'></script>
+  <!-- End Cloudflare Web Analytics -->
+</body>
+</html>
