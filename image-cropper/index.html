@@ -1,0 +1,2709 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>이미지 자르기｜사진 비율·크기 자유롭게 크롭｜바로해결툴즈</title>
+
+  <meta
+    name="description"
+    content="JPG, PNG, WebP 사진을 원하는 비율과 크기로 자르세요. 1:1, 4:3, 16:9, 세로형 비율, 회전, 반전, 확대, 미리보기와 다운로드를 지원합니다."
+  />
+
+  <meta
+    name="keywords"
+    content="이미지 자르기, 사진 자르기, 이미지 크롭, 사진 비율 자르기, 1대1 사진 자르기, 16대9 이미지 자르기"
+  />
+
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+
+  <link
+    rel="canonical"
+    href="https://barohaegyeol-tools.pages.dev/image-cropper/"
+  />
+
+  <meta name="theme-color" content="#21143f" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="이미지 자르기｜바로해결툴즈" />
+  <meta
+    property="og:description"
+    content="사진을 원하는 비율로 자르고 회전·반전·확대까지 브라우저에서 바로 처리하세요."
+  />
+  <meta
+    property="og:url"
+    content="https://barohaegyeol-tools.pages.dev/image-cropper/"
+  />
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "이미지 자르기",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Web Browser",
+    "url": "https://barohaegyeol-tools.pages.dev/image-cropper/",
+    "description": "JPG, PNG, WebP 이미지를 원하는 비율과 크기로 자르는 무료 도구",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "KRW"
+    }
+  }
+  </script>
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css"
+  />
+
+  <style>
+    :root {
+      --bg: #f8f6ff;
+      --bg2: #fff9f4;
+      --white: #ffffff;
+      --ink: #20163a;
+      --text: #504565;
+      --muted: #857b98;
+      --line: #e8e1f1;
+      --purple: #7455ff;
+      --purple-dark: #4028b9;
+      --pink: #ff6ba8;
+      --lime: #c9f45d;
+      --lime-dark: #71980d;
+      --orange: #ff9f5b;
+      --navy: #21143f;
+      --red: #df5169;
+      --green: #178c68;
+      --shadow: 0 26px 80px rgba(55, 35, 103, .15);
+      --shadow2: 0 14px 42px rgba(48, 29, 85, .09);
+      --radius: 28px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Pretendard",
+        "Noto Sans KR",
+        "Apple SD Gothic Neo",
+        system-ui,
+        sans-serif;
+      line-height: 1.65;
+      background:
+        radial-gradient(
+          circle at 5% 12%,
+          rgba(116, 85, 255, .15),
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 93% 8%,
+          rgba(255, 107, 168, .14),
+          transparent 27%
+        ),
+        radial-gradient(
+          circle at 88% 88%,
+          rgba(201, 244, 93, .21),
+          transparent 27%
+        ),
+        linear-gradient(
+          145deg,
+          #faf8ff 0%,
+          #fffaf7 50%,
+          #f7fff1 100%
+        );
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .16;
+      background-image:
+        radial-gradient(
+          circle,
+          rgba(64, 40, 185, .24) 1px,
+          transparent 1.4px
+        );
+      background-size: 28px 28px;
+      mask-image:
+        linear-gradient(
+          to bottom,
+          #000 0%,
+          transparent 68%
+        );
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(32, 22, 58, .08);
+      background: rgba(250, 248, 255, .86);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      flex: 0 0 auto;
+      font-weight: 950;
+      letter-spacing: -.04em;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px 20px 14px 20px;
+      display: grid;
+      place-items: center;
+      color: var(--navy);
+      background:
+        linear-gradient(
+          135deg,
+          var(--lime),
+          #f4ff9a
+        );
+      box-shadow:
+        0 15px 34px rgba(116, 85, 255, .21);
+      font-weight: 950;
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 1px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      white-space: nowrap;
+    }
+
+    .nav-links a {
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(32, 22, 58, .09);
+      background: rgba(255, 255, 255, .82);
+      color: #5d5270;
+      font-size: 13px;
+      font-weight: 900;
+      transition: .16s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--purple-dark);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow2);
+    }
+
+    .hero {
+      padding: 48px 0 30px;
+    }
+
+    .hero-shell {
+      position: relative;
+      overflow: hidden;
+      min-height: 430px;
+      padding: 48px;
+      border-radius: 42px;
+      color: #fff;
+      background:
+        radial-gradient(
+          circle at 82% 20%,
+          rgba(255, 107, 168, .30),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 68% 92%,
+          rgba(201, 244, 93, .18),
+          transparent 32%
+        ),
+        linear-gradient(
+          135deg,
+          #21143f 0%,
+          #3b2579 48%,
+          #5943ca 100%
+        );
+      box-shadow: var(--shadow);
+    }
+
+    .hero-shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .22;
+      background-image:
+        linear-gradient(
+          rgba(255, 255, 255, .18) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255, 255, 255, .18) 1px,
+          transparent 1px
+        );
+      background-size: 44px 44px;
+      mask-image:
+        linear-gradient(
+          90deg,
+          transparent,
+          #000 48%,
+          #000
+        );
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr .88fr;
+      gap: 38px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: #f6ffcf;
+      background: rgba(201, 244, 93, .13);
+      border: 1px solid rgba(201, 244, 93, .28);
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--lime);
+      box-shadow:
+        0 0 0 5px rgba(201, 244, 93, .14);
+    }
+
+    h1 {
+      margin: 18px 0 0;
+      font-size: clamp(48px, 6vw, 76px);
+      line-height: 1.02;
+      letter-spacing: -.075em;
+      white-space: nowrap;
+    }
+
+    h1 span {
+      color: var(--lime);
+    }
+
+    .lead {
+      margin: 20px 0 0;
+      max-width: 660px;
+      color: rgba(255, 255, 255, .78);
+      font-size: clamp(16px, 1.8vw, 19px);
+      line-height: 1.82;
+      word-break: keep-all;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .btn {
+      min-height: 52px;
+      padding: 13px 18px;
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid transparent;
+      font-weight: 950;
+      letter-spacing: -.02em;
+      transition: .17s ease;
+    }
+
+    .btn-primary {
+      color: var(--navy);
+      background:
+        linear-gradient(
+          135deg,
+          var(--lime),
+          #f2ff9f
+        );
+      box-shadow:
+        0 18px 42px rgba(201, 244, 93, .18);
+    }
+
+    .btn-secondary {
+      color: #fff;
+      background: rgba(255, 255, 255, .09);
+      border-color: rgba(255, 255, 255, .19);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 320px;
+    }
+
+    .photo-board {
+      position: absolute;
+      inset: 18px 8px 18px 18px;
+      border-radius: 34px;
+      overflow: hidden;
+      transform: rotate(2deg);
+      border: 1px solid rgba(255, 255, 255, .18);
+      background:
+        linear-gradient(
+          45deg,
+          rgba(255, 255, 255, .08) 25%,
+          transparent 25%,
+          transparent 75%,
+          rgba(255, 255, 255, .08) 75%
+        ),
+        linear-gradient(
+          45deg,
+          rgba(255, 255, 255, .08) 25%,
+          transparent 25%,
+          transparent 75%,
+          rgba(255, 255, 255, .08) 75%
+        ),
+        #2b1a52;
+      background-position:
+        0 0,
+        18px 18px;
+      background-size: 36px 36px;
+      box-shadow:
+        0 24px 54px rgba(0, 0, 0, .24);
+    }
+
+    .photo-scene {
+      position: absolute;
+      inset: 27px;
+      overflow: hidden;
+      border-radius: 24px;
+      background:
+        radial-gradient(
+          circle at 72% 23%,
+          #fff6bd 0 22px,
+          transparent 23px
+        ),
+        linear-gradient(
+          145deg,
+          #8f7cff 0%,
+          #ff79b5 52%,
+          #ffbc75 100%
+        );
+    }
+
+    .photo-scene::before {
+      content: "";
+      position: absolute;
+      left: -20px;
+      bottom: -14px;
+      width: 220px;
+      height: 130px;
+      border-radius: 60% 60% 0 0;
+      background: #42309a;
+      box-shadow:
+        156px 16px 0 0 #c9f45d;
+      transform: skewX(-14deg);
+    }
+
+    .crop-frame {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 210px;
+      height: 210px;
+      transform: translate(-50%, -50%);
+      border: 3px solid var(--lime);
+      box-shadow:
+        0 0 0 999px rgba(20, 10, 44, .46);
+    }
+
+    .crop-frame::before,
+    .crop-frame::after {
+      content: "";
+      position: absolute;
+      background: rgba(201, 244, 93, .6);
+    }
+
+    .crop-frame::before {
+      top: 33.333%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      box-shadow:
+        0 69px 0 rgba(201, 244, 93, .6);
+    }
+
+    .crop-frame::after {
+      left: 33.333%;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      box-shadow:
+        69px 0 0 rgba(201, 244, 93, .6);
+    }
+
+    .crop-badge {
+      position: absolute;
+      right: 0;
+      bottom: 4px;
+      padding: 13px 16px;
+      border-radius: 18px;
+      color: var(--navy);
+      background: var(--lime);
+      font-size: 14px;
+      font-weight: 950;
+      box-shadow:
+        0 18px 40px rgba(0, 0, 0, .22);
+      transform: rotate(-3deg);
+    }
+
+    .main-section {
+      padding: 0 0 34px;
+    }
+
+    .studio {
+      overflow: hidden;
+      border-radius: 34px;
+      background: rgba(255, 255, 255, .93);
+      border: 1px solid rgba(232, 225, 241, .96);
+      box-shadow: var(--shadow);
+    }
+
+    .studio-head {
+      padding: 23px 26px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(
+          90deg,
+          rgba(116, 85, 255, .07),
+          rgba(255, 107, 168, .06),
+          rgba(201, 244, 93, .10)
+        );
+    }
+
+    .studio-head h2 {
+      margin: 0;
+      font-size: 27px;
+      letter-spacing: -.055em;
+    }
+
+    .studio-head p {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .privacy-pill {
+      flex: 0 0 auto;
+      padding: 9px 12px;
+      border-radius: 999px;
+      color: #24674f;
+      background: #ecfbf3;
+      border: 1px solid #cceede;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .empty-area {
+      padding: 24px;
+    }
+
+    .dropzone {
+      min-height: 370px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 32px;
+      border-radius: 26px;
+      border: 2px dashed #d8caed;
+      background:
+        radial-gradient(
+          circle at 84% 17%,
+          rgba(201, 244, 93, .24),
+          transparent 27%
+        ),
+        radial-gradient(
+          circle at 12% 86%,
+          rgba(255, 107, 168, .12),
+          transparent 29%
+        ),
+        linear-gradient(
+          145deg,
+          #faf8ff,
+          #fffaf7
+        );
+      transition: .18s ease;
+    }
+
+    .dropzone.dragover {
+      border-color: var(--purple);
+      transform: translateY(-2px);
+      box-shadow:
+        inset 0 0 0 4px rgba(116, 85, 255, .08);
+    }
+
+    .drop-icon {
+      width: 82px;
+      height: 82px;
+      margin: 0 auto 16px;
+      border-radius: 28px 18px 28px 18px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 34px;
+      background:
+        linear-gradient(
+          135deg,
+          var(--purple),
+          var(--pink)
+        );
+      box-shadow:
+        0 19px 44px rgba(116, 85, 255, .24);
+    }
+
+    .dropzone h3 {
+      margin: 0;
+      font-size: 28px;
+      letter-spacing: -.055em;
+    }
+
+    .dropzone p {
+      margin: 9px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.72;
+    }
+
+    .file-label {
+      margin-top: 18px;
+      min-height: 51px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 19px;
+      border-radius: 15px;
+      color: #fff;
+      background:
+        linear-gradient(
+          135deg,
+          var(--purple-dark),
+          var(--purple)
+        );
+      font-weight: 950;
+      cursor: pointer;
+      box-shadow:
+        0 15px 34px rgba(64, 40, 185, .21);
+    }
+
+    .file-label input {
+      display: none;
+    }
+
+    .editor-area {
+      display: none;
+      grid-template-columns: minmax(0, 1fr) 310px;
+      min-height: 640px;
+    }
+
+    .editor-area.show {
+      display: grid;
+    }
+
+    .canvas-column {
+      min-width: 0;
+      padding: 24px;
+      background:
+        linear-gradient(
+          45deg,
+          #ebe7f1 25%,
+          transparent 25%,
+          transparent 75%,
+          #ebe7f1 75%
+        ),
+        linear-gradient(
+          45deg,
+          #ebe7f1 25%,
+          #f7f5fa 25%,
+          #f7f5fa 75%,
+          #ebe7f1 75%
+        );
+      background-position:
+        0 0,
+        15px 15px;
+      background-size: 30px 30px;
+    }
+
+    .canvas-shell {
+      position: relative;
+      width: 100%;
+      min-height: 580px;
+      overflow: hidden;
+      border-radius: 23px;
+      background: #1d1730;
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, .08);
+    }
+
+    .canvas-shell img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .control-column {
+      padding: 22px;
+      border-left: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .control-group + .control-group {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+    }
+
+    .group-title {
+      margin: 0 0 11px;
+      color: #33264b;
+      font-size: 14px;
+      font-weight: 950;
+      letter-spacing: -.02em;
+    }
+
+    .ratio-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+      gap: 7px;
+    }
+
+    .ratio-btn {
+      min-height: 43px;
+      padding: 8px 5px;
+      border-radius: 13px;
+      border: 1px solid #e2dbee;
+      color: #665a78;
+      background: #fbf9fe;
+      font-size: 12px;
+      font-weight: 950;
+      transition: .15s ease;
+    }
+
+    .ratio-btn:hover,
+    .ratio-btn.active {
+      color: #fff;
+      border-color: transparent;
+      background:
+        linear-gradient(
+          135deg,
+          var(--purple),
+          var(--pink)
+        );
+      box-shadow:
+        0 10px 24px rgba(116, 85, 255, .17);
+    }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+      gap: 7px;
+    }
+
+    .tool-btn {
+      min-height: 47px;
+      border-radius: 13px;
+      border: 1px solid #e3dced;
+      color: #5e5270;
+      background: #fff;
+      font-size: 18px;
+      font-weight: 950;
+      transition: .15s ease;
+    }
+
+    .tool-btn:hover {
+      color: var(--purple-dark);
+      border-color: rgba(116, 85, 255, .35);
+      background: #f7f3ff;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field + .field {
+      margin-top: 13px;
+    }
+
+    .field-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    label {
+      color: #382b50;
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    .field-head small {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    select,
+    input[type="number"],
+    input[type="color"] {
+      width: 100%;
+      min-height: 48px;
+      border: 1px solid #dfd8ea;
+      border-radius: 14px;
+      outline: none;
+      padding: 11px 13px;
+      color: var(--ink);
+      background: #fcfbfe;
+      font-weight: 850;
+    }
+
+    input[type="color"] {
+      padding: 6px;
+      cursor: pointer;
+    }
+
+    select:focus,
+    input[type="number"]:focus,
+    input[type="color"]:focus {
+      border-color: rgba(116, 85, 255, .55);
+      box-shadow:
+        0 0 0 4px rgba(116, 85, 255, .09);
+    }
+
+    .range-wrap {
+      display: grid;
+      grid-template-columns: 1fr 64px;
+      gap: 9px;
+      align-items: center;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--purple);
+    }
+
+    .range-value {
+      min-height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: var(--purple-dark);
+      background: #f1edff;
+      border: 1px solid #e0d8ff;
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    .crop-info {
+      display: grid;
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .crop-info-item {
+      padding: 11px;
+      border-radius: 14px;
+      background: #faf8fc;
+      border: 1px solid #e8e1ef;
+    }
+
+    .crop-info-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 850;
+    }
+
+    .crop-info-item strong {
+      display: block;
+      margin-top: 3px;
+      font-size: 14px;
+      letter-spacing: -.02em;
+    }
+
+    .action-stack {
+      display: grid;
+      gap: 8px;
+    }
+
+    .preview-btn,
+    .replace-btn {
+      min-height: 51px;
+      border-radius: 15px;
+      font-weight: 950;
+    }
+
+    .preview-btn {
+      border: 0;
+      color: var(--navy);
+      background:
+        linear-gradient(
+          135deg,
+          var(--lime),
+          #f1ff9e
+        );
+      box-shadow:
+        0 15px 34px rgba(113, 152, 13, .16);
+    }
+
+    .replace-btn {
+      border: 1px solid #ded6e9;
+      color: #64586f;
+      background: #fff;
+    }
+
+    .result-panel {
+      display: none;
+      margin-top: 24px;
+      padding: 24px;
+      border-radius: 27px;
+      background: #fff;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow2);
+    }
+
+    .result-panel.show {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .result-preview {
+      min-height: 310px;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      border-radius: 21px;
+      background:
+        linear-gradient(
+          45deg,
+          #e9e5ee 25%,
+          transparent 25%,
+          transparent 75%,
+          #e9e5ee 75%
+        ),
+        linear-gradient(
+          45deg,
+          #e9e5ee 25%,
+          #f6f3f9 25%,
+          #f6f3f9 75%,
+          #e9e5ee 75%
+        );
+      background-position:
+        0 0,
+        14px 14px;
+      background-size: 28px 28px;
+    }
+
+    .result-preview img {
+      display: block;
+      max-width: 100%;
+      max-height: 430px;
+      object-fit: contain;
+    }
+
+    .result-content h2 {
+      margin: 0;
+      font-size: 29px;
+      letter-spacing: -.055em;
+    }
+
+    .result-content p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .result-stats {
+      display: grid;
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .result-stat {
+      padding: 13px;
+      border-radius: 15px;
+      background: #faf8fc;
+      border: 1px solid #e7e0ee;
+    }
+
+    .result-stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .result-stat strong {
+      display: block;
+      margin-top: 4px;
+      font-size: 16px;
+    }
+
+    .download-btn {
+      width: 100%;
+      min-height: 54px;
+      margin-top: 15px;
+      border: 0;
+      border-radius: 16px;
+      color: #fff;
+      background:
+        linear-gradient(
+          135deg,
+          var(--purple-dark),
+          var(--purple),
+          var(--pink)
+        );
+      font-weight: 950;
+      box-shadow:
+        0 17px 38px rgba(116, 85, 255, .22);
+    }
+
+    .info-section {
+      padding: 10px 0 52px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .info-card {
+      padding: 22px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, .9);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow2);
+    }
+
+    .info-card:nth-child(1) {
+      border-top: 4px solid var(--purple);
+    }
+
+    .info-card:nth-child(2) {
+      border-top: 4px solid var(--pink);
+    }
+
+    .info-card:nth-child(3) {
+      border-top: 4px solid var(--lime-dark);
+    }
+
+    .info-icon {
+      width: 47px;
+      height: 47px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      background:
+        linear-gradient(
+          135deg,
+          #f3efff,
+          #fff1f7
+        );
+    }
+
+    .info-card h3 {
+      margin: 13px 0 7px;
+      font-size: 19px;
+      letter-spacing: -.04em;
+    }
+
+    .info-card p {
+      margin: 0;
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.75;
+      word-break: keep-all;
+    }
+
+    footer {
+      padding: 32px 0 44px;
+      border-top: 1px solid rgba(32, 22, 58, .08);
+      color: var(--muted);
+    }
+
+    .footer-grid {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-grid b {
+      display: block;
+      color: var(--ink);
+      margin-bottom: 5px;
+    }
+
+    .footer-grid span {
+      display: block;
+      max-width: 760px;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      color: #655a73;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .cropper-view-box,
+    .cropper-face {
+      border-radius: 3px;
+    }
+
+    .cropper-view-box {
+      outline: 3px solid var(--lime);
+      outline-color: var(--lime);
+    }
+
+    .cropper-line {
+      background-color: var(--lime);
+    }
+
+    .cropper-point {
+      width: 8px;
+      height: 8px;
+      background-color: var(--lime);
+      opacity: 1;
+    }
+
+    .cropper-dashed {
+      border-color: rgba(201, 244, 93, .58);
+    }
+
+    .cropper-modal {
+      background-color: #1b102e;
+      opacity: .65;
+    }
+
+    @media (max-width: 1040px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual {
+        min-height: 330px;
+      }
+
+      .editor-area.show {
+        grid-template-columns: 1fr;
+      }
+
+      .control-column {
+        border-left: 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .canvas-shell {
+        min-height: 520px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 12px 0;
+      }
+
+      .nav-links {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 2px;
+      }
+
+      .hero {
+        padding-top: 30px;
+      }
+
+      .hero-shell {
+        padding: 34px 25px;
+        border-radius: 32px;
+      }
+
+      h1 {
+        white-space: normal;
+        font-size: clamp(43px, 12vw, 61px);
+      }
+
+      .hero-visual {
+        min-height: 300px;
+      }
+
+      .photo-board {
+        inset: 10px;
+      }
+
+      .crop-frame {
+        width: 170px;
+        height: 170px;
+      }
+
+      .studio-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .canvas-column {
+        padding: 13px;
+      }
+
+      .canvas-shell {
+        min-height: 430px;
+      }
+
+      .result-panel.show {
+        grid-template-columns: 1fr;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .wrap {
+        width: min(var(--max), calc(100% - 22px));
+      }
+
+      .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .hero-visual {
+        min-height: 270px;
+      }
+
+      .crop-frame {
+        width: 145px;
+        height: 145px;
+      }
+
+      .crop-badge {
+        font-size: 12px;
+      }
+
+      .empty-area {
+        padding: 13px;
+      }
+
+      .dropzone {
+        min-height: 320px;
+        padding: 24px 16px;
+      }
+
+      .canvas-shell {
+        min-height: 360px;
+      }
+
+      .ratio-grid {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+
+      .tool-grid {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+
+      .result-stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a
+        class="brand"
+        href="../"
+        aria-label="바로해결툴즈 홈"
+      >
+        <div class="brand-mark">B</div>
+
+        <div>
+          바로해결툴즈
+          <small>이미지 · 문서 · 생활도구</small>
+        </div>
+      </a>
+
+      <nav
+        class="nav-links"
+        aria-label="상단 메뉴"
+      >
+        <a href="../">전체 도구</a>
+        <a href="#cropper">이미지 자르기</a>
+        <a href="#guide">사용방법</a>
+        <a href="#privacy">개인정보</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero-shell">
+          <div class="hero-grid">
+            <div>
+              <div class="eyebrow">
+                원하는 부분만 정확하게
+              </div>
+
+              <h1>
+                <span>이미지 자르기</span>
+              </h1>
+
+              <p class="lead">
+                사진에서 필요한 부분만 남기고
+                1:1·4:3·16:9·세로형 비율로 자유롭게 자르세요.
+                확대·이동·회전·반전도 브라우저에서 바로 처리됩니다.
+              </p>
+
+              <div class="hero-actions">
+                <a
+                  class="btn btn-primary"
+                  href="#cropper"
+                >
+                  이미지 자르기 시작
+                </a>
+
+                <a
+                  class="btn btn-secondary"
+                  href="#guide"
+                >
+                  지원 기능 확인
+                </a>
+              </div>
+            </div>
+
+            <div
+              class="hero-visual"
+              aria-label="이미지 자르기 예시"
+            >
+              <div class="photo-board">
+                <div class="photo-scene">
+                  <div class="crop-frame"></div>
+                </div>
+              </div>
+
+              <div class="crop-badge">
+                1:1 정사각형 자르기
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="main-section"
+      id="cropper"
+    >
+      <div class="wrap">
+        <div class="studio">
+          <div class="studio-head">
+            <div>
+              <h2>사진 편집 공간</h2>
+
+              <p>
+                이미지를 올린 뒤 자를 영역을 직접 움직이고 크기를 조절하세요.
+              </p>
+            </div>
+
+            <div
+              class="privacy-pill"
+              id="privacy"
+            >
+              🔒 서버 업로드 없이 로컬 처리
+            </div>
+          </div>
+
+          <div
+            class="empty-area"
+            id="emptyArea"
+          >
+            <div
+              class="dropzone"
+              id="dropzone"
+            >
+              <div>
+                <div class="drop-icon">✂</div>
+
+                <h3>
+                  자를 이미지를 올려주세요
+                </h3>
+
+                <p>
+                  JPG·PNG·WebP 파일을 지원합니다.<br />
+                  파일당 권장 최대 30MB
+                </p>
+
+                <label class="file-label">
+                  이미지 선택
+
+                  <input
+                    id="fileInput"
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                  />
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="editor-area"
+            id="editorArea"
+          >
+            <div class="canvas-column">
+              <div class="canvas-shell">
+                <img
+                  id="cropImage"
+                  alt="자르기 편집 이미지"
+                />
+              </div>
+            </div>
+
+            <aside class="control-column">
+              <div class="control-group">
+                <div class="group-title">
+                  자르기 비율
+                </div>
+
+                <div class="ratio-grid">
+                  <button
+                    class="ratio-btn active"
+                    type="button"
+                    data-ratio="NaN"
+                  >
+                    자유
+                  </button>
+
+                  <button
+                    class="ratio-btn"
+                    type="button"
+                    data-ratio="1"
+                  >
+                    1:1
+                  </button>
+
+                  <button
+                    class="ratio-btn"
+                    type="button"
+                    data-ratio="1.3333333333"
+                  >
+                    4:3
+                  </button>
+
+                  <button
+                    class="ratio-btn"
+                    type="button"
+                    data-ratio="0.75"
+                  >
+                    3:4
+                  </button>
+
+                  <button
+                    class="ratio-btn"
+                    type="button"
+                    data-ratio="1.7777777778"
+                  >
+                    16:9
+                  </button>
+
+                  <button
+                    class="ratio-btn"
+                    type="button"
+                    data-ratio="0.5625"
+                  >
+                    9:16
+                  </button>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <div class="group-title">
+                  회전·반전
+                </div>
+
+                <div class="tool-grid">
+                  <button
+                    class="tool-btn"
+                    id="rotateLeftBtn"
+                    type="button"
+                    title="왼쪽으로 90도 회전"
+                  >
+                    ↶
+                  </button>
+
+                  <button
+                    class="tool-btn"
+                    id="rotateRightBtn"
+                    type="button"
+                    title="오른쪽으로 90도 회전"
+                  >
+                    ↷
+                  </button>
+
+                  <button
+                    class="tool-btn"
+                    id="flipHorizontalBtn"
+                    type="button"
+                    title="좌우 반전"
+                  >
+                    ↔
+                  </button>
+
+                  <button
+                    class="tool-btn"
+                    id="flipVerticalBtn"
+                    type="button"
+                    title="상하 반전"
+                  >
+                    ↕
+                  </button>
+
+                  <button
+                    class="tool-btn"
+                    id="zoomOutBtn"
+                    type="button"
+                    title="축소"
+                  >
+                    −
+                  </button>
+
+                  <button
+                    class="tool-btn"
+                    id="zoomInBtn"
+                    type="button"
+                    title="확대"
+                  >
+                    ＋
+                  </button>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <div class="field">
+                  <div class="field-head">
+                    <label for="zoomRange">
+                      확대 비율
+                    </label>
+
+                    <small>사진 이동 가능</small>
+                  </div>
+
+                  <div class="range-wrap">
+                    <input
+                      id="zoomRange"
+                      type="range"
+                      min="0.1"
+                      max="3"
+                      step="0.01"
+                      value="1"
+                    />
+
+                    <div
+                      class="range-value"
+                      id="zoomValue"
+                    >
+                      100%
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <div class="group-title">
+                  현재 자르기 영역
+                </div>
+
+                <div class="crop-info">
+                  <div class="crop-info-item">
+                    <span>가로 크기</span>
+                    <strong id="cropWidth">0px</strong>
+                  </div>
+
+                  <div class="crop-info-item">
+                    <span>세로 크기</span>
+                    <strong id="cropHeight">0px</strong>
+                  </div>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <div class="field">
+                  <div class="field-head">
+                    <label for="outputFormat">
+                      저장 형식
+                    </label>
+
+                    <small>원하는 파일 형식</small>
+                  </div>
+
+                  <select id="outputFormat">
+                    <option value="image/jpeg">
+                      JPG
+                    </option>
+
+                    <option value="image/png">
+                      PNG
+                    </option>
+
+                    <option value="image/webp">
+                      WebP
+                    </option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <div class="field-head">
+                    <label for="qualityRange">
+                      저장 품질
+                    </label>
+
+                    <small>JPG·WebP 적용</small>
+                  </div>
+
+                  <div class="range-wrap">
+                    <input
+                      id="qualityRange"
+                      type="range"
+                      min="50"
+                      max="100"
+                      step="1"
+                      value="92"
+                    />
+
+                    <div
+                      class="range-value"
+                      id="qualityValue"
+                    >
+                      92%
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="field"
+                  id="backgroundField"
+                >
+                  <div class="field-head">
+                    <label for="backgroundColor">
+                      JPG 배경색
+                    </label>
+
+                    <small>투명 영역 채우기</small>
+                  </div>
+
+                  <input
+                    id="backgroundColor"
+                    type="color"
+                    value="#ffffff"
+                  />
+                </div>
+              </div>
+
+              <div class="control-group">
+                <div class="action-stack">
+                  <button
+                    class="preview-btn"
+                    id="previewBtn"
+                    type="button"
+                  >
+                    자르기 결과 만들기
+                  </button>
+
+                  <button
+                    class="replace-btn"
+                    id="resetBtn"
+                    type="button"
+                  >
+                    편집 초기화
+                  </button>
+
+                  <label class="replace-btn file-label">
+                    다른 이미지 선택
+
+                    <input
+                      id="replaceInput"
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp"
+                    />
+                  </label>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+
+        <section
+          class="result-panel"
+          id="resultPanel"
+        >
+          <div class="result-preview">
+            <img
+              id="resultImage"
+              alt="자른 이미지 결과"
+            />
+          </div>
+
+          <div class="result-content">
+            <h2>자르기 완료</h2>
+
+            <p>
+              결과 크기와 용량을 확인한 뒤 파일을 저장하세요.
+            </p>
+
+            <div class="result-stats">
+              <div class="result-stat">
+                <span>결과 크기</span>
+                <strong id="resultDimensions">0×0</strong>
+              </div>
+
+              <div class="result-stat">
+                <span>파일 용량</span>
+                <strong id="resultSize">0KB</strong>
+              </div>
+
+              <div class="result-stat">
+                <span>저장 형식</span>
+                <strong id="resultFormat">JPG</strong>
+              </div>
+
+              <div class="result-stat">
+                <span>저장 품질</span>
+                <strong id="resultQuality">92%</strong>
+              </div>
+            </div>
+
+            <button
+              class="download-btn"
+              id="downloadBtn"
+              type="button"
+            >
+              자른 이미지 저장
+            </button>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section
+      class="info-section"
+      id="guide"
+    >
+      <div class="wrap info-grid">
+        <article class="info-card">
+          <div class="info-icon">▣</div>
+
+          <h3>자주 쓰는 비율</h3>
+
+          <p>
+            정사각형 1:1부터 4:3, 3:4, 16:9, 9:16과 자유 비율을 지원합니다.
+          </p>
+        </article>
+
+        <article class="info-card">
+          <div class="info-icon">↻</div>
+
+          <h3>회전·반전·확대</h3>
+
+          <p>
+            사진을 확대하거나 이동하고 좌우·상하 반전과 90도 회전을 적용할 수 있습니다.
+          </p>
+        </article>
+
+        <article class="info-card">
+          <div class="info-icon">🔒</div>
+
+          <h3>브라우저에서 처리</h3>
+
+          <p>
+            선택한 이미지는 서버로 전송되지 않고 현재 브라우저 안에서만 편집됩니다.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <div>
+        <b>바로해결툴즈</b>
+
+        <span>
+          이미지 편집 결과는 브라우저와 원본 파일 특성에 따라 달라질 수 있습니다.
+          중요한 원본 파일은 별도로 보관하세요.
+        </span>
+      </div>
+
+      <div class="footer-links">
+        <a href="../">전체 도구</a>
+        <a href="#cropper">이미지 자르기</a>
+        <a href="#guide">사용방법</a>
+      </div>
+    </div>
+  </footer>
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"
+  ></script>
+
+  <script>
+    "use strict";
+
+    const MAX_FILE_SIZE =
+      30 * 1024 * 1024;
+
+    const state = {
+      cropper: null,
+      sourceFile: null,
+      sourceUrl: "",
+      resultBlob: null,
+      resultUrl: "",
+      scaleX: 1,
+      scaleY: 1,
+      initialRatio: 1
+    };
+
+    const els = {
+      fileInput:
+        document.getElementById("fileInput"),
+
+      replaceInput:
+        document.getElementById("replaceInput"),
+
+      dropzone:
+        document.getElementById("dropzone"),
+
+      emptyArea:
+        document.getElementById("emptyArea"),
+
+      editorArea:
+        document.getElementById("editorArea"),
+
+      cropImage:
+        document.getElementById("cropImage"),
+
+      rotateLeftBtn:
+        document.getElementById("rotateLeftBtn"),
+
+      rotateRightBtn:
+        document.getElementById("rotateRightBtn"),
+
+      flipHorizontalBtn:
+        document.getElementById("flipHorizontalBtn"),
+
+      flipVerticalBtn:
+        document.getElementById("flipVerticalBtn"),
+
+      zoomOutBtn:
+        document.getElementById("zoomOutBtn"),
+
+      zoomInBtn:
+        document.getElementById("zoomInBtn"),
+
+      zoomRange:
+        document.getElementById("zoomRange"),
+
+      zoomValue:
+        document.getElementById("zoomValue"),
+
+      cropWidth:
+        document.getElementById("cropWidth"),
+
+      cropHeight:
+        document.getElementById("cropHeight"),
+
+      outputFormat:
+        document.getElementById("outputFormat"),
+
+      qualityRange:
+        document.getElementById("qualityRange"),
+
+      qualityValue:
+        document.getElementById("qualityValue"),
+
+      backgroundColor:
+        document.getElementById("backgroundColor"),
+
+      backgroundField:
+        document.getElementById("backgroundField"),
+
+      previewBtn:
+        document.getElementById("previewBtn"),
+
+      resetBtn:
+        document.getElementById("resetBtn"),
+
+      resultPanel:
+        document.getElementById("resultPanel"),
+
+      resultImage:
+        document.getElementById("resultImage"),
+
+      resultDimensions:
+        document.getElementById("resultDimensions"),
+
+      resultSize:
+        document.getElementById("resultSize"),
+
+      resultFormat:
+        document.getElementById("resultFormat"),
+
+      resultQuality:
+        document.getElementById("resultQuality"),
+
+      downloadBtn:
+        document.getElementById("downloadBtn")
+    };
+
+    function formatBytes(bytes) {
+      if (
+        !Number.isFinite(bytes) ||
+        bytes <= 0
+      ) {
+        return "0KB";
+      }
+
+      const units = [
+        "B",
+        "KB",
+        "MB",
+        "GB"
+      ];
+
+      const index = Math.min(
+        Math.floor(
+          Math.log(bytes) /
+          Math.log(1024)
+        ),
+        units.length - 1
+      );
+
+      const value =
+        bytes /
+        Math.pow(1024, index);
+
+      const digits =
+        value >= 100 || index === 0
+          ? 0
+          : 1;
+
+      return (
+        value.toFixed(digits) +
+        units[index]
+      );
+    }
+
+    function safeBaseName(name) {
+      const index =
+        name.lastIndexOf(".");
+
+      return index > 0
+        ? name.slice(0, index)
+        : name;
+    }
+
+    function mimeToExtension(mime) {
+      if (mime === "image/png") {
+        return "png";
+      }
+
+      if (mime === "image/webp") {
+        return "webp";
+      }
+
+      return "jpg";
+    }
+
+    function validateFile(file) {
+      const allowed = [
+        "image/jpeg",
+        "image/png",
+        "image/webp"
+      ];
+
+      if (!file) {
+        return "이미지 파일을 선택해주세요.";
+      }
+
+      if (!allowed.includes(file.type)) {
+        return "JPG·PNG·WebP 이미지만 사용할 수 있습니다.";
+      }
+
+      if (file.size > MAX_FILE_SIZE) {
+        return "파일당 30MB 이하 이미지만 사용할 수 있습니다.";
+      }
+
+      return "";
+    }
+
+    function clearResult() {
+      if (state.resultUrl) {
+        URL.revokeObjectURL(
+          state.resultUrl
+        );
+      }
+
+      state.resultBlob = null;
+      state.resultUrl = "";
+
+      els.resultImage.removeAttribute("src");
+      els.resultPanel.classList.remove("show");
+    }
+
+    function destroyCropper() {
+      if (state.cropper) {
+        state.cropper.destroy();
+        state.cropper = null;
+      }
+
+      if (state.sourceUrl) {
+        URL.revokeObjectURL(
+          state.sourceUrl
+        );
+
+        state.sourceUrl = "";
+      }
+    }
+
+    function loadFile(file) {
+      const error =
+        validateFile(file);
+
+      if (error) {
+        alert(error);
+        return;
+      }
+
+      clearResult();
+      destroyCropper();
+
+      state.sourceFile = file;
+      state.scaleX = 1;
+      state.scaleY = 1;
+
+      state.sourceUrl =
+        URL.createObjectURL(file);
+
+      els.cropImage.src =
+        state.sourceUrl;
+
+      els.emptyArea.style.display =
+        "none";
+
+      els.editorArea.classList.add(
+        "show"
+      );
+
+      els.cropImage.onload = () => {
+        createCropper();
+      };
+
+      els.fileInput.value = "";
+      els.replaceInput.value = "";
+    }
+
+    function createCropper() {
+      state.cropper =
+        new Cropper(
+          els.cropImage,
+          {
+            viewMode: 1,
+            dragMode: "move",
+            aspectRatio: NaN,
+            autoCropArea: .84,
+            responsive: true,
+            restore: false,
+            checkOrientation: true,
+            guides: true,
+            center: true,
+            highlight: false,
+            background: false,
+            modal: true,
+            movable: true,
+            rotatable: true,
+            scalable: true,
+            zoomable: true,
+            zoomOnTouch: true,
+            zoomOnWheel: true,
+            cropBoxMovable: true,
+            cropBoxResizable: true,
+            toggleDragModeOnDblclick: false,
+
+            ready() {
+              const data =
+                state.cropper.getImageData();
+
+              state.initialRatio =
+                data.ratio || 1;
+
+              const minZoom =
+                Math.max(
+                  .01,
+                  state.initialRatio * .55
+                );
+
+              const maxZoom =
+                Math.max(
+                  minZoom + .1,
+                  state.initialRatio * 4
+                );
+
+              els.zoomRange.min =
+                String(minZoom);
+
+              els.zoomRange.max =
+                String(maxZoom);
+
+              els.zoomRange.value =
+                String(state.initialRatio);
+
+              updateZoomLabel(
+                state.initialRatio
+              );
+
+              updateCropInfo();
+            },
+
+            crop() {
+              updateCropInfo();
+            },
+
+            zoom(event) {
+              const ratio =
+                event.detail.ratio;
+
+              if (
+                Number.isFinite(ratio)
+              ) {
+                els.zoomRange.value =
+                  String(ratio);
+
+                updateZoomLabel(ratio);
+              }
+            }
+          }
+        );
+    }
+
+    function updateCropInfo() {
+      if (!state.cropper) {
+        return;
+      }
+
+      const data =
+        state.cropper.getData(true);
+
+      els.cropWidth.textContent =
+        Math.max(
+          0,
+          Math.round(data.width)
+        ) + "px";
+
+      els.cropHeight.textContent =
+        Math.max(
+          0,
+          Math.round(data.height)
+        ) + "px";
+    }
+
+    function updateZoomLabel(ratio) {
+      const base =
+        state.initialRatio || 1;
+
+      const percent =
+        Math.max(
+          1,
+          Math.round(
+            (ratio / base) * 100
+          )
+        );
+
+      els.zoomValue.textContent =
+        percent + "%";
+    }
+
+    function setAspectRatio(value, button) {
+      if (!state.cropper) {
+        return;
+      }
+
+      const ratio =
+        value === "NaN"
+          ? NaN
+          : Number(value);
+
+      state.cropper.setAspectRatio(
+        ratio
+      );
+
+      document
+        .querySelectorAll(".ratio-btn")
+        .forEach((item) => {
+          item.classList.toggle(
+            "active",
+            item === button
+          );
+        });
+
+      clearResult();
+    }
+
+    function setFlip(axis) {
+      if (!state.cropper) {
+        return;
+      }
+
+      if (axis === "x") {
+        state.scaleX =
+          state.scaleX === 1
+            ? -1
+            : 1;
+
+        state.cropper.scaleX(
+          state.scaleX
+        );
+      } else {
+        state.scaleY =
+          state.scaleY === 1
+            ? -1
+            : 1;
+
+        state.cropper.scaleY(
+          state.scaleY
+        );
+      }
+
+      clearResult();
+    }
+
+    function resetEditor() {
+      if (!state.cropper) {
+        return;
+      }
+
+      state.scaleX = 1;
+      state.scaleY = 1;
+
+      state.cropper.reset();
+      state.cropper.setAspectRatio(NaN);
+
+      document
+        .querySelectorAll(".ratio-btn")
+        .forEach((button, index) => {
+          button.classList.toggle(
+            "active",
+            index === 0
+          );
+        });
+
+      clearResult();
+    }
+
+    function canvasToBlob(
+      canvas,
+      mime,
+      quality
+    ) {
+      return new Promise(
+        (resolve, reject) => {
+          canvas.toBlob(
+            (blob) => {
+              if (blob) {
+                resolve(blob);
+              } else {
+                reject(
+                  new Error(
+                    "자른 이미지를 만들지 못했습니다."
+                  )
+                );
+              }
+            },
+            mime,
+            quality
+          );
+        }
+      );
+    }
+
+    async function createResult() {
+      if (!state.cropper) {
+        alert(
+          "먼저 이미지를 선택해주세요."
+        );
+
+        return;
+      }
+
+      els.previewBtn.disabled = true;
+      els.previewBtn.textContent =
+        "결과 만드는 중...";
+
+      try {
+        const mime =
+          els.outputFormat.value;
+
+        const quality =
+          Number(
+            els.qualityRange.value
+          ) / 100;
+
+        const fillColor =
+          mime === "image/jpeg"
+            ? els.backgroundColor.value
+            : undefined;
+
+        const cropData =
+          state.cropper.getData(true);
+
+        const maxWidth =
+          Math.min(
+            6000,
+            Math.max(
+              1,
+              Math.round(cropData.width)
+            )
+          );
+
+        const maxHeight =
+          Math.min(
+            6000,
+            Math.max(
+              1,
+              Math.round(cropData.height)
+            )
+          );
+
+        const canvas =
+          state.cropper.getCroppedCanvas({
+            maxWidth,
+            maxHeight,
+            fillColor,
+            imageSmoothingEnabled: true,
+            imageSmoothingQuality: "high"
+          });
+
+        if (!canvas) {
+          throw new Error(
+            "자르기 영역을 확인할 수 없습니다."
+          );
+        }
+
+        const blob =
+          await canvasToBlob(
+            canvas,
+            mime,
+            quality
+          );
+
+        clearResult();
+
+        state.resultBlob = blob;
+        state.resultUrl =
+          URL.createObjectURL(blob);
+
+        els.resultImage.src =
+          state.resultUrl;
+
+        els.resultDimensions.textContent =
+          canvas.width +
+          "×" +
+          canvas.height;
+
+        els.resultSize.textContent =
+          formatBytes(blob.size);
+
+        els.resultFormat.textContent =
+          mimeToExtension(mime)
+            .toUpperCase();
+
+        els.resultQuality.textContent =
+          mime === "image/png"
+            ? "무손실"
+            : (
+                Math.round(
+                  quality * 100
+                ) + "%"
+              );
+
+        els.resultPanel.classList.add(
+          "show"
+        );
+
+        setTimeout(() => {
+          els.resultPanel.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+        }, 100);
+      } catch (error) {
+        alert(
+          error.message ||
+          "이미지를 처리하지 못했습니다."
+        );
+      } finally {
+        els.previewBtn.disabled = false;
+        els.previewBtn.textContent =
+          "자르기 결과 만들기";
+      }
+    }
+
+    function downloadResult() {
+      if (
+        !state.resultBlob ||
+        !state.sourceFile
+      ) {
+        return;
+      }
+
+      const mime =
+        els.outputFormat.value;
+
+      const extension =
+        mimeToExtension(mime);
+
+      const fileName =
+        safeBaseName(
+          state.sourceFile.name
+        ) +
+        "-cropped." +
+        extension;
+
+      const url =
+        URL.createObjectURL(
+          state.resultBlob
+        );
+
+      const anchor =
+        document.createElement("a");
+
+      anchor.href = url;
+      anchor.download = fileName;
+
+      document.body.appendChild(
+        anchor
+      );
+
+      anchor.click();
+      anchor.remove();
+
+      setTimeout(() => {
+        URL.revokeObjectURL(url);
+      }, 1000);
+    }
+
+    document
+      .querySelectorAll(".ratio-btn")
+      .forEach((button) => {
+        button.addEventListener(
+          "click",
+          () => {
+            setAspectRatio(
+              button.dataset.ratio,
+              button
+            );
+          }
+        );
+      });
+
+    els.fileInput.addEventListener(
+      "change",
+      (event) => {
+        loadFile(
+          event.target.files[0]
+        );
+      }
+    );
+
+    els.replaceInput.addEventListener(
+      "change",
+      (event) => {
+        loadFile(
+          event.target.files[0]
+        );
+      }
+    );
+
+    [
+      "dragenter",
+      "dragover"
+    ].forEach((eventName) => {
+      els.dropzone.addEventListener(
+        eventName,
+        (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+
+          els.dropzone.classList.add(
+            "dragover"
+          );
+        }
+      );
+    });
+
+    [
+      "dragleave",
+      "drop"
+    ].forEach((eventName) => {
+      els.dropzone.addEventListener(
+        eventName,
+        (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+
+          els.dropzone.classList.remove(
+            "dragover"
+          );
+        }
+      );
+    });
+
+    els.dropzone.addEventListener(
+      "drop",
+      (event) => {
+        loadFile(
+          event.dataTransfer.files[0]
+        );
+      }
+    );
+
+    els.rotateLeftBtn.addEventListener(
+      "click",
+      () => {
+        if (state.cropper) {
+          state.cropper.rotate(-90);
+          clearResult();
+        }
+      }
+    );
+
+    els.rotateRightBtn.addEventListener(
+      "click",
+      () => {
+        if (state.cropper) {
+          state.cropper.rotate(90);
+          clearResult();
+        }
+      }
+    );
+
+    els.flipHorizontalBtn.addEventListener(
+      "click",
+      () => {
+        setFlip("x");
+      }
+    );
+
+    els.flipVerticalBtn.addEventListener(
+      "click",
+      () => {
+        setFlip("y");
+      }
+    );
+
+    els.zoomOutBtn.addEventListener(
+      "click",
+      () => {
+        if (state.cropper) {
+          state.cropper.zoom(-.08);
+          clearResult();
+        }
+      }
+    );
+
+    els.zoomInBtn.addEventListener(
+      "click",
+      () => {
+        if (state.cropper) {
+          state.cropper.zoom(.08);
+          clearResult();
+        }
+      }
+    );
+
+    els.zoomRange.addEventListener(
+      "input",
+      () => {
+        if (!state.cropper) {
+          return;
+        }
+
+        const ratio =
+          Number(
+            els.zoomRange.value
+          );
+
+        state.cropper.zoomTo(ratio);
+        updateZoomLabel(ratio);
+        clearResult();
+      }
+    );
+
+    els.qualityRange.addEventListener(
+      "input",
+      () => {
+        els.qualityValue.textContent =
+          els.qualityRange.value + "%";
+
+        clearResult();
+      }
+    );
+
+    els.outputFormat.addEventListener(
+      "change",
+      () => {
+        els.backgroundField.style.display =
+          els.outputFormat.value ===
+          "image/jpeg"
+            ? "grid"
+            : "none";
+
+        clearResult();
+      }
+    );
+
+    els.backgroundColor.addEventListener(
+      "change",
+      clearResult
+    );
+
+    els.previewBtn.addEventListener(
+      "click",
+      createResult
+    );
+
+    els.resetBtn.addEventListener(
+      "click",
+      resetEditor
+    );
+
+    els.downloadBtn.addEventListener(
+      "click",
+      downloadResult
+    );
+
+    window.addEventListener(
+      "beforeunload",
+      () => {
+        clearResult();
+        destroyCropper();
+      }
+    );
+
+    els.qualityValue.textContent =
+      els.qualityRange.value + "%";
+  </script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script
+    defer
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'
+  ></script>
+  <!-- End Cloudflare Web Analytics -->
+</body>
+</html>
