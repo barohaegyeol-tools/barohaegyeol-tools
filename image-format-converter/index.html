@@ -1,0 +1,3156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>JPG·PNG·WebP 변환기｜이미지 형식 바꾸기｜바로해결툴즈</title>
+
+  <meta
+    name="description"
+    content="JPG, PNG, WebP 이미지를 원하는 형식으로 변환하세요. 여러 장 일괄 변환, 품질 조절, 투명 배경 처리, ZIP 저장을 지원합니다."
+  />
+
+  <meta
+    name="keywords"
+    content="이미지 변환기, JPG PNG 변환, PNG JPG 변환, WebP JPG 변환, JPG WebP 변환, 이미지 형식 변환"
+  />
+
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+
+  <link
+    rel="canonical"
+    href="https://barohaegyeol-tools.pages.dev/image-format-converter/"
+  />
+
+  <meta name="theme-color" content="#fff5ec" />
+
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:title"
+    content="JPG·PNG·WebP 변환기｜바로해결툴즈"
+  />
+  <meta
+    property="og:description"
+    content="이미지를 서버에 올리지 않고 JPG·PNG·WebP 형식으로 바로 변환하세요."
+  />
+  <meta
+    property="og:url"
+    content="https://barohaegyeol-tools.pages.dev/image-format-converter/"
+  />
+  <meta
+    property="og:site_name"
+    content="바로해결툴즈"
+  />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "JPG·PNG·WebP 변환기",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Web Browser",
+    "url": "https://barohaegyeol-tools.pages.dev/image-format-converter/",
+    "description": "JPG, PNG, WebP 이미지 형식을 브라우저에서 변환하는 무료 도구",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "KRW"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --cream: #fff8f1;
+      --cream-deep: #f9eadc;
+      --white: #ffffff;
+      --ink: #18313a;
+      --text: #486169;
+      --muted: #7d9197;
+      --line: #eadfd5;
+      --orange: #ff7b42;
+      --orange-dark: #d94e18;
+      --peach: #ffb58c;
+      --teal: #0fa79a;
+      --teal-dark: #08766d;
+      --aqua: #8de5dc;
+      --yellow: #ffd66b;
+      --navy: #173844;
+      --danger: #e45f5f;
+      --success: #14866f;
+      --shadow:
+        0 24px 70px rgba(74, 53, 38, .13);
+      --shadow-soft:
+        0 14px 38px rgba(74, 53, 38, .08);
+      --radius: 28px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Pretendard",
+        "Noto Sans KR",
+        "Apple SD Gothic Neo",
+        system-ui,
+        sans-serif;
+      line-height: 1.65;
+      overflow-x: hidden;
+      background:
+        radial-gradient(
+          circle at 8% 6%,
+          rgba(255, 123, 66, .16),
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 91% 11%,
+          rgba(15, 167, 154, .15),
+          transparent 27%
+        ),
+        radial-gradient(
+          circle at 78% 92%,
+          rgba(255, 214, 107, .23),
+          transparent 29%
+        ),
+        linear-gradient(
+          145deg,
+          #fff8f1 0%,
+          #f8fffd 55%,
+          #fffaf0 100%
+        );
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .2;
+      background-image:
+        radial-gradient(
+          circle,
+          rgba(217, 78, 24, .22) 1px,
+          transparent 1.3px
+        );
+      background-size: 30px 30px;
+      mask-image:
+        linear-gradient(
+          to bottom,
+          #000 0%,
+          transparent 70%
+        );
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .wrap {
+      width:
+        min(
+          var(--max),
+          calc(100% - 32px)
+        );
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom:
+        1px solid rgba(24, 49, 58, .07);
+      background:
+        rgba(255, 250, 245, .87);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      flex: 0 0 auto;
+      font-weight: 950;
+      letter-spacing: -.04em;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 50% 16px 16px 16px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-weight: 950;
+      background:
+        linear-gradient(
+          135deg,
+          var(--orange),
+          var(--teal)
+        );
+      box-shadow:
+        0 15px 34px rgba(255, 123, 66, .23);
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 1px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      white-space: nowrap;
+    }
+
+    .nav-links a {
+      padding: 9px 12px;
+      border-radius: 999px;
+      border:
+        1px solid rgba(24, 49, 58, .08);
+      background:
+        rgba(255, 255, 255, .82);
+      color: #50666d;
+      font-size: 13px;
+      font-weight: 900;
+      transition: .16s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--orange-dark);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero {
+      padding: 46px 0 30px;
+    }
+
+    .hero-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 440px;
+      padding: 48px;
+      border-radius: 42px;
+      border:
+        1px solid rgba(255, 255, 255, .92);
+      background:
+        radial-gradient(
+          circle at 78% 18%,
+          rgba(255, 214, 107, .39),
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 95% 82%,
+          rgba(141, 229, 220, .33),
+          transparent 31%
+        ),
+        linear-gradient(
+          135deg,
+          #fff4e8 0%,
+          #ffffff 48%,
+          #eafffa 100%
+        );
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      left: -70px;
+      bottom: -90px;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background:
+        rgba(255, 123, 66, .11);
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.04fr .96fr;
+      gap: 38px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: var(--orange-dark);
+      background:
+        rgba(255, 123, 66, .1);
+      border:
+        1px solid rgba(255, 123, 66, .2);
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--orange);
+      box-shadow:
+        0 0 0 5px rgba(255, 123, 66, .13);
+    }
+
+    h1 {
+      margin: 18px 0 0;
+      font-size:
+        clamp(43px, 5.3vw, 70px);
+      line-height: 1.02;
+      letter-spacing: -.075em;
+      white-space: nowrap;
+    }
+
+    h1 span {
+      color: transparent;
+      background:
+        linear-gradient(
+          100deg,
+          var(--orange-dark) 0%,
+          var(--orange) 38%,
+          var(--teal-dark) 100%
+        );
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .lead {
+      margin: 20px 0 0;
+      max-width: 670px;
+      color: var(--text);
+      font-size:
+        clamp(16px, 1.8vw, 19px);
+      line-height: 1.82;
+      word-break: keep-all;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .btn {
+      min-height: 52px;
+      padding: 13px 18px;
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid transparent;
+      font-weight: 950;
+      letter-spacing: -.02em;
+      transition: .17s ease;
+    }
+
+    .btn-primary {
+      color: #fff;
+      background:
+        linear-gradient(
+          135deg,
+          var(--orange),
+          var(--teal)
+        );
+      box-shadow:
+        0 18px 42px rgba(255, 123, 66, .23);
+    }
+
+    .btn-secondary {
+      color: #35545c;
+      background:
+        rgba(255, 255, 255, .9);
+      border-color: var(--line);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .format-stage {
+      position: relative;
+      min-height: 330px;
+    }
+
+    .format-card {
+      position: absolute;
+      width: 185px;
+      height: 215px;
+      padding: 18px;
+      border-radius: 29px;
+      background:
+        rgba(255, 255, 255, .94);
+      border:
+        1px solid rgba(24, 49, 58, .08);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .format-card::before {
+      content: "";
+      display: block;
+      height: 118px;
+      border-radius: 20px;
+      background:
+        radial-gradient(
+          circle at 70% 25%,
+          #fff7c7 0 15px,
+          transparent 16px
+        ),
+        linear-gradient(
+          145deg,
+          #77d8d0,
+          #ffd071 58%,
+          #ff9771
+        );
+    }
+
+    .format-card small {
+      display: block;
+      margin-top: 13px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .format-card strong {
+      display: block;
+      margin-top: 3px;
+      font-size: 27px;
+      letter-spacing: -.04em;
+    }
+
+    .card-jpg {
+      left: 18px;
+      top: 48px;
+      transform: rotate(-7deg);
+      z-index: 2;
+    }
+
+    .card-png {
+      left: 50%;
+      top: 17px;
+      transform:
+        translateX(-50%)
+        rotate(1deg);
+      z-index: 4;
+    }
+
+    .card-webp {
+      right: 12px;
+      top: 58px;
+      transform: rotate(7deg);
+      z-index: 3;
+    }
+
+    .card-jpg strong {
+      color: var(--orange-dark);
+    }
+
+    .card-png strong {
+      color: var(--teal-dark);
+    }
+
+    .card-webp strong {
+      color: #926d00;
+    }
+
+    .convert-arrow {
+      position: absolute;
+      left: 50%;
+      bottom: 7px;
+      width: 112px;
+      height: 54px;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 28px;
+      font-weight: 950;
+      background:
+        linear-gradient(
+          135deg,
+          var(--orange),
+          var(--teal)
+        );
+      box-shadow:
+        0 18px 38px rgba(15, 167, 154, .23);
+      z-index: 5;
+    }
+
+    .main-section {
+      padding: 0 0 36px;
+    }
+
+    .converter-layout {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      border-radius: var(--radius);
+      background:
+        rgba(255, 255, 255, .92);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .settings-panel {
+      position: sticky;
+      top: 92px;
+      padding: 24px;
+    }
+
+    .panel-title {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.2;
+      letter-spacing: -.055em;
+    }
+
+    .panel-sub {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.72;
+      word-break: keep-all;
+    }
+
+    .format-selector {
+      display: grid;
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .format-btn {
+      min-height: 66px;
+      border-radius: 17px;
+      border: 1px solid #eadfd5;
+      background: #fffdfb;
+      color: #5d686b;
+      font-size: 13px;
+      font-weight: 950;
+      transition: .15s ease;
+    }
+
+    .format-btn span {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .format-btn:hover,
+    .format-btn.active {
+      color: #fff;
+      border-color: transparent;
+      background:
+        linear-gradient(
+          135deg,
+          var(--orange),
+          var(--teal)
+        );
+      box-shadow:
+        0 12px 28px rgba(255, 123, 66, .19);
+    }
+
+    .format-btn.active span {
+      color:
+        rgba(255, 255, 255, .76);
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    label {
+      color: #29444b;
+      font-size: 14px;
+      font-weight: 950;
+    }
+
+    .field-head small,
+    .hint {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 760;
+    }
+
+    select,
+    input[type="color"] {
+      width: 100%;
+      min-height: 51px;
+      border:
+        1px solid #e4dbd3;
+      border-radius: 15px;
+      outline: none;
+      padding: 11px 13px;
+      color: var(--ink);
+      background: #fffdfb;
+      font-weight: 850;
+    }
+
+    input[type="color"] {
+      padding: 7px;
+      cursor: pointer;
+    }
+
+    select:focus,
+    input[type="color"]:focus {
+      border-color:
+        rgba(255, 123, 66, .53);
+      box-shadow:
+        0 0 0 4px rgba(255, 123, 66, .09);
+    }
+
+    .range-wrap {
+      display: grid;
+      grid-template-columns: 1fr 70px;
+      gap: 10px;
+      align-items: center;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--orange);
+    }
+
+    .range-value {
+      min-height: 43px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      color: var(--orange-dark);
+      background: #fff2e9;
+      border: 1px solid #ffdcca;
+      font-size: 14px;
+      font-weight: 950;
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 13px 14px;
+      border-radius: 16px;
+      border: 1px solid #e8ded6;
+      background: #fffdfb;
+    }
+
+    .toggle-row b {
+      display: block;
+      font-size: 14px;
+    }
+
+    .toggle-row small {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .switch {
+      position: relative;
+      width: 52px;
+      height: 30px;
+      flex: 0 0 auto;
+    }
+
+    .switch input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .switch span {
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: #d8d4d0;
+      transition: .18s ease;
+    }
+
+    .switch span::after {
+      content: "";
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      left: 4px;
+      top: 4px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow:
+        0 4px 10px rgba(24, 49, 58, .17);
+      transition: .18s ease;
+    }
+
+    .switch input:checked + span {
+      background:
+        linear-gradient(
+          135deg,
+          var(--orange),
+          var(--teal)
+        );
+    }
+
+    .switch input:checked + span::after {
+      transform: translateX(22px);
+    }
+
+    .privacy-box {
+      margin-top: 18px;
+      padding: 14px;
+      display: flex;
+      gap: 10px;
+      border-radius: 17px;
+      color: #1d6f65;
+      background: #edfbf8;
+      border: 1px solid #ccefe8;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .upload-panel {
+      padding: 22px;
+    }
+
+    .dropzone {
+      min-height: 280px;
+      padding: 30px;
+      border-radius: 25px;
+      border:
+        2px dashed #e5cbbb;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      background:
+        radial-gradient(
+          circle at 84% 18%,
+          rgba(141, 229, 220, .23),
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 11% 86%,
+          rgba(255, 181, 140, .16),
+          transparent 31%
+        ),
+        linear-gradient(
+          145deg,
+          #fffaf5,
+          #f7fffd
+        );
+      transition: .18s ease;
+    }
+
+    .dropzone.dragover {
+      border-color: var(--orange);
+      transform: translateY(-2px);
+      box-shadow:
+        inset 0 0 0 4px rgba(255, 123, 66, .07);
+    }
+
+    .drop-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 15px;
+      border-radius: 50% 22px 22px 22px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 34px;
+      background:
+        linear-gradient(
+          135deg,
+          var(--orange),
+          var(--teal)
+        );
+      box-shadow:
+        0 18px 42px rgba(255, 123, 66, .23);
+    }
+
+    .dropzone h2 {
+      margin: 0;
+      font-size: 27px;
+      letter-spacing: -.05em;
+    }
+
+    .dropzone p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.72;
+    }
+
+    .file-label {
+      margin-top: 17px;
+      min-height: 50px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      border-radius: 15px;
+      color: #fff;
+      background:
+        linear-gradient(
+          135deg,
+          var(--navy),
+          var(--teal)
+        );
+      font-weight: 950;
+      cursor: pointer;
+      box-shadow:
+        0 14px 32px rgba(23, 56, 68, .2);
+    }
+
+    .file-label input {
+      display: none;
+    }
+
+    .queue-area {
+      display: none;
+      margin-top: 18px;
+    }
+
+    .queue-area.show {
+      display: block;
+    }
+
+    .queue-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+
+    .queue-head h3 {
+      margin: 0;
+      font-size: 21px;
+      letter-spacing: -.04em;
+    }
+
+    .text-btn {
+      border: 0;
+      background: transparent;
+      color: var(--danger);
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    .file-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .file-item {
+      display: grid;
+      grid-template-columns: 68px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 11px;
+      border-radius: 18px;
+      border: 1px solid #e9dfd7;
+      background: #fffdfb;
+    }
+
+    .thumb {
+      width: 68px;
+      height: 68px;
+      border-radius: 14px;
+      object-fit: cover;
+      background: #f1ece8;
+    }
+
+    .file-info {
+      min-width: 0;
+    }
+
+    .file-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #27434a;
+      font-size: 14px;
+      font-weight: 950;
+    }
+
+    .file-meta {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 760;
+    }
+
+    .format-chip {
+      display: inline-flex;
+      margin-top: 6px;
+      padding: 4px 7px;
+      border-radius: 999px;
+      color: var(--teal-dark);
+      background: #eaf9f6;
+      border: 1px solid #ccece6;
+      font-size: 10px;
+      font-weight: 950;
+    }
+
+    .remove-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      border: 1px solid #f0d6d6;
+      background: #fff7f7;
+      color: var(--danger);
+      font-weight: 950;
+    }
+
+    .action-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .convert-btn {
+      min-height: 58px;
+      border: 0;
+      border-radius: 18px;
+      color: #fff;
+      background:
+        linear-gradient(
+          135deg,
+          var(--orange),
+          var(--teal)
+        );
+      font-size: 17px;
+      font-weight: 950;
+      box-shadow:
+        0 18px 42px rgba(255, 123, 66, .22);
+    }
+
+    .convert-btn:disabled {
+      cursor: not-allowed;
+      opacity: .55;
+      box-shadow: none;
+    }
+
+    .download-all-btn {
+      min-height: 58px;
+      padding: 0 16px;
+      border-radius: 18px;
+      border: 1px solid #e2d9d1;
+      background: #fff;
+      color: #36545c;
+      font-weight: 950;
+    }
+
+    .download-all-btn:disabled {
+      opacity: .45;
+      cursor: not-allowed;
+    }
+
+    .progress-shell {
+      display: none;
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 16px;
+      background: #fbf8f5;
+      border: 1px solid #e8dfd8;
+    }
+
+    .progress-shell.show {
+      display: block;
+    }
+
+    .progress-track {
+      height: 10px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #e4ddd7;
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      border-radius: 999px;
+      background:
+        linear-gradient(
+          90deg,
+          var(--orange),
+          var(--teal)
+        );
+      transition: width .2s ease;
+    }
+
+    .progress-text {
+      margin-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .results-section {
+      display: none;
+      padding: 0 0 24px;
+    }
+
+    .results-section.show {
+      display: block;
+    }
+
+    .results-shell {
+      padding: 24px;
+      border-radius: 31px;
+      background:
+        rgba(255, 255, 255, .92);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .section-title {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 15px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 31px;
+      line-height: 1.16;
+      letter-spacing: -.055em;
+    }
+
+    .section-title p {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .summary-item {
+      padding: 15px;
+      border-radius: 18px;
+      background:
+        linear-gradient(
+          145deg,
+          #fff7ef,
+          #f4fffc
+        );
+      border: 1px solid #eadfd7;
+    }
+
+    .summary-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .summary-item strong {
+      display: block;
+      margin-top: 5px;
+      font-size: 20px;
+      letter-spacing: -.04em;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .result-card {
+      overflow: hidden;
+      border-radius: 24px;
+      background: #fff;
+      border: 1px solid #e8ded6;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .result-preview {
+      height: 230px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background:
+        linear-gradient(
+          45deg,
+          #eee9e5 25%,
+          transparent 25%,
+          transparent 75%,
+          #eee9e5 75%
+        ),
+        linear-gradient(
+          45deg,
+          #eee9e5 25%,
+          #faf8f6 25%,
+          #faf8f6 75%,
+          #eee9e5 75%
+        );
+      background-position:
+        0 0,
+        14px 14px;
+      background-size: 28px 28px;
+    }
+
+    .result-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .result-body {
+      padding: 17px;
+    }
+
+    .result-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 16px;
+      font-weight: 950;
+    }
+
+    .result-stats {
+      display: grid;
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .result-stat {
+      padding: 10px;
+      border-radius: 14px;
+      background: #fbf8f5;
+      border: 1px solid #eee5df;
+    }
+
+    .result-stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .result-stat strong {
+      display: block;
+      margin-top: 4px;
+      font-size: 14px;
+    }
+
+    .result-actions {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .download-btn,
+    .settings-btn {
+      min-height: 44px;
+      border-radius: 14px;
+      font-weight: 950;
+    }
+
+    .download-btn {
+      border: 0;
+      color: #fff;
+      background:
+        linear-gradient(
+          135deg,
+          var(--orange),
+          var(--teal)
+        );
+    }
+
+    .settings-btn {
+      padding: 0 13px;
+      border: 1px solid #e6ddd5;
+      background: #fff;
+      color: #3b5860;
+    }
+
+    .info-section {
+      padding: 10px 0 52px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .info-card {
+      padding: 22px;
+      border-radius: 24px;
+      background:
+        rgba(255, 255, 255, .9);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .info-card:nth-child(1) {
+      border-top: 4px solid var(--orange);
+    }
+
+    .info-card:nth-child(2) {
+      border-top: 4px solid var(--teal);
+    }
+
+    .info-card:nth-child(3) {
+      border-top: 4px solid #d9a900;
+    }
+
+    .info-icon {
+      width: 47px;
+      height: 47px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      background:
+        linear-gradient(
+          135deg,
+          #fff1e7,
+          #eafffa
+        );
+    }
+
+    .info-card h3 {
+      margin: 13px 0 7px;
+      font-size: 19px;
+      letter-spacing: -.04em;
+    }
+
+    .info-card p {
+      margin: 0;
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.75;
+      word-break: keep-all;
+    }
+
+    footer {
+      padding: 32px 0 44px;
+      border-top:
+        1px solid rgba(24, 49, 58, .08);
+      color: var(--muted);
+    }
+
+    .footer-grid {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-grid b {
+      display: block;
+      color: var(--ink);
+      margin-bottom: 5px;
+    }
+
+    .footer-grid span {
+      display: block;
+      max-width: 760px;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      color: #536970;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    @media (max-width: 1040px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .format-stage {
+        min-height: 330px;
+      }
+
+      .converter-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .settings-panel {
+        position: static;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 12px 0;
+      }
+
+      .nav-links {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 2px;
+      }
+
+      .hero {
+        padding-top: 30px;
+      }
+
+      .hero-card {
+        padding: 34px 25px;
+        border-radius: 32px;
+      }
+
+      h1 {
+        white-space: normal;
+        font-size:
+          clamp(42px, 11vw, 59px);
+      }
+
+      .format-stage {
+        min-height: 310px;
+      }
+
+      .format-card {
+        width: 155px;
+        height: 195px;
+      }
+
+      .card-jpg {
+        left: 5px;
+      }
+
+      .card-webp {
+        right: 5px;
+      }
+
+      .summary-grid {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+
+      .result-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .wrap {
+        width:
+          min(
+            var(--max),
+            calc(100% - 22px)
+          );
+      }
+
+      .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .format-stage {
+        min-height: 290px;
+      }
+
+      .format-card {
+        width: 132px;
+        height: 174px;
+        padding: 12px;
+      }
+
+      .format-card::before {
+        height: 98px;
+      }
+
+      .format-card strong {
+        font-size: 20px;
+      }
+
+      .card-jpg {
+        left: -6px;
+        top: 58px;
+      }
+
+      .card-png {
+        top: 24px;
+      }
+
+      .card-webp {
+        right: -6px;
+        top: 62px;
+      }
+
+      .format-selector {
+        grid-template-columns: 1fr;
+      }
+
+      .action-row {
+        grid-template-columns: 1fr;
+      }
+
+      .download-all-btn {
+        width: 100%;
+      }
+
+      .file-item {
+        grid-template-columns: 58px 1fr auto;
+      }
+
+      .thumb {
+        width: 58px;
+        height: 58px;
+      }
+
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .result-stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a
+        class="brand"
+        href="../"
+        aria-label="바로해결툴즈 홈"
+      >
+        <div class="brand-mark">B</div>
+
+        <div>
+          바로해결툴즈
+          <small>이미지 · 문서 · 생활도구</small>
+        </div>
+      </a>
+
+      <nav
+        class="nav-links"
+        aria-label="상단 메뉴"
+      >
+        <a href="../">전체 도구</a>
+        <a href="#converter">형식 변환</a>
+        <a href="#guide">사용방법</a>
+        <a href="#privacy">개인정보</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero-card">
+          <div class="hero-grid">
+            <div>
+              <div class="eyebrow">
+                원하는 이미지 형식으로
+              </div>
+
+              <h1>
+                <span>JPG·PNG·WebP 변환기</span>
+              </h1>
+
+              <p class="lead">
+                여러 장의 이미지를 원하는 형식으로
+                한 번에 변환하세요.
+                품질과 투명 배경 처리까지 직접 설정하고
+                개별 파일 또는 ZIP으로 저장할 수 있습니다.
+              </p>
+
+              <div class="hero-actions">
+                <a
+                  class="btn btn-primary"
+                  href="#converter"
+                >
+                  이미지 변환 시작
+                </a>
+
+                <a
+                  class="btn btn-secondary"
+                  href="#guide"
+                >
+                  지원 형식 확인
+                </a>
+              </div>
+            </div>
+
+            <div
+              class="format-stage"
+              aria-label="이미지 형식 변환 예시"
+            >
+              <div class="format-card card-jpg">
+                <small>사진 파일</small>
+                <strong>JPG</strong>
+              </div>
+
+              <div class="format-card card-png">
+                <small>투명 배경</small>
+                <strong>PNG</strong>
+              </div>
+
+              <div class="format-card card-webp">
+                <small>웹 최적화</small>
+                <strong>WebP</strong>
+              </div>
+
+              <div class="convert-arrow">
+                ⇄
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="main-section"
+      id="converter"
+    >
+      <div class="wrap converter-layout">
+        <aside class="panel settings-panel">
+          <h2 class="panel-title">
+            변환 설정
+          </h2>
+
+          <p class="panel-sub">
+            저장할 이미지 형식과 품질,
+            투명 배경 처리 방식을 선택하세요.
+          </p>
+
+          <div
+            class="format-selector"
+            aria-label="출력 이미지 형식"
+          >
+            <button
+              class="format-btn active"
+              type="button"
+              data-format="image/jpeg"
+            >
+              JPG
+              <span>사진용</span>
+            </button>
+
+            <button
+              class="format-btn"
+              type="button"
+              data-format="image/png"
+            >
+              PNG
+              <span>투명 배경</span>
+            </button>
+
+            <button
+              class="format-btn"
+              type="button"
+              data-format="image/webp"
+            >
+              WebP
+              <span>웹 최적화</span>
+            </button>
+          </div>
+
+          <div class="form-grid">
+            <div
+              class="field"
+              id="qualityField"
+            >
+              <div class="field-head">
+                <label for="qualityRange">
+                  저장 품질
+                </label>
+
+                <small>JPG·WebP 적용</small>
+              </div>
+
+              <div class="range-wrap">
+                <input
+                  id="qualityRange"
+                  type="range"
+                  min="40"
+                  max="100"
+                  step="1"
+                  value="90"
+                />
+
+                <div
+                  class="range-value"
+                  id="qualityValue"
+                >
+                  90%
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="field"
+              id="backgroundField"
+            >
+              <div class="field-head">
+                <label for="backgroundColor">
+                  JPG 배경색
+                </label>
+
+                <small>투명 부분 채우기</small>
+              </div>
+
+              <input
+                id="backgroundColor"
+                type="color"
+                value="#ffffff"
+              />
+            </div>
+
+            <div class="field">
+              <div class="field-head">
+                <label for="maxWidth">
+                  최대 가로폭
+                </label>
+
+                <small>선택사항</small>
+              </div>
+
+              <select id="maxWidth">
+                <option value="0">
+                  원본 크기 유지
+                </option>
+
+                <option value="2560">
+                  최대 2560px
+                </option>
+
+                <option value="1920">
+                  최대 1920px
+                </option>
+
+                <option value="1600">
+                  최대 1600px
+                </option>
+
+                <option value="1280">
+                  최대 1280px
+                </option>
+
+                <option value="1080">
+                  최대 1080px
+                </option>
+              </select>
+            </div>
+
+            <div class="toggle-row">
+              <div>
+                <b>원본보다 커지면 제외</b>
+                <small>
+                  변환 후 용량이 증가한 파일은 원본 유지
+                </small>
+              </div>
+
+              <label
+                class="switch"
+                aria-label="원본보다 커지면 제외"
+              >
+                <input
+                  id="keepSmaller"
+                  type="checkbox"
+                />
+
+                <span></span>
+              </label>
+            </div>
+          </div>
+
+          <div
+            class="privacy-box"
+            id="privacy"
+          >
+            <span>🔒</span>
+
+            <div>
+              선택한 이미지는 서버로 업로드되지 않고
+              현재 브라우저 안에서만 변환됩니다.
+            </div>
+          </div>
+        </aside>
+
+        <section class="panel upload-panel">
+          <div
+            class="dropzone"
+            id="dropzone"
+          >
+            <div>
+              <div class="drop-icon">
+                ⇄
+              </div>
+
+              <h2>
+                변환할 이미지를 올려주세요
+              </h2>
+
+              <p>
+                JPG·PNG·WebP, 최대 20장<br />
+                파일당 권장 최대 25MB
+              </p>
+
+              <label class="file-label">
+                이미지 선택
+
+                <input
+                  id="fileInput"
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  multiple
+                />
+              </label>
+            </div>
+          </div>
+
+          <div
+            class="queue-area"
+            id="queueArea"
+          >
+            <div class="queue-head">
+              <h3>
+                선택한 이미지
+                <span id="fileCount">0</span>장
+              </h3>
+
+              <button
+                class="text-btn"
+                id="clearFilesBtn"
+                type="button"
+              >
+                전체 삭제
+              </button>
+            </div>
+
+            <div
+              class="file-list"
+              id="fileList"
+            ></div>
+
+            <div class="action-row">
+              <button
+                class="convert-btn"
+                id="convertBtn"
+                type="button"
+              >
+                이미지 형식 변환
+              </button>
+
+              <button
+                class="download-all-btn"
+                id="downloadAllBtn"
+                type="button"
+                disabled
+              >
+                전체 ZIP 저장
+              </button>
+            </div>
+
+            <div
+              class="progress-shell"
+              id="progressShell"
+            >
+              <div class="progress-track">
+                <div
+                  class="progress-bar"
+                  id="progressBar"
+                ></div>
+              </div>
+
+              <div class="progress-text">
+                <span id="progressLabel">
+                  변환 준비 중
+                </span>
+
+                <span id="progressPercent">
+                  0%
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section
+      class="results-section"
+      id="resultsSection"
+    >
+      <div class="wrap">
+        <div class="results-shell">
+          <div class="section-title">
+            <div>
+              <h2>변환 결과</h2>
+
+              <p>
+                파일 형식과 용량을 확인한 뒤 저장하세요.
+              </p>
+            </div>
+          </div>
+
+          <div class="summary-grid">
+            <div class="summary-item">
+              <span>처리 파일</span>
+              <strong id="summaryFiles">0장</strong>
+            </div>
+
+            <div class="summary-item">
+              <span>변환 형식</span>
+              <strong id="summaryFormat">JPG</strong>
+            </div>
+
+            <div class="summary-item">
+              <span>원본 용량</span>
+              <strong id="summaryOriginal">0KB</strong>
+            </div>
+
+            <div class="summary-item">
+              <span>결과 용량</span>
+              <strong id="summaryOutput">0KB</strong>
+            </div>
+          </div>
+
+          <div
+            class="result-grid"
+            id="resultGrid"
+          ></div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="info-section"
+      id="guide"
+    >
+      <div class="wrap info-grid">
+        <article class="info-card">
+          <div class="info-icon">J</div>
+
+          <h3>JPG 변환</h3>
+
+          <p>
+            사진이나 일반 이미지를 호환성이 높은 JPG 형식으로 변환할 수 있습니다.
+            투명 영역은 선택한 배경색으로 채워집니다.
+          </p>
+        </article>
+
+        <article class="info-card">
+          <div class="info-icon">P</div>
+
+          <h3>PNG 변환</h3>
+
+          <p>
+            투명 배경을 유지해야 하는 로고와 그래픽 이미지를 PNG 형식으로 저장할 수 있습니다.
+          </p>
+        </article>
+
+        <article class="info-card">
+          <div class="info-icon">W</div>
+
+          <h3>WebP 변환</h3>
+
+          <p>
+            웹페이지와 블로그에서 사용할 이미지를 비교적 작은 용량의 WebP 형식으로 바꿀 수 있습니다.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <div>
+        <b>바로해결툴즈</b>
+
+        <span>
+          움직이는 WebP나 애니메이션 이미지는 첫 장면만 변환될 수 있습니다.
+          중요한 원본 파일은 별도로 보관하세요.
+        </span>
+      </div>
+
+      <div class="footer-links">
+        <a href="../">전체 도구</a>
+        <a href="#converter">형식 변환</a>
+        <a href="#guide">사용방법</a>
+      </div>
+    </div>
+  </footer>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"
+  ></script>
+
+  <script>
+    "use strict";
+
+    const MAX_FILES = 20;
+    const MAX_FILE_SIZE =
+      25 * 1024 * 1024;
+
+    const state = {
+      files: [],
+      results: [],
+      processing: false,
+      outputMime: "image/jpeg"
+    };
+
+    const els = {
+      dropzone:
+        document.getElementById("dropzone"),
+
+      fileInput:
+        document.getElementById("fileInput"),
+
+      queueArea:
+        document.getElementById("queueArea"),
+
+      fileList:
+        document.getElementById("fileList"),
+
+      fileCount:
+        document.getElementById("fileCount"),
+
+      clearFilesBtn:
+        document.getElementById("clearFilesBtn"),
+
+      convertBtn:
+        document.getElementById("convertBtn"),
+
+      downloadAllBtn:
+        document.getElementById("downloadAllBtn"),
+
+      qualityField:
+        document.getElementById("qualityField"),
+
+      qualityRange:
+        document.getElementById("qualityRange"),
+
+      qualityValue:
+        document.getElementById("qualityValue"),
+
+      backgroundField:
+        document.getElementById("backgroundField"),
+
+      backgroundColor:
+        document.getElementById("backgroundColor"),
+
+      maxWidth:
+        document.getElementById("maxWidth"),
+
+      keepSmaller:
+        document.getElementById("keepSmaller"),
+
+      progressShell:
+        document.getElementById("progressShell"),
+
+      progressBar:
+        document.getElementById("progressBar"),
+
+      progressLabel:
+        document.getElementById("progressLabel"),
+
+      progressPercent:
+        document.getElementById("progressPercent"),
+
+      resultsSection:
+        document.getElementById("resultsSection"),
+
+      resultGrid:
+        document.getElementById("resultGrid"),
+
+      summaryFiles:
+        document.getElementById("summaryFiles"),
+
+      summaryFormat:
+        document.getElementById("summaryFormat"),
+
+      summaryOriginal:
+        document.getElementById("summaryOriginal"),
+
+      summaryOutput:
+        document.getElementById("summaryOutput")
+    };
+
+    function createId() {
+      if (
+        window.crypto &&
+        typeof window.crypto.randomUUID ===
+          "function"
+      ) {
+        return window.crypto.randomUUID();
+      }
+
+      return (
+        Date.now() +
+        "-" +
+        Math.random()
+          .toString(16)
+          .slice(2)
+      );
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function formatBytes(bytes) {
+      if (
+        !Number.isFinite(bytes) ||
+        bytes <= 0
+      ) {
+        return "0KB";
+      }
+
+      const units = [
+        "B",
+        "KB",
+        "MB",
+        "GB"
+      ];
+
+      const index = Math.min(
+        Math.floor(
+          Math.log(bytes) /
+          Math.log(1024)
+        ),
+        units.length - 1
+      );
+
+      const value =
+        bytes /
+        Math.pow(1024, index);
+
+      return (
+        value.toFixed(
+          value >= 100 || index === 0
+            ? 0
+            : 1
+        ) +
+        units[index]
+      );
+    }
+
+    function safeBaseName(name) {
+      const index =
+        name.lastIndexOf(".");
+
+      return index > 0
+        ? name.slice(0, index)
+        : name;
+    }
+
+    function mimeToExtension(mime) {
+      if (mime === "image/png") {
+        return "png";
+      }
+
+      if (mime === "image/webp") {
+        return "webp";
+      }
+
+      return "jpg";
+    }
+
+    function mimeToLabel(mime) {
+      return mimeToExtension(mime)
+        .toUpperCase();
+    }
+
+    function validateFile(file) {
+      const allowed = [
+        "image/jpeg",
+        "image/png",
+        "image/webp"
+      ];
+
+      if (!allowed.includes(file.type)) {
+        return (
+          "JPG·PNG·WebP 이미지만 사용할 수 있습니다."
+        );
+      }
+
+      if (file.size > MAX_FILE_SIZE) {
+        return (
+          "파일당 25MB 이하 이미지만 사용할 수 있습니다."
+        );
+      }
+
+      return "";
+    }
+
+    function updateSettingVisibility() {
+      const isPng =
+        state.outputMime === "image/png";
+
+      const isJpeg =
+        state.outputMime === "image/jpeg";
+
+      els.qualityField.style.display =
+        isPng
+          ? "none"
+          : "grid";
+
+      els.backgroundField.style.display =
+        isJpeg
+          ? "grid"
+          : "none";
+
+      els.summaryFormat.textContent =
+        mimeToLabel(
+          state.outputMime
+        );
+    }
+
+    function selectFormat(button) {
+      state.outputMime =
+        button.dataset.format;
+
+      document
+        .querySelectorAll(".format-btn")
+        .forEach((item) => {
+          item.classList.toggle(
+            "active",
+            item === button
+          );
+        });
+
+      updateSettingVisibility();
+      clearResults();
+      renderFileList();
+    }
+
+    function addFiles(fileList) {
+      const incoming =
+        Array.from(fileList || []);
+
+      if (!incoming.length) {
+        return;
+      }
+
+      const messages = [];
+
+      for (const file of incoming) {
+        if (
+          state.files.length >= MAX_FILES
+        ) {
+          messages.push(
+            "최대 20장까지만 추가할 수 있습니다."
+          );
+
+          break;
+        }
+
+        const error =
+          validateFile(file);
+
+        if (error) {
+          messages.push(
+            file.name + ": " + error
+          );
+
+          continue;
+        }
+
+        const duplicate =
+          state.files.some((item) => (
+            item.file.name === file.name &&
+            item.file.size === file.size &&
+            item.file.lastModified ===
+              file.lastModified
+          ));
+
+        if (duplicate) {
+          continue;
+        }
+
+        state.files.push({
+          id: createId(),
+          file,
+          previewUrl:
+            URL.createObjectURL(file)
+        });
+      }
+
+      if (messages.length) {
+        alert(messages.join("\n"));
+      }
+
+      clearResults();
+      renderFileList();
+
+      els.fileInput.value = "";
+    }
+
+    function removeFile(id) {
+      const index =
+        state.files.findIndex(
+          (item) => item.id === id
+        );
+
+      if (index < 0) {
+        return;
+      }
+
+      URL.revokeObjectURL(
+        state.files[index].previewUrl
+      );
+
+      state.files.splice(index, 1);
+
+      clearResults();
+      renderFileList();
+    }
+
+    function clearFiles() {
+      state.files.forEach((item) => {
+        URL.revokeObjectURL(
+          item.previewUrl
+        );
+      });
+
+      state.files = [];
+
+      clearResults();
+      renderFileList();
+    }
+
+    function renderFileList() {
+      const hasFiles =
+        state.files.length > 0;
+
+      els.queueArea.classList.toggle(
+        "show",
+        hasFiles
+      );
+
+      els.fileCount.textContent =
+        state.files.length;
+
+      els.convertBtn.disabled =
+        !hasFiles ||
+        state.processing;
+
+      els.fileList.innerHTML =
+        state.files
+          .map((item) => `
+            <div class="file-item">
+              <img
+                class="thumb"
+                src="${item.previewUrl}"
+                alt="${escapeHtml(item.file.name)} 미리보기"
+              />
+
+              <div class="file-info">
+                <div
+                  class="file-name"
+                  title="${escapeHtml(item.file.name)}"
+                >
+                  ${escapeHtml(item.file.name)}
+                </div>
+
+                <div class="file-meta">
+                  ${formatBytes(item.file.size)}
+                  ·
+                  ${mimeToLabel(item.file.type)}
+                </div>
+
+                <div class="format-chip">
+                  ${mimeToLabel(item.file.type)}
+                  →
+                  ${mimeToLabel(state.outputMime)}
+                </div>
+              </div>
+
+              <button
+                class="remove-btn"
+                type="button"
+                data-remove-id="${item.id}"
+                aria-label="파일 삭제"
+              >
+                ×
+              </button>
+            </div>
+          `)
+          .join("");
+
+      document
+        .querySelectorAll(
+          "[data-remove-id]"
+        )
+        .forEach((button) => {
+          button.addEventListener(
+            "click",
+            () => {
+              removeFile(
+                button.dataset.removeId
+              );
+            }
+          );
+        });
+    }
+
+    async function decodeImage(file) {
+      if (
+        "createImageBitmap" in window
+      ) {
+        try {
+          const bitmap =
+            await createImageBitmap(file);
+
+          return {
+            source: bitmap,
+            width: bitmap.width,
+            height: bitmap.height,
+            cleanup: () => bitmap.close()
+          };
+        } catch (error) {}
+      }
+
+      return new Promise(
+        (resolve, reject) => {
+          const image = new Image();
+          const url =
+            URL.createObjectURL(file);
+
+          image.onload = () => {
+            resolve({
+              source: image,
+              width: image.naturalWidth,
+              height: image.naturalHeight,
+              cleanup: () => {
+                URL.revokeObjectURL(url);
+              }
+            });
+          };
+
+          image.onerror = () => {
+            URL.revokeObjectURL(url);
+
+            reject(
+              new Error(
+                "이미지를 읽을 수 없습니다."
+              )
+            );
+          };
+
+          image.src = url;
+        }
+      );
+    }
+
+    function calculateSize(
+      width,
+      height
+    ) {
+      const maxWidth =
+        Number(
+          els.maxWidth.value
+        );
+
+      if (
+        !maxWidth ||
+        width <= maxWidth
+      ) {
+        return {
+          width,
+          height
+        };
+      }
+
+      const ratio =
+        maxWidth / width;
+
+      return {
+        width: Math.max(
+          1,
+          Math.round(
+            width * ratio
+          )
+        ),
+
+        height: Math.max(
+          1,
+          Math.round(
+            height * ratio
+          )
+        )
+      };
+    }
+
+    function canvasToBlob(
+      canvas,
+      mime,
+      quality
+    ) {
+      return new Promise(
+        (resolve, reject) => {
+          canvas.toBlob(
+            (blob) => {
+              if (blob) {
+                resolve(blob);
+              } else {
+                reject(
+                  new Error(
+                    "이미지 변환에 실패했습니다."
+                  )
+                );
+              }
+            },
+            mime,
+            quality
+          );
+        }
+      );
+    }
+
+    async function convertOne(
+      item,
+      index,
+      total
+    ) {
+      const decoded =
+        await decodeImage(item.file);
+
+      try {
+        const size =
+          calculateSize(
+            decoded.width,
+            decoded.height
+          );
+
+        const canvas =
+          document.createElement("canvas");
+
+        canvas.width = size.width;
+        canvas.height = size.height;
+
+        const context =
+          canvas.getContext(
+            "2d",
+            {
+              alpha:
+                state.outputMime !==
+                "image/jpeg"
+            }
+          );
+
+        if (!context) {
+          throw new Error(
+            "브라우저에서 이미지 변환을 지원하지 않습니다."
+          );
+        }
+
+        context.imageSmoothingEnabled =
+          true;
+
+        context.imageSmoothingQuality =
+          "high";
+
+        if (
+          state.outputMime ===
+          "image/jpeg"
+        ) {
+          context.fillStyle =
+            els.backgroundColor.value;
+
+          context.fillRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+          );
+        }
+
+        context.drawImage(
+          decoded.source,
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
+
+        const quality =
+          Number(
+            els.qualityRange.value
+          ) / 100;
+
+        const blob =
+          await canvasToBlob(
+            canvas,
+            state.outputMime,
+            quality
+          );
+
+        const useOriginal =
+          els.keepSmaller.checked &&
+          blob.size > item.file.size &&
+          item.file.type === state.outputMime;
+
+        const outputBlob =
+          useOriginal
+            ? item.file
+            : blob;
+
+        const extension =
+          mimeToExtension(
+            state.outputMime
+          );
+
+        const outputName =
+          safeBaseName(
+            item.file.name
+          ) +
+          "-converted." +
+          extension;
+
+        const outputUrl =
+          URL.createObjectURL(
+            outputBlob
+          );
+
+        updateProgress(
+          index + 1,
+          total,
+          item.file.name +
+          " 변환 완료"
+        );
+
+        return {
+          id: item.id,
+          inputFile: item.file,
+          outputBlob,
+          outputUrl,
+          outputName,
+          outputWidth:
+            canvas.width,
+          outputHeight:
+            canvas.height,
+          outputMime:
+            state.outputMime,
+          useOriginal
+        };
+      } finally {
+        decoded.cleanup();
+      }
+    }
+
+    function updateProgress(
+      done,
+      total,
+      label
+    ) {
+      const percent =
+        total
+          ? Math.round(
+              (done / total) * 100
+            )
+          : 0;
+
+      els.progressBar.style.width =
+        percent + "%";
+
+      els.progressPercent.textContent =
+        percent + "%";
+
+      els.progressLabel.textContent =
+        label;
+    }
+
+    function clearResults() {
+      state.results.forEach(
+        (result) => {
+          URL.revokeObjectURL(
+            result.outputUrl
+          );
+        }
+      );
+
+      state.results = [];
+
+      els.resultGrid.innerHTML = "";
+
+      els.resultsSection.classList.remove(
+        "show"
+      );
+
+      els.downloadAllBtn.disabled = true;
+    }
+
+    async function processFiles() {
+      if (
+        !state.files.length ||
+        state.processing
+      ) {
+        return;
+      }
+
+      clearResults();
+
+      state.processing = true;
+
+      els.convertBtn.disabled = true;
+      els.convertBtn.textContent =
+        "변환 중...";
+
+      els.progressShell.classList.add(
+        "show"
+      );
+
+      updateProgress(
+        0,
+        state.files.length,
+        "이미지를 준비하고 있습니다."
+      );
+
+      const results = [];
+      const errors = [];
+
+      for (
+        let index = 0;
+        index < state.files.length;
+        index++
+      ) {
+        const item =
+          state.files[index];
+
+        try {
+          const result =
+            await convertOne(
+              item,
+              index,
+              state.files.length
+            );
+
+          results.push(result);
+        } catch (error) {
+          errors.push(
+            item.file.name +
+            ": " +
+            (
+              error.message ||
+              "변환 실패"
+            )
+          );
+
+          updateProgress(
+            index + 1,
+            state.files.length,
+            item.file.name +
+            " 변환 실패"
+          );
+        }
+      }
+
+      state.results = results;
+      state.processing = false;
+
+      els.convertBtn.disabled = false;
+      els.convertBtn.textContent =
+        "다시 변환하기";
+
+      els.downloadAllBtn.disabled =
+        results.length === 0;
+
+      renderResults();
+
+      if (errors.length) {
+        alert(
+          "일부 파일을 변환하지 못했습니다.\n\n" +
+          errors.join("\n")
+        );
+      }
+    }
+
+    function renderResults() {
+      if (!state.results.length) {
+        els.resultsSection.classList.remove(
+          "show"
+        );
+
+        return;
+      }
+
+      const originalTotal =
+        state.results.reduce(
+          (sum, result) =>
+            sum +
+            result.inputFile.size,
+          0
+        );
+
+      const outputTotal =
+        state.results.reduce(
+          (sum, result) =>
+            sum +
+            result.outputBlob.size,
+          0
+        );
+
+      els.summaryFiles.textContent =
+        state.results.length + "장";
+
+      els.summaryFormat.textContent =
+        mimeToLabel(
+          state.outputMime
+        );
+
+      els.summaryOriginal.textContent =
+        formatBytes(originalTotal);
+
+      els.summaryOutput.textContent =
+        formatBytes(outputTotal);
+
+      els.resultGrid.innerHTML =
+        state.results
+          .map((result) => `
+            <article class="result-card">
+              <div class="result-preview">
+                <img
+                  src="${result.outputUrl}"
+                  alt="${escapeHtml(result.outputName)} 변환 결과"
+                />
+              </div>
+
+              <div class="result-body">
+                <div
+                  class="result-name"
+                  title="${escapeHtml(result.outputName)}"
+                >
+                  ${escapeHtml(result.outputName)}
+                </div>
+
+                <div class="result-stats">
+                  <div class="result-stat">
+                    <span>원본 형식</span>
+
+                    <strong>
+                      ${mimeToLabel(result.inputFile.type)}
+                    </strong>
+                  </div>
+
+                  <div class="result-stat">
+                    <span>변환 형식</span>
+
+                    <strong>
+                      ${mimeToLabel(result.outputMime)}
+                    </strong>
+                  </div>
+
+                  <div class="result-stat">
+                    <span>결과 용량</span>
+
+                    <strong>
+                      ${formatBytes(result.outputBlob.size)}
+                    </strong>
+                  </div>
+                </div>
+
+                <div class="result-actions">
+                  <button
+                    class="download-btn"
+                    type="button"
+                    data-download-id="${result.id}"
+                  >
+                    파일 저장
+                  </button>
+
+                  <button
+                    class="settings-btn"
+                    type="button"
+                    data-scroll-settings
+                  >
+                    설정 변경
+                  </button>
+                </div>
+              </div>
+            </article>
+          `)
+          .join("");
+
+      document
+        .querySelectorAll(
+          "[data-download-id]"
+        )
+        .forEach((button) => {
+          button.addEventListener(
+            "click",
+            () => {
+              downloadResult(
+                button.dataset.downloadId
+              );
+            }
+          );
+        });
+
+      document
+        .querySelectorAll(
+          "[data-scroll-settings]"
+        )
+        .forEach((button) => {
+          button.addEventListener(
+            "click",
+            () => {
+              document
+                .querySelector(
+                  ".settings-panel"
+                )
+                .scrollIntoView({
+                  behavior: "smooth",
+                  block: "start"
+                });
+            }
+          );
+        });
+
+      els.resultsSection.classList.add(
+        "show"
+      );
+
+      setTimeout(() => {
+        els.resultsSection.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }, 100);
+    }
+
+    function downloadBlob(
+      blob,
+      fileName
+    ) {
+      const url =
+        URL.createObjectURL(blob);
+
+      const anchor =
+        document.createElement("a");
+
+      anchor.href = url;
+      anchor.download = fileName;
+
+      document.body.appendChild(anchor);
+
+      anchor.click();
+      anchor.remove();
+
+      setTimeout(() => {
+        URL.revokeObjectURL(url);
+      }, 1000);
+    }
+
+    function downloadResult(id) {
+      const result =
+        state.results.find(
+          (item) => item.id === id
+        );
+
+      if (!result) {
+        return;
+      }
+
+      downloadBlob(
+        result.outputBlob,
+        result.outputName
+      );
+    }
+
+    async function downloadAllAsZip() {
+      if (!state.results.length) {
+        return;
+      }
+
+      if (!window.JSZip) {
+        alert(
+          "ZIP 기능을 불러오지 못했습니다. 개별 파일 저장을 이용해주세요."
+        );
+
+        return;
+      }
+
+      els.downloadAllBtn.disabled = true;
+      els.downloadAllBtn.textContent =
+        "ZIP 만드는 중...";
+
+      try {
+        const zip =
+          new JSZip();
+
+        state.results.forEach(
+          (result) => {
+            zip.file(
+              result.outputName,
+              result.outputBlob
+            );
+          }
+        );
+
+        const zipBlob =
+          await zip.generateAsync({
+            type: "blob"
+          });
+
+        downloadBlob(
+          zipBlob,
+          "barohaegyeol-converted-images.zip"
+        );
+      } catch (error) {
+        alert(
+          "ZIP 파일을 만들지 못했습니다."
+        );
+      } finally {
+        els.downloadAllBtn.disabled =
+          false;
+
+        els.downloadAllBtn.textContent =
+          "전체 ZIP 저장";
+      }
+    }
+
+    document
+      .querySelectorAll(".format-btn")
+      .forEach((button) => {
+        button.addEventListener(
+          "click",
+          () => {
+            selectFormat(button);
+          }
+        );
+      });
+
+    els.qualityRange.addEventListener(
+      "input",
+      () => {
+        els.qualityValue.textContent =
+          els.qualityRange.value + "%";
+
+        clearResults();
+      }
+    );
+
+    els.backgroundColor.addEventListener(
+      "change",
+      clearResults
+    );
+
+    els.maxWidth.addEventListener(
+      "change",
+      clearResults
+    );
+
+    els.keepSmaller.addEventListener(
+      "change",
+      clearResults
+    );
+
+    els.fileInput.addEventListener(
+      "change",
+      (event) => {
+        addFiles(
+          event.target.files
+        );
+      }
+    );
+
+    els.clearFilesBtn.addEventListener(
+      "click",
+      clearFiles
+    );
+
+    els.convertBtn.addEventListener(
+      "click",
+      processFiles
+    );
+
+    els.downloadAllBtn.addEventListener(
+      "click",
+      downloadAllAsZip
+    );
+
+    [
+      "dragenter",
+      "dragover"
+    ].forEach((eventName) => {
+      els.dropzone.addEventListener(
+        eventName,
+        (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+
+          els.dropzone.classList.add(
+            "dragover"
+          );
+        }
+      );
+    });
+
+    [
+      "dragleave",
+      "drop"
+    ].forEach((eventName) => {
+      els.dropzone.addEventListener(
+        eventName,
+        (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+
+          els.dropzone.classList.remove(
+            "dragover"
+          );
+        }
+      );
+    });
+
+    els.dropzone.addEventListener(
+      "drop",
+      (event) => {
+        addFiles(
+          event.dataTransfer.files
+        );
+      }
+    );
+
+    window.addEventListener(
+      "beforeunload",
+      () => {
+        state.files.forEach(
+          (item) => {
+            URL.revokeObjectURL(
+              item.previewUrl
+            );
+          }
+        );
+
+        state.results.forEach(
+          (result) => {
+            URL.revokeObjectURL(
+              result.outputUrl
+            );
+          }
+        );
+      }
+    );
+
+    els.qualityValue.textContent =
+      els.qualityRange.value + "%";
+
+    updateSettingVisibility();
+    renderFileList();
+  </script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script
+    defer
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'
+  ></script>
+  <!-- End Cloudflare Web Analytics -->
+</body>
+</html>
