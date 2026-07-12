@@ -1,0 +1,2752 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>증명사진·여권사진 만들기｜피부 보정·턱선·눈 보정｜바로해결툴즈</title>
+
+  <meta
+    name="description"
+    content="증명사진과 여권사진을 브라우저에서 직접 만드세요. 피부톤 보정, 피부 매끈 보정, 턱선 슬림, 눈 보정, 배경색 변경, 자동 얼굴 맞춤, 4x6 인화판 저장까지 지원합니다."
+  />
+
+  <meta
+    name="keywords"
+    content="증명사진 만들기, 여권사진 만들기, 증명사진 보정, 여권사진 보정, 사진관 보정, 피부톤 보정, 턱선 보정, 눈 보정"
+  />
+
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+
+  <link
+    rel="canonical"
+    href="https://barohaegyeol-tools.pages.dev/passport-photo-maker/"
+  />
+
+  <meta name="theme-color" content="#24273f" />
+
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:title"
+    content="증명사진·여권사진 만들기｜바로해결툴즈"
+  />
+  <meta
+    property="og:description"
+    content="피부톤, 피부결, 턱선, 눈 보정까지 지원하는 증명사진·여권사진 편집 도구"
+  />
+  <meta
+    property="og:url"
+    content="https://barohaegyeol-tools.pages.dev/passport-photo-maker/"
+  />
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "증명사진·여권사진 만들기",
+    "applicationCategory": "PhotoEditingApplication",
+    "operatingSystem": "Web Browser",
+    "url": "https://barohaegyeol-tools.pages.dev/passport-photo-maker/",
+    "description": "증명사진과 여권사진을 만들고 얼굴 보정까지 지원하는 무료 웹 도구",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "KRW"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #f7f8ff;
+      --bg2: #fffaf7;
+      --white: #ffffff;
+      --ink: #25263f;
+      --text: #555b77;
+      --muted: #7e859f;
+      --line: #e7e8f3;
+      --navy: #24273f;
+      --navy-2: #39406b;
+      --violet: #6f73ff;
+      --pink: #f7a9c4;
+      --pink-deep: #ef6f9a;
+      --gold: #ffd98a;
+      --sky: #9dc9ff;
+      --green: #1e9f77;
+      --red: #de5b71;
+      --shadow: 0 28px 84px rgba(36, 39, 63, .14);
+      --shadow-soft: 0 15px 40px rgba(36, 39, 63, .08);
+      --radius: 28px;
+      --max: 1240px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Pretendard",
+        "Noto Sans KR",
+        "Apple SD Gothic Neo",
+        system-ui,
+        sans-serif;
+      line-height: 1.65;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 8% 8%, rgba(247, 169, 196, .14), transparent 28%),
+        radial-gradient(circle at 93% 10%, rgba(157, 201, 255, .18), transparent 25%),
+        radial-gradient(circle at 86% 90%, rgba(255, 217, 138, .21), transparent 26%),
+        linear-gradient(145deg, #f7f8ff 0%, #fffaf7 50%, #f6fbff 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .18;
+      background-image:
+        radial-gradient(circle, rgba(111, 115, 255, .18) 1px, transparent 1.4px);
+      background-size: 28px 28px;
+      mask-image: linear-gradient(to bottom, #000 0%, transparent 70%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(37, 38, 63, .08);
+      background: rgba(250, 250, 255, .88);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 950;
+      letter-spacing: -.04em;
+      flex: 0 0 auto;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 16px 16px 22px 16px;
+      display: grid;
+      place-items: center;
+      color: var(--navy);
+      font-weight: 950;
+      background: linear-gradient(135deg, var(--gold), var(--pink));
+      box-shadow: 0 16px 34px rgba(239, 111, 154, .18);
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 1px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      white-space: nowrap;
+    }
+
+    .nav-links a {
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(37, 38, 63, .08);
+      background: rgba(255, 255, 255, .84);
+      color: #59607d;
+      font-size: 13px;
+      font-weight: 900;
+      transition: .16s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--navy);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero {
+      padding: 46px 0 30px;
+    }
+
+    .hero-shell {
+      position: relative;
+      overflow: hidden;
+      min-height: 455px;
+      padding: 48px;
+      border-radius: 42px;
+      color: #fff;
+      background:
+        radial-gradient(circle at 82% 18%, rgba(255, 217, 138, .25), transparent 27%),
+        radial-gradient(circle at 74% 89%, rgba(157, 201, 255, .2), transparent 28%),
+        linear-gradient(135deg, #23273f 0%, #3c4270 52%, #696ff3 100%);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .22;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, .18) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .18) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(90deg, transparent, #000 42%, #000);
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: #fff1c8;
+      background: rgba(255, 217, 138, .12);
+      border: 1px solid rgba(255, 217, 138, .26);
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 5px rgba(255, 217, 138, .12);
+    }
+
+    h1 {
+      margin: 18px 0 0;
+      font-size: clamp(42px, 5.6vw, 72px);
+      line-height: 1.02;
+      letter-spacing: -.075em;
+      white-space: nowrap;
+    }
+
+    h1 span {
+      color: var(--gold);
+    }
+
+    .lead {
+      margin: 20px 0 0;
+      max-width: 670px;
+      color: rgba(255, 255, 255, .78);
+      font-size: clamp(16px, 1.8vw, 19px);
+      line-height: 1.82;
+      word-break: keep-all;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .btn {
+      min-height: 52px;
+      padding: 13px 18px;
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid transparent;
+      font-weight: 950;
+      letter-spacing: -.02em;
+      transition: .17s ease;
+    }
+
+    .btn-primary {
+      color: var(--navy);
+      background: linear-gradient(135deg, var(--gold), var(--pink));
+      box-shadow: 0 18px 42px rgba(239, 111, 154, .2);
+    }
+
+    .btn-secondary {
+      color: #fff;
+      background: rgba(255, 255, 255, .08);
+      border-color: rgba(255, 255, 255, .18);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 330px;
+    }
+
+    .studio-card {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 260px;
+      height: 330px;
+      padding: 13px;
+      border-radius: 32px;
+      background: #fff;
+      transform: translate(-50%, -50%) rotate(-2deg);
+      box-shadow: 0 28px 70px rgba(0, 0, 0, .24);
+      z-index: 3;
+    }
+
+    .studio-photo {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 24px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 76% 22%, #ffe5a2 0 18px, transparent 19px),
+        linear-gradient(145deg, #f7dce5 0%, #fdfdfd 45%, #dfeaff 100%);
+    }
+
+    .studio-photo::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 145px;
+      height: 240px;
+      transform: translateX(-50%);
+      border-radius: 78px 78px 0 0;
+      background: linear-gradient(180deg, #7c4c42 0%, #5e332e 38%, #1f2033 39%, #23253e 100%);
+      box-shadow:
+        0 -112px 0 0 rgba(96, 55, 50, .95) inset,
+        0 -180px 0 0 rgba(248, 214, 189, .92) inset;
+    }
+
+    .studio-photo::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 34%;
+      width: 88px;
+      height: 115px;
+      transform: translateX(-50%);
+      border-radius: 48px;
+      box-shadow:
+        0 0 0 2px rgba(255, 255, 255, .65) inset,
+        0 0 0 999px rgba(255, 255, 255, .0);
+    }
+
+    .mini-tag {
+      position: absolute;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 13px;
+      border-radius: 16px;
+      font-size: 13px;
+      font-weight: 950;
+      box-shadow: 0 16px 32px rgba(0, 0, 0, .18);
+    }
+
+    .tag-skin {
+      left: 8px;
+      top: 18px;
+      color: var(--navy);
+      background: #fff2d0;
+      transform: rotate(-5deg);
+      z-index: 4;
+    }
+
+    .tag-face {
+      right: 2px;
+      top: 92px;
+      color: #fff;
+      background: rgba(247, 169, 196, .9);
+      transform: rotate(5deg);
+      z-index: 4;
+    }
+
+    .tag-eye {
+      right: 24px;
+      bottom: 10px;
+      color: #fff;
+      background: rgba(111, 115, 255, .9);
+      transform: rotate(-4deg);
+      z-index: 4;
+    }
+
+    .main-section {
+      padding: 0 0 36px;
+    }
+
+    .studio-layout {
+      display: grid;
+      grid-template-columns: 390px minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .93);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .settings-panel {
+      position: sticky;
+      top: 92px;
+      padding: 24px;
+    }
+
+    .panel-title {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.2;
+      letter-spacing: -.055em;
+    }
+
+    .panel-sub {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.72;
+    }
+
+    .section-label {
+      margin: 22px 0 10px;
+      color: #343b59;
+      font-size: 13px;
+      font-weight: 950;
+      letter-spacing: -.01em;
+    }
+
+    .preset-grid {
+      display: grid;
+      gap: 8px;
+    }
+
+    .preset-btn {
+      min-height: 57px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-radius: 16px;
+      border: 1px solid #e5e7f2;
+      background: #fcfcff;
+      color: #4d5575;
+      font-weight: 950;
+      transition: .15s ease;
+    }
+
+    .preset-btn span {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .preset-btn:hover,
+    .preset-btn.active {
+      color: var(--navy);
+      border-color: rgba(111, 115, 255, .38);
+      background: linear-gradient(135deg, #fffaf0, #f8f8ff);
+      box-shadow: 0 12px 28px rgba(111, 115, 255, .08);
+    }
+
+    .preset-btn.active::after {
+      content: "✓";
+      color: var(--violet);
+      font-size: 16px;
+    }
+
+    .chips {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .chip-btn {
+      min-height: 44px;
+      border-radius: 14px;
+      border: 1px solid #e4e7f1;
+      background: #fff;
+      color: #5c637c;
+      font-size: 12px;
+      font-weight: 900;
+      transition: .15s ease;
+    }
+
+    .chip-btn.active,
+    .chip-btn:hover {
+      border-color: transparent;
+      color: var(--navy);
+      background: linear-gradient(135deg, var(--gold), var(--pink));
+      box-shadow: 0 10px 24px rgba(239, 111, 154, .16);
+    }
+
+    .fields {
+      display: grid;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    label {
+      color: #333b58;
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    .field-head small {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .range-wrap {
+      display: grid;
+      grid-template-columns: 1fr 72px;
+      gap: 10px;
+      align-items: center;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--violet);
+    }
+
+    .range-value {
+      min-height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      color: var(--navy);
+      background: #f5f6ff;
+      border: 1px solid #e3e7ff;
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    .status-box,
+    .privacy-box,
+    .tip-box {
+      margin-top: 15px;
+      padding: 14px;
+      border-radius: 17px;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .status-box {
+      color: #435073;
+      background: #f7f8ff;
+      border: 1px solid #e7e9f8;
+      font-weight: 800;
+    }
+
+    .privacy-box {
+      color: #2d5f94;
+      background: #f1f7ff;
+      border: 1px solid #d9e8ff;
+      font-weight: 800;
+    }
+
+    .tip-box {
+      color: #7b5d1f;
+      background: #fff7de;
+      border: 1px solid #f3e29b;
+      font-weight: 800;
+    }
+
+    .editor-panel {
+      overflow: hidden;
+    }
+
+    .editor-head {
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      background: linear-gradient(90deg, rgba(111, 115, 255, .06), rgba(247, 169, 196, .07), rgba(255, 217, 138, .09));
+    }
+
+    .editor-head h2 {
+      margin: 0;
+      font-size: 27px;
+      letter-spacing: -.05em;
+    }
+
+    .editor-head p {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .head-pill {
+      flex: 0 0 auto;
+      padding: 9px 12px;
+      border-radius: 999px;
+      color: #34618f;
+      background: #edf6ff;
+      border: 1px solid #d8eafe;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .empty-area {
+      padding: 24px;
+    }
+
+    .dropzone {
+      min-height: 360px;
+      padding: 32px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      border-radius: 26px;
+      border: 2px dashed #dadff0;
+      background:
+        radial-gradient(circle at 83% 16%, rgba(255, 217, 138, .25), transparent 28%),
+        radial-gradient(circle at 12% 88%, rgba(157, 201, 255, .2), transparent 30%),
+        linear-gradient(145deg, #fafaff, #fffaf7);
+      transition: .18s ease;
+    }
+
+    .dropzone.dragover {
+      border-color: var(--violet);
+      transform: translateY(-2px);
+      box-shadow: inset 0 0 0 4px rgba(111, 115, 255, .08);
+    }
+
+    .drop-icon {
+      width: 82px;
+      height: 82px;
+      margin: 0 auto 16px;
+      border-radius: 24px 24px 24px 10px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 34px;
+      font-weight: 950;
+      background: linear-gradient(135deg, var(--violet), var(--pink-deep));
+      box-shadow: 0 18px 42px rgba(111, 115, 255, .22);
+    }
+
+    .dropzone h3 {
+      margin: 0;
+      font-size: 28px;
+      letter-spacing: -.055em;
+    }
+
+    .dropzone p {
+      margin: 9px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.72;
+    }
+
+    .file-label {
+      margin-top: 18px;
+      min-height: 51px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 19px;
+      border-radius: 15px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--navy), var(--violet));
+      box-shadow: 0 15px 34px rgba(36, 39, 63, .18);
+      font-weight: 950;
+      cursor: pointer;
+    }
+
+    .file-label input {
+      display: none;
+    }
+
+    .workspace {
+      display: none;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      min-height: 760px;
+    }
+
+    .workspace.show {
+      display: grid;
+    }
+
+    .preview-column {
+      min-width: 0;
+      padding: 24px;
+      background:
+        linear-gradient(45deg, #eceef5 25%, transparent 25%, transparent 75%, #eceef5 75%),
+        linear-gradient(45deg, #eceef5 25%, #f8f9fc 25%, #f8f9fc 75%, #eceef5 75%);
+      background-position: 0 0, 15px 15px;
+      background-size: 30px 30px;
+    }
+
+    .preview-shell {
+      background: #16192e;
+      border-radius: 30px;
+      min-height: 680px;
+      padding: 20px;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08);
+    }
+
+    .preview-stage {
+      display: grid;
+      justify-items: center;
+      gap: 16px;
+    }
+
+    .preview-canvas-wrap {
+      width: 100%;
+      display: grid;
+      justify-items: center;
+    }
+
+    #previewCanvas {
+      max-width: min(100%, 470px);
+      width: auto;
+      height: auto;
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 0 14px 36px rgba(0, 0, 0, .18);
+      cursor: grab;
+      touch-action: none;
+    }
+
+    #previewCanvas.dragging {
+      cursor: grabbing;
+    }
+
+    .preview-meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      width: min(100%, 640px);
+    }
+
+    .preview-meta .meta-card {
+      padding: 13px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .1);
+      color: #fff;
+    }
+
+    .meta-card span {
+      display: block;
+      color: rgba(255, 255, 255, .62);
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .meta-card strong {
+      display: block;
+      margin-top: 4px;
+      font-size: 15px;
+      letter-spacing: -.02em;
+    }
+
+    .control-column {
+      padding: 22px;
+      background: #fff;
+      border-left: 1px solid var(--line);
+    }
+
+    .control-group + .control-group {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+    }
+
+    .group-title {
+      margin: 0 0 11px;
+      color: #352d4f;
+      font-size: 14px;
+      font-weight: 950;
+      letter-spacing: -.02em;
+    }
+
+    .action-stack {
+      display: grid;
+      gap: 8px;
+    }
+
+    .action-btn,
+    .ghost-btn {
+      min-height: 50px;
+      border-radius: 15px;
+      font-weight: 950;
+      border: 0;
+    }
+
+    .action-btn {
+      color: var(--navy);
+      background: linear-gradient(135deg, var(--gold), var(--pink));
+      box-shadow: 0 14px 34px rgba(239, 111, 154, .14);
+    }
+
+    .ghost-btn {
+      color: #62587b;
+      background: #fff;
+      border: 1px solid #e3deee;
+    }
+
+    .download-row {
+      display: grid;
+      gap: 8px;
+    }
+
+    .download-btn {
+      min-height: 52px;
+      border-radius: 15px;
+      border: 0;
+      color: #fff;
+      background: linear-gradient(135deg, var(--navy), var(--violet), var(--pink-deep));
+      font-weight: 950;
+      box-shadow: 0 16px 38px rgba(111, 115, 255, .2);
+    }
+
+    .ghost-download {
+      min-height: 50px;
+      border-radius: 15px;
+      border: 1px solid #e4e6f4;
+      background: #f9faff;
+      color: #465171;
+      font-weight: 950;
+    }
+
+    .help-list {
+      padding-left: 17px;
+      margin: 0;
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .help-list li + li {
+      margin-top: 6px;
+    }
+
+    .info-section {
+      padding: 10px 0 52px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .info-card {
+      padding: 22px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, .92);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .info-card:nth-child(1) {
+      border-top: 4px solid var(--violet);
+    }
+
+    .info-card:nth-child(2) {
+      border-top: 4px solid var(--pink-deep);
+    }
+
+    .info-card:nth-child(3) {
+      border-top: 4px solid #d8a442;
+    }
+
+    .info-icon {
+      width: 47px;
+      height: 47px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      font-weight: 950;
+      background: linear-gradient(135deg, #f3f4ff, #fff2f7);
+    }
+
+    .info-card h3 {
+      margin: 13px 0 7px;
+      font-size: 19px;
+      letter-spacing: -.04em;
+    }
+
+    .info-card p {
+      margin: 0;
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.75;
+      word-break: keep-all;
+    }
+
+    footer {
+      padding: 32px 0 44px;
+      border-top: 1px solid rgba(37, 38, 63, .08);
+      color: var(--muted);
+    }
+
+    .footer-grid {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-grid b {
+      display: block;
+      color: var(--ink);
+      margin-bottom: 5px;
+    }
+
+    .footer-grid span {
+      display: block;
+      max-width: 760px;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      color: #5e6683;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    @media (max-width: 1100px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual {
+        min-height: 330px;
+      }
+
+      .studio-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .settings-panel {
+        position: static;
+      }
+
+      .workspace.show {
+        grid-template-columns: 1fr;
+      }
+
+      .control-column {
+        border-left: 0;
+        border-top: 1px solid var(--line);
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 12px 0;
+      }
+
+      .nav-links {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 2px;
+      }
+
+      .hero {
+        padding-top: 30px;
+      }
+
+      .hero-shell {
+        padding: 34px 25px;
+        border-radius: 32px;
+      }
+
+      h1 {
+        white-space: normal;
+        font-size: clamp(40px, 11vw, 58px);
+      }
+
+      .preview-meta {
+        grid-template-columns: 1fr;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .wrap {
+        width: min(var(--max), calc(100% - 22px));
+      }
+
+      .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .hero-visual {
+        min-height: 300px;
+      }
+
+      .studio-card {
+        width: 210px;
+        height: 275px;
+      }
+
+      .mini-tag {
+        font-size: 11px;
+        padding: 8px 10px;
+      }
+
+      .chips {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .preview-column {
+        padding: 14px;
+      }
+
+      .preview-shell {
+        min-height: 560px;
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a
+        class="brand"
+        href="../"
+        aria-label="바로해결툴즈 홈"
+      >
+        <div class="brand-mark">B</div>
+
+        <div>
+          바로해결툴즈
+          <small>이미지 · 문서 · 생활도구</small>
+        </div>
+      </a>
+
+      <nav
+        class="nav-links"
+        aria-label="상단 메뉴"
+      >
+        <a href="../">전체 도구</a>
+        <a href="#studio">사진 만들기</a>
+        <a href="#guide">사용방법</a>
+        <a href="#privacy">개인정보</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero-shell">
+          <div class="hero-grid">
+            <div>
+              <div class="eyebrow">
+                사진관 느낌 보정까지 한 번에
+              </div>
+
+              <h1>
+                <span>증명사진·여권사진</span>
+                만들기
+              </h1>
+
+              <p class="lead">
+                증명사진과 여권사진 규격에 맞춰 자동으로 얼굴을 맞추고,
+                피부결 매끈 보정, 피부톤 보정, 턱선 슬림, 눈 보정까지
+                브라우저에서 바로 처리하세요.
+              </p>
+
+              <div class="hero-actions">
+                <a
+                  class="btn btn-primary"
+                  href="#studio"
+                >
+                  사진 만들기 시작
+                </a>
+
+                <a
+                  class="btn btn-secondary"
+                  href="#guide"
+                >
+                  기능 확인
+                </a>
+              </div>
+            </div>
+
+            <div
+              class="hero-visual"
+              aria-label="증명사진 제작 예시"
+            >
+              <div class="studio-card">
+                <div class="studio-photo"></div>
+              </div>
+
+              <div class="mini-tag tag-skin">
+                피부톤 보정
+              </div>
+
+              <div class="mini-tag tag-face">
+                턱선 슬림
+              </div>
+
+              <div class="mini-tag tag-eye">
+                눈 보정
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="main-section"
+      id="studio"
+    >
+      <div class="wrap studio-layout">
+        <aside class="panel settings-panel">
+          <h2 class="panel-title">
+            사진 규격·보정 설정
+          </h2>
+
+          <p class="panel-sub">
+            증명사진 규격과 얼굴 보정 강도를 선택하세요.
+          </p>
+
+          <div class="section-label">
+            사진 규격
+          </div>
+
+          <div class="preset-grid">
+            <button
+              class="preset-btn active"
+              type="button"
+              data-preset="passport"
+            >
+              여권사진 3.5×4.5
+              <span>가장 많이 쓰는 비율</span>
+            </button>
+
+            <button
+              class="preset-btn"
+              type="button"
+              data-preset="id"
+            >
+              증명사진 3×4
+              <span>일반 증명사진</span>
+            </button>
+
+            <button
+              class="preset-btn"
+              type="button"
+              data-preset="visa"
+            >
+              비자사진 5×5
+              <span>정사각형 규격</span>
+            </button>
+          </div>
+
+          <div class="section-label">
+            배경색
+          </div>
+
+          <div class="chips">
+            <button
+              class="chip-btn active"
+              type="button"
+              data-bg="#ffffff"
+            >
+              흰색
+            </button>
+
+            <button
+              class="chip-btn"
+              type="button"
+              data-bg="#e9f2ff"
+            >
+              연파랑
+            </button>
+
+            <button
+              class="chip-btn"
+              type="button"
+              data-bg="#f2f2f2"
+            >
+              연회색
+            </button>
+
+            <button
+              class="chip-btn"
+              type="button"
+              data-bg="#f9efe5"
+            >
+              연베이지
+            </button>
+          </div>
+
+          <div class="section-label">
+            인물 보정
+          </div>
+
+          <div class="fields">
+            <div class="field">
+              <div class="field-head">
+                <label for="smoothRange">피부결 매끈</label>
+                <small>잡티·거친 질감 완화</small>
+              </div>
+
+              <div class="range-wrap">
+                <input
+                  id="smoothRange"
+                  type="range"
+                  min="0"
+                  max="100"
+                  step="1"
+                  value="42"
+                />
+                <div
+                  class="range-value"
+                  id="smoothValue"
+                >
+                  42
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="field-head">
+                <label for="toneRange">피부톤 보정</label>
+                <small>화사한 느낌</small>
+              </div>
+
+              <div class="range-wrap">
+                <input
+                  id="toneRange"
+                  type="range"
+                  min="0"
+                  max="100"
+                  step="1"
+                  value="28"
+                />
+                <div
+                  class="range-value"
+                  id="toneValue"
+                >
+                  28
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="field-head">
+                <label for="jawRange">턱선 슬림</label>
+                <small>얼굴 윤곽 보정</small>
+              </div>
+
+              <div class="range-wrap">
+                <input
+                  id="jawRange"
+                  type="range"
+                  min="0"
+                  max="60"
+                  step="1"
+                  value="16"
+                />
+                <div
+                  class="range-value"
+                  id="jawValue"
+                >
+                  16
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="field-head">
+                <label for="eyeRange">눈 보정</label>
+                <small>너무 과하지 않게</small>
+              </div>
+
+              <div class="range-wrap">
+                <input
+                  id="eyeRange"
+                  type="range"
+                  min="0"
+                  max="60"
+                  step="1"
+                  value="10"
+                />
+                <div
+                  class="range-value"
+                  id="eyeValue"
+                >
+                  10
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="field-head">
+                <label for="brightnessRange">전체 밝기</label>
+                <small>배경 포함</small>
+              </div>
+
+              <div class="range-wrap">
+                <input
+                  id="brightnessRange"
+                  type="range"
+                  min="-20"
+                  max="20"
+                  step="1"
+                  value="2"
+                />
+                <div
+                  class="range-value"
+                  id="brightnessValue"
+                >
+                  +2
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="status-box" id="modelStatus">
+            얼굴 분석 모델을 준비하고 있습니다...
+          </div>
+
+          <div
+            class="privacy-box"
+            id="privacy"
+          >
+            선택한 사진은 외부 서버로 업로드되지 않고
+            현재 브라우저 안에서만 처리됩니다.
+          </div>
+
+          <div class="tip-box">
+            정면 사진, 얼굴 전체가 잘 보이는 사진,
+            배경이 단순한 사진일수록 더 자연스럽게 보정됩니다.
+          </div>
+        </aside>
+
+        <section class="panel editor-panel">
+          <div class="editor-head">
+            <div>
+              <h2>증명사진 편집실</h2>
+              <p>
+                드래그로 위치를 옮기고, 휠이나 확대 슬라이더로 크기를 조절하세요.
+              </p>
+            </div>
+
+            <div class="head-pill">
+              자동 얼굴 맞춤 지원
+            </div>
+          </div>
+
+          <div
+            class="empty-area"
+            id="emptyArea"
+          >
+            <div
+              class="dropzone"
+              id="dropzone"
+            >
+              <div>
+                <div class="drop-icon">ID</div>
+
+                <h3>인물 사진을 올려주세요</h3>
+
+                <p>
+                  JPG·PNG·WebP 사진을 지원합니다.<br />
+                  한 번에 1장, 권장 최대 20MB
+                </p>
+
+                <label class="file-label">
+                  사진 선택
+                  <input
+                    id="fileInput"
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                  />
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="workspace"
+            id="workspace"
+          >
+            <div class="preview-column">
+              <div class="preview-shell">
+                <div class="preview-stage">
+                  <div class="preview-canvas-wrap">
+                    <canvas
+                      id="previewCanvas"
+                      width="420"
+                      height="540"
+                    ></canvas>
+                  </div>
+
+                  <div class="preview-meta">
+                    <div class="meta-card">
+                      <span>현재 규격</span>
+                      <strong id="metaPreset">여권사진 3.5×4.5</strong>
+                    </div>
+
+                    <div class="meta-card">
+                      <span>결과 해상도</span>
+                      <strong id="metaSize">1050 × 1350</strong>
+                    </div>
+
+                    <div class="meta-card">
+                      <span>얼굴 분석</span>
+                      <strong id="metaFace">대기 중</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <aside class="control-column">
+              <div class="control-group">
+                <div class="group-title">
+                  위치·크기 조절
+                </div>
+
+                <div class="field">
+                  <div class="field-head">
+                    <label for="zoomRange">확대 비율</label>
+                    <small>휠 조절 가능</small>
+                  </div>
+
+                  <div class="range-wrap">
+                    <input
+                      id="zoomRange"
+                      type="range"
+                      min="0.4"
+                      max="3"
+                      step="0.01"
+                      value="1"
+                    />
+                    <div
+                      class="range-value"
+                      id="zoomValue"
+                    >
+                      100%
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <div class="group-title">
+                  빠른 작업
+                </div>
+
+                <div class="action-stack">
+                  <button
+                    class="action-btn"
+                    id="autoFitBtn"
+                    type="button"
+                  >
+                    얼굴 자동 맞춤
+                  </button>
+
+                  <button
+                    class="ghost-btn"
+                    id="resetRetouchBtn"
+                    type="button"
+                  >
+                    보정값 기본값으로
+                  </button>
+
+                  <label class="ghost-btn file-label">
+                    다른 사진 선택
+                    <input
+                      id="replaceInput"
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp"
+                    />
+                  </label>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <div class="group-title">
+                  저장
+                </div>
+
+                <div class="download-row">
+                  <button
+                    class="download-btn"
+                    id="downloadBtn"
+                    type="button"
+                  >
+                    증명사진 저장
+                  </button>
+
+                  <button
+                    class="ghost-download"
+                    id="sheetDownloadBtn"
+                    type="button"
+                  >
+                    4×6 인화판 저장
+                  </button>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <div class="group-title">
+                  안내
+                </div>
+
+                <ul class="help-list">
+                  <li>미리보기 안에서 사진을 드래그해 얼굴 위치를 맞출 수 있습니다.</li>
+                  <li>배경 분리가 잘 되면 단색 배경으로 자연스럽게 교체됩니다.</li>
+                  <li>보정 강도는 과하지 않게 주는 것이 가장 자연스럽습니다.</li>
+                  <li>공식 제출용 여권사진은 기관 기준을 한 번 더 확인하세요.</li>
+                </ul>
+              </div>
+            </aside>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section
+      class="info-section"
+      id="guide"
+    >
+      <div class="wrap info-grid">
+        <article class="info-card">
+          <div class="info-icon">AI</div>
+
+          <h3>얼굴 자동 분석</h3>
+
+          <p>
+            얼굴 위치와 윤곽을 자동으로 분석해
+            규격 안에 얼굴이 자연스럽게 들어오도록 자동으로 맞춥니다.
+          </p>
+        </article>
+
+        <article class="info-card">
+          <div class="info-icon">✨</div>
+
+          <h3>사진관 느낌 보정</h3>
+
+          <p>
+            피부결 매끈, 피부톤 보정, 턱선 슬림, 눈 보정 기능으로
+            너무 과하지 않은 증명사진 보정을 지원합니다.
+          </p>
+        </article>
+
+        <article class="info-card">
+          <div class="info-icon">🖨</div>
+
+          <h3>즉시 저장</h3>
+
+          <p>
+            완성된 사진 한 장 저장은 물론
+            4×6 인화판 형태로도 저장할 수 있어 출력에 바로 활용할 수 있습니다.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <div>
+        <b>바로해결툴즈</b>
+
+        <span>
+          배경 분리와 얼굴 보정 품질은 원본 사진 상태에 따라 달라질 수 있습니다.
+          중요한 제출용 사진은 최종 저장 후 규격과 배경 기준을 다시 확인하세요.
+        </span>
+      </div>
+
+      <div class="footer-links">
+        <a href="../">전체 도구</a>
+        <a href="#studio">사진 만들기</a>
+        <a href="#guide">사용방법</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js"></script>
+
+  <script>
+    "use strict";
+
+    const PRESETS = {
+      passport: {
+        id: "passport",
+        label: "여권사진 3.5×4.5",
+        width: 1050,
+        height: 1350,
+        cmW: 3.5,
+        cmH: 4.5,
+        eyeLineRatio: 0.38,
+        headRatio: 0.62
+      },
+      id: {
+        id: "id",
+        label: "증명사진 3×4",
+        width: 900,
+        height: 1200,
+        cmW: 3,
+        cmH: 4,
+        eyeLineRatio: 0.39,
+        headRatio: 0.60
+      },
+      visa: {
+        id: "visa",
+        label: "비자사진 5×5",
+        width: 1500,
+        height: 1500,
+        cmW: 5,
+        cmH: 5,
+        eyeLineRatio: 0.42,
+        headRatio: 0.65
+      }
+    };
+
+    const MAX_FILE_SIZE = 20 * 1024 * 1024;
+
+    const state = {
+      preset: PRESETS.passport,
+      bgColor: "#ffffff",
+      imageFile: null,
+      imageElement: null,
+      imageUrl: "",
+      faceLandmarks: null,
+      segmentationMask: null,
+      faceReady: false,
+      segmentReady: false,
+      scale: 1,
+      minScale: 0.6,
+      maxScale: 3,
+      offsetX: 0,
+      offsetY: 0,
+      dragging: false,
+      dragStartX: 0,
+      dragStartY: 0,
+      dragOriginX: 0,
+      dragOriginY: 0,
+      modelsReady: false,
+      models: {
+        faceMesh: null,
+        segmenter: null
+      },
+      renderToken: 0
+    };
+
+    const els = {
+      fileInput: document.getElementById("fileInput"),
+      replaceInput: document.getElementById("replaceInput"),
+      emptyArea: document.getElementById("emptyArea"),
+      workspace: document.getElementById("workspace"),
+      dropzone: document.getElementById("dropzone"),
+      previewCanvas: document.getElementById("previewCanvas"),
+      modelStatus: document.getElementById("modelStatus"),
+      metaPreset: document.getElementById("metaPreset"),
+      metaSize: document.getElementById("metaSize"),
+      metaFace: document.getElementById("metaFace"),
+      zoomRange: document.getElementById("zoomRange"),
+      zoomValue: document.getElementById("zoomValue"),
+      autoFitBtn: document.getElementById("autoFitBtn"),
+      resetRetouchBtn: document.getElementById("resetRetouchBtn"),
+      downloadBtn: document.getElementById("downloadBtn"),
+      sheetDownloadBtn: document.getElementById("sheetDownloadBtn"),
+      smoothRange: document.getElementById("smoothRange"),
+      toneRange: document.getElementById("toneRange"),
+      jawRange: document.getElementById("jawRange"),
+      eyeRange: document.getElementById("eyeRange"),
+      brightnessRange: document.getElementById("brightnessRange"),
+      smoothValue: document.getElementById("smoothValue"),
+      toneValue: document.getElementById("toneValue"),
+      jawValue: document.getElementById("jawValue"),
+      eyeValue: document.getElementById("eyeValue"),
+      brightnessValue: document.getElementById("brightnessValue")
+    };
+
+    const previewCtx = els.previewCanvas.getContext("2d", { alpha: false });
+
+    function clamp(value, min, max) {
+      return Math.min(max, Math.max(min, value));
+    }
+
+    function formatSignedNumber(value) {
+      const number = Number(value);
+      if (number > 0) {
+        return "+" + number;
+      }
+      return String(number);
+    }
+
+    function updateRangeLabels() {
+      els.smoothValue.textContent = els.smoothRange.value;
+      els.toneValue.textContent = els.toneRange.value;
+      els.jawValue.textContent = els.jawRange.value;
+      els.eyeValue.textContent = els.eyeRange.value;
+      els.brightnessValue.textContent = formatSignedNumber(els.brightnessRange.value);
+    }
+
+    function setStatus(message) {
+      els.modelStatus.textContent = message;
+    }
+
+    function formatBytes(bytes) {
+      if (!Number.isFinite(bytes) || bytes <= 0) {
+        return "0KB";
+      }
+      const units = ["B", "KB", "MB", "GB"];
+      const index = Math.min(
+        Math.floor(Math.log(bytes) / Math.log(1024)),
+        units.length - 1
+      );
+      const value = bytes / Math.pow(1024, index);
+      const digits = value >= 100 || index === 0 ? 0 : 1;
+      return value.toFixed(digits) + units[index];
+    }
+
+    function getPreviewSizeForPreset(preset) {
+      const maxW = 420;
+      const ratio = preset.height / preset.width;
+      return {
+        width: maxW,
+        height: Math.round(maxW * ratio)
+      };
+    }
+
+    function updatePreviewCanvasSize() {
+      const size = getPreviewSizeForPreset(state.preset);
+      els.previewCanvas.width = size.width;
+      els.previewCanvas.height = size.height;
+      els.metaPreset.textContent = state.preset.label;
+      els.metaSize.textContent = state.preset.width + " × " + state.preset.height;
+    }
+
+    function validateFile(file) {
+      const allowed = ["image/jpeg", "image/png", "image/webp"];
+      if (!file) {
+        return "사진 파일을 선택해주세요.";
+      }
+      if (!allowed.includes(file.type)) {
+        return "JPG·PNG·WebP 파일만 사용할 수 있습니다.";
+      }
+      if (file.size > MAX_FILE_SIZE) {
+        return "20MB 이하 사진만 업로드할 수 있습니다.";
+      }
+      return "";
+    }
+
+    function normalizePoint(point, width, height) {
+      const x = point.x <= 1 ? point.x * width : point.x;
+      const y = point.y <= 1 ? point.y * height : point.y;
+      return { x, y };
+    }
+
+    function averagePoints(points) {
+      const total = points.reduce((acc, point) => {
+        acc.x += point.x;
+        acc.y += point.y;
+        return acc;
+      }, { x: 0, y: 0 });
+
+      return {
+        x: total.x / points.length,
+        y: total.y / points.length
+      };
+    }
+
+    function getFaceInfo() {
+      if (!state.faceLandmarks || !state.imageElement) {
+        return null;
+      }
+
+      const width = state.imageElement.naturalWidth;
+      const height = state.imageElement.naturalHeight;
+      const landmarks = state.faceLandmarks.map((point) =>
+        normalizePoint(point, width, height)
+      );
+
+      const left = landmarks[234];
+      const right = landmarks[454];
+      const top = landmarks[10];
+      const chin = landmarks[152];
+
+      if (!left || !right || !top || !chin) {
+        return null;
+      }
+
+      const faceCenter = {
+        x: (left.x + right.x) / 2,
+        y: (top.y + chin.y) / 2
+      };
+
+      const leftEyeIndices = [33, 133, 159, 145];
+      const rightEyeIndices = [362, 263, 386, 374];
+
+      const leftEye = averagePoints(leftEyeIndices.map((index) => landmarks[index]));
+      const rightEye = averagePoints(rightEyeIndices.map((index) => landmarks[index]));
+      const eyesCenter = {
+        x: (leftEye.x + rightEye.x) / 2,
+        y: (leftEye.y + rightEye.y) / 2
+      };
+
+      const faceWidth = right.x - left.x;
+      const faceHeight = chin.y - top.y;
+
+      return {
+        width,
+        height,
+        landmarks,
+        left,
+        right,
+        top,
+        chin,
+        faceCenter,
+        eyesCenter,
+        faceWidth,
+        faceHeight,
+        box: {
+          x: Math.max(0, left.x - faceWidth * 0.22),
+          y: Math.max(0, top.y - faceHeight * 0.15),
+          w: Math.min(width, faceWidth * 1.44),
+          h: Math.min(height, faceHeight * 1.42)
+        },
+        leftEye,
+        rightEye
+      };
+    }
+
+    async function initModels() {
+      if (state.modelsReady) {
+        return;
+      }
+
+      setStatus("얼굴 분석 모델을 불러오는 중입니다...");
+
+      state.models.faceMesh = new FaceMesh({
+        locateFile: (file) =>
+          "https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/" + file
+      });
+
+      state.models.faceMesh.setOptions({
+        maxNumFaces: 1,
+        refineLandmarks: true,
+        minDetectionConfidence: 0.5,
+        minTrackingConfidence: 0.5
+      });
+
+      state.models.segmenter = new SelfieSegmentation({
+        locateFile: (file) =>
+          "https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/" + file
+      });
+
+      state.models.segmenter.setOptions({
+        modelSelection: 1
+      });
+
+      state.modelsReady = true;
+      setStatus("모델 준비 완료. 사진을 올리면 자동 분석합니다.");
+    }
+
+    async function runFaceAnalysis(image) {
+      return new Promise(async (resolve) => {
+        let resolved = false;
+
+        state.models.faceMesh.onResults((results) => {
+          if (resolved) {
+            return;
+          }
+          resolved = true;
+          const landmarks =
+            results.multiFaceLandmarks &&
+            results.multiFaceLandmarks.length
+              ? results.multiFaceLandmarks[0]
+              : null;
+          resolve(landmarks);
+        });
+
+        try {
+          await state.models.faceMesh.send({ image });
+        } catch (error) {
+          resolve(null);
+        }
+      });
+    }
+
+    async function runSegmentation(image) {
+      return new Promise(async (resolve) => {
+        let resolved = false;
+
+        state.models.segmenter.onResults((results) => {
+          if (resolved) {
+            return;
+          }
+          resolved = true;
+
+          if (!results.segmentationMask) {
+            resolve(null);
+            return;
+          }
+
+          const maskCanvas = document.createElement("canvas");
+          maskCanvas.width = image.naturalWidth;
+          maskCanvas.height = image.naturalHeight;
+          const ctx = maskCanvas.getContext("2d");
+          ctx.drawImage(
+            results.segmentationMask,
+            0,
+            0,
+            maskCanvas.width,
+            maskCanvas.height
+          );
+          resolve(maskCanvas);
+        });
+
+        try {
+          await state.models.segmenter.send({ image });
+        } catch (error) {
+          resolve(null);
+        }
+      });
+    }
+
+    function revokeCurrentImageUrl() {
+      if (state.imageUrl) {
+        URL.revokeObjectURL(state.imageUrl);
+        state.imageUrl = "";
+      }
+    }
+
+    function createOffscreenCanvas(width, height) {
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      return canvas;
+    }
+
+    function sampleBilinear(src, width, height, x, y, out, outIndex) {
+      const clampedX = clamp(x, 0, width - 1);
+      const clampedY = clamp(y, 0, height - 1);
+
+      const x0 = Math.floor(clampedX);
+      const y0 = Math.floor(clampedY);
+      const x1 = Math.min(width - 1, x0 + 1);
+      const y1 = Math.min(height - 1, y0 + 1);
+
+      const dx = clampedX - x0;
+      const dy = clampedY - y0;
+
+      const i00 = (y0 * width + x0) * 4;
+      const i10 = (y0 * width + x1) * 4;
+      const i01 = (y1 * width + x0) * 4;
+      const i11 = (y1 * width + x1) * 4;
+
+      for (let c = 0; c < 4; c++) {
+        const v00 = src[i00 + c];
+        const v10 = src[i10 + c];
+        const v01 = src[i01 + c];
+        const v11 = src[i11 + c];
+
+        const top = v00 * (1 - dx) + v10 * dx;
+        const bottom = v01 * (1 - dx) + v11 * dx;
+
+        out[outIndex + c] = top * (1 - dy) + bottom * dy;
+      }
+    }
+
+    function applyEyeMagnify(imageData, center, radius, strength) {
+      if (strength <= 0) {
+        return imageData;
+      }
+
+      const { width, height, data } = imageData;
+      const source = new Uint8ClampedArray(data);
+      const result = new Uint8ClampedArray(data);
+
+      const amount = strength / 100;
+
+      const startX = Math.max(0, Math.floor(center.x - radius));
+      const endX = Math.min(width - 1, Math.ceil(center.x + radius));
+      const startY = Math.max(0, Math.floor(center.y - radius));
+      const endY = Math.min(height - 1, Math.ceil(center.y + radius));
+
+      for (let y = startY; y <= endY; y++) {
+        for (let x = startX; x <= endX; x++) {
+          const dx = x - center.x;
+          const dy = y - center.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance >= radius) {
+            continue;
+          }
+
+          const ratio = distance / radius;
+          const weight = (1 - ratio) * (1 - ratio);
+          const scale = 1 - amount * 0.34 * weight;
+
+          const sx = center.x + dx * scale;
+          const sy = center.y + dy * scale;
+
+          sampleBilinear(source, width, height, sx, sy, result, (y * width + x) * 4);
+        }
+      }
+
+      return new ImageData(result, width, height);
+    }
+
+    function applyFaceSlim(imageData, faceInfo, strength) {
+      if (!faceInfo || strength <= 0) {
+        return imageData;
+      }
+
+      const { width, height, data } = imageData;
+      const source = new Uint8ClampedArray(data);
+      const result = new Uint8ClampedArray(data);
+
+      const amount = strength / 100;
+      const centerX = faceInfo.faceCenter.x;
+      const centerY = faceInfo.faceCenter.y + faceInfo.faceHeight * 0.08;
+      const radiusX = faceInfo.faceWidth * 0.76;
+      const radiusY = faceInfo.faceHeight * 0.86;
+
+      const startX = Math.max(0, Math.floor(centerX - radiusX));
+      const endX = Math.min(width - 1, Math.ceil(centerX + radiusX));
+      const startY = Math.max(0, Math.floor(centerY - radiusY));
+      const endY = Math.min(height - 1, Math.ceil(centerY + radiusY));
+
+      for (let y = startY; y <= endY; y++) {
+        for (let x = startX; x <= endX; x++) {
+          const nx = (x - centerX) / radiusX;
+          const ny = (y - centerY) / radiusY;
+          const ellipse = nx * nx + ny * ny;
+
+          if (ellipse > 1) {
+            continue;
+          }
+
+          const lowerWeight = clamp((ny + 0.35) / 1.1, 0, 1);
+          const edgeWeight = Math.abs(nx);
+          const core = (1 - ellipse);
+          const weight = core * (0.35 + 0.9 * lowerWeight) * (0.4 + 0.6 * edgeWeight);
+
+          const sx =
+            centerX +
+            (x - centerX) * (1 + amount * 0.22 * weight);
+          const sy = y;
+
+          sampleBilinear(source, width, height, sx, sy, result, (y * width + x) * 4);
+        }
+      }
+
+      return new ImageData(result, width, height);
+    }
+
+    function applySkinRetouch(canvas, faceInfo, smoothValue, toneValue, brightnessValue) {
+      const ctx = canvas.getContext("2d");
+      const w = canvas.width;
+      const h = canvas.height;
+
+      const baseData = ctx.getImageData(0, 0, w, h);
+      const source = baseData.data;
+      const result = new Uint8ClampedArray(source);
+
+      const blurredCanvas = createOffscreenCanvas(w, h);
+      const bctx = blurredCanvas.getContext("2d");
+
+      const smooth = smoothValue / 100;
+      const tone = toneValue / 100;
+      const brightness = brightnessValue / 100;
+
+      bctx.filter =
+        "blur(" +
+        (2 + smooth * 8).toFixed(1) +
+        "px) brightness(" +
+        (1 + tone * 0.14 + brightness * 0.1).toFixed(3) +
+        ") saturate(" +
+        (1 + tone * 0.18).toFixed(3) +
+        ")";
+      bctx.drawImage(canvas, 0, 0);
+
+      const blurred = bctx.getImageData(0, 0, w, h).data;
+
+      if (faceInfo) {
+        const cx = faceInfo.faceCenter.x;
+        const cy = faceInfo.faceCenter.y - faceInfo.faceHeight * 0.02;
+        const rx = faceInfo.faceWidth * 0.72;
+        const ry = faceInfo.faceHeight * 0.82;
+
+        const startX = Math.max(0, Math.floor(cx - rx));
+        const endX = Math.min(w - 1, Math.ceil(cx + rx));
+        const startY = Math.max(0, Math.floor(cy - ry));
+        const endY = Math.min(h - 1, Math.ceil(cy + ry));
+
+        for (let y = startY; y <= endY; y++) {
+          for (let x = startX; x <= endX; x++) {
+            const nx = (x - cx) / rx;
+            const ny = (y - cy) / ry;
+            const ellipse = nx * nx + ny * ny;
+
+            if (ellipse > 1) {
+              continue;
+            }
+
+            const fade = Math.pow(1 - ellipse, 1.5);
+            const alpha = smooth * 0.62 * fade;
+            const brighten = (tone * 18 + brightness * 28) * fade;
+
+            const index = (y * w + x) * 4;
+
+            result[index] = clamp(source[index] * (1 - alpha) + blurred[index] * alpha + brighten, 0, 255);
+            result[index + 1] = clamp(source[index + 1] * (1 - alpha) + blurred[index + 1] * alpha + brighten, 0, 255);
+            result[index + 2] = clamp(source[index + 2] * (1 - alpha) + blurred[index + 2] * alpha + brighten * 0.84, 0, 255);
+            result[index + 3] = source[index + 3];
+          }
+        }
+      }
+
+      if (!faceInfo && brightnessValue !== 0) {
+        const adjust = brightnessValue * 2.5;
+        for (let i = 0; i < result.length; i += 4) {
+          result[i] = clamp(result[i] + adjust, 0, 255);
+          result[i + 1] = clamp(result[i + 1] + adjust, 0, 255);
+          result[i + 2] = clamp(result[i + 2] + adjust, 0, 255);
+        }
+      }
+
+      ctx.putImageData(new ImageData(result, w, h), 0, 0);
+      return canvas;
+    }
+
+    function createProcessedCanvas() {
+      if (!state.imageElement) {
+        return null;
+      }
+
+      const img = state.imageElement;
+      const width = img.naturalWidth;
+      const height = img.naturalHeight;
+
+      const canvas = createOffscreenCanvas(width, height);
+      const ctx = canvas.getContext("2d", { alpha: true });
+      ctx.drawImage(img, 0, 0);
+
+      const faceInfo = getFaceInfo();
+      let imageData = ctx.getImageData(0, 0, width, height);
+
+      if (faceInfo) {
+        const eyeStrength = Number(els.eyeRange.value);
+        const jawStrength = Number(els.jawRange.value);
+
+        const leftEyeRadius = Math.max(12, faceInfo.faceWidth * 0.11);
+        const rightEyeRadius = Math.max(12, faceInfo.faceWidth * 0.11);
+
+        imageData = applyEyeMagnify(imageData, faceInfo.leftEye, leftEyeRadius, eyeStrength);
+        imageData = applyEyeMagnify(imageData, faceInfo.rightEye, rightEyeRadius, eyeStrength);
+        imageData = applyFaceSlim(imageData, faceInfo, jawStrength);
+
+        ctx.putImageData(imageData, 0, 0);
+      }
+
+      const overallBrightness = Number(els.brightnessRange.value);
+      const smooth = Number(els.smoothRange.value);
+      const tone = Number(els.toneRange.value);
+
+      applySkinRetouch(canvas, faceInfo, smooth, tone, overallBrightness);
+
+      if (overallBrightness !== 0) {
+        const adjustCanvas = createOffscreenCanvas(width, height);
+        const actx = adjustCanvas.getContext("2d");
+        actx.filter = "brightness(" + (1 + overallBrightness / 100).toFixed(3) + ")";
+        actx.drawImage(canvas, 0, 0);
+        const ctx2 = canvas.getContext("2d");
+        ctx2.clearRect(0, 0, width, height);
+        ctx2.drawImage(adjustCanvas, 0, 0);
+      }
+
+      return canvas;
+    }
+
+    function createCutoutCanvas(processedCanvas) {
+      if (!processedCanvas) {
+        return null;
+      }
+
+      if (!state.segmentationMask) {
+        return processedCanvas;
+      }
+
+      const width = processedCanvas.width;
+      const height = processedCanvas.height;
+      const canvas = createOffscreenCanvas(width, height);
+      const ctx = canvas.getContext("2d");
+
+      ctx.drawImage(state.segmentationMask, 0, 0, width, height);
+      ctx.globalCompositeOperation = "source-in";
+      ctx.drawImage(processedCanvas, 0, 0);
+      ctx.globalCompositeOperation = "source-over";
+
+      return canvas;
+    }
+
+    function renderPhotoToCanvas(targetCanvas, includeGuide) {
+      if (!state.imageElement) {
+        return;
+      }
+
+      const ctx = targetCanvas.getContext("2d", { alpha: false });
+      const targetWidth = targetCanvas.width;
+      const targetHeight = targetCanvas.height;
+
+      const processedCanvas = createProcessedCanvas();
+      const subjectCanvas = createCutoutCanvas(processedCanvas);
+
+      ctx.clearRect(0, 0, targetWidth, targetHeight);
+      ctx.fillStyle = state.bgColor;
+      ctx.fillRect(0, 0, targetWidth, targetHeight);
+
+      const drawWidth = processedCanvas.width * state.scale;
+      const drawHeight = processedCanvas.height * state.scale;
+
+      ctx.drawImage(subjectCanvas, state.offsetX, state.offsetY, drawWidth, drawHeight);
+
+      if (includeGuide) {
+        drawGuideOverlay(ctx, targetWidth, targetHeight);
+      }
+    }
+
+    function drawGuideOverlay(ctx, width, height) {
+      ctx.save();
+
+      ctx.strokeStyle = "rgba(111, 115, 255, .85)";
+      ctx.lineWidth = Math.max(1.5, width * 0.004);
+      ctx.strokeRect(0.5, 0.5, width - 1, height - 1);
+
+      ctx.strokeStyle = "rgba(239, 111, 154, .9)";
+      ctx.setLineDash([8, 8]);
+
+      const eyeLineY = height * state.preset.eyeLineRatio;
+      ctx.beginPath();
+      ctx.moveTo(width * 0.08, eyeLineY);
+      ctx.lineTo(width * 0.92, eyeLineY);
+      ctx.stroke();
+
+      ctx.strokeStyle = "rgba(255, 180, 56, .95)";
+      const safeTop = height * 0.08;
+      const safeBottom = height * 0.92;
+      const safeLeft = width * 0.14;
+      const safeRight = width * 0.86;
+      ctx.strokeRect(safeLeft, safeTop, safeRight - safeLeft, safeBottom - safeTop);
+
+      ctx.fillStyle = "rgba(36, 39, 63, .7)";
+      ctx.fillRect(10, 10, 104, 44);
+      ctx.fillStyle = "#fff";
+      ctx.font = "700 11px Pretendard, sans-serif";
+      ctx.fillText("눈 기준선", 18, 27);
+      ctx.fillStyle = "#ffd98a";
+      ctx.fillText(Math.round(state.preset.eyeLineRatio * 100) + "% 위치", 18, 42);
+
+      ctx.restore();
+    }
+
+    function autoFitFace() {
+      if (!state.imageElement) {
+        return;
+      }
+
+      const preset = state.preset;
+      const targetW = preset.width;
+      const targetH = preset.height;
+
+      const imgW = state.imageElement.naturalWidth;
+      const imgH = state.imageElement.naturalHeight;
+
+      const coverScale = Math.max(targetW / imgW, targetH / imgH);
+      const faceInfo = getFaceInfo();
+
+      if (faceInfo) {
+        const targetHeadHeight = targetH * preset.headRatio;
+        const calculatedScale = targetHeadHeight / faceInfo.faceHeight;
+
+        state.scale = clamp(Math.max(coverScale, calculatedScale), state.minScale, state.maxScale);
+
+        state.offsetX = targetW * 0.5 - faceInfo.faceCenter.x * state.scale;
+        state.offsetY = targetH * preset.eyeLineRatio - faceInfo.eyesCenter.y * state.scale;
+      } else {
+        state.scale = clamp(coverScale, state.minScale, state.maxScale);
+        state.offsetX = (targetW - imgW * state.scale) / 2;
+        state.offsetY = (targetH - imgH * state.scale) / 2;
+      }
+
+      syncZoomUi();
+      renderPreview();
+    }
+
+    function syncZoomUi() {
+      const value = clamp(state.scale, Number(els.zoomRange.min), Number(els.zoomRange.max));
+      els.zoomRange.value = value;
+      els.zoomValue.textContent = Math.round(value * 100) + "%";
+    }
+
+    function renderPreview() {
+      if (!state.imageElement) {
+        return;
+      }
+      renderPhotoToCanvas(els.previewCanvas, true);
+    }
+
+    function downloadCanvas(canvas, fileName) {
+      canvas.toBlob((blob) => {
+        if (!blob) {
+          alert("이미지를 저장하지 못했습니다.");
+          return;
+        }
+
+        const url = URL.createObjectURL(blob);
+        const anchor = document.createElement("a");
+        anchor.href = url;
+        anchor.download = fileName;
+        document.body.appendChild(anchor);
+        anchor.click();
+        anchor.remove();
+
+        setTimeout(() => {
+          URL.revokeObjectURL(url);
+        }, 1000);
+      }, "image/jpeg", 0.96);
+    }
+
+    function getOutputCanvas() {
+      const canvas = document.createElement("canvas");
+      canvas.width = state.preset.width;
+      canvas.height = state.preset.height;
+      renderPhotoToCanvas(canvas, false);
+      return canvas;
+    }
+
+    function getPrintSheetCanvas() {
+      const outputCanvas = getOutputCanvas();
+      const sheetW = 1200;
+      const sheetH = 1800;
+      const pxPerCm = 300 / 2.54;
+      const photoW = Math.round(state.preset.cmW * pxPerCm);
+      const photoH = Math.round(state.preset.cmH * pxPerCm);
+      const gap = 32;
+      const margin = 60;
+
+      const cols = Math.max(1, Math.floor((sheetW - margin * 2 + gap) / (photoW + gap)));
+      const rows = Math.max(1, Math.floor((sheetH - margin * 2 + gap) / (photoH + gap)));
+      const count = cols * rows;
+
+      const canvas = document.createElement("canvas");
+      canvas.width = sheetW;
+      canvas.height = sheetH;
+
+      const ctx = canvas.getContext("2d", { alpha: false });
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, sheetW, sheetH);
+
+      const totalW = cols * photoW + (cols - 1) * gap;
+      const totalH = rows * photoH + (rows - 1) * gap;
+      const startX = Math.round((sheetW - totalW) / 2);
+      const startY = Math.round((sheetH - totalH) / 2);
+
+      let placed = 0;
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          const x = startX + col * (photoW + gap);
+          const y = startY + row * (photoH + gap);
+          ctx.drawImage(outputCanvas, x, y, photoW, photoH);
+          ctx.strokeStyle = "rgba(0,0,0,.18)";
+          ctx.lineWidth = 1;
+          ctx.strokeRect(x + 0.5, y + 0.5, photoW - 1, photoH - 1);
+          placed++;
+        }
+      }
+
+      ctx.fillStyle = "#666";
+      ctx.font = "600 18px Pretendard, sans-serif";
+      ctx.fillText(state.preset.label + " · " + count + "매 인화판", 50, 40);
+
+      return canvas;
+    }
+
+    async function loadImageFile(file) {
+      const error = validateFile(file);
+      if (error) {
+        alert(error);
+        return;
+      }
+
+      revokeCurrentImageUrl();
+
+      state.imageFile = file;
+      state.imageUrl = URL.createObjectURL(file);
+      state.faceLandmarks = null;
+      state.segmentationMask = null;
+      state.faceReady = false;
+      state.segmentReady = false;
+
+      const image = new Image();
+      image.onload = async () => {
+        state.imageElement = image;
+        els.emptyArea.style.display = "none";
+        els.workspace.classList.add("show");
+
+        updatePreviewCanvasSize();
+        setStatus("사진 분석 중입니다. 잠시만 기다려주세요...");
+        els.metaFace.textContent = "분석 중";
+
+        await initModels();
+
+        const currentToken = ++state.renderToken;
+        const [landmarks, segmentationMask] = await Promise.all([
+          runFaceAnalysis(image),
+          runSegmentation(image)
+        ]);
+
+        if (currentToken !== state.renderToken) {
+          return;
+        }
+
+        state.faceLandmarks = landmarks;
+        state.segmentationMask = segmentationMask;
+        state.faceReady = !!landmarks;
+        state.segmentReady = !!segmentationMask;
+
+        if (landmarks) {
+          setStatus("얼굴 분석 완료. 자동으로 규격에 맞춰 배치했습니다.");
+          els.metaFace.textContent = "감지 완료";
+        } else {
+          setStatus("얼굴을 정확히 찾지 못했습니다. 수동으로 위치를 맞춰 사용하세요.");
+          els.metaFace.textContent = "수동 조절";
+        }
+
+        autoFitFace();
+      };
+
+      image.onerror = () => {
+        alert("이미지 파일을 불러오지 못했습니다.");
+      };
+
+      image.src = state.imageUrl;
+
+      els.fileInput.value = "";
+      els.replaceInput.value = "";
+    }
+
+    function setPreset(presetKey, button) {
+      state.preset = PRESETS[presetKey];
+      document.querySelectorAll(".preset-btn").forEach((item) => {
+        item.classList.toggle("active", item === button);
+      });
+      updatePreviewCanvasSize();
+      if (state.imageElement) {
+        autoFitFace();
+      }
+    }
+
+    function setBackgroundColor(color, button) {
+      state.bgColor = color;
+      document.querySelectorAll(".chip-btn").forEach((item) => {
+        item.classList.toggle("active", item === button);
+      });
+      renderPreview();
+    }
+
+    function resetRetouchDefaults() {
+      els.smoothRange.value = 42;
+      els.toneRange.value = 28;
+      els.jawRange.value = 16;
+      els.eyeRange.value = 10;
+      els.brightnessRange.value = 2;
+      updateRangeLabels();
+      renderPreview();
+    }
+
+    function onZoomInput() {
+      state.scale = Number(els.zoomRange.value);
+      els.zoomValue.textContent = Math.round(state.scale * 100) + "%";
+      renderPreview();
+    }
+
+    function startDrag(event) {
+      if (!state.imageElement) {
+        return;
+      }
+
+      state.dragging = true;
+      els.previewCanvas.classList.add("dragging");
+
+      const point = getCanvasPointer(event);
+      state.dragStartX = point.x;
+      state.dragStartY = point.y;
+      state.dragOriginX = state.offsetX;
+      state.dragOriginY = state.offsetY;
+
+      if (event.cancelable) {
+        event.preventDefault();
+      }
+    }
+
+    function moveDrag(event) {
+      if (!state.dragging) {
+        return;
+      }
+
+      const point = getCanvasPointer(event);
+      const scaleX = state.preset.width / els.previewCanvas.width;
+      const scaleY = state.preset.height / els.previewCanvas.height;
+
+      state.offsetX = state.dragOriginX + (point.x - state.dragStartX) * scaleX;
+      state.offsetY = state.dragOriginY + (point.y - state.dragStartY) * scaleY;
+
+      renderPreview();
+
+      if (event.cancelable) {
+        event.preventDefault();
+      }
+    }
+
+    function endDrag() {
+      state.dragging = false;
+      els.previewCanvas.classList.remove("dragging");
+    }
+
+    function getCanvasPointer(event) {
+      const rect = els.previewCanvas.getBoundingClientRect();
+      const clientX =
+        event.touches && event.touches[0]
+          ? event.touches[0].clientX
+          : event.clientX;
+      const clientY =
+        event.touches && event.touches[0]
+          ? event.touches[0].clientY
+          : event.clientY;
+
+      return {
+        x: clientX - rect.left,
+        y: clientY - rect.top
+      };
+    }
+
+    function onCanvasWheel(event) {
+      if (!state.imageElement) {
+        return;
+      }
+
+      event.preventDefault();
+
+      const delta = event.deltaY < 0 ? 0.06 : -0.06;
+      state.scale = clamp(state.scale + delta, Number(els.zoomRange.min), Number(els.zoomRange.max));
+      syncZoomUi();
+      renderPreview();
+    }
+
+    function onDownload() {
+      if (!state.imageElement) {
+        return;
+      }
+      const canvas = getOutputCanvas();
+      const fileName = state.preset.id + "-photo.jpg";
+      downloadCanvas(canvas, fileName);
+    }
+
+    function onDownloadSheet() {
+      if (!state.imageElement) {
+        return;
+      }
+      const canvas = getPrintSheetCanvas();
+      const fileName = state.preset.id + "-4x6-sheet.jpg";
+      downloadCanvas(canvas, fileName);
+    }
+
+    function addInputEvents() {
+      [
+        els.smoothRange,
+        els.toneRange,
+        els.jawRange,
+        els.eyeRange,
+        els.brightnessRange
+      ].forEach((input) => {
+        input.addEventListener("input", () => {
+          updateRangeLabels();
+          renderPreview();
+        });
+      });
+
+      els.zoomRange.addEventListener("input", onZoomInput);
+
+      els.autoFitBtn.addEventListener("click", autoFitFace);
+      els.resetRetouchBtn.addEventListener("click", resetRetouchDefaults);
+      els.downloadBtn.addEventListener("click", onDownload);
+      els.sheetDownloadBtn.addEventListener("click", onDownloadSheet);
+
+      els.fileInput.addEventListener("change", (event) => {
+        loadImageFile(event.target.files[0]);
+      });
+
+      els.replaceInput.addEventListener("change", (event) => {
+        loadImageFile(event.target.files[0]);
+      });
+
+      document.querySelectorAll(".preset-btn").forEach((button) => {
+        button.addEventListener("click", () => {
+          setPreset(button.dataset.preset, button);
+        });
+      });
+
+      document.querySelectorAll(".chip-btn").forEach((button) => {
+        button.addEventListener("click", () => {
+          setBackgroundColor(button.dataset.bg, button);
+        });
+      });
+
+      ["dragenter", "dragover"].forEach((eventName) => {
+        els.dropzone.addEventListener(eventName, (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          els.dropzone.classList.add("dragover");
+        });
+      });
+
+      ["dragleave", "drop"].forEach((eventName) => {
+        els.dropzone.addEventListener(eventName, (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          els.dropzone.classList.remove("dragover");
+        });
+      });
+
+      els.dropzone.addEventListener("drop", (event) => {
+        const file = event.dataTransfer.files[0];
+        loadImageFile(file);
+      });
+
+      els.previewCanvas.addEventListener("mousedown", startDrag);
+      els.previewCanvas.addEventListener("touchstart", startDrag, { passive: false });
+      window.addEventListener("mousemove", moveDrag);
+      window.addEventListener("touchmove", moveDrag, { passive: false });
+      window.addEventListener("mouseup", endDrag);
+      window.addEventListener("touchend", endDrag);
+      els.previewCanvas.addEventListener("wheel", onCanvasWheel, { passive: false });
+
+      window.addEventListener("beforeunload", () => {
+        revokeCurrentImageUrl();
+      });
+    }
+
+    updateRangeLabels();
+    updatePreviewCanvasSize();
+    addInputEvents();
+    initModels();
+  </script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script
+    defer
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'
+  ></script>
+  <!-- End Cloudflare Web Analytics -->
+</body>
+</html>
