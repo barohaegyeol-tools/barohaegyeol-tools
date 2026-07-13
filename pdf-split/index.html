@@ -1,0 +1,4917 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>PDF 나누기·페이지 추출｜페이지별 PDF 분할｜바로해결툴즈</title>
+
+  <meta
+    name="description"
+    content="PDF 페이지를 미리보기로 확인하고 필요한 페이지만 추출하거나 페이지별·일정 장수별로 나누세요. 서버 업로드 없이 브라우저에서 안전하게 처리합니다."
+  />
+
+  <meta
+    name="keywords"
+    content="PDF 나누기, PDF 분할, PDF 페이지 추출, PDF 페이지별 저장, PDF 특정 페이지 저장, PDF 쪼개기"
+  />
+
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+
+  <link
+    rel="canonical"
+    href="https://barohaegyeol-tools.pages.dev/pdf-split/"
+  />
+
+  <meta name="theme-color" content="#102a43" />
+
+  <meta property="og:type" content="website" />
+
+  <meta
+    property="og:title"
+    content="PDF 나누기·페이지 추출｜바로해결툴즈"
+  />
+
+  <meta
+    property="og:description"
+    content="필요한 PDF 페이지만 선택해 추출하거나 페이지별·일정 장수별 PDF로 나누세요."
+  />
+
+  <meta
+    property="og:url"
+    content="https://barohaegyeol-tools.pages.dev/pdf-split/"
+  />
+
+  <meta
+    property="og:site_name"
+    content="바로해결툴즈"
+  />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "PDF 나누기·페이지 추출",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web Browser",
+    "url": "https://barohaegyeol-tools.pages.dev/pdf-split/",
+    "description": "PDF에서 필요한 페이지를 추출하거나 페이지별로 분할하는 무료 브라우저 도구",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "KRW"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --navy: #102a43;
+      --navy-2: #183b56;
+      --blue: #1468d5;
+      --cyan: #24c6dc;
+      --mint: #66e2b3;
+      --lime: #d8f06c;
+      --orange: #ff8b5c;
+      --paper: #ffffff;
+      --bg: #f4fbfd;
+      --ink: #102a43;
+      --text: #4b6377;
+      --muted: #7b91a2;
+      --line: #dce9ee;
+      --green: #168b67;
+      --red: #d85164;
+      --yellow: #f2b935;
+
+      --shadow:
+        0 28px 82px
+        rgba(16, 42, 67, .15);
+
+      --shadow-soft:
+        0 14px 40px
+        rgba(16, 42, 67, .08);
+
+      --radius: 28px;
+      --max: 1240px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Pretendard",
+        "Noto Sans KR",
+        "Apple SD Gothic Neo",
+        system-ui,
+        sans-serif;
+
+      line-height: 1.65;
+      overflow-x: hidden;
+
+      background:
+        radial-gradient(
+          circle at 7% 7%,
+          rgba(36, 198, 220, .16),
+          transparent 27%
+        ),
+        radial-gradient(
+          circle at 93% 8%,
+          rgba(255, 139, 92, .17),
+          transparent 27%
+        ),
+        radial-gradient(
+          circle at 84% 91%,
+          rgba(216, 240, 108, .22),
+          transparent 28%
+        ),
+        linear-gradient(
+          145deg,
+          #f2fbff 0%,
+          #fffaf6 53%,
+          #f4fff9 100%
+        );
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .16;
+
+      background-image:
+        linear-gradient(
+          135deg,
+          rgba(20, 104, 213, .15) 1px,
+          transparent 1px
+        );
+
+      background-size: 36px 36px;
+
+      mask-image:
+        linear-gradient(
+          to bottom,
+          #000 0%,
+          transparent 72%
+        );
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .wrap {
+      width:
+        min(
+          var(--max),
+          calc(100% - 32px)
+        );
+
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+
+      border-bottom:
+        1px solid
+        rgba(16, 42, 67, .08);
+
+      background:
+        rgba(247, 252, 253, .89);
+
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      min-height: 74px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+
+      flex: 0 0 auto;
+
+      font-weight: 950;
+      letter-spacing: -.04em;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+
+      border-radius:
+        24px 14px 14px 14px;
+
+      display: grid;
+      place-items: center;
+
+      color: var(--navy);
+      font-weight: 950;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--lime),
+          var(--cyan)
+        );
+
+      box-shadow:
+        0 15px 34px
+        rgba(36, 198, 220, .22);
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 1px;
+
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      white-space: nowrap;
+    }
+
+    .nav-links a {
+      padding: 9px 12px;
+
+      border-radius: 999px;
+
+      border:
+        1px solid
+        rgba(16, 42, 67, .08);
+
+      background:
+        rgba(255, 255, 255, .84);
+
+      color: #52697b;
+      font-size: 13px;
+      font-weight: 900;
+
+      transition: .16s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--navy);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero {
+      padding: 46px 0 30px;
+    }
+
+    .hero-shell {
+      position: relative;
+      overflow: hidden;
+      min-height: 445px;
+
+      padding: 48px;
+
+      border-radius: 42px;
+      color: #fff;
+
+      background:
+        radial-gradient(
+          circle at 85% 18%,
+          rgba(216, 240, 108, .25),
+          transparent 27%
+        ),
+        radial-gradient(
+          circle at 72% 91%,
+          rgba(36, 198, 220, .21),
+          transparent 31%
+        ),
+        linear-gradient(
+          135deg,
+          #0b2136 0%,
+          #174d6f 52%,
+          #1468d5 100%
+        );
+
+      box-shadow: var(--shadow);
+    }
+
+    .hero-shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .2;
+
+      background-image:
+        linear-gradient(
+          rgba(255, 255, 255, .17) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255, 255, 255, .17) 1px,
+          transparent 1px
+        );
+
+      background-size: 44px 44px;
+
+      mask-image:
+        linear-gradient(
+          90deg,
+          transparent,
+          #000 43%,
+          #000
+        );
+    }
+
+    .hero-shell::after {
+      content: "";
+      position: absolute;
+
+      right: -110px;
+      bottom: -150px;
+
+      width: 400px;
+      height: 400px;
+
+      border-radius: 50%;
+
+      border:
+        64px solid
+        rgba(255, 255, 255, .05);
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+
+      display: grid;
+      grid-template-columns:
+        1.04fr .96fr;
+
+      gap: 38px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      padding: 8px 12px;
+
+      border-radius: 999px;
+      color: #f3ffc2;
+
+      background:
+        rgba(216, 240, 108, .12);
+
+      border:
+        1px solid
+        rgba(216, 240, 108, .27);
+
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    .eyebrow::before {
+      content: "";
+
+      width: 8px;
+      height: 8px;
+
+      border-radius: 50%;
+      background: var(--lime);
+
+      box-shadow:
+        0 0 0 5px
+        rgba(216, 240, 108, .13);
+    }
+
+    h1 {
+      margin: 18px 0 0;
+
+      font-size:
+        clamp(46px, 5.8vw, 76px);
+
+      line-height: 1.02;
+      letter-spacing: -.075em;
+      white-space: nowrap;
+    }
+
+    h1 span {
+      color: var(--lime);
+    }
+
+    .lead {
+      margin: 20px 0 0;
+      max-width: 690px;
+
+      color:
+        rgba(255, 255, 255, .8);
+
+      font-size:
+        clamp(16px, 1.8vw, 19px);
+
+      line-height: 1.82;
+      word-break: keep-all;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .btn {
+      min-height: 52px;
+      padding: 13px 18px;
+
+      border-radius: 16px;
+      border: 1px solid transparent;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      font-weight: 950;
+      letter-spacing: -.02em;
+      transition: .17s ease;
+    }
+
+    .btn-primary {
+      color: var(--navy);
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--lime),
+          var(--mint)
+        );
+
+      box-shadow:
+        0 18px 42px
+        rgba(102, 226, 179, .18);
+    }
+
+    .btn-secondary {
+      color: #fff;
+
+      background:
+        rgba(255, 255, 255, .08);
+
+      border-color:
+        rgba(255, 255, 255, .18);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 338px;
+    }
+
+    .hero-pdf {
+      position: absolute;
+
+      left: 50%;
+      top: 50%;
+
+      width: 246px;
+      height: 308px;
+
+      padding: 16px;
+
+      transform:
+        translate(-50%, -50%);
+
+      border-radius: 30px;
+      background: #fff;
+      color: var(--navy);
+
+      box-shadow:
+        0 28px 68px
+        rgba(0, 0, 0, .25);
+
+      z-index: 3;
+    }
+
+    .hero-pdf::before {
+      content: "PDF";
+
+      height: 102px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 19px;
+
+      color: #fff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--orange),
+          #ffb17f
+        );
+
+      font-size: 29px;
+      font-weight: 950;
+    }
+
+    .hero-lines {
+      height: 120px;
+      margin-top: 15px;
+
+      border-radius: 12px;
+
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          #dce6ed 0 6px,
+          transparent 6px 17px
+        );
+    }
+
+    .cut-line {
+      position: absolute;
+
+      left: 50%;
+      top: 51%;
+
+      width: 330px;
+      height: 3px;
+
+      transform:
+        translate(-50%, -50%)
+        rotate(-7deg);
+
+      background:
+        repeating-linear-gradient(
+          to right,
+          var(--lime) 0 12px,
+          transparent 12px 21px
+        );
+
+      z-index: 5;
+    }
+
+    .page-piece {
+      position: absolute;
+
+      width: 118px;
+      height: 148px;
+
+      padding: 10px;
+
+      border-radius: 19px;
+      background: #fff;
+
+      box-shadow:
+        0 19px 44px
+        rgba(0, 0, 0, .21);
+
+      z-index: 6;
+    }
+
+    .page-piece::before {
+      content: "";
+
+      display: block;
+      height: 55px;
+
+      border-radius: 11px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--cyan),
+          var(--mint)
+        );
+    }
+
+    .page-piece::after {
+      content: "";
+
+      display: block;
+      height: 48px;
+      margin-top: 10px;
+
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          #dce6ed 0 4px,
+          transparent 4px 11px
+        );
+    }
+
+    .piece-one {
+      left: 0;
+      top: 30px;
+      transform: rotate(-10deg);
+    }
+
+    .piece-two {
+      right: 0;
+      bottom: 22px;
+      transform: rotate(9deg);
+    }
+
+    .split-badge {
+      position: absolute;
+
+      left: 50%;
+      bottom: -2px;
+
+      min-width: 188px;
+      height: 59px;
+
+      transform: translateX(-50%);
+
+      border-radius: 999px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+
+      color: var(--navy);
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--lime),
+          var(--cyan)
+        );
+
+      box-shadow:
+        0 20px 45px
+        rgba(0, 0, 0, .23);
+
+      font-size: 15px;
+      font-weight: 950;
+
+      z-index: 8;
+    }
+
+    .main-section {
+      padding: 0 0 38px;
+    }
+
+    .tool-shell {
+      overflow: hidden;
+
+      border-radius: 34px;
+
+      background:
+        rgba(255, 255, 255, .95);
+
+      border:
+        1px solid var(--line);
+
+      box-shadow: var(--shadow);
+    }
+
+    .tool-head {
+      padding: 22px 26px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+
+      border-bottom:
+        1px solid var(--line);
+
+      background:
+        linear-gradient(
+          90deg,
+          rgba(36, 198, 220, .08),
+          rgba(216, 240, 108, .1),
+          rgba(255, 139, 92, .07)
+        );
+    }
+
+    .tool-head h2 {
+      margin: 0;
+
+      font-size: 28px;
+      letter-spacing: -.055em;
+    }
+
+    .tool-head p {
+      margin: 5px 0 0;
+
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .privacy-pill {
+      flex: 0 0 auto;
+
+      padding: 9px 12px;
+
+      border-radius: 999px;
+
+      color: #1e6c7a;
+      background: #edfafd;
+
+      border:
+        1px solid #d0eef3;
+
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .empty-area {
+      padding: 24px;
+    }
+
+    .dropzone {
+      min-height: 370px;
+
+      padding: 34px;
+
+      display: grid;
+      place-items: center;
+
+      text-align: center;
+
+      border-radius: 27px;
+
+      border:
+        2px dashed #c5dde5;
+
+      background:
+        radial-gradient(
+          circle at 84% 17%,
+          rgba(216, 240, 108, .22),
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 12% 88%,
+          rgba(36, 198, 220, .19),
+          transparent 31%
+        ),
+        linear-gradient(
+          145deg,
+          #f5fcff,
+          #fffaf6
+        );
+
+      transition: .18s ease;
+    }
+
+    .dropzone.dragover {
+      border-color: var(--blue);
+
+      transform: translateY(-2px);
+
+      box-shadow:
+        inset 0 0 0 4px
+        rgba(20, 104, 213, .08);
+    }
+
+    .drop-icon {
+      width: 88px;
+      height: 88px;
+
+      margin: 0 auto 16px;
+
+      border-radius:
+        28px 28px 28px 10px;
+
+      display: grid;
+      place-items: center;
+
+      color: #fff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--blue),
+          var(--cyan)
+        );
+
+      box-shadow:
+        0 19px 44px
+        rgba(20, 104, 213, .22);
+
+      font-size: 26px;
+      font-weight: 950;
+    }
+
+    .dropzone h3 {
+      margin: 0;
+
+      font-size: 29px;
+      letter-spacing: -.055em;
+    }
+
+    .dropzone p {
+      margin: 9px 0 0;
+
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.72;
+    }
+
+    .file-label {
+      margin-top: 18px;
+
+      min-height: 52px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 12px 20px;
+
+      border-radius: 15px;
+
+      color: #fff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--navy),
+          var(--blue)
+        );
+
+      box-shadow:
+        0 15px 34px
+        rgba(16, 42, 67, .2);
+
+      font-weight: 950;
+      cursor: pointer;
+    }
+
+    .file-label input {
+      display: none;
+    }
+
+    .workspace {
+      display: none;
+    }
+
+    .workspace.show {
+      display: block;
+    }
+
+    .document-bar {
+      padding: 15px 20px;
+
+      display: grid;
+      grid-template-columns:
+        minmax(0, 1.8fr)
+        repeat(3, minmax(130px, .7fr));
+
+      gap: 10px;
+
+      border-bottom:
+        1px solid var(--line);
+
+      background: #f9fdff;
+    }
+
+    .document-info,
+    .summary-item {
+      padding: 13px 14px;
+
+      border-radius: 16px;
+
+      background: #fff;
+
+      border:
+        1px solid #e1ebef;
+    }
+
+    .document-info {
+      min-width: 0;
+
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .document-icon {
+      width: 46px;
+      height: 56px;
+
+      flex: 0 0 auto;
+
+      border-radius:
+        13px 13px 5px 13px;
+
+      display: grid;
+      place-items: center;
+
+      color: #fff;
+
+      background:
+        linear-gradient(
+          145deg,
+          var(--orange),
+          #ffae7b
+        );
+
+      font-size: 11px;
+      font-weight: 950;
+    }
+
+    .document-name {
+      min-width: 0;
+    }
+
+    .document-name strong {
+      display: block;
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      font-size: 14px;
+    }
+
+    .document-name span {
+      display: block;
+      margin-top: 3px;
+
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .summary-item span {
+      display: block;
+
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .summary-item strong {
+      display: block;
+
+      margin-top: 4px;
+
+      font-size: 17px;
+      letter-spacing: -.03em;
+    }
+
+    .workspace-grid {
+      display: grid;
+      grid-template-columns:
+        minmax(0, 1fr) 365px;
+
+      min-height: 720px;
+    }
+
+    .pages-column {
+      min-width: 0;
+      padding: 20px;
+
+      background: #f6fbfd;
+    }
+
+    .selection-toolbar {
+      padding: 14px;
+
+      border-radius: 20px;
+
+      background: #fff;
+
+      border:
+        1px solid #dfe9ed;
+
+      box-shadow:
+        0 9px 25px
+        rgba(16, 42, 67, .05);
+    }
+
+    .range-row {
+      display: grid;
+      grid-template-columns:
+        minmax(0, 1fr) auto;
+
+      gap: 9px;
+    }
+
+    .range-input {
+      min-width: 0;
+      min-height: 49px;
+
+      padding: 11px 13px;
+
+      border-radius: 14px;
+
+      border:
+        1px solid #d8e5ea;
+
+      outline: none;
+
+      color: var(--ink);
+      background: #fbfeff;
+
+      font-weight: 850;
+    }
+
+    .range-input:focus {
+      border-color:
+        rgba(20, 104, 213, .52);
+
+      box-shadow:
+        0 0 0 4px
+        rgba(20, 104, 213, .08);
+    }
+
+    .apply-range-btn {
+      min-height: 49px;
+      padding: 0 16px;
+
+      border-radius: 14px;
+      border: 0;
+
+      color: #fff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--navy),
+          var(--blue)
+        );
+
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    .selection-help {
+      margin-top: 7px;
+
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 790;
+    }
+
+    .quick-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+
+      margin-top: 11px;
+    }
+
+    .quick-btn {
+      min-height: 39px;
+      padding: 8px 12px;
+
+      border-radius: 12px;
+
+      border:
+        1px solid #dae6eb;
+
+      color: #526b7d;
+      background: #fff;
+
+      font-size: 11px;
+      font-weight: 950;
+    }
+
+    .quick-btn:hover {
+      color: var(--blue);
+      border-color: #bed4e2;
+      background: #f6fbff;
+    }
+
+    .quick-btn.danger {
+      color: var(--red);
+    }
+
+    .pages-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 14px;
+
+      margin: 18px 0 12px;
+    }
+
+    .pages-head h3 {
+      margin: 0;
+
+      font-size: 22px;
+      letter-spacing: -.04em;
+    }
+
+    .pages-head p {
+      margin: 4px 0 0;
+
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .selected-pill {
+      padding: 8px 11px;
+
+      border-radius: 999px;
+
+      color: #146a52;
+      background: #ecfaf4;
+
+      border:
+        1px solid #ceebde;
+
+      font-size: 11px;
+      font-weight: 950;
+    }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      gap: 12px;
+    }
+
+    .page-card {
+      position: relative;
+
+      min-width: 0;
+      padding: 9px;
+
+      border-radius: 18px;
+
+      border:
+        2px solid transparent;
+
+      color: var(--ink);
+      background: #fff;
+
+      box-shadow:
+        0 9px 25px
+        rgba(16, 42, 67, .06);
+
+      transition: .16s ease;
+    }
+
+    .page-card:hover {
+      transform: translateY(-2px);
+
+      border-color:
+        rgba(36, 198, 220, .35);
+    }
+
+    .page-card.selected {
+      border-color: var(--blue);
+
+      background:
+        linear-gradient(
+          145deg,
+          #f2f8ff,
+          #f5fffa
+        );
+
+      box-shadow:
+        0 12px 30px
+        rgba(20, 104, 213, .14);
+    }
+
+    .page-preview {
+      position: relative;
+
+      min-height: 168px;
+
+      display: grid;
+      place-items: center;
+
+      overflow: hidden;
+
+      border-radius: 12px;
+
+      background:
+        linear-gradient(
+          45deg,
+          #e4ecef 25%,
+          transparent 25%,
+          transparent 75%,
+          #e4ecef 75%
+        ),
+        linear-gradient(
+          45deg,
+          #e4ecef 25%,
+          #f7fafb 25%,
+          #f7fafb 75%,
+          #e4ecef 75%
+        );
+
+      background-position:
+        0 0,
+        10px 10px;
+
+      background-size:
+        20px 20px;
+    }
+
+    .page-preview canvas {
+      display: block;
+
+      max-width: 100%;
+      max-height: 210px;
+
+      width: auto;
+      height: auto;
+
+      background: #fff;
+
+      box-shadow:
+        0 5px 14px
+        rgba(16, 42, 67, .13);
+    }
+
+    .page-loading {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .page-footer {
+      min-width: 0;
+
+      margin-top: 9px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 7px;
+    }
+
+    .page-number {
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    .page-size {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    .selection-order {
+      position: absolute;
+
+      right: 6px;
+      top: 6px;
+
+      min-width: 27px;
+      height: 27px;
+
+      padding: 0 6px;
+
+      border-radius: 999px;
+
+      display: none;
+      place-items: center;
+
+      color: #fff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--blue),
+          var(--cyan)
+        );
+
+      box-shadow:
+        0 7px 16px
+        rgba(20, 104, 213, .25);
+
+      font-size: 10px;
+      font-weight: 950;
+    }
+
+    .page-card.selected
+    .selection-order {
+      display: grid;
+    }
+
+    .control-column {
+      padding: 22px;
+      background: #fff;
+
+      border-left:
+        1px solid var(--line);
+    }
+
+    .control-group + .control-group {
+      margin-top: 20px;
+      padding-top: 20px;
+
+      border-top:
+        1px solid var(--line);
+    }
+
+    .group-title {
+      margin: 0 0 10px;
+
+      color: #29465a;
+      font-size: 14px;
+      font-weight: 950;
+      letter-spacing: -.02em;
+    }
+
+    .mode-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .mode-card {
+      position: relative;
+
+      padding: 13px 13px 13px 43px;
+
+      border-radius: 16px;
+
+      border:
+        1px solid #dfe9ed;
+
+      background: #fbfeff;
+
+      cursor: pointer;
+      transition: .15s ease;
+    }
+
+    .mode-card:hover,
+    .mode-card.active {
+      border-color:
+        rgba(20, 104, 213, .42);
+
+      background:
+        linear-gradient(
+          135deg,
+          #f1f7ff,
+          #f5fffa
+        );
+
+      box-shadow:
+        0 10px 25px
+        rgba(20, 104, 213, .08);
+    }
+
+    .mode-card input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .radio-dot {
+      position: absolute;
+
+      left: 13px;
+      top: 17px;
+
+      width: 19px;
+      height: 19px;
+
+      border-radius: 50%;
+
+      border:
+        2px solid #a9bdc9;
+
+      background: #fff;
+    }
+
+    .mode-card.active
+    .radio-dot {
+      border:
+        6px solid var(--blue);
+    }
+
+    .mode-card b {
+      display: block;
+
+      font-size: 13px;
+    }
+
+    .mode-card small {
+      display: block;
+
+      margin-top: 3px;
+
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.55;
+      font-weight: 790;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field + .field {
+      margin-top: 13px;
+    }
+
+    .field-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    label {
+      color: #314d60;
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    .field-head small {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      min-height: 49px;
+
+      padding: 11px 13px;
+
+      border-radius: 14px;
+
+      border:
+        1px solid #dce7eb;
+
+      outline: none;
+
+      color: var(--ink);
+      background: #fbfeff;
+
+      font-weight: 850;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus {
+      border-color:
+        rgba(20, 104, 213, .52);
+
+      box-shadow:
+        0 0 0 4px
+        rgba(20, 104, 213, .08);
+    }
+
+    .chunk-field {
+      display: none;
+    }
+
+    .chunk-field.show {
+      display: grid;
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+
+      padding: 13px;
+
+      border-radius: 15px;
+
+      border:
+        1px solid #e0e9ed;
+
+      background: #fbfeff;
+    }
+
+    .toggle-row b {
+      display: block;
+      font-size: 13px;
+    }
+
+    .toggle-row small {
+      display: block;
+
+      margin-top: 2px;
+
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .switch {
+      position: relative;
+
+      width: 50px;
+      height: 29px;
+
+      flex: 0 0 auto;
+    }
+
+    .switch input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .switch span {
+      position: absolute;
+      inset: 0;
+
+      border-radius: 999px;
+      background: #cbd8de;
+
+      transition: .18s ease;
+    }
+
+    .switch span::after {
+      content: "";
+
+      position: absolute;
+
+      width: 21px;
+      height: 21px;
+
+      left: 4px;
+      top: 4px;
+
+      border-radius: 50%;
+      background: #fff;
+
+      box-shadow:
+        0 4px 10px
+        rgba(16, 42, 67, .17);
+
+      transition: .18s ease;
+    }
+
+    .switch input:checked + span {
+      background:
+        linear-gradient(
+          135deg,
+          var(--blue),
+          var(--cyan)
+        );
+    }
+
+    .switch input:checked + span::after {
+      transform: translateX(21px);
+    }
+
+    .selection-summary {
+      display: grid;
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 8px;
+    }
+
+    .selection-stat {
+      padding: 11px;
+
+      border-radius: 14px;
+
+      background: #f6fafc;
+
+      border:
+        1px solid #e1eaee;
+    }
+
+    .selection-stat span {
+      display: block;
+
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 850;
+    }
+
+    .selection-stat strong {
+      display: block;
+
+      margin-top: 3px;
+
+      font-size: 13px;
+      letter-spacing: -.02em;
+    }
+
+    .notice-box {
+      padding: 13px;
+
+      border-radius: 15px;
+
+      color: #73561d;
+      background: #fff8df;
+
+      border:
+        1px solid #f0e0a3;
+
+      font-size: 11px;
+      line-height: 1.65;
+      font-weight: 800;
+    }
+
+    .split-btn {
+      width: 100%;
+      min-height: 58px;
+
+      border: 0;
+      border-radius: 17px;
+
+      color: #fff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--navy),
+          var(--blue),
+          var(--cyan)
+        );
+
+      box-shadow:
+        0 17px 38px
+        rgba(20, 104, 213, .2);
+
+      font-size: 16px;
+      font-weight: 950;
+    }
+
+    .split-btn:disabled {
+      opacity: .45;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .replace-label,
+    .clear-btn {
+      width: 100%;
+      min-height: 48px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 14px;
+
+      color: #587082;
+      background: #fff;
+
+      border:
+        1px solid #dce7eb;
+
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    .replace-label {
+      margin-top: 8px;
+      cursor: pointer;
+    }
+
+    .replace-label input {
+      display: none;
+    }
+
+    .clear-btn {
+      margin-top: 8px;
+    }
+
+    .progress-box {
+      display: none;
+
+      margin-top: 13px;
+      padding: 12px;
+
+      border-radius: 15px;
+
+      background: #f6fafc;
+
+      border:
+        1px solid #e1eaee;
+    }
+
+    .progress-box.show {
+      display: block;
+    }
+
+    .progress-track {
+      height: 10px;
+      overflow: hidden;
+
+      border-radius: 999px;
+      background: #dbe6eb;
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+
+      border-radius: 999px;
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--blue),
+          var(--cyan),
+          var(--lime)
+        );
+
+      transition: width .2s ease;
+    }
+
+    .progress-text {
+      margin-top: 8px;
+
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .result-section {
+      display: none;
+      padding: 0 0 28px;
+    }
+
+    .result-section.show {
+      display: block;
+    }
+
+    .result-card {
+      padding: 24px;
+
+      display: grid;
+      grid-template-columns:
+        105px minmax(0, 1fr) 220px;
+
+      gap: 20px;
+      align-items: center;
+
+      border-radius: 28px;
+
+      background:
+        radial-gradient(
+          circle at 90% 15%,
+          rgba(216, 240, 108, .25),
+          transparent 25%
+        ),
+        linear-gradient(
+          135deg,
+          #eef8ff,
+          #f3fff9
+        );
+
+      border:
+        1px solid #d9e8ed;
+
+      box-shadow: var(--shadow-soft);
+    }
+
+    .result-icon {
+      width: 100px;
+      height: 118px;
+
+      border-radius:
+        23px 23px 8px 23px;
+
+      display: grid;
+      place-items: center;
+
+      color: #fff;
+
+      background:
+        linear-gradient(
+          145deg,
+          var(--blue),
+          var(--cyan)
+        );
+
+      box-shadow:
+        0 15px 34px
+        rgba(20, 104, 213, .19);
+
+      font-size: 19px;
+      font-weight: 950;
+    }
+
+    .result-content h2 {
+      margin: 0;
+
+      font-size: 29px;
+      letter-spacing: -.055em;
+    }
+
+    .result-content p {
+      margin: 6px 0 0;
+
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .result-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+
+      margin-top: 13px;
+    }
+
+    .result-stat {
+      padding: 8px 10px;
+
+      border-radius: 12px;
+
+      background:
+        rgba(255, 255, 255, .84);
+
+      border:
+        1px solid
+        rgba(255, 255, 255, .97);
+
+      color: #52697a;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .download-btn {
+      width: 100%;
+      min-height: 54px;
+
+      border: 0;
+      border-radius: 16px;
+
+      color: #fff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--navy),
+          var(--blue)
+        );
+
+      box-shadow:
+        0 16px 36px
+        rgba(20, 104, 213, .2);
+
+      font-weight: 950;
+    }
+
+    .restart-btn {
+      width: 100%;
+      min-height: 46px;
+
+      margin-top: 8px;
+
+      border-radius: 14px;
+
+      color: #587082;
+      background: #fff;
+
+      border:
+        1px solid #dce7eb;
+
+      font-weight: 950;
+    }
+
+    .info-section {
+      padding: 10px 0 52px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 14px;
+    }
+
+    .info-card {
+      padding: 22px;
+
+      border-radius: 24px;
+
+      background:
+        rgba(255, 255, 255, .92);
+
+      border:
+        1px solid var(--line);
+
+      box-shadow: var(--shadow-soft);
+    }
+
+    .info-card:nth-child(1) {
+      border-right:
+        4px solid var(--blue);
+    }
+
+    .info-card:nth-child(2) {
+      border-right:
+        4px solid var(--cyan);
+    }
+
+    .info-card:nth-child(3) {
+      border-right:
+        4px solid #a9c62d;
+    }
+
+    .info-icon {
+      width: 48px;
+      height: 48px;
+
+      border-radius:
+        17px 17px 17px 6px;
+
+      display: grid;
+      place-items: center;
+
+      color: var(--navy);
+
+      background:
+        linear-gradient(
+          135deg,
+          #eaf6ff,
+          #efffdc
+        );
+
+      font-size: 18px;
+      font-weight: 950;
+    }
+
+    .info-card h3 {
+      margin: 13px 0 7px;
+
+      font-size: 19px;
+      letter-spacing: -.04em;
+    }
+
+    .info-card p {
+      margin: 0;
+
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.75;
+      word-break: keep-all;
+    }
+
+    footer {
+      padding: 32px 0 44px;
+
+      border-top:
+        1px solid
+        rgba(16, 42, 67, .08);
+
+      color: var(--muted);
+    }
+
+    .footer-grid {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-grid b {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--ink);
+    }
+
+    .footer-grid span {
+      display: block;
+      max-width: 790px;
+
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+
+      color: #5b7182;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    @media (max-width: 1100px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual {
+        min-height: 345px;
+      }
+
+      .workspace-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .control-column {
+        border-left: 0;
+
+        border-top:
+          1px solid var(--line);
+      }
+    }
+
+    @media (max-width: 880px) {
+      .document-bar {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+
+      .document-info {
+        grid-column: 1 / -1;
+      }
+
+      .page-grid {
+        grid-template-columns:
+          repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 12px 0;
+      }
+
+      .nav-links {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 2px;
+      }
+
+      .hero {
+        padding-top: 30px;
+      }
+
+      .hero-shell {
+        padding: 34px 25px;
+        border-radius: 32px;
+      }
+
+      h1 {
+        white-space: normal;
+
+        font-size:
+          clamp(41px, 11vw, 59px);
+      }
+
+      .tool-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .page-grid {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+
+      .result-card {
+        grid-template-columns:
+          85px 1fr;
+      }
+
+      .result-icon {
+        width: 85px;
+        height: 101px;
+      }
+
+      .result-actions-box {
+        grid-column: 1 / -1;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .wrap {
+        width:
+          min(
+            var(--max),
+            calc(100% - 22px)
+          );
+      }
+
+      .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .hero-visual {
+        min-height: 300px;
+      }
+
+      .hero-pdf {
+        width: 195px;
+        height: 250px;
+      }
+
+      .page-piece {
+        width: 90px;
+        height: 118px;
+      }
+
+      .piece-one {
+        left: -8px;
+      }
+
+      .piece-two {
+        right: -8px;
+      }
+
+      .split-badge {
+        min-width: 150px;
+        height: 50px;
+        font-size: 13px;
+      }
+
+      .empty-area {
+        padding: 13px;
+      }
+
+      .dropzone {
+        min-height: 330px;
+        padding: 24px 16px;
+      }
+
+      .document-bar {
+        grid-template-columns: 1fr;
+      }
+
+      .document-info {
+        grid-column: auto;
+      }
+
+      .pages-column {
+        padding: 13px;
+      }
+
+      .range-row {
+        grid-template-columns: 1fr;
+      }
+
+      .page-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+
+      .page-preview {
+        min-height: 130px;
+      }
+
+      .selection-summary {
+        grid-template-columns: 1fr;
+      }
+
+      .result-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .result-icon {
+        margin: 0 auto;
+      }
+
+      .result-stats {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a
+        class="brand"
+        href="../"
+        aria-label="바로해결툴즈 홈"
+      >
+        <div class="brand-mark">B</div>
+
+        <div>
+          바로해결툴즈
+          <small>이미지 · 문서 · 생활도구</small>
+        </div>
+      </a>
+
+      <nav
+        class="nav-links"
+        aria-label="상단 메뉴"
+      >
+        <a href="../">전체 도구</a>
+        <a href="#splitter">PDF 나누기</a>
+        <a href="#guide">사용방법</a>
+        <a href="#privacy">개인정보</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero-shell">
+          <div class="hero-grid">
+            <div>
+              <div class="eyebrow">
+                필요한 페이지만 정확하게 분리
+              </div>
+
+              <h1>
+                <span>PDF 나누기·페이지 추출</span>
+              </h1>
+
+              <p class="lead">
+                PDF 페이지를 미리보기로 확인하고
+                필요한 페이지만 하나의 PDF로 추출하거나,
+                페이지별·일정 장수별 PDF로 나눠 ZIP 파일로 저장하세요.
+              </p>
+
+              <div class="hero-actions">
+                <a
+                  class="btn btn-primary"
+                  href="#splitter"
+                >
+                  PDF 나누기 시작
+                </a>
+
+                <a
+                  class="btn btn-secondary"
+                  href="#guide"
+                >
+                  기능 확인
+                </a>
+              </div>
+            </div>
+
+            <div
+              class="hero-visual"
+              aria-label="PDF 페이지 분할 예시"
+            >
+              <div class="hero-pdf">
+                <div class="hero-lines"></div>
+              </div>
+
+              <div class="cut-line"></div>
+
+              <div class="page-piece piece-one"></div>
+              <div class="page-piece piece-two"></div>
+
+              <div class="split-badge">
+                PDF 1개 → 페이지 분할
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="main-section"
+      id="splitter"
+    >
+      <div class="wrap">
+        <div class="tool-shell">
+          <div class="tool-head">
+            <div>
+              <h2>PDF 페이지 분할 작업실</h2>
+
+              <p>
+                페이지 썸네일을 누르거나
+                페이지 범위를 입력해 추출할 페이지를 선택하세요.
+              </p>
+            </div>
+
+            <div
+              class="privacy-pill"
+              id="privacy"
+            >
+              🔒 파일 서버 전송 없이 로컬 처리
+            </div>
+          </div>
+
+          <div
+            class="empty-area"
+            id="emptyArea"
+          >
+            <div
+              class="dropzone"
+              id="dropzone"
+            >
+              <div>
+                <div class="drop-icon">
+                  PDF
+                </div>
+
+                <h3>
+                  나눌 PDF 파일을 올려주세요
+                </h3>
+
+                <p>
+                  한 번에 PDF 1개<br />
+                  최대 200MB·800페이지 권장
+                </p>
+
+                <label class="file-label">
+                  PDF 파일 선택
+
+                  <input
+                    id="fileInput"
+                    type="file"
+                    accept="application/pdf,.pdf"
+                  />
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="workspace"
+            id="workspace"
+          >
+            <div class="document-bar">
+              <div class="document-info">
+                <div class="document-icon">
+                  PDF
+                </div>
+
+                <div class="document-name">
+                  <strong id="documentName">
+                    PDF 파일
+                  </strong>
+
+                  <span id="documentSize">
+                    0KB
+                  </span>
+                </div>
+              </div>
+
+              <div class="summary-item">
+                <span>전체 페이지</span>
+                <strong id="summaryPages">0쪽</strong>
+              </div>
+
+              <div class="summary-item">
+                <span>선택 페이지</span>
+                <strong id="summarySelected">0쪽</strong>
+              </div>
+
+              <div class="summary-item">
+                <span>처리 상태</span>
+                <strong id="summaryStatus">분석 중</strong>
+              </div>
+            </div>
+
+            <div class="workspace-grid">
+              <div class="pages-column">
+                <div class="selection-toolbar">
+                  <div class="range-row">
+                    <input
+                      class="range-input"
+                      id="pageRangeInput"
+                      type="text"
+                      placeholder="예: 1-3, 5, 8-10"
+                      autocomplete="off"
+                    />
+
+                    <button
+                      class="apply-range-btn"
+                      id="applyRangeBtn"
+                      type="button"
+                    >
+                      범위 선택 적용
+                    </button>
+                  </div>
+
+                  <div class="selection-help">
+                    쉼표로 구분해 입력하세요.
+                    역순 범위도 가능합니다. 예: 10-7
+                  </div>
+
+                  <div class="quick-buttons">
+                    <button
+                      class="quick-btn"
+                      id="selectAllBtn"
+                      type="button"
+                    >
+                      전체 선택
+                    </button>
+
+                    <button
+                      class="quick-btn"
+                      id="selectOddBtn"
+                      type="button"
+                    >
+                      홀수 페이지만
+                    </button>
+
+                    <button
+                      class="quick-btn"
+                      id="selectEvenBtn"
+                      type="button"
+                    >
+                      짝수 페이지만
+                    </button>
+
+                    <button
+                      class="quick-btn"
+                      id="reverseSelectionBtn"
+                      type="button"
+                    >
+                      선택 순서 뒤집기
+                    </button>
+
+                    <button
+                      class="quick-btn danger"
+                      id="clearSelectionBtn"
+                      type="button"
+                    >
+                      선택 해제
+                    </button>
+                  </div>
+                </div>
+
+                <div class="pages-head">
+                  <div>
+                    <h3>페이지 미리보기</h3>
+
+                    <p>
+                      선택된 숫자는 결과 PDF에 들어갈 순서입니다.
+                    </p>
+                  </div>
+
+                  <div
+                    class="selected-pill"
+                    id="selectedPill"
+                  >
+                    0쪽 선택
+                  </div>
+                </div>
+
+                <div
+                  class="page-grid"
+                  id="pageGrid"
+                ></div>
+              </div>
+
+              <aside class="control-column">
+                <div class="control-group">
+                  <div class="group-title">
+                    분할 방식
+                  </div>
+
+                  <div class="mode-list">
+                    <label
+                      class="mode-card active"
+                      data-mode-card="extract"
+                    >
+                      <input
+                        type="radio"
+                        name="outputMode"
+                        value="extract"
+                        checked
+                      />
+
+                      <span class="radio-dot"></span>
+
+                      <b>
+                        선택 페이지를 PDF 1개로
+                      </b>
+
+                      <small>
+                        고른 페이지를 선택한 순서대로
+                        하나의 PDF 파일로 저장합니다.
+                      </small>
+                    </label>
+
+                    <label
+                      class="mode-card"
+                      data-mode-card="individual"
+                    >
+                      <input
+                        type="radio"
+                        name="outputMode"
+                        value="individual"
+                      />
+
+                      <span class="radio-dot"></span>
+
+                      <b>
+                        각 페이지를 개별 PDF로
+                      </b>
+
+                      <small>
+                        선택한 페이지마다 PDF를 만들고
+                        ZIP 파일 하나로 저장합니다.
+                      </small>
+                    </label>
+
+                    <label
+                      class="mode-card"
+                      data-mode-card="chunks"
+                    >
+                      <input
+                        type="radio"
+                        name="outputMode"
+                        value="chunks"
+                      />
+
+                      <span class="radio-dot"></span>
+
+                      <b>
+                        일정 장수마다 나누기
+                      </b>
+
+                      <small>
+                        선택 페이지를 지정한 장수마다
+                        여러 PDF로 나눠 ZIP으로 저장합니다.
+                      </small>
+                    </label>
+                  </div>
+                </div>
+
+                <div
+                  class="control-group chunk-field"
+                  id="chunkField"
+                >
+                  <div class="field">
+                    <div class="field-head">
+                      <label for="chunkSize">
+                        PDF 한 개당 페이지 수
+                      </label>
+
+                      <small>
+                        1~100쪽
+                      </small>
+                    </div>
+
+                    <input
+                      id="chunkSize"
+                      type="number"
+                      min="1"
+                      max="100"
+                      step="1"
+                      value="5"
+                    />
+                  </div>
+                </div>
+
+                <div class="control-group">
+                  <div class="group-title">
+                    저장 설정
+                  </div>
+
+                  <div class="field">
+                    <div class="field-head">
+                      <label for="outputName">
+                        저장 파일명
+                      </label>
+
+                      <small>
+                        확장자는 자동 추가
+                      </small>
+                    </div>
+
+                    <input
+                      id="outputName"
+                      type="text"
+                      maxlength="80"
+                      value="split-pdf"
+                      autocomplete="off"
+                    />
+                  </div>
+
+                  <div class="field">
+                    <div class="toggle-row">
+                      <div>
+                        <b>
+                          원본 문서 정보 유지
+                        </b>
+
+                        <small>
+                          제목·작성자·주제 메타데이터
+                        </small>
+                      </div>
+
+                      <label
+                        class="switch"
+                        aria-label="원본 문서 정보 유지"
+                      >
+                        <input
+                          id="metadataToggle"
+                          type="checkbox"
+                          checked
+                        />
+
+                        <span></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="control-group">
+                  <div class="group-title">
+                    선택 결과
+                  </div>
+
+                  <div class="selection-summary">
+                    <div class="selection-stat">
+                      <span>선택 페이지</span>
+
+                      <strong id="controlSelected">
+                        0쪽
+                      </strong>
+                    </div>
+
+                    <div class="selection-stat">
+                      <span>예상 결과</span>
+
+                      <strong id="controlOutputs">
+                        PDF 0개
+                      </strong>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="control-group">
+                  <div class="notice-box">
+                    암호가 설정된 PDF, 일부 전자서명 PDF,
+                    손상된 PDF는 처리되지 않을 수 있습니다.
+                    추출 후 서명과 문서 구조를 다시 확인하세요.
+                  </div>
+                </div>
+
+                <div class="control-group">
+                  <button
+                    class="split-btn"
+                    id="splitBtn"
+                    type="button"
+                    disabled
+                  >
+                    선택 페이지 PDF로 추출
+                  </button>
+
+                  <label class="replace-label">
+                    다른 PDF 선택
+
+                    <input
+                      id="replaceInput"
+                      type="file"
+                      accept="application/pdf,.pdf"
+                    />
+                  </label>
+
+                  <button
+                    class="clear-btn"
+                    id="clearFileBtn"
+                    type="button"
+                  >
+                    현재 PDF 닫기
+                  </button>
+
+                  <div
+                    class="progress-box"
+                    id="progressBox"
+                  >
+                    <div class="progress-track">
+                      <div
+                        class="progress-bar"
+                        id="progressBar"
+                      ></div>
+                    </div>
+
+                    <div class="progress-text">
+                      <span id="progressLabel">
+                        작업 준비 중
+                      </span>
+
+                      <span id="progressPercent">
+                        0%
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="result-section"
+      id="resultSection"
+    >
+      <div class="wrap">
+        <div class="result-card">
+          <div
+            class="result-icon"
+            id="resultIcon"
+          >
+            PDF
+          </div>
+
+          <div class="result-content">
+            <h2 id="resultTitle">
+              PDF 페이지 추출 완료
+            </h2>
+
+            <p id="resultName">
+              결과 파일이 준비되었습니다.
+            </p>
+
+            <div class="result-stats">
+              <div
+                class="result-stat"
+                id="resultPages"
+              >
+                0쪽
+              </div>
+
+              <div
+                class="result-stat"
+                id="resultOutputs"
+              >
+                PDF 1개
+              </div>
+
+              <div
+                class="result-stat"
+                id="resultSize"
+              >
+                0KB
+              </div>
+
+              <div class="result-stat">
+                로컬 처리 완료
+              </div>
+            </div>
+          </div>
+
+          <div class="result-actions-box">
+            <button
+              class="download-btn"
+              id="downloadBtn"
+              type="button"
+            >
+              결과 파일 저장
+            </button>
+
+            <button
+              class="restart-btn"
+              id="restartBtn"
+              type="button"
+            >
+              페이지 선택 수정
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="info-section"
+      id="guide"
+    >
+      <div class="wrap info-grid">
+        <article class="info-card">
+          <div class="info-icon">
+            1-3
+          </div>
+
+          <h3>페이지 범위 선택</h3>
+
+          <p>
+            썸네일을 직접 누르거나
+            1-3, 5, 8-10처럼 페이지 범위를 입력해
+            필요한 페이지만 빠르게 선택할 수 있습니다.
+          </p>
+        </article>
+
+        <article class="info-card">
+          <div class="info-icon">
+            ZIP
+          </div>
+
+          <h3>세 가지 분할 방식</h3>
+
+          <p>
+            선택 페이지 추출, 페이지별 개별 PDF,
+            일정 장수별 PDF 분할을 지원합니다.
+          </p>
+        </article>
+
+        <article class="info-card">
+          <div class="info-icon">
+            🔒
+          </div>
+
+          <h3>브라우저 로컬 처리</h3>
+
+          <p>
+            PDF 파일은 외부 서버로 업로드되지 않고
+            현재 브라우저 안에서만 읽고 나눠집니다.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <div>
+        <b>바로해결툴즈</b>
+
+        <span>
+          페이지가 많거나 용량이 큰 PDF는
+          썸네일 생성과 분할에 시간이 걸릴 수 있습니다.
+          결과 파일을 저장할 때까지 페이지를 닫지 마세요.
+        </span>
+      </div>
+
+      <div class="footer-links">
+        <a href="../">전체 도구</a>
+        <a href="#splitter">PDF 나누기</a>
+        <a href="#guide">사용방법</a>
+      </div>
+    </div>
+  </footer>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"
+  ></script>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"
+  ></script>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"
+  ></script>
+
+  <script>
+    "use strict";
+
+    const MAX_FILE_SIZE =
+      200 * 1024 * 1024;
+
+    const MAX_PAGES = 800;
+
+    const PDFJS_WORKER_URL =
+      "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js";
+
+    if (window.pdfjsLib) {
+      window.pdfjsLib
+        .GlobalWorkerOptions
+        .workerSrc =
+          PDFJS_WORKER_URL;
+    }
+
+    const state = {
+      file: null,
+      pdfBytes: null,
+      pdfJsDocument: null,
+      pageCount: 0,
+      selectedPages: [],
+      outputMode: "extract",
+      loading: false,
+      processing: false,
+      thumbnailObserver: null,
+      renderedThumbnails: new Set(),
+      pageDimensions: new Map(),
+      resultBlob: null,
+      resultUrl: "",
+      resultFileName: "",
+      resultOutputCount: 0
+    };
+
+    const els = {
+      emptyArea:
+        document.getElementById("emptyArea"),
+
+      workspace:
+        document.getElementById("workspace"),
+
+      dropzone:
+        document.getElementById("dropzone"),
+
+      fileInput:
+        document.getElementById("fileInput"),
+
+      replaceInput:
+        document.getElementById("replaceInput"),
+
+      documentName:
+        document.getElementById("documentName"),
+
+      documentSize:
+        document.getElementById("documentSize"),
+
+      summaryPages:
+        document.getElementById("summaryPages"),
+
+      summarySelected:
+        document.getElementById("summarySelected"),
+
+      summaryStatus:
+        document.getElementById("summaryStatus"),
+
+      pageRangeInput:
+        document.getElementById("pageRangeInput"),
+
+      applyRangeBtn:
+        document.getElementById("applyRangeBtn"),
+
+      selectAllBtn:
+        document.getElementById("selectAllBtn"),
+
+      selectOddBtn:
+        document.getElementById("selectOddBtn"),
+
+      selectEvenBtn:
+        document.getElementById("selectEvenBtn"),
+
+      reverseSelectionBtn:
+        document.getElementById("reverseSelectionBtn"),
+
+      clearSelectionBtn:
+        document.getElementById("clearSelectionBtn"),
+
+      selectedPill:
+        document.getElementById("selectedPill"),
+
+      pageGrid:
+        document.getElementById("pageGrid"),
+
+      chunkField:
+        document.getElementById("chunkField"),
+
+      chunkSize:
+        document.getElementById("chunkSize"),
+
+      outputName:
+        document.getElementById("outputName"),
+
+      metadataToggle:
+        document.getElementById("metadataToggle"),
+
+      controlSelected:
+        document.getElementById("controlSelected"),
+
+      controlOutputs:
+        document.getElementById("controlOutputs"),
+
+      splitBtn:
+        document.getElementById("splitBtn"),
+
+      clearFileBtn:
+        document.getElementById("clearFileBtn"),
+
+      progressBox:
+        document.getElementById("progressBox"),
+
+      progressBar:
+        document.getElementById("progressBar"),
+
+      progressLabel:
+        document.getElementById("progressLabel"),
+
+      progressPercent:
+        document.getElementById("progressPercent"),
+
+      resultSection:
+        document.getElementById("resultSection"),
+
+      resultIcon:
+        document.getElementById("resultIcon"),
+
+      resultTitle:
+        document.getElementById("resultTitle"),
+
+      resultName:
+        document.getElementById("resultName"),
+
+      resultPages:
+        document.getElementById("resultPages"),
+
+      resultOutputs:
+        document.getElementById("resultOutputs"),
+
+      resultSize:
+        document.getElementById("resultSize"),
+
+      downloadBtn:
+        document.getElementById("downloadBtn"),
+
+      restartBtn:
+        document.getElementById("restartBtn")
+    };
+
+    function clamp(
+      value,
+      minimum,
+      maximum
+    ) {
+      return Math.min(
+        maximum,
+        Math.max(minimum, value)
+      );
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function formatBytes(bytes) {
+      if (
+        !Number.isFinite(bytes) ||
+        bytes <= 0
+      ) {
+        return "0KB";
+      }
+
+      const units = [
+        "B",
+        "KB",
+        "MB",
+        "GB"
+      ];
+
+      const index = Math.min(
+        Math.floor(
+          Math.log(bytes) /
+          Math.log(1024)
+        ),
+        units.length - 1
+      );
+
+      const value =
+        bytes /
+        Math.pow(1024, index);
+
+      const digits =
+        value >= 100 ||
+        index === 0
+          ? 0
+          : 1;
+
+      return (
+        value.toFixed(digits) +
+        units[index]
+      );
+    }
+
+    function sanitizeFileName(value) {
+      const cleaned =
+        String(
+          value ||
+          "split-pdf"
+        )
+          .replace(/\.(pdf|zip)$/i, "")
+          .replace(/[\\/:*?"<>|]/g, "-")
+          .replace(/\s+/g, " ")
+          .trim()
+          .slice(0, 80);
+
+      return cleaned || "split-pdf";
+    }
+
+    function safeBaseName(name) {
+      const index =
+        String(name).lastIndexOf(".");
+
+      return index > 0
+        ? name.slice(0, index)
+        : name;
+    }
+
+    function padNumber(
+      value,
+      digits
+    ) {
+      return String(value)
+        .padStart(digits, "0");
+    }
+
+    function validatePdfFile(file) {
+      if (!file) {
+        return "PDF 파일을 선택해주세요.";
+      }
+
+      const isPdf =
+        file.type === "application/pdf" ||
+        file.name
+          .toLowerCase()
+          .endsWith(".pdf");
+
+      if (!isPdf) {
+        return "PDF 파일만 사용할 수 있습니다.";
+      }
+
+      if (file.size <= 0) {
+        return "비어 있는 파일은 사용할 수 없습니다.";
+      }
+
+      if (
+        file.size >
+        MAX_FILE_SIZE
+      ) {
+        return "200MB 이하 PDF만 사용할 수 있습니다.";
+      }
+
+      return "";
+    }
+
+    function clearResult() {
+      if (state.resultUrl) {
+        URL.revokeObjectURL(
+          state.resultUrl
+        );
+      }
+
+      state.resultBlob = null;
+      state.resultUrl = "";
+      state.resultFileName = "";
+      state.resultOutputCount = 0;
+
+      els.resultSection.classList.remove(
+        "show"
+      );
+    }
+
+    function updateProgress(
+      current,
+      total,
+      message
+    ) {
+      const percent =
+        total > 0
+          ? Math.round(
+              current /
+              total *
+              100
+            )
+          : 0;
+
+      els.progressBox.classList.add(
+        "show"
+      );
+
+      els.progressBar.style.width =
+        clamp(
+          percent,
+          0,
+          100
+        ) + "%";
+
+      els.progressPercent.textContent =
+        clamp(
+          percent,
+          0,
+          100
+        ) + "%";
+
+      els.progressLabel.textContent =
+        message;
+    }
+
+    function hideProgressLater() {
+      setTimeout(() => {
+        els.progressBox.classList.remove(
+          "show"
+        );
+      }, 850);
+    }
+
+    function clearThumbnailObserver() {
+      if (
+        state.thumbnailObserver
+      ) {
+        state.thumbnailObserver.disconnect();
+        state.thumbnailObserver = null;
+      }
+    }
+
+    async function closePdfDocument() {
+      clearThumbnailObserver();
+
+      if (
+        state.pdfJsDocument &&
+        typeof state.pdfJsDocument.destroy ===
+          "function"
+      ) {
+        try {
+          await state.pdfJsDocument.destroy();
+        } catch (error) {
+          console.warn(error);
+        }
+      }
+
+      state.file = null;
+      state.pdfBytes = null;
+      state.pdfJsDocument = null;
+      state.pageCount = 0;
+      state.selectedPages = [];
+      state.loading = false;
+      state.processing = false;
+      state.renderedThumbnails.clear();
+      state.pageDimensions.clear();
+
+      els.pageGrid.innerHTML = "";
+      els.pageRangeInput.value = "";
+
+      clearResult();
+
+      els.emptyArea.style.display =
+        "block";
+
+      els.workspace.classList.remove(
+        "show"
+      );
+
+      els.progressBox.classList.remove(
+        "show"
+      );
+
+      updateSelectionUi();
+    }
+
+    async function loadPdfFile(file) {
+      const error =
+        validatePdfFile(file);
+
+      if (error) {
+        alert(error);
+        return;
+      }
+
+      if (state.loading) {
+        return;
+      }
+
+      if (
+        !window.pdfjsLib ||
+        !window.PDFLib
+      ) {
+        alert(
+          "PDF 처리 기능을 불러오지 못했습니다. 인터넷 연결을 확인하고 페이지를 새로고침해주세요."
+        );
+
+        return;
+      }
+
+      state.loading = true;
+      clearResult();
+
+      updateProgress(
+        5,
+        100,
+        "PDF 파일을 읽고 있습니다."
+      );
+
+      try {
+        if (
+          state.pdfJsDocument &&
+          typeof state.pdfJsDocument.destroy ===
+            "function"
+        ) {
+          try {
+            await state.pdfJsDocument.destroy();
+          } catch (destroyError) {
+            console.warn(destroyError);
+          }
+        }
+
+        clearThumbnailObserver();
+
+        const arrayBuffer =
+          await file.arrayBuffer();
+
+        state.file = file;
+        state.pdfBytes =
+          new Uint8Array(
+            arrayBuffer
+          );
+
+        updateProgress(
+          22,
+          100,
+          "PDF 페이지 정보를 확인하고 있습니다."
+        );
+
+        const loadingTask =
+          window.pdfjsLib.getDocument({
+            data:
+              state.pdfBytes.slice(),
+            disableFontFace: false,
+            useSystemFonts: true
+          });
+
+        const pdfDocument =
+          await loadingTask.promise;
+
+        if (
+          pdfDocument.numPages >
+          MAX_PAGES
+        ) {
+          await pdfDocument.destroy();
+
+          throw new Error(
+            "페이지가 너무 많습니다. 800페이지 이하 PDF를 사용해주세요."
+          );
+        }
+
+        state.pdfJsDocument =
+          pdfDocument;
+
+        state.pageCount =
+          pdfDocument.numPages;
+
+        state.selectedPages =
+          Array.from(
+            {
+              length:
+                state.pageCount
+            },
+            (
+              unused,
+              index
+            ) =>
+              index + 1
+          );
+
+        state.renderedThumbnails.clear();
+        state.pageDimensions.clear();
+
+        els.documentName.textContent =
+          file.name;
+
+        els.documentSize.textContent =
+          formatBytes(file.size);
+
+        els.summaryPages.textContent =
+          state.pageCount + "쪽";
+
+        els.summaryStatus.textContent =
+          "준비 완료";
+
+        els.summaryStatus.style.color =
+          "var(--green)";
+
+        els.pageRangeInput.value =
+          state.pageCount === 1
+            ? "1"
+            : "1-" +
+              state.pageCount;
+
+        els.emptyArea.style.display =
+          "none";
+
+        els.workspace.classList.add(
+          "show"
+        );
+
+        updateProgress(
+          55,
+          100,
+          "페이지 미리보기를 준비하고 있습니다."
+        );
+
+        renderPageGrid();
+        updateSelectionUi();
+
+        updateProgress(
+          100,
+          100,
+          "PDF 분석 완료"
+        );
+
+        hideProgressLater();
+      } catch (loadError) {
+        console.error(loadError);
+
+        const message =
+          String(
+            loadError &&
+            loadError.message
+              ? loadError.message
+              : loadError
+          );
+
+        if (
+          /password|encrypted/i.test(
+            message
+          )
+        ) {
+          alert(
+            "암호가 설정된 PDF는 지원하지 않습니다. 암호를 해제한 뒤 다시 시도해주세요."
+          );
+        } else {
+          alert(
+            message ||
+            "PDF 파일을 읽지 못했습니다."
+          );
+        }
+
+        await closePdfDocument();
+      } finally {
+        state.loading = false;
+        els.fileInput.value = "";
+        els.replaceInput.value = "";
+      }
+    }
+
+    function renderPageGrid() {
+      clearThumbnailObserver();
+
+      els.pageGrid.innerHTML =
+        Array.from(
+          {
+            length:
+              state.pageCount
+          },
+          (
+            unused,
+            index
+          ) => {
+            const pageNumber =
+              index + 1;
+
+            return `
+              <button
+                class="page-card"
+                type="button"
+                data-page-number="${pageNumber}"
+                aria-label="${pageNumber}페이지 선택"
+              >
+                <div class="selection-order"></div>
+
+                <div class="page-preview">
+                  <canvas
+                    data-page-canvas="${pageNumber}"
+                  ></canvas>
+
+                  <span class="page-loading">
+                    미리보기 준비 중
+                  </span>
+                </div>
+
+                <div class="page-footer">
+                  <span class="page-number">
+                    ${pageNumber}페이지
+                  </span>
+
+                  <span
+                    class="page-size"
+                    data-page-size="${pageNumber}"
+                  >
+                    크기 확인 중
+                  </span>
+                </div>
+              </button>
+            `;
+          }
+        ).join("");
+
+      els.pageGrid
+        .querySelectorAll(
+          ".page-card"
+        )
+        .forEach((card) => {
+          card.addEventListener(
+            "click",
+            () => {
+              togglePageSelection(
+                Number(
+                  card.dataset.pageNumber
+                )
+              );
+            }
+          );
+        });
+
+      state.thumbnailObserver =
+        new IntersectionObserver(
+          (entries) => {
+            entries.forEach(
+              (entry) => {
+                if (
+                  !entry.isIntersecting
+                ) {
+                  return;
+                }
+
+                const card =
+                  entry.target;
+
+                const pageNumber =
+                  Number(
+                    card.dataset.pageNumber
+                  );
+
+                state.thumbnailObserver
+                  .unobserve(card);
+
+                renderThumbnail(
+                  pageNumber
+                );
+              }
+            );
+          },
+          {
+            rootMargin: "450px 0px"
+          }
+        );
+
+      els.pageGrid
+        .querySelectorAll(
+          ".page-card"
+        )
+        .forEach((card) => {
+          state.thumbnailObserver
+            .observe(card);
+        });
+    }
+
+    async function renderThumbnail(
+      pageNumber
+    ) {
+      if (
+        !state.pdfJsDocument ||
+        state.renderedThumbnails.has(
+          pageNumber
+        )
+      ) {
+        return;
+      }
+
+      state.renderedThumbnails.add(
+        pageNumber
+      );
+
+      const canvas =
+        els.pageGrid.querySelector(
+          `[data-page-canvas="${pageNumber}"]`
+        );
+
+      const sizeLabel =
+        els.pageGrid.querySelector(
+          `[data-page-size="${pageNumber}"]`
+        );
+
+      if (!canvas) {
+        return;
+      }
+
+      const loadingLabel =
+        canvas.parentElement
+          .querySelector(
+            ".page-loading"
+          );
+
+      try {
+        const page =
+          await state.pdfJsDocument
+            .getPage(pageNumber);
+
+        const baseViewport =
+          page.getViewport({
+            scale: 1
+          });
+
+        const cssTargetWidth = 160;
+
+        const cssScale =
+          cssTargetWidth /
+          baseViewport.width;
+
+        const pixelRatio =
+          Math.min(
+            window.devicePixelRatio ||
+              1,
+            2
+          );
+
+        const viewport =
+          page.getViewport({
+            scale:
+              cssScale *
+              pixelRatio
+          });
+
+        canvas.width =
+          Math.ceil(
+            viewport.width
+          );
+
+        canvas.height =
+          Math.ceil(
+            viewport.height
+          );
+
+        canvas.style.width =
+          Math.ceil(
+            viewport.width /
+            pixelRatio
+          ) + "px";
+
+        canvas.style.height =
+          Math.ceil(
+            viewport.height /
+            pixelRatio
+          ) + "px";
+
+        const context =
+          canvas.getContext(
+            "2d",
+            {
+              alpha: false
+            }
+          );
+
+        context.fillStyle =
+          "#ffffff";
+
+        context.fillRect(
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
+
+        await page.render({
+          canvasContext: context,
+          viewport
+        }).promise;
+
+        const widthPt =
+          baseViewport.width;
+
+        const heightPt =
+          baseViewport.height;
+
+        state.pageDimensions.set(
+          pageNumber,
+          {
+            width:
+              widthPt,
+            height:
+              heightPt
+          }
+        );
+
+        if (sizeLabel) {
+          sizeLabel.textContent =
+            Math.round(widthPt) +
+            " × " +
+            Math.round(heightPt) +
+            "pt";
+        }
+
+        if (loadingLabel) {
+          loadingLabel.remove();
+        }
+
+        page.cleanup();
+      } catch (error) {
+        console.error(error);
+
+        state.renderedThumbnails.delete(
+          pageNumber
+        );
+
+        if (loadingLabel) {
+          loadingLabel.textContent =
+            "미리보기 실패";
+        }
+
+        if (sizeLabel) {
+          sizeLabel.textContent =
+            "페이지 정보 오류";
+        }
+      }
+    }
+
+    function togglePageSelection(
+      pageNumber
+    ) {
+      if (
+        pageNumber < 1 ||
+        pageNumber >
+          state.pageCount
+      ) {
+        return;
+      }
+
+      const index =
+        state.selectedPages.indexOf(
+          pageNumber
+        );
+
+      if (index >= 0) {
+        state.selectedPages.splice(
+          index,
+          1
+        );
+      } else {
+        state.selectedPages.push(
+          pageNumber
+        );
+      }
+
+      clearResult();
+      updateSelectionUi();
+    }
+
+    function selectPages(pages) {
+      const unique = [];
+      const seen =
+        new Set();
+
+      pages.forEach(
+        (pageNumber) => {
+          if (
+            pageNumber >= 1 &&
+            pageNumber <=
+              state.pageCount &&
+            !seen.has(pageNumber)
+          ) {
+            seen.add(pageNumber);
+            unique.push(pageNumber);
+          }
+        }
+      );
+
+      state.selectedPages =
+        unique;
+
+      clearResult();
+      updateSelectionUi();
+    }
+
+    function parsePageRange(value) {
+      const text =
+        String(value || "")
+          .trim();
+
+      if (!text) {
+        throw new Error(
+          "페이지 범위를 입력해주세요."
+        );
+      }
+
+      const tokens =
+        text
+          .split(",")
+          .map(
+            (token) =>
+              token.trim()
+          )
+          .filter(Boolean);
+
+      const pages = [];
+      const seen =
+        new Set();
+
+      for (const token of tokens) {
+        const singleMatch =
+          token.match(
+            /^(\d+)$/
+          );
+
+        if (singleMatch) {
+          const pageNumber =
+            Number(
+              singleMatch[1]
+            );
+
+          validatePageNumber(
+            pageNumber
+          );
+
+          if (
+            !seen.has(pageNumber)
+          ) {
+            seen.add(pageNumber);
+            pages.push(pageNumber);
+          }
+
+          continue;
+        }
+
+        const rangeMatch =
+          token.match(
+            /^(\d+)\s*-\s*(\d+)$/
+          );
+
+        if (!rangeMatch) {
+          throw new Error(
+            `"${token}" 형식이 올바르지 않습니다.`
+          );
+        }
+
+        const start =
+          Number(
+            rangeMatch[1]
+          );
+
+        const end =
+          Number(
+            rangeMatch[2]
+          );
+
+        validatePageNumber(start);
+        validatePageNumber(end);
+
+        const direction =
+          start <= end
+            ? 1
+            : -1;
+
+        for (
+          let pageNumber = start;
+          direction > 0
+            ? pageNumber <= end
+            : pageNumber >= end;
+          pageNumber += direction
+        ) {
+          if (
+            !seen.has(pageNumber)
+          ) {
+            seen.add(pageNumber);
+            pages.push(pageNumber);
+          }
+        }
+      }
+
+      if (!pages.length) {
+        throw new Error(
+          "선택된 페이지가 없습니다."
+        );
+      }
+
+      return pages;
+    }
+
+    function validatePageNumber(
+      pageNumber
+    ) {
+      if (
+        !Number.isInteger(
+          pageNumber
+        ) ||
+        pageNumber < 1 ||
+        pageNumber >
+          state.pageCount
+      ) {
+        throw new Error(
+          `페이지 번호는 1부터 ${state.pageCount}까지 입력할 수 있습니다.`
+        );
+      }
+    }
+
+    function applyRangeSelection() {
+      if (!state.pageCount) {
+        return;
+      }
+
+      try {
+        const pages =
+          parsePageRange(
+            els.pageRangeInput.value
+          );
+
+        selectPages(pages);
+      } catch (error) {
+        alert(
+          error.message ||
+          "페이지 범위를 확인해주세요."
+        );
+      }
+    }
+
+    function selectAllPages() {
+      selectPages(
+        Array.from(
+          {
+            length:
+              state.pageCount
+          },
+          (
+            unused,
+            index
+          ) =>
+            index + 1
+        )
+      );
+
+      els.pageRangeInput.value =
+        state.pageCount === 1
+          ? "1"
+          : "1-" +
+            state.pageCount;
+    }
+
+    function selectOddPages() {
+      const pages = [];
+
+      for (
+        let pageNumber = 1;
+        pageNumber <=
+          state.pageCount;
+        pageNumber += 2
+      ) {
+        pages.push(pageNumber);
+      }
+
+      selectPages(pages);
+
+      els.pageRangeInput.value =
+        pages.join(", ");
+    }
+
+    function selectEvenPages() {
+      const pages = [];
+
+      for (
+        let pageNumber = 2;
+        pageNumber <=
+          state.pageCount;
+        pageNumber += 2
+      ) {
+        pages.push(pageNumber);
+      }
+
+      selectPages(pages);
+
+      els.pageRangeInput.value =
+        pages.join(", ");
+    }
+
+    function reverseSelection() {
+      state.selectedPages.reverse();
+
+      clearResult();
+      updateSelectionUi();
+
+      els.pageRangeInput.value =
+        state.selectedPages.join(", ");
+    }
+
+    function clearSelection() {
+      state.selectedPages = [];
+
+      els.pageRangeInput.value = "";
+
+      clearResult();
+      updateSelectionUi();
+    }
+
+    function getOutputCount() {
+      const selectedCount =
+        state.selectedPages.length;
+
+      if (!selectedCount) {
+        return 0;
+      }
+
+      if (
+        state.outputMode ===
+        "extract"
+      ) {
+        return 1;
+      }
+
+      if (
+        state.outputMode ===
+        "individual"
+      ) {
+        return selectedCount;
+      }
+
+      const chunkSize =
+        clamp(
+          Number(
+            els.chunkSize.value
+          ) || 1,
+          1,
+          100
+        );
+
+      return Math.ceil(
+        selectedCount /
+        chunkSize
+      );
+    }
+
+    function updateSelectionUi() {
+      const orderMap =
+        new Map();
+
+      state.selectedPages.forEach(
+        (
+          pageNumber,
+          index
+        ) => {
+          orderMap.set(
+            pageNumber,
+            index + 1
+          );
+        }
+      );
+
+      els.pageGrid
+        .querySelectorAll(
+          ".page-card"
+        )
+        .forEach((card) => {
+          const pageNumber =
+            Number(
+              card.dataset.pageNumber
+            );
+
+          const selected =
+            orderMap.has(pageNumber);
+
+          card.classList.toggle(
+            "selected",
+            selected
+          );
+
+          const order =
+            card.querySelector(
+              ".selection-order"
+            );
+
+          if (order) {
+            order.textContent =
+              selected
+                ? orderMap.get(
+                    pageNumber
+                  )
+                : "";
+          }
+        });
+
+      const selectedCount =
+        state.selectedPages.length;
+
+      const outputCount =
+        getOutputCount();
+
+      els.summarySelected.textContent =
+        selectedCount + "쪽";
+
+      els.selectedPill.textContent =
+        selectedCount + "쪽 선택";
+
+      els.controlSelected.textContent =
+        selectedCount + "쪽";
+
+      els.controlOutputs.textContent =
+        state.outputMode ===
+        "extract"
+          ? (
+              selectedCount
+                ? "PDF 1개"
+                : "PDF 0개"
+            )
+          : "PDF " +
+            outputCount +
+            "개";
+
+      els.splitBtn.disabled =
+        (
+          !state.file ||
+          state.loading ||
+          state.processing ||
+          selectedCount === 0
+        );
+
+      updateSplitButtonText();
+    }
+
+    function updateSplitButtonText() {
+      if (
+        state.outputMode ===
+        "extract"
+      ) {
+        els.splitBtn.textContent =
+          "선택 페이지 PDF로 추출";
+
+        return;
+      }
+
+      if (
+        state.outputMode ===
+        "individual"
+      ) {
+        els.splitBtn.textContent =
+          "페이지별 PDF ZIP 만들기";
+
+        return;
+      }
+
+      els.splitBtn.textContent =
+        "일정 장수별 PDF ZIP 만들기";
+    }
+
+    function setOutputMode(mode) {
+      state.outputMode = mode;
+
+      document
+        .querySelectorAll(
+          "[data-mode-card]"
+        )
+        .forEach((card) => {
+          card.classList.toggle(
+            "active",
+            card.dataset.modeCard ===
+              mode
+          );
+        });
+
+      els.chunkField.classList.toggle(
+        "show",
+        mode === "chunks"
+      );
+
+      clearResult();
+      updateSelectionUi();
+    }
+
+    function copyMetadata(
+      sourcePdf,
+      targetPdf
+    ) {
+      targetPdf.setCreator(
+        "Barohaegyeol Tools"
+      );
+
+      targetPdf.setProducer(
+        "Barohaegyeol Tools PDF Splitter"
+      );
+
+      targetPdf.setModificationDate(
+        new Date()
+      );
+
+      if (
+        !els.metadataToggle.checked
+      ) {
+        return;
+      }
+
+      const title =
+        sourcePdf.getTitle();
+
+      const author =
+        sourcePdf.getAuthor();
+
+      const subject =
+        sourcePdf.getSubject();
+
+      const keywords =
+        sourcePdf.getKeywords();
+
+      if (title) {
+        targetPdf.setTitle(title);
+      }
+
+      if (author) {
+        targetPdf.setAuthor(author);
+      }
+
+      if (subject) {
+        targetPdf.setSubject(subject);
+      }
+
+      if (keywords) {
+        targetPdf.setKeywords(
+          String(keywords)
+            .split(",")
+            .map(
+              (keyword) =>
+                keyword.trim()
+            )
+            .filter(Boolean)
+        );
+      }
+    }
+
+    async function createPdfBytes(
+      sourcePdf,
+      pageNumbers
+    ) {
+      const targetPdf =
+        await window.PDFLib
+          .PDFDocument.create();
+
+      copyMetadata(
+        sourcePdf,
+        targetPdf
+      );
+
+      const pageIndices =
+        pageNumbers.map(
+          (pageNumber) =>
+            pageNumber - 1
+        );
+
+      const copiedPages =
+        await targetPdf.copyPages(
+          sourcePdf,
+          pageIndices
+        );
+
+      copiedPages.forEach(
+        (page) => {
+          targetPdf.addPage(page);
+        }
+      );
+
+      return targetPdf.save({
+        useObjectStreams: true,
+        addDefaultPage: false,
+        objectsPerTick: 40
+      });
+    }
+
+    function splitIntoChunks(
+      items,
+      chunkSize
+    ) {
+      const chunks = [];
+
+      for (
+        let index = 0;
+        index < items.length;
+        index += chunkSize
+      ) {
+        chunks.push(
+          items.slice(
+            index,
+            index +
+            chunkSize
+          )
+        );
+      }
+
+      return chunks;
+    }
+
+    async function processPdf() {
+      if (
+        !state.file ||
+        !state.pdfBytes ||
+        !state.selectedPages.length ||
+        state.processing
+      ) {
+        return;
+      }
+
+      if (
+        !window.PDFLib ||
+        !window.PDFLib.PDFDocument
+      ) {
+        alert(
+          "PDF 처리 기능을 불러오지 못했습니다."
+        );
+
+        return;
+      }
+
+      if (
+        state.outputMode !==
+          "extract" &&
+        !window.JSZip
+      ) {
+        alert(
+          "ZIP 처리 기능을 불러오지 못했습니다."
+        );
+
+        return;
+      }
+
+      clearResult();
+
+      state.processing = true;
+
+      els.splitBtn.disabled = true;
+      els.splitBtn.textContent =
+        "PDF 처리 중...";
+
+      try {
+        updateProgress(
+          0,
+          100,
+          "원본 PDF를 준비하고 있습니다."
+        );
+
+        const sourcePdf =
+          await window.PDFLib
+            .PDFDocument.load(
+              state.pdfBytes.slice(),
+              {
+                updateMetadata: false
+              }
+            );
+
+        const baseName =
+          sanitizeFileName(
+            els.outputName.value ||
+            safeBaseName(
+              state.file.name
+            )
+          );
+
+        if (
+          state.outputMode ===
+          "extract"
+        ) {
+          updateProgress(
+            25,
+            100,
+            "선택 페이지를 복사하고 있습니다."
+          );
+
+          const pdfBytes =
+            await createPdfBytes(
+              sourcePdf,
+              state.selectedPages
+            );
+
+          state.resultBlob =
+            new Blob(
+              [pdfBytes],
+              {
+                type:
+                  "application/pdf"
+              }
+            );
+
+          state.resultFileName =
+            baseName + ".pdf";
+
+          state.resultOutputCount = 1;
+
+          updateProgress(
+            100,
+            100,
+            "PDF 페이지 추출 완료"
+          );
+        } else {
+          const zip =
+            new JSZip();
+
+          if (
+            state.outputMode ===
+            "individual"
+          ) {
+            const total =
+              state.selectedPages.length;
+
+            for (
+              let index = 0;
+              index < total;
+              index++
+            ) {
+              const pageNumber =
+                state.selectedPages[index];
+
+              updateProgress(
+                index,
+                total + 1,
+                pageNumber +
+                "페이지 PDF 만드는 중"
+              );
+
+              const pdfBytes =
+                await createPdfBytes(
+                  sourcePdf,
+                  [pageNumber]
+                );
+
+              const digits =
+                Math.max(
+                  2,
+                  String(
+                    state.pageCount
+                  ).length
+                );
+
+              zip.file(
+                baseName +
+                "-page-" +
+                padNumber(
+                  pageNumber,
+                  digits
+                ) +
+                ".pdf",
+                pdfBytes
+              );
+            }
+
+            state.resultOutputCount =
+              total;
+          } else {
+            const chunkSize =
+              clamp(
+                Number(
+                  els.chunkSize.value
+                ) || 5,
+                1,
+                100
+              );
+
+            els.chunkSize.value =
+              chunkSize;
+
+            const groups =
+              splitIntoChunks(
+                state.selectedPages,
+                chunkSize
+              );
+
+            const total =
+              groups.length;
+
+            for (
+              let index = 0;
+              index < total;
+              index++
+            ) {
+              const group =
+                groups[index];
+
+              updateProgress(
+                index,
+                total + 1,
+                (index + 1) +
+                "번째 묶음 PDF 만드는 중"
+              );
+
+              const pdfBytes =
+                await createPdfBytes(
+                  sourcePdf,
+                  group
+                );
+
+              const firstPage =
+                group[0];
+
+              const lastPage =
+                group[
+                  group.length - 1
+                ];
+
+              const rangeLabel =
+                group.length === 1
+                  ? "page-" +
+                    firstPage
+                  : "pages-" +
+                    firstPage +
+                    "-" +
+                    lastPage;
+
+              zip.file(
+                baseName +
+                "-" +
+                rangeLabel +
+                ".pdf",
+                pdfBytes
+              );
+            }
+
+            state.resultOutputCount =
+              groups.length;
+          }
+
+          updateProgress(
+            92,
+            100,
+            "ZIP 파일을 압축하고 있습니다."
+          );
+
+          state.resultBlob =
+            await zip.generateAsync(
+              {
+                type: "blob",
+                compression:
+                  "DEFLATE",
+                compressionOptions: {
+                  level: 6
+                }
+              },
+              (metadata) => {
+                const percent =
+                  92 +
+                  metadata.percent *
+                  .08;
+
+                updateProgress(
+                  percent,
+                  100,
+                  "ZIP 파일을 압축하고 있습니다."
+                );
+              }
+            );
+
+          state.resultFileName =
+            baseName + ".zip";
+
+          updateProgress(
+            100,
+            100,
+            "PDF 분할 ZIP 완료"
+          );
+        }
+
+        state.resultUrl =
+          URL.createObjectURL(
+            state.resultBlob
+          );
+
+        showResult();
+      } catch (error) {
+        console.error(error);
+
+        const message =
+          String(
+            error &&
+            error.message
+              ? error.message
+              : error
+          );
+
+        if (
+          /password|encrypt/i.test(
+            message
+          )
+        ) {
+          alert(
+            "암호가 설정된 PDF는 처리할 수 없습니다."
+          );
+        } else {
+          alert(
+            "PDF를 나누지 못했습니다. 손상된 PDF이거나 지원하지 않는 문서 구조인지 확인해주세요."
+          );
+        }
+      } finally {
+        state.processing = false;
+
+        updateSelectionUi();
+        hideProgressLater();
+      }
+    }
+
+    function showResult() {
+      const isPdf =
+        state.outputMode ===
+        "extract";
+
+      els.resultIcon.textContent =
+        isPdf
+          ? "PDF"
+          : "ZIP";
+
+      els.resultTitle.textContent =
+        isPdf
+          ? "PDF 페이지 추출 완료"
+          : "PDF 분할 완료";
+
+      els.resultName.textContent =
+        state.resultFileName +
+        " 파일이 준비되었습니다.";
+
+      els.resultPages.textContent =
+        state.selectedPages.length +
+        "쪽";
+
+      els.resultOutputs.textContent =
+        "PDF " +
+        state.resultOutputCount +
+        "개";
+
+      els.resultSize.textContent =
+        formatBytes(
+          state.resultBlob.size
+        );
+
+      els.resultSection.classList.add(
+        "show"
+      );
+
+      setTimeout(() => {
+        els.resultSection.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+      }, 100);
+    }
+
+    function downloadResult() {
+      if (
+        !state.resultBlob ||
+        !state.resultUrl
+      ) {
+        return;
+      }
+
+      const anchor =
+        document.createElement("a");
+
+      anchor.href =
+        state.resultUrl;
+
+      anchor.download =
+        state.resultFileName;
+
+      document.body.appendChild(
+        anchor
+      );
+
+      anchor.click();
+      anchor.remove();
+    }
+
+    function restartEditing() {
+      els.resultSection.classList.remove(
+        "show"
+      );
+
+      document
+        .getElementById(
+          "splitter"
+        )
+        .scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+    }
+
+    document
+      .querySelectorAll(
+        'input[name="outputMode"]'
+      )
+      .forEach((input) => {
+        input.addEventListener(
+          "change",
+          () => {
+            setOutputMode(
+              input.value
+            );
+          }
+        );
+      });
+
+    els.chunkSize.addEventListener(
+      "input",
+      () => {
+        const value =
+          clamp(
+            Number(
+              els.chunkSize.value
+            ) || 1,
+            1,
+            100
+          );
+
+        if (
+          Number(
+            els.chunkSize.value
+          ) !== value
+        ) {
+          els.chunkSize.value =
+            value;
+        }
+
+        clearResult();
+        updateSelectionUi();
+      }
+    );
+
+    els.outputName.addEventListener(
+      "blur",
+      () => {
+        els.outputName.value =
+          sanitizeFileName(
+            els.outputName.value
+          );
+      }
+    );
+
+    els.applyRangeBtn.addEventListener(
+      "click",
+      applyRangeSelection
+    );
+
+    els.pageRangeInput.addEventListener(
+      "keydown",
+      (event) => {
+        if (
+          event.key ===
+          "Enter"
+        ) {
+          applyRangeSelection();
+        }
+      }
+    );
+
+    els.selectAllBtn.addEventListener(
+      "click",
+      selectAllPages
+    );
+
+    els.selectOddBtn.addEventListener(
+      "click",
+      selectOddPages
+    );
+
+    els.selectEvenBtn.addEventListener(
+      "click",
+      selectEvenPages
+    );
+
+    els.reverseSelectionBtn.addEventListener(
+      "click",
+      reverseSelection
+    );
+
+    els.clearSelectionBtn.addEventListener(
+      "click",
+      clearSelection
+    );
+
+    els.splitBtn.addEventListener(
+      "click",
+      processPdf
+    );
+
+    els.downloadBtn.addEventListener(
+      "click",
+      downloadResult
+    );
+
+    els.restartBtn.addEventListener(
+      "click",
+      restartEditing
+    );
+
+    els.clearFileBtn.addEventListener(
+      "click",
+      closePdfDocument
+    );
+
+    els.fileInput.addEventListener(
+      "change",
+      (event) => {
+        loadPdfFile(
+          event.target.files[0]
+        );
+      }
+    );
+
+    els.replaceInput.addEventListener(
+      "change",
+      (event) => {
+        loadPdfFile(
+          event.target.files[0]
+        );
+      }
+    );
+
+    [
+      "dragenter",
+      "dragover"
+    ].forEach((eventName) => {
+      els.dropzone.addEventListener(
+        eventName,
+        (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+
+          els.dropzone.classList.add(
+            "dragover"
+          );
+        }
+      );
+    });
+
+    [
+      "dragleave",
+      "drop"
+    ].forEach((eventName) => {
+      els.dropzone.addEventListener(
+        eventName,
+        (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+
+          els.dropzone.classList.remove(
+            "dragover"
+          );
+        }
+      );
+    });
+
+    els.dropzone.addEventListener(
+      "drop",
+      (event) => {
+        loadPdfFile(
+          event.dataTransfer.files[0]
+        );
+      }
+    );
+
+    window.addEventListener(
+      "beforeunload",
+      () => {
+        clearThumbnailObserver();
+
+        if (state.resultUrl) {
+          URL.revokeObjectURL(
+            state.resultUrl
+          );
+        }
+      }
+    );
+
+    updateSelectionUi();
+  </script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script
+    defer
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'
+  ></script>
+  <!-- End Cloudflare Web Analytics -->
+</body>
+</html>
