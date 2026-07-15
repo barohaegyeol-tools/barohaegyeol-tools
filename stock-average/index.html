@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>주식 평단가 계산기｜물타기·추가매수 평균단가 계산｜바로해결랩</title>
-  <meta name="description" content="기존 보유 수량과 평균단가, 추가 매수 수량과 가격을 입력하면 새 평단가·총 투자금·평단 인하율·현재 손익·본전 상승률을 실시간 계산합니다. 목표 평단 역산, 분할매수 합산, 추가매수 시나리오 비교도 지원합니다." />
+  <meta name="description" content="기존 보유 수량과 평균단가, 추가 매수 수량과 가격을 입력하면 새 평단가·총 투자금·평단 인하율을 실시간 계산합니다. 목표 평단 역산, 분할매수 합산, 목표가·손절가 손익과 추가매수 시나리오 비교도 지원합니다." />
   <meta name="keywords" content="주식 평단가 계산기, 물타기 계산기, 주식 평균단가 계산, 추가매수 평단가, 목표 평단 계산, 분할매수 계산기, 주식 손익 계산, 바로해결랩, 바로해결툴즈" />
   <meta name="author" content="바로해결랩" />
   <meta name="robots" content="index, follow" />
@@ -14,7 +14,7 @@
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="주식 평단가 계산기｜바로해결랩" />
-  <meta property="og:description" content="추가매수 후 새 평단가, 총 투자금, 본전 상승률과 손익을 한 번에 계산하세요." />
+  <meta property="og:description" content="추가매수 후 새 평단가와 총 투자금, 목표가·손절가 예상 손익을 한 번에 계산하세요." />
   <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/stock-average/" />
   <meta property="og:site_name" content="바로해결랩" />
   <meta name="theme-color" content="#0b1739" />
@@ -1830,14 +1830,14 @@
                 </div>
 
                 <div class="preset-row">
-                  <button class="preset-btn" type="button" data-preset="10000,10,8000,10,9000">1만원 → 8천원</button>
-                  <button class="preset-btn" type="button" data-preset="50000,20,45000,10,47000">대형주 추가매수</button>
-                  <button class="preset-btn" type="button" data-preset="2500,100,2000,100,2200">저가주 추가매수</button>
+                  <button class="preset-btn" type="button" data-preset="10000,10,8000,10">1만원 → 8천원</button>
+                  <button class="preset-btn" type="button" data-preset="50000,20,45000,10">대형주 추가매수</button>
+                  <button class="preset-btn" type="button" data-preset="2500,100,2000,100">저가주 추가매수</button>
                 </div>
 
                 <div class="advanced-box" id="advancedBox">
                   <button class="advanced-toggle" id="advancedToggle" type="button">
-                    <span>현재가·목표가·손절가·수수료 설정</span>
+                    <span>목표가·손절가·수수료 설정</span>
                     <span>⌄</span>
                   </button>
 
@@ -1845,22 +1845,11 @@
                     <div class="input-grid">
                       <div class="field">
                         <div class="field-head">
-                          <label for="currentPrice">현재가</label>
-                          <small>현재 손익 계산</small>
-                        </div>
-                        <div class="input-unit">
-                          <input id="currentPrice" type="number" inputmode="decimal" min="0" step="any" value="9000" />
-                          <span>원</span>
-                        </div>
-                      </div>
-
-                      <div class="field">
-                        <div class="field-head">
                           <label for="targetSellPrice">목표 매도가</label>
                           <small>예상 수익 계산</small>
                         </div>
                         <div class="input-unit">
-                          <input id="targetSellPrice" type="number" inputmode="decimal" min="0" step="any" value="10500" />
+                          <input id="targetSellPrice" type="number" inputmode="decimal" min="0" step="any" placeholder="목표 매도가 입력" />
                           <span>원</span>
                         </div>
                       </div>
@@ -1871,7 +1860,7 @@
                           <small>최대 손실 확인</small>
                         </div>
                         <div class="input-unit">
-                          <input id="stopLossPrice" type="number" inputmode="decimal" min="0" step="any" value="7500" />
+                          <input id="stopLossPrice" type="number" inputmode="decimal" min="0" step="any" placeholder="손절가 입력" />
                           <span>원</span>
                         </div>
                       </div>
@@ -1971,26 +1960,18 @@
                     <span>추가 자금 비중</span>
                     <strong id="additionalRatio">44.44%</strong>
                   </div>
-                  <div class="metric-card" id="profitCard">
-                    <span>현재가 기준 손익</span>
-                    <strong id="currentProfit">0원 · 0.00%</strong>
-                  </div>
-                  <div class="metric-card">
-                    <span>본전까지 필요 상승률</span>
-                    <strong id="breakEvenRise">0.00%</strong>
-                  </div>
                   <div class="metric-card" id="targetProfitCard">
                     <span>목표가 예상 손익</span>
-                    <strong id="targetProfit">30,000원 · 16.67%</strong>
+                    <strong id="targetProfit">목표가 입력 시 계산</strong>
                   </div>
                   <div class="metric-card negative" id="stopLossCard">
                     <span>손절가 예상 손익</span>
-                    <strong id="stopLossResult">-30,000원 · -16.67%</strong>
+                    <strong id="stopLossResult">손절가 입력 시 계산</strong>
                   </div>
                 </div>
 
                 <div class="analysis-card" id="analysisText">
-                  추가매수 후 평단가는 9,000원입니다. 현재가가 9,000원이면 계산상 손익분기점 부근입니다.
+                  추가매수 후 새 평단가와 총 투자금이 계산되었습니다. 목표가와 손절가를 입력하면 예상 손익도 확인할 수 있습니다.
                 </div>
 
                 <div class="risk-card" id="riskText">
@@ -2136,7 +2117,7 @@
                       <small>선택 입력</small>
                     </div>
                     <div class="input-unit">
-                      <input id="multiCurrentPrice" type="number" min="0" step="any" value="9000" />
+                      <input id="multiCurrentPrice" type="number" min="0" step="any" placeholder="현재가 입력 시 손익 계산" />
                       <span>원</span>
                     </div>
                   </div>
@@ -2175,11 +2156,11 @@
                   </div>
                   <div class="metric-card" id="multiProfitCard">
                     <span>현재가 평가손익</span>
-                    <strong id="multiProfit">0원 · 0.00%</strong>
+                    <strong id="multiProfit">현재가 입력 시 계산</strong>
                   </div>
                   <div class="metric-card">
                     <span>본전까지 필요 상승률</span>
-                    <strong id="multiBreakEven">0.00%</strong>
+                    <strong id="multiBreakEven">현재가 입력 시 계산</strong>
                   </div>
                 </div>
 
@@ -2414,7 +2395,6 @@
       oldPrice: $("oldPrice"),
       newQty: $("newQty"),
       newPrice: $("newPrice"),
-      currentPrice: $("currentPrice"),
       targetSellPrice: $("targetSellPrice"),
       stopLossPrice: $("stopLossPrice"),
       stockName: $("stockName"),
@@ -2431,13 +2411,10 @@
       avgChangeRate: $("avgChangeRate"),
       additionalCash: $("additionalCash"),
       additionalRatio: $("additionalRatio"),
-      currentProfit: $("currentProfit"),
-      breakEvenRise: $("breakEvenRise"),
       targetProfit: $("targetProfit"),
       stopLossResult: $("stopLossResult"),
       avgChangeCard: $("avgChangeCard"),
       avgRateCard: $("avgRateCard"),
-      profitCard: $("profitCard"),
       targetProfitCard: $("targetProfitCard"),
       stopLossCard: $("stopLossCard"),
       analysisText: $("analysisText"),
@@ -2536,7 +2513,6 @@
         oldPrice: numberValue(els.oldPrice),
         newQty: numberValue(els.newQty),
         newPrice: numberValue(els.newPrice),
-        currentPrice: numberValue(els.currentPrice),
         targetSellPrice: numberValue(els.targetSellPrice),
         stopLossPrice: numberValue(els.stopLossPrice),
         useFees: els.feeToggle.checked,
@@ -2561,7 +2537,6 @@
       const additionalRatio = oldCost > 0 ? newCost / oldCost * 100 : (newCost > 0 ? 100 : 0);
       const newPositionWeight = totalCost > 0 ? newCost / totalCost * 100 : 0;
       const breakEvenPrice = sellFeeRate < 1 ? avg / (1 - sellFeeRate) : avg;
-      const breakEvenRise = input.currentPrice > 0 ? (breakEvenPrice / input.currentPrice - 1) * 100 : 0;
 
       const profitAt = (price) => {
         if (!(price > 0) || !(totalQty > 0)) return { amount: 0, rate: 0 };
@@ -2571,7 +2546,6 @@
         return { amount, rate };
       };
 
-      const current = profitAt(input.currentPrice);
       const target = profitAt(input.targetSellPrice);
       const stop = profitAt(input.stopLossPrice);
 
@@ -2587,8 +2561,6 @@
         additionalRatio,
         newPositionWeight,
         breakEvenPrice,
-        breakEvenRise,
-        current,
         target,
         stop
       };
@@ -2608,16 +2580,13 @@
       els.avgChangeRate.textContent = formatPercent(r.avgChangeRate, 2, true);
       els.additionalCash.textContent = formatWon(r.newCost);
       els.additionalRatio.textContent = formatPercent(r.additionalRatio);
-      els.currentProfit.textContent = formatWon(r.current.amount) + " · " + formatPercent(r.current.rate, 2, true);
-      els.breakEvenRise.textContent = r.input.currentPrice > 0 ? formatPercent(r.breakEvenRise, 2, true) : "현재가 입력 필요";
-      els.targetProfit.textContent = r.input.targetSellPrice > 0 ? formatWon(r.target.amount) + " · " + formatPercent(r.target.rate, 2, true) : "목표가 입력 필요";
-      els.stopLossResult.textContent = r.input.stopLossPrice > 0 ? formatWon(r.stop.amount) + " · " + formatPercent(r.stop.rate, 2, true) : "손절가 입력 필요";
+      els.targetProfit.textContent = r.input.targetSellPrice > 0 ? formatWon(r.target.amount) + " · " + formatPercent(r.target.rate, 2, true) : "목표가 입력 시 계산";
+      els.stopLossResult.textContent = r.input.stopLossPrice > 0 ? formatWon(r.stop.amount) + " · " + formatPercent(r.stop.rate, 2, true) : "손절가 입력 시 계산";
 
       setMetricTone(els.avgChangeCard, -r.avgChange);
       setMetricTone(els.avgRateCard, -r.avgChangeRate);
-      setMetricTone(els.profitCard, r.current.amount);
-      setMetricTone(els.targetProfitCard, r.target.amount);
-      setMetricTone(els.stopLossCard, r.stop.amount);
+      setMetricTone(els.targetProfitCard, r.input.targetSellPrice > 0 ? r.target.amount : 0);
+      setMetricTone(els.stopLossCard, r.input.stopLossPrice > 0 ? r.stop.amount : 0);
 
       const lowered = r.avgChange < 0;
       const raised = r.avgChange > 0;
@@ -2630,11 +2599,11 @@
           ? `기존 평단보다 ${formatWon(changeAbs)} 높아집니다.`
           : "기존 평단과 같습니다.";
 
-      const currentText = r.input.currentPrice > 0
-        ? `현재가 ${formatWon(r.input.currentPrice)} 기준 예상 손익은 ${formatWon(r.current.amount)}, 수익률은 ${formatPercent(r.current.rate, 2, true)}입니다.`
-        : "현재가를 입력하면 예상 손익과 본전까지 필요한 상승률을 계산합니다.";
+      const sellPlanText = r.input.targetSellPrice > 0 || r.input.stopLossPrice > 0
+        ? " 입력한 목표가와 손절가 기준 예상 손익도 함께 확인하세요."
+        : " 목표가와 손절가를 입력하면 예상 손익도 계산할 수 있습니다.";
 
-      els.analysisText.textContent = `추가매수 후 새 평단가는 ${formatWon(r.avg)}입니다. 총 보유 수량은 ${formatShares(r.totalQty)}, 총 투자금은 ${formatWon(r.totalCost)}입니다. ${currentText}`;
+      els.analysisText.textContent = `추가매수 후 새 평단가는 ${formatWon(r.avg)}입니다. 총 보유 수량은 ${formatShares(r.totalQty)}, 총 투자금은 ${formatWon(r.totalCost)}입니다.${sellPlanText}`;
 
       let riskLevel = "낮은 편";
       if (r.additionalRatio >= 100) riskLevel = "매우 큰 편";
@@ -2776,8 +2745,8 @@
       els.multiHeroText.textContent = `총 ${formatShares(totalQty)}, ${formatWon(totalCost)} 매수 기준입니다.`;
       els.multiQty.textContent = formatShares(totalQty);
       els.multiCost.textContent = formatWon(totalCost);
-      els.multiProfit.textContent = currentPrice > 0 ? formatWon(profit) + " · " + formatPercent(profitRate, 2, true) : "현재가 입력 필요";
-      els.multiBreakEven.textContent = currentPrice > 0 ? formatPercent(breakEven, 2, true) : "현재가 입력 필요";
+      els.multiProfit.textContent = currentPrice > 0 ? formatWon(profit) + " · " + formatPercent(profitRate, 2, true) : "현재가 입력 시 계산";
+      els.multiBreakEven.textContent = currentPrice > 0 ? formatPercent(breakEven, 2, true) : "현재가 입력 시 계산";
       els.multiStatus.textContent = activeCount + "차 매수";
       els.largestBuyShare.textContent = formatPercent(largestShare);
       els.multiMessage.textContent = largestShare >= 60
@@ -2785,7 +2754,7 @@
         : largestShare >= 40
           ? "특정 매수 차수의 비중이 다소 큽니다. 분할매수 계획과 비교하세요."
           : "각 매수 내역의 비중이 비교적 고르게 분산되어 있습니다.";
-      setMetricTone(els.multiProfitCard, profit);
+      setMetricTone(els.multiProfitCard, currentPrice > 0 ? profit : 0);
     }
 
     function updateScenarios() {
@@ -2833,9 +2802,7 @@
         result: {
           avg: r.avg,
           totalQty: r.totalQty,
-          totalCost: r.totalCost,
-          currentAmount: r.current.amount,
-          currentRate: r.current.rate
+          totalCost: r.totalCost
         }
       });
 
@@ -2863,7 +2830,7 @@
               </div>
               <small>새 평단 ${formatWon(record.result.avg)}</small>
             </div>
-            <div class="history-summary">${formatShares(record.result.totalQty)} · 총 투자금 ${formatWon(record.result.totalCost)} · 현재 손익 ${formatWon(record.result.currentAmount)}</div>
+            <div class="history-summary">${formatShares(record.result.totalQty)} · 총 투자금 ${formatWon(record.result.totalCost)}</div>
             <div class="history-actions">
               <button type="button" data-load-history="${record.id}">불러오기</button>
               <button class="delete" type="button" data-delete-history="${record.id}">삭제</button>
@@ -2890,9 +2857,8 @@
       els.oldPrice.value = i.oldPrice;
       els.newQty.value = i.newQty;
       els.newPrice.value = i.newPrice;
-      els.currentPrice.value = i.currentPrice;
-      els.targetSellPrice.value = i.targetSellPrice;
-      els.stopLossPrice.value = i.stopLossPrice;
+      els.targetSellPrice.value = i.targetSellPrice > 0 ? i.targetSellPrice : "";
+      els.stopLossPrice.value = i.stopLossPrice > 0 ? i.stopLossPrice : "";
       els.feeToggle.checked = Boolean(i.useFees);
       els.buyFee.value = i.buyFee;
       els.sellFee.value = i.sellFee;
@@ -2925,8 +2891,7 @@
         `새 평단: ${formatWon(r.avg)}`,
         `총 수량: ${formatShares(r.totalQty)}`,
         `총 투자금: ${formatWon(r.totalCost)}`,
-        `평단 변화: ${formatWon(r.avgChange)} (${formatPercent(r.avgChangeRate, 2, true)})`,
-        r.input.currentPrice > 0 ? `현재 손익: ${formatWon(r.current.amount)} (${formatPercent(r.current.rate, 2, true)})` : ""
+        `평단 변화: ${formatWon(r.avgChange)} (${formatPercent(r.avgChangeRate, 2, true)})`
       ].filter(Boolean).join("\n");
     }
 
@@ -2956,7 +2921,6 @@
         op: i.oldPrice,
         nq: i.newQty,
         np: i.newPrice,
-        cp: i.currentPrice,
         tp: i.targetSellPrice,
         sp: i.stopLossPrice,
         ft: i.useFees ? 1 : 0,
@@ -2978,7 +2942,6 @@
         op: els.oldPrice,
         nq: els.newQty,
         np: els.newPrice,
-        cp: els.currentPrice,
         tp: els.targetSellPrice,
         sp: els.stopLossPrice,
         bf: els.buyFee,
@@ -2999,9 +2962,8 @@
       els.oldPrice.value = 10000;
       els.newQty.value = 10;
       els.newPrice.value = 8000;
-      els.currentPrice.value = 9000;
-      els.targetSellPrice.value = 10500;
-      els.stopLossPrice.value = 7500;
+      els.targetSellPrice.value = "";
+      els.stopLossPrice.value = "";
       els.stockName.value = "";
       els.feeToggle.checked = false;
       els.buyFee.value = 0.015;
@@ -3025,7 +2987,7 @@
         { qty: 10, price: 9000, fee: 0 },
         { qty: 10, price: 8000, fee: 0 }
       ];
-      els.multiCurrentPrice.value = 9000;
+      els.multiCurrentPrice.value = "";
       renderMultiRows();
       computeMulti();
     }
@@ -3048,18 +3010,17 @@
     });
 
     [
-      els.oldQty, els.oldPrice, els.newQty, els.newPrice, els.currentPrice,
+      els.oldQty, els.oldPrice, els.newQty, els.newPrice,
       els.targetSellPrice, els.stopLossPrice, els.buyFee, els.sellFee
     ].forEach((element) => element.addEventListener("input", computeQuick));
 
     document.querySelectorAll("[data-preset]").forEach((button) => {
       button.addEventListener("click", () => {
-        const [oldPrice, oldQty, newPrice, newQty, current] = button.dataset.preset.split(",").map(Number);
+        const [oldPrice, oldQty, newPrice, newQty] = button.dataset.preset.split(",").map(Number);
         els.oldPrice.value = oldPrice;
         els.oldQty.value = oldQty;
         els.newPrice.value = newPrice;
         els.newQty.value = newQty;
-        els.currentPrice.value = current;
         computeQuick();
       });
     });
@@ -3131,7 +3092,7 @@
         { qty: r.input.oldQty, price: r.input.oldPrice, fee: 0 },
         { qty: r.input.newQty, price: r.input.newPrice, fee: r.input.useFees ? r.input.buyFee : 0 }
       ];
-      els.multiCurrentPrice.value = r.input.currentPrice;
+      els.multiCurrentPrice.value = "";
       renderMultiRows();
       computeMulti();
       showToast("빠른 계산 값을 불러왔습니다.");
