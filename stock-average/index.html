@@ -4,38 +4,103 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>주식 평단가 계산기｜물타기 후 평균단가 바로 계산｜바로해결랩</title>
-  <meta name="description" content="기존 보유 수량, 기존 평균단가, 추가 매수 수량, 추가 매수가, 현재가를 입력하면 새 주식 평단가와 총 투자금, 평단 인하폭, 손익률을 바로 계산할 수 있는 바로해결랩 주식 평단가 계산기입니다." />
-  <meta name="keywords" content="주식 평단가 계산기, 물타기 계산기, 주식 평균단가 계산, 추가매수 평단가, 주식 물타기, 바로해결랩, 바로해결툴즈" />
+  <title>주식 평단가 계산기｜물타기·추가매수 평균단가 계산｜바로해결랩</title>
+  <meta name="description" content="기존 보유 수량과 평균단가, 추가 매수 수량과 가격을 입력하면 새 평단가·총 투자금·평단 인하율·현재 손익·본전 상승률을 실시간 계산합니다. 목표 평단 역산, 분할매수 합산, 추가매수 시나리오 비교도 지원합니다." />
+  <meta name="keywords" content="주식 평단가 계산기, 물타기 계산기, 주식 평균단가 계산, 추가매수 평단가, 목표 평단 계산, 분할매수 계산기, 주식 손익 계산, 바로해결랩, 바로해결툴즈" />
+  <meta name="author" content="바로해결랩" />
+  <meta name="robots" content="index, follow" />
 
   <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/stock-average/" />
 
-  <meta property="og:title" content="주식 평단가 계산기｜바로해결랩" />
-  <meta property="og:description" content="물타기 전에 새 평단부터 확인하세요. 기존 평단과 추가매수 가격을 입력하면 새 평균단가와 손익률을 바로 계산합니다." />
   <meta property="og:type" content="website" />
+  <meta property="og:title" content="주식 평단가 계산기｜바로해결랩" />
+  <meta property="og:description" content="추가매수 후 새 평단가, 총 투자금, 본전 상승률과 손익을 한 번에 계산하세요." />
   <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/stock-average/" />
-  <meta name="theme-color" content="#1238ff" />
+  <meta property="og:site_name" content="바로해결랩" />
+  <meta name="theme-color" content="#0b1739" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "주식 평단가 계산기",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Web Browser",
+    "url": "https://barohaegyeol-tools.pages.dev/stock-average/",
+    "description": "추가매수 후 새 평균단가와 투자금, 손익, 목표 평단 필요 수량을 계산하는 무료 브라우저 도구",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "KRW"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "주식 평단가는 어떻게 계산하나요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "기존 매입금액과 추가 매입금액을 합친 뒤 총 보유 수량으로 나누면 새 평균단가가 계산됩니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "목표 평단까지 필요한 추가 매수 수량도 계산할 수 있나요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "목표 평단 역산 기능에서 현재 수량, 현재 평단, 추가 매수가와 목표 평단을 입력하면 필요한 수량과 투자금을 계산할 수 있습니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "수수료를 포함한 손익도 볼 수 있나요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "고급 설정에서 추가 매수 수수료와 매도 비용을 직접 입력해 예상 손익과 본전 가격에 반영할 수 있습니다."
+        }
+      }
+    ]
+  }
+  </script>
 
   <style>
     :root {
-      --bg: #f3f7ff;
-      --bg2: #eef4ff;
-      --card: #ffffff;
-      --card2: #f8fbff;
-      --text: #111827;
-      --muted: #64748b;
-      --line: #dbe7f5;
-      --blue: #2563eb;
-      --blue2: #1238ff;
-      --navy: #0f172a;
-      --green: #16a34a;
-      --red: #ef4444;
-      --orange: #f97316;
-      --yellow: #fff4ca;
-      --mint: #e9fff4;
-      --shadow: 0 24px 70px rgba(37, 99, 235, .14);
-      --shadow2: 0 16px 50px rgba(15, 23, 42, .08);
-      --radius: 28px;
+      --navy-950: #071126;
+      --navy-900: #0b1739;
+      --navy-800: #11265a;
+      --blue-700: #1d4ed8;
+      --blue-600: #2563eb;
+      --blue-500: #3b82f6;
+      --cyan-500: #06b6d4;
+      --mint-500: #10b981;
+      --lime-400: #a3e635;
+      --amber-400: #fbbf24;
+      --coral-500: #f97366;
+      --red-500: #ef4444;
+      --paper: #ffffff;
+      --surface: #f7f9fd;
+      --surface-2: #eef4ff;
+      --ink: #101828;
+      --text: #475467;
+      --muted: #7b8799;
+      --line: #dbe4f0;
+      --line-strong: #c9d6e7;
+      --positive-bg: #ecfdf3;
+      --negative-bg: #fff1f2;
+      --warning-bg: #fff8df;
+      --shadow-xl: 0 34px 90px rgba(10, 30, 75, .16);
+      --shadow-lg: 0 20px 55px rgba(10, 30, 75, .11);
+      --shadow-md: 0 12px 30px rgba(10, 30, 75, .08);
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --max: 1240px;
     }
 
     * {
@@ -49,780 +114,1504 @@
     body {
       margin: 0;
       min-height: 100vh;
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", system-ui, sans-serif;
-      background:
-        radial-gradient(circle at 10% 8%, rgba(37, 99, 235, .16), transparent 28%),
-        radial-gradient(circle at 88% 8%, rgba(22, 163, 74, .12), transparent 26%),
-        linear-gradient(180deg, #f3f7ff 0%, #f8fbff 48%, #eef4ff 100%);
       overflow-x: hidden;
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", system-ui, sans-serif;
+      line-height: 1.65;
+      background:
+        radial-gradient(circle at 7% 7%, rgba(59, 130, 246, .14), transparent 28%),
+        radial-gradient(circle at 93% 5%, rgba(16, 185, 129, .11), transparent 26%),
+        radial-gradient(circle at 78% 94%, rgba(163, 230, 53, .12), transparent 27%),
+        linear-gradient(180deg, #f4f7ff 0%, #f8fbff 47%, #eef4ff 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .15;
+      background-image: radial-gradient(circle, rgba(37, 99, 235, .2) 1px, transparent 1.4px);
+      background-size: 30px 30px;
+      mask-image: linear-gradient(to bottom, #000 0%, transparent 75%);
     }
 
     a {
       color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
     }
 
     .wrap {
-      width: min(1140px, calc(100% - 30px));
+      position: relative;
+      z-index: 1;
+      width: min(var(--max), calc(100% - 32px));
       margin: 0 auto;
     }
 
-    header {
-      padding: 24px 0 12px;
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(16, 24, 40, .07);
+      background: rgba(247, 250, 255, .9);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      min-height: 72px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 14px;
+      justify-content: space-between;
+      gap: 18px;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      color: var(--text);
+      gap: 11px;
+      flex: 0 0 auto;
+      font-weight: 950;
+      letter-spacing: -.04em;
     }
 
-    .logo {
-      width: 46px;
-      height: 46px;
-      border-radius: 16px;
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 15px 24px 15px 15px;
       display: grid;
       place-items: center;
       color: #fff;
-      font-weight: 950;
-      font-size: 21px;
-      background: linear-gradient(135deg, var(--blue), var(--navy));
-      box-shadow: 0 14px 35px rgba(37, 99, 235, .24);
-    }
-
-    .brand strong {
-      display: block;
+      background: linear-gradient(135deg, var(--blue-600), var(--navy-900));
+      box-shadow: 0 14px 34px rgba(37, 99, 235, .24);
       font-size: 18px;
-      letter-spacing: -.03em;
+      font-weight: 950;
     }
 
-    .brand span {
+    .brand small {
       display: block;
-      margin-top: 2px;
+      margin-top: 1px;
       color: var(--muted);
-      font-size: 12px;
-    }
-
-    .top-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: flex-end;
-    }
-
-    .top-links a {
-      padding: 10px 13px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.78);
-      text-decoration: none;
-      font-size: 13px;
+      font-size: 11px;
       font-weight: 800;
-      color: #24415f;
+      letter-spacing: -.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      white-space: nowrap;
+    }
+
+    .nav-links a {
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(16, 24, 40, .08);
+      background: rgba(255, 255, 255, .85);
+      color: #4c5e78;
+      font-size: 12px;
+      font-weight: 900;
+      transition: .16s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--navy-900);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
     }
 
     .hero {
-      padding: 34px 0 30px;
+      padding: 30px 0 20px;
+    }
+
+    .hero-shell {
+      position: relative;
+      overflow: hidden;
+      min-height: 390px;
+      padding: 42px 46px;
+      border-radius: 38px;
+      color: #fff;
+      background:
+        radial-gradient(circle at 84% 20%, rgba(163, 230, 53, .2), transparent 25%),
+        radial-gradient(circle at 72% 92%, rgba(6, 182, 212, .18), transparent 30%),
+        linear-gradient(135deg, var(--navy-950) 0%, var(--navy-800) 55%, #1d4ed8 100%);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .hero-shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .18;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, .15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .15) 1px, transparent 1px);
+      background-size: 46px 46px;
+      mask-image: linear-gradient(90deg, transparent, #000 45%, #000);
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
       display: grid;
-      grid-template-columns: 1.04fr .96fr;
-      gap: 28px;
+      grid-template-columns: 1.08fr .92fr;
+      gap: 36px;
       align-items: center;
     }
 
-    .badge {
+    .hero-copy {
+      max-width: 720px;
+    }
+
+    .eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 8px;
       padding: 8px 12px;
       border-radius: 999px;
-      color: var(--blue2);
-      background: rgba(37,99,235,.09);
-      border: 1px solid rgba(37,99,235,.18);
-      font-size: 13px;
-      font-weight: 900;
+      color: #efffb8;
+      background: rgba(163, 230, 53, .11);
+      border: 1px solid rgba(163, 230, 53, .25);
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--lime-400);
+      box-shadow: 0 0 0 5px rgba(163, 230, 53, .12);
     }
 
     h1 {
-      margin: 18px 0 0;
-      font-size: clamp(40px, 6vw, 74px);
-      line-height: 1.05;
+      margin: 17px 0 0;
+      font-size: clamp(48px, 5.7vw, 76px);
+      line-height: 1.02;
       letter-spacing: -.075em;
+      white-space: nowrap;
     }
 
-    .gradient-text {
-      color: transparent;
-      background: linear-gradient(90deg, #1238ff, #2563eb 42%, #16a34a);
-      -webkit-background-clip: text;
-      background-clip: text;
-    }
-
-    .lead {
+    .hero-lead {
       margin: 18px 0 0;
-      max-width: 650px;
-      color: var(--muted);
-      line-height: 1.75;
-      font-size: clamp(16px, 2vw, 20px);
+      max-width: 660px;
+      color: rgba(255, 255, 255, .78);
+      font-size: clamp(15px, 1.6vw, 18px);
+      line-height: 1.78;
       word-break: keep-all;
+    }
+
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .hero-pill {
+      padding: 8px 11px;
+      border-radius: 999px;
+      color: rgba(255, 255, 255, .9);
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .12);
+      font-size: 11px;
+      font-weight: 900;
     }
 
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 24px;
-    }
-
-    .btn,
-    button {
-      font-family: inherit;
-      cursor: pointer;
+      margin-top: 22px;
     }
 
     .btn {
       min-height: 50px;
-      padding: 14px 18px;
+      padding: 12px 17px;
+      border-radius: 15px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      border-radius: 17px;
-      text-decoration: none;
+      border: 1px solid transparent;
       font-weight: 950;
-      letter-spacing: -.025em;
-      transition: .18s ease;
+      letter-spacing: -.02em;
+      transition: .17s ease;
     }
 
     .btn-primary {
+      color: var(--navy-950);
+      background: linear-gradient(135deg, var(--lime-400), var(--cyan-500));
+      box-shadow: 0 18px 42px rgba(6, 182, 212, .18);
+    }
+
+    .btn-secondary {
       color: #fff;
-      background: linear-gradient(135deg, var(--blue), var(--blue2));
-      box-shadow: 0 18px 44px rgba(37,99,235,.26);
+      background: rgba(255, 255, 255, .08);
+      border-color: rgba(255, 255, 255, .16);
     }
 
-    .btn-ghost {
-      color: #183a5c;
-      background: rgba(255,255,255,.78);
-      border: 1px solid var(--line);
-    }
-
-    .btn-primary:hover,
-    .btn-ghost:hover {
+    .btn:hover {
       transform: translateY(-2px);
     }
 
     .hero-visual {
       position: relative;
-      min-height: 450px;
-      border-radius: 38px;
-      overflow: hidden;
-      background:
-        radial-gradient(circle at 50% 20%, rgba(255,255,255,.86), transparent 34%),
-        linear-gradient(145deg, #dfeaff, #ffffff 46%, #e9fff4);
-      border: 1px solid rgba(255,255,255,.92);
-      box-shadow: var(--shadow);
+      min-height: 305px;
     }
 
-    .chart-panel {
+    .market-board {
       position: absolute;
-      inset: 28px;
+      inset: 8px 0 0;
       border-radius: 30px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,255,255,.34)),
-        radial-gradient(circle at 25% 18%, rgba(37,99,235,.18), transparent 34%);
-      border: 1px solid rgba(255,255,255,.86);
+      background: linear-gradient(180deg, rgba(255, 255, 255, .94), rgba(241, 247, 255, .9));
+      border: 1px solid rgba(255, 255, 255, .9);
+      box-shadow: 0 24px 65px rgba(0, 0, 0, .22);
       overflow: hidden;
     }
 
-    .chart-line {
-      position: absolute;
-      left: 34px;
-      right: 34px;
-      top: 120px;
-      height: 120px;
+    .board-top {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 18px 18px 0;
     }
 
-    .chart-line svg {
+    .board-stat {
+      padding: 14px;
+      border-radius: 18px;
+      background: #fff;
+      border: 1px solid #dce7f4;
+      box-shadow: 0 10px 24px rgba(10, 30, 75, .07);
+    }
+
+    .board-stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    .board-stat strong {
+      display: block;
+      margin-top: 5px;
+      color: var(--navy-900);
+      font-size: 22px;
+      letter-spacing: -.04em;
+    }
+
+    .board-stat.highlight {
+      color: #fff;
+      background: linear-gradient(135deg, var(--blue-600), var(--navy-900));
+      border-color: transparent;
+    }
+
+    .board-stat.highlight span,
+    .board-stat.highlight strong {
+      color: #fff;
+    }
+
+    .mini-chart {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      top: 103px;
+      height: 84px;
+      border-radius: 20px;
+      overflow: hidden;
+      background:
+        linear-gradient(rgba(37, 99, 235, .08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37, 99, 235, .08) 1px, transparent 1px),
+        linear-gradient(180deg, #f8fbff, #eef6ff);
+      background-size: 26px 26px;
+    }
+
+    .mini-chart svg {
       width: 100%;
       height: 100%;
       overflow: visible;
     }
 
-    .stock-card {
+    .chart-path {
+      stroke-dasharray: 560;
+      stroke-dashoffset: 560;
+      animation: drawChart 2.3s ease forwards;
+    }
+
+    @keyframes drawChart {
+      to { stroke-dashoffset: 0; }
+    }
+
+    .mascot-shell {
       position: absolute;
-      left: 34px;
-      top: 34px;
-      width: 220px;
-      padding: 18px;
-      border-radius: 24px;
-      background: rgba(255,255,255,.9);
-      border: 1px solid rgba(219,231,245,.95);
-      box-shadow: var(--shadow2);
-    }
-
-    .stock-card span {
-      display: block;
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 850;
-    }
-
-    .stock-card strong {
-      display: block;
-      margin-top: 8px;
-      color: var(--blue2);
-      font-size: 28px;
-      letter-spacing: -.04em;
-    }
-
-    .average-card {
-      position: absolute;
-      right: 34px;
-      top: 70px;
-      width: 210px;
-      padding: 18px;
-      border-radius: 24px;
-      color: #fff;
-      background: linear-gradient(135deg, #1238ff, #0f172a);
-      box-shadow: 0 22px 60px rgba(18,56,255,.25);
-    }
-
-    .average-card span {
-      display: block;
-      opacity: .82;
-      font-size: 13px;
-      font-weight: 850;
-    }
-
-    .average-card strong {
-      display: block;
-      margin-top: 8px;
-      font-size: 28px;
-      letter-spacing: -.04em;
-    }
-
-    .cat {
-      position: absolute;
-      left: 52px;
-      bottom: 32px;
-      width: 165px;
-      height: 165px;
+      left: 24px;
+      bottom: 17px;
+      width: 150px;
+      height: 105px;
       display: grid;
       place-items: center;
-      border-radius: 40px;
-      background: rgba(255,255,255,.62);
-      border: 1px solid rgba(255,255,255,.86);
+      border-radius: 28px;
+      background: linear-gradient(135deg, #fff, #f2f7ff);
+      border: 1px solid #dbe7f4;
+      box-shadow: 0 14px 30px rgba(10, 30, 75, .1);
     }
 
-    .cat-face {
-      width: 110px;
-      height: 92px;
-      position: relative;
-      border-radius: 46px 46px 35px 35px;
-      background: #fff4dc;
-      border: 3px solid #543927;
-      box-shadow: inset 0 -9px 0 rgba(255,204,134,.38);
+    .mascot {
+      width: 120px;
+      height: 90px;
+      overflow: visible;
+      animation: mascotBob 2.6s ease-in-out infinite;
     }
 
-    .cat-face::before,
-    .cat-face::after {
-      content: "";
+    @keyframes mascotBob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    .mascot .tail {
+      transform-origin: 84px 64px;
+      animation: tailWag 1.35s ease-in-out infinite;
+    }
+
+    @keyframes tailWag {
+      0%, 100% { transform: rotate(-8deg); }
+      50% { transform: rotate(15deg); }
+    }
+
+    .mascot .eye-group {
+      transform-origin: center;
+      animation: blink 4.2s infinite;
+    }
+
+    @keyframes blink {
+      0%, 45%, 48%, 100% { transform: scaleY(1); }
+      46%, 47% { transform: scaleY(.08); }
+    }
+
+    .mascot .coin {
+      animation: coinBounce 1.8s ease-in-out infinite;
+    }
+
+    @keyframes coinBounce {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(14deg); }
+    }
+
+    .mascot-shell.mood-good .mouth-good { display: block; }
+    .mascot-shell.mood-good .mouth-neutral,
+    .mascot-shell.mood-good .mouth-bad { display: none; }
+
+    .mascot-shell.mood-bad .mouth-bad { display: block; }
+    .mascot-shell.mood-bad .mouth-neutral,
+    .mascot-shell.mood-bad .mouth-good { display: none; }
+
+    .mascot-shell.mood-neutral .mouth-neutral { display: block; }
+    .mascot-shell.mood-neutral .mouth-good,
+    .mascot-shell.mood-neutral .mouth-bad { display: none; }
+
+    .mascot-note {
       position: absolute;
-      top: -18px;
-      width: 36px;
-      height: 36px;
-      background: #fff4dc;
-      border-left: 3px solid #543927;
-      border-top: 3px solid #543927;
-      transform: rotate(45deg);
-      border-radius: 8px;
-    }
-
-    .cat-face::before { left: 15px; }
-    .cat-face::after { right: 15px; }
-
-    .eye {
-      position: absolute;
-      top: 37px;
-      width: 17px;
-      height: 21px;
-      border-radius: 50%;
-      background: #211816;
-    }
-
-    .eye.left { left: 30px; }
-    .eye.right { right: 30px; }
-
-    .nose {
-      position: absolute;
-      left: 50%;
-      top: 62px;
-      width: 11px;
-      height: 8px;
-      border-radius: 50%;
-      transform: translateX(-50%);
-      background: #ef7b71;
-    }
-
-    .memo {
-      position: absolute;
-      right: 44px;
-      bottom: 54px;
-      width: 210px;
-      padding: 17px;
-      border-radius: 24px;
+      right: 20px;
+      bottom: 20px;
+      width: 175px;
+      padding: 13px 14px;
+      border-radius: 18px;
+      color: #243b60;
       background: #fff;
-      border: 1px solid #dbe7f5;
-      box-shadow: var(--shadow2);
-      color: #17324b;
+      border: 1px solid #dbe7f4;
+      box-shadow: 0 14px 30px rgba(10, 30, 75, .09);
+      font-size: 11px;
+      line-height: 1.55;
+      font-weight: 850;
     }
 
-    .memo b {
+    .mascot-note b {
       display: block;
-      font-size: 18px;
-      letter-spacing: -.04em;
+      margin-bottom: 3px;
+      color: var(--navy-900);
+      font-size: 13px;
     }
 
-    .memo small {
-      display: block;
-      margin-top: 6px;
-      color: var(--muted);
-      line-height: 1.5;
+    .tool-section {
+      padding: 8px 0 28px;
     }
 
-    .section {
-      padding: 26px 0;
+    .tool-shell {
+      overflow: hidden;
+      border-radius: 32px;
+      background: rgba(255, 255, 255, .96);
+      border: 1px solid rgba(211, 222, 238, .96);
+      box-shadow: var(--shadow-xl);
     }
 
-    .grid-main {
-      display: grid;
-      grid-template-columns: .92fr 1.08fr;
-      gap: 22px;
-      align-items: start;
+    .tool-head {
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(90deg, rgba(37, 99, 235, .07), rgba(6, 182, 212, .07), rgba(163, 230, 53, .08));
     }
 
-    .panel {
-      border-radius: var(--radius);
-      background: rgba(255,255,255,.9);
-      border: 1px solid rgba(219,231,245,.96);
-      box-shadow: var(--shadow);
-    }
-
-    .calculator {
-      padding: 26px;
-      position: sticky;
-      top: 14px;
-    }
-
-    .panel-title {
+    .tool-head h2 {
       margin: 0;
-      font-size: 30px;
+      font-size: 26px;
       letter-spacing: -.055em;
     }
 
-    .panel-sub {
-      margin: 8px 0 0;
+    .tool-head p {
+      margin: 5px 0 0;
       color: var(--muted);
-      line-height: 1.65;
-      word-break: keep-all;
+      font-size: 12px;
     }
 
-    .form {
+    .local-pill {
+      flex: 0 0 auto;
+      padding: 8px 11px;
+      border-radius: 999px;
+      color: #21667b;
+      background: #ecfbff;
+      border: 1px solid #d1eef4;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .tabs {
       display: grid;
-      gap: 16px;
-      margin-top: 22px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      padding: 16px 18px 0;
+      background: #fff;
+    }
+
+    .tab-btn {
+      min-height: 50px;
+      border-radius: 15px;
+      border: 1px solid var(--line);
+      color: #5d6b82;
+      background: #f8faff;
+      font-size: 12px;
+      font-weight: 950;
+      transition: .15s ease;
+    }
+
+    .tab-btn.active,
+    .tab-btn:hover {
+      color: #fff;
+      border-color: transparent;
+      background: linear-gradient(135deg, var(--navy-900), var(--blue-600));
+      box-shadow: 0 12px 28px rgba(37, 99, 235, .16);
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    .quick-grid,
+    .target-grid,
+    .multi-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(390px, .95fr);
+      gap: 0;
+      min-height: 640px;
+    }
+
+    .input-side,
+    .result-side {
+      padding: 24px;
+    }
+
+    .input-side {
+      border-right: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .result-side {
+      background: linear-gradient(180deg, #f8faff, #f2f7ff);
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: -.045em;
+    }
+
+    .section-sub {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .input-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
     }
 
     .field {
       display: grid;
-      gap: 8px;
+      gap: 7px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
     }
 
     label {
-      font-size: 14px;
+      color: #32435e;
+      font-size: 12px;
       font-weight: 950;
-      color: #172a45;
       letter-spacing: -.02em;
     }
 
-    input {
+    .field-head small {
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    input,
+    select {
       width: 100%;
-      min-height: 54px;
-      padding: 14px 15px;
-      border: 1px solid #cfdded;
-      border-radius: 16px;
+      min-height: 50px;
+      padding: 11px 12px;
+      border-radius: 14px;
+      border: 1px solid #d7e1ed;
       outline: none;
-      background: #fbfdff;
-      color: var(--text);
-      font-size: 18px;
+      color: var(--ink);
+      background: #fbfcff;
+      font-size: 15px;
       font-weight: 850;
       transition: .15s ease;
     }
 
-    input:focus {
-      border-color: rgba(37,99,235,.76);
-      box-shadow: 0 0 0 4px rgba(37,99,235,.11);
+    input:focus,
+    select:focus {
+      border-color: rgba(37, 99, 235, .58);
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, .08);
     }
 
-    .hint {
+    .input-unit {
+      position: relative;
+    }
+
+    .input-unit input {
+      padding-right: 46px;
+    }
+
+    .input-unit span {
+      position: absolute;
+      right: 13px;
+      top: 50%;
+      transform: translateY(-50%);
       color: var(--muted);
-      font-size: 12px;
-      line-height: 1.55;
+      font-size: 11px;
+      font-weight: 900;
+      pointer-events: none;
     }
 
     .preset-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 4px;
+      gap: 7px;
+      margin-top: 15px;
     }
 
-    .preset {
-      border: 1px solid #d6e4f3;
-      background: #fff;
-      color: #1e3a5f;
-      padding: 8px 10px;
+    .preset-btn {
+      min-height: 37px;
+      padding: 7px 10px;
       border-radius: 999px;
-      font-size: 12px;
-      font-weight: 850;
+      border: 1px solid #d9e3ef;
+      color: #52647f;
+      background: #fff;
+      font-size: 10px;
+      font-weight: 950;
     }
 
-    .calc-btn {
-      width: 100%;
-      min-height: 58px;
-      border: 0;
+    .preset-btn:hover {
+      color: var(--blue-700);
+      border-color: #bfd0e8;
+      background: #f6f9ff;
+    }
+
+    .advanced-box {
+      margin-top: 16px;
       border-radius: 18px;
-      color: #fff;
-      background: linear-gradient(135deg, var(--blue), var(--blue2));
-      font-size: 18px;
+      border: 1px solid var(--line);
+      background: #f8faff;
+      overflow: hidden;
+    }
+
+    .advanced-toggle {
+      width: 100%;
+      min-height: 48px;
+      padding: 11px 14px;
+      border: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: #42536e;
+      background: transparent;
+      font-size: 11px;
       font-weight: 950;
-      letter-spacing: -.03em;
-      box-shadow: 0 18px 44px rgba(37,99,235,.25);
+    }
+
+    .advanced-toggle span:last-child {
       transition: .18s ease;
     }
 
-    .calc-btn:hover {
-      transform: translateY(-2px);
+    .advanced-box.open .advanced-toggle span:last-child {
+      transform: rotate(180deg);
     }
 
-    .result {
+    .advanced-content {
       display: none;
-      padding: 24px;
-      margin-top: 18px;
-      border-radius: 24px;
-      background: linear-gradient(135deg, #f1f7ff, #effff7);
-      border: 1px solid #d3e6f8;
+      padding: 0 14px 14px;
     }
 
-    .result.show {
+    .advanced-box.open .advanced-content {
       display: block;
-      animation: rise .35s ease both;
     }
 
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      min-height: 52px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid #e0e7f0;
+      background: #fff;
+    }
+
+    .toggle-row b {
+      display: block;
+      font-size: 12px;
+    }
+
+    .toggle-row small {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 9px;
+    }
+
+    .switch {
+      position: relative;
+      width: 50px;
+      height: 29px;
+      flex: 0 0 auto;
+    }
+
+    .switch input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .switch span {
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: #cad4e1;
+      transition: .18s ease;
+    }
+
+    .switch span::after {
+      content: "";
+      position: absolute;
+      left: 4px;
+      top: 4px;
+      width: 21px;
+      height: 21px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 4px 10px rgba(10, 30, 75, .17);
+      transition: .18s ease;
+    }
+
+    .switch input:checked + span {
+      background: linear-gradient(135deg, var(--blue-600), var(--cyan-500));
+    }
+
+    .switch input:checked + span::after {
+      transform: translateX(21px);
+    }
+
+    .action-row {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr 1fr;
+      gap: 8px;
+      margin-top: 17px;
+    }
+
+    .action-btn {
+      min-height: 48px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      color: #52647e;
+      background: #fff;
+      font-size: 11px;
+      font-weight: 950;
+    }
+
+    .action-btn.primary {
+      color: #fff;
+      border-color: transparent;
+      background: linear-gradient(135deg, var(--navy-900), var(--blue-600));
+      box-shadow: 0 13px 30px rgba(37, 99, 235, .16);
     }
 
     .result-head {
       display: flex;
-      justify-content: space-between;
-      gap: 14px;
       align-items: flex-start;
-      flex-wrap: wrap;
-      margin-bottom: 14px;
+      justify-content: space-between;
+      gap: 12px;
     }
 
     .result-head h3 {
       margin: 0;
-      font-size: 23px;
+      font-size: 22px;
       letter-spacing: -.045em;
     }
 
-    .status {
-      padding: 8px 11px;
+    .status-pill {
+      padding: 7px 10px;
       border-radius: 999px;
-      font-size: 12px;
+      color: var(--blue-700);
+      background: #eaf2ff;
+      border: 1px solid #d4e3ff;
+      font-size: 10px;
       font-weight: 950;
-      background: #e6f0ff;
-      color: #1238ff;
+    }
+
+    .result-hero {
+      margin-top: 16px;
+      padding: 20px;
+      border-radius: 23px;
+      color: #fff;
+      background:
+        radial-gradient(circle at 84% 15%, rgba(163, 230, 53, .18), transparent 30%),
+        linear-gradient(135deg, var(--navy-950), var(--blue-700));
+      box-shadow: 0 20px 45px rgba(37, 99, 235, .18);
+    }
+
+    .result-hero span {
+      display: block;
+      color: rgba(255, 255, 255, .67);
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .result-hero strong {
+      display: block;
+      margin-top: 5px;
+      font-size: clamp(34px, 4.2vw, 50px);
+      line-height: 1.1;
+      letter-spacing: -.065em;
+    }
+
+    .result-hero small {
+      display: block;
+      margin-top: 8px;
+      color: rgba(255, 255, 255, .72);
+      font-size: 11px;
+      line-height: 1.55;
     }
 
     .result-cards {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px;
+      margin-top: 10px;
     }
 
-    .r-card {
-      padding: 16px;
-      border-radius: 18px;
-      background: rgba(255,255,255,.86);
-      border: 1px solid #d8e6f5;
+    .metric-card {
+      padding: 14px;
+      border-radius: 17px;
+      background: #fff;
+      border: 1px solid #dbe5f0;
+      box-shadow: 0 8px 20px rgba(10, 30, 75, .04);
     }
 
-    .r-card span {
+    .metric-card span {
       display: block;
       color: var(--muted);
-      font-size: 12px;
+      font-size: 10px;
       font-weight: 900;
     }
 
-    .r-card strong {
+    .metric-card strong {
       display: block;
-      margin-top: 6px;
-      font-size: 22px;
-      letter-spacing: -.04em;
-      color: #0f253d;
-    }
-
-    .r-card.highlight {
-      color: #fff;
-      background: linear-gradient(135deg, var(--blue), var(--blue2));
-      border-color: transparent;
-    }
-
-    .r-card.highlight span,
-    .r-card.highlight strong {
-      color: #fff;
-    }
-
-    .r-card.profit {
-      background: #edfff4;
-      border-color: #c8f7d9;
-    }
-
-    .r-card.loss {
-      background: #fff1f1;
-      border-color: #ffd0d0;
-    }
-
-    .analysis-box {
-      margin-top: 12px;
-      padding: 16px;
-      border-radius: 18px;
-      background: #fff;
-      border: 1px solid #d8e6f5;
-      color: #2c4661;
-      line-height: 1.68;
-      font-size: 14px;
-      word-break: keep-all;
-    }
-
-    .risk-box {
-      margin-top: 12px;
-      padding: 16px;
-      border-radius: 18px;
-      background: #fff8df;
-      border: 1px solid #ffe1a0;
-      color: #6b4700;
-      line-height: 1.66;
-      font-size: 14px;
-      word-break: keep-all;
-    }
-
-    .content {
-      display: grid;
-      gap: 18px;
-    }
-
-    .content-card {
-      padding: 26px;
-      border-radius: var(--radius);
-      background: rgba(255,255,255,.9);
-      border: 1px solid rgba(219,231,245,.96);
-      box-shadow: var(--shadow2);
-    }
-
-    .content-card h2 {
-      margin: 0 0 12px;
-      font-size: 28px;
-      letter-spacing: -.052em;
-    }
-
-    .content-card h3 {
-      margin: 20px 0 8px;
-      font-size: 20px;
+      margin-top: 5px;
+      color: #1f3150;
+      font-size: 17px;
       letter-spacing: -.035em;
     }
 
-    .content-card p {
-      margin: 0 0 12px;
-      color: #40566e;
-      line-height: 1.78;
+    .metric-card.positive {
+      background: var(--positive-bg);
+      border-color: #ccefdc;
+    }
+
+    .metric-card.positive strong {
+      color: #087443;
+    }
+
+    .metric-card.negative {
+      background: var(--negative-bg);
+      border-color: #ffd2d7;
+    }
+
+    .metric-card.negative strong {
+      color: #c73349;
+    }
+
+    .analysis-card,
+    .risk-card {
+      margin-top: 10px;
+      padding: 14px 15px;
+      border-radius: 17px;
+      font-size: 11px;
+      line-height: 1.65;
+      font-weight: 800;
       word-break: keep-all;
     }
 
-    .tip-list {
+    .analysis-card {
+      color: #36506e;
+      background: #fff;
+      border: 1px solid #dbe5f0;
+    }
+
+    .risk-card {
+      color: #72531c;
+      background: var(--warning-bg);
+      border: 1px solid #f2df9f;
+    }
+
+    .share-row {
       display: grid;
-      gap: 10px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .share-btn {
+      min-height: 42px;
+      border-radius: 12px;
+      border: 1px solid #dbe5f0;
+      color: #52647e;
+      background: #fff;
+      font-size: 10px;
+      font-weight: 950;
+    }
+
+    .target-result-box,
+    .multi-summary-box {
+      margin-top: 17px;
+      padding: 18px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #f0f5ff, #effff8);
+      border: 1px solid #d9e6f3;
+    }
+
+    .target-result-box strong.big,
+    .multi-summary-box strong.big {
+      display: block;
+      margin-top: 4px;
+      color: var(--navy-900);
+      font-size: 34px;
+      letter-spacing: -.055em;
+    }
+
+    .target-message {
+      margin-top: 12px;
+      padding: 13px;
+      border-radius: 14px;
+      color: #3f5872;
+      background: #fff;
+      border: 1px solid #dbe5f0;
+      font-size: 11px;
+      line-height: 1.6;
+      font-weight: 800;
+    }
+
+    .multi-table {
+      margin-top: 17px;
+      display: grid;
+      gap: 9px;
+    }
+
+    .buy-row {
+      display: grid;
+      grid-template-columns: 58px minmax(0, 1fr) minmax(0, 1fr) 80px 38px;
+      gap: 8px;
+      align-items: end;
+      padding: 11px;
+      border-radius: 17px;
+      background: #f8faff;
+      border: 1px solid #e0e7f0;
+    }
+
+    .row-index {
+      min-height: 50px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--navy-900), var(--blue-600));
+      font-size: 11px;
+      font-weight: 950;
+    }
+
+    .remove-row {
+      width: 38px;
+      height: 50px;
+      border-radius: 12px;
+      border: 1px solid #efd5d9;
+      color: #cc4356;
+      background: #fff;
+      font-size: 16px;
+      font-weight: 950;
+    }
+
+    .add-row-btn {
+      width: 100%;
+      min-height: 45px;
+      margin-top: 10px;
+      border-radius: 13px;
+      border: 1px dashed #bccbe0;
+      color: var(--blue-700);
+      background: #f8faff;
+      font-size: 11px;
+      font-weight: 950;
+    }
+
+    .support-section {
+      padding: 4px 0 28px;
+    }
+
+    .support-grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .support-card {
+      padding: 22px;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, .94);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .support-card h2 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: -.05em;
+    }
+
+    .support-card > p {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.65;
+    }
+
+    .scenario-base {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px;
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 16px;
+      background: #f7f9fd;
+      border: 1px solid #e1e7f0;
+    }
+
+    .scenario-base span {
+      display: block;
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 900;
+    }
+
+    .scenario-base strong {
+      display: block;
+      margin-top: 3px;
+      font-size: 15px;
+    }
+
+    .scenario-list {
+      display: grid;
+      gap: 9px;
+      margin-top: 12px;
+    }
+
+    .scenario-row {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr) minmax(0, 1fr) minmax(140px, .9fr);
+      gap: 8px;
+      align-items: center;
+      padding: 11px;
+      border-radius: 17px;
+      background: #fff;
+      border: 1px solid #e0e7f0;
+    }
+
+    .scenario-label {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--navy-900), var(--blue-600));
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    .scenario-output {
+      min-height: 50px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      color: #314762;
+      background: #f7f9fd;
+      border: 1px solid #e1e7f0;
+      font-size: 9px;
+      line-height: 1.45;
+      font-weight: 800;
+    }
+
+    .scenario-output strong {
+      display: block;
+      color: var(--blue-700);
+      font-size: 14px;
+      letter-spacing: -.03em;
+    }
+
+    .history-list {
+      display: grid;
+      gap: 9px;
       margin-top: 14px;
     }
 
-    .tip {
-      display: grid;
-      grid-template-columns: 42px 1fr;
-      gap: 12px;
-      align-items: start;
-      padding: 15px;
-      border-radius: 18px;
-      background: #f8fbff;
-      border: 1px solid #dbe7f5;
-    }
-
-    .tip-icon {
-      width: 42px;
-      height: 42px;
-      display: grid;
-      place-items: center;
-      border-radius: 14px;
-      background: #e6f0ff;
-      font-size: 22px;
-    }
-
-    .tip strong {
-      display: block;
-      margin-bottom: 4px;
-      color: #15283f;
-      letter-spacing: -.025em;
-    }
-
-    .tip span {
-      display: block;
-      color: var(--muted);
-      line-height: 1.6;
-      font-size: 14px;
-      word-break: keep-all;
-    }
-
-    .formula {
-      padding: 16px;
-      border-radius: 18px;
-      background: #f8fbff;
-      border: 1px solid #dbe7f5;
-      color: #355067;
-      line-height: 1.75;
-      font-size: 14px;
-      overflow-x: auto;
-    }
-
-    .cta-band {
+    .history-empty {
       padding: 22px;
-      border-radius: 24px;
-      background: linear-gradient(135deg, #1238ff, #0f172a);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
+      border-radius: 16px;
+      text-align: center;
+      color: var(--muted);
+      background: #f8faff;
+      border: 1px dashed #cbd7e6;
+      font-size: 11px;
+      font-weight: 850;
     }
 
-    .cta-band strong {
+    .history-item {
+      padding: 12px;
+      border-radius: 16px;
+      background: #f8faff;
+      border: 1px solid #e0e7f0;
+    }
+
+    .history-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .history-item b {
       display: block;
-      font-size: 22px;
+      font-size: 12px;
+    }
+
+    .history-item small {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 9px;
+    }
+
+    .history-summary {
+      margin-top: 7px;
+      color: #4a5f78;
+      font-size: 10px;
+      line-height: 1.5;
+      font-weight: 800;
+    }
+
+    .history-actions {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .history-actions button {
+      flex: 1;
+      min-height: 34px;
+      border-radius: 10px;
+      border: 1px solid #dbe5f0;
+      color: #52647e;
+      background: #fff;
+      font-size: 9px;
+      font-weight: 950;
+    }
+
+    .history-actions button.delete {
+      color: #c43f52;
+      border-color: #efd6da;
+    }
+
+    .info-section {
+      padding: 2px 0 34px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .info-card {
+      padding: 21px;
+      border-radius: 23px;
+      background: rgba(255, 255, 255, .94);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-md);
+    }
+
+    .info-card:nth-child(1) { border-top: 4px solid var(--blue-600); }
+    .info-card:nth-child(2) { border-top: 4px solid var(--cyan-500); }
+    .info-card:nth-child(3) { border-top: 4px solid var(--mint-500); }
+
+    .info-card h2,
+    .info-card h3 {
+      margin: 0;
+      font-size: 19px;
       letter-spacing: -.04em;
     }
 
-    .cta-band span {
-      display: block;
-      margin-top: 4px;
-      opacity: .9;
-      line-height: 1.55;
+    .info-card p {
+      margin: 9px 0 0;
+      color: #52647a;
+      font-size: 12px;
+      line-height: 1.72;
+      word-break: keep-all;
     }
 
-    .cta-band .btn {
-      color: var(--blue2);
-      background: #fff;
-      box-shadow: none;
+    .formula-box {
+      margin-top: 10px;
+      padding: 13px;
+      border-radius: 14px;
+      color: #3d5470;
+      background: #f7f9fd;
+      border: 1px solid #e0e7f0;
+      font-size: 10px;
+      line-height: 1.65;
+      font-weight: 800;
     }
 
-    .related {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-top: 14px;
+    .faq-section {
+      padding: 0 0 34px;
     }
 
-    .related a {
-      display: block;
-      padding: 16px;
-      border-radius: 18px;
-      text-decoration: none;
-      background: #f8fbff;
-      border: 1px solid #dbe7f5;
-      color: #214260;
-      font-weight: 900;
-      line-height: 1.5;
+    .faq-card {
+      padding: 24px;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, .94);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-lg);
     }
 
-    .notice {
-      color: #6b7f92;
+    .faq-card h2 {
+      margin: 0 0 14px;
+      font-size: 24px;
+      letter-spacing: -.05em;
+    }
+
+    details {
+      border-top: 1px solid var(--line);
+    }
+
+    details:last-child {
+      border-bottom: 1px solid var(--line);
+    }
+
+    summary {
+      padding: 15px 2px;
+      list-style: none;
+      cursor: pointer;
+      color: #2c3e59;
       font-size: 13px;
-      line-height: 1.75;
+      font-weight: 950;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details p {
+      margin: -3px 0 15px;
+      color: #607086;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .related-section {
+      padding: 0 0 42px;
+    }
+
+    .related-shell {
+      padding: 24px;
+      border-radius: 28px;
+      color: #fff;
+      background:
+        radial-gradient(circle at 90% 10%, rgba(163, 230, 53, .16), transparent 24%),
+        linear-gradient(135deg, var(--navy-950), var(--navy-800));
+      box-shadow: var(--shadow-xl);
+    }
+
+    .related-shell h2 {
+      margin: 0;
+      font-size: 25px;
+      letter-spacing: -.05em;
+    }
+
+    .related-shell p {
+      margin: 7px 0 0;
+      color: rgba(255, 255, 255, .67);
+      font-size: 12px;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .related-link {
+      min-height: 102px;
+      padding: 15px;
+      border-radius: 17px;
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .1);
+      transition: .16s ease;
+    }
+
+    .related-link:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, .11);
+    }
+
+    .related-link span {
+      display: block;
+      color: var(--lime-400);
+      font-size: 9px;
+      font-weight: 950;
+    }
+
+    .related-link strong {
+      display: block;
+      margin-top: 5px;
+      color: #fff;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .related-link small {
+      display: block;
+      margin-top: 5px;
+      color: rgba(255, 255, 255, .58);
+      font-size: 9px;
+      line-height: 1.45;
     }
 
     footer {
-      padding: 42px 0 58px;
-      text-align: center;
+      padding: 30px 0 48px;
       color: var(--muted);
-      font-size: 13px;
+      text-align: center;
+      font-size: 11px;
       line-height: 1.7;
     }
 
     .footer-links {
-      margin-top: 12px;
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 11px;
+      margin-top: 10px;
     }
 
     .footer-links a {
-      color: var(--blue2);
-      text-decoration: none;
-      font-weight: 900;
+      color: var(--blue-700);
+      font-weight: 950;
     }
 
-    @media (max-width: 940px) {
-      .hero,
-      .grid-main {
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      z-index: 300;
+      min-width: 220px;
+      max-width: calc(100% - 30px);
+      padding: 12px 16px;
+      border-radius: 14px;
+      color: #fff;
+      background: var(--navy-950);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, .22);
+      text-align: center;
+      font-size: 11px;
+      font-weight: 900;
+      opacity: 0;
+      transform: translate(-50%, 16px);
+      pointer-events: none;
+      transition: .22s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .quick-grid,
+      .target-grid,
+      .multi-grid,
+      .support-grid {
         grid-template-columns: 1fr;
       }
 
-      .calculator {
-        position: static;
+      .hero-visual {
+        min-height: 330px;
       }
 
-      .hero-visual {
-        min-height: 380px;
+      .input-side {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .related-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
-    @media (max-width: 640px) {
-      .wrap {
-        width: min(100% - 22px, 1140px);
-      }
-
-      header {
-        flex-direction: column;
+    @media (max-width: 760px) {
+      .nav {
         align-items: flex-start;
+        flex-direction: column;
+        padding: 12px 0;
       }
 
-      .top-links {
-        justify-content: flex-start;
+      .nav-links {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 2px;
       }
 
       .hero {
-        padding-top: 20px;
+        padding-top: 24px;
+      }
+
+      .hero-shell {
+        min-height: 0;
+        padding: 32px 24px;
+        border-radius: 30px;
+      }
+
+      h1 {
+        white-space: normal;
+        font-size: clamp(43px, 12vw, 60px);
+      }
+
+      .tool-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .tabs {
+        grid-template-columns: 1fr;
+      }
+
+      .input-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .field.full {
+        grid-column: auto;
+      }
+
+      .action-row,
+      .share-row {
+        grid-template-columns: 1fr;
+      }
+
+      .buy-row {
+        grid-template-columns: 44px 1fr 1fr;
+      }
+
+      .buy-row .fee-field {
+        grid-column: 2 / 3;
+      }
+
+      .remove-row {
+        grid-column: 3 / 4;
+        width: 100%;
+      }
+
+      .scenario-row {
+        grid-template-columns: 42px 1fr 1fr;
+      }
+
+      .scenario-output {
+        grid-column: 1 / -1;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .wrap {
+        width: min(var(--max), calc(100% - 22px));
       }
 
       .hero-actions {
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: 1fr;
       }
 
       .btn {
@@ -830,574 +1619,1556 @@
       }
 
       .hero-visual {
-        min-height: 350px;
-        border-radius: 28px;
+        min-height: 315px;
       }
 
-      .stock-card {
-        left: 18px;
-        top: 24px;
-        width: 160px;
-        padding: 14px;
+      .board-top {
+        grid-template-columns: 1fr 1fr;
       }
 
-      .stock-card strong {
-        font-size: 22px;
+      .board-stat strong {
+        font-size: 17px;
       }
 
-      .average-card {
-        right: 18px;
-        top: 50px;
-        width: 150px;
-        padding: 14px;
+      .mascot-shell {
+        left: 12px;
+        width: 130px;
       }
 
-      .average-card strong {
-        font-size: 22px;
+      .mascot-note {
+        right: 12px;
+        width: 145px;
       }
 
-      .cat {
-        width: 126px;
-        height: 126px;
-        left: 20px;
-        bottom: 24px;
-      }
-
-      .cat-face {
-        transform: scale(.76);
-      }
-
-      .memo {
-        width: 160px;
-        right: 18px;
-        bottom: 28px;
+      .input-side,
+      .result-side {
+        padding: 18px;
       }
 
       .result-cards,
-      .related {
+      .scenario-base {
         grid-template-columns: 1fr;
       }
 
-      .content-card,
-      .calculator {
-        padding: 20px;
-        border-radius: 24px;
+      .related-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <header>
-      <a class="brand" href="https://barohaegyeol-tools.pages.dev/" aria-label="바로해결툴즈 메인으로 이동">
-        <div class="logo">✓</div>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="https://barohaegyeol-tools.pages.dev/" aria-label="바로해결툴즈 메인">
+        <div class="brand-mark">B</div>
         <div>
-          <strong>바로해결랩</strong>
-          <span>금융 계산기 · 생활비 절약 · 바로 확인</span>
+          바로해결랩
+          <small>금융 계산 · 생활 절약 · 바로 확인</small>
         </div>
       </a>
 
-      <div class="top-links">
-        <a href="#calculator">계산하기</a>
-        <a href="#guide">물타기 주의</a>
-        <a href="https://barohaegyeol-tools.pages.dev/aircon-bill/">에어컨 전기요금</a>
-        <a href="https://barohaegyeol-tools.pages.dev/tarot/">AI 타로</a>
+      <nav class="nav-links" aria-label="상단 메뉴">
+        <a href="#calculator">평단 계산</a>
+        <a href="#scenarios">3안 비교</a>
+        <a href="#history">최근 기록</a>
+        <a href="https://barohaegyeol-tools.pages.dev/">전체 도구</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero-shell">
+          <div class="hero-grid">
+            <div class="hero-copy">
+              <div class="eyebrow">추가매수 전 숫자부터 정확하게</div>
+              <h1>주식 평단가 계산기</h1>
+              <p class="hero-lead">
+                기존 보유분과 추가매수 계획을 입력하면 새 평단가, 총 투자금,
+                평단 인하율, 현재 손익, 본전까지 필요한 상승률을 실시간으로 계산합니다.
+              </p>
+
+              <div class="hero-pills">
+                <span class="hero-pill">실시간 자동 계산</span>
+                <span class="hero-pill">목표 평단 역산</span>
+                <span class="hero-pill">분할매수 합산</span>
+                <span class="hero-pill">기록 저장·공유</span>
+              </div>
+
+              <div class="hero-actions">
+                <a class="btn btn-primary" href="#calculator">바로 계산하기</a>
+                <a class="btn btn-secondary" href="#related">주식 도구 모음</a>
+              </div>
+            </div>
+
+            <div class="hero-visual" aria-label="평단 계산 결과 예시">
+              <div class="market-board">
+                <div class="board-top">
+                  <div class="board-stat">
+                    <span>기존 평균단가</span>
+                    <strong id="heroOldAvg">10,000원</strong>
+                  </div>
+
+                  <div class="board-stat highlight">
+                    <span>새 평균단가</span>
+                    <strong id="heroNewAvg">9,000원</strong>
+                  </div>
+                </div>
+
+                <div class="mini-chart">
+                  <svg viewBox="0 0 420 120" preserveAspectRatio="none" aria-hidden="true">
+                    <path d="M0 93 C48 76, 73 85, 105 67 C149 41, 181 54, 220 42 C268 27, 309 45, 356 31 C382 23, 398 20, 420 18" fill="none" stroke="rgba(37,99,235,.18)" stroke-width="11" stroke-linecap="round" />
+                    <path class="chart-path" d="M0 93 C48 76, 73 85, 105 67 C149 41, 181 54, 220 42 C268 27, 309 45, 356 31 C382 23, 398 20, 420 18" fill="none" stroke="#2563eb" stroke-width="4" stroke-linecap="round" />
+                  </svg>
+                </div>
+
+                <div class="mascot-shell mood-good" id="mascotShell">
+                  <svg class="mascot" viewBox="0 0 130 96" role="img" aria-label="움직이는 평단냥 캐릭터">
+                    <g class="tail">
+                      <path d="M91 66 C119 62, 120 84, 101 86" fill="none" stroke="#37506f" stroke-width="10" stroke-linecap="round" />
+                      <path d="M91 66 C119 62, 120 84, 101 86" fill="none" stroke="#d9edff" stroke-width="6" stroke-linecap="round" />
+                    </g>
+                    <ellipse cx="65" cy="74" rx="37" ry="15" fill="#dbeafe" opacity=".8" />
+                    <path d="M39 36 L43 15 L58 30" fill="#d9edff" stroke="#37506f" stroke-width="3" stroke-linejoin="round" />
+                    <path d="M91 36 L87 15 L72 30" fill="#d9edff" stroke="#37506f" stroke-width="3" stroke-linejoin="round" />
+                    <rect x="35" y="26" width="60" height="53" rx="25" fill="#f6fbff" stroke="#37506f" stroke-width="3" />
+                    <g class="eye-group">
+                      <ellipse cx="54" cy="49" rx="4.5" ry="6" fill="#16253a" />
+                      <ellipse cx="76" cy="49" rx="4.5" ry="6" fill="#16253a" />
+                    </g>
+                    <circle cx="65" cy="59" r="3" fill="#f27f82" />
+                    <path class="mouth-neutral" d="M59 66 Q65 69 71 66" fill="none" stroke="#37506f" stroke-width="2.5" stroke-linecap="round" />
+                    <path class="mouth-good" d="M58 65 Q65 73 72 65" fill="none" stroke="#37506f" stroke-width="2.5" stroke-linecap="round" />
+                    <path class="mouth-bad" d="M59 70 Q65 63 71 70" fill="none" stroke="#37506f" stroke-width="2.5" stroke-linecap="round" />
+                    <g class="coin">
+                      <circle cx="103" cy="26" r="11" fill="#fbbf24" stroke="#a96800" stroke-width="2" />
+                      <text x="103" y="30" text-anchor="middle" font-size="10" font-weight="900" fill="#7a4c00">₩</text>
+                    </g>
+                  </svg>
+                </div>
+
+                <div class="mascot-note">
+                  <b id="mascotTitle">평단냥 계산 완료</b>
+                  <span id="mascotText">평단은 내려갔지만 추가 투자금 비중도 같이 확인하세요.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </header>
+    </section>
 
-    <main>
-      <section class="hero">
-        <div>
-          <div class="badge">💹 물타기 전 필수 확인</div>
-          <h1>
-            추가매수 전에<br />
-            <span class="gradient-text">새 평단부터 계산하세요</span>
-          </h1>
-          <p class="lead">
-            물타기를 하면 평단이 낮아질 수 있지만, 총 투자금과 손실 규모도 함께 커집니다.
-            기존 보유 수량, 기존 평단, 추가 매수 수량, 추가 매수가를 넣고 새 평균단가와 손익률을 먼저 확인하세요.
-          </p>
-
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#calculator">평단가 바로 계산하기</a>
-            <a class="btn btn-ghost" href="#guide">물타기 전 체크포인트</a>
+    <section class="tool-section" id="calculator">
+      <div class="wrap">
+        <div class="tool-shell">
+          <div class="tool-head">
+            <div>
+              <h2>평단 계산 작업실</h2>
+              <p>기본 계산은 네 칸만 입력하면 됩니다. 필요한 경우 고급 설정을 펼치세요.</p>
+            </div>
+            <div class="local-pill">브라우저에서 즉시 계산</div>
           </div>
-        </div>
 
-        <div class="hero-visual" aria-hidden="true">
-          <div class="chart-panel">
-            <div class="stock-card">
-              <span>기존 평균단가</span>
-              <strong id="visualOld">?</strong>
-            </div>
-
-            <div class="average-card">
-              <span>새 평균단가</span>
-              <strong id="visualNew">?</strong>
-            </div>
-
-            <div class="chart-line">
-              <svg viewBox="0 0 420 130" preserveAspectRatio="none">
-                <path d="M5 105 C70 70, 90 80, 135 56 C185 28, 210 48, 248 37 C300 22, 340 48, 416 18"
-                  fill="none" stroke="rgba(37,99,235,.35)" stroke-width="8" stroke-linecap="round"/>
-                <path d="M5 105 C70 70, 90 80, 135 56 C185 28, 210 48, 248 37 C300 22, 340 48, 416 18"
-                  fill="none" stroke="#1238ff" stroke-width="3" stroke-linecap="round"/>
-              </svg>
-            </div>
-
-            <div class="cat">
-              <div class="cat-face">
-                <span class="eye left"></span>
-                <span class="eye right"></span>
-                <span class="nose"></span>
-              </div>
-            </div>
-
-            <div class="memo">
-              <b>평단만 보지 말기</b>
-              <small>추가매수는 총 비중과 리스크까지 같이 봐야 합니다.</small>
-            </div>
+          <div class="tabs" role="tablist">
+            <button class="tab-btn active" type="button" data-tab="quick">빠른 평단 계산</button>
+            <button class="tab-btn" type="button" data-tab="target">목표 평단 역산</button>
+            <button class="tab-btn" type="button" data-tab="multi">분할매수 합산</button>
           </div>
-        </div>
-      </section>
 
-      <section class="section" id="calculator">
-        <div class="grid-main">
-          <section class="panel calculator">
-            <h2 class="panel-title">주식 평단가 계산기</h2>
-            <p class="panel-sub">
-              기존 보유분과 추가매수분을 합산해 새 평균단가, 총 투자금, 평단 인하폭, 현재가 기준 손익률을 계산합니다.
-            </p>
+          <section class="tab-panel active" data-panel="quick">
+            <div class="quick-grid">
+              <div class="input-side">
+                <h3 class="section-title">보유분과 추가매수 입력</h3>
+                <p class="section-sub">입력값이 바뀌면 결과가 자동으로 갱신됩니다.</p>
 
-            <div class="form">
-              <div class="field">
-                <label for="oldQty">기존 보유 수량</label>
-                <input id="oldQty" type="number" inputmode="decimal" value="10" min="0" step="1" />
-                <div class="hint">현재 보유 중인 주식 수량을 입력하세요.</div>
-              </div>
+                <div class="input-grid">
+                  <div class="field">
+                    <div class="field-head">
+                      <label for="oldQty">기존 보유 수량</label>
+                      <small>현재 보유 주식</small>
+                    </div>
+                    <div class="input-unit">
+                      <input id="oldQty" type="number" inputmode="decimal" min="0" step="any" value="10" />
+                      <span>주</span>
+                    </div>
+                  </div>
 
-              <div class="field">
-                <label for="oldPrice">기존 평균단가</label>
-                <input id="oldPrice" type="number" inputmode="decimal" value="10000" min="0" step="1" />
-                <div class="hint">증권앱에 표시된 현재 평균단가를 입력하세요.</div>
-              </div>
+                  <div class="field">
+                    <div class="field-head">
+                      <label for="oldPrice">기존 평균단가</label>
+                      <small>증권앱 표시값</small>
+                    </div>
+                    <div class="input-unit">
+                      <input id="oldPrice" type="number" inputmode="decimal" min="0" step="any" value="10000" />
+                      <span>원</span>
+                    </div>
+                  </div>
 
-              <div class="field">
-                <label for="newQty">추가 매수 수량</label>
-                <input id="newQty" type="number" inputmode="decimal" value="10" min="0" step="1" />
-                <div class="hint">새로 매수하려는 수량을 입력하세요.</div>
-              </div>
+                  <div class="field">
+                    <div class="field-head">
+                      <label for="newQty">추가 매수 수량</label>
+                      <small>새로 살 수량</small>
+                    </div>
+                    <div class="input-unit">
+                      <input id="newQty" type="number" inputmode="decimal" min="0" step="any" value="10" />
+                      <span>주</span>
+                    </div>
+                  </div>
 
-              <div class="field">
-                <label for="newPrice">추가 매수가</label>
-                <input id="newPrice" type="number" inputmode="decimal" value="8000" min="0" step="1" />
-                <div class="hint">추가로 매수할 예상 가격을 입력하세요.</div>
-              </div>
-
-              <div class="field">
-                <label for="currentPrice">현재가 또는 목표 매도가</label>
-                <input id="currentPrice" type="number" inputmode="decimal" value="9000" min="0" step="1" />
-                <div class="hint">선택 입력값입니다. 입력하면 현재가 기준 손익률을 같이 계산합니다.</div>
-              </div>
-
-              <div class="preset-row">
-                <button class="preset" type="button" data-oldqty="10" data-oldprice="10000" data-newqty="10" data-newprice="8000" data-current="9000">예시: 1만원→8천원</button>
-                <button class="preset" type="button" data-oldqty="20" data-oldprice="50000" data-newqty="10" data-newprice="45000" data-current="47000">예시: 대형주 추매</button>
-                <button class="preset" type="button" data-oldqty="100" data-oldprice="2500" data-newqty="100" data-newprice="2000" data-current="2200">예시: 저가주 추매</button>
-              </div>
-
-              <button class="calc-btn" type="button" id="calcBtn">평단가 계산하기</button>
-            </div>
-
-            <div class="result show" id="result">
-              <div class="result-head">
-                <h3>계산 결과</h3>
-                <span class="status" id="statusText">예상 계산</span>
-              </div>
-
-              <div class="result-cards">
-                <div class="r-card">
-                  <span>총 보유 수량</span>
-                  <strong id="totalQty">-</strong>
+                  <div class="field">
+                    <div class="field-head">
+                      <label for="newPrice">추가 매수가</label>
+                      <small>예상 체결가</small>
+                    </div>
+                    <div class="input-unit">
+                      <input id="newPrice" type="number" inputmode="decimal" min="0" step="any" value="8000" />
+                      <span>원</span>
+                    </div>
+                  </div>
                 </div>
-                <div class="r-card">
-                  <span>총 매입금액</span>
-                  <strong id="totalAmount">-</strong>
+
+                <div class="preset-row">
+                  <button class="preset-btn" type="button" data-preset="10000,10,8000,10,9000">1만원 → 8천원</button>
+                  <button class="preset-btn" type="button" data-preset="50000,20,45000,10,47000">대형주 추가매수</button>
+                  <button class="preset-btn" type="button" data-preset="2500,100,2000,100,2200">저가주 추가매수</button>
                 </div>
-                <div class="r-card highlight">
+
+                <div class="advanced-box" id="advancedBox">
+                  <button class="advanced-toggle" id="advancedToggle" type="button">
+                    <span>현재가·목표가·손절가·수수료 설정</span>
+                    <span>⌄</span>
+                  </button>
+
+                  <div class="advanced-content">
+                    <div class="input-grid">
+                      <div class="field">
+                        <div class="field-head">
+                          <label for="currentPrice">현재가</label>
+                          <small>현재 손익 계산</small>
+                        </div>
+                        <div class="input-unit">
+                          <input id="currentPrice" type="number" inputmode="decimal" min="0" step="any" value="9000" />
+                          <span>원</span>
+                        </div>
+                      </div>
+
+                      <div class="field">
+                        <div class="field-head">
+                          <label for="targetSellPrice">목표 매도가</label>
+                          <small>예상 수익 계산</small>
+                        </div>
+                        <div class="input-unit">
+                          <input id="targetSellPrice" type="number" inputmode="decimal" min="0" step="any" value="10500" />
+                          <span>원</span>
+                        </div>
+                      </div>
+
+                      <div class="field">
+                        <div class="field-head">
+                          <label for="stopLossPrice">손절가</label>
+                          <small>최대 손실 확인</small>
+                        </div>
+                        <div class="input-unit">
+                          <input id="stopLossPrice" type="number" inputmode="decimal" min="0" step="any" value="7500" />
+                          <span>원</span>
+                        </div>
+                      </div>
+
+                      <div class="field">
+                        <div class="field-head">
+                          <label for="stockName">종목 메모</label>
+                          <small>기록 저장용</small>
+                        </div>
+                        <input id="stockName" type="text" maxlength="30" placeholder="예: 삼성전자" />
+                      </div>
+                    </div>
+
+                    <div class="field full" style="margin-top:13px;">
+                      <div class="toggle-row">
+                        <div>
+                          <b>거래비용 반영</b>
+                          <small>증권사·시장별 차이가 있어 직접 입력합니다.</small>
+                        </div>
+                        <label class="switch" aria-label="거래비용 반영">
+                          <input id="feeToggle" type="checkbox" />
+                          <span></span>
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="input-grid" id="feeFields" style="display:none;">
+                      <div class="field">
+                        <div class="field-head">
+                          <label for="buyFee">추가 매수 수수료</label>
+                          <small>퍼센트 직접 입력</small>
+                        </div>
+                        <div class="input-unit">
+                          <input id="buyFee" type="number" inputmode="decimal" min="0" step="0.001" value="0.015" />
+                          <span>%</span>
+                        </div>
+                      </div>
+
+                      <div class="field">
+                        <div class="field-head">
+                          <label for="sellFee">매도 비용</label>
+                          <small>세금·수수료 포함값</small>
+                        </div>
+                        <div class="input-unit">
+                          <input id="sellFee" type="number" inputmode="decimal" min="0" step="0.001" value="0.2" />
+                          <span>%</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="action-row">
+                  <button class="action-btn primary" id="saveHistoryBtn" type="button">계산 기록 저장</button>
+                  <button class="action-btn" id="copyResultBtn" type="button">결과 복사</button>
+                  <button class="action-btn" id="resetQuickBtn" type="button">초기화</button>
+                </div>
+              </div>
+
+              <aside class="result-side">
+                <div class="result-head">
+                  <div>
+                    <h3>실시간 계산 결과</h3>
+                    <p class="section-sub">추가매수 후 기준으로 계산합니다.</p>
+                  </div>
+                  <span class="status-pill" id="quickStatus">평단 인하</span>
+                </div>
+
+                <div class="result-hero">
                   <span>새 평균단가</span>
-                  <strong id="avgPrice">-</strong>
+                  <strong id="avgPrice">9,000원</strong>
+                  <small id="avgSummary">기존 평단보다 1,000원 낮아집니다.</small>
                 </div>
-                <div class="r-card">
-                  <span>평단 인하폭</span>
-                  <strong id="downAmount">-</strong>
-                </div>
-                <div class="r-card">
-                  <span>평단 인하율</span>
-                  <strong id="downRate">-</strong>
-                </div>
-                <div class="r-card" id="profitCard">
-                  <span>현재가 기준 손익률</span>
-                  <strong id="profitRate">-</strong>
-                </div>
-              </div>
 
-              <div class="analysis-box" id="analysisText">
-                계산 결과 해석이 표시됩니다.
-              </div>
+                <div class="result-cards">
+                  <div class="metric-card">
+                    <span>총 보유 수량</span>
+                    <strong id="totalQty">20주</strong>
+                  </div>
+                  <div class="metric-card">
+                    <span>총 투자금</span>
+                    <strong id="totalCost">180,000원</strong>
+                  </div>
+                  <div class="metric-card positive" id="avgChangeCard">
+                    <span>평단 변화</span>
+                    <strong id="avgChange">-1,000원</strong>
+                  </div>
+                  <div class="metric-card positive" id="avgRateCard">
+                    <span>평단 변화율</span>
+                    <strong id="avgChangeRate">-10.00%</strong>
+                  </div>
+                  <div class="metric-card">
+                    <span>추가 투자금</span>
+                    <strong id="additionalCash">80,000원</strong>
+                  </div>
+                  <div class="metric-card">
+                    <span>추가 자금 비중</span>
+                    <strong id="additionalRatio">44.44%</strong>
+                  </div>
+                  <div class="metric-card" id="profitCard">
+                    <span>현재가 기준 손익</span>
+                    <strong id="currentProfit">0원 · 0.00%</strong>
+                  </div>
+                  <div class="metric-card">
+                    <span>본전까지 필요 상승률</span>
+                    <strong id="breakEvenRise">0.00%</strong>
+                  </div>
+                  <div class="metric-card" id="targetProfitCard">
+                    <span>목표가 예상 손익</span>
+                    <strong id="targetProfit">30,000원 · 16.67%</strong>
+                  </div>
+                  <div class="metric-card negative" id="stopLossCard">
+                    <span>손절가 예상 손익</span>
+                    <strong id="stopLossResult">-30,000원 · -16.67%</strong>
+                  </div>
+                </div>
 
-              <div class="risk-box" id="riskText">
-                물타기는 평균단가를 낮출 수 있지만, 총 투자금과 손실 위험도 함께 커질 수 있습니다.
-              </div>
+                <div class="analysis-card" id="analysisText">
+                  추가매수 후 평단가는 9,000원입니다. 현재가가 9,000원이면 계산상 손익분기점 부근입니다.
+                </div>
+
+                <div class="risk-card" id="riskText">
+                  이번 추가매수 금액은 기존 투자금의 80.00%입니다. 평단 인하 효과와 함께 종목 비중 증가도 확인하세요.
+                </div>
+
+                <div class="share-row">
+                  <button class="share-btn" id="shareLinkBtn" type="button">공유 링크 복사</button>
+                  <button class="share-btn" id="copyShortBtn" type="button">짧은 결과 복사</button>
+                  <button class="share-btn" id="scrollScenarioBtn" type="button">3안 비교하기</button>
+                </div>
+              </aside>
             </div>
           </section>
 
-          <section class="content">
-            <div class="content-card">
-              <h2>물타기 전에 봐야 할 건 새 평단만이 아닙니다</h2>
-              <p>
-                주가가 내려오면 “조금 더 사서 평단을 낮출까?”라는 생각이 먼저 듭니다.
-                실제로 추가매수를 하면 평균단가는 낮아질 수 있습니다.
-              </p>
-              <p>
-                하지만 평균단가가 낮아지는 대신 총 투자금도 늘어납니다.
-                그래서 추가매수 전에는 새 평단, 총 보유금액, 현재가 기준 손익률을 같이 확인해야 합니다.
-              </p>
+          <section class="tab-panel" data-panel="target">
+            <div class="target-grid">
+              <div class="input-side">
+                <h3 class="section-title">목표 평단까지 필요한 수량 역산</h3>
+                <p class="section-sub">현재 수량과 평단, 추가 매수가, 목표 평단을 입력하세요.</p>
 
-              <div class="cta-band">
-                <div>
-                  <strong>추가매수 전 10초 계산</strong>
-                  <span>기존 평단과 추가 매수가만 넣으면 새 평균단가가 바로 나옵니다.</span>
-                </div>
-                <a class="btn" href="#calculator">계산기로 이동</a>
-              </div>
-            </div>
+                <div class="input-grid">
+                  <div class="field">
+                    <label for="targetOldQty">현재 보유 수량</label>
+                    <div class="input-unit">
+                      <input id="targetOldQty" type="number" min="0" step="any" value="100" />
+                      <span>주</span>
+                    </div>
+                  </div>
 
-            <div class="content-card" id="guide">
-              <h2>물타기 전 체크포인트</h2>
-              <p>
-                평단가 계산기는 숫자를 확인하는 도구입니다.
-                실제 매수 판단은 종목의 재료, 실적, 차트 위치, 시장 흐름, 본인 비중을 함께 봐야 합니다.
-              </p>
+                  <div class="field">
+                    <label for="targetOldAvg">현재 평균단가</label>
+                    <div class="input-unit">
+                      <input id="targetOldAvg" type="number" min="0" step="any" value="80000" />
+                      <span>원</span>
+                    </div>
+                  </div>
 
-              <div class="tip-list">
-                <div class="tip">
-                  <div class="tip-icon">📉</div>
-                  <div>
-                    <strong>하락 이유가 일시적인지 확인</strong>
-                    <span>단순 조정인지, 실적 악화·악재·섹터 약세인지에 따라 추가매수 판단이 달라집니다.</span>
+                  <div class="field">
+                    <label for="targetBuyPrice">추가 매수가</label>
+                    <div class="input-unit">
+                      <input id="targetBuyPrice" type="number" min="0" step="any" value="60000" />
+                      <span>원</span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="desiredAvg">목표 평균단가</label>
+                    <div class="input-unit">
+                      <input id="desiredAvg" type="number" min="0" step="any" value="70000" />
+                      <span>원</span>
+                    </div>
                   </div>
                 </div>
 
-                <div class="tip">
-                  <div class="tip-icon">💰</div>
-                  <div>
-                    <strong>총 투자금이 얼마나 늘어나는지 확인</strong>
-                    <span>평단은 낮아져도 비중이 과도하게 커지면 한 종목 리스크가 커질 수 있습니다.</span>
+                <div class="field full" style="margin-top:15px;">
+                  <div class="toggle-row">
+                    <div>
+                      <b>주식 수량을 정수로 올림</b>
+                      <small>소수점 수량을 살 수 없는 종목에 적합합니다.</small>
+                    </div>
+                    <label class="switch" aria-label="필요 수량 정수 올림">
+                      <input id="roundSharesToggle" type="checkbox" checked />
+                      <span></span>
+                    </label>
                   </div>
                 </div>
 
-                <div class="tip">
-                  <div class="tip-icon">🎯</div>
+                <div class="target-result-box">
+                  <span class="section-sub">필요한 추가 매수 수량</span>
+                  <strong class="big" id="requiredQty">100주</strong>
+
+                  <div class="result-cards">
+                    <div class="metric-card">
+                      <span>필요 추가 투자금</span>
+                      <strong id="requiredCash">6,000,000원</strong>
+                    </div>
+                    <div class="metric-card">
+                      <span>추가 후 총 수량</span>
+                      <strong id="targetTotalQty">200주</strong>
+                    </div>
+                    <div class="metric-card">
+                      <span>계산된 최종 평단</span>
+                      <strong id="targetFinalAvg">70,000원</strong>
+                    </div>
+                    <div class="metric-card">
+                      <span>기존 투자금 대비 추가금</span>
+                      <strong id="targetCashRatio">75.00%</strong>
+                    </div>
+                  </div>
+
+                  <div class="target-message" id="targetMessage">
+                    목표 평단을 맞추려면 60,000원에 약 100주를 추가 매수해야 합니다.
+                  </div>
+                </div>
+              </div>
+
+              <aside class="result-side">
+                <div class="result-head">
                   <div>
-                    <strong>손절가와 반등 목표가를 먼저 정하기</strong>
-                    <span>계획 없는 물타기는 손실을 키울 수 있습니다. 추가매수 전 대응 가격을 먼저 정하세요.</span>
+                    <h3>역산 판단 가이드</h3>
+                    <p class="section-sub">수학적으로 가능한 목표인지 먼저 확인합니다.</p>
+                  </div>
+                  <span class="status-pill" id="targetStatus">계산 가능</span>
+                </div>
+
+                <div class="result-hero">
+                  <span>목표 평균단가</span>
+                  <strong id="targetHeroAvg">70,000원</strong>
+                  <small id="targetHeroText">추가 매수가와 현재 평단 사이에 있어 계산 가능한 목표입니다.</small>
+                </div>
+
+                <div class="analysis-card">
+                  목표 평단 역산은 필요한 수량과 자금 규모를 확인하는 기능입니다. 실제 매수 여부는 종목의 실적, 하락 원인, 보유 비중과 현금 여력을 별도로 판단해야 합니다.
+                </div>
+
+                <div class="risk-card" id="targetRiskText">
+                  목표 평단을 낮게 잡을수록 필요한 추가 자금이 빠르게 커질 수 있습니다.
+                </div>
+
+                <div class="share-row">
+                  <button class="share-btn" id="syncTargetBtn" type="button">빠른 계산 값 불러오기</button>
+                  <button class="share-btn" id="copyTargetBtn" type="button">역산 결과 복사</button>
+                  <button class="share-btn" id="resetTargetBtn" type="button">기본값 복원</button>
+                </div>
+              </aside>
+            </div>
+          </section>
+
+          <section class="tab-panel" data-panel="multi">
+            <div class="multi-grid">
+              <div class="input-side">
+                <h3 class="section-title">분할매수 내역 합산</h3>
+                <p class="section-sub">최대 10차까지 수량과 체결가를 입력해 누적 평단을 계산합니다.</p>
+
+                <div class="multi-table" id="multiRows"></div>
+                <button class="add-row-btn" id="addBuyRowBtn" type="button">+ 매수 내역 추가</button>
+
+                <div class="input-grid">
+                  <div class="field full">
+                    <div class="field-head">
+                      <label for="multiCurrentPrice">현재가</label>
+                      <small>선택 입력</small>
+                    </div>
+                    <div class="input-unit">
+                      <input id="multiCurrentPrice" type="number" min="0" step="any" value="9000" />
+                      <span>원</span>
+                    </div>
                   </div>
                 </div>
 
-                <div class="tip">
-                  <div class="tip-icon">📊</div>
-                  <div>
-                    <strong>현재가 기준 손익률까지 같이 보기</strong>
-                    <span>새 평단만 보고 안심하지 말고, 현재가 기준으로 얼마나 회복해야 하는지도 확인해야 합니다.</span>
-                  </div>
+                <div class="action-row">
+                  <button class="action-btn primary" id="copyMultiBtn" type="button">분할매수 결과 복사</button>
+                  <button class="action-btn" id="loadQuickToMultiBtn" type="button">빠른 계산 불러오기</button>
+                  <button class="action-btn" id="resetMultiBtn" type="button">초기화</button>
                 </div>
               </div>
-            </div>
 
-            <div class="content-card">
-              <h2>계산 공식</h2>
-              <p>
-                새 평균단가는 기존 매입금액과 추가 매입금액을 합산한 뒤, 총 보유 수량으로 나누어 계산합니다.
-              </p>
+              <aside class="result-side">
+                <div class="result-head">
+                  <div>
+                    <h3>누적 매수 결과</h3>
+                    <p class="section-sub">각 차수의 투자금을 합산합니다.</p>
+                  </div>
+                  <span class="status-pill" id="multiStatus">3차 매수</span>
+                </div>
 
-              <div class="formula">
-                <strong>새 평균단가</strong><br />
-                = (기존 보유 수량 × 기존 평균단가 + 추가 매수 수량 × 추가 매수가) ÷ 총 보유 수량<br /><br />
+                <div class="result-hero">
+                  <span>누적 평균단가</span>
+                  <strong id="multiAvg">9,000원</strong>
+                  <small id="multiHeroText">총 30주, 270,000원 매수 기준입니다.</small>
+                </div>
 
-                <strong>총 매입금액</strong><br />
-                = 기존 보유 수량 × 기존 평균단가 + 추가 매수 수량 × 추가 매수가<br /><br />
+                <div class="result-cards">
+                  <div class="metric-card">
+                    <span>총 매수 수량</span>
+                    <strong id="multiQty">30주</strong>
+                  </div>
+                  <div class="metric-card">
+                    <span>총 매입금액</span>
+                    <strong id="multiCost">270,000원</strong>
+                  </div>
+                  <div class="metric-card" id="multiProfitCard">
+                    <span>현재가 평가손익</span>
+                    <strong id="multiProfit">0원 · 0.00%</strong>
+                  </div>
+                  <div class="metric-card">
+                    <span>본전까지 필요 상승률</span>
+                    <strong id="multiBreakEven">0.00%</strong>
+                  </div>
+                </div>
 
-                <strong>현재가 기준 손익률</strong><br />
-                = (현재가 - 새 평균단가) ÷ 새 평균단가 × 100
-              </div>
-            </div>
-
-            <div class="content-card">
-              <h2>자주 묻는 질문</h2>
-
-              <h3>Q. 물타기하면 무조건 좋은가요?</h3>
-              <p>
-                아닙니다. 주가가 계속 하락하면 손실 금액이 더 커질 수 있습니다.
-                추가매수는 평균단가를 낮추는 효과가 있지만, 동시에 총 투자금도 늘리는 결정입니다.
-              </p>
-
-              <h3>Q. 증권앱 평단과 계산기 결과가 다를 수 있나요?</h3>
-              <p>
-                네. 증권앱은 수수료, 세금, 환율, 권리락, 배당 조정 등을 반영할 수 있습니다.
-                이 계산기는 단순 평균단가 확인용입니다.
-              </p>
-
-              <h3>Q. 해외주식도 계산할 수 있나요?</h3>
-              <p>
-                숫자 계산 자체는 가능합니다. 다만 해외주식은 환율과 환전 수수료가 영향을 줄 수 있으므로
-                실제 증권앱 평단과 차이가 날 수 있습니다.
-              </p>
-            </div>
-
-            <div class="content-card">
-              <h2>주의사항</h2>
-              <p class="notice">
-                이 계산기는 단순 평균단가 계산용입니다. 투자 판단, 매수 추천, 매도 추천을 제공하지 않습니다.
-                실제 증권사 평단가는 수수료, 세금, 환율, 권리락, 배당, 체결 방식 등에 따라 달라질 수 있습니다.
-                투자 결정은 본인의 책임이며, 추가매수 전에는 손실 가능성과 비중 관리까지 함께 검토해야 합니다.
-              </p>
-            </div>
-
-            <div class="content-card">
-              <h2>바로해결랩 관련 도구</h2>
-              <p>
-                바로해결랩은 금융 계산기, 생활비 절약 계산기, 운세형 미니툴을 하나씩 쌓아가고 있습니다.
-              </p>
-
-              <div class="related">
-                <a href="https://barohaegyeol-tools.pages.dev/" target="_blank" rel="noopener">바로해결툴즈 메인</a>
-                <a href="https://barohaegyeol-tools.pages.dev/aircon-bill/" target="_blank" rel="noopener">에어컨 전기요금 계산기</a>
-                <a href="https://barohaegyeol-tools.pages.dev/tarot/" target="_blank" rel="noopener">오늘의 AI 타로 운세</a>
-              </div>
+                <div class="multi-summary-box">
+                  <span class="section-sub">가장 큰 매수 비중</span>
+                  <strong class="big" id="largestBuyShare">33.33%</strong>
+                  <div class="target-message" id="multiMessage">각 매수 내역의 비중이 비슷합니다.</div>
+                </div>
+              </aside>
             </div>
           </section>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
 
-    <footer>
-      <strong>바로해결랩 · 주식 평단가 계산기</strong><br />
-      계산 결과는 참고용이며 투자 판단을 보장하지 않습니다. 실제 증권사 평단과 차이가 날 수 있습니다.
+    <section class="support-section" id="scenarios">
+      <div class="wrap support-grid">
+        <article class="support-card">
+          <h2>추가매수 3안 비교</h2>
+          <p>현재 보유분을 기준으로 세 가지 수량·가격 조합의 새 평단과 필요 자금을 비교합니다.</p>
+
+          <div class="scenario-base">
+            <div>
+              <span>기준 보유 수량</span>
+              <strong id="scenarioBaseQty">10주</strong>
+            </div>
+            <div>
+              <span>기준 평균단가</span>
+              <strong id="scenarioBaseAvg">10,000원</strong>
+            </div>
+          </div>
+
+          <div class="scenario-list">
+            <div class="scenario-row" data-scenario="A">
+              <div class="scenario-label">A</div>
+              <div class="field">
+                <label for="scenarioAQty">추가 수량</label>
+                <input id="scenarioAQty" type="number" min="0" step="any" value="10" />
+              </div>
+              <div class="field">
+                <label for="scenarioAPrice">매수가</label>
+                <input id="scenarioAPrice" type="number" min="0" step="any" value="8500" />
+              </div>
+              <div class="scenario-output" id="scenarioAResult"></div>
+            </div>
+
+            <div class="scenario-row" data-scenario="B">
+              <div class="scenario-label">B</div>
+              <div class="field">
+                <label for="scenarioBQty">추가 수량</label>
+                <input id="scenarioBQty" type="number" min="0" step="any" value="20" />
+              </div>
+              <div class="field">
+                <label for="scenarioBPrice">매수가</label>
+                <input id="scenarioBPrice" type="number" min="0" step="any" value="8000" />
+              </div>
+              <div class="scenario-output" id="scenarioBResult"></div>
+            </div>
+
+            <div class="scenario-row" data-scenario="C">
+              <div class="scenario-label">C</div>
+              <div class="field">
+                <label for="scenarioCQty">추가 수량</label>
+                <input id="scenarioCQty" type="number" min="0" step="any" value="30" />
+              </div>
+              <div class="field">
+                <label for="scenarioCPrice">매수가</label>
+                <input id="scenarioCPrice" type="number" min="0" step="any" value="7500" />
+              </div>
+              <div class="scenario-output" id="scenarioCResult"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="support-card" id="history">
+          <h2>최근 계산 기록</h2>
+          <p>회원가입 없이 이 브라우저에 최근 계산 5개를 저장합니다.</p>
+          <div class="history-list" id="historyList"></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="wrap info-grid">
+        <article class="info-card">
+          <h2>평단가 계산 공식</h2>
+          <p>기존 매입금액과 추가 매입금액을 합친 뒤 총 보유 수량으로 나눕니다.</p>
+          <div class="formula-box">
+            새 평단가 = (기존 수량 × 기존 평단가 + 추가 수량 × 추가 매수가) ÷ 총 수량
+          </div>
+        </article>
+
+        <article class="info-card">
+          <h3>평단이 내려가도 위험은 늘 수 있습니다</h3>
+          <p>평단 인하 효과만 보면 추가매수가 좋아 보일 수 있지만, 한 종목에 들어간 총 자금과 예상 손실액도 함께 커집니다.</p>
+          <div class="formula-box">
+            추가 자금 비중 = 추가 투자금 ÷ 기존 투자금 × 100
+          </div>
+        </article>
+
+        <article class="info-card">
+          <h3>현재가·목표가·손절가를 같이 보세요</h3>
+          <p>새 평단만 확인하지 말고 본전까지 필요한 상승률, 목표가 예상 수익, 손절가 예상 손실을 한 화면에서 비교하는 편이 실전 판단에 유리합니다.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="faq-section">
+      <div class="wrap">
+        <div class="faq-card">
+          <h2>자주 묻는 질문</h2>
+
+          <details>
+            <summary>평단가 계산 결과가 증권앱과 조금 다른 이유는 무엇인가요?</summary>
+            <p>증권사별 수수료 반영 방식, 소수점 처리, 환율, 세금과 체결 단가 차이 때문에 결과가 조금 달라질 수 있습니다. 이 계산기는 입력한 값에 따른 예상 계산용입니다.</p>
+          </details>
+
+          <details>
+            <summary>추가매수를 하면 무조건 평단이 낮아지나요?</summary>
+            <p>추가 매수가가 기존 평단보다 낮으면 평균단가는 내려갑니다. 반대로 기존 평단보다 높은 가격에 추가 매수하면 평균단가는 올라갑니다.</p>
+          </details>
+
+          <details>
+            <summary>목표 평단을 아무 값으로 설정해도 계산되나요?</summary>
+            <p>목표 평단은 현재 평단과 추가 매수가 사이에 있어야 일반적으로 양수의 필요 수량이 계산됩니다. 범위를 벗어나면 수학적으로 달성할 수 없는 목표가 될 수 있습니다.</p>
+          </details>
+
+          <details>
+            <summary>해외주식에도 사용할 수 있나요?</summary>
+            <p>수량과 가격 단위만 같게 입력하면 계산 자체는 가능합니다. 다만 실제 손익에는 환율, 환전 수수료, 시장별 세금과 증권사 비용이 추가로 영향을 줄 수 있습니다.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="related-section" id="related">
+      <div class="wrap">
+        <div class="related-shell">
+          <h2>계산 결과와 같이 보면 좋은 주식 도구</h2>
+          <p>평단 계산 후 손익·목표가·수수료·포지션 비중을 이어서 확인하세요.</p>
+
+          <div class="related-grid">
+            <a class="related-link" href="https://barohaegyeol-tools.pages.dev/stock-profit/">
+              <span>손익 확인</span>
+              <strong>주식 수익률 계산기</strong>
+              <small>매수가·매도가 기준 수익금과 수익률 계산</small>
+            </a>
+
+            <a class="related-link" href="https://barohaegyeol-tools.pages.dev/stock-target-average/">
+              <span>목표 평단</span>
+              <strong>목표 평단 계산기</strong>
+              <small>원하는 평단까지 필요한 수량과 자금 역산</small>
+            </a>
+
+            <a class="related-link" href="https://barohaegyeol-tools.pages.dev/stock-stop-loss/">
+              <span>리스크 관리</span>
+              <strong>주식 손절 계산기</strong>
+              <small>손절가 기준 예상 손실액과 손실률 확인</small>
+            </a>
+
+            <a class="related-link" href="https://barohaegyeol-tools.pages.dev/stock-fee/">
+              <span>거래비용</span>
+              <strong>주식 수수료 계산기</strong>
+              <small>매매 수수료와 비용 반영 후 실수익 계산</small>
+            </a>
+
+            <a class="related-link" href="https://barohaegyeol-tools.pages.dev/stock-buy-quantity/">
+              <span>수량 계산</span>
+              <strong>매수 가능 수량 계산기</strong>
+              <small>보유 현금으로 살 수 있는 수량 확인</small>
+            </a>
+
+            <a class="related-link" href="https://barohaegyeol-tools.pages.dev/stock-portfolio-balance/">
+              <span>포트폴리오</span>
+              <strong>투자 비중 계산기</strong>
+              <small>종목별 투자금과 포트폴리오 비중 확인</small>
+            </a>
+
+            <a class="related-link" href="https://barohaegyeol-tools.pages.dev/stock-split-buy/">
+              <span>분할매수</span>
+              <strong>분할매수 계산기</strong>
+              <small>구간별 수량과 자금 배분 계획</small>
+            </a>
+
+            <a class="related-link" href="https://barohaegyeol-tools.pages.dev/">
+              <span>전체 서비스</span>
+              <strong>바로해결툴즈 메인</strong>
+              <small>금융·생활·이미지·문서 도구 모음</small>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      바로해결랩 · 주식 평단가 계산기<br />
+      계산 결과는 입력값에 따른 참고용이며 실제 투자 판단과 거래 결과를 보장하지 않습니다.
       <div class="footer-links">
         <a href="https://barohaegyeol-tools.pages.dev/">바로해결툴즈</a>
-        <a href="https://barohaegyeollab.blogspot.com" target="_blank" rel="noopener">Blogger</a>
-        <a href="https://blog.naver.com/barohaegyeollab" target="_blank" rel="noopener">Naver Blog</a>
+        <a href="https://barolab.kr/" rel="noopener">Blogger</a>
+        <a href="https://blog.naver.com/barolab" rel="noopener">Naver Blog</a>
       </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
-    const oldQtyEl = document.getElementById("oldQty");
-    const oldPriceEl = document.getElementById("oldPrice");
-    const newQtyEl = document.getElementById("newQty");
-    const newPriceEl = document.getElementById("newPrice");
-    const currentPriceEl = document.getElementById("currentPrice");
-    const calcBtn = document.getElementById("calcBtn");
+    "use strict";
 
-    const result = document.getElementById("result");
-    const totalQtyEl = document.getElementById("totalQty");
-    const totalAmountEl = document.getElementById("totalAmount");
-    const avgPriceEl = document.getElementById("avgPrice");
-    const downAmountEl = document.getElementById("downAmount");
-    const downRateEl = document.getElementById("downRate");
-    const profitRateEl = document.getElementById("profitRate");
-    const profitCard = document.getElementById("profitCard");
-    const statusText = document.getElementById("statusText");
-    const analysisText = document.getElementById("analysisText");
-    const riskText = document.getElementById("riskText");
-    const visualOld = document.getElementById("visualOld");
-    const visualNew = document.getElementById("visualNew");
+    const STORAGE_KEY = "barohaegyeol_stock_average_history_v2";
+    const MAX_HISTORY = 5;
+    const MAX_MULTI_ROWS = 10;
 
-    document.querySelectorAll(".preset").forEach(button => {
-      button.addEventListener("click", () => {
-        oldQtyEl.value = button.dataset.oldqty;
-        oldPriceEl.value = button.dataset.oldprice;
-        newQtyEl.value = button.dataset.newqty;
-        newPriceEl.value = button.dataset.newprice;
-        currentPriceEl.value = button.dataset.current;
-        calculate();
+    const state = {
+      quickResult: null,
+      targetResult: null,
+      multiRows: [
+        { qty: 10, price: 10000, fee: 0 },
+        { qty: 10, price: 9000, fee: 0 },
+        { qty: 10, price: 8000, fee: 0 }
+      ],
+      toastTimer: null
+    };
+
+    const $ = (id) => document.getElementById(id);
+
+    const els = {
+      oldQty: $("oldQty"),
+      oldPrice: $("oldPrice"),
+      newQty: $("newQty"),
+      newPrice: $("newPrice"),
+      currentPrice: $("currentPrice"),
+      targetSellPrice: $("targetSellPrice"),
+      stopLossPrice: $("stopLossPrice"),
+      stockName: $("stockName"),
+      feeToggle: $("feeToggle"),
+      buyFee: $("buyFee"),
+      sellFee: $("sellFee"),
+      feeFields: $("feeFields"),
+      avgPrice: $("avgPrice"),
+      avgSummary: $("avgSummary"),
+      quickStatus: $("quickStatus"),
+      totalQty: $("totalQty"),
+      totalCost: $("totalCost"),
+      avgChange: $("avgChange"),
+      avgChangeRate: $("avgChangeRate"),
+      additionalCash: $("additionalCash"),
+      additionalRatio: $("additionalRatio"),
+      currentProfit: $("currentProfit"),
+      breakEvenRise: $("breakEvenRise"),
+      targetProfit: $("targetProfit"),
+      stopLossResult: $("stopLossResult"),
+      avgChangeCard: $("avgChangeCard"),
+      avgRateCard: $("avgRateCard"),
+      profitCard: $("profitCard"),
+      targetProfitCard: $("targetProfitCard"),
+      stopLossCard: $("stopLossCard"),
+      analysisText: $("analysisText"),
+      riskText: $("riskText"),
+      heroOldAvg: $("heroOldAvg"),
+      heroNewAvg: $("heroNewAvg"),
+      mascotShell: $("mascotShell"),
+      mascotTitle: $("mascotTitle"),
+      mascotText: $("mascotText"),
+      targetOldQty: $("targetOldQty"),
+      targetOldAvg: $("targetOldAvg"),
+      targetBuyPrice: $("targetBuyPrice"),
+      desiredAvg: $("desiredAvg"),
+      roundSharesToggle: $("roundSharesToggle"),
+      requiredQty: $("requiredQty"),
+      requiredCash: $("requiredCash"),
+      targetTotalQty: $("targetTotalQty"),
+      targetFinalAvg: $("targetFinalAvg"),
+      targetCashRatio: $("targetCashRatio"),
+      targetMessage: $("targetMessage"),
+      targetStatus: $("targetStatus"),
+      targetHeroAvg: $("targetHeroAvg"),
+      targetHeroText: $("targetHeroText"),
+      targetRiskText: $("targetRiskText"),
+      multiRows: $("multiRows"),
+      multiCurrentPrice: $("multiCurrentPrice"),
+      multiAvg: $("multiAvg"),
+      multiHeroText: $("multiHeroText"),
+      multiQty: $("multiQty"),
+      multiCost: $("multiCost"),
+      multiProfit: $("multiProfit"),
+      multiBreakEven: $("multiBreakEven"),
+      multiProfitCard: $("multiProfitCard"),
+      multiStatus: $("multiStatus"),
+      largestBuyShare: $("largestBuyShare"),
+      multiMessage: $("multiMessage"),
+      scenarioBaseQty: $("scenarioBaseQty"),
+      scenarioBaseAvg: $("scenarioBaseAvg"),
+      historyList: $("historyList"),
+      toast: $("toast")
+    };
+
+    function numberValue(element) {
+      const value = Number(element.value);
+      return Number.isFinite(value) && value >= 0 ? value : 0;
+    }
+
+    function clamp(value, min, max) {
+      return Math.min(max, Math.max(min, value));
+    }
+
+    function formatNumber(value, digits = 0) {
+      if (!Number.isFinite(value)) return "-";
+      return new Intl.NumberFormat("ko-KR", {
+        minimumFractionDigits: digits,
+        maximumFractionDigits: digits
+      }).format(value);
+    }
+
+    function formatWon(value, digits = 0) {
+      if (!Number.isFinite(value)) return "-";
+      const sign = value < 0 ? "-" : "";
+      return sign + formatNumber(Math.abs(value), digits) + "원";
+    }
+
+    function formatShares(value) {
+      if (!Number.isFinite(value)) return "-";
+      const digits = Number.isInteger(value) ? 0 : 4;
+      return formatNumber(value, digits).replace(/\.0+$/, "") + "주";
+    }
+
+    function formatPercent(value, digits = 2, withSign = false) {
+      if (!Number.isFinite(value)) return "-";
+      const prefix = withSign && value > 0 ? "+" : "";
+      return prefix + formatNumber(value, digits) + "%";
+    }
+
+    function setMetricTone(card, value) {
+      card.classList.remove("positive", "negative");
+      if (!Number.isFinite(value) || value === 0) return;
+      card.classList.add(value > 0 ? "positive" : "negative");
+    }
+
+    function showToast(message) {
+      els.toast.textContent = message;
+      els.toast.classList.add("show");
+      clearTimeout(state.toastTimer);
+      state.toastTimer = setTimeout(() => {
+        els.toast.classList.remove("show");
+      }, 1800);
+    }
+
+    function quickInputs() {
+      return {
+        oldQty: numberValue(els.oldQty),
+        oldPrice: numberValue(els.oldPrice),
+        newQty: numberValue(els.newQty),
+        newPrice: numberValue(els.newPrice),
+        currentPrice: numberValue(els.currentPrice),
+        targetSellPrice: numberValue(els.targetSellPrice),
+        stopLossPrice: numberValue(els.stopLossPrice),
+        useFees: els.feeToggle.checked,
+        buyFee: numberValue(els.buyFee),
+        sellFee: numberValue(els.sellFee),
+        stockName: els.stockName.value.trim()
+      };
+    }
+
+    function computeQuick() {
+      const input = quickInputs();
+      const oldCost = input.oldQty * input.oldPrice;
+      const rawNewCost = input.newQty * input.newPrice;
+      const buyFeeRate = input.useFees ? input.buyFee / 100 : 0;
+      const sellFeeRate = input.useFees ? input.sellFee / 100 : 0;
+      const newCost = rawNewCost * (1 + buyFeeRate);
+      const totalQty = input.oldQty + input.newQty;
+      const totalCost = oldCost + newCost;
+      const avg = totalQty > 0 ? totalCost / totalQty : 0;
+      const avgChange = avg - input.oldPrice;
+      const avgChangeRate = input.oldPrice > 0 ? avgChange / input.oldPrice * 100 : 0;
+      const additionalRatio = oldCost > 0 ? newCost / oldCost * 100 : (newCost > 0 ? 100 : 0);
+      const newPositionWeight = totalCost > 0 ? newCost / totalCost * 100 : 0;
+      const breakEvenPrice = sellFeeRate < 1 ? avg / (1 - sellFeeRate) : avg;
+      const breakEvenRise = input.currentPrice > 0 ? (breakEvenPrice / input.currentPrice - 1) * 100 : 0;
+
+      const profitAt = (price) => {
+        if (!(price > 0) || !(totalQty > 0)) return { amount: 0, rate: 0 };
+        const proceeds = totalQty * price * (1 - sellFeeRate);
+        const amount = proceeds - totalCost;
+        const rate = totalCost > 0 ? amount / totalCost * 100 : 0;
+        return { amount, rate };
+      };
+
+      const current = profitAt(input.currentPrice);
+      const target = profitAt(input.targetSellPrice);
+      const stop = profitAt(input.stopLossPrice);
+
+      state.quickResult = {
+        input,
+        oldCost,
+        newCost,
+        totalQty,
+        totalCost,
+        avg,
+        avgChange,
+        avgChangeRate,
+        additionalRatio,
+        newPositionWeight,
+        breakEvenPrice,
+        breakEvenRise,
+        current,
+        target,
+        stop
+      };
+
+      renderQuick();
+      updateScenarios();
+    }
+
+    function renderQuick() {
+      const r = state.quickResult;
+      if (!r) return;
+
+      els.avgPrice.textContent = formatWon(r.avg, r.avg < 100 ? 2 : 0);
+      els.totalQty.textContent = formatShares(r.totalQty);
+      els.totalCost.textContent = formatWon(r.totalCost);
+      els.avgChange.textContent = (r.avgChange > 0 ? "+" : "") + formatWon(r.avgChange);
+      els.avgChangeRate.textContent = formatPercent(r.avgChangeRate, 2, true);
+      els.additionalCash.textContent = formatWon(r.newCost);
+      els.additionalRatio.textContent = formatPercent(r.additionalRatio);
+      els.currentProfit.textContent = formatWon(r.current.amount) + " · " + formatPercent(r.current.rate, 2, true);
+      els.breakEvenRise.textContent = r.input.currentPrice > 0 ? formatPercent(r.breakEvenRise, 2, true) : "현재가 입력 필요";
+      els.targetProfit.textContent = r.input.targetSellPrice > 0 ? formatWon(r.target.amount) + " · " + formatPercent(r.target.rate, 2, true) : "목표가 입력 필요";
+      els.stopLossResult.textContent = r.input.stopLossPrice > 0 ? formatWon(r.stop.amount) + " · " + formatPercent(r.stop.rate, 2, true) : "손절가 입력 필요";
+
+      setMetricTone(els.avgChangeCard, -r.avgChange);
+      setMetricTone(els.avgRateCard, -r.avgChangeRate);
+      setMetricTone(els.profitCard, r.current.amount);
+      setMetricTone(els.targetProfitCard, r.target.amount);
+      setMetricTone(els.stopLossCard, r.stop.amount);
+
+      const lowered = r.avgChange < 0;
+      const raised = r.avgChange > 0;
+      const changeAbs = Math.abs(r.avgChange);
+
+      els.quickStatus.textContent = lowered ? "평단 인하" : raised ? "평단 상승" : "평단 유지";
+      els.avgSummary.textContent = lowered
+        ? `기존 평단보다 ${formatWon(changeAbs)} 낮아집니다.`
+        : raised
+          ? `기존 평단보다 ${formatWon(changeAbs)} 높아집니다.`
+          : "기존 평단과 같습니다.";
+
+      const currentText = r.input.currentPrice > 0
+        ? `현재가 ${formatWon(r.input.currentPrice)} 기준 예상 손익은 ${formatWon(r.current.amount)}, 수익률은 ${formatPercent(r.current.rate, 2, true)}입니다.`
+        : "현재가를 입력하면 예상 손익과 본전까지 필요한 상승률을 계산합니다.";
+
+      els.analysisText.textContent = `추가매수 후 새 평단가는 ${formatWon(r.avg)}입니다. 총 보유 수량은 ${formatShares(r.totalQty)}, 총 투자금은 ${formatWon(r.totalCost)}입니다. ${currentText}`;
+
+      let riskLevel = "낮은 편";
+      if (r.additionalRatio >= 100) riskLevel = "매우 큰 편";
+      else if (r.additionalRatio >= 60) riskLevel = "큰 편";
+      else if (r.additionalRatio >= 30) riskLevel = "보통 수준";
+
+      els.riskText.textContent = `이번 추가매수 금액은 기존 투자금의 ${formatPercent(r.additionalRatio)}로 ${riskLevel}입니다. 추가매수분은 최종 포지션의 ${formatPercent(r.newPositionWeight)}를 차지합니다. 평단 변화와 함께 종목 비중 증가도 확인하세요.`;
+
+      els.heroOldAvg.textContent = formatWon(r.input.oldPrice);
+      els.heroNewAvg.textContent = formatWon(r.avg);
+
+      els.mascotShell.classList.remove("mood-good", "mood-bad", "mood-neutral");
+      els.mascotShell.classList.add(lowered ? "mood-good" : raised ? "mood-bad" : "mood-neutral");
+      els.mascotTitle.textContent = lowered ? "평단냥 계산 완료" : raised ? "평단이 올라갔어요" : "평단이 그대로예요";
+      els.mascotText.textContent = lowered
+        ? `새 평단 ${formatWon(r.avg)}. 추가 자금 비중 ${formatPercent(r.additionalRatio)}도 같이 보세요.`
+        : raised
+          ? "추가 매수가가 기존 평단보다 높아 평균단가가 상승했습니다."
+          : "추가 매수가와 기존 평단이 같아 평균단가 변화가 없습니다.";
+    }
+
+    function computeTarget() {
+      const oldQty = numberValue(els.targetOldQty);
+      const oldAvg = numberValue(els.targetOldAvg);
+      const buyPrice = numberValue(els.targetBuyPrice);
+      const desired = numberValue(els.desiredAvg);
+      const roundUp = els.roundSharesToggle.checked;
+
+      let possible = false;
+      let requiredQty = 0;
+      let message = "입력값을 확인해주세요.";
+
+      if (oldQty > 0 && oldAvg > 0 && buyPrice > 0 && desired > 0 && desired !== buyPrice) {
+        const raw = oldQty * (oldAvg - desired) / (desired - buyPrice);
+        if (Number.isFinite(raw) && raw > 0) {
+          requiredQty = roundUp ? Math.ceil(raw) : raw;
+          possible = true;
+        }
+      }
+
+      const requiredCash = requiredQty * buyPrice;
+      const oldCost = oldQty * oldAvg;
+      const totalQty = oldQty + requiredQty;
+      const finalAvg = totalQty > 0 ? (oldCost + requiredCash) / totalQty : 0;
+      const cashRatio = oldCost > 0 ? requiredCash / oldCost * 100 : 0;
+
+      if (possible) {
+        message = `목표 평단을 맞추려면 ${formatWon(buyPrice)}에 약 ${formatShares(requiredQty)}를 추가 매수해야 합니다.`;
+      } else if (desired === buyPrice && desired > 0) {
+        message = "목표 평단과 추가 매수가가 같으면 유한한 추가 수량으로 정확히 맞출 수 없습니다.";
+      } else if (desired >= Math.max(oldAvg, buyPrice) || desired <= Math.min(oldAvg, buyPrice)) {
+        message = "목표 평단은 현재 평단과 추가 매수가 사이에 있어야 일반적으로 계산 가능합니다.";
+      }
+
+      state.targetResult = { oldQty, oldAvg, buyPrice, desired, roundUp, possible, requiredQty, requiredCash, totalQty, finalAvg, cashRatio, message };
+      renderTarget();
+    }
+
+    function renderTarget() {
+      const r = state.targetResult;
+      if (!r) return;
+
+      els.requiredQty.textContent = r.possible ? formatShares(r.requiredQty) : "계산 불가";
+      els.requiredCash.textContent = r.possible ? formatWon(r.requiredCash) : "-";
+      els.targetTotalQty.textContent = r.possible ? formatShares(r.totalQty) : "-";
+      els.targetFinalAvg.textContent = r.possible ? formatWon(r.finalAvg) : "-";
+      els.targetCashRatio.textContent = r.possible ? formatPercent(r.cashRatio) : "-";
+      els.targetMessage.textContent = r.message;
+      els.targetStatus.textContent = r.possible ? "계산 가능" : "조건 확인";
+      els.targetHeroAvg.textContent = formatWon(r.desired);
+      els.targetHeroText.textContent = r.possible
+        ? "추가 매수가와 현재 평단 사이에 있어 계산 가능한 목표입니다."
+        : "목표 평단과 추가 매수가의 위치를 다시 확인하세요.";
+
+      let riskText = "목표 평단을 낮게 잡을수록 필요한 추가 자금이 빠르게 커질 수 있습니다.";
+      if (r.possible && r.cashRatio >= 100) {
+        riskText = `필요 추가 투자금이 기존 투자금의 ${formatPercent(r.cashRatio)}입니다. 목표 평단보다 포지션 과대 여부를 먼저 확인하세요.`;
+      } else if (r.possible) {
+        riskText = `필요 추가 투자금은 기존 투자금의 ${formatPercent(r.cashRatio)}입니다. 보유 현금과 종목 비중을 함께 확인하세요.`;
+      }
+      els.targetRiskText.textContent = riskText;
+    }
+
+    function renderMultiRows() {
+      els.multiRows.innerHTML = state.multiRows.map((row, index) => `
+        <div class="buy-row" data-row-index="${index}">
+          <div class="row-index">${index + 1}차</div>
+          <div class="field">
+            <label>수량</label>
+            <input class="multi-qty" type="number" min="0" step="any" value="${row.qty}" />
+          </div>
+          <div class="field">
+            <label>매수가</label>
+            <input class="multi-price" type="number" min="0" step="any" value="${row.price}" />
+          </div>
+          <div class="field fee-field">
+            <label>수수료 %</label>
+            <input class="multi-fee" type="number" min="0" step="0.001" value="${row.fee}" />
+          </div>
+          <button class="remove-row" type="button" data-remove-row="${index}" aria-label="${index + 1}차 매수 삭제">×</button>
+        </div>
+      `).join("");
+    }
+
+    function readMultiRowsFromDom() {
+      const rows = Array.from(els.multiRows.querySelectorAll(".buy-row"));
+      state.multiRows = rows.map((row) => ({
+        qty: numberValue(row.querySelector(".multi-qty")),
+        price: numberValue(row.querySelector(".multi-price")),
+        fee: numberValue(row.querySelector(".multi-fee"))
+      }));
+    }
+
+    function computeMulti() {
+      readMultiRowsFromDom();
+      let totalQty = 0;
+      let totalCost = 0;
+      let largestCost = 0;
+      let activeCount = 0;
+
+      state.multiRows.forEach((row) => {
+        if (row.qty > 0 && row.price > 0) {
+          const cost = row.qty * row.price * (1 + row.fee / 100);
+          totalQty += row.qty;
+          totalCost += cost;
+          largestCost = Math.max(largestCost, cost);
+          activeCount += 1;
+        }
       });
-    });
 
-    [oldQtyEl, oldPriceEl, newQtyEl, newPriceEl, currentPriceEl].forEach(el => {
-      el.addEventListener("input", calculate);
-      el.addEventListener("change", calculate);
-    });
+      const avg = totalQty > 0 ? totalCost / totalQty : 0;
+      const currentPrice = numberValue(els.multiCurrentPrice);
+      const profit = currentPrice > 0 ? totalQty * currentPrice - totalCost : 0;
+      const profitRate = totalCost > 0 ? profit / totalCost * 100 : 0;
+      const breakEven = currentPrice > 0 ? (avg / currentPrice - 1) * 100 : 0;
+      const largestShare = totalCost > 0 ? largestCost / totalCost * 100 : 0;
 
-    calcBtn.addEventListener("click", () => {
-      calculate();
-      result.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
+      els.multiAvg.textContent = formatWon(avg);
+      els.multiHeroText.textContent = `총 ${formatShares(totalQty)}, ${formatWon(totalCost)} 매수 기준입니다.`;
+      els.multiQty.textContent = formatShares(totalQty);
+      els.multiCost.textContent = formatWon(totalCost);
+      els.multiProfit.textContent = currentPrice > 0 ? formatWon(profit) + " · " + formatPercent(profitRate, 2, true) : "현재가 입력 필요";
+      els.multiBreakEven.textContent = currentPrice > 0 ? formatPercent(breakEven, 2, true) : "현재가 입력 필요";
+      els.multiStatus.textContent = activeCount + "차 매수";
+      els.largestBuyShare.textContent = formatPercent(largestShare);
+      els.multiMessage.textContent = largestShare >= 60
+        ? "한 번의 매수가 전체 투자금에서 차지하는 비중이 큽니다. 체결가와 수량을 다시 확인하세요."
+        : largestShare >= 40
+          ? "특정 매수 차수의 비중이 다소 큽니다. 분할매수 계획과 비교하세요."
+          : "각 매수 내역의 비중이 비교적 고르게 분산되어 있습니다.";
+      setMetricTone(els.multiProfitCard, profit);
+    }
 
-    calculate();
+    function updateScenarios() {
+      const r = state.quickResult;
+      if (!r) return;
 
-    function calculate() {
-      const oldQty = safeNumber(oldQtyEl.value);
-      const oldPrice = safeNumber(oldPriceEl.value);
-      const newQty = safeNumber(newQtyEl.value);
-      const newPrice = safeNumber(newPriceEl.value);
-      const currentPrice = safeNumber(currentPriceEl.value);
+      els.scenarioBaseQty.textContent = formatShares(r.input.oldQty);
+      els.scenarioBaseAvg.textContent = formatWon(r.input.oldPrice);
 
-      const oldAmount = oldQty * oldPrice;
-      const newAmount = newQty * newPrice;
-      const totalQty = oldQty + newQty;
-      const totalAmount = oldAmount + newAmount;
+      ["A", "B", "C"].forEach((key) => {
+        const qty = numberValue($("scenario" + key + "Qty"));
+        const price = numberValue($("scenario" + key + "Price"));
+        const totalQty = r.input.oldQty + qty;
+        const totalCost = r.input.oldQty * r.input.oldPrice + qty * price;
+        const avg = totalQty > 0 ? totalCost / totalQty : 0;
+        const diff = avg - r.input.oldPrice;
+        const cash = qty * price;
+        const output = $("scenario" + key + "Result");
+        output.innerHTML = `<strong>${formatWon(avg)}</strong>추가금 ${formatWon(cash)} · 평단 ${diff <= 0 ? "인하" : "상승"} ${formatWon(Math.abs(diff))}`;
+      });
+    }
 
-      if (totalQty <= 0 || totalAmount <= 0) {
-        renderEmpty();
+    function getHistory() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function saveHistory() {
+      const r = state.quickResult;
+      if (!r || !(r.totalQty > 0)) {
+        showToast("계산할 값을 먼저 입력하세요.");
         return;
       }
 
-      const averagePrice = totalAmount / totalQty;
-      const downAmount = oldPrice > 0 ? oldPrice - averagePrice : 0;
-      const downRate = oldPrice > 0 ? (downAmount / oldPrice) * 100 : 0;
-
-      const profitRate = currentPrice > 0 ? ((currentPrice - averagePrice) / averagePrice) * 100 : null;
-      const profitAmount = currentPrice > 0 ? (currentPrice * totalQty) - totalAmount : null;
-
-      totalQtyEl.textContent = `${formatNumber(totalQty)}주`;
-      totalAmountEl.textContent = `${formatWon(totalAmount)}`;
-      avgPriceEl.textContent = `${formatWon(averagePrice)}`;
-      downAmountEl.textContent = `${downAmount >= 0 ? formatWon(downAmount) : "+" + formatWon(Math.abs(downAmount))}`;
-      downRateEl.textContent = `${formatPercent(downRate)}`;
-
-      visualOld.textContent = oldPrice > 0 ? formatWonShort(oldPrice) : "?";
-      visualNew.textContent = formatWonShort(averagePrice);
-
-      if (profitRate === null) {
-        profitRateEl.textContent = "현재가 미입력";
-        profitCard.classList.remove("profit", "loss");
-        statusText.textContent = "평단 계산";
-      } else {
-        profitRateEl.textContent = `${profitRate >= 0 ? "+" : ""}${formatPercent(profitRate)}`;
-        profitCard.classList.toggle("profit", profitRate >= 0);
-        profitCard.classList.toggle("loss", profitRate < 0);
-        statusText.textContent = profitRate >= 0 ? "수익 구간" : "손실 구간";
-      }
-
-      analysisText.innerHTML = makeAnalysis({
-        oldPrice,
-        newPrice,
-        averagePrice,
-        downAmount,
-        downRate,
-        totalAmount,
-        totalQty,
-        currentPrice,
-        profitRate,
-        profitAmount
-      });
-
-      riskText.innerHTML = makeRiskText({
-        oldAmount,
-        newAmount,
-        totalAmount,
-        oldQty,
-        newQty,
-        oldPrice,
-        averagePrice,
-        downRate
-      });
-
-      result.classList.add("show");
-    }
-
-    function renderEmpty() {
-      totalQtyEl.textContent = "-";
-      totalAmountEl.textContent = "-";
-      avgPriceEl.textContent = "-";
-      downAmountEl.textContent = "-";
-      downRateEl.textContent = "-";
-      profitRateEl.textContent = "-";
-      analysisText.textContent = "값을 입력하면 계산 결과가 표시됩니다.";
-      riskText.textContent = "추가매수 전에는 총 투자금과 비중을 같이 확인하세요.";
-      visualOld.textContent = "?";
-      visualNew.textContent = "?";
-    }
-
-    function makeAnalysis(data) {
-      let text = "";
-
-      if (data.downAmount > 0) {
-        text += `추가매수 후 새 평균단가는 <strong>${formatWon(data.averagePrice)}</strong>입니다. `;
-        text += `기존 평단보다 <strong>${formatWon(data.downAmount)}</strong>, 약 <strong>${formatPercent(data.downRate)}</strong> 낮아지는 계산입니다. `;
-      } else if (data.downAmount < 0) {
-        text += `추가 매수가가 기존 평단보다 높아 새 평균단가는 <strong>${formatWon(data.averagePrice)}</strong>로 올라갑니다. `;
-      } else {
-        text += `추가매수 후 평균단가는 기존 평단과 거의 같습니다. `;
-      }
-
-      text += `총 보유 수량은 <strong>${formatNumber(data.totalQty)}주</strong>, 총 매입금액은 <strong>${formatWon(data.totalAmount)}</strong>입니다. `;
-
-      if (data.profitRate !== null) {
-        if (data.profitRate >= 0) {
-          text += `현재가 기준으로는 약 <strong>${formatPercent(data.profitRate)}</strong> 수익 구간이며, 평가손익은 약 <strong>${formatWon(data.profitAmount)}</strong>입니다.`;
-        } else {
-          text += `현재가 기준으로는 약 <strong>${formatPercent(data.profitRate)}</strong> 손실 구간이며, 평가손익은 약 <strong>${formatWon(data.profitAmount)}</strong>입니다.`;
+      const records = getHistory();
+      records.unshift({
+        id: Date.now(),
+        savedAt: new Date().toISOString(),
+        name: r.input.stockName || "종목 메모 없음",
+        input: r.input,
+        result: {
+          avg: r.avg,
+          totalQty: r.totalQty,
+          totalCost: r.totalCost,
+          currentAmount: r.current.amount,
+          currentRate: r.current.rate
         }
-      } else {
-        text += `현재가를 입력하면 지금 기준 손익률까지 함께 확인할 수 있습니다.`;
-      }
-
-      return text;
-    }
-
-    function makeRiskText(data) {
-      const addedRatio = data.totalAmount > 0 ? (data.newAmount / data.totalAmount) * 100 : 0;
-
-      let text = `이번 추가매수 금액은 전체 투자금의 약 <strong>${formatPercent(addedRatio)}</strong>입니다. `;
-
-      if (addedRatio >= 50) {
-        text += `추가매수 비중이 큰 편입니다. 평단은 낮아질 수 있지만, 종목이 더 하락하면 손실 규모도 빠르게 커질 수 있습니다.`;
-      } else if (addedRatio >= 25) {
-        text += `추가매수 비중이 적지 않습니다. 반등 시 효과는 있지만, 손절 기준과 목표가를 먼저 정하는 것이 좋습니다.`;
-      } else {
-        text += `추가매수 비중은 비교적 낮은 편입니다. 다만 물타기 자체가 리스크를 없애는 것은 아니므로 종목의 재료와 차트를 함께 확인하세요.`;
-      }
-
-      return text;
-    }
-
-    function safeNumber(value) {
-      const n = Number(value);
-      return Number.isFinite(n) && n >= 0 ? n : 0;
-    }
-
-    function formatNumber(value) {
-      return Number(value).toLocaleString("ko-KR", {
-        maximumFractionDigits: 2
       });
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(records.slice(0, MAX_HISTORY)));
+      renderHistory();
+      showToast("계산 기록을 저장했습니다.");
     }
 
-    function formatWon(value) {
-      const rounded = Math.round(value);
-      return `${rounded.toLocaleString("ko-KR")}원`;
-    }
-
-    function formatWonShort(value) {
-      const rounded = Math.round(value);
-
-      if (rounded >= 100000000) {
-        return `${(rounded / 100000000).toFixed(1)}억`;
+    function renderHistory() {
+      const records = getHistory();
+      if (!records.length) {
+        els.historyList.innerHTML = `<div class="history-empty">저장된 계산 기록이 없습니다.</div>`;
+        return;
       }
 
-      if (rounded >= 10000) {
-        return `${Math.round(rounded / 1000).toLocaleString("ko-KR")}천원`;
+      els.historyList.innerHTML = records.map((record) => {
+        const date = new Date(record.savedAt);
+        const dateText = date.toLocaleString("ko-KR", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" });
+        return `
+          <article class="history-item">
+            <div class="history-top">
+              <div>
+                <b>${escapeHtml(record.name)}</b>
+                <small>${escapeHtml(dateText)}</small>
+              </div>
+              <small>새 평단 ${formatWon(record.result.avg)}</small>
+            </div>
+            <div class="history-summary">${formatShares(record.result.totalQty)} · 총 투자금 ${formatWon(record.result.totalCost)} · 현재 손익 ${formatWon(record.result.currentAmount)}</div>
+            <div class="history-actions">
+              <button type="button" data-load-history="${record.id}">불러오기</button>
+              <button class="delete" type="button" data-delete-history="${record.id}">삭제</button>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function loadHistory(id) {
+      const record = getHistory().find((item) => item.id === id);
+      if (!record) return;
+      const i = record.input;
+      els.oldQty.value = i.oldQty;
+      els.oldPrice.value = i.oldPrice;
+      els.newQty.value = i.newQty;
+      els.newPrice.value = i.newPrice;
+      els.currentPrice.value = i.currentPrice;
+      els.targetSellPrice.value = i.targetSellPrice;
+      els.stopLossPrice.value = i.stopLossPrice;
+      els.feeToggle.checked = Boolean(i.useFees);
+      els.buyFee.value = i.buyFee;
+      els.sellFee.value = i.sellFee;
+      els.stockName.value = i.stockName || record.name || "";
+      els.feeFields.style.display = els.feeToggle.checked ? "grid" : "none";
+      computeQuick();
+      document.querySelector('[data-tab="quick"]').click();
+      document.getElementById("calculator").scrollIntoView({ behavior: "smooth", block: "start" });
+      showToast("저장된 계산을 불러왔습니다.");
+    }
+
+    function deleteHistory(id) {
+      const records = getHistory().filter((item) => item.id !== id);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+      renderHistory();
+      showToast("기록을 삭제했습니다.");
+    }
+
+    function quickSummary(short = false) {
+      const r = state.quickResult;
+      if (!r) return "";
+      if (short) {
+        return `[평단 계산] ${r.input.stockName ? r.input.stockName + " · " : ""}기존 ${formatWon(r.input.oldPrice)} → 새 평단 ${formatWon(r.avg)} · 총 ${formatShares(r.totalQty)} · 추가금 ${formatWon(r.newCost)}`;
       }
-
-      return `${rounded.toLocaleString("ko-KR")}원`;
+      return [
+        "[바로해결랩 주식 평단가 계산]",
+        r.input.stockName ? `종목 메모: ${r.input.stockName}` : "",
+        `기존: ${formatShares(r.input.oldQty)} × ${formatWon(r.input.oldPrice)}`,
+        `추가: ${formatShares(r.input.newQty)} × ${formatWon(r.input.newPrice)}`,
+        `새 평단: ${formatWon(r.avg)}`,
+        `총 수량: ${formatShares(r.totalQty)}`,
+        `총 투자금: ${formatWon(r.totalCost)}`,
+        `평단 변화: ${formatWon(r.avgChange)} (${formatPercent(r.avgChangeRate, 2, true)})`,
+        r.input.currentPrice > 0 ? `현재 손익: ${formatWon(r.current.amount)} (${formatPercent(r.current.rate, 2, true)})` : ""
+      ].filter(Boolean).join("\n");
     }
 
-    function formatPercent(value) {
-      return `${Number(value).toFixed(2)}%`;
+    async function copyText(text, successMessage) {
+      if (!text) return;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        textarea.remove();
+      }
+      showToast(successMessage);
     }
+
+    function buildShareUrl() {
+      const i = quickInputs();
+      const url = new URL(window.location.href);
+      url.search = "";
+      const params = {
+        oq: i.oldQty,
+        op: i.oldPrice,
+        nq: i.newQty,
+        np: i.newPrice,
+        cp: i.currentPrice,
+        tp: i.targetSellPrice,
+        sp: i.stopLossPrice,
+        ft: i.useFees ? 1 : 0,
+        bf: i.buyFee,
+        sf: i.sellFee,
+        sn: i.stockName
+      };
+      Object.entries(params).forEach(([key, value]) => {
+        if (value !== "" && value !== 0) url.searchParams.set(key, value);
+      });
+      return url.toString();
+    }
+
+    function loadFromQuery() {
+      const params = new URLSearchParams(window.location.search);
+      if (!params.size) return;
+      const map = {
+        oq: els.oldQty,
+        op: els.oldPrice,
+        nq: els.newQty,
+        np: els.newPrice,
+        cp: els.currentPrice,
+        tp: els.targetSellPrice,
+        sp: els.stopLossPrice,
+        bf: els.buyFee,
+        sf: els.sellFee,
+        sn: els.stockName
+      };
+      Object.entries(map).forEach(([key, element]) => {
+        if (params.has(key)) element.value = params.get(key);
+      });
+      if (params.get("ft") === "1") {
+        els.feeToggle.checked = true;
+        els.feeFields.style.display = "grid";
+      }
+    }
+
+    function resetQuick() {
+      els.oldQty.value = 10;
+      els.oldPrice.value = 10000;
+      els.newQty.value = 10;
+      els.newPrice.value = 8000;
+      els.currentPrice.value = 9000;
+      els.targetSellPrice.value = 10500;
+      els.stopLossPrice.value = 7500;
+      els.stockName.value = "";
+      els.feeToggle.checked = false;
+      els.buyFee.value = 0.015;
+      els.sellFee.value = 0.2;
+      els.feeFields.style.display = "none";
+      computeQuick();
+    }
+
+    function resetTarget() {
+      els.targetOldQty.value = 100;
+      els.targetOldAvg.value = 80000;
+      els.targetBuyPrice.value = 60000;
+      els.desiredAvg.value = 70000;
+      els.roundSharesToggle.checked = true;
+      computeTarget();
+    }
+
+    function resetMulti() {
+      state.multiRows = [
+        { qty: 10, price: 10000, fee: 0 },
+        { qty: 10, price: 9000, fee: 0 },
+        { qty: 10, price: 8000, fee: 0 }
+      ];
+      els.multiCurrentPrice.value = 9000;
+      renderMultiRows();
+      computeMulti();
+    }
+
+    document.querySelectorAll(".tab-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        const tab = button.dataset.tab;
+        document.querySelectorAll(".tab-btn").forEach((item) => item.classList.toggle("active", item === button));
+        document.querySelectorAll(".tab-panel").forEach((panel) => panel.classList.toggle("active", panel.dataset.panel === tab));
+      });
+    });
+
+    $("advancedToggle").addEventListener("click", () => {
+      $("advancedBox").classList.toggle("open");
+    });
+
+    els.feeToggle.addEventListener("change", () => {
+      els.feeFields.style.display = els.feeToggle.checked ? "grid" : "none";
+      computeQuick();
+    });
+
+    [
+      els.oldQty, els.oldPrice, els.newQty, els.newPrice, els.currentPrice,
+      els.targetSellPrice, els.stopLossPrice, els.buyFee, els.sellFee
+    ].forEach((element) => element.addEventListener("input", computeQuick));
+
+    document.querySelectorAll("[data-preset]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const [oldPrice, oldQty, newPrice, newQty, current] = button.dataset.preset.split(",").map(Number);
+        els.oldPrice.value = oldPrice;
+        els.oldQty.value = oldQty;
+        els.newPrice.value = newPrice;
+        els.newQty.value = newQty;
+        els.currentPrice.value = current;
+        computeQuick();
+      });
+    });
+
+    $("saveHistoryBtn").addEventListener("click", saveHistory);
+    $("copyResultBtn").addEventListener("click", () => copyText(quickSummary(false), "계산 결과를 복사했습니다."));
+    $("copyShortBtn").addEventListener("click", () => copyText(quickSummary(true), "짧은 결과를 복사했습니다."));
+    $("shareLinkBtn").addEventListener("click", () => copyText(buildShareUrl(), "공유 링크를 복사했습니다."));
+    $("resetQuickBtn").addEventListener("click", resetQuick);
+    $("scrollScenarioBtn").addEventListener("click", () => document.getElementById("scenarios").scrollIntoView({ behavior: "smooth", block: "start" }));
+
+    [els.targetOldQty, els.targetOldAvg, els.targetBuyPrice, els.desiredAvg].forEach((element) => element.addEventListener("input", computeTarget));
+    els.roundSharesToggle.addEventListener("change", computeTarget);
+
+    $("syncTargetBtn").addEventListener("click", () => {
+      const r = state.quickResult;
+      if (!r) return;
+      els.targetOldQty.value = r.input.oldQty;
+      els.targetOldAvg.value = r.input.oldPrice;
+      els.targetBuyPrice.value = r.input.newPrice;
+      const middle = r.input.newPrice + (r.input.oldPrice - r.input.newPrice) / 2;
+      els.desiredAvg.value = Math.round(middle);
+      computeTarget();
+      showToast("빠른 계산 값을 불러왔습니다.");
+    });
+
+    $("copyTargetBtn").addEventListener("click", () => {
+      const r = state.targetResult;
+      const text = r && r.possible
+        ? `[목표 평단 역산] 현재 ${formatShares(r.oldQty)} · 평단 ${formatWon(r.oldAvg)} · 추가 매수가 ${formatWon(r.buyPrice)} · 목표 평단 ${formatWon(r.desired)} · 필요 수량 ${formatShares(r.requiredQty)} · 필요 자금 ${formatWon(r.requiredCash)}`
+        : "목표 평단 조건을 다시 확인하세요.";
+      copyText(text, "역산 결과를 복사했습니다.");
+    });
+
+    $("resetTargetBtn").addEventListener("click", resetTarget);
+
+    els.multiRows.addEventListener("input", computeMulti);
+    els.multiRows.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-remove-row]");
+      if (!button) return;
+      if (state.multiRows.length <= 1) {
+        showToast("매수 내역은 최소 1개가 필요합니다.");
+        return;
+      }
+      readMultiRowsFromDom();
+      state.multiRows.splice(Number(button.dataset.removeRow), 1);
+      renderMultiRows();
+      computeMulti();
+    });
+
+    $("addBuyRowBtn").addEventListener("click", () => {
+      readMultiRowsFromDom();
+      if (state.multiRows.length >= MAX_MULTI_ROWS) {
+        showToast("매수 내역은 최대 10개까지 추가할 수 있습니다.");
+        return;
+      }
+      state.multiRows.push({ qty: 0, price: 0, fee: 0 });
+      renderMultiRows();
+      computeMulti();
+    });
+
+    els.multiCurrentPrice.addEventListener("input", computeMulti);
+    $("resetMultiBtn").addEventListener("click", resetMulti);
+
+    $("loadQuickToMultiBtn").addEventListener("click", () => {
+      const r = state.quickResult;
+      if (!r) return;
+      state.multiRows = [
+        { qty: r.input.oldQty, price: r.input.oldPrice, fee: 0 },
+        { qty: r.input.newQty, price: r.input.newPrice, fee: r.input.useFees ? r.input.buyFee : 0 }
+      ];
+      els.multiCurrentPrice.value = r.input.currentPrice;
+      renderMultiRows();
+      computeMulti();
+      showToast("빠른 계산 값을 불러왔습니다.");
+    });
+
+    $("copyMultiBtn").addEventListener("click", () => {
+      readMultiRowsFromDom();
+      const text = state.multiRows.map((row, index) => `${index + 1}차 ${formatShares(row.qty)} × ${formatWon(row.price)}`).join("\n") + `\n누적 평단 ${els.multiAvg.textContent} · 총 수량 ${els.multiQty.textContent} · 총 투자금 ${els.multiCost.textContent}`;
+      copyText(text, "분할매수 결과를 복사했습니다.");
+    });
+
+    ["A", "B", "C"].forEach((key) => {
+      $("scenario" + key + "Qty").addEventListener("input", updateScenarios);
+      $("scenario" + key + "Price").addEventListener("input", updateScenarios);
+    });
+
+    els.historyList.addEventListener("click", (event) => {
+      const loadButton = event.target.closest("[data-load-history]");
+      const deleteButton = event.target.closest("[data-delete-history]");
+      if (loadButton) loadHistory(Number(loadButton.dataset.loadHistory));
+      if (deleteButton) deleteHistory(Number(deleteButton.dataset.deleteHistory));
+    });
+
+    loadFromQuery();
+    renderMultiRows();
+    computeQuick();
+    computeTarget();
+    computeMulti();
+    renderHistory();
   </script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script
+    defer
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'
+  ></script>
+  <!-- End Cloudflare Web Analytics -->
 </body>
 </html>
