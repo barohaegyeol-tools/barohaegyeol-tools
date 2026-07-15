@@ -1,0 +1,5934 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>PDF 페이지 정리｜순서 변경·삭제·회전｜바로해결툴즈</title>
+
+  <meta
+    name="description"
+    content="PDF 페이지를 미리보기로 확인하고 순서 변경, 삭제, 회전한 뒤 새로운 PDF로 저장하세요. 원본 페이지 품질을 유지하며 브라우저에서 안전하게 처리합니다."
+  />
+
+  <meta
+    name="keywords"
+    content="PDF 페이지 정리, PDF 페이지 순서 변경, PDF 페이지 삭제, PDF 페이지 회전, PDF 페이지 편집, PDF 재배열"
+  />
+
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+
+  <link
+    rel="canonical"
+    href="https://barohaegyeol-tools.pages.dev/pdf-organizer/"
+  />
+
+  <meta name="theme-color" content="#172554" />
+
+  <meta property="og:type" content="website" />
+
+  <meta
+    property="og:title"
+    content="PDF 페이지 정리｜바로해결툴즈"
+  />
+
+  <meta
+    property="og:description"
+    content="PDF 페이지 순서를 변경하고 삭제·회전한 뒤 새로운 PDF로 저장하세요."
+  />
+
+  <meta
+    property="og:url"
+    content="https://barohaegyeol-tools.pages.dev/pdf-organizer/"
+  />
+
+  <meta
+    property="og:site_name"
+    content="바로해결툴즈"
+  />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "PDF 페이지 정리",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web Browser",
+    "url": "https://barohaegyeol-tools.pages.dev/pdf-organizer/",
+    "description": "PDF 페이지의 순서를 변경하고 삭제·회전하는 무료 브라우저 도구",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "KRW"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --navy: #172554;
+      --navy-2: #273b7a;
+      --indigo: #4f46e5;
+      --blue: #3b82f6;
+      --cyan: #22d3ee;
+      --mint: #5ee0b5;
+      --lime: #d9f670;
+      --coral: #ff7a68;
+      --yellow: #ffd86b;
+
+      --paper: #ffffff;
+      --bg: #f6f7ff;
+      --ink: #202844;
+      --text: #56627b;
+      --muted: #8791a5;
+      --line: #e1e5ef;
+      --green: #148664;
+      --red: #d64f63;
+      --orange: #c77818;
+
+      --shadow:
+        0 28px 84px
+        rgba(23, 37, 84, .15);
+
+      --shadow-soft:
+        0 14px 40px
+        rgba(23, 37, 84, .08);
+
+      --max: 1260px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+
+      color: var(--ink);
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Pretendard",
+        "Noto Sans KR",
+        "Apple SD Gothic Neo",
+        system-ui,
+        sans-serif;
+
+      line-height: 1.65;
+
+      background:
+        radial-gradient(
+          circle at 7% 7%,
+          rgba(79, 70, 229, .14),
+          transparent 27%
+        ),
+        radial-gradient(
+          circle at 93% 8%,
+          rgba(255, 122, 104, .16),
+          transparent 27%
+        ),
+        radial-gradient(
+          circle at 84% 91%,
+          rgba(217, 246, 112, .23),
+          transparent 28%
+        ),
+        linear-gradient(
+          145deg,
+          #f3f5ff 0%,
+          #fffaf6 53%,
+          #f2fffb 100%
+        );
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+
+      z-index: 0;
+      pointer-events: none;
+      opacity: .14;
+
+      background-image:
+        linear-gradient(
+          rgba(79, 70, 229, .18) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(79, 70, 229, .18) 1px,
+          transparent 1px
+        );
+
+      background-size: 38px 38px;
+
+      mask-image:
+        linear-gradient(
+          to bottom,
+          #000 0%,
+          transparent 72%
+        );
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .wrap {
+      width:
+        min(
+          var(--max),
+          calc(100% - 32px)
+        );
+
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+
+      border-bottom:
+        1px solid
+        rgba(32, 40, 68, .08);
+
+      background:
+        rgba(249, 250, 255, .9);
+
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      min-height: 74px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+
+      flex: 0 0 auto;
+
+      font-weight: 950;
+      letter-spacing: -.04em;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+
+      border-radius:
+        14px 14px 14px 24px;
+
+      display: grid;
+      place-items: center;
+
+      color: var(--navy);
+      font-weight: 950;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--lime),
+          var(--cyan)
+        );
+
+      box-shadow:
+        0 15px 34px
+        rgba(79, 70, 229, .2);
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 1px;
+
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      white-space: nowrap;
+    }
+
+    .nav-links a {
+      padding: 9px 12px;
+
+      border-radius: 999px;
+
+      border:
+        1px solid
+        rgba(32, 40, 68, .08);
+
+      background:
+        rgba(255, 255, 255, .86);
+
+      color: #5e6980;
+      font-size: 13px;
+      font-weight: 900;
+
+      transition: .16s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--navy);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero {
+      padding: 46px 0 30px;
+    }
+
+    .hero-shell {
+      position: relative;
+      overflow: hidden;
+      min-height: 450px;
+
+      padding: 48px;
+
+      border-radius: 42px;
+      color: #fff;
+
+      background:
+        radial-gradient(
+          circle at 84% 17%,
+          rgba(217, 246, 112, .27),
+          transparent 27%
+        ),
+        radial-gradient(
+          circle at 72% 91%,
+          rgba(34, 211, 238, .2),
+          transparent 31%
+        ),
+        linear-gradient(
+          135deg,
+          #111b42 0%,
+          #293d83 52%,
+          #4f46e5 100%
+        );
+
+      box-shadow: var(--shadow);
+    }
+
+    .hero-shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+
+      opacity: .2;
+
+      background-image:
+        linear-gradient(
+          rgba(255, 255, 255, .17) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255, 255, 255, .17) 1px,
+          transparent 1px
+        );
+
+      background-size: 44px 44px;
+
+      mask-image:
+        linear-gradient(
+          90deg,
+          transparent,
+          #000 42%,
+          #000
+        );
+    }
+
+    .hero-shell::after {
+      content: "";
+      position: absolute;
+
+      right: -110px;
+      bottom: -155px;
+
+      width: 410px;
+      height: 410px;
+
+      border-radius: 50%;
+
+      border:
+        66px solid
+        rgba(255, 255, 255, .05);
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+
+      display: grid;
+      grid-template-columns:
+        1.04fr .96fr;
+
+      gap: 38px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      padding: 8px 12px;
+
+      border-radius: 999px;
+
+      color: #f1ffbb;
+
+      background:
+        rgba(217, 246, 112, .12);
+
+      border:
+        1px solid
+        rgba(217, 246, 112, .27);
+
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    .eyebrow::before {
+      content: "";
+
+      width: 8px;
+      height: 8px;
+
+      border-radius: 50%;
+
+      background: var(--lime);
+
+      box-shadow:
+        0 0 0 5px
+        rgba(217, 246, 112, .13);
+    }
+
+    h1 {
+      margin: 18px 0 0;
+
+      font-size:
+        clamp(50px, 6vw, 78px);
+
+      line-height: 1.02;
+      letter-spacing: -.075em;
+      white-space: nowrap;
+    }
+
+    h1 span {
+      color: var(--lime);
+    }
+
+    .lead {
+      margin: 20px 0 0;
+      max-width: 690px;
+
+      color:
+        rgba(255, 255, 255, .8);
+
+      font-size:
+        clamp(16px, 1.8vw, 19px);
+
+      line-height: 1.82;
+      word-break: keep-all;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+
+      margin-top: 24px;
+    }
+
+    .btn {
+      min-height: 52px;
+      padding: 13px 18px;
+
+      border-radius: 16px;
+      border: 1px solid transparent;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      font-weight: 950;
+      letter-spacing: -.02em;
+
+      transition: .17s ease;
+    }
+
+    .btn-primary {
+      color: var(--navy);
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--lime),
+          var(--cyan)
+        );
+
+      box-shadow:
+        0 18px 42px
+        rgba(34, 211, 238, .18);
+    }
+
+    .btn-secondary {
+      color: #fff;
+
+      background:
+        rgba(255, 255, 255, .08);
+
+      border-color:
+        rgba(255, 255, 255, .18);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 340px;
+    }
+
+    .page-demo {
+      position: absolute;
+
+      width: 174px;
+      height: 232px;
+
+      padding: 12px;
+
+      border-radius: 25px;
+
+      color: var(--navy);
+      background: #fff;
+
+      box-shadow:
+        0 24px 58px
+        rgba(0, 0, 0, .24);
+    }
+
+    .page-demo::before {
+      content: "";
+
+      display: block;
+      height: 90px;
+
+      border-radius: 15px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--cyan),
+          var(--mint)
+        );
+    }
+
+    .page-demo::after {
+      content: "";
+
+      display: block;
+      height: 77px;
+      margin-top: 13px;
+
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          #dfe4ee 0 5px,
+          transparent 5px 14px
+        );
+    }
+
+    .page-a {
+      left: 0;
+      top: 48px;
+
+      transform: rotate(-9deg);
+      z-index: 2;
+    }
+
+    .page-b {
+      left: 50%;
+      top: 12px;
+
+      transform:
+        translateX(-50%)
+        rotate(1deg);
+
+      z-index: 4;
+    }
+
+    .page-c {
+      right: 0;
+      top: 53px;
+
+      transform: rotate(10deg);
+      z-index: 3;
+    }
+
+    .page-label {
+      position: absolute;
+
+      left: 12px;
+      bottom: 11px;
+
+      min-width: 31px;
+      height: 31px;
+
+      padding: 0 8px;
+
+      border-radius: 999px;
+
+      display: grid;
+      place-items: center;
+
+      color: #fff;
+      background: var(--indigo);
+
+      font-size: 11px;
+      font-weight: 950;
+    }
+
+    .organize-badge {
+      position: absolute;
+
+      left: 50%;
+      bottom: 0;
+
+      min-width: 220px;
+      height: 60px;
+
+      transform: translateX(-50%);
+
+      border-radius: 999px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+
+      color: var(--navy);
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--lime),
+          var(--cyan)
+        );
+
+      box-shadow:
+        0 20px 45px
+        rgba(0, 0, 0, .23);
+
+      font-size: 14px;
+      font-weight: 950;
+
+      z-index: 7;
+    }
+
+    .main-section {
+      padding: 0 0 38px;
+    }
+
+    .tool-shell {
+      overflow: hidden;
+
+      border-radius: 34px;
+
+      background:
+        rgba(255, 255, 255, .96);
+
+      border:
+        1px solid var(--line);
+
+      box-shadow: var(--shadow);
+    }
+
+    .tool-head {
+      padding: 22px 26px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+
+      border-bottom:
+        1px solid var(--line);
+
+      background:
+        linear-gradient(
+          90deg,
+          rgba(79, 70, 229, .07),
+          rgba(34, 211, 238, .08),
+          rgba(217, 246, 112, .1)
+        );
+    }
+
+    .tool-head h2 {
+      margin: 0;
+
+      font-size: 28px;
+      letter-spacing: -.055em;
+    }
+
+    .tool-head p {
+      margin: 5px 0 0;
+
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .privacy-pill {
+      flex: 0 0 auto;
+
+      padding: 9px 12px;
+
+      border-radius: 999px;
+
+      color: #2e6687;
+      background: #edf8ff;
+
+      border:
+        1px solid #d4ebf8;
+
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .empty-area {
+      padding: 24px;
+    }
+
+    .dropzone {
+      min-height: 370px;
+
+      padding: 34px;
+
+      display: grid;
+      place-items: center;
+
+      text-align: center;
+
+      border-radius: 27px;
+
+      border:
+        2px dashed #cdd4e8;
+
+      background:
+        radial-gradient(
+          circle at 84% 17%,
+          rgba(217, 246, 112, .22),
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 12% 88%,
+          rgba(34, 211, 238, .18),
+          transparent 31%
+        ),
+        linear-gradient(
+          145deg,
+          #f7f8ff,
+          #fffaf6
+        );
+
+      transition: .18s ease;
+    }
+
+    .dropzone.dragover {
+      border-color: var(--indigo);
+
+      transform: translateY(-2px);
+
+      box-shadow:
+        inset 0 0 0 4px
+        rgba(79, 70, 229, .08);
+    }
+
+    .drop-icon {
+      width: 88px;
+      height: 88px;
+
+      margin: 0 auto 16px;
+
+      border-radius:
+        28px 10px 28px 28px;
+
+      display: grid;
+      place-items: center;
+
+      color: #fff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--navy),
+          var(--indigo)
+        );
+
+      box-shadow:
+        0 19px 44px
+        rgba(79, 70, 229, .22);
+
+      font-size: 26px;
+      font-weight: 950;
+    }
+
+    .dropzone h3 {
+      margin: 0;
+
+      font-size: 29px;
+      letter-spacing: -.055em;
+    }
+
+    .dropzone p {
+      margin: 9px 0 0;
+
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.72;
+    }
+
+    .file-label {
+      margin-top: 18px;
+
+      min-height: 52px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 12px 20px;
+
+      border-radius: 15px;
+
+      color: #fff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--navy),
+          var(--indigo)
+        );
+
+      box-shadow:
+        0 15px 34px
+        rgba(23, 37, 84, .2);
+
+      font-weight: 950;
+      cursor: pointer;
+    }
+
+    .file-label input {
+      display: none;
+    }
+
+    .workspace {
+      display: none;
+    }
+
+    .workspace.show {
+      display: block;
+    }
+
+    .document-bar {
+      padding: 15px 20px;
+
+      display: grid;
+      grid-template-columns:
+        minmax(0, 1.8fr)
+        repeat(4, minmax(110px, .62fr));
+
+      gap: 10px;
+
+      border-bottom:
+        1px solid var(--line);
+
+      background: #fafbff;
+    }
+
+    .document-info,
+    .summary-item {
+      padding: 13px 14px;
+
+      border-radius: 16px;
+
+      background: #fff;
+
+      border:
+        1px solid #e3e6ef;
+    }
+
+    .document-info {
+      min-width: 0;
+
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .document-icon {
+      width: 46px;
+      height: 56px;
+
+      flex: 0 0 auto;
+
+      border-radius:
+        13px 13px 5px 13px;
+
+      display: grid;
+      place-items: center;
+
+      color: #fff;
+
+      background:
+        linear-gradient(
+          145deg,
+          var(--coral),
+          #ffa37d
+        );
+
+      font-size: 11px;
+      font-weight: 950;
+    }
+
+    .document-name {
+      min-width: 0;
+    }
+
+    .document-name strong {
+      display: block;
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      font-size: 14px;
+    }
+
+    .document-name span {
+      display: block;
+      margin-top: 3px;
+
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .summary-item span {
+      display: block;
+
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .summary-item strong {
+      display: block;
+
+      margin-top: 4px;
+
+      font-size: 17px;
+      letter-spacing: -.03em;
+    }
+
+    .workspace-grid {
+      display: grid;
+      grid-template-columns:
+        minmax(0, 1fr) 365px;
+
+      min-height: 760px;
+    }
+
+    .pages-column {
+      min-width: 0;
+
+      padding: 20px;
+
+      background: #f8f9fd;
+    }
+
+    .toolbar {
+      padding: 14px;
+
+      border-radius: 20px;
+
+      background: #fff;
+
+      border:
+        1px solid #e2e6ef;
+
+      box-shadow:
+        0 9px 25px
+        rgba(23, 37, 84, .05);
+    }
+
+    .range-row {
+      display: grid;
+      grid-template-columns:
+        minmax(0, 1fr) auto;
+
+      gap: 9px;
+    }
+
+    .range-input {
+      min-width: 0;
+      min-height: 49px;
+
+      padding: 11px 13px;
+
+      border-radius: 14px;
+
+      border:
+        1px solid #dce1ed;
+
+      outline: none;
+
+      color: var(--ink);
+      background: #fbfcff;
+
+      font-weight: 850;
+    }
+
+    .range-input:focus {
+      border-color:
+        rgba(79, 70, 229, .52);
+
+      box-shadow:
+        0 0 0 4px
+        rgba(79, 70, 229, .08);
+    }
+
+    .apply-range-btn {
+      min-height: 49px;
+      padding: 0 16px;
+
+      border-radius: 14px;
+      border: 0;
+
+      color: #fff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--navy),
+          var(--indigo)
+        );
+
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    .selection-help {
+      margin-top: 7px;
+
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 790;
+    }
+
+    .toolbar-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+
+      margin-top: 11px;
+    }
+
+    .toolbar-btn {
+      min-height: 40px;
+      padding: 8px 12px;
+
+      border-radius: 12px;
+
+      border:
+        1px solid #dfe4ed;
+
+      color: #606d84;
+      background: #fff;
+
+      font-size: 11px;
+      font-weight: 950;
+    }
+
+    .toolbar-btn:hover:not(:disabled) {
+      color: var(--indigo);
+      background: #f7f7ff;
+
+      border-color: #cfd2eb;
+    }
+
+    .toolbar-btn.danger {
+      color: var(--red);
+    }
+
+    .toolbar-btn.restore {
+      color: var(--green);
+    }
+
+    .toolbar-btn:disabled {
+      opacity: .38;
+      cursor: not-allowed;
+    }
+
+    .pages-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 14px;
+
+      margin: 18px 0 12px;
+    }
+
+    .pages-head h3 {
+      margin: 0;
+
+      font-size: 22px;
+      letter-spacing: -.04em;
+    }
+
+    .pages-head p {
+      margin: 4px 0 0;
+
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .selected-pill {
+      padding: 8px 11px;
+
+      border-radius: 999px;
+
+      color: #423ab0;
+      background: #f1f0ff;
+
+      border:
+        1px solid #dcdaff;
+
+      font-size: 11px;
+      font-weight: 950;
+    }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      gap: 12px;
+    }
+
+    .page-card {
+      position: relative;
+
+      min-width: 0;
+      padding: 9px;
+
+      border-radius: 18px;
+
+      border:
+        2px solid transparent;
+
+      color: var(--ink);
+      background: #fff;
+
+      box-shadow:
+        0 9px 25px
+        rgba(23, 37, 84, .06);
+
+      transition: .16s ease;
+      cursor: pointer;
+    }
+
+    .page-card:hover {
+      transform: translateY(-2px);
+
+      border-color:
+        rgba(79, 70, 229, .3);
+    }
+
+    .page-card.selected {
+      border-color: var(--indigo);
+
+      background:
+        linear-gradient(
+          145deg,
+          #f5f4ff,
+          #f3fffb
+        );
+
+      box-shadow:
+        0 12px 30px
+        rgba(79, 70, 229, .14);
+    }
+
+    .page-card.dragging {
+      opacity: .42;
+      transform: scale(.98);
+    }
+
+    .page-card.drop-before {
+      box-shadow:
+        inset 0 4px 0
+        var(--indigo);
+    }
+
+    .page-card.drop-after {
+      box-shadow:
+        inset 0 -4px 0
+        var(--indigo);
+    }
+
+    .page-preview {
+      position: relative;
+
+      min-height: 180px;
+
+      display: grid;
+      place-items: center;
+
+      overflow: hidden;
+
+      border-radius: 12px;
+
+      background:
+        linear-gradient(
+          45deg,
+          #e4e7ee 25%,
+          transparent 25%,
+          transparent 75%,
+          #e4e7ee 75%
+        ),
+        linear-gradient(
+          45deg,
+          #e4e7ee 25%,
+          #fafbfc 25%,
+          #fafbfc 75%,
+          #e4e7ee 75%
+        );
+
+      background-position:
+        0 0,
+        10px 10px;
+
+      background-size:
+        20px 20px;
+    }
+
+    .page-preview canvas {
+      display: block;
+
+      max-width: 100%;
+      max-height: 220px;
+
+      width: auto;
+      height: auto;
+
+      background: #fff;
+
+      box-shadow:
+        0 5px 14px
+        rgba(23, 37, 84, .13);
+    }
+
+    .page-loading {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .new-order {
+      position: absolute;
+
+      left: 6px;
+      top: 6px;
+
+      min-width: 29px;
+      height: 29px;
+
+      padding: 0 7px;
+
+      border-radius: 999px;
+
+      display: grid;
+      place-items: center;
+
+      color: #fff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--navy),
+          var(--indigo)
+        );
+
+      box-shadow:
+        0 7px 17px
+        rgba(79, 70, 229, .24);
+
+      font-size: 10px;
+      font-weight: 950;
+
+      z-index: 4;
+    }
+
+    .selection-number {
+      position: absolute;
+
+      right: 6px;
+      top: 6px;
+
+      min-width: 29px;
+      height: 29px;
+
+      padding: 0 7px;
+
+      border-radius: 999px;
+
+      display: none;
+      place-items: center;
+
+      color: var(--navy);
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--lime),
+          var(--cyan)
+        );
+
+      box-shadow:
+        0 7px 17px
+        rgba(34, 211, 238, .23);
+
+      font-size: 10px;
+      font-weight: 950;
+
+      z-index: 4;
+    }
+
+    .page-card.selected
+    .selection-number {
+      display: grid;
+    }
+
+    .rotation-badge {
+      position: absolute;
+
+      right: 7px;
+      bottom: 7px;
+
+      display: none;
+
+      min-width: 45px;
+      height: 25px;
+
+      padding: 0 7px;
+
+      border-radius: 999px;
+
+      place-items: center;
+
+      color: #fff;
+      background: var(--coral);
+
+      font-size: 9px;
+      font-weight: 950;
+
+      z-index: 4;
+    }
+
+    .rotation-badge.show {
+      display: grid;
+    }
+
+    .page-footer {
+      min-width: 0;
+
+      margin-top: 9px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 7px;
+    }
+
+    .page-number {
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    .page-origin {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    .card-actions {
+      display: grid;
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      gap: 5px;
+
+      margin-top: 8px;
+    }
+
+    .card-btn {
+      min-height: 32px;
+
+      border-radius: 9px;
+
+      border:
+        1px solid #e1e5ed;
+
+      color: #68738a;
+      background: #fff;
+
+      font-size: 10px;
+      font-weight: 950;
+    }
+
+    .card-btn:hover {
+      color: var(--indigo);
+      background: #f7f7ff;
+    }
+
+    .card-btn.delete:hover {
+      color: var(--red);
+      background: #fff6f7;
+    }
+
+    .empty-pages {
+      padding: 50px 20px;
+
+      text-align: center;
+
+      border-radius: 20px;
+
+      color: var(--muted);
+      background: #fff;
+
+      border:
+        1px dashed #d5dae6;
+
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .control-column {
+      padding: 22px;
+      background: #fff;
+
+      border-left:
+        1px solid var(--line);
+    }
+
+    .control-group + .control-group {
+      margin-top: 20px;
+      padding-top: 20px;
+
+      border-top:
+        1px solid var(--line);
+    }
+
+    .group-title {
+      margin: 0 0 10px;
+
+      color: #384461;
+      font-size: 14px;
+      font-weight: 950;
+      letter-spacing: -.02em;
+    }
+
+    .selection-summary {
+      display: grid;
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 8px;
+    }
+
+    .selection-stat {
+      padding: 11px;
+
+      border-radius: 14px;
+
+      background: #f8f9fc;
+
+      border:
+        1px solid #e3e7ee;
+    }
+
+    .selection-stat span {
+      display: block;
+
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 850;
+    }
+
+    .selection-stat strong {
+      display: block;
+
+      margin-top: 3px;
+
+      font-size: 13px;
+      letter-spacing: -.02em;
+    }
+
+    .operation-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 8px;
+    }
+
+    .operation-btn {
+      min-height: 48px;
+      padding: 8px;
+
+      border-radius: 14px;
+
+      border:
+        1px solid #dfe4ed;
+
+      color: #5f6b83;
+      background: #fff;
+
+      font-size: 11px;
+      font-weight: 950;
+    }
+
+    .operation-btn:hover:not(:disabled) {
+      color: var(--indigo);
+
+      border-color: #cbcfee;
+      background: #f7f7ff;
+    }
+
+    .operation-btn.delete {
+      color: var(--red);
+    }
+
+    .operation-btn.restore {
+      color: var(--green);
+    }
+
+    .operation-btn:disabled {
+      opacity: .4;
+      cursor: not-allowed;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field + .field {
+      margin-top: 13px;
+    }
+
+    .field-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    label {
+      color: #3d4965;
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    .field-head small {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      min-height: 49px;
+
+      padding: 11px 13px;
+
+      border-radius: 14px;
+
+      border:
+        1px solid #dfe3ed;
+
+      outline: none;
+
+      color: var(--ink);
+      background: #fbfcff;
+
+      font-weight: 850;
+    }
+
+    input[type="text"]:focus {
+      border-color:
+        rgba(79, 70, 229, .52);
+
+      box-shadow:
+        0 0 0 4px
+        rgba(79, 70, 229, .08);
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+
+      padding: 13px;
+
+      border-radius: 15px;
+
+      border:
+        1px solid #e0e5ed;
+
+      background: #fbfcff;
+    }
+
+    .toggle-row b {
+      display: block;
+      font-size: 13px;
+    }
+
+    .toggle-row small {
+      display: block;
+      margin-top: 2px;
+
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .switch {
+      position: relative;
+
+      width: 50px;
+      height: 29px;
+
+      flex: 0 0 auto;
+    }
+
+    .switch input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .switch span {
+      position: absolute;
+      inset: 0;
+
+      border-radius: 999px;
+
+      background: #ccd4df;
+
+      transition: .18s ease;
+    }
+
+    .switch span::after {
+      content: "";
+
+      position: absolute;
+
+      left: 4px;
+      top: 4px;
+
+      width: 21px;
+      height: 21px;
+
+      border-radius: 50%;
+      background: #fff;
+
+      box-shadow:
+        0 4px 10px
+        rgba(23, 37, 84, .17);
+
+      transition: .18s ease;
+    }
+
+    .switch input:checked + span {
+      background:
+        linear-gradient(
+          135deg,
+          var(--indigo),
+          var(--cyan)
+        );
+    }
+
+    .switch input:checked + span::after {
+      transform: translateX(21px);
+    }
+
+    .history-buttons {
+      display: grid;
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 8px;
+    }
+
+    .history-btn {
+      min-height: 46px;
+
+      border-radius: 13px;
+
+      border:
+        1px solid #dfe4ed;
+
+      color: #5f6b83;
+      background: #fff;
+
+      font-size: 11px;
+      font-weight: 950;
+    }
+
+    .history-btn:hover:not(:disabled) {
+      color: var(--indigo);
+      background: #f7f7ff;
+    }
+
+    .history-btn:disabled {
+      opacity: .4;
+      cursor: not-allowed;
+    }
+
+    .notice-box {
+      padding: 13px;
+
+      border-radius: 15px;
+
+      color: #73561d;
+      background: #fff8df;
+
+      border:
+        1px solid #f0e0a3;
+
+      font-size: 11px;
+      line-height: 1.65;
+      font-weight: 800;
+    }
+
+    .save-btn {
+      width: 100%;
+      min-height: 58px;
+
+      border: 0;
+      border-radius: 17px;
+
+      color: #fff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--navy),
+          var(--indigo),
+          var(--blue)
+        );
+
+      box-shadow:
+        0 17px 38px
+        rgba(79, 70, 229, .2);
+
+      font-size: 16px;
+      font-weight: 950;
+    }
+
+    .save-btn:disabled {
+      opacity: .45;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .replace-label,
+    .clear-btn {
+      width: 100%;
+      min-height: 48px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 14px;
+
+      color: #606c83;
+      background: #fff;
+
+      border:
+        1px solid #dfe4ed;
+
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    .replace-label {
+      margin-top: 8px;
+      cursor: pointer;
+    }
+
+    .replace-label input {
+      display: none;
+    }
+
+    .clear-btn {
+      margin-top: 8px;
+    }
+
+    .progress-box {
+      display: none;
+
+      margin-top: 13px;
+      padding: 12px;
+
+      border-radius: 15px;
+
+      background: #f8f9fc;
+
+      border:
+        1px solid #e3e7ee;
+    }
+
+    .progress-box.show {
+      display: block;
+    }
+
+    .progress-track {
+      height: 10px;
+      overflow: hidden;
+
+      border-radius: 999px;
+
+      background: #dfe4ed;
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+
+      border-radius: 999px;
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--indigo),
+          var(--cyan),
+          var(--lime)
+        );
+
+      transition: width .2s ease;
+    }
+
+    .progress-text {
+      margin-top: 8px;
+
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .result-section {
+      display: none;
+      padding: 0 0 28px;
+    }
+
+    .result-section.show {
+      display: block;
+    }
+
+    .result-card {
+      padding: 24px;
+
+      display: grid;
+      grid-template-columns:
+        105px minmax(0, 1fr) 220px;
+
+      gap: 20px;
+      align-items: center;
+
+      border-radius: 28px;
+
+      background:
+        radial-gradient(
+          circle at 90% 15%,
+          rgba(217, 246, 112, .26),
+          transparent 25%
+        ),
+        linear-gradient(
+          135deg,
+          #f0f2ff,
+          #effff9
+        );
+
+      border:
+        1px solid #dfe4ee;
+
+      box-shadow: var(--shadow-soft);
+    }
+
+    .result-icon {
+      width: 100px;
+      height: 118px;
+
+      border-radius:
+        23px 23px 8px 23px;
+
+      display: grid;
+      place-items: center;
+
+      color: #fff;
+
+      background:
+        linear-gradient(
+          145deg,
+          var(--navy),
+          var(--indigo)
+        );
+
+      box-shadow:
+        0 15px 34px
+        rgba(79, 70, 229, .19);
+
+      font-size: 19px;
+      font-weight: 950;
+    }
+
+    .result-content h2 {
+      margin: 0;
+
+      font-size: 29px;
+      letter-spacing: -.055em;
+    }
+
+    .result-content p {
+      margin: 6px 0 0;
+
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .result-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+
+      margin-top: 13px;
+    }
+
+    .result-stat {
+      padding: 8px 10px;
+
+      border-radius: 12px;
+
+      background:
+        rgba(255, 255, 255, .84);
+
+      border:
+        1px solid
+        rgba(255, 255, 255, .97);
+
+      color: #59667d;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .download-btn {
+      width: 100%;
+      min-height: 54px;
+
+      border: 0;
+      border-radius: 16px;
+
+      color: #fff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--navy),
+          var(--indigo)
+        );
+
+      box-shadow:
+        0 16px 36px
+        rgba(79, 70, 229, .2);
+
+      font-weight: 950;
+    }
+
+    .restart-btn {
+      width: 100%;
+      min-height: 46px;
+
+      margin-top: 8px;
+
+      border-radius: 14px;
+
+      color: #606c83;
+      background: #fff;
+
+      border:
+        1px solid #dfe4ed;
+
+      font-weight: 950;
+    }
+
+    .info-section {
+      padding: 10px 0 52px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 14px;
+    }
+
+    .info-card {
+      padding: 22px;
+
+      border-radius: 24px;
+
+      background:
+        rgba(255, 255, 255, .93);
+
+      border:
+        1px solid var(--line);
+
+      box-shadow: var(--shadow-soft);
+    }
+
+    .info-card:nth-child(1) {
+      border-bottom:
+        4px solid var(--indigo);
+    }
+
+    .info-card:nth-child(2) {
+      border-bottom:
+        4px solid var(--cyan);
+    }
+
+    .info-card:nth-child(3) {
+      border-bottom:
+        4px solid #9dbb27;
+    }
+
+    .info-icon {
+      width: 48px;
+      height: 48px;
+
+      border-radius:
+        17px 17px 7px 17px;
+
+      display: grid;
+      place-items: center;
+
+      color: var(--navy);
+
+      background:
+        linear-gradient(
+          135deg,
+          #eef0ff,
+          #efffd6
+        );
+
+      font-size: 18px;
+      font-weight: 950;
+    }
+
+    .info-card h3 {
+      margin: 13px 0 7px;
+
+      font-size: 19px;
+      letter-spacing: -.04em;
+    }
+
+    .info-card p {
+      margin: 0;
+
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.75;
+      word-break: keep-all;
+    }
+
+    footer {
+      padding: 32px 0 44px;
+
+      border-top:
+        1px solid
+        rgba(32, 40, 68, .08);
+
+      color: var(--muted);
+    }
+
+    .footer-grid {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-grid b {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--ink);
+    }
+
+    .footer-grid span {
+      display: block;
+      max-width: 790px;
+
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+
+      color: #606c83;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    @media (max-width: 1140px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual {
+        min-height: 345px;
+      }
+
+      .workspace-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .control-column {
+        border-left: 0;
+
+        border-top:
+          1px solid var(--line);
+      }
+    }
+
+    @media (max-width: 920px) {
+      .document-bar {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+
+      .document-info {
+        grid-column: 1 / -1;
+      }
+
+      .page-grid {
+        grid-template-columns:
+          repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 12px 0;
+      }
+
+      .nav-links {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 2px;
+      }
+
+      .hero {
+        padding-top: 30px;
+      }
+
+      .hero-shell {
+        padding: 34px 25px;
+        border-radius: 32px;
+      }
+
+      h1 {
+        white-space: normal;
+
+        font-size:
+          clamp(44px, 12vw, 62px);
+      }
+
+      .tool-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .page-grid {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+
+      .result-card {
+        grid-template-columns:
+          85px 1fr;
+      }
+
+      .result-icon {
+        width: 85px;
+        height: 101px;
+      }
+
+      .result-actions-box {
+        grid-column: 1 / -1;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .wrap {
+        width:
+          min(
+            var(--max),
+            calc(100% - 22px)
+          );
+      }
+
+      .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .hero-visual {
+        min-height: 300px;
+      }
+
+      .page-demo {
+        width: 135px;
+        height: 188px;
+        padding: 9px;
+      }
+
+      .page-demo::before {
+        height: 69px;
+      }
+
+      .page-a {
+        left: -7px;
+      }
+
+      .page-c {
+        right: -7px;
+      }
+
+      .organize-badge {
+        min-width: 176px;
+        height: 51px;
+        font-size: 12px;
+      }
+
+      .empty-area {
+        padding: 13px;
+      }
+
+      .dropzone {
+        min-height: 330px;
+        padding: 24px 16px;
+      }
+
+      .document-bar {
+        grid-template-columns: 1fr;
+      }
+
+      .document-info {
+        grid-column: auto;
+      }
+
+      .pages-column {
+        padding: 13px;
+      }
+
+      .range-row {
+        grid-template-columns: 1fr;
+      }
+
+      .page-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+
+      .page-preview {
+        min-height: 132px;
+      }
+
+      .card-actions {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+
+      .selection-summary,
+      .operation-grid,
+      .history-buttons {
+        grid-template-columns: 1fr;
+      }
+
+      .result-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .result-icon {
+        margin: 0 auto;
+      }
+
+      .result-stats {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a
+        class="brand"
+        href="../"
+        aria-label="바로해결툴즈 홈"
+      >
+        <div class="brand-mark">B</div>
+
+        <div>
+          바로해결툴즈
+          <small>이미지 · 문서 · 생활도구</small>
+        </div>
+      </a>
+
+      <nav
+        class="nav-links"
+        aria-label="상단 메뉴"
+      >
+        <a href="../">전체 도구</a>
+        <a href="#organizer">PDF 페이지 정리</a>
+        <a href="#guide">사용방법</a>
+        <a href="#privacy">개인정보</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero-shell">
+          <div class="hero-grid">
+            <div>
+              <div class="eyebrow">
+                순서 변경·회전·삭제를 한 번에
+              </div>
+
+              <h1>
+                <span>PDF 페이지 정리</span>
+              </h1>
+
+              <p class="lead">
+                PDF 페이지를 미리보기로 확인하고
+                원하는 순서로 재배열하세요.
+                필요 없는 페이지를 삭제하거나 방향을 회전한 뒤
+                새로운 PDF 파일로 저장할 수 있습니다.
+              </p>
+
+              <div class="hero-actions">
+                <a
+                  class="btn btn-primary"
+                  href="#organizer"
+                >
+                  PDF 페이지 정리 시작
+                </a>
+
+                <a
+                  class="btn btn-secondary"
+                  href="#guide"
+                >
+                  기능 확인
+                </a>
+              </div>
+            </div>
+
+            <div
+              class="hero-visual"
+              aria-label="PDF 페이지 정리 예시"
+            >
+              <div class="page-demo page-a">
+                <span class="page-label">3</span>
+              </div>
+
+              <div class="page-demo page-b">
+                <span class="page-label">1</span>
+              </div>
+
+              <div class="page-demo page-c">
+                <span class="page-label">2</span>
+              </div>
+
+              <div class="organize-badge">
+                순서 변경 · 회전 · 삭제
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="main-section"
+      id="organizer"
+    >
+      <div class="wrap">
+        <div class="tool-shell">
+          <div class="tool-head">
+            <div>
+              <h2>PDF 페이지 편집 작업실</h2>
+
+              <p>
+                페이지를 끌어서 이동하거나
+                선택 후 오른쪽 편집 버튼을 사용하세요.
+              </p>
+            </div>
+
+            <div
+              class="privacy-pill"
+              id="privacy"
+            >
+              🔒 파일 서버 전송 없이 로컬 처리
+            </div>
+          </div>
+
+          <div
+            class="empty-area"
+            id="emptyArea"
+          >
+            <div
+              class="dropzone"
+              id="dropzone"
+            >
+              <div>
+                <div class="drop-icon">
+                  PDF
+                </div>
+
+                <h3>
+                  정리할 PDF 파일을 올려주세요
+                </h3>
+
+                <p>
+                  한 번에 PDF 1개<br />
+                  최대 200MB·800페이지 권장
+                </p>
+
+                <label class="file-label">
+                  PDF 파일 선택
+
+                  <input
+                    id="fileInput"
+                    type="file"
+                    accept="application/pdf,.pdf"
+                  />
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="workspace"
+            id="workspace"
+          >
+            <div class="document-bar">
+              <div class="document-info">
+                <div class="document-icon">
+                  PDF
+                </div>
+
+                <div class="document-name">
+                  <strong id="documentName">
+                    PDF 파일
+                  </strong>
+
+                  <span id="documentSize">
+                    0KB
+                  </span>
+                </div>
+              </div>
+
+              <div class="summary-item">
+                <span>원본 페이지</span>
+
+                <strong id="summaryOriginal">
+                  0쪽
+                </strong>
+              </div>
+
+              <div class="summary-item">
+                <span>결과 페이지</span>
+
+                <strong id="summaryActive">
+                  0쪽
+                </strong>
+              </div>
+
+              <div class="summary-item">
+                <span>삭제 페이지</span>
+
+                <strong id="summaryDeleted">
+                  0쪽
+                </strong>
+              </div>
+
+              <div class="summary-item">
+                <span>편집 상태</span>
+
+                <strong id="summaryStatus">
+                  준비 중
+                </strong>
+              </div>
+            </div>
+
+            <div class="workspace-grid">
+              <section class="pages-column">
+                <div class="toolbar">
+                  <div class="range-row">
+                    <input
+                      class="range-input"
+                      id="pageRangeInput"
+                      type="text"
+                      placeholder="선택할 원본 페이지: 1-3, 5, 8"
+                      autocomplete="off"
+                    />
+
+                    <button
+                      class="apply-range-btn"
+                      id="applyRangeBtn"
+                      type="button"
+                    >
+                      페이지 선택 적용
+                    </button>
+                  </div>
+
+                  <div class="selection-help">
+                    입력 번호는 현재 순서가 아닌 원본 PDF 페이지 번호입니다.
+                  </div>
+
+                  <div class="toolbar-buttons">
+                    <button
+                      class="toolbar-btn"
+                      id="selectAllBtn"
+                      type="button"
+                    >
+                      전체 선택
+                    </button>
+
+                    <button
+                      class="toolbar-btn"
+                      id="selectOddBtn"
+                      type="button"
+                    >
+                      현재 홀수 순서
+                    </button>
+
+                    <button
+                      class="toolbar-btn"
+                      id="selectEvenBtn"
+                      type="button"
+                    >
+                      현재 짝수 순서
+                    </button>
+
+                    <button
+                      class="toolbar-btn"
+                      id="clearSelectionBtn"
+                      type="button"
+                    >
+                      선택 해제
+                    </button>
+
+                    <button
+                      class="toolbar-btn restore"
+                      id="restoreDeletedBtn"
+                      type="button"
+                      disabled
+                    >
+                      삭제 페이지 복원
+                    </button>
+
+                    <button
+                      class="toolbar-btn danger"
+                      id="deleteSelectedTopBtn"
+                      type="button"
+                      disabled
+                    >
+                      선택 페이지 삭제
+                    </button>
+                  </div>
+                </div>
+
+                <div class="pages-head">
+                  <div>
+                    <h3>페이지 미리보기</h3>
+
+                    <p>
+                      카드 왼쪽 위 숫자가 새로운 페이지 순서입니다.
+                    </p>
+                  </div>
+
+                  <div
+                    class="selected-pill"
+                    id="selectedPill"
+                  >
+                    0쪽 선택
+                  </div>
+                </div>
+
+                <div
+                  class="page-grid"
+                  id="pageGrid"
+                ></div>
+              </section>
+
+              <aside class="control-column">
+                <div class="control-group">
+                  <div class="group-title">
+                    현재 선택
+                  </div>
+
+                  <div class="selection-summary">
+                    <div class="selection-stat">
+                      <span>선택 페이지</span>
+
+                      <strong id="controlSelected">
+                        0쪽
+                      </strong>
+                    </div>
+
+                    <div class="selection-stat">
+                      <span>결과 페이지</span>
+
+                      <strong id="controlActive">
+                        0쪽
+                      </strong>
+                    </div>
+
+                    <div class="selection-stat">
+                      <span>회전 적용</span>
+
+                      <strong id="controlRotated">
+                        0쪽
+                      </strong>
+                    </div>
+
+                    <div class="selection-stat">
+                      <span>삭제 대기</span>
+
+                      <strong id="controlDeleted">
+                        0쪽
+                      </strong>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="control-group">
+                  <div class="group-title">
+                    선택 페이지 편집
+                  </div>
+
+                  <div class="operation-grid">
+                    <button
+                      class="operation-btn"
+                      id="rotateLeftBtn"
+                      type="button"
+                      disabled
+                    >
+                      ↶ 왼쪽 90°
+                    </button>
+
+                    <button
+                      class="operation-btn"
+                      id="rotateRightBtn"
+                      type="button"
+                      disabled
+                    >
+                      ↷ 오른쪽 90°
+                    </button>
+
+                    <button
+                      class="operation-btn"
+                      id="moveForwardBtn"
+                      type="button"
+                      disabled
+                    >
+                      ↑ 한 칸 앞으로
+                    </button>
+
+                    <button
+                      class="operation-btn"
+                      id="moveBackwardBtn"
+                      type="button"
+                      disabled
+                    >
+                      ↓ 한 칸 뒤로
+                    </button>
+
+                    <button
+                      class="operation-btn"
+                      id="reverseSelectedBtn"
+                      type="button"
+                      disabled
+                    >
+                      선택 순서 뒤집기
+                    </button>
+
+                    <button
+                      class="operation-btn delete"
+                      id="deleteSelectedBtn"
+                      type="button"
+                      disabled
+                    >
+                      선택 페이지 삭제
+                    </button>
+
+                    <button
+                      class="operation-btn restore"
+                      id="restoreDeletedControlBtn"
+                      type="button"
+                      disabled
+                    >
+                      삭제 페이지 복원
+                    </button>
+
+                    <button
+                      class="operation-btn"
+                      id="resetOrderBtn"
+                      type="button"
+                    >
+                      원본 순서 복원
+                    </button>
+                  </div>
+                </div>
+
+                <div class="control-group">
+                  <div class="group-title">
+                    편집 기록
+                  </div>
+
+                  <div class="history-buttons">
+                    <button
+                      class="history-btn"
+                      id="undoBtn"
+                      type="button"
+                      disabled
+                    >
+                      ↶ 실행 취소
+                    </button>
+
+                    <button
+                      class="history-btn"
+                      id="redoBtn"
+                      type="button"
+                      disabled
+                    >
+                      ↷ 다시 실행
+                    </button>
+                  </div>
+                </div>
+
+                <div class="control-group">
+                  <div class="group-title">
+                    저장 설정
+                  </div>
+
+                  <div class="field">
+                    <div class="field-head">
+                      <label for="outputName">
+                        결과 파일명
+                      </label>
+
+                      <small>
+                        .pdf 자동 추가
+                      </small>
+                    </div>
+
+                    <input
+                      id="outputName"
+                      type="text"
+                      maxlength="80"
+                      value="organized-pdf"
+                      autocomplete="off"
+                    />
+                  </div>
+
+                  <div class="field">
+                    <div class="toggle-row">
+                      <div>
+                        <b>
+                          원본 문서 정보 유지
+                        </b>
+
+                        <small>
+                          제목·작성자·주제 메타데이터
+                        </small>
+                      </div>
+
+                      <label
+                        class="switch"
+                        aria-label="원본 문서 정보 유지"
+                      >
+                        <input
+                          id="metadataToggle"
+                          type="checkbox"
+                          checked
+                        />
+
+                        <span></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="control-group">
+                  <div class="notice-box">
+                    일부 전자서명, 양식, 책갈피와 페이지 링크는
+                    페이지 순서 변경이나 삭제 후 정상 작동하지 않을 수 있습니다.
+                    중요한 문서는 저장 후 최종 결과를 다시 확인하세요.
+                  </div>
+                </div>
+
+                <div class="control-group">
+                  <button
+                    class="save-btn"
+                    id="saveBtn"
+                    type="button"
+                    disabled
+                  >
+                    정리한 PDF 저장하기
+                  </button>
+
+                  <label class="replace-label">
+                    다른 PDF 선택
+
+                    <input
+                      id="replaceInput"
+                      type="file"
+                      accept="application/pdf,.pdf"
+                    />
+                  </label>
+
+                  <button
+                    class="clear-btn"
+                    id="clearFileBtn"
+                    type="button"
+                  >
+                    현재 PDF 닫기
+                  </button>
+
+                  <div
+                    class="progress-box"
+                    id="progressBox"
+                  >
+                    <div class="progress-track">
+                      <div
+                        class="progress-bar"
+                        id="progressBar"
+                      ></div>
+                    </div>
+
+                    <div class="progress-text">
+                      <span id="progressLabel">
+                        저장 준비 중
+                      </span>
+
+                      <span id="progressPercent">
+                        0%
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="result-section"
+      id="resultSection"
+    >
+      <div class="wrap">
+        <div class="result-card">
+          <div class="result-icon">
+            PDF
+          </div>
+
+          <div class="result-content">
+            <h2>PDF 페이지 정리 완료</h2>
+
+            <p id="resultName">
+              결과 PDF가 준비되었습니다.
+            </p>
+
+            <div class="result-stats">
+              <div
+                class="result-stat"
+                id="resultPages"
+              >
+                0페이지
+              </div>
+
+              <div
+                class="result-stat"
+                id="resultDeleted"
+              >
+                삭제 0페이지
+              </div>
+
+              <div
+                class="result-stat"
+                id="resultRotated"
+              >
+                회전 0페이지
+              </div>
+
+              <div
+                class="result-stat"
+                id="resultSize"
+              >
+                0KB
+              </div>
+            </div>
+          </div>
+
+          <div class="result-actions-box">
+            <button
+              class="download-btn"
+              id="downloadBtn"
+              type="button"
+            >
+              정리된 PDF 저장
+            </button>
+
+            <button
+              class="restart-btn"
+              id="restartBtn"
+              type="button"
+            >
+              페이지 편집 계속하기
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="info-section"
+      id="guide"
+    >
+      <div class="wrap info-grid">
+        <article class="info-card">
+          <div class="info-icon">
+            ↕
+          </div>
+
+          <h3>페이지 순서 변경</h3>
+
+          <p>
+            페이지 카드를 직접 끌어 이동하거나
+            선택한 페이지를 한 칸씩 앞뒤로 옮길 수 있습니다.
+          </p>
+        </article>
+
+        <article class="info-card">
+          <div class="info-icon">
+            ↻
+          </div>
+
+          <h3>회전·삭제·복원</h3>
+
+          <p>
+            여러 페이지를 동시에 회전하거나 삭제하고,
+            잘못 삭제한 페이지를 원래 위치로 복원할 수 있습니다.
+          </p>
+        </article>
+
+        <article class="info-card">
+          <div class="info-icon">
+            PDF
+          </div>
+
+          <h3>원본 페이지 품질 유지</h3>
+
+          <p>
+            페이지를 이미지로 다시 만들지 않고
+            원본 PDF 페이지를 복사해 새로운 파일을 생성합니다.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <div>
+        <b>바로해결툴즈</b>
+
+        <span>
+          페이지가 많거나 용량이 큰 PDF는
+          미리보기와 저장에 시간이 걸릴 수 있습니다.
+          결과 파일을 저장할 때까지 브라우저를 닫지 마세요.
+        </span>
+      </div>
+
+      <div class="footer-links">
+        <a href="../">전체 도구</a>
+        <a href="#organizer">PDF 페이지 정리</a>
+        <a href="#guide">사용방법</a>
+      </div>
+    </div>
+  </footer>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"
+  ></script>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"
+  ></script>
+
+  <script>
+    "use strict";
+
+    const MAX_FILE_SIZE =
+      200 * 1024 * 1024;
+
+    const MAX_PAGES = 800;
+
+    const MAX_HISTORY = 30;
+
+    const PDFJS_WORKER_URL =
+      "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js";
+
+    if (window.pdfjsLib) {
+      window.pdfjsLib
+        .GlobalWorkerOptions
+        .workerSrc =
+          PDFJS_WORKER_URL;
+    }
+
+    const state = {
+      file: null,
+      pdfBytes: null,
+      pdfDocument: null,
+      pageCount: 0,
+
+      pages: [],
+      selectedIds: [],
+
+      loading: false,
+      processing: false,
+
+      thumbnailObserver: null,
+      renderedSignatures: new Map(),
+
+      dragId: null,
+      dragPosition: null,
+
+      undoStack: [],
+      redoStack: [],
+
+      resultBlob: null,
+      resultUrl: "",
+      resultFileName: ""
+    };
+
+    const els = {
+      emptyArea:
+        document.getElementById(
+          "emptyArea"
+        ),
+
+      workspace:
+        document.getElementById(
+          "workspace"
+        ),
+
+      dropzone:
+        document.getElementById(
+          "dropzone"
+        ),
+
+      fileInput:
+        document.getElementById(
+          "fileInput"
+        ),
+
+      replaceInput:
+        document.getElementById(
+          "replaceInput"
+        ),
+
+      documentName:
+        document.getElementById(
+          "documentName"
+        ),
+
+      documentSize:
+        document.getElementById(
+          "documentSize"
+        ),
+
+      summaryOriginal:
+        document.getElementById(
+          "summaryOriginal"
+        ),
+
+      summaryActive:
+        document.getElementById(
+          "summaryActive"
+        ),
+
+      summaryDeleted:
+        document.getElementById(
+          "summaryDeleted"
+        ),
+
+      summaryStatus:
+        document.getElementById(
+          "summaryStatus"
+        ),
+
+      pageRangeInput:
+        document.getElementById(
+          "pageRangeInput"
+        ),
+
+      applyRangeBtn:
+        document.getElementById(
+          "applyRangeBtn"
+        ),
+
+      selectAllBtn:
+        document.getElementById(
+          "selectAllBtn"
+        ),
+
+      selectOddBtn:
+        document.getElementById(
+          "selectOddBtn"
+        ),
+
+      selectEvenBtn:
+        document.getElementById(
+          "selectEvenBtn"
+        ),
+
+      clearSelectionBtn:
+        document.getElementById(
+          "clearSelectionBtn"
+        ),
+
+      restoreDeletedBtn:
+        document.getElementById(
+          "restoreDeletedBtn"
+        ),
+
+      deleteSelectedTopBtn:
+        document.getElementById(
+          "deleteSelectedTopBtn"
+        ),
+
+      selectedPill:
+        document.getElementById(
+          "selectedPill"
+        ),
+
+      pageGrid:
+        document.getElementById(
+          "pageGrid"
+        ),
+
+      controlSelected:
+        document.getElementById(
+          "controlSelected"
+        ),
+
+      controlActive:
+        document.getElementById(
+          "controlActive"
+        ),
+
+      controlRotated:
+        document.getElementById(
+          "controlRotated"
+        ),
+
+      controlDeleted:
+        document.getElementById(
+          "controlDeleted"
+        ),
+
+      rotateLeftBtn:
+        document.getElementById(
+          "rotateLeftBtn"
+        ),
+
+      rotateRightBtn:
+        document.getElementById(
+          "rotateRightBtn"
+        ),
+
+      moveForwardBtn:
+        document.getElementById(
+          "moveForwardBtn"
+        ),
+
+      moveBackwardBtn:
+        document.getElementById(
+          "moveBackwardBtn"
+        ),
+
+      reverseSelectedBtn:
+        document.getElementById(
+          "reverseSelectedBtn"
+        ),
+
+      deleteSelectedBtn:
+        document.getElementById(
+          "deleteSelectedBtn"
+        ),
+
+      restoreDeletedControlBtn:
+        document.getElementById(
+          "restoreDeletedControlBtn"
+        ),
+
+      resetOrderBtn:
+        document.getElementById(
+          "resetOrderBtn"
+        ),
+
+      undoBtn:
+        document.getElementById(
+          "undoBtn"
+        ),
+
+      redoBtn:
+        document.getElementById(
+          "redoBtn"
+        ),
+
+      outputName:
+        document.getElementById(
+          "outputName"
+        ),
+
+      metadataToggle:
+        document.getElementById(
+          "metadataToggle"
+        ),
+
+      saveBtn:
+        document.getElementById(
+          "saveBtn"
+        ),
+
+      clearFileBtn:
+        document.getElementById(
+          "clearFileBtn"
+        ),
+
+      progressBox:
+        document.getElementById(
+          "progressBox"
+        ),
+
+      progressBar:
+        document.getElementById(
+          "progressBar"
+        ),
+
+      progressLabel:
+        document.getElementById(
+          "progressLabel"
+        ),
+
+      progressPercent:
+        document.getElementById(
+          "progressPercent"
+        ),
+
+      resultSection:
+        document.getElementById(
+          "resultSection"
+        ),
+
+      resultName:
+        document.getElementById(
+          "resultName"
+        ),
+
+      resultPages:
+        document.getElementById(
+          "resultPages"
+        ),
+
+      resultDeleted:
+        document.getElementById(
+          "resultDeleted"
+        ),
+
+      resultRotated:
+        document.getElementById(
+          "resultRotated"
+        ),
+
+      resultSize:
+        document.getElementById(
+          "resultSize"
+        ),
+
+      downloadBtn:
+        document.getElementById(
+          "downloadBtn"
+        ),
+
+      restartBtn:
+        document.getElementById(
+          "restartBtn"
+        )
+    };
+
+    function createPageId(
+      originalPageNumber
+    ) {
+      return (
+        "page-" +
+        originalPageNumber
+      );
+    }
+
+    function clamp(
+      value,
+      minimum,
+      maximum
+    ) {
+      return Math.min(
+        maximum,
+        Math.max(minimum, value)
+      );
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function formatBytes(bytes) {
+      if (
+        !Number.isFinite(bytes) ||
+        bytes <= 0
+      ) {
+        return "0KB";
+      }
+
+      const units = [
+        "B",
+        "KB",
+        "MB",
+        "GB"
+      ];
+
+      const index = Math.min(
+        Math.floor(
+          Math.log(bytes) /
+          Math.log(1024)
+        ),
+        units.length - 1
+      );
+
+      const value =
+        bytes /
+        Math.pow(1024, index);
+
+      const digits =
+        value >= 100 ||
+        index === 0
+          ? 0
+          : 1;
+
+      return (
+        value.toFixed(digits) +
+        units[index]
+      );
+    }
+
+    function sanitizeFileName(value) {
+      const cleaned =
+        String(
+          value ||
+          "organized-pdf"
+        )
+          .replace(/\.pdf$/i, "")
+          .replace(
+            /[\\/:*?"<>|]/g,
+            "-"
+          )
+          .replace(/\s+/g, " ")
+          .trim()
+          .slice(0, 80);
+
+      return cleaned ||
+        "organized-pdf";
+    }
+
+    function validatePdfFile(file) {
+      if (!file) {
+        return "PDF 파일을 선택해주세요.";
+      }
+
+      const isPdf =
+        file.type ===
+          "application/pdf" ||
+        file.name
+          .toLowerCase()
+          .endsWith(".pdf");
+
+      if (!isPdf) {
+        return "PDF 파일만 사용할 수 있습니다.";
+      }
+
+      if (file.size <= 0) {
+        return "비어 있는 파일은 사용할 수 없습니다.";
+      }
+
+      if (
+        file.size >
+        MAX_FILE_SIZE
+      ) {
+        return "200MB 이하 PDF만 사용할 수 있습니다.";
+      }
+
+      return "";
+    }
+
+    function getActivePages() {
+      return state.pages.filter(
+        (page) =>
+          !page.deleted
+      );
+    }
+
+    function getDeletedPages() {
+      return state.pages.filter(
+        (page) =>
+          page.deleted
+      );
+    }
+
+    function getSelectedActivePages() {
+      const selectedSet =
+        new Set(
+          state.selectedIds
+        );
+
+      return state.pages.filter(
+        (page) =>
+          !page.deleted &&
+          selectedSet.has(
+            page.id
+          )
+      );
+    }
+
+    function getRotatedCount() {
+      return getActivePages().filter(
+        (page) =>
+          page.rotation !== 0
+      ).length;
+    }
+
+    function normalizeRotation(value) {
+      return (
+        (
+          value % 360
+        ) +
+        360
+      ) % 360;
+    }
+
+    function clonePages(pages) {
+      return pages.map(
+        (page) => ({
+          id: page.id,
+
+          originalPageNumber:
+            page.originalPageNumber,
+
+          rotation:
+            page.rotation,
+
+          deleted:
+            page.deleted
+        })
+      );
+    }
+
+    function createSnapshot() {
+      return {
+        pages:
+          clonePages(
+            state.pages
+          ),
+
+        selectedIds:
+          [...state.selectedIds]
+      };
+    }
+
+    function restoreSnapshot(snapshot) {
+      state.pages =
+        clonePages(
+          snapshot.pages
+        );
+
+      state.selectedIds =
+        [...snapshot.selectedIds];
+
+      clearResult();
+      renderPageGrid();
+      updateUi();
+    }
+
+    function pushHistory() {
+      state.undoStack.push(
+        createSnapshot()
+      );
+
+      if (
+        state.undoStack.length >
+        MAX_HISTORY
+      ) {
+        state.undoStack.shift();
+      }
+
+      state.redoStack = [];
+      updateHistoryButtons();
+    }
+
+    function undo() {
+      if (
+        !state.undoStack.length
+      ) {
+        return;
+      }
+
+      state.redoStack.push(
+        createSnapshot()
+      );
+
+      const snapshot =
+        state.undoStack.pop();
+
+      restoreSnapshot(snapshot);
+      updateHistoryButtons();
+    }
+
+    function redo() {
+      if (
+        !state.redoStack.length
+      ) {
+        return;
+      }
+
+      state.undoStack.push(
+        createSnapshot()
+      );
+
+      const snapshot =
+        state.redoStack.pop();
+
+      restoreSnapshot(snapshot);
+      updateHistoryButtons();
+    }
+
+    function updateHistoryButtons() {
+      els.undoBtn.disabled =
+        state.undoStack.length === 0;
+
+      els.redoBtn.disabled =
+        state.redoStack.length === 0;
+    }
+
+    function clearResult() {
+      if (state.resultUrl) {
+        URL.revokeObjectURL(
+          state.resultUrl
+        );
+      }
+
+      state.resultBlob = null;
+      state.resultUrl = "";
+      state.resultFileName = "";
+
+      els.resultSection.classList.remove(
+        "show"
+      );
+    }
+
+    function clearThumbnailObserver() {
+      if (
+        state.thumbnailObserver
+      ) {
+        state.thumbnailObserver
+          .disconnect();
+
+        state.thumbnailObserver = null;
+      }
+    }
+
+    function updateProgress(
+      current,
+      total,
+      message
+    ) {
+      const percent =
+        total > 0
+          ? Math.round(
+              current /
+              total *
+              100
+            )
+          : 0;
+
+      const safePercent =
+        clamp(
+          percent,
+          0,
+          100
+        );
+
+      els.progressBox.classList.add(
+        "show"
+      );
+
+      els.progressBar.style.width =
+        safePercent + "%";
+
+      els.progressPercent.textContent =
+        safePercent + "%";
+
+      els.progressLabel.textContent =
+        message;
+    }
+
+    function hideProgressLater() {
+      setTimeout(() => {
+        els.progressBox.classList.remove(
+          "show"
+        );
+      }, 850);
+    }
+
+    async function closePdfDocument() {
+      clearThumbnailObserver();
+
+      if (
+        state.pdfDocument &&
+        typeof state.pdfDocument.destroy ===
+          "function"
+      ) {
+        try {
+          await state.pdfDocument
+            .destroy();
+        } catch (error) {
+          console.warn(error);
+        }
+      }
+
+      state.file = null;
+      state.pdfBytes = null;
+      state.pdfDocument = null;
+      state.pageCount = 0;
+
+      state.pages = [];
+      state.selectedIds = [];
+
+      state.loading = false;
+      state.processing = false;
+
+      state.renderedSignatures.clear();
+
+      state.dragId = null;
+      state.dragPosition = null;
+
+      state.undoStack = [];
+      state.redoStack = [];
+
+      els.pageGrid.innerHTML = "";
+      els.pageRangeInput.value = "";
+
+      clearResult();
+
+      els.emptyArea.style.display =
+        "block";
+
+      els.workspace.classList.remove(
+        "show"
+      );
+
+      els.progressBox.classList.remove(
+        "show"
+      );
+
+      updateUi();
+    }
+
+    async function loadPdfFile(file) {
+      const error =
+        validatePdfFile(file);
+
+      if (error) {
+        alert(error);
+        return;
+      }
+
+      if (state.loading) {
+        return;
+      }
+
+      if (
+        !window.pdfjsLib ||
+        !window.PDFLib
+      ) {
+        alert(
+          "PDF 처리 기능을 불러오지 못했습니다. 인터넷 연결을 확인하고 페이지를 새로고침해주세요."
+        );
+
+        return;
+      }
+
+      state.loading = true;
+      clearResult();
+
+      updateProgress(
+        5,
+        100,
+        "PDF 파일을 읽고 있습니다."
+      );
+
+      try {
+        if (
+          state.pdfDocument &&
+          typeof state.pdfDocument.destroy ===
+            "function"
+        ) {
+          try {
+            await state.pdfDocument
+              .destroy();
+          } catch (destroyError) {
+            console.warn(
+              destroyError
+            );
+          }
+        }
+
+        clearThumbnailObserver();
+
+        const arrayBuffer =
+          await file.arrayBuffer();
+
+        state.file = file;
+
+        state.pdfBytes =
+          new Uint8Array(
+            arrayBuffer
+          );
+
+        updateProgress(
+          22,
+          100,
+          "PDF 페이지 정보를 확인하고 있습니다."
+        );
+
+        const loadingTask =
+          window.pdfjsLib.getDocument({
+            data:
+              state.pdfBytes.slice(),
+
+            disableFontFace: false,
+            useSystemFonts: true
+          });
+
+        const pdfDocument =
+          await loadingTask.promise;
+
+        if (
+          pdfDocument.numPages >
+          MAX_PAGES
+        ) {
+          await pdfDocument.destroy();
+
+          throw new Error(
+            "페이지가 너무 많습니다. 800페이지 이하 PDF를 사용해주세요."
+          );
+        }
+
+        state.pdfDocument =
+          pdfDocument;
+
+        state.pageCount =
+          pdfDocument.numPages;
+
+        state.pages =
+          Array.from(
+            {
+              length:
+                state.pageCount
+            },
+            (
+              unused,
+              index
+            ) => {
+              const pageNumber =
+                index + 1;
+
+              return {
+                id:
+                  createPageId(
+                    pageNumber
+                  ),
+
+                originalPageNumber:
+                  pageNumber,
+
+                rotation: 0,
+                deleted: false
+              };
+            }
+          );
+
+        state.selectedIds = [];
+        state.undoStack = [];
+        state.redoStack = [];
+
+        state.renderedSignatures.clear();
+
+        els.documentName.textContent =
+          file.name;
+
+        els.documentSize.textContent =
+          formatBytes(file.size);
+
+        els.pageRangeInput.value = "";
+
+        els.emptyArea.style.display =
+          "none";
+
+        els.workspace.classList.add(
+          "show"
+        );
+
+        updateProgress(
+          58,
+          100,
+          "페이지 미리보기를 준비하고 있습니다."
+        );
+
+        renderPageGrid();
+        updateUi();
+
+        updateProgress(
+          100,
+          100,
+          "PDF 분석 완료"
+        );
+
+        hideProgressLater();
+      } catch (loadError) {
+        console.error(loadError);
+
+        const message =
+          String(
+            loadError &&
+            loadError.message
+              ? loadError.message
+              : loadError
+          );
+
+        if (
+          /password|encrypted/i.test(
+            message
+          )
+        ) {
+          alert(
+            "암호가 설정된 PDF는 지원하지 않습니다. 암호를 해제한 뒤 다시 시도해주세요."
+          );
+        } else {
+          alert(
+            message ||
+            "PDF 파일을 읽지 못했습니다."
+          );
+        }
+
+        await closePdfDocument();
+      } finally {
+        state.loading = false;
+
+        els.fileInput.value = "";
+        els.replaceInput.value = "";
+      }
+    }
+
+    function getRenderSignature(page) {
+      return (
+        page.originalPageNumber +
+        "-" +
+        page.rotation
+      );
+    }
+
+    function renderPageGrid() {
+      clearThumbnailObserver();
+
+      const activePages =
+        getActivePages();
+
+      if (!activePages.length) {
+        els.pageGrid.innerHTML =
+          `
+            <div
+              class="empty-pages"
+              style="grid-column:1/-1;"
+            >
+              모든 페이지가 삭제되었습니다.<br />
+              삭제 페이지 복원 버튼을 눌러 페이지를 되살릴 수 있습니다.
+            </div>
+          `;
+
+        updateUi();
+        return;
+      }
+
+      const selectedOrder =
+        new Map();
+
+      state.selectedIds.forEach(
+        (id, index) => {
+          selectedOrder.set(
+            id,
+            index + 1
+          );
+        }
+      );
+
+      els.pageGrid.innerHTML =
+        activePages
+          .map(
+            (
+              page,
+              index
+            ) => {
+              const selected =
+                selectedOrder.has(
+                  page.id
+                );
+
+              const rotationText =
+                page.rotation
+                  ? (
+                      page.rotation +
+                      "°"
+                    )
+                  : "";
+
+              return `
+                <article
+                  class="page-card ${
+                    selected
+                      ? "selected"
+                      : ""
+                  }"
+                  draggable="true"
+                  data-page-id="${page.id}"
+                >
+                  <div class="new-order">
+                    ${index + 1}
+                  </div>
+
+                  <div class="selection-number">
+                    ${
+                      selected
+                        ? selectedOrder.get(
+                            page.id
+                          )
+                        : ""
+                    }
+                  </div>
+
+                  <div class="page-preview">
+                    <canvas
+                      data-page-canvas="${page.id}"
+                    ></canvas>
+
+                    <span class="page-loading">
+                      미리보기 준비 중
+                    </span>
+
+                    <div
+                      class="rotation-badge ${
+                        page.rotation
+                          ? "show"
+                          : ""
+                      }"
+                    >
+                      ${rotationText}
+                    </div>
+                  </div>
+
+                  <div class="page-footer">
+                    <span class="page-number">
+                      ${index + 1}페이지
+                    </span>
+
+                    <span class="page-origin">
+                      원본 ${page.originalPageNumber}쪽
+                    </span>
+                  </div>
+
+                  <div class="card-actions">
+                    <button
+                      class="card-btn"
+                      type="button"
+                      data-card-action="left"
+                      data-id="${page.id}"
+                      title="왼쪽 회전"
+                    >
+                      ↶
+                    </button>
+
+                    <button
+                      class="card-btn"
+                      type="button"
+                      data-card-action="right"
+                      data-id="${page.id}"
+                      title="오른쪽 회전"
+                    >
+                      ↷
+                    </button>
+
+                    <button
+                      class="card-btn"
+                      type="button"
+                      data-card-action="select"
+                      data-id="${page.id}"
+                    >
+                      ${
+                        selected
+                          ? "해제"
+                          : "선택"
+                      }
+                    </button>
+
+                    <button
+                      class="card-btn delete"
+                      type="button"
+                      data-card-action="delete"
+                      data-id="${page.id}"
+                      title="페이지 삭제"
+                    >
+                      삭제
+                    </button>
+                  </div>
+                </article>
+              `;
+            }
+          )
+          .join("");
+
+      els.pageGrid
+        .querySelectorAll(
+          ".page-card"
+        )
+        .forEach((card) => {
+          card.addEventListener(
+            "click",
+            (event) => {
+              if (
+                event.target.closest(
+                  "button"
+                )
+              ) {
+                return;
+              }
+
+              toggleSelection(
+                card.dataset.pageId
+              );
+            }
+          );
+
+          card.addEventListener(
+            "dragstart",
+            handleDragStart
+          );
+
+          card.addEventListener(
+            "dragover",
+            handleDragOver
+          );
+
+          card.addEventListener(
+            "dragleave",
+            handleDragLeave
+          );
+
+          card.addEventListener(
+            "drop",
+            handleDrop
+          );
+
+          card.addEventListener(
+            "dragend",
+            handleDragEnd
+          );
+        });
+
+      els.pageGrid
+        .querySelectorAll(
+          "[data-card-action]"
+        )
+        .forEach((button) => {
+          button.addEventListener(
+            "click",
+            () => {
+              const action =
+                button.dataset
+                  .cardAction;
+
+              const id =
+                button.dataset.id;
+
+              if (
+                action === "select"
+              ) {
+                toggleSelection(id);
+              } else if (
+                action === "left"
+              ) {
+                applySingleRotation(
+                  id,
+                  -90
+                );
+              } else if (
+                action === "right"
+              ) {
+                applySingleRotation(
+                  id,
+                  90
+                );
+              } else if (
+                action === "delete"
+              ) {
+                deleteSinglePage(id);
+              }
+            }
+          );
+        });
+
+      createThumbnailObserver();
+    }
+
+    function createThumbnailObserver() {
+      state.thumbnailObserver =
+        new IntersectionObserver(
+          (entries) => {
+            entries.forEach(
+              (entry) => {
+                if (
+                  !entry.isIntersecting
+                ) {
+                  return;
+                }
+
+                const card =
+                  entry.target;
+
+                const id =
+                  card.dataset.pageId;
+
+                state.thumbnailObserver
+                  .unobserve(card);
+
+                renderThumbnail(id);
+              }
+            );
+          },
+          {
+            rootMargin:
+              "450px 0px"
+          }
+        );
+
+      els.pageGrid
+        .querySelectorAll(
+          ".page-card"
+        )
+        .forEach((card) => {
+          state.thumbnailObserver
+            .observe(card);
+        });
+    }
+
+    async function renderThumbnail(id) {
+      const pageState =
+        state.pages.find(
+          (page) =>
+            page.id === id
+        );
+
+      if (
+        !pageState ||
+        pageState.deleted ||
+        !state.pdfDocument
+      ) {
+        return;
+      }
+
+      const canvas =
+        els.pageGrid.querySelector(
+          `[data-page-canvas="${id}"]`
+        );
+
+      if (!canvas) {
+        return;
+      }
+
+      const signature =
+        getRenderSignature(
+          pageState
+        );
+
+      if (
+        state.renderedSignatures.get(
+          id
+        ) === signature &&
+        canvas.width > 0
+      ) {
+        const loadingLabel =
+          canvas.parentElement
+            .querySelector(
+              ".page-loading"
+            );
+
+        if (loadingLabel) {
+          loadingLabel.remove();
+        }
+
+        return;
+      }
+
+      const loadingLabel =
+        canvas.parentElement
+          .querySelector(
+            ".page-loading"
+          );
+
+      try {
+        const pdfPage =
+          await state.pdfDocument
+            .getPage(
+              pageState
+                .originalPageNumber
+            );
+
+        const baseViewport =
+          pdfPage.getViewport({
+            scale: 1,
+
+            rotation:
+              normalizeRotation(
+                pdfPage.rotate +
+                pageState.rotation
+              )
+          });
+
+        const cssTargetWidth = 165;
+
+        const cssScale =
+          cssTargetWidth /
+          baseViewport.width;
+
+        const pixelRatio =
+          Math.min(
+            window.devicePixelRatio ||
+              1,
+            2
+          );
+
+        const viewport =
+          pdfPage.getViewport({
+            scale:
+              cssScale *
+              pixelRatio,
+
+            rotation:
+              normalizeRotation(
+                pdfPage.rotate +
+                pageState.rotation
+              )
+          });
+
+        canvas.width =
+          Math.ceil(
+            viewport.width
+          );
+
+        canvas.height =
+          Math.ceil(
+            viewport.height
+          );
+
+        canvas.style.width =
+          Math.ceil(
+            viewport.width /
+            pixelRatio
+          ) + "px";
+
+        canvas.style.height =
+          Math.ceil(
+            viewport.height /
+            pixelRatio
+          ) + "px";
+
+        const context =
+          canvas.getContext(
+            "2d",
+            {
+              alpha: false
+            }
+          );
+
+        context.fillStyle =
+          "#ffffff";
+
+        context.fillRect(
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
+
+        await pdfPage.render({
+          canvasContext:
+            context,
+
+          viewport,
+
+          background:
+            "#ffffff"
+        }).promise;
+
+        state.renderedSignatures.set(
+          id,
+          signature
+        );
+
+        if (loadingLabel) {
+          loadingLabel.remove();
+        }
+
+        pdfPage.cleanup();
+      } catch (error) {
+        console.error(error);
+
+        if (loadingLabel) {
+          loadingLabel.textContent =
+            "미리보기 실패";
+        }
+      }
+    }
+
+    function toggleSelection(id) {
+      const page =
+        state.pages.find(
+          (item) =>
+            item.id === id
+        );
+
+      if (
+        !page ||
+        page.deleted
+      ) {
+        return;
+      }
+
+      const index =
+        state.selectedIds.indexOf(
+          id
+        );
+
+      if (index >= 0) {
+        state.selectedIds.splice(
+          index,
+          1
+        );
+      } else {
+        state.selectedIds.push(id);
+      }
+
+      renderPageGrid();
+      updateUi();
+    }
+
+    function selectPagesByIds(ids) {
+      const activeSet =
+        new Set(
+          getActivePages().map(
+            (page) =>
+              page.id
+          )
+        );
+
+      const unique = [];
+      const seen =
+        new Set();
+
+      ids.forEach((id) => {
+        if (
+          activeSet.has(id) &&
+          !seen.has(id)
+        ) {
+          seen.add(id);
+          unique.push(id);
+        }
+      });
+
+      state.selectedIds =
+        unique;
+
+      renderPageGrid();
+      updateUi();
+    }
+
+    function selectAllPages() {
+      selectPagesByIds(
+        getActivePages().map(
+          (page) =>
+            page.id
+        )
+      );
+    }
+
+    function selectOddCurrent() {
+      selectPagesByIds(
+        getActivePages()
+          .filter(
+            (
+              page,
+              index
+            ) =>
+              index % 2 === 0
+          )
+          .map(
+            (page) =>
+              page.id
+          )
+      );
+    }
+
+    function selectEvenCurrent() {
+      selectPagesByIds(
+        getActivePages()
+          .filter(
+            (
+              page,
+              index
+            ) =>
+              index % 2 === 1
+          )
+          .map(
+            (page) =>
+              page.id
+          )
+      );
+    }
+
+    function clearSelection() {
+      state.selectedIds = [];
+
+      renderPageGrid();
+      updateUi();
+    }
+
+    function validateOriginalPageNumber(
+      pageNumber
+    ) {
+      if (
+        !Number.isInteger(
+          pageNumber
+        ) ||
+        pageNumber < 1 ||
+        pageNumber >
+          state.pageCount
+      ) {
+        throw new Error(
+          `원본 페이지 번호는 1부터 ${state.pageCount}까지 입력할 수 있습니다.`
+        );
+      }
+    }
+
+    function parsePageRange(value) {
+      const text =
+        String(value || "")
+          .trim();
+
+      if (!text) {
+        throw new Error(
+          "선택할 원본 페이지 번호를 입력해주세요."
+        );
+      }
+
+      const tokens =
+        text
+          .split(",")
+          .map(
+            (token) =>
+              token.trim()
+          )
+          .filter(Boolean);
+
+      const numbers = [];
+      const seen =
+        new Set();
+
+      for (const token of tokens) {
+        const single =
+          token.match(
+            /^(\d+)$/
+          );
+
+        if (single) {
+          const pageNumber =
+            Number(single[1]);
+
+          validateOriginalPageNumber(
+            pageNumber
+          );
+
+          if (
+            !seen.has(pageNumber)
+          ) {
+            seen.add(pageNumber);
+            numbers.push(pageNumber);
+          }
+
+          continue;
+        }
+
+        const range =
+          token.match(
+            /^(\d+)\s*-\s*(\d+)$/
+          );
+
+        if (!range) {
+          throw new Error(
+            `"${token}" 형식이 올바르지 않습니다.`
+          );
+        }
+
+        const start =
+          Number(range[1]);
+
+        const end =
+          Number(range[2]);
+
+        validateOriginalPageNumber(start);
+        validateOriginalPageNumber(end);
+
+        const direction =
+          start <= end
+            ? 1
+            : -1;
+
+        for (
+          let pageNumber = start;
+          direction > 0
+            ? pageNumber <= end
+            : pageNumber >= end;
+          pageNumber += direction
+        ) {
+          if (
+            !seen.has(pageNumber)
+          ) {
+            seen.add(pageNumber);
+            numbers.push(pageNumber);
+          }
+        }
+      }
+
+      return numbers;
+    }
+
+    function applyRangeSelection() {
+      if (!state.file) {
+        return;
+      }
+
+      try {
+        const originalNumbers =
+          parsePageRange(
+            els.pageRangeInput.value
+          );
+
+        const numberSet =
+          new Set(
+            originalNumbers
+          );
+
+        const ids =
+          getActivePages()
+            .filter(
+              (page) =>
+                numberSet.has(
+                  page
+                    .originalPageNumber
+                )
+            )
+            .map(
+              (page) =>
+                page.id
+            );
+
+        if (!ids.length) {
+          throw new Error(
+            "입력한 원본 페이지가 모두 삭제 상태입니다."
+          );
+        }
+
+        selectPagesByIds(ids);
+      } catch (error) {
+        alert(
+          error.message ||
+          "페이지 범위를 확인해주세요."
+        );
+      }
+    }
+
+    function applySingleRotation(
+      id,
+      amount
+    ) {
+      const page =
+        state.pages.find(
+          (item) =>
+            item.id === id
+        );
+
+      if (
+        !page ||
+        page.deleted
+      ) {
+        return;
+      }
+
+      pushHistory();
+
+      page.rotation =
+        normalizeRotation(
+          page.rotation +
+          amount
+        );
+
+      state.renderedSignatures.delete(
+        id
+      );
+
+      clearResult();
+      renderPageGrid();
+      updateUi();
+    }
+
+    function rotateSelected(amount) {
+      const selected =
+        getSelectedActivePages();
+
+      if (!selected.length) {
+        return;
+      }
+
+      pushHistory();
+
+      selected.forEach(
+        (page) => {
+          page.rotation =
+            normalizeRotation(
+              page.rotation +
+              amount
+            );
+
+          state.renderedSignatures.delete(
+            page.id
+          );
+        }
+      );
+
+      clearResult();
+      renderPageGrid();
+      updateUi();
+    }
+
+    function deleteSinglePage(id) {
+      const page =
+        state.pages.find(
+          (item) =>
+            item.id === id
+        );
+
+      if (
+        !page ||
+        page.deleted
+      ) {
+        return;
+      }
+
+      if (
+        getActivePages().length <= 1
+      ) {
+        alert(
+          "PDF에는 최소 1페이지가 남아 있어야 합니다."
+        );
+
+        return;
+      }
+
+      pushHistory();
+
+      page.deleted = true;
+
+      state.selectedIds =
+        state.selectedIds.filter(
+          (selectedId) =>
+            selectedId !== id
+        );
+
+      clearResult();
+      renderPageGrid();
+      updateUi();
+    }
+
+    function deleteSelectedPages() {
+      const selected =
+        getSelectedActivePages();
+
+      if (!selected.length) {
+        return;
+      }
+
+      const activeCount =
+        getActivePages().length;
+
+      if (
+        activeCount -
+        selected.length <
+        1
+      ) {
+        alert(
+          "PDF에는 최소 1페이지가 남아 있어야 합니다."
+        );
+
+        return;
+      }
+
+      pushHistory();
+
+      const selectedSet =
+        new Set(
+          selected.map(
+            (page) =>
+              page.id
+          )
+        );
+
+      state.pages.forEach(
+        (page) => {
+          if (
+            selectedSet.has(
+              page.id
+            )
+          ) {
+            page.deleted = true;
+          }
+        }
+      );
+
+      state.selectedIds = [];
+
+      clearResult();
+      renderPageGrid();
+      updateUi();
+    }
+
+    function restoreDeletedPages() {
+      const deleted =
+        getDeletedPages();
+
+      if (!deleted.length) {
+        return;
+      }
+
+      pushHistory();
+
+      state.pages.forEach(
+        (page) => {
+          page.deleted = false;
+        }
+      );
+
+      clearResult();
+      renderPageGrid();
+      updateUi();
+    }
+
+    function moveSelected(direction) {
+      const selectedSet =
+        new Set(
+          state.selectedIds
+        );
+
+      if (!selectedSet.size) {
+        return;
+      }
+
+      const activePages =
+        getActivePages();
+
+      const activeIds =
+        activePages.map(
+          (page) =>
+            page.id
+        );
+
+      const selectedActiveIds =
+        activeIds.filter(
+          (id) =>
+            selectedSet.has(id)
+        );
+
+      if (
+        !selectedActiveIds.length
+      ) {
+        return;
+      }
+
+      pushHistory();
+
+      const reordered =
+        [...activePages];
+
+      if (direction < 0) {
+        for (
+          let index = 1;
+          index < reordered.length;
+          index++
+        ) {
+          const current =
+            reordered[index];
+
+          const previous =
+            reordered[index - 1];
+
+          if (
+            selectedSet.has(
+              current.id
+            ) &&
+            !selectedSet.has(
+              previous.id
+            )
+          ) {
+            reordered[index - 1] =
+              current;
+
+            reordered[index] =
+              previous;
+          }
+        }
+      } else {
+        for (
+          let index =
+            reordered.length - 2;
+          index >= 0;
+          index--
+        ) {
+          const current =
+            reordered[index];
+
+          const next =
+            reordered[index + 1];
+
+          if (
+            selectedSet.has(
+              current.id
+            ) &&
+            !selectedSet.has(
+              next.id
+            )
+          ) {
+            reordered[index + 1] =
+              current;
+
+            reordered[index] =
+              next;
+          }
+        }
+      }
+
+      replaceActiveOrder(reordered);
+
+      clearResult();
+      renderPageGrid();
+      updateUi();
+    }
+
+    function reverseSelectedPages() {
+      const selectedSet =
+        new Set(
+          state.selectedIds
+        );
+
+      const active =
+        getActivePages();
+
+      const selectedPages =
+        active.filter(
+          (page) =>
+            selectedSet.has(
+              page.id
+            )
+        );
+
+      if (
+        selectedPages.length < 2
+      ) {
+        return;
+      }
+
+      pushHistory();
+
+      const reversed =
+        [...selectedPages]
+          .reverse();
+
+      let replacementIndex = 0;
+
+      const reordered =
+        active.map((page) => {
+          if (
+            selectedSet.has(
+              page.id
+            )
+          ) {
+            const replacement =
+              reversed[
+                replacementIndex
+              ];
+
+            replacementIndex += 1;
+            return replacement;
+          }
+
+          return page;
+        });
+
+      replaceActiveOrder(reordered);
+
+      state.selectedIds =
+        reversed.map(
+          (page) =>
+            page.id
+        );
+
+      clearResult();
+      renderPageGrid();
+      updateUi();
+    }
+
+    function replaceActiveOrder(
+      reorderedActive
+    ) {
+      let activeIndex = 0;
+
+      state.pages =
+        state.pages.map(
+          (page) => {
+            if (page.deleted) {
+              return page;
+            }
+
+            const replacement =
+              reorderedActive[
+                activeIndex
+              ];
+
+            activeIndex += 1;
+
+            return replacement;
+          }
+        );
+    }
+
+    function resetOriginalOrder() {
+      if (!state.file) {
+        return;
+      }
+
+      pushHistory();
+
+      state.pages.sort(
+        (first, second) =>
+          first.originalPageNumber -
+          second.originalPageNumber
+      );
+
+      state.pages.forEach(
+        (page) => {
+          page.rotation = 0;
+          page.deleted = false;
+        }
+      );
+
+      state.selectedIds = [];
+
+      state.renderedSignatures.clear();
+
+      clearResult();
+      renderPageGrid();
+      updateUi();
+    }
+
+    function handleDragStart(event) {
+      const card =
+        event.currentTarget;
+
+      state.dragId =
+        card.dataset.pageId;
+
+      card.classList.add(
+        "dragging"
+      );
+
+      event.dataTransfer.effectAllowed =
+        "move";
+
+      event.dataTransfer.setData(
+        "text/plain",
+        state.dragId
+      );
+    }
+
+    function handleDragOver(event) {
+      event.preventDefault();
+
+      const card =
+        event.currentTarget;
+
+      if (
+        !state.dragId ||
+        card.dataset.pageId ===
+          state.dragId
+      ) {
+        return;
+      }
+
+      clearDropClasses();
+
+      const rect =
+        card.getBoundingClientRect();
+
+      const position =
+        event.clientY <
+        rect.top +
+        rect.height / 2
+          ? "before"
+          : "after";
+
+      state.dragPosition =
+        position;
+
+      card.classList.add(
+        position === "before"
+          ? "drop-before"
+          : "drop-after"
+      );
+
+      event.dataTransfer.dropEffect =
+        "move";
+    }
+
+    function handleDragLeave(event) {
+      event.currentTarget
+        .classList
+        .remove(
+          "drop-before",
+          "drop-after"
+        );
+    }
+
+    function handleDrop(event) {
+      event.preventDefault();
+
+      const targetId =
+        event.currentTarget
+          .dataset.pageId;
+
+      const sourceId =
+        state.dragId ||
+        event.dataTransfer.getData(
+          "text/plain"
+        );
+
+      if (
+        !sourceId ||
+        !targetId ||
+        sourceId === targetId
+      ) {
+        handleDragEnd();
+        return;
+      }
+
+      const sourceIndex =
+        state.pages.findIndex(
+          (page) =>
+            page.id === sourceId
+        );
+
+      if (sourceIndex < 0) {
+        handleDragEnd();
+        return;
+      }
+
+      pushHistory();
+
+      const [movedPage] =
+        state.pages.splice(
+          sourceIndex,
+          1
+        );
+
+      let targetIndex =
+        state.pages.findIndex(
+          (page) =>
+            page.id === targetId
+        );
+
+      if (targetIndex < 0) {
+        state.pages.splice(
+          sourceIndex,
+          0,
+          movedPage
+        );
+
+        handleDragEnd();
+        return;
+      }
+
+      if (
+        state.dragPosition ===
+        "after"
+      ) {
+        targetIndex += 1;
+      }
+
+      state.pages.splice(
+        targetIndex,
+        0,
+        movedPage
+      );
+
+      clearResult();
+      handleDragEnd();
+      renderPageGrid();
+      updateUi();
+    }
+
+    function handleDragEnd() {
+      state.dragId = null;
+      state.dragPosition = null;
+
+      clearDropClasses();
+
+      document
+        .querySelectorAll(
+          ".page-card.dragging"
+        )
+        .forEach((card) => {
+          card.classList.remove(
+            "dragging"
+          );
+        });
+    }
+
+    function clearDropClasses() {
+      document
+        .querySelectorAll(
+          ".drop-before, .drop-after"
+        )
+        .forEach((card) => {
+          card.classList.remove(
+            "drop-before",
+            "drop-after"
+          );
+        });
+    }
+
+    function isModified() {
+      if (
+        !state.file ||
+        state.pages.length !==
+          state.pageCount
+      ) {
+        return false;
+      }
+
+      return state.pages.some(
+        (
+          page,
+          index
+        ) => {
+          return (
+            page.originalPageNumber !==
+              index + 1 ||
+            page.rotation !== 0 ||
+            page.deleted
+          );
+        }
+      );
+    }
+
+    function updateUi() {
+      const activePages =
+        getActivePages();
+
+      const deletedPages =
+        getDeletedPages();
+
+      const selectedPages =
+        getSelectedActivePages();
+
+      const rotatedCount =
+        getRotatedCount();
+
+      els.summaryOriginal.textContent =
+        state.pageCount + "쪽";
+
+      els.summaryActive.textContent =
+        activePages.length + "쪽";
+
+      els.summaryDeleted.textContent =
+        deletedPages.length + "쪽";
+
+      if (!state.file) {
+        els.summaryStatus.textContent =
+          "대기 중";
+
+        els.summaryStatus.style.color =
+          "";
+      } else if (
+        state.processing
+      ) {
+        els.summaryStatus.textContent =
+          "저장 중";
+
+        els.summaryStatus.style.color =
+          "var(--orange)";
+      } else if (
+        isModified()
+      ) {
+        els.summaryStatus.textContent =
+          "편집됨";
+
+        els.summaryStatus.style.color =
+          "var(--indigo)";
+      } else {
+        els.summaryStatus.textContent =
+          "원본 상태";
+
+        els.summaryStatus.style.color =
+          "var(--green)";
+      }
+
+      els.selectedPill.textContent =
+        selectedPages.length +
+        "쪽 선택";
+
+      els.controlSelected.textContent =
+        selectedPages.length +
+        "쪽";
+
+      els.controlActive.textContent =
+        activePages.length +
+        "쪽";
+
+      els.controlRotated.textContent =
+        rotatedCount +
+        "쪽";
+
+      els.controlDeleted.textContent =
+        deletedPages.length +
+        "쪽";
+
+      const hasSelection =
+        selectedPages.length > 0;
+
+      els.rotateLeftBtn.disabled =
+        !hasSelection;
+
+      els.rotateRightBtn.disabled =
+        !hasSelection;
+
+      els.moveForwardBtn.disabled =
+        !hasSelection;
+
+      els.moveBackwardBtn.disabled =
+        !hasSelection;
+
+      els.reverseSelectedBtn.disabled =
+        selectedPages.length < 2;
+
+      els.deleteSelectedBtn.disabled =
+        !hasSelection;
+
+      els.deleteSelectedTopBtn.disabled =
+        !hasSelection;
+
+      const hasDeleted =
+        deletedPages.length > 0;
+
+      els.restoreDeletedBtn.disabled =
+        !hasDeleted;
+
+      els.restoreDeletedControlBtn.disabled =
+        !hasDeleted;
+
+      els.saveBtn.disabled =
+        (
+          !state.file ||
+          state.loading ||
+          state.processing ||
+          activePages.length === 0
+        );
+
+      updateHistoryButtons();
+    }
+
+    function copyMetadata(
+      sourcePdf,
+      targetPdf
+    ) {
+      targetPdf.setCreator(
+        "Barohaegyeol Tools"
+      );
+
+      targetPdf.setProducer(
+        "Barohaegyeol Tools PDF Organizer"
+      );
+
+      targetPdf.setModificationDate(
+        new Date()
+      );
+
+      if (
+        !els.metadataToggle.checked
+      ) {
+        return;
+      }
+
+      const title =
+        sourcePdf.getTitle();
+
+      const author =
+        sourcePdf.getAuthor();
+
+      const subject =
+        sourcePdf.getSubject();
+
+      const keywords =
+        sourcePdf.getKeywords();
+
+      if (title) {
+        targetPdf.setTitle(title);
+      }
+
+      if (author) {
+        targetPdf.setAuthor(author);
+      }
+
+      if (subject) {
+        targetPdf.setSubject(subject);
+      }
+
+      if (keywords) {
+        targetPdf.setKeywords(
+          String(keywords)
+            .split(",")
+            .map(
+              (keyword) =>
+                keyword.trim()
+            )
+            .filter(Boolean)
+        );
+      }
+    }
+
+    async function saveOrganizedPdf() {
+      const activePages =
+        getActivePages();
+
+      if (
+        !state.file ||
+        !state.pdfBytes ||
+        !activePages.length ||
+        state.processing
+      ) {
+        return;
+      }
+
+      if (
+        !window.PDFLib ||
+        !window.PDFLib.PDFDocument
+      ) {
+        alert(
+          "PDF 처리 기능을 불러오지 못했습니다."
+        );
+
+        return;
+      }
+
+      clearResult();
+
+      state.processing = true;
+      updateUi();
+
+      els.saveBtn.textContent =
+        "PDF 저장 중...";
+
+      try {
+        updateProgress(
+          0,
+          activePages.length + 1,
+          "원본 PDF를 준비하고 있습니다."
+        );
+
+        const sourcePdf =
+          await window.PDFLib
+            .PDFDocument.load(
+              state.pdfBytes.slice(),
+              {
+                updateMetadata: false
+              }
+            );
+
+        const resultPdf =
+          await window.PDFLib
+            .PDFDocument.create();
+
+        copyMetadata(
+          sourcePdf,
+          resultPdf
+        );
+
+        for (
+          let index = 0;
+          index < activePages.length;
+          index++
+        ) {
+          const pageState =
+            activePages[index];
+
+          updateProgress(
+            index,
+            activePages.length + 1,
+            (
+              index + 1
+            ) +
+            "번째 페이지 복사 중"
+          );
+
+          const copiedPages =
+            await resultPdf.copyPages(
+              sourcePdf,
+              [
+                pageState
+                  .originalPageNumber -
+                  1
+              ]
+            );
+
+          const copiedPage =
+            copiedPages[0];
+
+          const originalRotation =
+            copiedPage
+              .getRotation()
+              .angle || 0;
+
+          copiedPage.setRotation(
+            window.PDFLib.degrees(
+              normalizeRotation(
+                originalRotation +
+                pageState.rotation
+              )
+            )
+          );
+
+          resultPdf.addPage(
+            copiedPage
+          );
+        }
+
+        updateProgress(
+          activePages.length,
+          activePages.length + 1,
+          "최종 PDF 파일을 저장하고 있습니다."
+        );
+
+        const pdfBytes =
+          await resultPdf.save({
+            useObjectStreams: true,
+            addDefaultPage: false,
+            objectsPerTick: 40
+          });
+
+        state.resultBlob =
+          new Blob(
+            [pdfBytes],
+            {
+              type:
+                "application/pdf"
+            }
+          );
+
+        state.resultFileName =
+          sanitizeFileName(
+            els.outputName.value
+          ) +
+          ".pdf";
+
+        state.resultUrl =
+          URL.createObjectURL(
+            state.resultBlob
+          );
+
+        updateProgress(
+          activePages.length + 1,
+          activePages.length + 1,
+          "PDF 페이지 정리 완료"
+        );
+
+        showResult();
+      } catch (error) {
+        console.error(error);
+
+        const message =
+          String(
+            error &&
+            error.message
+              ? error.message
+              : error
+          );
+
+        if (
+          /password|encrypt/i.test(
+            message
+          )
+        ) {
+          alert(
+            "암호가 설정된 PDF는 처리할 수 없습니다."
+          );
+        } else {
+          alert(
+            "PDF를 저장하지 못했습니다. 손상된 PDF이거나 지원하지 않는 문서 구조인지 확인해주세요."
+          );
+        }
+      } finally {
+        state.processing = false;
+
+        els.saveBtn.textContent =
+          "정리한 PDF 저장하기";
+
+        updateUi();
+        hideProgressLater();
+      }
+    }
+
+    function showResult() {
+      const activeCount =
+        getActivePages().length;
+
+      const deletedCount =
+        getDeletedPages().length;
+
+      const rotatedCount =
+        getRotatedCount();
+
+      els.resultName.textContent =
+        state.resultFileName +
+        " 파일이 준비되었습니다.";
+
+      els.resultPages.textContent =
+        activeCount +
+        "페이지";
+
+      els.resultDeleted.textContent =
+        "삭제 " +
+        deletedCount +
+        "페이지";
+
+      els.resultRotated.textContent =
+        "회전 " +
+        rotatedCount +
+        "페이지";
+
+      els.resultSize.textContent =
+        formatBytes(
+          state.resultBlob.size
+        );
+
+      els.resultSection.classList.add(
+        "show"
+      );
+
+      setTimeout(() => {
+        els.resultSection.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+      }, 100);
+    }
+
+    function downloadResult() {
+      if (
+        !state.resultBlob ||
+        !state.resultUrl
+      ) {
+        return;
+      }
+
+      const anchor =
+        document.createElement("a");
+
+      anchor.href =
+        state.resultUrl;
+
+      anchor.download =
+        state.resultFileName;
+
+      document.body.appendChild(
+        anchor
+      );
+
+      anchor.click();
+      anchor.remove();
+    }
+
+    function restartEditing() {
+      els.resultSection.classList.remove(
+        "show"
+      );
+
+      document
+        .getElementById(
+          "organizer"
+        )
+        .scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+    }
+
+    els.applyRangeBtn.addEventListener(
+      "click",
+      applyRangeSelection
+    );
+
+    els.pageRangeInput.addEventListener(
+      "keydown",
+      (event) => {
+        if (
+          event.key === "Enter"
+        ) {
+          applyRangeSelection();
+        }
+      }
+    );
+
+    els.selectAllBtn.addEventListener(
+      "click",
+      selectAllPages
+    );
+
+    els.selectOddBtn.addEventListener(
+      "click",
+      selectOddCurrent
+    );
+
+    els.selectEvenBtn.addEventListener(
+      "click",
+      selectEvenCurrent
+    );
+
+    els.clearSelectionBtn.addEventListener(
+      "click",
+      clearSelection
+    );
+
+    els.rotateLeftBtn.addEventListener(
+      "click",
+      () => {
+        rotateSelected(-90);
+      }
+    );
+
+    els.rotateRightBtn.addEventListener(
+      "click",
+      () => {
+        rotateSelected(90);
+      }
+    );
+
+    els.moveForwardBtn.addEventListener(
+      "click",
+      () => {
+        moveSelected(-1);
+      }
+    );
+
+    els.moveBackwardBtn.addEventListener(
+      "click",
+      () => {
+        moveSelected(1);
+      }
+    );
+
+    els.reverseSelectedBtn.addEventListener(
+      "click",
+      reverseSelectedPages
+    );
+
+    els.deleteSelectedBtn.addEventListener(
+      "click",
+      deleteSelectedPages
+    );
+
+    els.deleteSelectedTopBtn.addEventListener(
+      "click",
+      deleteSelectedPages
+    );
+
+    els.restoreDeletedBtn.addEventListener(
+      "click",
+      restoreDeletedPages
+    );
+
+    els.restoreDeletedControlBtn.addEventListener(
+      "click",
+      restoreDeletedPages
+    );
+
+    els.resetOrderBtn.addEventListener(
+      "click",
+      resetOriginalOrder
+    );
+
+    els.undoBtn.addEventListener(
+      "click",
+      undo
+    );
+
+    els.redoBtn.addEventListener(
+      "click",
+      redo
+    );
+
+    els.outputName.addEventListener(
+      "blur",
+      () => {
+        els.outputName.value =
+          sanitizeFileName(
+            els.outputName.value
+          );
+      }
+    );
+
+    els.saveBtn.addEventListener(
+      "click",
+      saveOrganizedPdf
+    );
+
+    els.downloadBtn.addEventListener(
+      "click",
+      downloadResult
+    );
+
+    els.restartBtn.addEventListener(
+      "click",
+      restartEditing
+    );
+
+    els.clearFileBtn.addEventListener(
+      "click",
+      closePdfDocument
+    );
+
+    els.fileInput.addEventListener(
+      "change",
+      (event) => {
+        loadPdfFile(
+          event.target.files[0]
+        );
+      }
+    );
+
+    els.replaceInput.addEventListener(
+      "change",
+      (event) => {
+        loadPdfFile(
+          event.target.files[0]
+        );
+      }
+    );
+
+    [
+      "dragenter",
+      "dragover"
+    ].forEach((eventName) => {
+      els.dropzone.addEventListener(
+        eventName,
+        (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+
+          els.dropzone.classList.add(
+            "dragover"
+          );
+        }
+      );
+    });
+
+    [
+      "dragleave",
+      "drop"
+    ].forEach((eventName) => {
+      els.dropzone.addEventListener(
+        eventName,
+        (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+
+          els.dropzone.classList.remove(
+            "dragover"
+          );
+        }
+      );
+    });
+
+    els.dropzone.addEventListener(
+      "drop",
+      (event) => {
+        loadPdfFile(
+          event.dataTransfer.files[0]
+        );
+      }
+    );
+
+    window.addEventListener(
+      "beforeunload",
+      () => {
+        clearThumbnailObserver();
+
+        if (state.resultUrl) {
+          URL.revokeObjectURL(
+            state.resultUrl
+          );
+        }
+      }
+    );
+
+    updateUi();
+  </script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script
+    defer
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'
+  ></script>
+  <!-- End Cloudflare Web Analytics -->
+</body>
+</html>
