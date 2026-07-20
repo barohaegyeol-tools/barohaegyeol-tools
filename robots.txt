@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://barohaegyeol-tools.pages.dev/sitemap.xml
-Sitemap: https://barohaegyeol-tools.pages.dev/sitemap.txt
+
