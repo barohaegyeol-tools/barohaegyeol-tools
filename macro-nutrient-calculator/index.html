@@ -1,0 +1,3242 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>다이어트 매크로 영양소 계산기｜탄단지 비율·끼니별 계산｜바로해결툴즈</title>
+
+  <meta
+    name="description"
+    content="하루 목표 칼로리와 탄수화물·단백질·지방 비율을 입력하면 하루 섭취량, 끼니별 섭취량, 칼로리 구성과 체중당 단백질 섭취량을 계산합니다."
+  />
+
+  <meta
+    name="keywords"
+    content="탄단지 계산기, 매크로 계산기, 다이어트 매크로 계산기, 단백질 섭취량 계산기, 탄수화물 지방 계산기, 끼니별 영양소 계산, 다이어트 식단 계산기, 바로해결툴즈"
+  />
+
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+
+  <link
+    rel="canonical"
+    href="https://barohaegyeol-tools.pages.dev/macro-nutrient-calculator/"
+  />
+
+  <meta name="theme-color" content="#fff7ed" />
+
+  <meta property="og:type" content="website" />
+
+  <meta
+    property="og:title"
+    content="다이어트 매크로 영양소 계산기｜바로해결툴즈"
+  />
+
+  <meta
+    property="og:description"
+    content="목표 칼로리와 탄단지 비율을 하루·끼니별 그램으로 계산하세요."
+  />
+
+  <meta
+    property="og:url"
+    content="https://barohaegyeol-tools.pages.dev/macro-nutrient-calculator/"
+  />
+
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "다이어트 매크로 영양소 계산기",
+    "url": "https://barohaegyeol-tools.pages.dev/macro-nutrient-calculator/",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "All",
+    "description": "목표 칼로리와 탄수화물, 단백질, 지방 비율을 하루 및 끼니별 섭취량으로 계산하는 무료 웹 도구입니다.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "KRW"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --ink: #2b190f;
+      --text: #513b2f;
+      --muted: #7c6a60;
+      --line: rgba(43, 25, 15, 0.1);
+
+      --orange: #f97316;
+      --amber: #f59e0b;
+      --yellow: #facc15;
+      --rose: #f43f5e;
+      --purple: #8b5cf6;
+      --blue: #2563eb;
+      --mint: #14b8a6;
+      --green: #22c55e;
+      --red: #ef4444;
+
+      --card: rgba(255, 255, 255, 0.91);
+
+      --shadow:
+        0 24px 70px rgba(249, 115, 22, 0.13);
+
+      --shadow-soft:
+        0 13px 32px rgba(15, 23, 42, 0.08);
+
+      --radius: 28px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+
+      color: var(--ink);
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Pretendard",
+        "Noto Sans KR",
+        "Apple SD Gothic Neo",
+        system-ui,
+        sans-serif;
+
+      line-height: 1.65;
+
+      background:
+        radial-gradient(
+          circle at 8% 8%,
+          rgba(251, 146, 60, 0.2),
+          transparent 24%
+        ),
+        radial-gradient(
+          circle at 92% 10%,
+          rgba(244, 63, 94, 0.13),
+          transparent 23%
+        ),
+        radial-gradient(
+          circle at 80% 92%,
+          rgba(20, 184, 166, 0.13),
+          transparent 25%
+        ),
+        linear-gradient(
+          135deg,
+          #fff7ed 0%,
+          #fff1f2 48%,
+          #f0fdfa 100%
+        );
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.17;
+
+      background-image:
+        radial-gradient(
+          circle,
+          rgba(249, 115, 22, 0.18) 1px,
+          transparent 1px
+        );
+
+      background-size: 31px 31px;
+
+      mask-image:
+        linear-gradient(
+          to bottom,
+          #000,
+          transparent 82%
+        );
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+
+      border-bottom:
+        1px solid rgba(15, 23, 42, 0.07);
+
+      background:
+        rgba(255, 247, 237, 0.86);
+
+      backdrop-filter:
+        blur(18px);
+    }
+
+    .nav {
+      min-height: 70px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+
+      font-weight: 950;
+      letter-spacing: -0.045em;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 16px;
+
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--orange),
+          var(--rose)
+        );
+
+      box-shadow:
+        0 14px 32px rgba(249, 115, 22, 0.24);
+
+      font-weight: 950;
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 1px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .nav-links a {
+      padding: 9px 13px;
+
+      border: 1px solid var(--line);
+      border-radius: 999px;
+
+      background:
+        rgba(255, 255, 255, 0.86);
+
+      color: #553c2f;
+
+      font-size: 13px;
+      font-weight: 900;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .hero {
+      padding: 54px 0 24px;
+    }
+
+    .hero-grid {
+      display: grid;
+
+      grid-template-columns:
+        1.04fr 0.96fr;
+
+      align-items: center;
+      gap: 34px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+
+      margin-bottom: 17px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+
+      padding: 8px 12px;
+
+      border: 1px solid var(--line);
+      border-radius: 999px;
+
+      background:
+        rgba(255, 255, 255, 0.86);
+
+      color: #62493c;
+
+      font-size: 13px;
+      font-weight: 900;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .chip.hot {
+      color: #c2410c;
+
+      background:
+        linear-gradient(
+          135deg,
+          #ffedd5,
+          #ffffff
+        );
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 780px;
+
+      font-size:
+        clamp(40px, 6vw, 72px);
+
+      line-height: 1.04;
+      letter-spacing: -0.078em;
+    }
+
+    .gradient {
+      color: transparent;
+
+      background:
+        linear-gradient(
+          90deg,
+          #f97316 0%,
+          #f43f5e 48%,
+          #14b8a6 100%
+        );
+
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .lead {
+      margin: 20px 0 0;
+      max-width: 700px;
+
+      color: #574238;
+
+      font-size:
+        clamp(16px, 2vw, 19px);
+
+      line-height: 1.82;
+      word-break: keep-all;
+    }
+
+    .lead strong {
+      color: #c2410c;
+      font-weight: 950;
+    }
+
+    .hero-actions {
+      margin-top: 24px;
+
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn {
+      min-height: 49px;
+      padding: 13px 18px;
+
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+
+      border: 1px solid transparent;
+      border-radius: 16px;
+
+      font-weight: 950;
+
+      transition: 0.17s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--orange),
+          var(--rose),
+          var(--mint)
+        );
+
+      box-shadow:
+        0 16px 36px rgba(249, 115, 22, 0.22);
+    }
+
+    .btn-ghost {
+      color: var(--ink);
+
+      background:
+        rgba(255, 255, 255, 0.86);
+
+      border-color:
+        var(--line);
+    }
+
+    .visual {
+      position: relative;
+
+      min-height: 420px;
+      padding: 27px;
+
+      overflow: hidden;
+
+      border: 1px solid var(--line);
+      border-radius: 40px;
+
+      background:
+        radial-gradient(
+          circle at 85% 8%,
+          rgba(250, 204, 21, 0.24),
+          transparent 23%
+        ),
+        radial-gradient(
+          circle at 12% 88%,
+          rgba(20, 184, 166, 0.15),
+          transparent 24%
+        ),
+        linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.98),
+          rgba(255, 237, 213, 0.82)
+        );
+
+      box-shadow:
+        var(--shadow);
+    }
+
+    .visual::before {
+      content: "";
+
+      position: absolute;
+      inset: 20px;
+
+      border:
+        1px dashed rgba(249, 115, 22, 0.2);
+
+      border-radius: 31px;
+    }
+
+    .macro-ring {
+      position: absolute;
+
+      left: 50%;
+      top: 48%;
+
+      width: 230px;
+      height: 230px;
+
+      transform:
+        translate(-50%, -50%);
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 50%;
+
+      background:
+        conic-gradient(
+          #f97316 0 40%,
+          #f43f5e 40% 70%,
+          #14b8a6 70% 100%
+        );
+
+      box-shadow:
+        0 28px 70px rgba(249, 115, 22, 0.2);
+    }
+
+    .macro-ring::after {
+      content: "";
+
+      position: absolute;
+      inset: 19px;
+
+      border-radius: 50%;
+
+      background:
+        linear-gradient(
+          145deg,
+          #ffffff,
+          #fff7ed
+        );
+
+      box-shadow:
+        inset 0 0 0 1px var(--line);
+    }
+
+    .macro-center {
+      position: relative;
+      z-index: 2;
+
+      text-align: center;
+    }
+
+    .macro-center strong {
+      display: block;
+
+      color: #c2410c;
+
+      font-size: 46px;
+      line-height: 1;
+      letter-spacing: -0.065em;
+    }
+
+    .macro-center span {
+      display: block;
+      margin-top: 7px;
+
+      color: var(--muted);
+
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .float-card {
+      position: absolute;
+      z-index: 3;
+
+      min-width: 164px;
+      padding: 15px;
+
+      border: 1px solid var(--line);
+      border-radius: 21px;
+
+      background:
+        rgba(255, 255, 255, 0.96);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .float-card em {
+      display: inline-flex;
+      margin-bottom: 7px;
+
+      padding: 5px 8px;
+
+      border-radius: 999px;
+
+      color: #ffffff;
+
+      font-style: normal;
+      font-size: 10px;
+      font-weight: 950;
+    }
+
+    .float-card b {
+      display: block;
+
+      font-size: 17px;
+      letter-spacing: -0.04em;
+    }
+
+    .float-card span {
+      display: block;
+      margin-top: 4px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .float-card.one {
+      left: 28px;
+      top: 36px;
+    }
+
+    .float-card.two {
+      right: 28px;
+      top: 76px;
+    }
+
+    .float-card.three {
+      left: 34px;
+      bottom: 38px;
+    }
+
+    .float-card.four {
+      right: 34px;
+      bottom: 32px;
+    }
+
+    .float-card.carb em {
+      background: var(--orange);
+    }
+
+    .float-card.protein em {
+      background: var(--rose);
+    }
+
+    .float-card.fat em {
+      background: var(--mint);
+    }
+
+    .float-card.meal em {
+      background: var(--blue);
+    }
+
+    .section {
+      padding: 24px 0;
+    }
+
+    .tool-grid {
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 0.93fr)
+        minmax(0, 1.07fr);
+
+      gap: 22px;
+      align-items: start;
+    }
+
+    .panel {
+      padding: 24px;
+
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+
+      background: var(--card);
+
+      box-shadow: var(--shadow);
+
+      backdrop-filter: blur(14px);
+    }
+
+    .panel h2 {
+      margin: 0 0 9px;
+
+      font-size: 28px;
+      line-height: 1.2;
+      letter-spacing: -0.052em;
+    }
+
+    .desc {
+      margin: 0 0 19px;
+
+      color: var(--muted);
+
+      font-size: 14px;
+      line-height: 1.75;
+
+      word-break: keep-all;
+    }
+
+    .form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .field label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+
+      margin-bottom: 7px;
+
+      color: #3b2418;
+
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .field small {
+      color: var(--muted);
+
+      font-size: 11px;
+      font-weight: 780;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 54px;
+
+      padding:
+        13px 48px 13px 14px;
+
+      border: 1px solid var(--line);
+      border-radius: 16px;
+
+      outline: none;
+
+      background:
+        rgba(255, 255, 255, 0.97);
+
+      color: var(--ink);
+
+      font-size: 15px;
+      font-weight: 850;
+
+      transition: 0.16s ease;
+    }
+
+    select {
+      padding-right: 14px;
+    }
+
+    input:focus,
+    select:focus {
+      border-color:
+        rgba(249, 115, 22, 0.44);
+
+      box-shadow:
+        0 0 0 4px rgba(249, 115, 22, 0.1);
+    }
+
+    .unit {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+
+      transform:
+        translateY(-50%);
+
+      color: var(--muted);
+
+      font-size: 13px;
+      font-weight: 900;
+
+      pointer-events: none;
+    }
+
+    .preset-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 8px;
+    }
+
+    .preset-btn {
+      min-height: 50px;
+      padding: 10px;
+
+      border: 1px solid var(--line);
+      border-radius: 15px;
+
+      background: #ffffff;
+      color: #4d3326;
+
+      font-size: 12px;
+      font-weight: 900;
+
+      transition: 0.16s ease;
+    }
+
+    .preset-btn:hover,
+    .preset-btn.active {
+      color: #c2410c;
+
+      border-color:
+        rgba(249, 115, 22, 0.35);
+
+      background: #fff7ed;
+    }
+
+    .macro-inputs {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 10px;
+    }
+
+    .macro-field {
+      padding: 13px;
+
+      border: 1px solid var(--line);
+      border-radius: 17px;
+
+      background: #fffdfb;
+    }
+
+    .macro-field label {
+      display: block;
+      margin-bottom: 8px;
+
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .macro-field.carb label {
+      color: #c2410c;
+    }
+
+    .macro-field.protein label {
+      color: #be123c;
+    }
+
+    .macro-field.fat label {
+      color: #0f766e;
+    }
+
+    .macro-field input {
+      padding-right: 40px;
+    }
+
+    .sum-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+
+      padding: 13px 14px;
+
+      border: 1px solid var(--line);
+      border-radius: 16px;
+
+      background: #fffaf5;
+
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .sum-box strong {
+      font-size: 18px;
+    }
+
+    .sum-box.good {
+      color: #166534;
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+    }
+
+    .sum-box.bad {
+      color: #991b1b;
+      background: #fef2f2;
+      border-color: #fecaca;
+    }
+
+    .calc-btn {
+      width: 100%;
+      min-height: 59px;
+
+      margin-top: 4px;
+
+      border: 0;
+      border-radius: 18px;
+
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--orange),
+          var(--rose),
+          var(--mint)
+        );
+
+      box-shadow:
+        0 17px 36px rgba(249, 115, 22, 0.22);
+
+      font-size: 17px;
+      font-weight: 950;
+    }
+
+    .reset-btn {
+      width: 100%;
+      min-height: 48px;
+
+      border: 1px solid var(--line);
+      border-radius: 16px;
+
+      background: #ffffff;
+      color: var(--ink);
+
+      font-weight: 900;
+    }
+
+    .notice {
+      padding: 13px 14px;
+
+      border: 1px solid var(--line);
+      border-radius: 16px;
+
+      background: #fffaf5;
+      color: #695449;
+
+      font-size: 12px;
+      line-height: 1.7;
+      font-weight: 760;
+
+      word-break: keep-all;
+    }
+
+    .result-empty {
+      min-height: 420px;
+
+      display: grid;
+      place-items: center;
+
+      text-align: center;
+
+      color: var(--muted);
+
+      border:
+        1px dashed rgba(249, 115, 22, 0.27);
+
+      border-radius: 24px;
+
+      background:
+        rgba(255, 247, 237, 0.65);
+
+      font-weight: 850;
+    }
+
+    .result-box {
+      display: none;
+      gap: 14px;
+    }
+
+    .result-box.show {
+      display: grid;
+    }
+
+    .result-main {
+      padding: 24px;
+
+      border-radius: 26px;
+
+      color: #30170a;
+
+      background:
+        radial-gradient(
+          circle at 85% 18%,
+          rgba(255, 255, 255, 0.5),
+          transparent 26%
+        ),
+        linear-gradient(
+          135deg,
+          #fdba74,
+          #fda4af 52%,
+          #5eead4
+        );
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .result-main span {
+      display: block;
+
+      font-size: 14px;
+      font-weight: 900;
+
+      opacity: 0.82;
+    }
+
+    .result-main strong {
+      display: block;
+      margin-top: 7px;
+
+      font-size:
+        clamp(38px, 5vw, 60px);
+
+      line-height: 1;
+      letter-spacing: -0.065em;
+    }
+
+    .result-main em {
+      display: block;
+      margin-top: 10px;
+
+      font-style: normal;
+      font-size: 13px;
+      line-height: 1.7;
+      font-weight: 850;
+    }
+
+    .result-cards {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 10px;
+    }
+
+    .metric {
+      padding: 17px;
+
+      border: 1px solid var(--line);
+      border-radius: 19px;
+
+      background: #ffffff;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .metric span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .metric strong {
+      display: block;
+      margin-top: 5px;
+
+      font-size: 24px;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+    }
+
+    .metric small {
+      display: block;
+      margin-top: 5px;
+
+      color: #806f65;
+
+      font-size: 10px;
+      font-weight: 760;
+    }
+
+    .metric.carb strong {
+      color: #c2410c;
+    }
+
+    .metric.protein strong {
+      color: #be123c;
+    }
+
+    .metric.fat strong {
+      color: #0f766e;
+    }
+
+    .status {
+      padding: 15px 16px;
+
+      border-radius: 18px;
+
+      font-size: 13px;
+      line-height: 1.72;
+      font-weight: 850;
+    }
+
+    .status.good {
+      color: #166534;
+      background: #dcfce7;
+      border: 1px solid #bbf7d0;
+    }
+
+    .status.warn {
+      color: #9a3412;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+    }
+
+    .status.danger {
+      color: #991b1b;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+    }
+
+    .result-section {
+      padding: 18px;
+
+      border: 1px solid var(--line);
+      border-radius: 22px;
+
+      background: #ffffff;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .result-section h3 {
+      margin: 0;
+
+      font-size: 17px;
+      letter-spacing: -0.04em;
+    }
+
+    .result-section > p {
+      margin: 5px 0 13px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .macro-bar {
+      display: flex;
+
+      width: 100%;
+      height: 52px;
+
+      overflow: hidden;
+
+      border-radius: 16px;
+
+      background: #f1f5f9;
+    }
+
+    .macro-segment {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      min-width: 38px;
+
+      color: #ffffff;
+
+      font-size: 11px;
+      font-weight: 950;
+
+      transition: width 0.25s ease;
+    }
+
+    .macro-segment.carb {
+      background:
+        linear-gradient(
+          135deg,
+          #f97316,
+          #f59e0b
+        );
+    }
+
+    .macro-segment.protein {
+      background:
+        linear-gradient(
+          135deg,
+          #f43f5e,
+          #8b5cf6
+        );
+    }
+
+    .macro-segment.fat {
+      background:
+        linear-gradient(
+          135deg,
+          #14b8a6,
+          #2563eb
+        );
+    }
+
+    .macro-legend {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 8px;
+
+      margin-top: 10px;
+    }
+
+    .legend-item {
+      padding: 11px;
+
+      border: 1px solid var(--line);
+      border-radius: 14px;
+
+      background: #fffdfb;
+    }
+
+    .legend-item span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .legend-item strong {
+      display: block;
+      margin-top: 3px;
+
+      font-size: 17px;
+    }
+
+    .legend-item.carb strong {
+      color: #c2410c;
+    }
+
+    .legend-item.protein strong {
+      color: #be123c;
+    }
+
+    .legend-item.fat strong {
+      color: #0f766e;
+    }
+
+    .meal-table {
+      display: grid;
+      gap: 8px;
+    }
+
+    .meal-row {
+      display: grid;
+
+      grid-template-columns:
+        64px repeat(4, minmax(0, 1fr));
+
+      gap: 8px;
+      align-items: center;
+
+      padding: 11px;
+
+      border: 1px solid var(--line);
+      border-radius: 14px;
+
+      background: #fffdfb;
+
+      font-size: 11px;
+      text-align: center;
+      font-weight: 850;
+    }
+
+    .meal-row.head {
+      color: var(--muted);
+      background: #fff7ed;
+    }
+
+    .meal-row b {
+      color: #9a3412;
+    }
+
+    .reference-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 8px;
+    }
+
+    .reference-card {
+      padding: 13px;
+
+      border: 1px solid var(--line);
+      border-radius: 15px;
+
+      background: #fffdfb;
+    }
+
+    .reference-card span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .reference-card strong {
+      display: block;
+      margin-top: 4px;
+
+      color: #9a3412;
+
+      font-size: 18px;
+    }
+
+    .reference-card small {
+      display: block;
+      margin-top: 4px;
+
+      color: #84736a;
+
+      font-size: 10px;
+      line-height: 1.5;
+      font-weight: 760;
+    }
+
+    .utility-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .utility-btn {
+      min-height: 47px;
+
+      border: 1px solid var(--line);
+      border-radius: 15px;
+
+      background: #ffffff;
+      color: var(--ink);
+
+      font-weight: 900;
+    }
+
+    .info-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 14px;
+    }
+
+    .info-card {
+      padding: 22px;
+
+      border: 1px solid var(--line);
+      border-radius: 24px;
+
+      background:
+        rgba(255, 255, 255, 0.91);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .info-card h3 {
+      margin: 0;
+
+      font-size: 19px;
+      letter-spacing: -0.045em;
+    }
+
+    .info-card p {
+      margin: 9px 0 0;
+
+      color: #665146;
+
+      font-size: 13px;
+      line-height: 1.75;
+      font-weight: 750;
+    }
+
+    .info-card ul {
+      margin: 10px 0 0;
+      padding-left: 18px;
+
+      color: #665146;
+
+      font-size: 13px;
+      line-height: 1.75;
+      font-weight: 750;
+    }
+
+    .faq {
+      display: grid;
+      gap: 10px;
+    }
+
+    details {
+      padding: 16px 18px;
+
+      border: 1px solid var(--line);
+      border-radius: 18px;
+
+      background:
+        rgba(255, 255, 255, 0.91);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 900;
+    }
+
+    details p {
+      margin: 10px 0 0;
+
+      color: #665146;
+
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    footer {
+      margin-top: 24px;
+      padding: 30px 0 42px;
+
+      border-top:
+        1px solid var(--line);
+
+      color: var(--muted);
+    }
+
+    .footer-grid {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    .footer-grid b {
+      display: block;
+      color: var(--ink);
+    }
+
+    .footer-grid span {
+      display: block;
+
+      max-width: 760px;
+
+      margin-top: 6px;
+
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .tool-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .visual {
+        min-height: 400px;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav {
+        padding: 12px 0;
+
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
+      .hero {
+        padding-top: 36px;
+      }
+
+      .row,
+      .result-cards,
+      .macro-inputs,
+      .macro-legend,
+      .reference-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .visual {
+        min-height: 445px;
+      }
+
+      .macro-ring {
+        width: 180px;
+        height: 180px;
+      }
+
+      .macro-center strong {
+        font-size: 38px;
+      }
+
+      .float-card {
+        min-width: 142px;
+        padding: 12px;
+      }
+
+      .float-card.one {
+        left: 14px;
+        top: 25px;
+      }
+
+      .float-card.two {
+        right: 14px;
+        top: 86px;
+      }
+
+      .float-card.three {
+        left: 16px;
+        bottom: 70px;
+      }
+
+      .float-card.four {
+        right: 16px;
+        bottom: 19px;
+      }
+
+      .meal-row {
+        grid-template-columns:
+          55px repeat(4, minmax(58px, 1fr));
+
+        overflow-x: auto;
+      }
+
+      .utility-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .wrap {
+        width:
+          min(var(--max), calc(100% - 22px));
+      }
+
+      h1 {
+        font-size: 42px;
+      }
+
+      .panel {
+        padding: 17px;
+        border-radius: 23px;
+      }
+
+      .visual {
+        min-height: 470px;
+        padding: 14px;
+      }
+
+      .float-card {
+        min-width: 130px;
+      }
+
+      .preset-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .meal-table {
+        overflow-x: auto;
+      }
+
+      .meal-row {
+        min-width: 500px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a
+        class="brand"
+        href="https://barohaegyeol-tools.pages.dev/"
+        aria-label="바로해결툴즈 홈"
+      >
+        <div class="brand-mark">B</div>
+
+        <div>
+          바로해결툴즈
+
+          <small>
+            건강 · 다이어트 · 영양 계산
+          </small>
+        </div>
+      </a>
+
+      <nav
+        class="nav-links"
+        aria-label="페이지 메뉴"
+      >
+        <a href="#calculator">
+          계산하기
+        </a>
+
+        <a href="#guide">
+          이용안내
+        </a>
+
+        <a href="https://barohaegyeol-tools.pages.dev/">
+          전체 도구
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="chips">
+            <span class="chip hot">
+              🍚 탄수화물·단백질·지방
+            </span>
+
+            <span class="chip">
+              🍽️ 끼니별 자동 분배
+            </span>
+
+            <span class="chip">
+              🎯 감량·운동 목적별 프리셋
+            </span>
+          </div>
+
+          <h1>
+            하루 칼로리를<br />
+
+            <span class="gradient">
+              탄단지로 정확하게
+            </span>
+          </h1>
+
+          <p class="lead">
+            하루 목표 칼로리와 비율을 입력하면
+            <strong>
+              탄수화물·단백질·지방 섭취량,
+              끼니별 그램과 체중당 단백질
+            </strong>
+            을 한 번에 계산합니다.
+          </p>
+
+          <div class="hero-actions">
+            <a
+              class="btn btn-primary"
+              href="#calculator"
+            >
+              바로 계산하기
+            </a>
+
+            <a
+              class="btn btn-ghost"
+              href="#guide"
+            >
+              탄단지 기준 보기
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="visual"
+          aria-label="매크로 영양소 계산기 미리보기"
+        >
+          <div class="macro-ring">
+            <div class="macro-center">
+              <strong>40·30·30</strong>
+              <span>탄수·단백질·지방</span>
+            </div>
+          </div>
+
+          <div class="float-card one carb">
+            <em>탄수화물</em>
+            <b>에너지원 계산</b>
+            <span>1g당 4kcal</span>
+          </div>
+
+          <div class="float-card two protein">
+            <em>단백질</em>
+            <b>체중당 섭취량</b>
+            <span>하루·끼니별 확인</span>
+          </div>
+
+          <div class="float-card three fat">
+            <em>지방</em>
+            <b>비율과 그램</b>
+            <span>1g당 9kcal</span>
+          </div>
+
+          <div class="float-card four meal">
+            <em>식사</em>
+            <b>끼니별 분배</b>
+            <span>2~6끼 자동 계산</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="section"
+      id="calculator"
+    >
+      <div class="wrap tool-grid">
+        <section class="panel">
+          <h2>
+            목표 정보 입력
+          </h2>
+
+          <p class="desc">
+            하루 목표 칼로리를 알고 있을 때 사용하는 계산기입니다.
+            비율은 합계가 정확히 100%가 되어야 합니다.
+          </p>
+
+          <form
+            class="form"
+            id="calculatorForm"
+          >
+            <div class="row">
+              <div class="field">
+                <label for="calories">
+                  하루 목표 칼로리
+                </label>
+
+                <div class="input-wrap">
+                  <input
+                    id="calories"
+                    type="number"
+                    inputmode="numeric"
+                    min="800"
+                    max="10000"
+                    step="10"
+                    value="2000"
+                    required
+                  />
+
+                  <span class="unit">
+                    kcal
+                  </span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="weight">
+                  현재 체중
+
+                  <small>
+                    선택 입력
+                  </small>
+                </label>
+
+                <div class="input-wrap">
+                  <input
+                    id="weight"
+                    type="number"
+                    inputmode="decimal"
+                    min="30"
+                    max="300"
+                    step="0.1"
+                    value="70"
+                  />
+
+                  <span class="unit">
+                    kg
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="meals">
+                  하루 식사 횟수
+                </label>
+
+                <select id="meals">
+                  <option value="2">
+                    하루 2끼
+                  </option>
+
+                  <option
+                    value="3"
+                    selected
+                  >
+                    하루 3끼
+                  </option>
+
+                  <option value="4">
+                    하루 4끼
+                  </option>
+
+                  <option value="5">
+                    하루 5끼
+                  </option>
+
+                  <option value="6">
+                    하루 6끼
+                  </option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="distribution">
+                  끼니 분배 방식
+                </label>
+
+                <select id="distribution">
+                  <option
+                    value="equal"
+                    selected
+                  >
+                    모든 끼니 동일
+                  </option>
+
+                  <option value="breakfast-light">
+                    아침 가볍게
+                  </option>
+
+                  <option value="dinner-light">
+                    저녁 가볍게
+                  </option>
+
+                  <option value="workout">
+                    운동 전후 집중
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>
+                빠른 비율 선택
+              </label>
+
+              <div class="preset-grid">
+                <button
+                  class="preset-btn active"
+                  type="button"
+                  data-carb="50"
+                  data-protein="25"
+                  data-fat="25"
+                >
+                  균형형 50·25·25
+                </button>
+
+                <button
+                  class="preset-btn"
+                  type="button"
+                  data-carb="40"
+                  data-protein="35"
+                  data-fat="25"
+                >
+                  고단백형 40·35·25
+                </button>
+
+                <button
+                  class="preset-btn"
+                  type="button"
+                  data-carb="35"
+                  data-protein="30"
+                  data-fat="35"
+                >
+                  탄수 조절형 35·30·35
+                </button>
+
+                <button
+                  class="preset-btn"
+                  type="button"
+                  data-carb="55"
+                  data-protein="20"
+                  data-fat="25"
+                >
+                  지구력 운동형 55·20·25
+                </button>
+              </div>
+            </div>
+
+            <div class="macro-inputs">
+              <div class="macro-field carb">
+                <label for="carbPercent">
+                  탄수화물
+                </label>
+
+                <div class="input-wrap">
+                  <input
+                    id="carbPercent"
+                    type="number"
+                    inputmode="numeric"
+                    min="0"
+                    max="100"
+                    step="1"
+                    value="50"
+                    required
+                  />
+
+                  <span class="unit">
+                    %
+                  </span>
+                </div>
+              </div>
+
+              <div class="macro-field protein">
+                <label for="proteinPercent">
+                  단백질
+                </label>
+
+                <div class="input-wrap">
+                  <input
+                    id="proteinPercent"
+                    type="number"
+                    inputmode="numeric"
+                    min="0"
+                    max="100"
+                    step="1"
+                    value="25"
+                    required
+                  />
+
+                  <span class="unit">
+                    %
+                  </span>
+                </div>
+              </div>
+
+              <div class="macro-field fat">
+                <label for="fatPercent">
+                  지방
+                </label>
+
+                <div class="input-wrap">
+                  <input
+                    id="fatPercent"
+                    type="number"
+                    inputmode="numeric"
+                    min="0"
+                    max="100"
+                    step="1"
+                    value="25"
+                    required
+                  />
+
+                  <span class="unit">
+                    %
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="sum-box good"
+              id="sumBox"
+            >
+              <span>
+                탄단지 비율 합계
+              </span>
+
+              <strong id="percentSum">
+                100%
+              </strong>
+            </div>
+
+            <button
+              class="calc-btn"
+              type="submit"
+            >
+              탄단지 섭취량 계산하기
+            </button>
+
+            <button
+              class="reset-btn"
+              type="button"
+              id="resetBtn"
+            >
+              입력값 초기화
+            </button>
+
+            <div class="notice">
+              결과는 건강한 성인의 일반적인 식단 계획을 위한 참고값입니다.
+              임신·수유 중이거나 신장·간·대사질환이 있다면
+              단백질과 영양소 비율을 임의로 조정하지 마세요.
+            </div>
+          </form>
+        </section>
+
+        <section class="panel">
+          <div
+            class="result-empty"
+            id="resultEmpty"
+          >
+            목표 칼로리와 탄단지 비율을 입력하면<br />
+            하루·끼니별 섭취량이 표시됩니다.
+          </div>
+
+          <div
+            class="result-box"
+            id="resultBox"
+          >
+            <div class="result-main">
+              <span>
+                하루 목표 섭취 열량
+              </span>
+
+              <strong id="calorieResult">
+                -
+              </strong>
+
+              <em id="mainMessage">
+                -
+              </em>
+            </div>
+
+            <div class="result-cards">
+              <article class="metric carb">
+                <span>
+                  하루 탄수화물
+                </span>
+
+                <strong id="carbGrams">
+                  -
+                </strong>
+
+                <small id="carbCalories">
+                  -
+                </small>
+              </article>
+
+              <article class="metric protein">
+                <span>
+                  하루 단백질
+                </span>
+
+                <strong id="proteinGrams">
+                  -
+                </strong>
+
+                <small id="proteinCalories">
+                  -
+                </small>
+              </article>
+
+              <article class="metric fat">
+                <span>
+                  하루 지방
+                </span>
+
+                <strong id="fatGrams">
+                  -
+                </strong>
+
+                <small id="fatCalories">
+                  -
+                </small>
+              </article>
+            </div>
+
+            <div
+              class="status good"
+              id="statusBox"
+            >
+              -
+            </div>
+
+            <section class="result-section">
+              <h3>
+                하루 칼로리 구성
+              </h3>
+
+              <p>
+                각 영양소가 차지하는 열량 비율입니다.
+              </p>
+
+              <div class="macro-bar">
+                <div
+                  class="macro-segment carb"
+                  id="carbSegment"
+                >
+                  탄수
+                </div>
+
+                <div
+                  class="macro-segment protein"
+                  id="proteinSegment"
+                >
+                  단백질
+                </div>
+
+                <div
+                  class="macro-segment fat"
+                  id="fatSegment"
+                >
+                  지방
+                </div>
+              </div>
+
+              <div class="macro-legend">
+                <div class="legend-item carb">
+                  <span>
+                    탄수화물
+                  </span>
+
+                  <strong id="carbLegend">
+                    -
+                  </strong>
+                </div>
+
+                <div class="legend-item protein">
+                  <span>
+                    단백질
+                  </span>
+
+                  <strong id="proteinLegend">
+                    -
+                  </strong>
+                </div>
+
+                <div class="legend-item fat">
+                  <span>
+                    지방
+                  </span>
+
+                  <strong id="fatLegend">
+                    -
+                  </strong>
+                </div>
+              </div>
+            </section>
+
+            <section class="result-section">
+              <h3>
+                끼니별 섭취 계획
+              </h3>
+
+              <p id="mealDescription">
+                선택한 식사 횟수와 분배 방식에 따른 예상량입니다.
+              </p>
+
+              <div
+                class="meal-table"
+                id="mealTable"
+              ></div>
+            </section>
+
+            <section class="result-section">
+              <h3>
+                추가 참고값
+              </h3>
+
+              <p>
+                체중을 입력한 경우 체중당 섭취량도 계산합니다.
+              </p>
+
+              <div class="reference-grid">
+                <div class="reference-card">
+                  <span>
+                    체중 1kg당 단백질
+                  </span>
+
+                  <strong id="proteinPerKg">
+                    -
+                  </strong>
+
+                  <small>
+                    하루 단백질 ÷ 체중
+                  </small>
+                </div>
+
+                <div class="reference-card">
+                  <span>
+                    체중 1kg당 탄수화물
+                  </span>
+
+                  <strong id="carbPerKg">
+                    -
+                  </strong>
+
+                  <small>
+                    하루 탄수화물 ÷ 체중
+                  </small>
+                </div>
+
+                <div class="reference-card">
+                  <span>
+                    참고 식이섬유 목표
+                  </span>
+
+                  <strong id="fiberReference">
+                    -
+                  </strong>
+
+                  <small>
+                    하루 열량 1,000kcal당 14g 단순 환산
+                  </small>
+                </div>
+              </div>
+            </section>
+
+            <div class="utility-row">
+              <button
+                class="utility-btn"
+                type="button"
+                id="copyBtn"
+              >
+                결과 복사
+              </button>
+
+              <button
+                class="utility-btn"
+                type="button"
+                id="printBtn"
+              >
+                인쇄·PDF 저장
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section
+      class="section"
+      id="guide"
+    >
+      <div class="wrap info-grid">
+        <article class="info-card">
+          <h3>
+            탄수화물
+          </h3>
+
+          <p>
+            1g당 약 4kcal를 제공합니다.
+            활동량과 운동 종류에 따라 필요한 양이 크게 달라질 수 있습니다.
+          </p>
+        </article>
+
+        <article class="info-card">
+          <h3>
+            단백질
+          </h3>
+
+          <p>
+            1g당 약 4kcal를 제공합니다.
+            체중, 운동량, 연령과 건강 상태에 따라 적절한 섭취량이 달라집니다.
+          </p>
+        </article>
+
+        <article class="info-card">
+          <h3>
+            지방
+          </h3>
+
+          <p>
+            1g당 약 9kcal를 제공합니다.
+            비율만 맞추기보다 지방의 종류와 전체 식단 구성을 함께 확인해야 합니다.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="faq">
+          <details>
+            <summary>
+              탄단지 비율은 몇 대 몇이 가장 좋은가요?
+            </summary>
+
+            <p>
+              모든 사람에게 동일한 최적 비율은 없습니다.
+              운동량, 식습관, 체중 목표와 건강 상태에 따라 달라집니다.
+              프리셋은 시작점이며 실제 체중과 운동 수행 변화를 보면서 조정하세요.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              단백질을 많이 먹을수록 근육이 더 빨리 늘어나나요?
+            </summary>
+
+            <p>
+              단백질만 늘린다고 근육이 자동으로 증가하지 않습니다.
+              전체 열량, 근력운동, 수면과 회복이 함께 필요합니다.
+              질환이 있다면 고단백 식단을 임의로 시작하지 마세요.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              계산된 그램을 매일 정확히 맞춰야 하나요?
+            </summary>
+
+            <p>
+              매일 완벽하게 일치할 필요는 없습니다.
+              며칠 또는 일주일 평균이 목표 범위에 가까운지 확인하는 방식이 현실적입니다.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <div>
+        <b>
+          바로해결툴즈
+        </b>
+
+        <span>
+          본 결과는 입력한 칼로리와 비율을 그램으로 환산한 참고값입니다.
+          의료 진단이나 개인 영양 처방을 대신하지 않으며,
+          질환·임신·수유·섭식장애가 있는 경우 전문가 확인이 필요합니다.
+        </span>
+      </div>
+
+      <div class="footer-links">
+        <a href="#calculator">
+          계산하기
+        </a>
+
+        <a href="#guide">
+          이용안내
+        </a>
+
+        <a href="https://barohaegyeol-tools.pages.dev/">
+          전체 도구
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    "use strict";
+
+    const form =
+      document.getElementById("calculatorForm");
+
+    const caloriesInput =
+      document.getElementById("calories");
+
+    const weightInput =
+      document.getElementById("weight");
+
+    const mealsInput =
+      document.getElementById("meals");
+
+    const distributionInput =
+      document.getElementById("distribution");
+
+    const carbInput =
+      document.getElementById("carbPercent");
+
+    const proteinInput =
+      document.getElementById("proteinPercent");
+
+    const fatInput =
+      document.getElementById("fatPercent");
+
+    const percentSum =
+      document.getElementById("percentSum");
+
+    const sumBox =
+      document.getElementById("sumBox");
+
+    const resultEmpty =
+      document.getElementById("resultEmpty");
+
+    const resultBox =
+      document.getElementById("resultBox");
+
+    const calorieResult =
+      document.getElementById("calorieResult");
+
+    const mainMessage =
+      document.getElementById("mainMessage");
+
+    const carbGramsEl =
+      document.getElementById("carbGrams");
+
+    const proteinGramsEl =
+      document.getElementById("proteinGrams");
+
+    const fatGramsEl =
+      document.getElementById("fatGrams");
+
+    const carbCaloriesEl =
+      document.getElementById("carbCalories");
+
+    const proteinCaloriesEl =
+      document.getElementById("proteinCalories");
+
+    const fatCaloriesEl =
+      document.getElementById("fatCalories");
+
+    const statusBox =
+      document.getElementById("statusBox");
+
+    const carbSegment =
+      document.getElementById("carbSegment");
+
+    const proteinSegment =
+      document.getElementById("proteinSegment");
+
+    const fatSegment =
+      document.getElementById("fatSegment");
+
+    const carbLegend =
+      document.getElementById("carbLegend");
+
+    const proteinLegend =
+      document.getElementById("proteinLegend");
+
+    const fatLegend =
+      document.getElementById("fatLegend");
+
+    const mealTable =
+      document.getElementById("mealTable");
+
+    const mealDescription =
+      document.getElementById("mealDescription");
+
+    const proteinPerKg =
+      document.getElementById("proteinPerKg");
+
+    const carbPerKg =
+      document.getElementById("carbPerKg");
+
+    const fiberReference =
+      document.getElementById("fiberReference");
+
+    const resetBtn =
+      document.getElementById("resetBtn");
+
+    const copyBtn =
+      document.getElementById("copyBtn");
+
+    const printBtn =
+      document.getElementById("printBtn");
+
+    const presetButtons =
+      document.querySelectorAll(".preset-btn");
+
+    let lastResultText =
+      "";
+
+    function getNumber(element) {
+      return Number(element.value);
+    }
+
+    function formatNumber(value) {
+      return Math.round(value)
+        .toLocaleString("ko-KR");
+    }
+
+    function formatOne(value) {
+      return Number(value)
+        .toFixed(1);
+    }
+
+    function updateSum() {
+      const total =
+        getNumber(carbInput) +
+        getNumber(proteinInput) +
+        getNumber(fatInput);
+
+      percentSum.textContent =
+        `${total}%`;
+
+      const valid =
+        total === 100;
+
+      sumBox.className =
+        `sum-box ${valid ? "good" : "bad"}`;
+
+      sumBox.querySelector("span").textContent =
+        valid
+          ? "탄단지 비율 합계"
+          : "합계를 100%로 맞춰주세요";
+
+      return valid;
+    }
+
+    function setPreset(
+      carb,
+      protein,
+      fat,
+      selectedButton
+    ) {
+      carbInput.value =
+        carb;
+
+      proteinInput.value =
+        protein;
+
+      fatInput.value =
+        fat;
+
+      presetButtons.forEach(
+        (button) => {
+          button.classList.remove(
+            "active"
+          );
+        }
+      );
+
+      if (selectedButton) {
+        selectedButton.classList.add(
+          "active"
+        );
+      }
+
+      updateSum();
+    }
+
+    function getMealWeights(
+      mealCount,
+      type
+    ) {
+      if (type === "equal") {
+        return Array(mealCount)
+          .fill(1 / mealCount);
+      }
+
+      if (
+        type === "breakfast-light"
+      ) {
+        if (mealCount === 2) {
+          return [0.4, 0.6];
+        }
+
+        if (mealCount === 3) {
+          return [0.2, 0.4, 0.4];
+        }
+
+        const first =
+          0.15;
+
+        const remaining =
+          (1 - first) /
+          (mealCount - 1);
+
+        return [
+          first,
+          ...Array(mealCount - 1)
+            .fill(remaining)
+        ];
+      }
+
+      if (
+        type === "dinner-light"
+      ) {
+        if (mealCount === 2) {
+          return [0.6, 0.4];
+        }
+
+        if (mealCount === 3) {
+          return [0.4, 0.4, 0.2];
+        }
+
+        const last =
+          0.15;
+
+        const remaining =
+          (1 - last) /
+          (mealCount - 1);
+
+        return [
+          ...Array(mealCount - 1)
+            .fill(remaining),
+          last
+        ];
+      }
+
+      if (type === "workout") {
+        if (mealCount === 2) {
+          return [0.45, 0.55];
+        }
+
+        if (mealCount === 3) {
+          return [0.25, 0.35, 0.4];
+        }
+
+        if (mealCount === 4) {
+          return [
+            0.2,
+            0.25,
+            0.3,
+            0.25
+          ];
+        }
+
+        const weights =
+          Array(mealCount)
+            .fill(0.15);
+
+        const baseTotal =
+          0.15 * mealCount;
+
+        const extra =
+          1 - baseTotal;
+
+        const center =
+          Math.floor(
+            mealCount / 2
+          );
+
+        weights[center] +=
+          extra * 0.6;
+
+        weights[
+          Math.max(
+            0,
+            center - 1
+          )
+        ] +=
+          extra * 0.4;
+
+        return weights;
+      }
+
+      return Array(mealCount)
+        .fill(1 / mealCount);
+    }
+
+    function getDistributionName(type) {
+      if (type === "breakfast-light") {
+        return "아침 가볍게";
+      }
+
+      if (type === "dinner-light") {
+        return "저녁 가볍게";
+      }
+
+      if (type === "workout") {
+        return "운동 전후 집중";
+      }
+
+      return "모든 끼니 동일";
+    }
+
+    function renderMealTable(
+      calories,
+      carbGrams,
+      proteinGrams,
+      fatGrams,
+      mealCount,
+      distribution
+    ) {
+      const weights =
+        getMealWeights(
+          mealCount,
+          distribution
+        );
+
+      mealDescription.textContent =
+        `${mealCount}끼 · ${getDistributionName(distribution)} 방식입니다.`;
+
+      const header =
+        `
+          <div class="meal-row head">
+            <div>끼니</div>
+            <div>칼로리</div>
+            <div>탄수</div>
+            <div>단백질</div>
+            <div>지방</div>
+          </div>
+        `;
+
+      const rows =
+        weights
+          .map(
+            (weight, index) => {
+              return `
+                <div class="meal-row">
+                  <b>${index + 1}끼</b>
+
+                  <div>
+                    ${formatNumber(calories * weight)}kcal
+                  </div>
+
+                  <div>
+                    ${formatOne(carbGrams * weight)}g
+                  </div>
+
+                  <div>
+                    ${formatOne(proteinGrams * weight)}g
+                  </div>
+
+                  <div>
+                    ${formatOne(fatGrams * weight)}g
+                  </div>
+                </div>
+              `;
+            }
+          )
+          .join("");
+
+      mealTable.innerHTML =
+        header + rows;
+    }
+
+    function setStatus(
+      carbPercent,
+      proteinPercent,
+      fatPercent,
+      calories,
+      proteinGrams,
+      weight
+    ) {
+      const warnings =
+        [];
+
+      if (
+        carbPercent < 45 ||
+        carbPercent > 65
+      ) {
+        warnings.push(
+          "탄수화물 비율이 성인 일반 참고 범위 45~65% 밖입니다."
+        );
+      }
+
+      if (
+        proteinPercent < 10 ||
+        proteinPercent > 35
+      ) {
+        warnings.push(
+          "단백질 비율이 성인 일반 참고 범위 10~35% 밖입니다."
+        );
+      }
+
+      if (
+        fatPercent < 20 ||
+        fatPercent > 35
+      ) {
+        warnings.push(
+          "지방 비율이 성인 일반 참고 범위 20~35% 밖입니다."
+        );
+      }
+
+      if (calories < 1000) {
+        warnings.push(
+          "하루 목표 칼로리가 1,000kcal 미만입니다."
+        );
+      }
+
+      if (
+        weight &&
+        proteinGrams / weight > 3
+      ) {
+        warnings.push(
+          "체중 1kg당 단백질이 3g을 넘습니다."
+        );
+      }
+
+      if (warnings.length === 0) {
+        statusBox.className =
+          "status good";
+
+        statusBox.textContent =
+          "세 영양소 비율이 성인 일반 참고 범위 안에 있습니다. 실제 필요량은 운동량, 건강 상태와 식단 구성에 따라 달라질 수 있습니다.";
+
+        return;
+      }
+
+      statusBox.className =
+        warnings.length >= 3
+          ? "status danger"
+          : "status warn";
+
+      statusBox.textContent =
+        warnings.join(" ");
+    }
+
+    function calculate(event) {
+      if (event) {
+        event.preventDefault();
+      }
+
+      const calories =
+        getNumber(caloriesInput);
+
+      const weightValue =
+        weightInput.value.trim();
+
+      const weight =
+        weightValue === ""
+          ? null
+          : Number(weightValue);
+
+      const meals =
+        Number(mealsInput.value);
+
+      const distribution =
+        distributionInput.value;
+
+      const carbPercent =
+        getNumber(carbInput);
+
+      const proteinPercent =
+        getNumber(proteinInput);
+
+      const fatPercent =
+        getNumber(fatInput);
+
+      const validInput =
+        calories >= 800 &&
+        calories <= 10000 &&
+        (
+          weight === null ||
+          (
+            weight >= 30 &&
+            weight <= 300
+          )
+        ) &&
+        carbPercent >= 0 &&
+        proteinPercent >= 0 &&
+        fatPercent >= 0;
+
+      if (!validInput) {
+        alert(
+          "칼로리, 체중과 탄단지 비율 입력값을 확인해주세요."
+        );
+
+        return;
+      }
+
+      if (!updateSum()) {
+        alert(
+          "탄수화물, 단백질과 지방 비율의 합계를 100%로 맞춰주세요."
+        );
+
+        return;
+      }
+
+      const carbCalories =
+        calories *
+        carbPercent /
+        100;
+
+      const proteinCalories =
+        calories *
+        proteinPercent /
+        100;
+
+      const fatCalories =
+        calories *
+        fatPercent /
+        100;
+
+      const carbGrams =
+        carbCalories / 4;
+
+      const proteinGrams =
+        proteinCalories / 4;
+
+      const fatGrams =
+        fatCalories / 9;
+
+      const fiber =
+        calories /
+        1000 *
+        14;
+
+      calorieResult.textContent =
+        `${formatNumber(calories)} kcal`;
+
+      mainMessage.textContent =
+        `탄수화물 ${carbPercent}%, 단백질 ${proteinPercent}%, 지방 ${fatPercent}% 구성입니다. ` +
+        `하루 ${meals}끼 기준 섭취량도 함께 계산했습니다.`;
+
+      carbGramsEl.textContent =
+        `${formatOne(carbGrams)}g`;
+
+      proteinGramsEl.textContent =
+        `${formatOne(proteinGrams)}g`;
+
+      fatGramsEl.textContent =
+        `${formatOne(fatGrams)}g`;
+
+      carbCaloriesEl.textContent =
+        `${formatNumber(carbCalories)}kcal · ${carbPercent}%`;
+
+      proteinCaloriesEl.textContent =
+        `${formatNumber(proteinCalories)}kcal · ${proteinPercent}%`;
+
+      fatCaloriesEl.textContent =
+        `${formatNumber(fatCalories)}kcal · ${fatPercent}%`;
+
+      carbSegment.style.width =
+        `${carbPercent}%`;
+
+      proteinSegment.style.width =
+        `${proteinPercent}%`;
+
+      fatSegment.style.width =
+        `${fatPercent}%`;
+
+      carbSegment.textContent =
+        carbPercent >= 15
+          ? `탄수 ${carbPercent}%`
+          : "탄수";
+
+      proteinSegment.textContent =
+        proteinPercent >= 15
+          ? `단백질 ${proteinPercent}%`
+          : "단백질";
+
+      fatSegment.textContent =
+        fatPercent >= 15
+          ? `지방 ${fatPercent}%`
+          : "지방";
+
+      carbLegend.textContent =
+        `${formatOne(carbGrams)}g`;
+
+      proteinLegend.textContent =
+        `${formatOne(proteinGrams)}g`;
+
+      fatLegend.textContent =
+        `${formatOne(fatGrams)}g`;
+
+      if (weight) {
+        proteinPerKg.textContent =
+          `${formatOne(proteinGrams / weight)}g/kg`;
+
+        carbPerKg.textContent =
+          `${formatOne(carbGrams / weight)}g/kg`;
+      } else {
+        proteinPerKg.textContent =
+          "체중 입력 필요";
+
+        carbPerKg.textContent =
+          "체중 입력 필요";
+      }
+
+      fiberReference.textContent =
+        `약 ${formatOne(fiber)}g`;
+
+      setStatus(
+        carbPercent,
+        proteinPercent,
+        fatPercent,
+        calories,
+        proteinGrams,
+        weight
+      );
+
+      renderMealTable(
+        calories,
+        carbGrams,
+        proteinGrams,
+        fatGrams,
+        meals,
+        distribution
+      );
+
+      resultEmpty.style.display =
+        "none";
+
+      resultBox.classList.add(
+        "show"
+      );
+
+      lastResultText =
+`[다이어트 매크로 영양소 계산기]
+하루 목표 칼로리: ${formatNumber(calories)}kcal
+탄수화물: ${carbPercent}% · ${formatOne(carbGrams)}g · ${formatNumber(carbCalories)}kcal
+단백질: ${proteinPercent}% · ${formatOne(proteinGrams)}g · ${formatNumber(proteinCalories)}kcal
+지방: ${fatPercent}% · ${formatOne(fatGrams)}g · ${formatNumber(fatCalories)}kcal
+식사 횟수: 하루 ${meals}끼
+분배 방식: ${getDistributionName(distribution)}
+체중당 단백질: ${weight ? `${formatOne(proteinGrams / weight)}g/kg` : "체중 미입력"}
+참고 식이섬유: 약 ${formatOne(fiber)}g
+
+※ 건강한 성인의 일반적인 식단 계획을 위한 참고값입니다.`;
+
+      try {
+        localStorage.setItem(
+          "macroNutrientCalculator",
+          JSON.stringify({
+            calories,
+            weight,
+            meals,
+            distribution,
+            carbPercent,
+            proteinPercent,
+            fatPercent
+          })
+        );
+      } catch (error) {
+        console.warn(error);
+      }
+    }
+
+    function restoreSaved() {
+      try {
+        const saved =
+          JSON.parse(
+            localStorage.getItem(
+              "macroNutrientCalculator"
+            ) || "null"
+          );
+
+        if (!saved) {
+          return;
+        }
+
+        caloriesInput.value =
+          saved.calories || 2000;
+
+        weightInput.value =
+          saved.weight === null
+            ? ""
+            : saved.weight || 70;
+
+        mealsInput.value =
+          String(saved.meals || 3);
+
+        distributionInput.value =
+          saved.distribution || "equal";
+
+        carbInput.value =
+          saved.carbPercent || 50;
+
+        proteinInput.value =
+          saved.proteinPercent || 25;
+
+        fatInput.value =
+          saved.fatPercent || 25;
+
+        updateSum();
+      } catch (error) {
+        console.warn(error);
+      }
+    }
+
+    function resetCalculator() {
+      form.reset();
+
+      caloriesInput.value =
+        2000;
+
+      weightInput.value =
+        70;
+
+      mealsInput.value =
+        "3";
+
+      distributionInput.value =
+        "equal";
+
+      setPreset(
+        50,
+        25,
+        25,
+        presetButtons[0]
+      );
+
+      resultBox.classList.remove(
+        "show"
+      );
+
+      resultEmpty.style.display =
+        "grid";
+
+      lastResultText =
+        "";
+
+      try {
+        localStorage.removeItem(
+          "macroNutrientCalculator"
+        );
+      } catch (error) {
+        console.warn(error);
+      }
+    }
+
+    async function copyResult() {
+      if (!lastResultText) {
+        alert(
+          "먼저 계산해주세요."
+        );
+
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(
+          lastResultText
+        );
+      } catch (error) {
+        const textarea =
+          document.createElement(
+            "textarea"
+          );
+
+        textarea.value =
+          lastResultText;
+
+        textarea.style.position =
+          "fixed";
+
+        textarea.style.opacity =
+          "0";
+
+        document.body.appendChild(
+          textarea
+        );
+
+        textarea.select();
+
+        document.execCommand(
+          "copy"
+        );
+
+        textarea.remove();
+      }
+
+      const original =
+        copyBtn.textContent;
+
+      copyBtn.textContent =
+        "복사 완료";
+
+      setTimeout(
+        () => {
+          copyBtn.textContent =
+            original;
+        },
+        1300
+      );
+    }
+
+    presetButtons.forEach(
+      (button) => {
+        button.addEventListener(
+          "click",
+          () => {
+            setPreset(
+              Number(button.dataset.carb),
+              Number(button.dataset.protein),
+              Number(button.dataset.fat),
+              button
+            );
+          }
+        );
+      }
+    );
+
+    [
+      carbInput,
+      proteinInput,
+      fatInput
+    ].forEach(
+      (input) => {
+        input.addEventListener(
+          "input",
+          () => {
+            presetButtons.forEach(
+              (button) => {
+                button.classList.remove(
+                  "active"
+                );
+              }
+            );
+
+            updateSum();
+          }
+        );
+      }
+    );
+
+    form.addEventListener(
+      "submit",
+      calculate
+    );
+
+    resetBtn.addEventListener(
+      "click",
+      resetCalculator
+    );
+
+    copyBtn.addEventListener(
+      "click",
+      copyResult
+    );
+
+    printBtn.addEventListener(
+      "click",
+      () => {
+        window.print();
+      }
+    );
+
+    restoreSaved();
+    updateSum();
+  </script>
+
+  <script
+    defer
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'
+  ></script>
+</body>
+</html>
