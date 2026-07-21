@@ -1,0 +1,2854 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>정밀 기초대사량·TDEE 계산기｜공식별 비교｜바로해결툴즈</title>
+
+  <meta
+    name="description"
+    content="성별, 나이, 키, 체중, 체지방률과 활동량을 입력하면 Mifflin-St Jeor, Harris-Benedict, Katch-McArdle 공식별 기초대사량과 TDEE, 감량·유지·증량 칼로리를 계산합니다."
+  />
+
+  <meta
+    name="keywords"
+    content="기초대사량 계산기, BMR 계산기, TDEE 계산기, 유지칼로리 계산기, 다이어트 칼로리, 체지방률 계산, Mifflin St Jeor, Harris Benedict, Katch McArdle, 바로해결툴즈"
+  />
+
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+
+  <link
+    rel="canonical"
+    href="https://barohaegyeol-tools.pages.dev/bmr-tdee-calculator/"
+  />
+
+  <meta name="theme-color" content="#f5f3ff" />
+
+  <meta property="og:type" content="website" />
+
+  <meta
+    property="og:title"
+    content="정밀 기초대사량·TDEE 계산기｜바로해결툴즈"
+  />
+
+  <meta
+    property="og:description"
+    content="세 가지 대사량 공식을 비교하고 활동량과 목표에 따른 하루 권장 칼로리를 확인하세요."
+  />
+
+  <meta
+    property="og:url"
+    content="https://barohaegyeol-tools.pages.dev/bmr-tdee-calculator/"
+  />
+
+  <meta
+    property="og:site_name"
+    content="바로해결툴즈"
+  />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "정밀 기초대사량·TDEE 계산기",
+    "url": "https://barohaegyeol-tools.pages.dev/bmr-tdee-calculator/",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "All",
+    "description": "Mifflin-St Jeor, Harris-Benedict, Katch-McArdle 공식으로 기초대사량과 활동대사량을 계산하는 무료 웹 도구입니다.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "KRW"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --ink: #17142d;
+      --text: #3e3a55;
+      --muted: #716c85;
+      --white: #ffffff;
+      --line: rgba(23, 20, 45, 0.1);
+
+      --purple: #7c3aed;
+      --violet: #8b5cf6;
+      --blue: #2563eb;
+      --sky: #38bdf8;
+      --mint: #14b8a6;
+      --green: #22c55e;
+      --orange: #f97316;
+      --red: #ef4444;
+
+      --card: rgba(255, 255, 255, 0.9);
+      --shadow: 0 24px 70px rgba(124, 58, 237, 0.13);
+      --shadow-soft: 0 13px 32px rgba(15, 23, 42, 0.08);
+
+      --radius: 28px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--ink);
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Pretendard",
+        "Noto Sans KR",
+        "Apple SD Gothic Neo",
+        system-ui,
+        sans-serif;
+
+      line-height: 1.65;
+
+      background:
+        radial-gradient(
+          circle at 8% 8%,
+          rgba(139, 92, 246, 0.18),
+          transparent 24%
+        ),
+        radial-gradient(
+          circle at 92% 8%,
+          rgba(56, 189, 248, 0.17),
+          transparent 23%
+        ),
+        radial-gradient(
+          circle at 80% 92%,
+          rgba(20, 184, 166, 0.13),
+          transparent 25%
+        ),
+        linear-gradient(
+          135deg,
+          #f5f3ff 0%,
+          #eff6ff 48%,
+          #f0fdfa 100%
+        );
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.18;
+
+      background-image:
+        radial-gradient(
+          circle,
+          rgba(124, 58, 237, 0.17) 1px,
+          transparent 1px
+        );
+
+      background-size: 31px 31px;
+
+      mask-image:
+        linear-gradient(
+          to bottom,
+          #000,
+          transparent 82%
+        );
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+
+      border-bottom:
+        1px solid rgba(15, 23, 42, 0.07);
+
+      background:
+        rgba(245, 243, 255, 0.85);
+
+      backdrop-filter:
+        blur(18px);
+    }
+
+    .nav {
+      min-height: 70px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+
+      font-weight: 950;
+      letter-spacing: -0.045em;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 16px;
+
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--purple),
+          var(--blue)
+        );
+
+      box-shadow:
+        0 14px 32px rgba(124, 58, 237, 0.24);
+
+      font-weight: 950;
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 1px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .nav-links a {
+      padding: 9px 13px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 999px;
+
+      background:
+        rgba(255, 255, 255, 0.84);
+
+      color: #393552;
+
+      font-size: 13px;
+      font-weight: 900;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .hero {
+      padding: 54px 0 24px;
+    }
+
+    .hero-grid {
+      display: grid;
+
+      grid-template-columns:
+        1.04fr 0.96fr;
+
+      align-items: center;
+      gap: 34px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+
+      margin-bottom: 17px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+
+      padding: 8px 12px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 999px;
+
+      background:
+        rgba(255, 255, 255, 0.85);
+
+      color: #514b69;
+
+      font-size: 13px;
+      font-weight: 900;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .chip.hot {
+      color: #5b21b6;
+
+      background:
+        linear-gradient(
+          135deg,
+          #ede9fe,
+          #ffffff
+        );
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 760px;
+
+      font-size:
+        clamp(40px, 6vw, 72px);
+
+      line-height: 1.04;
+      letter-spacing: -0.078em;
+    }
+
+    .gradient {
+      color: transparent;
+
+      background:
+        linear-gradient(
+          90deg,
+          #7c3aed 0%,
+          #2563eb 48%,
+          #14b8a6 100%
+        );
+
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .lead {
+      margin: 20px 0 0;
+      max-width: 700px;
+
+      color: #46415d;
+
+      font-size:
+        clamp(16px, 2vw, 19px);
+
+      line-height: 1.82;
+      word-break: keep-all;
+    }
+
+    .lead strong {
+      color: #6d28d9;
+      font-weight: 950;
+    }
+
+    .hero-actions {
+      margin-top: 24px;
+
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn {
+      min-height: 49px;
+
+      padding: 13px 18px;
+
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+
+      border:
+        1px solid transparent;
+
+      border-radius: 16px;
+
+      font-weight: 950;
+
+      transition:
+        0.17s ease;
+    }
+
+    .btn:hover {
+      transform:
+        translateY(-2px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--purple),
+          var(--blue),
+          var(--mint)
+        );
+
+      box-shadow:
+        0 16px 36px rgba(124, 58, 237, 0.22);
+    }
+
+    .btn-ghost {
+      color: var(--ink);
+
+      background:
+        rgba(255, 255, 255, 0.86);
+
+      border-color:
+        var(--line);
+    }
+
+    .visual {
+      position: relative;
+
+      min-height: 420px;
+      padding: 27px;
+
+      overflow: hidden;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 40px;
+
+      background:
+        radial-gradient(
+          circle at 85% 8%,
+          rgba(56, 189, 248, 0.22),
+          transparent 23%
+        ),
+        radial-gradient(
+          circle at 12% 88%,
+          rgba(20, 184, 166, 0.14),
+          transparent 24%
+        ),
+        linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.98),
+          rgba(237, 233, 254, 0.82)
+        );
+
+      box-shadow:
+        var(--shadow);
+    }
+
+    .visual::before {
+      content: "";
+
+      position: absolute;
+      inset: 20px;
+
+      border:
+        1px dashed rgba(124, 58, 237, 0.19);
+
+      border-radius: 31px;
+    }
+
+    .meter {
+      position: absolute;
+
+      left: 50%;
+      top: 48%;
+
+      width: 224px;
+      height: 224px;
+
+      transform:
+        translate(-50%, -50%);
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 50%;
+
+      background:
+        conic-gradient(
+          #7c3aed 0 35%,
+          #2563eb 35% 68%,
+          #14b8a6 68% 82%,
+          #e9e5ff 82% 100%
+        );
+
+      box-shadow:
+        0 28px 70px rgba(124, 58, 237, 0.19);
+    }
+
+    .meter::after {
+      content: "";
+
+      position: absolute;
+      inset: 18px;
+
+      border-radius: 50%;
+
+      background:
+        linear-gradient(
+          145deg,
+          #ffffff,
+          #f5f3ff
+        );
+
+      box-shadow:
+        inset 0 0 0 1px var(--line);
+    }
+
+    .meter-center {
+      position: relative;
+      z-index: 2;
+
+      text-align: center;
+    }
+
+    .meter-center strong {
+      display: block;
+
+      color: #6d28d9;
+
+      font-size: 45px;
+      line-height: 1;
+      letter-spacing: -0.065em;
+    }
+
+    .meter-center span {
+      display: block;
+      margin-top: 7px;
+
+      color: var(--muted);
+
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .float-card {
+      position: absolute;
+      z-index: 3;
+
+      min-width: 164px;
+      padding: 15px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 21px;
+
+      background:
+        rgba(255, 255, 255, 0.96);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .float-card b {
+      display: block;
+
+      font-size: 17px;
+      letter-spacing: -0.04em;
+    }
+
+    .float-card span {
+      display: block;
+      margin-top: 4px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .float-card em {
+      display: inline-flex;
+      margin-bottom: 7px;
+
+      padding: 5px 8px;
+
+      border-radius: 999px;
+
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--purple),
+          var(--blue)
+        );
+
+      font-style: normal;
+      font-size: 10px;
+      font-weight: 950;
+    }
+
+    .float-card.one {
+      left: 28px;
+      top: 36px;
+    }
+
+    .float-card.two {
+      right: 28px;
+      top: 76px;
+    }
+
+    .float-card.three {
+      left: 34px;
+      bottom: 38px;
+    }
+
+    .float-card.four {
+      right: 34px;
+      bottom: 32px;
+    }
+
+    .section {
+      padding: 24px 0;
+    }
+
+    .tool-grid {
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 0.93fr)
+        minmax(0, 1.07fr);
+
+      gap: 22px;
+      align-items: start;
+    }
+
+    .panel {
+      padding: 24px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius:
+        var(--radius);
+
+      background:
+        var(--card);
+
+      box-shadow:
+        var(--shadow);
+
+      backdrop-filter:
+        blur(14px);
+    }
+
+    .panel h2 {
+      margin: 0 0 9px;
+
+      font-size: 28px;
+      line-height: 1.2;
+      letter-spacing: -0.052em;
+    }
+
+    .desc {
+      margin: 0 0 19px;
+
+      color: var(--muted);
+
+      font-size: 14px;
+      line-height: 1.75;
+
+      word-break: keep-all;
+    }
+
+    .form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .field label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+
+      margin-bottom: 7px;
+
+      color: #292343;
+
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .field small {
+      color: var(--muted);
+
+      font-size: 11px;
+      font-weight: 780;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 54px;
+
+      padding:
+        13px 48px 13px 14px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 16px;
+
+      outline: none;
+
+      background:
+        rgba(255, 255, 255, 0.96);
+
+      color:
+        var(--ink);
+
+      font-size: 15px;
+      font-weight: 850;
+
+      transition:
+        0.16s ease;
+    }
+
+    select {
+      padding-right: 14px;
+    }
+
+    input:focus,
+    select:focus {
+      border-color:
+        rgba(124, 58, 237, 0.43);
+
+      box-shadow:
+        0 0 0 4px rgba(124, 58, 237, 0.1);
+    }
+
+    .unit {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+
+      transform:
+        translateY(-50%);
+
+      color:
+        var(--muted);
+
+      font-size: 13px;
+      font-weight: 900;
+
+      pointer-events: none;
+    }
+
+    .calc-btn {
+      width: 100%;
+      min-height: 59px;
+
+      margin-top: 4px;
+
+      border: 0;
+      border-radius: 18px;
+
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--purple),
+          var(--blue),
+          var(--mint)
+        );
+
+      box-shadow:
+        0 17px 36px rgba(124, 58, 237, 0.22);
+
+      font-size: 17px;
+      font-weight: 950;
+    }
+
+    .reset-btn {
+      width: 100%;
+      min-height: 48px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 16px;
+
+      color:
+        var(--ink);
+
+      background:
+        #ffffff;
+
+      font-weight: 900;
+    }
+
+    .notice {
+      padding: 13px 14px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 16px;
+
+      background:
+        #faf8ff;
+
+      color:
+        #5a556d;
+
+      font-size: 12px;
+      line-height: 1.7;
+      font-weight: 760;
+
+      word-break: keep-all;
+    }
+
+    .result-empty {
+      min-height: 410px;
+
+      display: grid;
+      place-items: center;
+
+      text-align: center;
+
+      color:
+        var(--muted);
+
+      border:
+        1px dashed rgba(124, 58, 237, 0.27);
+
+      border-radius: 24px;
+
+      background:
+        rgba(245, 243, 255, 0.62);
+
+      font-weight: 850;
+    }
+
+    .result-box {
+      display: none;
+      gap: 14px;
+    }
+
+    .result-box.show {
+      display: grid;
+    }
+
+    .result-main {
+      padding: 24px;
+
+      border-radius: 26px;
+
+      color:
+        #17142d;
+
+      background:
+        radial-gradient(
+          circle at 85% 18%,
+          rgba(255, 255, 255, 0.48),
+          transparent 26%
+        ),
+        linear-gradient(
+          135deg,
+          #c4b5fd,
+          #93c5fd 52%,
+          #5eead4
+        );
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .result-main span {
+      display: block;
+
+      font-size: 14px;
+      font-weight: 900;
+
+      opacity: 0.82;
+    }
+
+    .result-main strong {
+      display: block;
+      margin-top: 7px;
+
+      font-size:
+        clamp(38px, 5vw, 60px);
+
+      line-height: 1;
+      letter-spacing: -0.065em;
+    }
+
+    .result-main em {
+      display: block;
+      margin-top: 10px;
+
+      font-style: normal;
+      font-size: 13px;
+      line-height: 1.7;
+      font-weight: 850;
+    }
+
+    .result-cards {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 10px;
+    }
+
+    .metric {
+      padding: 17px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 19px;
+
+      background:
+        #ffffff;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .metric span {
+      display: block;
+
+      color:
+        var(--muted);
+
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .metric strong {
+      display: block;
+      margin-top: 5px;
+
+      color:
+        #5b21b6;
+
+      font-size: 23px;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+    }
+
+    .metric small {
+      display: block;
+      margin-top: 5px;
+
+      color:
+        #7c7890;
+
+      font-size: 10px;
+      font-weight: 760;
+    }
+
+    .status {
+      padding: 15px 16px;
+
+      border-radius: 18px;
+
+      font-size: 13px;
+      line-height: 1.72;
+      font-weight: 850;
+    }
+
+    .status.good {
+      color: #166534;
+      background: #dcfce7;
+      border: 1px solid #bbf7d0;
+    }
+
+    .status.warn {
+      color: #9a3412;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+    }
+
+    .status.danger {
+      color: #991b1b;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+    }
+
+    .result-section {
+      padding: 18px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 22px;
+
+      background:
+        #ffffff;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .result-section h3 {
+      margin: 0;
+
+      font-size: 17px;
+      letter-spacing: -0.04em;
+    }
+
+    .result-section > p {
+      margin: 5px 0 13px;
+
+      color:
+        var(--muted);
+
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .formula-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .formula-row {
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1fr)
+        auto;
+
+      gap: 12px;
+      align-items: center;
+
+      padding: 12px 13px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 15px;
+
+      background:
+        #fcfbff;
+    }
+
+    .formula-row b {
+      display: block;
+
+      font-size: 13px;
+    }
+
+    .formula-row span {
+      display: block;
+      margin-top: 3px;
+
+      color:
+        var(--muted);
+
+      font-size: 10px;
+      font-weight: 760;
+    }
+
+    .formula-row strong {
+      color:
+        #5b21b6;
+
+      font-size: 17px;
+      white-space: nowrap;
+    }
+
+    .activity-table {
+      display: grid;
+      gap: 7px;
+    }
+
+    .activity-row {
+      display: grid;
+
+      grid-template-columns:
+        118px 1fr auto;
+
+      gap: 10px;
+      align-items: center;
+
+      padding: 10px 12px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 14px;
+
+      background:
+        #fbfdff;
+
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .activity-row.active {
+      color:
+        #4c1d95;
+
+      border-color:
+        rgba(124, 58, 237, 0.3);
+
+      background:
+        #f5f3ff;
+    }
+
+    .activity-row span {
+      color:
+        var(--muted);
+    }
+
+    .activity-row strong {
+      color:
+        #5b21b6;
+
+      white-space: nowrap;
+    }
+
+    .bar {
+      height: 8px;
+
+      overflow: hidden;
+
+      border-radius: 999px;
+
+      background:
+        #ebe8f8;
+    }
+
+    .bar i {
+      display: block;
+
+      height: 100%;
+
+      border-radius: 999px;
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--purple),
+          var(--blue),
+          var(--mint)
+        );
+    }
+
+    .utility-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .utility-btn {
+      min-height: 47px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 15px;
+
+      background:
+        #ffffff;
+
+      color:
+        var(--ink);
+
+      font-weight: 900;
+    }
+
+    .info-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 14px;
+    }
+
+    .info-card {
+      padding: 22px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 24px;
+
+      background:
+        rgba(255, 255, 255, 0.9);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .info-card h3 {
+      margin: 0;
+
+      font-size: 19px;
+      letter-spacing: -0.045em;
+    }
+
+    .info-card p {
+      margin: 9px 0 0;
+
+      color:
+        #57526a;
+
+      font-size: 13px;
+      line-height: 1.75;
+      font-weight: 750;
+    }
+
+    .info-card ul {
+      margin: 10px 0 0;
+      padding-left: 18px;
+
+      color:
+        #57526a;
+
+      font-size: 13px;
+      line-height: 1.75;
+      font-weight: 750;
+    }
+
+    .faq {
+      display: grid;
+      gap: 10px;
+    }
+
+    details {
+      padding: 16px 18px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 18px;
+
+      background:
+        rgba(255, 255, 255, 0.9);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 900;
+    }
+
+    details p {
+      margin: 10px 0 0;
+
+      color:
+        #57526a;
+
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    footer {
+      margin-top: 24px;
+
+      padding: 30px 0 42px;
+
+      border-top:
+        1px solid var(--line);
+
+      color:
+        var(--muted);
+    }
+
+    .footer-grid {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+
+      gap: 18px;
+    }
+
+    .footer-grid b {
+      display: block;
+      color: var(--ink);
+    }
+
+    .footer-grid span {
+      display: block;
+
+      max-width: 760px;
+
+      margin-top: 6px;
+
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .tool-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .visual {
+        min-height: 400px;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav {
+        padding: 12px 0;
+
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
+      .hero {
+        padding-top: 36px;
+      }
+
+      .row,
+      .result-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .visual {
+        min-height: 445px;
+      }
+
+      .meter {
+        width: 180px;
+        height: 180px;
+      }
+
+      .meter-center strong {
+        font-size: 39px;
+      }
+
+      .float-card {
+        min-width: 142px;
+        padding: 12px;
+      }
+
+      .float-card.one {
+        left: 14px;
+        top: 25px;
+      }
+
+      .float-card.two {
+        right: 14px;
+        top: 86px;
+      }
+
+      .float-card.three {
+        left: 16px;
+        bottom: 70px;
+      }
+
+      .float-card.four {
+        right: 16px;
+        bottom: 19px;
+      }
+
+      .activity-row {
+        grid-template-columns:
+          100px 1fr auto;
+      }
+
+      .utility-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .wrap {
+        width:
+          min(var(--max), calc(100% - 22px));
+      }
+
+      h1 {
+        font-size: 42px;
+      }
+
+      .panel {
+        padding: 17px;
+        border-radius: 23px;
+      }
+
+      .visual {
+        min-height: 470px;
+        padding: 14px;
+      }
+
+      .float-card {
+        min-width: 130px;
+      }
+
+      .activity-row {
+        grid-template-columns:
+          88px 1fr auto;
+
+        padding: 9px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a
+        class="brand"
+        href="https://barohaegyeol-tools.pages.dev/"
+        aria-label="바로해결툴즈 홈"
+      >
+        <div class="brand-mark">
+          B
+        </div>
+
+        <div>
+          바로해결툴즈
+
+          <small>
+            건강 · 다이어트 · 대사량 계산
+          </small>
+        </div>
+      </a>
+
+      <nav
+        class="nav-links"
+        aria-label="페이지 메뉴"
+      >
+        <a href="#calculator">
+          계산하기
+        </a>
+
+        <a href="#guide">
+          계산 기준
+        </a>
+
+        <a href="https://barohaegyeol-tools.pages.dev/">
+          전체 도구
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="chips">
+            <span class="chip hot">
+              🔥 3가지 대사량 공식 비교
+            </span>
+
+            <span class="chip">
+              ⚡ 활동량별 TDEE
+            </span>
+
+            <span class="chip">
+              🎯 감량·유지·증량 칼로리
+            </span>
+          </div>
+
+          <h1>
+            내 몸이 하루에 쓰는<br />
+
+            <span class="gradient">
+              진짜 칼로리는?
+            </span>
+          </h1>
+
+          <p class="lead">
+            성별, 나이, 키, 체중과 체지방률을 입력하면
+            <strong>
+              공식별 기초대사량, 활동량별 유지 칼로리,
+              감량·유지·증량 목표 칼로리
+            </strong>
+            를 한 번에 비교합니다.
+          </p>
+
+          <div class="hero-actions">
+            <a
+              class="btn btn-primary"
+              href="#calculator"
+            >
+              바로 계산하기
+            </a>
+
+            <a
+              class="btn btn-ghost"
+              href="#guide"
+            >
+              공식 차이 보기
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="visual"
+          aria-label="기초대사량 계산기 미리보기"
+        >
+          <div class="meter">
+            <div class="meter-center">
+              <strong>2,180</strong>
+              <span>하루 유지 kcal</span>
+            </div>
+          </div>
+
+          <div class="float-card one">
+            <em>BMR</em>
+            <b>기초대사량</b>
+            <span>가만히 있어도 필요한 에너지</span>
+          </div>
+
+          <div class="float-card two">
+            <em>TDEE</em>
+            <b>유지 칼로리</b>
+            <span>활동량까지 반영</span>
+          </div>
+
+          <div class="float-card three">
+            <em>비교</em>
+            <b>3가지 공식</b>
+            <span>공식별 차이를 한눈에</span>
+          </div>
+
+          <div class="float-card four">
+            <em>목표</em>
+            <b>감량·증량</b>
+            <span>목표별 칼로리 자동 계산</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="section"
+      id="calculator"
+    >
+      <div class="wrap tool-grid">
+        <section class="panel">
+          <h2>
+            신체 정보 입력
+          </h2>
+
+          <p class="desc">
+            체지방률은 선택 입력입니다.
+            입력하면 제지방량 기반 공식도 함께 계산합니다.
+          </p>
+
+          <form
+            class="form"
+            id="calculatorForm"
+          >
+            <div class="row">
+              <div class="field">
+                <label for="sex">
+                  성별
+                </label>
+
+                <select id="sex">
+                  <option value="male">
+                    남성
+                  </option>
+
+                  <option value="female">
+                    여성
+                  </option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="age">
+                  나이
+
+                  <small>
+                    만 나이
+                  </small>
+                </label>
+
+                <div class="input-wrap">
+                  <input
+                    id="age"
+                    type="number"
+                    inputmode="numeric"
+                    min="18"
+                    max="100"
+                    value="35"
+                    required
+                  />
+
+                  <span class="unit">
+                    세
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="height">
+                  키
+                </label>
+
+                <div class="input-wrap">
+                  <input
+                    id="height"
+                    type="number"
+                    inputmode="decimal"
+                    min="120"
+                    max="230"
+                    step="0.1"
+                    value="170"
+                    required
+                  />
+
+                  <span class="unit">
+                    cm
+                  </span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="weight">
+                  체중
+                </label>
+
+                <div class="input-wrap">
+                  <input
+                    id="weight"
+                    type="number"
+                    inputmode="decimal"
+                    min="30"
+                    max="300"
+                    step="0.1"
+                    value="70"
+                    required
+                  />
+
+                  <span class="unit">
+                    kg
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="bodyFat">
+                체지방률
+
+                <small>
+                  선택 입력
+                </small>
+              </label>
+
+              <div class="input-wrap">
+                <input
+                  id="bodyFat"
+                  type="number"
+                  inputmode="decimal"
+                  min="3"
+                  max="70"
+                  step="0.1"
+                  placeholder="모르면 비워두세요"
+                />
+
+                <span class="unit">
+                  %
+                </span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="activity">
+                평소 활동량
+              </label>
+
+              <select id="activity">
+                <option value="1.2">
+                  거의 운동하지 않음
+                </option>
+
+                <option value="1.375">
+                  가벼운 운동 주 1~3회
+                </option>
+
+                <option
+                  value="1.55"
+                  selected
+                >
+                  중간 운동 주 3~5회
+                </option>
+
+                <option value="1.725">
+                  강한 운동 주 6~7회
+                </option>
+
+                <option value="1.9">
+                  매우 활동적·육체노동
+                </option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="formula">
+                기준 공식
+              </label>
+
+              <select id="formula">
+                <option value="auto">
+                  자동 추천
+                </option>
+
+                <option value="mifflin">
+                  Mifflin-St Jeor
+                </option>
+
+                <option value="harris">
+                  개정 Harris-Benedict
+                </option>
+
+                <option value="katch">
+                  Katch-McArdle
+                </option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="goal">
+                목표
+              </label>
+
+              <select id="goal">
+                <option value="0.8">
+                  표준 감량 · 유지 칼로리 -20%
+                </option>
+
+                <option value="0.9">
+                  천천히 감량 · 유지 칼로리 -10%
+                </option>
+
+                <option
+                  value="1"
+                  selected
+                >
+                  현재 체중 유지
+                </option>
+
+                <option value="1.1">
+                  천천히 증량 · 유지 칼로리 +10%
+                </option>
+
+                <option value="1.15">
+                  표준 증량 · 유지 칼로리 +15%
+                </option>
+              </select>
+            </div>
+
+            <button
+              class="calc-btn"
+              type="submit"
+            >
+              기초대사량·TDEE 계산하기
+            </button>
+
+            <button
+              class="reset-btn"
+              type="button"
+              id="resetBtn"
+            >
+              입력값 초기화
+            </button>
+
+            <div class="notice">
+              공식으로 계산한 대사량은 추정값입니다.
+              실제 대사량은 근육량, 체온, 수면, 약물,
+              질환과 측정 환경에 따라 달라질 수 있습니다.
+            </div>
+          </form>
+        </section>
+
+        <section class="panel">
+          <div
+            class="result-empty"
+            id="resultEmpty"
+          >
+            신체 정보와 활동량을 입력하면<br />
+            공식별 BMR과 목표 칼로리가 표시됩니다.
+          </div>
+
+          <div
+            class="result-box"
+            id="resultBox"
+          >
+            <div class="result-main">
+              <span>
+                선택한 목표의 하루 권장 칼로리
+              </span>
+
+              <strong id="targetCalories">
+                -
+              </strong>
+
+              <em id="mainMessage">
+                -
+              </em>
+            </div>
+
+            <div class="result-cards">
+              <article class="metric">
+                <span>
+                  기준 기초대사량
+                </span>
+
+                <strong id="selectedBmr">
+                  -
+                </strong>
+
+                <small id="selectedFormula">
+                  -
+                </small>
+              </article>
+
+              <article class="metric">
+                <span>
+                  체중 유지 칼로리
+                </span>
+
+                <strong id="selectedTdee">
+                  -
+                </strong>
+
+                <small>
+                  선택 활동량 기준
+                </small>
+              </article>
+
+              <article class="metric">
+                <span>
+                  공식별 결과 차이
+                </span>
+
+                <strong id="formulaSpread">
+                  -
+                </strong>
+
+                <small>
+                  최고값과 최저값 차이
+                </small>
+              </article>
+            </div>
+
+            <div
+              class="status good"
+              id="statusBox"
+            >
+              -
+            </div>
+
+            <section class="result-section">
+              <h3>
+                공식별 기초대사량 비교
+              </h3>
+
+              <p>
+                체지방률을 입력하지 않으면 Katch-McArdle 공식은 계산하지 않습니다.
+              </p>
+
+              <div
+                class="formula-list"
+                id="formulaList"
+              ></div>
+            </section>
+
+            <section class="result-section">
+              <h3>
+                활동량별 하루 유지 칼로리
+              </h3>
+
+              <p>
+                같은 신체 정보라도 활동량에 따라 결과가 달라집니다.
+              </p>
+
+              <div
+                class="activity-table"
+                id="activityTable"
+              ></div>
+            </section>
+
+            <div class="utility-row">
+              <button
+                class="utility-btn"
+                type="button"
+                id="copyBtn"
+              >
+                결과 복사
+              </button>
+
+              <button
+                class="utility-btn"
+                type="button"
+                id="printBtn"
+              >
+                인쇄·PDF 저장
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section
+      class="section"
+      id="guide"
+    >
+      <div class="wrap info-grid">
+        <article class="info-card">
+          <h3>
+            Mifflin-St Jeor
+          </h3>
+
+          <p>
+            성별, 나이, 키와 체중으로 안정 시 에너지 소비량을
+            예측합니다. 체지방률을 모를 때 기본 기준으로 사용합니다.
+          </p>
+        </article>
+
+        <article class="info-card">
+          <h3>
+            Harris-Benedict
+          </h3>
+
+          <p>
+            성별, 나이, 키와 체중을 이용하는 또 다른 예측식입니다.
+            Mifflin 공식과 함께 보면 공식에 따른 차이를 확인할 수 있습니다.
+          </p>
+        </article>
+
+        <article class="info-card">
+          <h3>
+            Katch-McArdle
+          </h3>
+
+          <p>
+            체중에서 체지방을 제외한 제지방량을 이용합니다.
+            정확한 체지방률을 알고 있을 때 참고할 수 있습니다.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="faq">
+          <details>
+            <summary>
+              BMR과 TDEE는 무엇이 다른가요?
+            </summary>
+
+            <p>
+              BMR은 생명 유지에 필요한 기본 에너지의 추정값이고,
+              TDEE는 BMR에 평소 활동량을 반영한 하루 총소비열량 추정값입니다.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              체지방률을 입력하면 더 정확한가요?
+            </summary>
+
+            <p>
+              체지방률 측정값 자체가 정확해야 도움이 됩니다.
+              가정용 체성분 측정기는 수분 상태 등에 따라 값이 달라질 수 있습니다.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              계산된 칼로리대로 먹으면 체중이 유지되나요?
+            </summary>
+
+            <p>
+              계산값은 시작 기준입니다. 2~4주간 실제 섭취량과
+              체중 평균을 기록한 뒤 변화가 없다면 유지 칼로리에 가까운 것으로 볼 수 있습니다.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <div>
+        <b>
+          바로해결툴즈
+        </b>
+
+        <span>
+          본 결과는 입력값과 예측식을 이용한 참고용 추정치입니다.
+          의료 진단, 영양 처방이나 치료를 대신하지 않습니다.
+          임신·수유 중이거나 질환·약물복용 중이면 전문가 확인이 우선입니다.
+        </span>
+      </div>
+
+      <div class="footer-links">
+        <a href="#calculator">
+          계산하기
+        </a>
+
+        <a href="#guide">
+          공식 비교
+        </a>
+
+        <a href="https://barohaegyeol-tools.pages.dev/">
+          전체 도구
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    "use strict";
+
+    const form =
+      document.getElementById("calculatorForm");
+
+    const resultEmpty =
+      document.getElementById("resultEmpty");
+
+    const resultBox =
+      document.getElementById("resultBox");
+
+    const targetCaloriesEl =
+      document.getElementById("targetCalories");
+
+    const selectedBmrEl =
+      document.getElementById("selectedBmr");
+
+    const selectedTdeeEl =
+      document.getElementById("selectedTdee");
+
+    const selectedFormulaEl =
+      document.getElementById("selectedFormula");
+
+    const formulaSpreadEl =
+      document.getElementById("formulaSpread");
+
+    const mainMessageEl =
+      document.getElementById("mainMessage");
+
+    const statusBox =
+      document.getElementById("statusBox");
+
+    const formulaList =
+      document.getElementById("formulaList");
+
+    const activityTable =
+      document.getElementById("activityTable");
+
+    const resetBtn =
+      document.getElementById("resetBtn");
+
+    const copyBtn =
+      document.getElementById("copyBtn");
+
+    const printBtn =
+      document.getElementById("printBtn");
+
+    let lastResultText =
+      "";
+
+    const activityLevels = [
+      {
+        factor: 1.2,
+        name: "거의 운동 없음",
+        description: "좌식 생활"
+      },
+      {
+        factor: 1.375,
+        name: "가벼운 활동",
+        description: "주 1~3회"
+      },
+      {
+        factor: 1.55,
+        name: "중간 활동",
+        description: "주 3~5회"
+      },
+      {
+        factor: 1.725,
+        name: "강한 활동",
+        description: "주 6~7회"
+      },
+      {
+        factor: 1.9,
+        name: "매우 활동적",
+        description: "육체노동 포함"
+      }
+    ];
+
+    function getNumber(id) {
+      return Number(
+        document.getElementById(id).value
+      );
+    }
+
+    function formatNumber(value) {
+      return Math.round(value)
+        .toLocaleString("ko-KR");
+    }
+
+    function calculateMifflin(
+      sex,
+      age,
+      height,
+      weight
+    ) {
+      const base =
+        10 * weight +
+        6.25 * height -
+        5 * age;
+
+      return sex === "male"
+        ? base + 5
+        : base - 161;
+    }
+
+    function calculateHarris(
+      sex,
+      age,
+      height,
+      weight
+    ) {
+      if (sex === "male") {
+        return (
+          88.362 +
+          13.397 * weight +
+          4.799 * height -
+          5.677 * age
+        );
+      }
+
+      return (
+        447.593 +
+        9.247 * weight +
+        3.098 * height -
+        4.33 * age
+      );
+    }
+
+    function calculateKatch(
+      weight,
+      bodyFat
+    ) {
+      if (
+        !Number.isFinite(bodyFat) ||
+        bodyFat <= 0
+      ) {
+        return null;
+      }
+
+      const leanMass =
+        weight *
+        (1 - bodyFat / 100);
+
+      return (
+        370 +
+        21.6 * leanMass
+      );
+    }
+
+    function getGoalName(multiplier) {
+      if (multiplier === 0.8) {
+        return "표준 감량";
+      }
+
+      if (multiplier === 0.9) {
+        return "천천히 감량";
+      }
+
+      if (multiplier === 1.1) {
+        return "천천히 증량";
+      }
+
+      if (multiplier === 1.15) {
+        return "표준 증량";
+      }
+
+      return "현재 체중 유지";
+    }
+
+    function getFormulaName(key) {
+      if (key === "mifflin") {
+        return "Mifflin-St Jeor";
+      }
+
+      if (key === "harris") {
+        return "개정 Harris-Benedict";
+      }
+
+      if (key === "katch") {
+        return "Katch-McArdle";
+      }
+
+      return "자동 추천";
+    }
+
+    function renderFormulaList(
+      mifflin,
+      harris,
+      katch,
+      selectedKey
+    ) {
+      const formulas = [
+        {
+          key: "mifflin",
+          name: "Mifflin-St Jeor",
+          description: "성별·나이·키·체중 기반",
+          value: mifflin
+        },
+        {
+          key: "harris",
+          name: "개정 Harris-Benedict",
+          description: "성별·나이·키·체중 기반",
+          value: harris
+        },
+        {
+          key: "katch",
+          name: "Katch-McArdle",
+          description: "체지방률·제지방량 기반",
+          value: katch
+        }
+      ];
+
+      formulaList.innerHTML =
+        formulas
+          .map((formula) => {
+            const isSelected =
+              formula.key === selectedKey;
+
+            const valueText =
+              formula.value === null
+                ? "체지방률 필요"
+                : `${formatNumber(formula.value)} kcal`;
+
+            return `
+              <div
+                class="formula-row"
+                style="${
+                  isSelected
+                    ? "border-color:rgba(124,58,237,.35);background:#f5f3ff;"
+                    : ""
+                }"
+              >
+                <div>
+                  <b>
+                    ${formula.name}
+                    ${isSelected ? " · 기준" : ""}
+                  </b>
+
+                  <span>
+                    ${formula.description}
+                  </span>
+                </div>
+
+                <strong>
+                  ${valueText}
+                </strong>
+              </div>
+            `;
+          })
+          .join("");
+    }
+
+    function renderActivityTable(
+      bmr,
+      selectedActivity
+    ) {
+      const maximum =
+        bmr * 1.9;
+
+      activityTable.innerHTML =
+        activityLevels
+          .map((activity) => {
+            const calories =
+              bmr * activity.factor;
+
+            const width =
+              Math.max(
+                18,
+                calories / maximum * 100
+              );
+
+            const active =
+              Math.abs(
+                activity.factor -
+                selectedActivity
+              ) < 0.001;
+
+            return `
+              <div
+                class="activity-row ${
+                  active ? "active" : ""
+                }"
+              >
+                <div>
+                  ${activity.name}
+                </div>
+
+                <div>
+                  <span>
+                    ${activity.description}
+                  </span>
+
+                  <div class="bar">
+                    <i style="width:${width}%"></i>
+                  </div>
+                </div>
+
+                <strong>
+                  ${formatNumber(calories)} kcal
+                </strong>
+              </div>
+            `;
+          })
+          .join("");
+    }
+
+    function setStatus(
+      targetCalories,
+      selectedBmr,
+      goalMultiplier,
+      bodyFat
+    ) {
+      let className =
+        "good";
+
+      let message =
+        "";
+
+      if (
+        targetCalories < 1000
+      ) {
+        className =
+          "danger";
+
+        message =
+          "목표 칼로리가 1,000kcal 미만으로 계산됐습니다. 무리한 제한이 될 수 있으므로 목표와 활동량을 다시 확인하세요.";
+      } else if (
+        targetCalories < selectedBmr
+      ) {
+        className =
+          "warn";
+
+        message =
+          "목표 칼로리가 계산된 기초대사량보다 낮습니다. 장기간 유지하기 전 전문가와 식단 구성을 확인하는 편이 좋습니다.";
+      } else if (
+        goalMultiplier < 1
+      ) {
+        message =
+          "감량 목표입니다. 계산값을 시작 기준으로 사용하고 2~4주간 체중 평균과 실제 섭취량을 함께 확인하세요.";
+      } else if (
+        goalMultiplier > 1
+      ) {
+        message =
+          "증량 목표입니다. 체중만 늘리기보다 근력운동과 단백질 섭취를 함께 관리하세요.";
+      } else if (
+        bodyFat
+      ) {
+        message =
+          "체지방률을 반영한 공식과 일반 공식을 함께 비교했습니다. 측정 기기와 수분 상태에 따라 체지방률은 달라질 수 있습니다.";
+      } else {
+        message =
+          "체지방률이 없어 Mifflin-St Jeor 공식을 자동 기준으로 사용했습니다. 결과는 실제 체중 변화로 보정하세요.";
+      }
+
+      statusBox.className =
+        `status ${className}`;
+
+      statusBox.textContent =
+        message;
+    }
+
+    function calculate(event) {
+      if (event) {
+        event.preventDefault();
+      }
+
+      const sex =
+        document.getElementById("sex").value;
+
+      const age =
+        getNumber("age");
+
+      const height =
+        getNumber("height");
+
+      const weight =
+        getNumber("weight");
+
+      const bodyFatInput =
+        document.getElementById("bodyFat").value.trim();
+
+      const bodyFat =
+        bodyFatInput === ""
+          ? null
+          : Number(bodyFatInput);
+
+      const activity =
+        Number(
+          document.getElementById("activity").value
+        );
+
+      const formulaChoice =
+        document.getElementById("formula").value;
+
+      const goalMultiplier =
+        Number(
+          document.getElementById("goal").value
+        );
+
+      const invalid =
+        age < 18 ||
+        age > 100 ||
+        height < 120 ||
+        height > 230 ||
+        weight < 30 ||
+        weight > 300 ||
+        (
+          bodyFat !== null &&
+          (
+            bodyFat < 3 ||
+            bodyFat > 70
+          )
+        );
+
+      if (invalid) {
+        alert(
+          "입력값을 확인해주세요. 이 계산기는 만 18세 이상 성인용입니다."
+        );
+
+        return;
+      }
+
+      const mifflin =
+        calculateMifflin(
+          sex,
+          age,
+          height,
+          weight
+        );
+
+      const harris =
+        calculateHarris(
+          sex,
+          age,
+          height,
+          weight
+        );
+
+      const katch =
+        calculateKatch(
+          weight,
+          bodyFat
+        );
+
+      let selectedKey =
+        formulaChoice;
+
+      if (formulaChoice === "auto") {
+        selectedKey =
+          katch !== null
+            ? "katch"
+            : "mifflin";
+      }
+
+      if (
+        selectedKey === "katch" &&
+        katch === null
+      ) {
+        alert(
+          "Katch-McArdle 공식을 사용하려면 체지방률을 입력해주세요."
+        );
+
+        return;
+      }
+
+      const formulaValues = {
+        mifflin,
+        harris,
+        katch
+      };
+
+      const selectedBmr =
+        formulaValues[selectedKey];
+
+      const selectedTdee =
+        selectedBmr *
+        activity;
+
+      const targetCalories =
+        selectedTdee *
+        goalMultiplier;
+
+      const validValues =
+        [mifflin, harris, katch]
+          .filter(
+            (value) =>
+              Number.isFinite(value)
+          );
+
+      const spread =
+        Math.max(...validValues) -
+        Math.min(...validValues);
+
+      const goalName =
+        getGoalName(goalMultiplier);
+
+      targetCaloriesEl.textContent =
+        `${formatNumber(targetCalories)} kcal`;
+
+      selectedBmrEl.textContent =
+        `${formatNumber(selectedBmr)} kcal`;
+
+      selectedTdeeEl.textContent =
+        `${formatNumber(selectedTdee)} kcal`;
+
+      selectedFormulaEl.textContent =
+        getFormulaName(selectedKey);
+
+      formulaSpreadEl.textContent =
+        `${formatNumber(spread)} kcal`;
+
+      mainMessageEl.textContent =
+        `${goalName} 기준입니다. ` +
+        `선택 공식은 ${getFormulaName(selectedKey)}이며, ` +
+        `현재 활동량을 반영한 유지 칼로리는 ` +
+        `${formatNumber(selectedTdee)}kcal입니다.`;
+
+      setStatus(
+        targetCalories,
+        selectedBmr,
+        goalMultiplier,
+        bodyFat
+      );
+
+      renderFormulaList(
+        mifflin,
+        harris,
+        katch,
+        selectedKey
+      );
+
+      renderActivityTable(
+        selectedBmr,
+        activity
+      );
+
+      resultEmpty.style.display =
+        "none";
+
+      resultBox.classList.add(
+        "show"
+      );
+
+      lastResultText =
+`[정밀 기초대사량·TDEE 계산기]
+기준 공식: ${getFormulaName(selectedKey)}
+기초대사량: ${formatNumber(selectedBmr)}kcal
+체중 유지 칼로리: ${formatNumber(selectedTdee)}kcal
+목표: ${goalName}
+목표 칼로리: ${formatNumber(targetCalories)}kcal
+
+공식별 기초대사량
+Mifflin-St Jeor: ${formatNumber(mifflin)}kcal
+개정 Harris-Benedict: ${formatNumber(harris)}kcal
+Katch-McArdle: ${
+  katch === null
+    ? "체지방률 미입력"
+    : `${formatNumber(katch)}kcal`
+}
+
+※ 입력값과 예측식을 이용한 참고용 결과입니다.`;
+
+      try {
+        localStorage.setItem(
+          "bmrTdeeCalculator",
+          JSON.stringify({
+            sex,
+            age,
+            height,
+            weight,
+            bodyFat,
+            activity,
+            formulaChoice,
+            goalMultiplier
+          })
+        );
+      } catch (error) {
+        console.warn(error);
+      }
+    }
+
+    function resetCalculator() {
+      form.reset();
+
+      document.getElementById("sex").value =
+        "male";
+
+      document.getElementById("age").value =
+        35;
+
+      document.getElementById("height").value =
+        170;
+
+      document.getElementById("weight").value =
+        70;
+
+      document.getElementById("bodyFat").value =
+        "";
+
+      document.getElementById("activity").value =
+        "1.55";
+
+      document.getElementById("formula").value =
+        "auto";
+
+      document.getElementById("goal").value =
+        "1";
+
+      resultBox.classList.remove(
+        "show"
+      );
+
+      resultEmpty.style.display =
+        "grid";
+
+      lastResultText =
+        "";
+
+      try {
+        localStorage.removeItem(
+          "bmrTdeeCalculator"
+        );
+      } catch (error) {
+        console.warn(error);
+      }
+    }
+
+    function restoreSaved() {
+      try {
+        const saved =
+          JSON.parse(
+            localStorage.getItem(
+              "bmrTdeeCalculator"
+            ) || "null"
+          );
+
+        if (!saved) {
+          return;
+        }
+
+        document.getElementById("sex").value =
+          saved.sex || "male";
+
+        document.getElementById("age").value =
+          saved.age || 35;
+
+        document.getElementById("height").value =
+          saved.height || 170;
+
+        document.getElementById("weight").value =
+          saved.weight || 70;
+
+        document.getElementById("bodyFat").value =
+          saved.bodyFat === null
+            ? ""
+            : saved.bodyFat;
+
+        document.getElementById("activity").value =
+          String(
+            saved.activity || 1.55
+          );
+
+        document.getElementById("formula").value =
+          saved.formulaChoice || "auto";
+
+        document.getElementById("goal").value =
+          String(
+            saved.goalMultiplier || 1
+          );
+      } catch (error) {
+        console.warn(error);
+      }
+    }
+
+    async function copyResult() {
+      if (!lastResultText) {
+        alert(
+          "먼저 계산해주세요."
+        );
+
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(
+          lastResultText
+        );
+      } catch (error) {
+        const textarea =
+          document.createElement(
+            "textarea"
+          );
+
+        textarea.value =
+          lastResultText;
+
+        textarea.style.position =
+          "fixed";
+
+        textarea.style.opacity =
+          "0";
+
+        document.body.appendChild(
+          textarea
+        );
+
+        textarea.select();
+
+        document.execCommand(
+          "copy"
+        );
+
+        textarea.remove();
+      }
+
+      const original =
+        copyBtn.textContent;
+
+      copyBtn.textContent =
+        "복사 완료";
+
+      setTimeout(
+        () => {
+          copyBtn.textContent =
+            original;
+        },
+        1300
+      );
+    }
+
+    form.addEventListener(
+      "submit",
+      calculate
+    );
+
+    resetBtn.addEventListener(
+      "click",
+      resetCalculator
+    );
+
+    copyBtn.addEventListener(
+      "click",
+      copyResult
+    );
+
+    printBtn.addEventListener(
+      "click",
+      () => {
+        window.print();
+      }
+    );
+
+    restoreSaved();
+  </script>
+
+  <script
+    defer
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'
+  ></script>
+</body>
+</html>
