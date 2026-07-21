@@ -1,0 +1,3212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>체지방률·제지방량 계산기｜목표 체지방 체중 계산｜바로해결툴즈</title>
+
+  <meta
+    name="description"
+    content="키, 체중, 나이, 허리·목·엉덩이둘레를 입력하면 둘레 측정법과 BMI 기반 체지방률을 비교하고 지방량, 제지방량, 허리키비율, 목표 체지방률 도달 체중을 계산합니다."
+  />
+
+  <meta
+    name="keywords"
+    content="체지방률 계산기, 제지방량 계산기, 지방량 계산기, 목표 체지방률 계산기, 체지방 체중 계산기, 허리키비율 계산기, 체지방률 추정, 바로해결툴즈"
+  />
+
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+
+  <link
+    rel="canonical"
+    href="https://barohaegyeol-tools.pages.dev/body-fat-lean-mass-calculator/"
+  />
+
+  <meta name="theme-color" content="#fff7ed" />
+
+  <meta property="og:type" content="website" />
+
+  <meta
+    property="og:title"
+    content="체지방률·제지방량 계산기｜바로해결툴즈"
+  />
+
+  <meta
+    property="og:description"
+    content="둘레 측정법과 BMI 기반 추정식을 비교하고 지방량, 제지방량과 목표 체중을 확인하세요."
+  />
+
+  <meta
+    property="og:url"
+    content="https://barohaegyeol-tools.pages.dev/body-fat-lean-mass-calculator/"
+  />
+
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "체지방률·제지방량 계산기",
+    "url": "https://barohaegyeol-tools.pages.dev/body-fat-lean-mass-calculator/",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "All",
+    "description": "신체 둘레와 BMI 기반 공식으로 체지방률, 지방량, 제지방량과 목표 체지방률 도달 체중을 추정하는 무료 웹 도구입니다.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "KRW"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --ink: #26160e;
+      --text: #4d3a31;
+      --muted: #7b6a60;
+      --white: #ffffff;
+      --line: rgba(38, 22, 14, 0.1);
+
+      --orange: #f97316;
+      --orange2: #fb923c;
+      --amber: #f59e0b;
+      --yellow: #facc15;
+      --rose: #f43f5e;
+      --blue: #2563eb;
+      --sky: #38bdf8;
+      --mint: #14b8a6;
+      --green: #22c55e;
+      --red: #ef4444;
+
+      --card: rgba(255, 255, 255, 0.9);
+
+      --shadow:
+        0 24px 70px rgba(249, 115, 22, 0.13);
+
+      --shadow-soft:
+        0 13px 32px rgba(15, 23, 42, 0.08);
+
+      --radius: 28px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+
+      color: var(--ink);
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Pretendard",
+        "Noto Sans KR",
+        "Apple SD Gothic Neo",
+        system-ui,
+        sans-serif;
+
+      line-height: 1.65;
+
+      background:
+        radial-gradient(
+          circle at 8% 8%,
+          rgba(251, 146, 60, 0.19),
+          transparent 24%
+        ),
+        radial-gradient(
+          circle at 92% 10%,
+          rgba(244, 63, 94, 0.13),
+          transparent 23%
+        ),
+        radial-gradient(
+          circle at 80% 92%,
+          rgba(20, 184, 166, 0.13),
+          transparent 25%
+        ),
+        linear-gradient(
+          135deg,
+          #fff7ed 0%,
+          #fff1f2 48%,
+          #f0fdfa 100%
+        );
+    }
+
+    body::before {
+      content: "";
+
+      position: fixed;
+      inset: 0;
+
+      pointer-events: none;
+      opacity: 0.17;
+
+      background-image:
+        radial-gradient(
+          circle,
+          rgba(249, 115, 22, 0.18) 1px,
+          transparent 1px
+        );
+
+      background-size: 31px 31px;
+
+      mask-image:
+        linear-gradient(
+          to bottom,
+          #000,
+          transparent 82%
+        );
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+
+      border-bottom:
+        1px solid rgba(15, 23, 42, 0.07);
+
+      background:
+        rgba(255, 247, 237, 0.85);
+
+      backdrop-filter:
+        blur(18px);
+    }
+
+    .nav {
+      min-height: 70px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+
+      font-weight: 950;
+      letter-spacing: -0.045em;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 16px;
+
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--orange),
+          var(--rose)
+        );
+
+      box-shadow:
+        0 14px 32px rgba(249, 115, 22, 0.24);
+
+      font-weight: 950;
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 1px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .nav-links a {
+      padding: 9px 13px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 999px;
+
+      background:
+        rgba(255, 255, 255, 0.84);
+
+      color: #513a2e;
+
+      font-size: 13px;
+      font-weight: 900;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .hero {
+      padding: 54px 0 24px;
+    }
+
+    .hero-grid {
+      display: grid;
+
+      grid-template-columns:
+        1.04fr 0.96fr;
+
+      align-items: center;
+      gap: 34px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+
+      margin-bottom: 17px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+
+      padding: 8px 12px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 999px;
+
+      background:
+        rgba(255, 255, 255, 0.85);
+
+      color: #604a3d;
+
+      font-size: 13px;
+      font-weight: 900;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .chip.hot {
+      color: #c2410c;
+
+      background:
+        linear-gradient(
+          135deg,
+          #ffedd5,
+          #ffffff
+        );
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 760px;
+
+      font-size:
+        clamp(40px, 6vw, 72px);
+
+      line-height: 1.04;
+      letter-spacing: -0.078em;
+    }
+
+    .gradient {
+      color: transparent;
+
+      background:
+        linear-gradient(
+          90deg,
+          #f97316 0%,
+          #f43f5e 48%,
+          #14b8a6 100%
+        );
+
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .lead {
+      margin: 20px 0 0;
+      max-width: 700px;
+
+      color: #513f35;
+
+      font-size:
+        clamp(16px, 2vw, 19px);
+
+      line-height: 1.82;
+      word-break: keep-all;
+    }
+
+    .lead strong {
+      color: #c2410c;
+      font-weight: 950;
+    }
+
+    .hero-actions {
+      margin-top: 24px;
+
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn {
+      min-height: 49px;
+
+      padding: 13px 18px;
+
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+
+      border:
+        1px solid transparent;
+
+      border-radius: 16px;
+
+      font-weight: 950;
+
+      transition:
+        0.17s ease;
+    }
+
+    .btn:hover {
+      transform:
+        translateY(-2px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--orange),
+          var(--rose),
+          var(--mint)
+        );
+
+      box-shadow:
+        0 16px 36px rgba(249, 115, 22, 0.22);
+    }
+
+    .btn-ghost {
+      color: var(--ink);
+
+      background:
+        rgba(255, 255, 255, 0.86);
+
+      border-color:
+        var(--line);
+    }
+
+    .visual {
+      position: relative;
+
+      min-height: 420px;
+      padding: 27px;
+
+      overflow: hidden;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 40px;
+
+      background:
+        radial-gradient(
+          circle at 85% 8%,
+          rgba(250, 204, 21, 0.23),
+          transparent 23%
+        ),
+        radial-gradient(
+          circle at 12% 88%,
+          rgba(20, 184, 166, 0.14),
+          transparent 24%
+        ),
+        linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.98),
+          rgba(255, 237, 213, 0.82)
+        );
+
+      box-shadow:
+        var(--shadow);
+    }
+
+    .visual::before {
+      content: "";
+
+      position: absolute;
+      inset: 20px;
+
+      border:
+        1px dashed rgba(249, 115, 22, 0.2);
+
+      border-radius: 31px;
+    }
+
+    .body-composition {
+      position: absolute;
+
+      left: 50%;
+      top: 48%;
+
+      width: 230px;
+      height: 230px;
+
+      transform:
+        translate(-50%, -50%);
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 50%;
+
+      background:
+        conic-gradient(
+          #f97316 0 24%,
+          #14b8a6 24% 100%
+        );
+
+      box-shadow:
+        0 28px 70px rgba(249, 115, 22, 0.2);
+    }
+
+    .body-composition::after {
+      content: "";
+
+      position: absolute;
+      inset: 19px;
+
+      border-radius: 50%;
+
+      background:
+        linear-gradient(
+          145deg,
+          #ffffff,
+          #fff7ed
+        );
+
+      box-shadow:
+        inset 0 0 0 1px var(--line);
+    }
+
+    .body-center {
+      position: relative;
+      z-index: 2;
+
+      text-align: center;
+    }
+
+    .body-center strong {
+      display: block;
+
+      color: #c2410c;
+
+      font-size: 48px;
+      line-height: 1;
+      letter-spacing: -0.065em;
+    }
+
+    .body-center span {
+      display: block;
+      margin-top: 7px;
+
+      color: var(--muted);
+
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .float-card {
+      position: absolute;
+      z-index: 3;
+
+      min-width: 164px;
+      padding: 15px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 21px;
+
+      background:
+        rgba(255, 255, 255, 0.96);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .float-card b {
+      display: block;
+
+      font-size: 17px;
+      letter-spacing: -0.04em;
+    }
+
+    .float-card span {
+      display: block;
+      margin-top: 4px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .float-card em {
+      display: inline-flex;
+      margin-bottom: 7px;
+
+      padding: 5px 8px;
+
+      border-radius: 999px;
+
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--orange),
+          var(--rose)
+        );
+
+      font-style: normal;
+      font-size: 10px;
+      font-weight: 950;
+    }
+
+    .float-card.one {
+      left: 28px;
+      top: 36px;
+    }
+
+    .float-card.two {
+      right: 28px;
+      top: 76px;
+    }
+
+    .float-card.three {
+      left: 34px;
+      bottom: 38px;
+    }
+
+    .float-card.four {
+      right: 34px;
+      bottom: 32px;
+    }
+
+    .section {
+      padding: 24px 0;
+    }
+
+    .tool-grid {
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 0.93fr)
+        minmax(0, 1.07fr);
+
+      gap: 22px;
+      align-items: start;
+    }
+
+    .panel {
+      padding: 24px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius:
+        var(--radius);
+
+      background:
+        var(--card);
+
+      box-shadow:
+        var(--shadow);
+
+      backdrop-filter:
+        blur(14px);
+    }
+
+    .panel h2 {
+      margin: 0 0 9px;
+
+      font-size: 28px;
+      line-height: 1.2;
+      letter-spacing: -0.052em;
+    }
+
+    .desc {
+      margin: 0 0 19px;
+
+      color: var(--muted);
+
+      font-size: 14px;
+      line-height: 1.75;
+
+      word-break: keep-all;
+    }
+
+    .form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .field label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+
+      margin-bottom: 7px;
+
+      color: #382218;
+
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .field small {
+      color: var(--muted);
+
+      font-size: 11px;
+      font-weight: 780;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 54px;
+
+      padding:
+        13px 48px 13px 14px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 16px;
+
+      outline: none;
+
+      background:
+        rgba(255, 255, 255, 0.96);
+
+      color:
+        var(--ink);
+
+      font-size: 15px;
+      font-weight: 850;
+
+      transition:
+        0.16s ease;
+    }
+
+    select {
+      padding-right: 14px;
+    }
+
+    input:focus,
+    select:focus {
+      border-color:
+        rgba(249, 115, 22, 0.44);
+
+      box-shadow:
+        0 0 0 4px rgba(249, 115, 22, 0.1);
+    }
+
+    .unit {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+
+      transform:
+        translateY(-50%);
+
+      color:
+        var(--muted);
+
+      font-size: 13px;
+      font-weight: 900;
+
+      pointer-events: none;
+    }
+
+    .female-only {
+      display: none;
+    }
+
+    .female-only.show {
+      display: block;
+    }
+
+    .measurement-help {
+      display: grid;
+      gap: 7px;
+
+      padding: 13px 14px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 16px;
+
+      background:
+        #fffaf5;
+
+      color:
+        #685346;
+
+      font-size: 11px;
+      line-height: 1.65;
+      font-weight: 760;
+    }
+
+    .measurement-help b {
+      color: #9a3412;
+    }
+
+    .calc-btn {
+      width: 100%;
+      min-height: 59px;
+
+      margin-top: 4px;
+
+      border: 0;
+      border-radius: 18px;
+
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--orange),
+          var(--rose),
+          var(--mint)
+        );
+
+      box-shadow:
+        0 17px 36px rgba(249, 115, 22, 0.22);
+
+      font-size: 17px;
+      font-weight: 950;
+    }
+
+    .reset-btn {
+      width: 100%;
+      min-height: 48px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 16px;
+
+      color:
+        var(--ink);
+
+      background:
+        #ffffff;
+
+      font-weight: 900;
+    }
+
+    .notice {
+      padding: 13px 14px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 16px;
+
+      background:
+        #fffaf5;
+
+      color:
+        #665348;
+
+      font-size: 12px;
+      line-height: 1.7;
+      font-weight: 760;
+
+      word-break: keep-all;
+    }
+
+    .result-empty {
+      min-height: 420px;
+
+      display: grid;
+      place-items: center;
+
+      text-align: center;
+
+      color:
+        var(--muted);
+
+      border:
+        1px dashed rgba(249, 115, 22, 0.27);
+
+      border-radius: 24px;
+
+      background:
+        rgba(255, 247, 237, 0.65);
+
+      font-weight: 850;
+    }
+
+    .result-box {
+      display: none;
+      gap: 14px;
+    }
+
+    .result-box.show {
+      display: grid;
+    }
+
+    .result-main {
+      padding: 24px;
+
+      border-radius: 26px;
+
+      color:
+        #2f1609;
+
+      background:
+        radial-gradient(
+          circle at 85% 18%,
+          rgba(255, 255, 255, 0.5),
+          transparent 26%
+        ),
+        linear-gradient(
+          135deg,
+          #fdba74,
+          #fda4af 52%,
+          #5eead4
+        );
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .result-main span {
+      display: block;
+
+      font-size: 14px;
+      font-weight: 900;
+
+      opacity: 0.82;
+    }
+
+    .result-main strong {
+      display: block;
+      margin-top: 7px;
+
+      font-size:
+        clamp(40px, 5vw, 62px);
+
+      line-height: 1;
+      letter-spacing: -0.065em;
+    }
+
+    .result-main em {
+      display: block;
+      margin-top: 10px;
+
+      font-style: normal;
+      font-size: 13px;
+      line-height: 1.7;
+      font-weight: 850;
+    }
+
+    .result-cards {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 10px;
+    }
+
+    .metric {
+      padding: 17px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 19px;
+
+      background:
+        #ffffff;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .metric span {
+      display: block;
+
+      color:
+        var(--muted);
+
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .metric strong {
+      display: block;
+      margin-top: 5px;
+
+      color:
+        #c2410c;
+
+      font-size: 23px;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+    }
+
+    .metric small {
+      display: block;
+      margin-top: 5px;
+
+      color:
+        #817168;
+
+      font-size: 10px;
+      font-weight: 760;
+    }
+
+    .status {
+      padding: 15px 16px;
+
+      border-radius: 18px;
+
+      font-size: 13px;
+      line-height: 1.72;
+      font-weight: 850;
+    }
+
+    .status.good {
+      color: #166534;
+      background: #dcfce7;
+      border: 1px solid #bbf7d0;
+    }
+
+    .status.warn {
+      color: #9a3412;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+    }
+
+    .status.danger {
+      color: #991b1b;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+    }
+
+    .result-section {
+      padding: 18px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 22px;
+
+      background:
+        #ffffff;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .result-section h3 {
+      margin: 0;
+
+      font-size: 17px;
+      letter-spacing: -0.04em;
+    }
+
+    .result-section > p {
+      margin: 5px 0 13px;
+
+      color:
+        var(--muted);
+
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .comparison-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .comparison-row {
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1fr)
+        auto;
+
+      gap: 12px;
+      align-items: center;
+
+      padding: 12px 13px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 15px;
+
+      background:
+        #fffdfb;
+    }
+
+    .comparison-row b {
+      display: block;
+
+      font-size: 13px;
+    }
+
+    .comparison-row span {
+      display: block;
+      margin-top: 3px;
+
+      color:
+        var(--muted);
+
+      font-size: 10px;
+      font-weight: 760;
+    }
+
+    .comparison-row strong {
+      color:
+        #c2410c;
+
+      font-size: 17px;
+      white-space: nowrap;
+    }
+
+    .composition-bar {
+      display: flex;
+
+      width: 100%;
+      height: 48px;
+
+      overflow: hidden;
+
+      border-radius: 15px;
+
+      background:
+        #f1f5f9;
+    }
+
+    .fat-segment,
+    .lean-segment {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      min-width: 45px;
+
+      color: #ffffff;
+
+      font-size: 11px;
+      font-weight: 950;
+
+      transition:
+        width 0.3s ease;
+    }
+
+    .fat-segment {
+      background:
+        linear-gradient(
+          135deg,
+          var(--orange),
+          var(--rose)
+        );
+    }
+
+    .lean-segment {
+      background:
+        linear-gradient(
+          135deg,
+          var(--mint),
+          var(--blue)
+        );
+    }
+
+    .composition-legend {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 8px;
+
+      margin-top: 10px;
+    }
+
+    .legend-item {
+      padding: 10px 12px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 13px;
+
+      background:
+        #fffdfb;
+
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .legend-item span {
+      display: block;
+
+      color:
+        var(--muted);
+
+      font-size: 10px;
+    }
+
+    .legend-item strong {
+      display: block;
+      margin-top: 2px;
+
+      color:
+        #9a3412;
+
+      font-size: 17px;
+    }
+
+    .target-box {
+      display: grid;
+      gap: 12px;
+    }
+
+    .target-control {
+      display: grid;
+
+      grid-template-columns:
+        1fr 110px;
+
+      gap: 10px;
+      align-items: center;
+    }
+
+    input[type="range"] {
+      min-height: 38px;
+      padding: 0;
+
+      accent-color:
+        var(--orange);
+
+      box-shadow: none;
+    }
+
+    .target-value {
+      min-height: 46px;
+
+      display: grid;
+      place-items: center;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 14px;
+
+      background:
+        #fff7ed;
+
+      color:
+        #c2410c;
+
+      font-size: 18px;
+      font-weight: 950;
+    }
+
+    .target-results {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 8px;
+    }
+
+    .target-result {
+      padding: 13px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 15px;
+
+      background:
+        #fffdfb;
+
+      text-align: center;
+    }
+
+    .target-result span {
+      display: block;
+
+      color:
+        var(--muted);
+
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .target-result strong {
+      display: block;
+      margin-top: 4px;
+
+      color:
+        #c2410c;
+
+      font-size: 19px;
+      line-height: 1.1;
+    }
+
+    .utility-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .utility-btn {
+      min-height: 47px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 15px;
+
+      background:
+        #ffffff;
+
+      color:
+        var(--ink);
+
+      font-weight: 900;
+    }
+
+    .info-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 14px;
+    }
+
+    .info-card {
+      padding: 22px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 24px;
+
+      background:
+        rgba(255, 255, 255, 0.9);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .info-card h3 {
+      margin: 0;
+
+      font-size: 19px;
+      letter-spacing: -0.045em;
+    }
+
+    .info-card p {
+      margin: 9px 0 0;
+
+      color:
+        #645247;
+
+      font-size: 13px;
+      line-height: 1.75;
+      font-weight: 750;
+    }
+
+    .info-card ul {
+      margin: 10px 0 0;
+      padding-left: 18px;
+
+      color:
+        #645247;
+
+      font-size: 13px;
+      line-height: 1.75;
+      font-weight: 750;
+    }
+
+    .faq {
+      display: grid;
+      gap: 10px;
+    }
+
+    details {
+      padding: 16px 18px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 18px;
+
+      background:
+        rgba(255, 255, 255, 0.9);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 900;
+    }
+
+    details p {
+      margin: 10px 0 0;
+
+      color:
+        #645247;
+
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    footer {
+      margin-top: 24px;
+
+      padding: 30px 0 42px;
+
+      border-top:
+        1px solid var(--line);
+
+      color:
+        var(--muted);
+    }
+
+    .footer-grid {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+
+      gap: 18px;
+    }
+
+    .footer-grid b {
+      display: block;
+      color: var(--ink);
+    }
+
+    .footer-grid span {
+      display: block;
+
+      max-width: 760px;
+
+      margin-top: 6px;
+
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .tool-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .visual {
+        min-height: 400px;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav {
+        padding: 12px 0;
+
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
+      .hero {
+        padding-top: 36px;
+      }
+
+      .row,
+      .result-cards,
+      .target-results {
+        grid-template-columns: 1fr;
+      }
+
+      .visual {
+        min-height: 445px;
+      }
+
+      .body-composition {
+        width: 180px;
+        height: 180px;
+      }
+
+      .body-center strong {
+        font-size: 40px;
+      }
+
+      .float-card {
+        min-width: 142px;
+        padding: 12px;
+      }
+
+      .float-card.one {
+        left: 14px;
+        top: 25px;
+      }
+
+      .float-card.two {
+        right: 14px;
+        top: 86px;
+      }
+
+      .float-card.three {
+        left: 16px;
+        bottom: 70px;
+      }
+
+      .float-card.four {
+        right: 16px;
+        bottom: 19px;
+      }
+
+      .target-control {
+        grid-template-columns: 1fr 90px;
+      }
+
+      .utility-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .wrap {
+        width:
+          min(var(--max), calc(100% - 22px));
+      }
+
+      h1 {
+        font-size: 42px;
+      }
+
+      .panel {
+        padding: 17px;
+        border-radius: 23px;
+      }
+
+      .visual {
+        min-height: 470px;
+        padding: 14px;
+      }
+
+      .float-card {
+        min-width: 130px;
+      }
+
+      .composition-legend {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a
+        class="brand"
+        href="https://barohaegyeol-tools.pages.dev/"
+        aria-label="바로해결툴즈 홈"
+      >
+        <div class="brand-mark">
+          B
+        </div>
+
+        <div>
+          바로해결툴즈
+
+          <small>
+            건강 · 다이어트 · 체성분 계산
+          </small>
+        </div>
+      </a>
+
+      <nav
+        class="nav-links"
+        aria-label="페이지 메뉴"
+      >
+        <a href="#calculator">
+          계산하기
+        </a>
+
+        <a href="#guide">
+          측정 방법
+        </a>
+
+        <a href="https://barohaegyeol-tools.pages.dev/">
+          전체 도구
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="chips">
+            <span class="chip hot">
+              📏 신체둘레 기반 체지방 추정
+            </span>
+
+            <span class="chip">
+              ⚖️ 지방량·제지방량
+            </span>
+
+            <span class="chip">
+              🎯 목표 체지방 체중
+            </span>
+          </div>
+
+          <h1>
+            몸무게보다 중요한<br />
+
+            <span class="gradient">
+              내 몸의 구성
+            </span>
+          </h1>
+
+          <p class="lead">
+            키, 체중, 나이와 신체둘레를 입력하면
+            <strong>
+              체지방률, 지방량, 제지방량,
+              허리키비율과 목표 체지방률 도달 체중
+            </strong>
+            을 한 번에 계산합니다.
+          </p>
+
+          <div class="hero-actions">
+            <a
+              class="btn btn-primary"
+              href="#calculator"
+            >
+              바로 계산하기
+            </a>
+
+            <a
+              class="btn btn-ghost"
+              href="#guide"
+            >
+              둘레 측정 방법
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="visual"
+          aria-label="체지방률 계산기 미리보기"
+        >
+          <div class="body-composition">
+            <div class="body-center">
+              <strong>24.0%</strong>
+              <span>예상 체지방률</span>
+            </div>
+          </div>
+
+          <div class="float-card one">
+            <em>지방</em>
+            <b>지방량</b>
+            <span>체중 중 지방의 무게</span>
+          </div>
+
+          <div class="float-card two">
+            <em>제지방</em>
+            <b>제지방량</b>
+            <span>지방을 제외한 체중</span>
+          </div>
+
+          <div class="float-card three">
+            <em>비교</em>
+            <b>2가지 추정식</b>
+            <span>둘레법과 BMI 방식 비교</span>
+          </div>
+
+          <div class="float-card four">
+            <em>목표</em>
+            <b>목표 체중</b>
+            <span>근육 유지 가정 계산</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="section"
+      id="calculator"
+    >
+      <div class="wrap tool-grid">
+        <section class="panel">
+          <h2>
+            신체 정보 입력
+          </h2>
+
+          <p class="desc">
+            줄자는 피부를 누르지 않을 정도로 수평을 유지하고,
+            같은 시간대에 2~3회 측정한 평균값을 입력하세요.
+          </p>
+
+          <form
+            class="form"
+            id="calculatorForm"
+          >
+            <div class="row">
+              <div class="field">
+                <label for="sex">
+                  성별
+                </label>
+
+                <select id="sex">
+                  <option value="male">
+                    남성
+                  </option>
+
+                  <option value="female">
+                    여성
+                  </option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="age">
+                  나이
+
+                  <small>
+                    만 나이
+                  </small>
+                </label>
+
+                <div class="input-wrap">
+                  <input
+                    id="age"
+                    type="number"
+                    inputmode="numeric"
+                    min="18"
+                    max="100"
+                    value="35"
+                    required
+                  />
+
+                  <span class="unit">
+                    세
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="height">
+                  키
+                </label>
+
+                <div class="input-wrap">
+                  <input
+                    id="height"
+                    type="number"
+                    inputmode="decimal"
+                    min="120"
+                    max="230"
+                    step="0.1"
+                    value="170"
+                    required
+                  />
+
+                  <span class="unit">
+                    cm
+                  </span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="weight">
+                  체중
+                </label>
+
+                <div class="input-wrap">
+                  <input
+                    id="weight"
+                    type="number"
+                    inputmode="decimal"
+                    min="30"
+                    max="300"
+                    step="0.1"
+                    value="70"
+                    required
+                  />
+
+                  <span class="unit">
+                    kg
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="neck">
+                  목둘레
+
+                  <small>
+                    목 아래쪽
+                  </small>
+                </label>
+
+                <div class="input-wrap">
+                  <input
+                    id="neck"
+                    type="number"
+                    inputmode="decimal"
+                    min="20"
+                    max="80"
+                    step="0.1"
+                    value="38"
+                    required
+                  />
+
+                  <span class="unit">
+                    cm
+                  </span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="waist">
+                  허리둘레
+
+                  <small>
+                    배꼽 주변
+                  </small>
+                </label>
+
+                <div class="input-wrap">
+                  <input
+                    id="waist"
+                    type="number"
+                    inputmode="decimal"
+                    min="40"
+                    max="250"
+                    step="0.1"
+                    value="85"
+                    required
+                  />
+
+                  <span class="unit">
+                    cm
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="field female-only"
+              id="hipField"
+            >
+              <label for="hip">
+                엉덩이둘레
+
+                <small>
+                  가장 넓은 부분
+                </small>
+              </label>
+
+              <div class="input-wrap">
+                <input
+                  id="hip"
+                  type="number"
+                  inputmode="decimal"
+                  min="50"
+                  max="250"
+                  step="0.1"
+                  value="95"
+                />
+
+                <span class="unit">
+                  cm
+                </span>
+              </div>
+            </div>
+
+            <div class="measurement-help">
+              <div>
+                <b>목둘레:</b>
+                목 아래쪽을 수평으로 측정
+              </div>
+
+              <div>
+                <b>허리둘레:</b>
+                숨을 편안히 내쉰 상태에서 배꼽 주변을 측정
+              </div>
+
+              <div>
+                <b>엉덩이둘레:</b>
+                여성만 입력하며 엉덩이의 가장 넓은 부분을 측정
+              </div>
+            </div>
+
+            <button
+              class="calc-btn"
+              type="submit"
+            >
+              체지방률·제지방량 계산하기
+            </button>
+
+            <button
+              class="reset-btn"
+              type="button"
+              id="resetBtn"
+            >
+              입력값 초기화
+            </button>
+
+            <div class="notice">
+              신체둘레와 BMI를 이용한 추정값입니다.
+              체성분 분석기, 측정 자세, 수분 상태와 체형에 따라
+              실제 체지방률과 차이가 날 수 있습니다.
+            </div>
+          </form>
+        </section>
+
+        <section class="panel">
+          <div
+            class="result-empty"
+            id="resultEmpty"
+          >
+            키, 체중과 신체둘레를 입력하면<br />
+            체지방률과 몸의 구성 결과가 표시됩니다.
+          </div>
+
+          <div
+            class="result-box"
+            id="resultBox"
+          >
+            <div class="result-main">
+              <span>
+                신체둘레 기반 예상 체지방률
+              </span>
+
+              <strong id="primaryBodyFat">
+                -
+              </strong>
+
+              <em id="mainMessage">
+                -
+              </em>
+            </div>
+
+            <div class="result-cards">
+              <article class="metric">
+                <span>
+                  예상 지방량
+                </span>
+
+                <strong id="fatMass">
+                  -
+                </strong>
+
+                <small>
+                  체중 × 예상 체지방률
+                </small>
+              </article>
+
+              <article class="metric">
+                <span>
+                  예상 제지방량
+                </span>
+
+                <strong id="leanMass">
+                  -
+                </strong>
+
+                <small>
+                  지방을 제외한 체중
+                </small>
+              </article>
+
+              <article class="metric">
+                <span>
+                  현재 BMI
+                </span>
+
+                <strong id="bmiResult">
+                  -
+                </strong>
+
+                <small>
+                  키와 체중 기준
+                </small>
+              </article>
+
+              <article class="metric">
+                <span>
+                  허리키비율
+                </span>
+
+                <strong id="waistHeightRatio">
+                  -
+                </strong>
+
+                <small>
+                  허리둘레 ÷ 키
+                </small>
+              </article>
+            </div>
+
+            <div
+              class="status good"
+              id="statusBox"
+            >
+              -
+            </div>
+
+            <section class="result-section">
+              <h3>
+                체지방률 추정 방식 비교
+              </h3>
+
+              <p>
+                두 방식의 차이가 크면 둘레를 다시 측정해보세요.
+              </p>
+
+              <div
+                class="comparison-list"
+                id="comparisonList"
+              ></div>
+            </section>
+
+            <section class="result-section">
+              <h3>
+                현재 체성분 구성
+              </h3>
+
+              <p>
+                계산된 지방량과 제지방량을 체중 비율로 표시합니다.
+              </p>
+
+              <div class="composition-bar">
+                <div
+                  class="fat-segment"
+                  id="fatSegment"
+                >
+                  지방
+                </div>
+
+                <div
+                  class="lean-segment"
+                  id="leanSegment"
+                >
+                  제지방
+                </div>
+              </div>
+
+              <div class="composition-legend">
+                <div class="legend-item">
+                  <span>
+                    지방량
+                  </span>
+
+                  <strong id="fatLegend">
+                    -
+                  </strong>
+                </div>
+
+                <div class="legend-item">
+                  <span>
+                    제지방량
+                  </span>
+
+                  <strong id="leanLegend">
+                    -
+                  </strong>
+                </div>
+              </div>
+            </section>
+
+            <section class="result-section">
+              <h3>
+                목표 체지방률 도달 체중
+              </h3>
+
+              <p>
+                현재 제지방량이 그대로 유지된다고 가정한 단순 계산입니다.
+              </p>
+
+              <div class="target-box">
+                <div class="target-control">
+                  <input
+                    id="targetBodyFat"
+                    type="range"
+                    min="5"
+                    max="45"
+                    step="1"
+                    value="18"
+                  />
+
+                  <div
+                    class="target-value"
+                    id="targetBodyFatValue"
+                  >
+                    18%
+                  </div>
+                </div>
+
+                <div class="target-results">
+                  <div class="target-result">
+                    <span>
+                      예상 목표 체중
+                    </span>
+
+                    <strong id="targetWeight">
+                      -
+                    </strong>
+                  </div>
+
+                  <div class="target-result">
+                    <span>
+                      현재와 체중 차이
+                    </span>
+
+                    <strong id="weightDifference">
+                      -
+                    </strong>
+                  </div>
+
+                  <div class="target-result">
+                    <span>
+                      목표 지방량
+                    </span>
+
+                    <strong id="targetFatMass">
+                      -
+                    </strong>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <div class="utility-row">
+              <button
+                class="utility-btn"
+                type="button"
+                id="copyBtn"
+              >
+                결과 복사
+              </button>
+
+              <button
+                class="utility-btn"
+                type="button"
+                id="printBtn"
+              >
+                인쇄·PDF 저장
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section
+      class="section"
+      id="guide"
+    >
+      <div class="wrap info-grid">
+        <article class="info-card">
+          <h3>
+            신체둘레 방식
+          </h3>
+
+          <p>
+            키와 목·허리·엉덩이둘레의 관계를 이용해
+            체지방률을 추정합니다. 줄자의 위치와 조임 정도가
+            달라지면 결과도 달라질 수 있습니다.
+          </p>
+        </article>
+
+        <article class="info-card">
+          <h3>
+            BMI 기반 방식
+          </h3>
+
+          <p>
+            BMI와 나이, 성별을 이용한 연구식입니다.
+            신체둘레를 입력하지 않아도 추정할 수 있지만
+            근육량과 체형 차이를 직접 반영하지는 못합니다.
+          </p>
+        </article>
+
+        <article class="info-card">
+          <h3>
+            목표 체중 계산
+          </h3>
+
+          <p>
+            현재 제지방량을 유지한다고 가정해 목표 체지방률에
+            해당하는 체중을 역산합니다. 실제 감량 중에는
+            지방과 제지방이 함께 변할 수 있습니다.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="faq">
+          <details>
+            <summary>
+              줄자는 얼마나 세게 당겨야 하나요?
+            </summary>
+
+            <p>
+              피부를 누르거나 살이 접힐 정도로 조이지 말고,
+              줄자가 몸에 가볍게 닿은 상태에서 수평으로 측정하세요.
+              같은 위치를 2~3회 측정한 평균값을 사용하는 편이 좋습니다.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              인바디 결과와 왜 다르게 나오나요?
+            </summary>
+
+            <p>
+              이 도구는 신체둘레와 통계식을 이용한 추정값이고,
+              체성분 분석기는 전기저항 등을 이용합니다.
+              측정 방법, 수분, 식사와 운동 여부에 따라 서로 다른 결과가 나올 수 있습니다.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              목표 체중은 정확한 수치인가요?
+            </summary>
+
+            <p>
+              아닙니다. 제지방량이 그대로 유지된다는 가정으로 계산한 참고값입니다.
+              실제 감량이나 증량 과정에서는 근육량과 수분도 함께 변할 수 있습니다.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <div>
+        <b>
+          바로해결툴즈
+        </b>
+
+        <span>
+          본 결과는 신체둘레와 통계식을 이용한 참고용 추정치입니다.
+          의료 진단이나 치료, 전문 체성분 검사를 대신하지 않습니다.
+          건강상 문제가 있거나 급격한 체중 변화를 계획한다면 전문가 확인이 우선입니다.
+        </span>
+      </div>
+
+      <div class="footer-links">
+        <a href="#calculator">
+          계산하기
+        </a>
+
+        <a href="#guide">
+          측정 방법
+        </a>
+
+        <a href="https://barohaegyeol-tools.pages.dev/">
+          전체 도구
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    "use strict";
+
+    const form =
+      document.getElementById("calculatorForm");
+
+    const sexInput =
+      document.getElementById("sex");
+
+    const hipField =
+      document.getElementById("hipField");
+
+    const hipInput =
+      document.getElementById("hip");
+
+    const resultEmpty =
+      document.getElementById("resultEmpty");
+
+    const resultBox =
+      document.getElementById("resultBox");
+
+    const primaryBodyFatEl =
+      document.getElementById("primaryBodyFat");
+
+    const fatMassEl =
+      document.getElementById("fatMass");
+
+    const leanMassEl =
+      document.getElementById("leanMass");
+
+    const bmiResultEl =
+      document.getElementById("bmiResult");
+
+    const waistHeightRatioEl =
+      document.getElementById("waistHeightRatio");
+
+    const mainMessageEl =
+      document.getElementById("mainMessage");
+
+    const statusBox =
+      document.getElementById("statusBox");
+
+    const comparisonList =
+      document.getElementById("comparisonList");
+
+    const fatSegment =
+      document.getElementById("fatSegment");
+
+    const leanSegment =
+      document.getElementById("leanSegment");
+
+    const fatLegend =
+      document.getElementById("fatLegend");
+
+    const leanLegend =
+      document.getElementById("leanLegend");
+
+    const targetBodyFatInput =
+      document.getElementById("targetBodyFat");
+
+    const targetBodyFatValue =
+      document.getElementById("targetBodyFatValue");
+
+    const targetWeightEl =
+      document.getElementById("targetWeight");
+
+    const weightDifferenceEl =
+      document.getElementById("weightDifference");
+
+    const targetFatMassEl =
+      document.getElementById("targetFatMass");
+
+    const resetBtn =
+      document.getElementById("resetBtn");
+
+    const copyBtn =
+      document.getElementById("copyBtn");
+
+    const printBtn =
+      document.getElementById("printBtn");
+
+    let latestResult =
+      null;
+
+    let lastResultText =
+      "";
+
+    function getNumber(id) {
+      return Number(
+        document.getElementById(id).value
+      );
+    }
+
+    function cmToInch(value) {
+      return value / 2.54;
+    }
+
+    function calculateBmi(
+      weight,
+      heightCm
+    ) {
+      const heightMeter =
+        heightCm / 100;
+
+      return (
+        weight /
+        (heightMeter * heightMeter)
+      );
+    }
+
+    function calculateNavyBodyFat(
+      sex,
+      height,
+      neck,
+      waist,
+      hip
+    ) {
+      const heightInch =
+        cmToInch(height);
+
+      const neckInch =
+        cmToInch(neck);
+
+      const waistInch =
+        cmToInch(waist);
+
+      if (sex === "male") {
+        const circumference =
+          waistInch - neckInch;
+
+        if (circumference <= 0) {
+          return null;
+        }
+
+        return (
+          86.010 *
+          Math.log10(circumference)
+          -
+          70.041 *
+          Math.log10(heightInch)
+          +
+          36.76
+        );
+      }
+
+      const hipInch =
+        cmToInch(hip);
+
+      const circumference =
+        waistInch +
+        hipInch -
+        neckInch;
+
+      if (circumference <= 0) {
+        return null;
+      }
+
+      return (
+        163.205 *
+        Math.log10(circumference)
+        -
+        97.684 *
+        Math.log10(heightInch)
+        -
+        78.387
+      );
+    }
+
+    function calculateBmiBodyFat(
+      sex,
+      age,
+      bmi
+    ) {
+      const sexValue =
+        sex === "male"
+          ? 1
+          : 0;
+
+      return (
+        1.2 * bmi +
+        0.23 * age -
+        10.8 * sexValue -
+        5.4
+      );
+    }
+
+    function clamp(
+      value,
+      minimum,
+      maximum
+    ) {
+      return Math.min(
+        maximum,
+        Math.max(
+          minimum,
+          value
+        )
+      );
+    }
+
+    function formatOne(value) {
+      return Number(value)
+        .toFixed(1);
+    }
+
+    function updateSexFields() {
+      const isFemale =
+        sexInput.value === "female";
+
+      hipField.classList.toggle(
+        "show",
+        isFemale
+      );
+
+      hipInput.required =
+        isFemale;
+    }
+
+    function renderComparison(
+      navyBodyFat,
+      bmiBodyFat
+    ) {
+      const difference =
+        Math.abs(
+          navyBodyFat -
+          bmiBodyFat
+        );
+
+      comparisonList.innerHTML =
+        `
+          <div class="comparison-row">
+            <div>
+              <b>
+                신체둘레 기반 추정
+              </b>
+
+              <span>
+                키와 목·허리·엉덩이둘레 사용
+              </span>
+            </div>
+
+            <strong>
+              ${formatOne(navyBodyFat)}%
+            </strong>
+          </div>
+
+          <div class="comparison-row">
+            <div>
+              <b>
+                BMI·나이·성별 기반 추정
+              </b>
+
+              <span>
+                신체둘레를 사용하지 않는 통계식
+              </span>
+            </div>
+
+            <strong>
+              ${formatOne(bmiBodyFat)}%
+            </strong>
+          </div>
+
+          <div class="comparison-row">
+            <div>
+              <b>
+                두 추정값의 차이
+              </b>
+
+              <span>
+                차이가 크면 둘레를 다시 측정하세요
+              </span>
+            </div>
+
+            <strong>
+              ${formatOne(difference)}%p
+            </strong>
+          </div>
+        `;
+    }
+
+    function renderComposition(
+      bodyFat,
+      fatMass,
+      leanMass
+    ) {
+      const safeBodyFat =
+        clamp(
+          bodyFat,
+          5,
+          60
+        );
+
+      const leanPercent =
+        100 - safeBodyFat;
+
+      fatSegment.style.width =
+        `${safeBodyFat}%`;
+
+      leanSegment.style.width =
+        `${leanPercent}%`;
+
+      fatSegment.textContent =
+        safeBodyFat >= 13
+          ? `지방 ${formatOne(bodyFat)}%`
+          : "지방";
+
+      leanSegment.textContent =
+        leanPercent >= 20
+          ? `제지방 ${formatOne(100 - bodyFat)}%`
+          : "제지방";
+
+      fatLegend.textContent =
+        `${formatOne(fatMass)}kg`;
+
+      leanLegend.textContent =
+        `${formatOne(leanMass)}kg`;
+    }
+
+    function updateTargetResults() {
+      if (!latestResult) {
+        return;
+      }
+
+      const targetBodyFat =
+        Number(
+          targetBodyFatInput.value
+        );
+
+      targetBodyFatValue.textContent =
+        `${targetBodyFat}%`;
+
+      const targetWeight =
+        latestResult.leanMass /
+        (1 - targetBodyFat / 100);
+
+      const weightDifference =
+        targetWeight -
+        latestResult.weight;
+
+      const targetFatMass =
+        targetWeight *
+        targetBodyFat /
+        100;
+
+      targetWeightEl.textContent =
+        `${formatOne(targetWeight)}kg`;
+
+      weightDifferenceEl.textContent =
+        `${
+          weightDifference >= 0
+            ? "+"
+            : ""
+        }${formatOne(weightDifference)}kg`;
+
+      targetFatMassEl.textContent =
+        `${formatOne(targetFatMass)}kg`;
+
+      latestResult.targetBodyFat =
+        targetBodyFat;
+
+      latestResult.targetWeight =
+        targetWeight;
+
+      latestResult.weightDifference =
+        weightDifference;
+
+      latestResult.targetFatMass =
+        targetFatMass;
+
+      buildResultText();
+    }
+
+    function setStatus(
+      navyBodyFat,
+      bmiBodyFat,
+      waistHeightRatio
+    ) {
+      const difference =
+        Math.abs(
+          navyBodyFat -
+          bmiBodyFat
+        );
+
+      let className =
+        "good";
+
+      let message =
+        "";
+
+      if (
+        navyBodyFat < 3 ||
+        navyBodyFat > 65
+      ) {
+        className =
+          "danger";
+
+        message =
+          "둘레 기반 결과가 일반적인 계산 범위를 벗어났습니다. 목·허리·엉덩이둘레의 위치와 입력값을 다시 확인하세요.";
+      } else if (
+        difference >= 8
+      ) {
+        className =
+          "warn";
+
+        message =
+          "두 추정식의 차이가 8%p 이상입니다. 체형이나 근육량의 영향일 수 있으므로 둘레를 다시 측정하고 전문 체성분 검사와 비교하세요.";
+      } else if (
+        waistHeightRatio >= 0.6
+      ) {
+        className =
+          "warn";
+
+        message =
+          "허리둘레가 키에 비해 높은 편으로 계산됩니다. 이 값만으로 건강 상태를 판단할 수는 없으며 생활습관과 전문 평가를 함께 확인해야 합니다.";
+      } else {
+        message =
+          "두 가지 추정값을 함께 표시했습니다. 같은 조건과 같은 측정 위치로 반복 측정해 변화 추이를 보는 방식이 가장 유용합니다.";
+      }
+
+      statusBox.className =
+        `status ${className}`;
+
+      statusBox.textContent =
+        message;
+    }
+
+    function buildResultText() {
+      if (!latestResult) {
+        lastResultText =
+          "";
+
+        return;
+      }
+
+      const result =
+        latestResult;
+
+      lastResultText =
+`[체지방률·제지방량 계산기]
+신체둘레 기반 체지방률: ${formatOne(result.navyBodyFat)}%
+BMI 기반 체지방률: ${formatOne(result.bmiBodyFat)}%
+예상 지방량: ${formatOne(result.fatMass)}kg
+예상 제지방량: ${formatOne(result.leanMass)}kg
+BMI: ${formatOne(result.bmi)}
+허리키비율: ${result.waistHeightRatio.toFixed(3)}
+
+목표 체지방률: ${result.targetBodyFat}%
+예상 목표 체중: ${formatOne(result.targetWeight)}kg
+현재와 체중 차이: ${result.weightDifference >= 0 ? "+" : ""}${formatOne(result.weightDifference)}kg
+목표 지방량: ${formatOne(result.targetFatMass)}kg
+
+※ 신체둘레와 통계식을 이용한 참고용 추정치입니다.`;
+    }
+
+    function calculate(event) {
+      if (event) {
+        event.preventDefault();
+      }
+
+      const sex =
+        sexInput.value;
+
+      const age =
+        getNumber("age");
+
+      const height =
+        getNumber("height");
+
+      const weight =
+        getNumber("weight");
+
+      const neck =
+        getNumber("neck");
+
+      const waist =
+        getNumber("waist");
+
+      const hip =
+        sex === "female"
+          ? getNumber("hip")
+          : 0;
+
+      const invalid =
+        age < 18 ||
+        age > 100 ||
+        height < 120 ||
+        height > 230 ||
+        weight < 30 ||
+        weight > 300 ||
+        neck < 20 ||
+        neck > 80 ||
+        waist < 40 ||
+        waist > 250 ||
+        (
+          sex === "female" &&
+          (
+            hip < 50 ||
+            hip > 250
+          )
+        ) ||
+        waist <= neck;
+
+      if (invalid) {
+        alert(
+          "입력값을 확인해주세요. 허리둘레는 목둘레보다 커야 하며 모든 값은 실제 측정 범위로 입력해야 합니다."
+        );
+
+        return;
+      }
+
+      const bmi =
+        calculateBmi(
+          weight,
+          height
+        );
+
+      let navyBodyFat =
+        calculateNavyBodyFat(
+          sex,
+          height,
+          neck,
+          waist,
+          hip
+        );
+
+      let bmiBodyFat =
+        calculateBmiBodyFat(
+          sex,
+          age,
+          bmi
+        );
+
+      if (
+        !Number.isFinite(navyBodyFat) ||
+        !Number.isFinite(bmiBodyFat)
+      ) {
+        alert(
+          "체지방률을 계산할 수 없습니다. 입력값을 다시 확인해주세요."
+        );
+
+        return;
+      }
+
+      navyBodyFat =
+        clamp(
+          navyBodyFat,
+          1,
+          70
+        );
+
+      bmiBodyFat =
+        clamp(
+          bmiBodyFat,
+          1,
+          70
+        );
+
+      const fatMass =
+        weight *
+        navyBodyFat /
+        100;
+
+      const leanMass =
+        weight -
+        fatMass;
+
+      const waistHeightRatio =
+        waist /
+        height;
+
+      primaryBodyFatEl.textContent =
+        `${formatOne(navyBodyFat)}%`;
+
+      fatMassEl.textContent =
+        `${formatOne(fatMass)}kg`;
+
+      leanMassEl.textContent =
+        `${formatOne(leanMass)}kg`;
+
+      bmiResultEl.textContent =
+        formatOne(bmi);
+
+      waistHeightRatioEl.textContent =
+        waistHeightRatio.toFixed(3);
+
+      mainMessageEl.textContent =
+        `체중 ${formatOne(weight)}kg 중 ` +
+        `약 ${formatOne(fatMass)}kg은 지방, ` +
+        `${formatOne(leanMass)}kg은 제지방으로 추정됩니다.`;
+
+      setStatus(
+        navyBodyFat,
+        bmiBodyFat,
+        waistHeightRatio
+      );
+
+      renderComparison(
+        navyBodyFat,
+        bmiBodyFat
+      );
+
+      renderComposition(
+        navyBodyFat,
+        fatMass,
+        leanMass
+      );
+
+      latestResult = {
+        sex,
+        age,
+        height,
+        weight,
+        neck,
+        waist,
+        hip,
+        bmi,
+        navyBodyFat,
+        bmiBodyFat,
+        fatMass,
+        leanMass,
+        waistHeightRatio
+      };
+
+      const defaultTarget =
+        sex === "male"
+          ? Math.max(
+              8,
+              Math.min(
+                30,
+                Math.round(
+                  navyBodyFat - 5
+                )
+              )
+            )
+          : Math.max(
+              15,
+              Math.min(
+                38,
+                Math.round(
+                  navyBodyFat - 5
+                )
+              )
+            );
+
+      targetBodyFatInput.value =
+        String(defaultTarget);
+
+      updateTargetResults();
+
+      resultEmpty.style.display =
+        "none";
+
+      resultBox.classList.add(
+        "show"
+      );
+
+      try {
+        localStorage.setItem(
+          "bodyFatLeanMassCalculator",
+          JSON.stringify({
+            sex,
+            age,
+            height,
+            weight,
+            neck,
+            waist,
+            hip,
+            targetBodyFat:
+              targetBodyFatInput.value
+          })
+        );
+      } catch (error) {
+        console.warn(error);
+      }
+    }
+
+    function resetCalculator() {
+      form.reset();
+
+      sexInput.value =
+        "male";
+
+      document.getElementById("age").value =
+        35;
+
+      document.getElementById("height").value =
+        170;
+
+      document.getElementById("weight").value =
+        70;
+
+      document.getElementById("neck").value =
+        38;
+
+      document.getElementById("waist").value =
+        85;
+
+      document.getElementById("hip").value =
+        95;
+
+      targetBodyFatInput.value =
+        18;
+
+      targetBodyFatValue.textContent =
+        "18%";
+
+      latestResult =
+        null;
+
+      lastResultText =
+        "";
+
+      resultBox.classList.remove(
+        "show"
+      );
+
+      resultEmpty.style.display =
+        "grid";
+
+      updateSexFields();
+
+      try {
+        localStorage.removeItem(
+          "bodyFatLeanMassCalculator"
+        );
+      } catch (error) {
+        console.warn(error);
+      }
+    }
+
+    function restoreSaved() {
+      try {
+        const saved =
+          JSON.parse(
+            localStorage.getItem(
+              "bodyFatLeanMassCalculator"
+            ) || "null"
+          );
+
+        if (!saved) {
+          return;
+        }
+
+        sexInput.value =
+          saved.sex || "male";
+
+        document.getElementById("age").value =
+          saved.age || 35;
+
+        document.getElementById("height").value =
+          saved.height || 170;
+
+        document.getElementById("weight").value =
+          saved.weight || 70;
+
+        document.getElementById("neck").value =
+          saved.neck || 38;
+
+        document.getElementById("waist").value =
+          saved.waist || 85;
+
+        document.getElementById("hip").value =
+          saved.hip || 95;
+
+        targetBodyFatInput.value =
+          saved.targetBodyFat || 18;
+
+        targetBodyFatValue.textContent =
+          `${targetBodyFatInput.value}%`;
+
+        updateSexFields();
+      } catch (error) {
+        console.warn(error);
+      }
+    }
+
+    async function copyResult() {
+      if (!lastResultText) {
+        alert(
+          "먼저 계산해주세요."
+        );
+
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(
+          lastResultText
+        );
+      } catch (error) {
+        const textarea =
+          document.createElement(
+            "textarea"
+          );
+
+        textarea.value =
+          lastResultText;
+
+        textarea.style.position =
+          "fixed";
+
+        textarea.style.opacity =
+          "0";
+
+        document.body.appendChild(
+          textarea
+        );
+
+        textarea.select();
+
+        document.execCommand(
+          "copy"
+        );
+
+        textarea.remove();
+      }
+
+      const original =
+        copyBtn.textContent;
+
+      copyBtn.textContent =
+        "복사 완료";
+
+      setTimeout(
+        () => {
+          copyBtn.textContent =
+            original;
+        },
+        1300
+      );
+    }
+
+    sexInput.addEventListener(
+      "change",
+      updateSexFields
+    );
+
+    form.addEventListener(
+      "submit",
+      calculate
+    );
+
+    targetBodyFatInput.addEventListener(
+      "input",
+      updateTargetResults
+    );
+
+    resetBtn.addEventListener(
+      "click",
+      resetCalculator
+    );
+
+    copyBtn.addEventListener(
+      "click",
+      copyResult
+    );
+
+    printBtn.addEventListener(
+      "click",
+      () => {
+        window.print();
+      }
+    );
+
+    restoreSaved();
+    updateSexFields();
+  </script>
+
+  <script
+    defer
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'
+  ></script>
+</body>
+</html>
