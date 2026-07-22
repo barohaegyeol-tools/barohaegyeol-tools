@@ -1,0 +1,6352 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>보험 유지·감액·해지 손익분기 계산기 | 보험료·환급금·보장 비교 | 바로해결툴즈</title>
+
+  <meta
+    name="description"
+    content="현재 보험료, 남은 납입기간, 해약환급금, 보장금액과 감액·해지 후 재가입 조건을 입력하면 유지·감액·해지 시나리오의 총보험료, 환급금, 보장유지율, 현재가치와 손익분기 시점을 비교합니다."
+  >
+
+  <meta
+    name="keywords"
+    content="보험 해지 계산기, 보험 유지 감액 비교, 해약환급금 계산, 보험 손익분기, 보험 감액 계산기, 보험 리모델링, 감액완납, 보험 재가입 비교, 보험료 부담 줄이기, 바로해결툴즈"
+  >
+
+  <meta name="author" content="바로해결툴즈">
+  <meta name="robots" content="index, follow">
+
+  <link
+    rel="canonical"
+    href="https://barohaegyeol-tools.pages.dev/insurance-keep-reduce-surrender-calculator/"
+  >
+
+  <meta name="theme-color" content="#282621">
+
+  <meta property="og:type" content="website">
+
+  <meta
+    property="og:title"
+    content="보험 유지·감액·해지 손익분기 계산기 | 바로해결툴즈"
+  >
+
+  <meta
+    property="og:description"
+    content="보험을 유지할지, 감액할지, 해지 후 재가입할지 앞으로의 보험료와 보장가치를 함께 비교하세요."
+  >
+
+  <meta
+    property="og:url"
+    content="https://barohaegyeol-tools.pages.dev/insurance-keep-reduce-surrender-calculator/"
+  >
+
+  <meta property="og:site_name" content="바로해결툴즈">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "보험 유지·감액·해지 손익분기 계산기",
+    "url": "https://barohaegyeol-tools.pages.dev/insurance-keep-reduce-surrender-calculator/",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "All",
+    "description": "기존 보험의 유지, 보장 감액, 해지 후 재가입 시나리오를 보험료·환급금·보장금액과 현재가치 기준으로 비교하는 무료 웹 도구입니다.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "KRW"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --coal: #282621;
+      --coal-2: #3b3830;
+      --ink: #282621;
+      --text: #625f55;
+      --muted: #959084;
+
+      --moss: #92ad63;
+      --moss-dark: #59743c;
+      --moss-soft: #edf4df;
+
+      --clay: #d87850;
+      --clay-dark: #a34b2e;
+      --clay-soft: #fff0e8;
+
+      --sky: #87b9c4;
+      --sky-dark: #487f8b;
+      --sky-soft: #e8f6f8;
+
+      --oat: #efe1c6;
+      --oat-soft: #faf4e7;
+
+      --gold: #ddb648;
+      --gold-soft: #fff6d7;
+
+      --red: #c9545f;
+      --red-soft: #fff0f2;
+
+      --green: #418565;
+      --green-soft: #e8f6ef;
+
+      --violet: #8174c6;
+      --violet-soft: #f0edff;
+
+      --white: #ffffff;
+      --paper: #fbfaf6;
+
+      --line: rgba(40, 38, 33, 0.12);
+      --line-strong: rgba(40, 38, 33, 0.24);
+
+      --shadow:
+        0 28px 74px rgba(40, 38, 33, 0.14);
+
+      --shadow-soft:
+        0 12px 30px rgba(40, 38, 33, 0.08);
+
+      --max: 1220px;
+    }
+
+    * {
+      box-sizing: border-box;
+      min-width: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+
+      color: var(--ink);
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Pretendard",
+        "Noto Sans KR",
+        "Apple SD Gothic Neo",
+        system-ui,
+        sans-serif;
+
+      line-height: 1.65;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+
+      background:
+        radial-gradient(
+          circle at 7% 3%,
+          rgba(146, 173, 99, 0.22),
+          transparent 29%
+        ),
+        radial-gradient(
+          circle at 94% 5%,
+          rgba(216, 120, 80, 0.16),
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 82% 97%,
+          rgba(135, 185, 196, 0.16),
+          transparent 28%
+        ),
+        linear-gradient(
+          180deg,
+          #f9f7ef 0%,
+          #fcfbf7 43%,
+          #f5f8f6 100%
+        );
+    }
+
+    body::before {
+      content: "";
+
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+
+      pointer-events: none;
+      opacity: 0.34;
+
+      background:
+        repeating-linear-gradient(
+          0deg,
+          transparent 0 35px,
+          rgba(40, 38, 33, 0.035) 35px 36px
+        );
+
+      mask-image:
+        linear-gradient(
+          to bottom,
+          #000,
+          transparent 94%
+        );
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .wrap {
+      width:
+        min(
+          var(--max),
+          calc(100% - 32px)
+        );
+
+      margin: 0 auto;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 70;
+
+      border-bottom:
+        1px solid rgba(40, 38, 33, 0.08);
+
+      background:
+        rgba(250, 249, 244, 0.88);
+
+      backdrop-filter:
+        blur(16px);
+    }
+
+    .header-inner {
+      min-height: 76px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      font-weight: 950;
+      letter-spacing: -0.04em;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius:
+        5px 18px 5px 18px;
+
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          145deg,
+          var(--coal),
+          var(--moss-dark)
+        );
+
+      box-shadow:
+        7px 7px 0 var(--oat);
+
+      font-weight: 1000;
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 2px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+      font-weight: 750;
+      letter-spacing: 0;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 9px;
+    }
+
+    .nav a {
+      padding:
+        9px 13px;
+
+      border:
+        1px solid rgba(40, 38, 33, 0.10);
+
+      border-radius: 9px;
+
+      color: #686459;
+
+      background:
+        rgba(255, 255, 255, 0.88);
+
+      font-size: 12px;
+      font-weight: 850;
+
+      transition:
+        0.18s ease;
+    }
+
+    .nav a:hover {
+      color: var(--moss-dark);
+
+      border-color:
+        rgba(146, 173, 99, 0.45);
+
+      transform:
+        translateY(-1px);
+    }
+
+    .hero {
+      padding:
+        38px 0 28px;
+    }
+
+    .policy-hero {
+      position: relative;
+      overflow: hidden;
+
+      padding:
+        49px 45px 37px;
+
+      border:
+        1px solid rgba(40, 38, 33, 0.12);
+
+      border-radius:
+        12px 38px 12px 38px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.99),
+          rgba(250, 244, 231, 0.98) 54%,
+          rgba(237, 244, 223, 0.97)
+        );
+
+      box-shadow:
+        14px 14px 0 rgba(40, 38, 33, 0.10),
+        var(--shadow);
+    }
+
+    .policy-hero::before {
+      content: "";
+
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 18px;
+
+      border-top:
+        2px dashed rgba(40, 38, 33, 0.16);
+    }
+
+    .policy-hero::after {
+      content: "POLICY DECISION FILE";
+
+      position: absolute;
+      right: 23px;
+      top: 31px;
+
+      color:
+        rgba(40, 38, 33, 0.28);
+
+      font-size: 9px;
+      font-weight: 1000;
+      letter-spacing: 0.14em;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 2;
+
+      max-width: 1030px;
+
+      margin: 0 auto;
+
+      text-align: center;
+    }
+
+    .hero-chips {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 9px;
+
+      margin-bottom: 18px;
+    }
+
+    .hero-chip {
+      min-height: 34px;
+
+      display: inline-flex;
+      align-items: center;
+
+      padding:
+        8px 13px;
+
+      border:
+        1px solid rgba(40, 38, 33, 0.11);
+
+      border-radius: 8px;
+
+      color: #6d685e;
+
+      background:
+        rgba(255, 255, 255, 0.88);
+
+      font-size: 11px;
+      font-weight: 880;
+
+      box-shadow:
+        0 8px 20px rgba(40, 38, 33, 0.05);
+    }
+
+    .hero-chip.primary {
+      color: #ffffff;
+      background: var(--coal);
+    }
+
+    h1 {
+      margin:
+        0 auto;
+
+      max-width: 1040px;
+
+      font-size:
+        clamp(42px, 5.8vw, 72px);
+
+      line-height: 1.045;
+      letter-spacing: -0.069em;
+
+      word-break: keep-all;
+      overflow-wrap: normal;
+    }
+
+    .title-line {
+      display: block;
+    }
+
+    .title-moss {
+      color: var(--moss-dark);
+    }
+
+    .title-clay {
+      position: relative;
+      display: inline-block;
+
+      color: var(--clay-dark);
+    }
+
+    .title-clay::after {
+      content: "";
+
+      position: absolute;
+      left: -3px;
+      right: -3px;
+      bottom: 3px;
+      z-index: -1;
+
+      height: 12px;
+
+      background:
+        rgba(239, 225, 198, 0.92);
+
+      transform:
+        rotate(-1.2deg);
+    }
+
+    .hero-copy p {
+      max-width: 850px;
+
+      margin:
+        20px auto 0;
+
+      color: var(--muted);
+
+      font-size:
+        clamp(15px, 1.7vw, 18px);
+
+      line-height: 1.82;
+      font-weight: 720;
+    }
+
+    .hero-copy strong {
+      color: #555148;
+      font-weight: 950;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 11px;
+
+      margin-top: 24px;
+    }
+
+    .btn {
+      min-height: 52px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      padding:
+        13px 19px;
+
+      border:
+        1px solid transparent;
+
+      border-radius: 10px;
+
+      font-weight: 950;
+
+      transition:
+        0.18s ease;
+    }
+
+    .btn:hover {
+      transform:
+        translateY(-2px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: var(--coal);
+
+      box-shadow:
+        7px 7px 0 var(--moss);
+    }
+
+    .btn-secondary {
+      color: var(--coal);
+
+      border-color:
+        rgba(40, 38, 33, 0.14);
+
+      background: #ffffff;
+    }
+
+    .decision-stubs {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 12px;
+
+      max-width: 1000px;
+
+      margin:
+        42px auto 0;
+    }
+
+    .decision-stub {
+      position: relative;
+      overflow: hidden;
+
+      min-height: 145px;
+
+      padding: 18px;
+
+      border:
+        1px solid rgba(40, 38, 33, 0.14);
+
+      border-radius:
+        8px 22px 8px 22px;
+
+      background: #ffffff;
+
+      box-shadow:
+        6px 6px 0 rgba(40, 38, 33, 0.08);
+    }
+
+    .decision-stub.keep {
+      background:
+        linear-gradient(
+          145deg,
+          var(--moss-soft),
+          #ffffff
+        );
+    }
+
+    .decision-stub.reduce {
+      background:
+        linear-gradient(
+          145deg,
+          var(--sky-soft),
+          #ffffff
+        );
+    }
+
+    .decision-stub.surrender {
+      background:
+        linear-gradient(
+          145deg,
+          var(--clay-soft),
+          #ffffff
+        );
+    }
+
+    .decision-stub::after {
+      content: "";
+
+      position: absolute;
+      right: -32px;
+      bottom: -32px;
+
+      width: 110px;
+      height: 110px;
+
+      border:
+        22px solid rgba(40, 38, 33, 0.05);
+
+      border-radius: 50%;
+    }
+
+    .decision-stub span,
+    .decision-stub strong,
+    .decision-stub small {
+      position: relative;
+      z-index: 1;
+    }
+
+    .decision-stub span {
+      display: block;
+
+      font-size: 8px;
+      font-weight: 1000;
+      letter-spacing: 0.10em;
+    }
+
+    .decision-stub strong {
+      display: block;
+      margin-top: 8px;
+
+      font-size: 20px;
+      line-height: 1.15;
+      letter-spacing: -0.04em;
+    }
+
+    .decision-stub small {
+      display: block;
+      margin-top: 9px;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      line-height: 1.55;
+      font-weight: 730;
+    }
+
+    .section {
+      padding:
+        14px 0 25px;
+    }
+
+    .tool-shell {
+      overflow: hidden;
+
+      border:
+        1px solid rgba(40, 38, 33, 0.11);
+
+      border-radius:
+        27px 27px 9px 27px;
+
+      background:
+        rgba(255, 255, 255, 0.95);
+
+      box-shadow:
+        var(--shadow);
+    }
+
+    .shell-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      gap: 18px;
+
+      padding:
+        27px 26px 20px;
+
+      border-bottom:
+        1px solid rgba(40, 38, 33, 0.09);
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--coal) 0 13px,
+          var(--oat-soft) 13px 48%,
+          var(--moss-soft)
+        );
+    }
+
+    .shell-head h2 {
+      margin: 0;
+
+      font-size:
+        clamp(27px, 3.5vw, 40px);
+
+      line-height: 1.15;
+      letter-spacing: -0.05em;
+    }
+
+    .shell-head p {
+      margin:
+        8px 0 0;
+
+      color: var(--muted);
+
+      font-size: 13px;
+      font-weight: 720;
+    }
+
+    .shell-badge {
+      min-height: 34px;
+
+      display: inline-flex;
+      align-items: center;
+
+      padding:
+        8px 12px;
+
+      border-radius: 8px;
+
+      color: #ffffff;
+      background: var(--coal);
+
+      font-size: 10px;
+      font-weight: 950;
+
+      white-space: nowrap;
+    }
+
+    .calculator-body {
+      padding: 23px;
+    }
+
+    .contract-base {
+      padding: 18px;
+
+      border:
+        1px solid rgba(40, 38, 33, 0.10);
+
+      border-radius: 19px;
+
+      background:
+        linear-gradient(
+          145deg,
+          var(--oat-soft),
+          #ffffff
+        );
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+
+      gap: 15px;
+
+      padding-bottom: 13px;
+
+      border-bottom:
+        1px solid rgba(40, 38, 33, 0.08);
+    }
+
+    .section-head span {
+      display: block;
+
+      color: var(--moss-dark);
+
+      font-size: 8px;
+      font-weight: 1000;
+      letter-spacing: 0.10em;
+    }
+
+    .section-head h3 {
+      margin:
+        5px 0 0;
+
+      font-size: 20px;
+      letter-spacing: -0.04em;
+    }
+
+    .section-head p {
+      margin:
+        5px 0 0;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      line-height: 1.55;
+      font-weight: 730;
+    }
+
+    .section-code {
+      min-width: 54px;
+      height: 39px;
+
+      display: grid;
+      place-items: center;
+
+      padding:
+        0 10px;
+
+      border-radius: 8px;
+
+      color: #ffffff;
+      background: var(--coal);
+
+      font-size: 9px;
+      font-weight: 1000;
+    }
+
+    .field-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      gap: 10px;
+
+      margin-top: 15px;
+    }
+
+    .field-grid.five {
+      grid-template-columns:
+        repeat(5, minmax(0, 1fr));
+    }
+
+    .field label {
+      display: block;
+
+      margin-bottom: 7px;
+
+      color: #605c52;
+
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .field label small {
+      display: block;
+      margin-top: 3px;
+
+      color: var(--muted);
+
+      font-size: 8px;
+      line-height: 1.45;
+      font-weight: 720;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 51px;
+
+      padding:
+        13px 49px 13px 14px;
+
+      border:
+        1px solid rgba(40, 38, 33, 0.15);
+
+      border-radius: 10px;
+      outline: none;
+
+      color: var(--ink);
+      background: #ffffff;
+
+      font-size: 13px;
+      font-weight: 840;
+
+      transition:
+        0.17s ease;
+    }
+
+    select {
+      padding-right: 13px;
+    }
+
+    input:focus,
+    select:focus {
+      border-color:
+        rgba(146, 173, 99, 0.82);
+
+      box-shadow:
+        0 0 0 4px rgba(146, 173, 99, 0.11);
+    }
+
+    .unit {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+
+      transform:
+        translateY(-50%);
+
+      color: var(--muted);
+
+      font-size: 9px;
+      font-weight: 900;
+
+      pointer-events: none;
+    }
+
+    .scenario-inputs {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 12px;
+
+      margin-top: 16px;
+    }
+
+    .scenario-sheet {
+      position: relative;
+      overflow: hidden;
+
+      padding: 19px;
+
+      border:
+        1px solid rgba(40, 38, 33, 0.11);
+
+      border-radius:
+        10px 23px 10px 23px;
+
+      background: #ffffff;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .scenario-sheet.keep {
+      border-top:
+        7px solid var(--moss);
+
+      background:
+        linear-gradient(
+          155deg,
+          var(--moss-soft),
+          #ffffff 48%
+        );
+    }
+
+    .scenario-sheet.reduce {
+      border-top:
+        7px solid var(--sky);
+
+      background:
+        linear-gradient(
+          155deg,
+          var(--sky-soft),
+          #ffffff 48%
+        );
+    }
+
+    .scenario-sheet.surrender {
+      border-top:
+        7px solid var(--clay);
+
+      background:
+        linear-gradient(
+          155deg,
+          var(--clay-soft),
+          #ffffff 48%
+        );
+    }
+
+    .scenario-sheet::after {
+      content: "";
+
+      position: absolute;
+      right: -32px;
+      bottom: -32px;
+
+      width: 115px;
+      height: 115px;
+
+      border:
+        22px solid rgba(40, 38, 33, 0.045);
+
+      border-radius: 50%;
+    }
+
+    .scenario-head,
+    .scenario-sheet .field {
+      position: relative;
+      z-index: 1;
+    }
+
+    .scenario-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      margin-bottom: 14px;
+    }
+
+    .scenario-icon {
+      width: 42px;
+      height: 42px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius:
+        6px 14px 6px 14px;
+
+      color: #ffffff;
+      background: var(--moss-dark);
+
+      font-size: 9px;
+      font-weight: 1000;
+    }
+
+    .scenario-sheet.reduce
+    .scenario-icon {
+      background: var(--sky-dark);
+    }
+
+    .scenario-sheet.surrender
+    .scenario-icon {
+      background: var(--clay-dark);
+    }
+
+    .scenario-head span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 7px;
+      font-weight: 900;
+      letter-spacing: 0.09em;
+    }
+
+    .scenario-head h3 {
+      margin:
+        3px 0 0;
+
+      font-size: 18px;
+      letter-spacing: -0.04em;
+    }
+
+    .scenario-sheet .field + .field {
+      margin-top: 10px;
+    }
+
+    .assumption-strip {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      gap: 10px;
+
+      margin-top: 16px;
+
+      padding: 17px;
+
+      border:
+        1px solid rgba(40, 38, 33, 0.11);
+
+      border-radius: 18px;
+
+      background:
+        repeating-linear-gradient(
+          -45deg,
+          rgba(40, 38, 33, 0.025) 0 8px,
+          transparent 8px 16px
+        ),
+        #ffffff;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .preview-strip {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      gap: 9px;
+
+      margin-top: 16px;
+    }
+
+    .preview-cell {
+      padding: 14px;
+
+      border:
+        1px solid rgba(40, 38, 33, 0.10);
+
+      border-radius: 13px;
+
+      background: #ffffff;
+
+      text-align: center;
+    }
+
+    .preview-cell:nth-child(1) {
+      background: var(--oat-soft);
+    }
+
+    .preview-cell:nth-child(2) {
+      background: var(--moss-soft);
+    }
+
+    .preview-cell:nth-child(3) {
+      background: var(--sky-soft);
+    }
+
+    .preview-cell:nth-child(4) {
+      background: var(--clay-soft);
+    }
+
+    .preview-cell span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 8px;
+      font-weight: 850;
+    }
+
+    .preview-cell strong {
+      display: block;
+      margin-top: 5px;
+
+      font-size: 14px;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+    }
+
+    .action-row {
+      display: grid;
+
+      grid-template-columns:
+        1fr 190px;
+
+      gap: 11px;
+
+      margin-top: 18px;
+    }
+
+    .calculate-btn,
+    .reset-btn {
+      min-height: 59px;
+
+      border-radius: 11px;
+
+      font-weight: 950;
+    }
+
+    .calculate-btn {
+      border: 0;
+
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--coal),
+          var(--coal-2)
+        );
+
+      box-shadow:
+        7px 7px 0 var(--moss);
+    }
+
+    .reset-btn {
+      border:
+        1px solid rgba(40, 38, 33, 0.14);
+
+      color: var(--coal);
+      background: var(--oat);
+    }
+
+    .notice {
+      margin-top: 18px;
+
+      padding:
+        15px 17px;
+
+      border:
+        1px solid rgba(216, 120, 80, 0.21);
+
+      border-left:
+        8px solid var(--clay);
+
+      border-radius:
+        0 14px 14px 0;
+
+      color: #744f40;
+      background: var(--clay-soft);
+
+      font-size: 11px;
+      line-height: 1.76;
+      font-weight: 760;
+    }
+
+    .results {
+      padding:
+        29px 0 19px;
+    }
+
+    .result-empty {
+      min-height: 220px;
+
+      display: grid;
+      place-items: center;
+
+      padding: 28px;
+
+      border:
+        1px dashed rgba(40, 38, 33, 0.27);
+
+      border-radius:
+        22px 22px 8px 22px;
+
+      color: var(--muted);
+
+      background:
+        rgba(255, 255, 255, 0.74);
+
+      text-align: center;
+      font-weight: 850;
+    }
+
+    .result-content {
+      display: none;
+    }
+
+    .result-content.show {
+      display: block;
+    }
+
+    .decision-banner {
+      position: relative;
+      overflow: hidden;
+
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1fr)
+        auto;
+
+      gap: 23px;
+      align-items: center;
+
+      padding: 31px;
+
+      border-radius:
+        12px 31px 12px 31px;
+
+      color: #ffffff;
+
+      background:
+        radial-gradient(
+          circle at 90% 115%,
+          rgba(146, 173, 99, 0.24),
+          transparent 30%
+        ),
+        linear-gradient(
+          135deg,
+          var(--coal),
+          var(--coal-2)
+        );
+
+      box-shadow:
+        10px 10px 0 var(--oat),
+        0 25px 55px rgba(40, 38, 33, 0.24);
+    }
+
+    .decision-banner::before {
+      content: "DECISION";
+
+      position: absolute;
+      right: 16px;
+      top: -29px;
+
+      color:
+        rgba(255, 255, 255, 0.07);
+
+      font-size: 108px;
+      font-weight: 1000;
+      letter-spacing: -0.08em;
+    }
+
+    .decision-copy,
+    .decision-ticket {
+      position: relative;
+      z-index: 1;
+    }
+
+    .decision-copy > span {
+      display: block;
+
+      color: var(--moss);
+
+      font-size: 9px;
+      font-weight: 1000;
+      letter-spacing: 0.11em;
+    }
+
+    .decision-copy h2 {
+      margin:
+        8px 0 0;
+
+      max-width: 840px;
+
+      font-size:
+        clamp(34px, 5.2vw, 59px);
+
+      line-height: 1.065;
+      letter-spacing: -0.061em;
+    }
+
+    .decision-copy h2 b {
+      color: var(--oat);
+    }
+
+    .decision-copy p {
+      max-width: 800px;
+
+      margin:
+        12px 0 0;
+
+      color:
+        rgba(255, 255, 255, 0.70);
+
+      font-size: 12px;
+      line-height: 1.75;
+      font-weight: 760;
+    }
+
+    .decision-ticket {
+      min-width: 225px;
+
+      padding: 20px;
+
+      border:
+        1px solid rgba(255, 255, 255, 0.18);
+
+      border-radius:
+        8px 19px 8px 19px;
+
+      background:
+        rgba(255, 255, 255, 0.09);
+
+      text-align: center;
+
+      backdrop-filter:
+        blur(8px);
+    }
+
+    .decision-ticket span {
+      display: block;
+
+      color:
+        rgba(255, 255, 255, 0.62);
+
+      font-size: 8px;
+      font-weight: 850;
+    }
+
+    .decision-ticket strong {
+      display: block;
+      margin-top: 8px;
+
+      color: var(--oat);
+
+      font-size: 26px;
+      line-height: 1.08;
+      letter-spacing: -0.05em;
+    }
+
+    .decision-ticket small {
+      display: block;
+      margin-top: 8px;
+
+      color:
+        rgba(255, 255, 255, 0.66);
+
+      font-size: 8px;
+      line-height: 1.5;
+      font-weight: 740;
+    }
+
+    .result-card-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 12px;
+
+      margin-top: 17px;
+    }
+
+    .result-card {
+      position: relative;
+      overflow: hidden;
+
+      padding: 20px;
+
+      border:
+        1px solid rgba(40, 38, 33, 0.11);
+
+      border-radius:
+        10px 22px 10px 22px;
+
+      background: #ffffff;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .result-card[data-route="keep"] {
+      border-top:
+        7px solid var(--moss);
+
+      background:
+        linear-gradient(
+          145deg,
+          var(--moss-soft),
+          #ffffff 52%
+        );
+    }
+
+    .result-card[data-route="reduce"] {
+      border-top:
+        7px solid var(--sky);
+
+      background:
+        linear-gradient(
+          145deg,
+          var(--sky-soft),
+          #ffffff 52%
+        );
+    }
+
+    .result-card[data-route="surrender"] {
+      border-top:
+        7px solid var(--clay);
+
+      background:
+        linear-gradient(
+          145deg,
+          var(--clay-soft),
+          #ffffff 52%
+        );
+    }
+
+    .result-card.winner {
+      outline:
+        3px solid var(--gold);
+
+      outline-offset:
+        -3px;
+    }
+
+    .result-card::after {
+      content: "";
+
+      position: absolute;
+      right: -31px;
+      bottom: -31px;
+
+      width: 108px;
+      height: 108px;
+
+      border:
+        21px solid rgba(40, 38, 33, 0.05);
+
+      border-radius: 50%;
+    }
+
+    .route-tag,
+    .result-card h3,
+    .result-card > strong,
+    .result-card > p,
+    .result-lines {
+      position: relative;
+      z-index: 1;
+    }
+
+    .route-tag {
+      display: inline-flex;
+      align-items: center;
+
+      min-height: 27px;
+
+      padding:
+        6px 9px;
+
+      border-radius: 999px;
+
+      color: var(--moss-dark);
+      background: #ffffff;
+
+      font-size: 8px;
+      font-weight: 950;
+    }
+
+    .result-card[data-route="reduce"]
+    .route-tag {
+      color: var(--sky-dark);
+    }
+
+    .result-card[data-route="surrender"]
+    .route-tag {
+      color: var(--clay-dark);
+    }
+
+    .result-card h3 {
+      margin:
+        10px 0 0;
+
+      font-size: 19px;
+      letter-spacing: -0.04em;
+    }
+
+    .result-card > strong {
+      display: block;
+      margin-top: 13px;
+
+      font-size: 24px;
+      line-height: 1.1;
+      letter-spacing: -0.047em;
+    }
+
+    .result-card > p {
+      min-height: 32px;
+
+      margin:
+        7px 0 0;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      line-height: 1.5;
+      font-weight: 730;
+    }
+
+    .result-lines {
+      margin-top: 13px;
+
+      padding-top: 10px;
+
+      border-top:
+        1px solid rgba(40, 38, 33, 0.09);
+    }
+
+    .result-line {
+      display: flex;
+      justify-content: space-between;
+
+      gap: 8px;
+
+      margin-top: 7px;
+
+      color: #6c685e;
+
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    .result-line b {
+      color: #3d3932;
+      text-align: right;
+    }
+
+    .matrix-panel,
+    .timeline-panel,
+    .coverage-panel,
+    .refund-panel,
+    .checklist-panel {
+      margin-top: 16px;
+
+      padding: 21px;
+
+      border:
+        1px solid rgba(40, 38, 33, 0.10);
+
+      border-radius:
+        21px 21px 8px 21px;
+
+      background: #ffffff;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      gap: 15px;
+    }
+
+    .panel-head h3 {
+      margin: 0;
+
+      font-size: 20px;
+      letter-spacing: -0.04em;
+    }
+
+    .panel-head p {
+      margin:
+        5px 0 0;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 740;
+    }
+
+    .panel-head span {
+      color: var(--moss-dark);
+
+      font-size: 10px;
+      font-weight: 950;
+      text-align: right;
+    }
+
+    .matrix-wrap {
+      margin-top: 16px;
+
+      overflow-x: auto;
+
+      border:
+        1px solid rgba(40, 38, 33, 0.09);
+
+      border-radius: 14px;
+    }
+
+    .matrix-row {
+      min-width: 790px;
+
+      display: grid;
+
+      grid-template-columns:
+        175px repeat(3, 1fr);
+
+      border-bottom:
+        1px solid rgba(40, 38, 33, 0.07);
+    }
+
+    .matrix-row:last-child {
+      border-bottom: 0;
+    }
+
+    .matrix-row > div {
+      padding:
+        13px 15px;
+
+      font-size: 10px;
+      font-weight: 800;
+
+      text-align: right;
+    }
+
+    .matrix-row > div:first-child {
+      color: #666157;
+      text-align: left;
+    }
+
+    .matrix-row.head {
+      color: #ffffff;
+      background: var(--coal);
+    }
+
+    .matrix-row.head > div {
+      font-size: 9px;
+      font-weight: 950;
+    }
+
+    .matrix-row.highlight {
+      background: var(--gold-soft);
+    }
+
+    .timeline-chart {
+      position: relative;
+
+      margin-top: 18px;
+
+      padding:
+        43px 14px 18px;
+
+      border:
+        1px solid rgba(40, 38, 33, 0.09);
+
+      border-radius: 16px;
+
+      background:
+        repeating-linear-gradient(
+          90deg,
+          rgba(40, 38, 33, 0.04) 0 1px,
+          transparent 1px 10%
+        ),
+        linear-gradient(
+          180deg,
+          #fcfbf7,
+          #f7f5ed
+        );
+    }
+
+    .timeline-axis {
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      top: 14px;
+
+      display: flex;
+      justify-content: space-between;
+
+      color: var(--muted);
+
+      font-size: 8px;
+      font-weight: 850;
+    }
+
+    .timeline-row {
+      display: grid;
+
+      grid-template-columns:
+        125px minmax(0, 1fr) 155px;
+
+      gap: 12px;
+      align-items: center;
+
+      margin-top: 12px;
+    }
+
+    .timeline-row:first-of-type {
+      margin-top: 0;
+    }
+
+    .timeline-label strong {
+      display: block;
+
+      font-size: 11px;
+    }
+
+    .timeline-label small {
+      display: block;
+      margin-top: 3px;
+
+      color: var(--muted);
+
+      font-size: 7px;
+      font-weight: 720;
+    }
+
+    .timeline-track-line {
+      position: relative;
+
+      height: 38px;
+
+      overflow: hidden;
+
+      border-radius: 999px;
+
+      background:
+        rgba(40, 38, 33, 0.07);
+    }
+
+    .timeline-bar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      min-width: 3px;
+
+      padding-right: 9px;
+
+      border-radius: 999px;
+
+      color: #ffffff;
+      background:
+        linear-gradient(
+          90deg,
+          var(--moss-dark),
+          var(--moss)
+        );
+
+      font-size: 8px;
+      font-weight: 950;
+    }
+
+    .timeline-row.reduce
+    .timeline-bar {
+      background:
+        linear-gradient(
+          90deg,
+          var(--sky-dark),
+          var(--sky)
+        );
+    }
+
+    .timeline-row.surrender
+    .timeline-bar {
+      background:
+        linear-gradient(
+          90deg,
+          var(--clay-dark),
+          var(--clay)
+        );
+    }
+
+    .timeline-result {
+      color: #5c584f;
+
+      font-size: 10px;
+      font-weight: 900;
+      text-align: right;
+    }
+
+    .coverage-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 11px;
+
+      margin-top: 16px;
+    }
+
+    .coverage-card {
+      padding: 17px;
+
+      border:
+        1px solid rgba(40, 38, 33, 0.09);
+
+      border-radius: 15px;
+
+      background:
+        linear-gradient(
+          145deg,
+          var(--moss-soft),
+          #ffffff
+        );
+    }
+
+    .coverage-card:nth-child(2) {
+      background:
+        linear-gradient(
+          145deg,
+          var(--sky-soft),
+          #ffffff
+        );
+    }
+
+    .coverage-card:nth-child(3) {
+      background:
+        linear-gradient(
+          145deg,
+          var(--clay-soft),
+          #ffffff
+        );
+    }
+
+    .coverage-card span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 8px;
+      font-weight: 850;
+    }
+
+    .coverage-card strong {
+      display: block;
+      margin-top: 7px;
+
+      font-size: 21px;
+      line-height: 1.14;
+      letter-spacing: -0.04em;
+    }
+
+    .coverage-card small {
+      display: block;
+      margin-top: 7px;
+
+      color: #7f7a70;
+
+      font-size: 8px;
+      line-height: 1.5;
+      font-weight: 730;
+    }
+
+    .refund-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      gap: 11px;
+
+      margin-top: 16px;
+    }
+
+    .refund-card {
+      padding: 17px;
+
+      border:
+        1px solid rgba(40, 38, 33, 0.09);
+
+      border-radius: 15px;
+
+      background:
+        linear-gradient(
+          145deg,
+          var(--oat-soft),
+          #ffffff
+        );
+    }
+
+    .refund-card:nth-child(2) {
+      background:
+        linear-gradient(
+          145deg,
+          var(--gold-soft),
+          #ffffff
+        );
+    }
+
+    .refund-card:nth-child(3) {
+      background:
+        linear-gradient(
+          145deg,
+          var(--violet-soft),
+          #ffffff
+        );
+    }
+
+    .refund-card:nth-child(4) {
+      background:
+        linear-gradient(
+          145deg,
+          var(--sky-soft),
+          #ffffff
+        );
+    }
+
+    .refund-card span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 8px;
+      font-weight: 850;
+    }
+
+    .refund-card strong {
+      display: block;
+      margin-top: 7px;
+
+      font-size: 21px;
+      line-height: 1.14;
+      letter-spacing: -0.04em;
+    }
+
+    .refund-card small {
+      display: block;
+      margin-top: 7px;
+
+      color: #7f7a70;
+
+      font-size: 8px;
+      line-height: 1.5;
+      font-weight: 730;
+    }
+
+    .checklist-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      gap: 11px;
+
+      margin-top: 16px;
+    }
+
+    .check-item {
+      padding: 17px;
+
+      border:
+        1px solid rgba(40, 38, 33, 0.10);
+
+      border-radius:
+        8px 17px 8px 17px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #ffffff,
+          var(--paper)
+        );
+    }
+
+    .check-number {
+      width: 34px;
+      height: 34px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius:
+        5px 11px 5px 11px;
+
+      color: #ffffff;
+      background: var(--coal);
+
+      font-size: 10px;
+      font-weight: 1000;
+    }
+
+    .check-item h4 {
+      margin:
+        11px 0 0;
+
+      font-size: 15px;
+      letter-spacing: -0.035em;
+    }
+
+    .check-item p {
+      margin:
+        7px 0 0;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      line-height: 1.6;
+      font-weight: 730;
+    }
+
+    .status-box {
+      margin-top: 16px;
+
+      padding:
+        16px 18px;
+
+      border:
+        1px solid rgba(65, 133, 101, 0.20);
+
+      border-left:
+        8px solid var(--green);
+
+      border-radius:
+        0 14px 14px 0;
+
+      color: #32664f;
+      background: var(--green-soft);
+
+      font-size: 12px;
+      line-height: 1.76;
+      font-weight: 820;
+    }
+
+    .status-box.warn {
+      color: #745d2d;
+
+      border-color:
+        rgba(221, 182, 72, 0.27);
+
+      border-left-color: var(--gold);
+
+      background: var(--gold-soft);
+    }
+
+    .status-box.danger {
+      color: #87464f;
+
+      border-color:
+        rgba(201, 84, 95, 0.20);
+
+      border-left-color: var(--red);
+
+      background: var(--red-soft);
+    }
+
+    .result-actions {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 11px;
+
+      margin-top: 16px;
+    }
+
+    .utility-btn {
+      min-height: 50px;
+
+      border:
+        1px solid rgba(40, 38, 33, 0.14);
+
+      border-radius: 10px;
+
+      color: #625e54;
+      background: #ffffff;
+
+      font-weight: 900;
+    }
+
+    .guide-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 15px;
+    }
+
+    .guide-card {
+      padding: 22px;
+
+      border:
+        1px solid rgba(40, 38, 33, 0.10);
+
+      border-radius:
+        10px 21px 10px 21px;
+
+      background: #ffffff;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .guide-card:nth-child(1) {
+      border-top:
+        7px solid var(--moss);
+    }
+
+    .guide-card:nth-child(2) {
+      border-top:
+        7px solid var(--sky);
+    }
+
+    .guide-card:nth-child(3) {
+      border-top:
+        7px solid var(--clay);
+    }
+
+    .guide-card h3 {
+      margin: 0;
+
+      font-size: 18px;
+      letter-spacing: -0.035em;
+    }
+
+    .guide-card p {
+      margin:
+        9px 0 0;
+
+      color: var(--muted);
+
+      font-size: 12px;
+      line-height: 1.78;
+      font-weight: 730;
+    }
+
+    .guide-card a {
+      color: var(--moss-dark);
+
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .related-tools {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 11px;
+
+      margin-top: 16px;
+    }
+
+    .related-tool {
+      padding: 17px;
+
+      border:
+        1px solid rgba(40, 38, 33, 0.10);
+
+      border-radius: 14px;
+
+      background:
+        linear-gradient(
+          145deg,
+          var(--moss-soft),
+          #ffffff
+        );
+
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .related-tool:nth-child(2) {
+      background:
+        linear-gradient(
+          145deg,
+          var(--sky-soft),
+          #ffffff
+        );
+    }
+
+    .related-tool span {
+      display: block;
+      margin-top: 4px;
+
+      color: var(--muted);
+
+      font-size: 8px;
+      font-weight: 730;
+    }
+
+    .faq {
+      display: grid;
+      gap: 10px;
+
+      margin-top: 18px;
+    }
+
+    details {
+      padding:
+        0 18px;
+
+      border:
+        1px solid rgba(40, 38, 33, 0.09);
+
+      border-radius:
+        8px 16px 8px 16px;
+
+      background: #ffffff;
+
+      box-shadow:
+        0 8px 23px rgba(40, 38, 33, 0.05);
+    }
+
+    summary {
+      padding:
+        16px 0;
+
+      cursor: pointer;
+
+      font-size: 13px;
+      font-weight: 900;
+
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details p {
+      margin: 0;
+
+      padding:
+        0 0 16px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+      line-height: 1.75;
+      font-weight: 730;
+    }
+
+    footer {
+      padding:
+        32px 0 40px;
+    }
+
+    .footer-card {
+      padding: 23px;
+
+      border-radius:
+        10px 22px 10px 22px;
+
+      color:
+        rgba(255, 255, 255, 0.76);
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--coal),
+          var(--coal-2) 72%,
+          var(--moss-dark)
+        );
+    }
+
+    .footer-card strong {
+      display: block;
+
+      color: #ffffff;
+
+      font-size: 16px;
+    }
+
+    .footer-card p {
+      max-width: 980px;
+
+      margin:
+        8px 0 0;
+
+      font-size: 11px;
+      line-height: 1.75;
+      font-weight: 720;
+    }
+
+    @media print {
+      .header,
+      .hero,
+      #calculator,
+      #guide,
+      footer,
+      .result-actions {
+        display: none !important;
+      }
+
+      body {
+        background: #ffffff;
+      }
+
+      .results {
+        padding: 0;
+      }
+
+      .result-content {
+        display: block !important;
+      }
+
+      .decision-banner,
+      .result-card,
+      .matrix-panel,
+      .timeline-panel,
+      .coverage-panel,
+      .refund-panel,
+      .checklist-panel,
+      .status-box {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+    }
+
+    @media (max-width: 1100px) {
+      .field-grid,
+      .field-grid.five,
+      .assumption-strip,
+      .preview-strip,
+      .refund-grid,
+      .checklist-grid {
+        grid-template-columns:
+          1fr 1fr;
+      }
+
+      .scenario-inputs,
+      .result-card-grid {
+        grid-template-columns:
+          1fr 1fr;
+      }
+
+      .scenario-sheet:last-child,
+      .result-card:last-child {
+        grid-column:
+          1 / -1;
+      }
+
+      .guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 850px) {
+      .decision-stubs {
+        grid-template-columns: 1fr;
+      }
+
+      .coverage-grid {
+        grid-template-columns:
+          1fr 1fr;
+      }
+
+      .coverage-card:last-child {
+        grid-column:
+          1 / -1;
+      }
+
+      .timeline-row {
+        grid-template-columns:
+          105px minmax(0, 1fr);
+      }
+
+      .timeline-result {
+        grid-column: 2;
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .header-inner {
+        min-height: auto;
+
+        padding:
+          13px 0;
+
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav {
+        justify-content: flex-start;
+      }
+
+      .wrap {
+        width:
+          min(
+            var(--max),
+            calc(100% - 20px)
+          );
+      }
+
+      .hero {
+        padding-top: 24px;
+      }
+
+      .policy-hero {
+        padding:
+          40px 21px 28px;
+
+        box-shadow:
+          8px 8px 0 rgba(40, 38, 33, 0.09),
+          var(--shadow-soft);
+      }
+
+      h1 {
+        font-size: 39px;
+        line-height: 1.105;
+        letter-spacing: -0.056em;
+      }
+
+      .field-grid,
+      .field-grid.five,
+      .scenario-inputs,
+      .assumption-strip,
+      .preview-strip,
+      .decision-banner,
+      .result-card-grid,
+      .coverage-grid,
+      .refund-grid,
+      .checklist-grid,
+      .related-tools,
+      .result-actions {
+        grid-template-columns: 1fr;
+      }
+
+      .scenario-sheet:last-child,
+      .result-card:last-child,
+      .coverage-card:last-child {
+        grid-column: auto;
+      }
+
+      .decision-ticket {
+        width: 100%;
+        text-align: left;
+      }
+
+      .shell-head,
+      .section-head,
+      .panel-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .action-row {
+        grid-template-columns: 1fr;
+      }
+
+      .policy-hero,
+      .tool-shell,
+      .contract-base,
+      .scenario-sheet,
+      .decision-banner,
+      .result-card,
+      .matrix-panel,
+      .timeline-panel,
+      .coverage-panel,
+      .refund-panel,
+      .checklist-panel,
+      .guide-card,
+      .footer-card {
+        border-radius: 16px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior:
+          auto !important;
+
+        transition-duration:
+          0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <div class="wrap header-inner">
+      <a
+        class="brand"
+        href="https://barohaegyeol-tools.pages.dev/"
+        aria-label="바로해결툴즈 홈"
+      >
+        <div class="brand-mark">
+          B
+        </div>
+
+        <div>
+          바로해결툴즈
+
+          <small>
+            보험 유지 · 감액 · 해지 후 재가입 손익비교
+          </small>
+        </div>
+      </a>
+
+      <nav
+        class="nav"
+        aria-label="페이지 메뉴"
+      >
+        <a href="#calculator">
+          계약조건 입력
+        </a>
+
+        <a href="#results">
+          손익분기 분석
+        </a>
+
+        <a href="#guide">
+          해지 전 점검
+        </a>
+
+        <a href="https://barohaegyeol-tools.pages.dev/">
+          전체 도구
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="policy-hero">
+          <div class="hero-copy">
+            <div class="hero-chips">
+              <span class="hero-chip primary">
+                ● 이미 낸 보험료가 아니라 오늘 이후의 선택을 비교
+              </span>
+
+              <span class="hero-chip">
+                보험료 · 환급금 · 보장유지율 · 재가입 비용 · 손익교차
+              </span>
+            </div>
+
+            <h1>
+              <span class="title-line">
+                보험료가 부담된다고
+                <span class="title-clay">바로 해지하기 전에,</span>
+              </span>
+
+              <span class="title-line">
+                <span class="title-moss">유지·감액·재가입</span>
+                중 무엇이 유리할까?
+              </span>
+            </h1>
+
+            <p>
+              현재 보험의 남은 보험료와 해약환급금,
+              감액 후 보험료·보장금액,
+              해지 후 재가입 예상조건을 입력하면
+              <strong>
+                비교기간의 총 현금부담, 현재가치 순포지션,
+                보장유지율과 손익이 교차하는 시점
+              </strong>
+              을 계산합니다.
+            </p>
+
+            <div class="hero-actions">
+              <a
+                class="btn btn-primary"
+                href="#calculator"
+              >
+                세 가지 선택 비교하기
+              </a>
+
+              <a
+                class="btn btn-secondary"
+                href="#guide"
+              >
+                해지 전 확인사항
+              </a>
+            </div>
+          </div>
+
+          <div class="decision-stubs">
+            <article class="decision-stub keep">
+              <span>
+                KEEP POLICY
+              </span>
+
+              <strong>
+                기존 계약 유지
+              </strong>
+
+              <small>
+                기존 보장과 면책 경과기간을 유지하고 남은 보험료를 납입
+              </small>
+            </article>
+
+            <article class="decision-stub reduce">
+              <span>
+                REDUCE COVERAGE
+              </span>
+
+              <strong>
+                보장금액 감액
+              </strong>
+
+              <small>
+                일부 보장을 줄여 보험료 부담을 낮추고 필요한 핵심보장은 유지
+              </small>
+            </article>
+
+            <article class="decision-stub surrender">
+              <span>
+                SURRENDER & REPLACE
+              </span>
+
+              <strong>
+                해지 후 재가입
+              </strong>
+
+              <small>
+                해약환급금을 받고 새 계약의 보험료·심사·대기기간을 다시 적용
+              </small>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="section"
+      id="calculator"
+    >
+      <div class="wrap">
+        <div class="tool-shell">
+          <div class="shell-head">
+            <div>
+              <h2>
+                보험계약 선택 비교서
+              </h2>
+
+              <p>
+                보험증권과 보험사 앱에서 실제 보험료·환급금·가입금액을 확인해 입력하세요.
+              </p>
+            </div>
+
+            <div class="shell-badge">
+              TODAY → CASH FLOW → COVERAGE → BREAK-EVEN
+            </div>
+          </div>
+
+          <div class="calculator-body">
+            <form id="calculatorForm">
+              <section class="contract-base">
+                <div class="section-head">
+                  <div>
+                    <span>
+                      CURRENT CONTRACT
+                    </span>
+
+                    <h3>
+                      현재 보험계약 기본정보
+                    </h3>
+
+                    <p>
+                      이미 낸 보험료는 환급률 확인에만 사용하며 앞으로의 의사결정 비용에는 다시 더하지 않습니다.
+                    </p>
+                  </div>
+
+                  <div class="section-code">
+                    BASE
+                  </div>
+                </div>
+
+                <div class="field-grid five">
+                  <div class="field">
+                    <label for="paidToDate">
+                      지금까지 납입한 총보험료
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="paidToDate"
+                        type="number"
+                        inputmode="decimal"
+                        min="0"
+                        max="1000000"
+                        step="10"
+                        value="2400"
+                      >
+
+                      <span class="unit">
+                        만원
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="currentPremium">
+                      현재 월 보험료
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="currentPremium"
+                        type="number"
+                        inputmode="decimal"
+                        min="0"
+                        max="10000"
+                        step="0.1"
+                        value="20"
+                        required
+                      >
+
+                      <span class="unit">
+                        만원
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="remainingMonths">
+                      남은 보험료 납입기간
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="remainingMonths"
+                        type="number"
+                        inputmode="numeric"
+                        min="0"
+                        max="600"
+                        step="1"
+                        value="120"
+                        required
+                      >
+
+                      <span class="unit">
+                        개월
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="currentSurrender">
+                      현재 해약환급금
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="currentSurrender"
+                        type="number"
+                        inputmode="decimal"
+                        min="0"
+                        max="1000000"
+                        step="10"
+                        value="1500"
+                        required
+                      >
+
+                      <span class="unit">
+                        만원
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="currentCoverage">
+                      현재 핵심 보장금액
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="currentCoverage"
+                        type="number"
+                        inputmode="decimal"
+                        min="0"
+                        max="1000000"
+                        step="100"
+                        value="10000"
+                        required
+                      >
+
+                      <span class="unit">
+                        만원
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <div class="scenario-inputs">
+                <section class="scenario-sheet keep">
+                  <div class="scenario-head">
+                    <div class="scenario-icon">
+                      KEEP
+                    </div>
+
+                    <div>
+                      <span>
+                        OPTION A
+                      </span>
+
+                      <h3>
+                        기존 보험 유지
+                      </h3>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="maintainEndValue">
+                      비교기간 종료 예상환급금
+
+                      <small>
+                        보험사 예상 해약환급금표 기준
+                      </small>
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="maintainEndValue"
+                        type="number"
+                        inputmode="decimal"
+                        min="0"
+                        max="1000000"
+                        step="10"
+                        value="3000"
+                      >
+
+                      <span class="unit">
+                        만원
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="maintainCoverage">
+                      비교기간 유지 보장금액
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="maintainCoverage"
+                        type="number"
+                        inputmode="decimal"
+                        min="0"
+                        max="1000000"
+                        step="100"
+                        value="10000"
+                      >
+
+                      <span class="unit">
+                        만원
+                      </span>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="scenario-sheet reduce">
+                  <div class="scenario-head">
+                    <div class="scenario-icon">
+                      CUT
+                    </div>
+
+                    <div>
+                      <span>
+                        OPTION B
+                      </span>
+
+                      <h3>
+                        보장 감액
+                      </h3>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="reducedPremium">
+                      감액 후 월 보험료
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="reducedPremium"
+                        type="number"
+                        inputmode="decimal"
+                        min="0"
+                        max="10000"
+                        step="0.1"
+                        value="12"
+                      >
+
+                      <span class="unit">
+                        만원
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="reducedCoverage">
+                      감액 후 보장금액
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="reducedCoverage"
+                        type="number"
+                        inputmode="decimal"
+                        min="0"
+                        max="1000000"
+                        step="100"
+                        value="6000"
+                      >
+
+                      <span class="unit">
+                        만원
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="reductionRefund">
+                      감액 시 즉시 받는 환급금
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="reductionRefund"
+                        type="number"
+                        inputmode="decimal"
+                        min="0"
+                        max="1000000"
+                        step="10"
+                        value="500"
+                      >
+
+                      <span class="unit">
+                        만원
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="reducedEndValue">
+                      비교기간 종료 예상환급금
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="reducedEndValue"
+                        type="number"
+                        inputmode="decimal"
+                        min="0"
+                        max="1000000"
+                        step="10"
+                        value="1700"
+                      >
+
+                      <span class="unit">
+                        만원
+                      </span>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="scenario-sheet surrender">
+                  <div class="scenario-head">
+                    <div class="scenario-icon">
+                      EXIT
+                    </div>
+
+                    <div>
+                      <span>
+                        OPTION C
+                      </span>
+
+                      <h3>
+                        해지 후 재가입
+                      </h3>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="replacementPremium">
+                      신규 보험 월 보험료
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="replacementPremium"
+                        type="number"
+                        inputmode="decimal"
+                        min="0"
+                        max="10000"
+                        step="0.1"
+                        value="14"
+                      >
+
+                      <span class="unit">
+                        만원
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="replacementPayMonths">
+                      신규 보험 납입기간
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="replacementPayMonths"
+                        type="number"
+                        inputmode="numeric"
+                        min="0"
+                        max="600"
+                        step="1"
+                        value="120"
+                      >
+
+                      <span class="unit">
+                        개월
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="replacementCoverage">
+                      신규 보험 보장금액
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="replacementCoverage"
+                        type="number"
+                        inputmode="decimal"
+                        min="0"
+                        max="1000000"
+                        step="100"
+                        value="8000"
+                      >
+
+                      <span class="unit">
+                        만원
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="replacementUpfront">
+                      재가입 초기비용
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="replacementUpfront"
+                        type="number"
+                        inputmode="decimal"
+                        min="0"
+                        max="100000"
+                        step="1"
+                        value="0"
+                      >
+
+                      <span class="unit">
+                        만원
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="replacementEndValue">
+                      신규 계약 종료 예상환급금
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="replacementEndValue"
+                        type="number"
+                        inputmode="decimal"
+                        min="0"
+                        max="1000000"
+                        step="10"
+                        value="800"
+                      >
+
+                      <span class="unit">
+                        만원
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="waitingMonths">
+                      신규 보장 대기·감액기간
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="waitingMonths"
+                        type="number"
+                        inputmode="numeric"
+                        min="0"
+                        max="60"
+                        step="1"
+                        value="3"
+                      >
+
+                      <span class="unit">
+                        개월
+                      </span>
+                    </div>
+                  </div>
+                </section>
+              </div>
+
+              <section class="assumption-strip">
+                <div class="field">
+                  <label for="horizonMonths">
+                    비교 분석기간
+                  </label>
+
+                  <div class="input-wrap">
+                    <input
+                      id="horizonMonths"
+                      type="number"
+                      inputmode="numeric"
+                      min="12"
+                      max="600"
+                      step="12"
+                      value="120"
+                      required
+                    >
+
+                    <span class="unit">
+                      개월
+                    </span>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="annualRate">
+                    환급금·보험료 기회수익률
+                  </label>
+
+                  <div class="input-wrap">
+                    <input
+                      id="annualRate"
+                      type="number"
+                      inputmode="decimal"
+                      min="-10"
+                      max="20"
+                      step="0.1"
+                      value="3"
+                    >
+
+                    <span class="unit">
+                      %
+                    </span>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="neededCoverage">
+                    최소 필요 보장금액
+                  </label>
+
+                  <div class="input-wrap">
+                    <input
+                      id="neededCoverage"
+                      type="number"
+                      inputmode="decimal"
+                      min="0"
+                      max="1000000"
+                      step="100"
+                      value="7000"
+                    >
+
+                    <span class="unit">
+                      만원
+                    </span>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="decisionPriority">
+                    의사결정 우선순위
+                  </label>
+
+                  <select id="decisionPriority">
+                    <option value="balanced" selected>
+                      보장 충족 후 경제성
+                    </option>
+
+                    <option value="coverage">
+                      보장금액 최우선
+                    </option>
+
+                    <option value="cashflow">
+                      월 보험료 절감 최우선
+                    </option>
+
+                    <option value="financial">
+                      현재가치 경제성 최우선
+                    </option>
+                  </select>
+                </div>
+              </section>
+
+              <div class="preview-strip">
+                <article class="preview-cell">
+                  <span>
+                    현재 환급률
+                  </span>
+
+                  <strong id="refundRatePreview">
+                    -
+                  </strong>
+                </article>
+
+                <article class="preview-cell">
+                  <span>
+                    유지 시 남은 총보험료
+                  </span>
+
+                  <strong id="remainingPremiumPreview">
+                    -
+                  </strong>
+                </article>
+
+                <article class="preview-cell">
+                  <span>
+                    감액 월 절감액
+                  </span>
+
+                  <strong id="reductionSavingPreview">
+                    -
+                  </strong>
+                </article>
+
+                <article class="preview-cell">
+                  <span>
+                    재가입 월 절감액
+                  </span>
+
+                  <strong id="replacementSavingPreview">
+                    -
+                  </strong>
+                </article>
+              </div>
+
+              <div class="action-row">
+                <button
+                  class="calculate-btn"
+                  type="submit"
+                >
+                  유지·감액·해지 손익분기 계산하기
+                </button>
+
+                <button
+                  class="reset-btn"
+                  type="button"
+                  id="resetBtn"
+                >
+                  입력값 초기화
+                </button>
+              </div>
+            </form>
+
+            <div class="notice">
+              이 계산기는 보험상품 추천이나 기존 계약 해지 권유가 아닙니다.
+              실제 감액 가능 여부, 감액 후 환급금, 감액완납·연장정기 전환,
+              보험계약대출, 납입유예와 신규계약 승인 여부는 상품과 보험회사마다 다릅니다.
+              신규계약이 정상 승인되고 보장이 개시되기 전에 기존 계약부터 해지하면
+              보장 공백이 발생할 수 있습니다.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="results"
+      id="results"
+    >
+      <div class="wrap">
+        <div
+          class="result-empty"
+          id="resultEmpty"
+        >
+          기존 보험과 감액·재가입 조건을 입력하면<br>
+          비교기간의 총보험료·환급금·보장유지율과 손익교차 시점이 표시됩니다.
+        </div>
+
+        <div
+          class="result-content"
+          id="resultContent"
+        >
+          <section class="decision-banner">
+            <div class="decision-copy">
+              <span>
+                CONDITIONAL DECISION RESULT
+              </span>
+
+              <h2 id="resultTitle">
+                현재 조건의 비교 우세안은 <b>-</b>입니다
+              </h2>
+
+              <p id="resultMessage">
+                -
+              </p>
+            </div>
+
+            <div class="decision-ticket">
+              <span>
+                최소 필요보장 충족 여부
+              </span>
+
+              <strong id="eligibleCountResult">
+                -
+              </strong>
+
+              <small id="eligibleDetailResult">
+                -
+              </small>
+            </div>
+          </section>
+
+          <div
+            class="result-card-grid"
+            id="resultCardGrid"
+          ></div>
+
+          <section class="matrix-panel">
+            <div class="panel-head">
+              <div>
+                <h3>
+                  세 가지 선택의 경제성 비교표
+                </h3>
+
+                <p>
+                  보험료·즉시환급금·종료환급금과 기회수익률을 반영한 결과입니다.
+                </p>
+              </div>
+
+              <span id="matrixSummary">
+                -
+              </span>
+            </div>
+
+            <div class="matrix-wrap">
+              <div class="matrix-row head">
+                <div>
+                  비교항목
+                </div>
+
+                <div>
+                  기존 유지
+                </div>
+
+                <div>
+                  보장 감액
+                </div>
+
+                <div>
+                  해지 후 재가입
+                </div>
+              </div>
+
+              <div id="matrixRows"></div>
+            </div>
+          </section>
+
+          <section class="timeline-panel">
+            <div class="panel-head">
+              <div>
+                <h3>
+                  유지 대비 손익교차 타임라인
+                </h3>
+
+                <p>
+                  환급금과 보험료를 동일 수익률로 운용한다고 가정한 순금융포지션 비교입니다.
+                </p>
+              </div>
+
+              <span id="timelineSummary">
+                -
+              </span>
+            </div>
+
+            <div
+              class="timeline-chart"
+              id="timelineChart"
+            ></div>
+          </section>
+
+          <section class="coverage-panel">
+            <div class="panel-head">
+              <div>
+                <h3>
+                  보장유지율과 최소 필요보장 충족
+                </h3>
+
+                <p>
+                  보험료가 저렴해도 필요한 보장금액을 충족하지 못하면 같은 대안으로 볼 수 없습니다.
+                </p>
+              </div>
+
+              <span id="coverageSummary">
+                -
+              </span>
+            </div>
+
+            <div class="coverage-grid">
+              <article class="coverage-card">
+                <span>
+                  기존 유지 보장충족률
+                </span>
+
+                <strong id="keepCoverageResult">
+                  -
+                </strong>
+
+                <small id="keepCoverageDetail">
+                  -
+                </small>
+              </article>
+
+              <article class="coverage-card">
+                <span>
+                  감액 후 보장충족률
+                </span>
+
+                <strong id="reduceCoverageResult">
+                  -
+                </strong>
+
+                <small id="reduceCoverageDetail">
+                  -
+                </small>
+              </article>
+
+              <article class="coverage-card">
+                <span>
+                  재가입 후 보장충족률
+                </span>
+
+                <strong id="surrenderCoverageResult">
+                  -
+                </strong>
+
+                <small id="surrenderCoverageDetail">
+                  -
+                </small>
+              </article>
+            </div>
+          </section>
+
+          <section class="refund-panel">
+            <div class="panel-head">
+              <div>
+                <h3>
+                  과거 납입액과 현재 환급금 점검
+                </h3>
+
+                <p>
+                  과거 납입액은 손실 확인용이며 앞으로의 선택은 오늘 이후 현금흐름으로 비교합니다.
+                </p>
+              </div>
+
+              <span id="refundSummary">
+                -
+              </span>
+            </div>
+
+            <div class="refund-grid">
+              <article class="refund-card">
+                <span>
+                  누적 납입보험료
+                </span>
+
+                <strong id="paidTotalResult">
+                  -
+                </strong>
+
+                <small>
+                  지금까지 실제 납입한 금액
+                </small>
+              </article>
+
+              <article class="refund-card">
+                <span>
+                  현재 해약환급금
+                </span>
+
+                <strong id="currentRefundResult">
+                  -
+                </strong>
+
+                <small>
+                  오늘 해지할 때 입력한 예상 수령액
+                </small>
+              </article>
+
+              <article class="refund-card">
+                <span>
+                  현재 환급률
+                </span>
+
+                <strong id="refundRatioResult">
+                  -
+                </strong>
+
+                <small>
+                  해약환급금 ÷ 누적 납입보험료
+                </small>
+              </article>
+
+              <article class="refund-card">
+                <span>
+                  과거 납입액과 환급금 차이
+                </span>
+
+                <strong id="pastGapResult">
+                  -
+                </strong>
+
+                <small>
+                  앞으로의 유지 여부와 별도로 확인할 과거 손익
+                </small>
+              </article>
+            </div>
+          </section>
+
+          <section class="checklist-panel">
+            <div class="panel-head">
+              <div>
+                <h3>
+                  실행 전 필수 확인순서
+                </h3>
+
+                <p>
+                  계산 결과보다 먼저 보험회사에서 확인해야 하는 계약조건입니다.
+                </p>
+              </div>
+
+              <span>
+                VERIFY BEFORE SURRENDER
+              </span>
+            </div>
+
+            <div class="checklist-grid">
+              <article class="check-item">
+                <div class="check-number">
+                  01
+                </div>
+
+                <h4>
+                  정확한 감액 견적 요청
+                </h4>
+
+                <p>
+                  감액 후 보험료·가입금액·해약환급금·특약 소멸범위를 보험회사에서 서면으로 확인합니다.
+                </p>
+              </article>
+
+              <article class="check-item">
+                <div class="check-number">
+                  02
+                </div>
+
+                <h4>
+                  신규계약 승인 먼저 확인
+                </h4>
+
+                <p>
+                  건강심사와 부담보·할증·면책조건을 확인하고 정상 승인 전에는 기존 계약을 해지하지 않습니다.
+                </p>
+              </article>
+
+              <article class="check-item">
+                <div class="check-number">
+                  03
+                </div>
+
+                <h4>
+                  오래된 보장조건 비교
+                </h4>
+
+                <p>
+                  보험기간, 갱신 여부, 자기부담금, 진단기준과 현재 판매상품의 조건을 특약별로 비교합니다.
+                </p>
+              </article>
+
+              <article class="check-item">
+                <div class="check-number">
+                  04
+                </div>
+
+                <h4>
+                  유지제도 가능 여부 확인
+                </h4>
+
+                <p>
+                  납입유예, 감액완납, 연장정기, 중도인출과 보험계약대출 가능 여부와 비용을 확인합니다.
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <div
+            class="status-box"
+            id="statusBox"
+          >
+            -
+          </div>
+
+          <div class="result-actions">
+            <button
+              class="utility-btn"
+              type="button"
+              id="copyBtn"
+            >
+              결과 복사
+            </button>
+
+            <button
+              class="utility-btn"
+              type="button"
+              id="printBtn"
+            >
+              인쇄·PDF 저장
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="section"
+      id="guide"
+    >
+      <div class="wrap">
+        <div class="guide-grid">
+          <article class="guide-card">
+            <h3>
+              감액은 보험료와 보장이 함께 감소
+            </h3>
+
+            <p>
+              주계약 또는 특약의 일부를 줄이면 보험료 부담을 낮출 수 있지만
+              줄인 부분은 계약에서 제외되며 다시 증액하기 어려울 수 있습니다.
+              감액 시 환급금과 소멸되는 특약을 반드시 확인해야 합니다.
+
+              <a
+                href="https://edu.knia.or.kr/edu/knowledge1.do"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                손해보험협회 보험상식
+              </a>
+            </p>
+          </article>
+
+          <article class="guide-card">
+            <h3>
+              해지는 보장까지 종료
+            </h3>
+
+            <p>
+              해약환급금을 받으면 기존 계약의 보장도 종료됩니다.
+              다시 가입할 때에는 연령과 건강상태, 상품 변경에 따라
+              보험료와 인수조건이 달라질 수 있으므로 신규계약 확정 전에 해지하면 안 됩니다.
+
+              <a
+                href="https://cont.insure.or.kr/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                내보험찾아줌 계약조회
+              </a>
+            </p>
+          </article>
+
+          <article class="guide-card">
+            <h3>
+              환급률만으로 결정하지 않기
+            </h3>
+
+            <p>
+              현재 환급률은 과거 납입액의 회수 정도를 보여줄 뿐입니다.
+              앞으로의 선택은 남은 보험료, 보장기간, 보장금액,
+              종료환급금과 재가입 조건을 함께 비교해야 합니다.
+
+              <a
+                href="https://e-insmarket.or.kr/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                보험다모아 비교
+              </a>
+            </p>
+          </article>
+        </div>
+
+        <div class="related-tools">
+          <a
+            class="related-tool"
+            href="https://barohaegyeol-tools.pages.dev/insurance-coverage-gap-calculator/"
+          >
+            보험 필요보장액·가족 생계공백 계산기
+
+            <span>
+              유지해야 할 최소 사망·질병·장애 보장금액을 먼저 계산
+            </span>
+          </a>
+
+          <a
+            class="related-tool"
+            href="https://barohaegyeol-tools.pages.dev/multi-debt-payoff-optimizer/"
+          >
+            다중부채 상환 최적화 계산기
+
+            <span>
+              보험료 부담의 원인이 부채라면 해지 전 상환구조부터 비교
+            </span>
+          </a>
+        </div>
+
+        <div class="faq">
+          <details>
+            <summary>
+              지금까지 낸 보험료가 아까워서 무조건 유지해야 하나요?
+            </summary>
+
+            <p>
+              이미 낸 보험료는 되돌릴 수 없는 과거 현금흐름입니다.
+              유지 여부는 현재부터 낼 보험료와 유지되는 보장,
+              앞으로 받을 환급금과 다른 대안의 조건을 기준으로 비교해야 합니다.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              감액하면 기존 계약의 가입일과 면책기간이 유지되나요?
+            </summary>
+
+            <p>
+              남아 있는 계약부분은 일반적으로 기존 계약을 기반으로 하지만
+              감액되는 담보와 환급금 처리방식은 상품 약관마다 다릅니다.
+              보험회사에 감액 후 보장내역을 직접 요청해야 합니다.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              해지 후 더 저렴한 보험에 가입하면 무조건 이익인가요?
+            </summary>
+
+            <p>
+              월 보험료가 낮아도 보장금액·보험기간·갱신조건·자기부담금이 다르거나
+              건강상태로 할증·부담보가 적용되면 같은 보험으로 비교할 수 없습니다.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              손익분기 시점은 정확한 날짜인가요?
+            </summary>
+
+            <p>
+              입력한 환급금이 비교기간 동안 일정한 속도로 증가하고
+              보험료 차액을 동일 수익률로 운용한다는 단순 가정의 추정치입니다.
+              실제 환급금표를 확보하면 더 정확하게 비교할 수 있습니다.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-card">
+        <strong>
+          바로해결툴즈
+        </strong>
+
+        <p>
+          본 결과는 사용자가 입력한 보험료, 환급금, 보장금액,
+          비교기간과 기회수익률을 이용한 재무 시뮬레이션입니다.
+          보험상품 추천, 신규계약 승인, 감액 가능 여부, 실제 환급금과 보험금 지급을 보장하지 않습니다.
+          기존 계약을 변경하기 전 보험회사에서 정확한 변경설계서와 약관을 확인하세요.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    "use strict";
+
+    const STORAGE_KEY =
+      "insuranceKeepReduceSurrenderCalculator";
+
+    const $ =
+      (id) =>
+        document.getElementById(
+          id
+        );
+
+    const form =
+      $("calculatorForm");
+
+    const inputs = {
+      paidToDate:
+        $("paidToDate"),
+
+      currentPremium:
+        $("currentPremium"),
+
+      remainingMonths:
+        $("remainingMonths"),
+
+      currentSurrender:
+        $("currentSurrender"),
+
+      currentCoverage:
+        $("currentCoverage"),
+
+      maintainEndValue:
+        $("maintainEndValue"),
+
+      maintainCoverage:
+        $("maintainCoverage"),
+
+      reducedPremium:
+        $("reducedPremium"),
+
+      reducedCoverage:
+        $("reducedCoverage"),
+
+      reductionRefund:
+        $("reductionRefund"),
+
+      reducedEndValue:
+        $("reducedEndValue"),
+
+      replacementPremium:
+        $("replacementPremium"),
+
+      replacementPayMonths:
+        $("replacementPayMonths"),
+
+      replacementCoverage:
+        $("replacementCoverage"),
+
+      replacementUpfront:
+        $("replacementUpfront"),
+
+      replacementEndValue:
+        $("replacementEndValue"),
+
+      waitingMonths:
+        $("waitingMonths"),
+
+      horizonMonths:
+        $("horizonMonths"),
+
+      annualRate:
+        $("annualRate"),
+
+      neededCoverage:
+        $("neededCoverage"),
+
+      decisionPriority:
+        $("decisionPriority")
+    };
+
+    const routeNames = {
+      keep:
+        "기존 보험 유지",
+
+      reduce:
+        "보장 감액",
+
+      surrender:
+        "해지 후 재가입"
+    };
+
+    let lastResultText =
+      "";
+
+    let latestResult =
+      null;
+
+    function numberValue(
+      input
+    ) {
+      const value =
+        input.value.trim();
+
+      return value ===
+        ""
+        ? 0
+        : Number(
+            value
+          );
+    }
+
+    function formatMoney(
+      value,
+      digits = 0
+    ) {
+      if (
+        !Number.isFinite(
+          value
+        )
+      ) {
+        return "계산 불가";
+      }
+
+      const absolute =
+        Math.abs(
+          value
+        );
+
+      const sign =
+        value <
+        0
+          ? "-"
+          : "";
+
+      if (
+        absolute >=
+        10000
+      ) {
+        const eok =
+          absolute /
+          10000;
+
+        return (
+          `${sign}${eok.toLocaleString(
+            "ko-KR",
+            {
+              minimumFractionDigits:
+                eok <
+                10
+                  ? Math.min(
+                      digits,
+                      2
+                    )
+                  : 0,
+
+              maximumFractionDigits:
+                eok <
+                10
+                  ? 2
+                  : 1
+            }
+          )}억원`
+        );
+      }
+
+      return (
+        `${sign}${absolute.toLocaleString(
+          "ko-KR",
+          {
+            minimumFractionDigits:
+              digits,
+
+            maximumFractionDigits:
+              digits
+          }
+        )}만원`
+      );
+    }
+
+    function formatPercent(
+      value,
+      digits = 1
+    ) {
+      if (
+        !Number.isFinite(
+          value
+        )
+      ) {
+        return "-";
+      }
+
+      return (
+        `${value.toFixed(
+          digits
+        )}%`
+      );
+    }
+
+    function formatSignedMoney(
+      value
+    ) {
+      const sign =
+        value >
+        0
+          ? "+"
+          : value <
+            0
+            ? "-"
+            : "";
+
+      return (
+        `${sign}${formatMoney(Math.abs(value), 1)}`
+      );
+    }
+
+    function formatMonths(
+      months
+    ) {
+      if (
+        !Number.isFinite(
+          months
+        )
+      ) {
+        return "교차 없음";
+      }
+
+      if (
+        months <=
+        0
+      ) {
+        return "현재 시점";
+      }
+
+      const years =
+        Math.floor(
+          months /
+          12
+        );
+
+      const remainder =
+        Math.round(
+          months %
+          12
+        );
+
+      if (
+        years ===
+        0
+      ) {
+        return (
+          `${remainder}개월`
+        );
+      }
+
+      if (
+        remainder ===
+        0
+      ) {
+        return (
+          `${years}년`
+        );
+      }
+
+      return (
+        `${years}년 ${remainder}개월`
+      );
+    }
+
+    function monthlyRate(
+      annualPercent
+    ) {
+      return (
+        Math.pow(
+          1 +
+          annualPercent /
+          100,
+          1 /
+          12
+        ) -
+        1
+      );
+    }
+
+    function pvPayments(
+      payment,
+      paymentMonths,
+      monthlyReturn
+    ) {
+      if (
+        payment <=
+          0 ||
+        paymentMonths <=
+          0
+      ) {
+        return 0;
+      }
+
+      if (
+        Math.abs(
+          monthlyReturn
+        ) <
+        0.0000001
+      ) {
+        return (
+          payment *
+          paymentMonths
+        );
+      }
+
+      return (
+        payment *
+        (
+          1 -
+          Math.pow(
+            1 +
+            monthlyReturn,
+            -paymentMonths
+          )
+        ) /
+        monthlyReturn
+      );
+    }
+
+    function fvPaymentsAtHorizon(
+      payment,
+      paymentMonths,
+      horizonMonths,
+      monthlyReturn
+    ) {
+      if (
+        payment <=
+          0 ||
+        paymentMonths <=
+          0
+      ) {
+        return 0;
+      }
+
+      let value;
+
+      if (
+        Math.abs(
+          monthlyReturn
+        ) <
+        0.0000001
+      ) {
+        value =
+          payment *
+          paymentMonths;
+      } else {
+        value =
+          payment *
+          (
+            Math.pow(
+              1 +
+              monthlyReturn,
+              paymentMonths
+            ) -
+            1
+          ) /
+          monthlyReturn;
+      }
+
+      const remaining =
+        Math.max(
+          0,
+          horizonMonths -
+          paymentMonths
+        );
+
+      return (
+        value *
+        Math.pow(
+          1 +
+          monthlyReturn,
+          remaining
+        )
+      );
+    }
+
+    function getValues() {
+      const values = {
+        paidToDate:
+          numberValue(
+            inputs.paidToDate
+          ),
+
+        currentPremium:
+          numberValue(
+            inputs.currentPremium
+          ),
+
+        remainingMonths:
+          numberValue(
+            inputs.remainingMonths
+          ),
+
+        currentSurrender:
+          numberValue(
+            inputs.currentSurrender
+          ),
+
+        currentCoverage:
+          numberValue(
+            inputs.currentCoverage
+          ),
+
+        maintainEndValue:
+          numberValue(
+            inputs.maintainEndValue
+          ),
+
+        maintainCoverage:
+          numberValue(
+            inputs.maintainCoverage
+          ),
+
+        reducedPremium:
+          numberValue(
+            inputs.reducedPremium
+          ),
+
+        reducedCoverage:
+          numberValue(
+            inputs.reducedCoverage
+          ),
+
+        reductionRefund:
+          numberValue(
+            inputs.reductionRefund
+          ),
+
+        reducedEndValue:
+          numberValue(
+            inputs.reducedEndValue
+          ),
+
+        replacementPremium:
+          numberValue(
+            inputs.replacementPremium
+          ),
+
+        replacementPayMonths:
+          numberValue(
+            inputs.replacementPayMonths
+          ),
+
+        replacementCoverage:
+          numberValue(
+            inputs.replacementCoverage
+          ),
+
+        replacementUpfront:
+          numberValue(
+            inputs.replacementUpfront
+          ),
+
+        replacementEndValue:
+          numberValue(
+            inputs.replacementEndValue
+          ),
+
+        waitingMonths:
+          numberValue(
+            inputs.waitingMonths
+          ),
+
+        horizonMonths:
+          numberValue(
+            inputs.horizonMonths
+          ),
+
+        annualRate:
+          numberValue(
+            inputs.annualRate
+          ),
+
+        neededCoverage:
+          numberValue(
+            inputs.neededCoverage
+          ),
+
+        decisionPriority:
+          inputs.decisionPriority.value
+      };
+
+      const numericValues =
+        Object.entries(
+          values
+        )
+          .filter(
+            (
+              [
+                key
+              ]
+            ) =>
+              key !==
+              "decisionPriority"
+          )
+          .map(
+            (
+              [
+                ,
+                value
+              ]
+            ) =>
+              value
+          );
+
+      if (
+        numericValues.some(
+          (value) =>
+            !Number.isFinite(
+              value
+            )
+        )
+      ) {
+        throw new Error(
+          "숫자 입력값을 확인해주세요."
+        );
+      }
+
+      const nonNegativeKeys = [
+        "paidToDate",
+        "currentPremium",
+        "remainingMonths",
+        "currentSurrender",
+        "currentCoverage",
+        "maintainEndValue",
+        "maintainCoverage",
+        "reducedPremium",
+        "reducedCoverage",
+        "reductionRefund",
+        "reducedEndValue",
+        "replacementPremium",
+        "replacementPayMonths",
+        "replacementCoverage",
+        "replacementUpfront",
+        "replacementEndValue",
+        "waitingMonths",
+        "neededCoverage"
+      ];
+
+      if (
+        nonNegativeKeys.some(
+          (key) =>
+            values[
+              key
+            ] <
+            0
+        )
+      ) {
+        throw new Error(
+          "금액과 기간은 0 이상으로 입력해주세요."
+        );
+      }
+
+      if (
+        values.horizonMonths <
+          12 ||
+        values.horizonMonths >
+          600
+      ) {
+        throw new Error(
+          "비교 분석기간은 12~600개월로 입력해주세요."
+        );
+      }
+
+      if (
+        values.remainingMonths >
+          600 ||
+        values.replacementPayMonths >
+          600
+      ) {
+        throw new Error(
+          "보험료 납입기간은 최대 600개월까지 입력할 수 있습니다."
+        );
+      }
+
+      if (
+        values.currentPremium <=
+          0 &&
+        values.remainingMonths >
+          0
+      ) {
+        throw new Error(
+          "현재 월 보험료를 입력해주세요."
+        );
+      }
+
+      if (
+        values.maintainCoverage <=
+          0
+      ) {
+        throw new Error(
+          "유지 시 보장금액을 입력해주세요."
+        );
+      }
+
+      if (
+        values.annualRate <=
+        -100
+      ) {
+        throw new Error(
+          "기회수익률을 확인해주세요."
+        );
+      }
+
+      values.monthlyRate =
+        monthlyRate(
+          values.annualRate
+        );
+
+      return values;
+    }
+
+    function buildRoute(
+      key,
+      values
+    ) {
+      const horizon =
+        values.horizonMonths;
+
+      let route;
+
+      if (
+        key ===
+        "keep"
+      ) {
+        route = {
+          key,
+          name:
+            routeNames[
+              key
+            ],
+
+          premium:
+            values.currentPremium,
+
+          payMonths:
+            Math.min(
+              values.remainingMonths,
+              horizon
+            ),
+
+          initialInflow:
+            0,
+
+          upfront:
+            0,
+
+          startPolicyValue:
+            values.currentSurrender,
+
+          endPolicyValue:
+            values.maintainEndValue,
+
+          coverage:
+            values.maintainCoverage,
+
+          waitingMonths:
+            0
+        };
+      } else if (
+        key ===
+        "reduce"
+      ) {
+        route = {
+          key,
+          name:
+            routeNames[
+              key
+            ],
+
+          premium:
+            values.reducedPremium,
+
+          payMonths:
+            Math.min(
+              values.remainingMonths,
+              horizon
+            ),
+
+          initialInflow:
+            values.reductionRefund,
+
+          upfront:
+            0,
+
+          startPolicyValue:
+            Math.max(
+              0,
+              values.currentSurrender -
+              values.reductionRefund
+            ),
+
+          endPolicyValue:
+            values.reducedEndValue,
+
+          coverage:
+            values.reducedCoverage,
+
+          waitingMonths:
+            0
+        };
+      } else {
+        route = {
+          key,
+          name:
+            routeNames[
+              key
+            ],
+
+          premium:
+            values.replacementPremium,
+
+          payMonths:
+            Math.min(
+              values.replacementPayMonths,
+              horizon
+            ),
+
+          initialInflow:
+            values.currentSurrender,
+
+          upfront:
+            values.replacementUpfront,
+
+          startPolicyValue:
+            0,
+
+          endPolicyValue:
+            values.replacementEndValue,
+
+          coverage:
+            values.replacementCoverage,
+
+          waitingMonths:
+            values.waitingMonths
+        };
+      }
+
+      route.nominalPremiums =
+        route.premium *
+        route.payMonths;
+
+      route.nominalNetBurden =
+        route.nominalPremiums +
+        route.upfront -
+        route.initialInflow -
+        route.endPolicyValue;
+
+      route.pvPremiums =
+        pvPayments(
+          route.premium,
+          route.payMonths,
+          values.monthlyRate
+        );
+
+      route.discountedEndValue =
+        route.endPolicyValue /
+        Math.pow(
+          1 +
+          values.monthlyRate,
+          horizon
+        );
+
+      route.pvNetPosition =
+        route.initialInflow -
+        route.upfront -
+        route.pvPremiums +
+        route.discountedEndValue;
+
+      route.futurePremiumCost =
+        fvPaymentsAtHorizon(
+          route.premium,
+          route.payMonths,
+          horizon,
+          values.monthlyRate
+        );
+
+      route.futureInitialValue =
+        (
+          route.initialInflow -
+          route.upfront
+        ) *
+        Math.pow(
+          1 +
+          values.monthlyRate,
+          horizon
+        );
+
+      route.futureNetPosition =
+        route.futureInitialValue -
+        route.futurePremiumCost +
+        route.endPolicyValue;
+
+      route.coverageRetention =
+        values.currentCoverage >
+        0
+          ? route.coverage /
+            values.currentCoverage *
+            100
+          : 0;
+
+      route.neededCoverageRatio =
+        values.neededCoverage >
+        0
+          ? route.coverage /
+            values.neededCoverage *
+            100
+          : 100;
+
+      route.meetsCoverage =
+        values.neededCoverage <=
+          0 ||
+        route.coverage >=
+          values.neededCoverage;
+
+      route.monthlySaving =
+        values.currentPremium -
+        route.premium;
+
+      route.costPerCoverage =
+        route.coverage >
+        0
+          ? Math.max(
+              0,
+              -route.pvNetPosition
+            ) /
+            route.coverage *
+            10000
+          : Number.POSITIVE_INFINITY;
+
+      return route;
+    }
+
+    function policyValueAtMonth(
+      route,
+      month,
+      horizon
+    ) {
+      if (
+        horizon <=
+        0
+      ) {
+        return route.endPolicyValue;
+      }
+
+      const ratio =
+        Math.min(
+          1,
+          Math.max(
+            0,
+            month /
+            horizon
+          )
+        );
+
+      const eased =
+        ratio *
+        ratio *
+        (
+          3 -
+          2 *
+          ratio
+        );
+
+      return (
+        route.startPolicyValue +
+        (
+          route.endPolicyValue -
+          route.startPolicyValue
+        ) *
+        eased
+      );
+    }
+
+    function buildPositionSeries(
+      route,
+      values
+    ) {
+      let cash =
+        route.initialInflow -
+        route.upfront;
+
+      const series = [{
+        month:
+          0,
+
+        position:
+          cash +
+          route.startPolicyValue
+      }];
+
+      for (
+        let month = 1;
+        month <= values.horizonMonths;
+        month += 1
+      ) {
+        cash *=
+          1 +
+          values.monthlyRate;
+
+        if (
+          month <=
+          route.payMonths
+        ) {
+          cash -=
+            route.premium;
+        }
+
+        const policyValue =
+          policyValueAtMonth(
+            route,
+            month,
+            values.horizonMonths
+          );
+
+        series.push({
+          month,
+          position:
+            cash +
+            policyValue
+        });
+      }
+
+      return series;
+    }
+
+    function findCrossing(
+      baseSeries,
+      alternativeSeries
+    ) {
+      const length =
+        Math.min(
+          baseSeries.length,
+          alternativeSeries.length
+        );
+
+      let previousDifference =
+        alternativeSeries[
+          0
+        ].position -
+        baseSeries[
+          0
+        ].position;
+
+      for (
+        let index = 1;
+        index < length;
+        index += 1
+      ) {
+        const difference =
+          alternativeSeries[
+            index
+          ].position -
+          baseSeries[
+            index
+          ].position;
+
+        if (
+          difference ===
+          0 ||
+          previousDifference ===
+          0 ||
+          (
+            difference >
+              0 &&
+            previousDifference <
+              0
+          ) ||
+          (
+            difference <
+              0 &&
+            previousDifference >
+              0
+          )
+        ) {
+          return {
+            crossed:
+              true,
+
+            month:
+              index,
+
+            afterWinner:
+              difference >=
+              0
+                ? "alternative"
+                : "keep"
+          };
+        }
+
+        previousDifference =
+          difference;
+      }
+
+      const finalDifference =
+        alternativeSeries[
+          length -
+          1
+        ].position -
+        baseSeries[
+          length -
+          1
+        ].position;
+
+      return {
+        crossed:
+          false,
+
+        month:
+          Number.POSITIVE_INFINITY,
+
+        afterWinner:
+          finalDifference >=
+          0
+            ? "alternative"
+            : "keep"
+      };
+    }
+
+    function chooseWinner(
+      routes,
+      values
+    ) {
+      const eligible =
+        routes.filter(
+          (route) =>
+            route.meetsCoverage
+        );
+
+      const pool =
+        eligible.length >
+        0
+          ? eligible
+          : routes;
+
+      if (
+        values.decisionPriority ===
+        "coverage"
+      ) {
+        return [
+          ...pool
+        ].sort(
+          (
+            a,
+            b
+          ) =>
+            b.coverage -
+              a.coverage ||
+            b.pvNetPosition -
+              a.pvNetPosition
+        )[0];
+      }
+
+      if (
+        values.decisionPriority ===
+        "cashflow"
+      ) {
+        return [
+          ...pool
+        ].sort(
+          (
+            a,
+            b
+          ) =>
+            a.premium -
+              b.premium ||
+            b.pvNetPosition -
+              a.pvNetPosition
+        )[0];
+      }
+
+      if (
+        values.decisionPriority ===
+        "financial"
+      ) {
+        return [
+          ...pool
+        ].sort(
+          (
+            a,
+            b
+          ) =>
+            b.pvNetPosition -
+            a.pvNetPosition
+        )[0];
+      }
+
+      return [
+        ...pool
+      ].sort(
+        (
+          a,
+          b
+        ) => {
+          const coverageScoreA =
+            Math.min(
+              1.2,
+              a.neededCoverageRatio /
+              100
+            );
+
+          const coverageScoreB =
+            Math.min(
+              1.2,
+              b.neededCoverageRatio /
+              100
+            );
+
+          const financialScale =
+            Math.max(
+              1,
+              ...routes.map(
+                (route) =>
+                  Math.abs(
+                    route.pvNetPosition
+                  )
+              )
+            );
+
+          const scoreA =
+            coverageScoreA *
+              60 +
+            a.pvNetPosition /
+              financialScale *
+              40;
+
+          const scoreB =
+            coverageScoreB *
+              60 +
+            b.pvNetPosition /
+              financialScale *
+              40;
+
+          return (
+            scoreB -
+            scoreA
+          );
+        }
+      )[0];
+    }
+
+    function renderResultCards(
+      routes,
+      winner
+    ) {
+      $("resultCardGrid").innerHTML =
+        routes
+          .map(
+            (route) => {
+              const coverageStatus =
+                route.meetsCoverage
+                  ? "최소 필요보장 충족"
+                  : "최소 필요보장 미달";
+
+              return `
+                <article
+                  class="result-card ${route.key === winner.key ? "winner" : ""}"
+                  data-route="${route.key}"
+                >
+                  <span class="route-tag">
+                    ${route.key === winner.key ? "조건부 비교 우세" : coverageStatus}
+                  </span>
+
+                  <h3>
+                    ${route.name}
+                  </h3>
+
+                  <strong>
+                    ${formatMoney(route.premium, 1)} / 월
+                  </strong>
+
+                  <p>
+                    비교기간 ${formatMonths(route.payMonths)} 동안 납입하고
+                    보장금액 ${formatMoney(route.coverage)}을 유지하는 가정
+                  </p>
+
+                  <div class="result-lines">
+                    <div class="result-line">
+                      <span>
+                        명목 총보험료
+                      </span>
+
+                      <b>
+                        ${formatMoney(route.nominalPremiums, 1)}
+                      </b>
+                    </div>
+
+                    <div class="result-line">
+                      <span>
+                        종료 예상환급금
+                      </span>
+
+                      <b>
+                        ${formatMoney(route.endPolicyValue, 1)}
+                      </b>
+                    </div>
+
+                    <div class="result-line">
+                      <span>
+                        현재가치 순포지션
+                      </span>
+
+                      <b>
+                        ${formatSignedMoney(route.pvNetPosition)}
+                      </b>
+                    </div>
+
+                    <div class="result-line">
+                      <span>
+                        기존 대비 보장유지율
+                      </span>
+
+                      <b>
+                        ${formatPercent(route.coverageRetention)}
+                      </b>
+                    </div>
+
+                    <div class="result-line">
+                      <span>
+                        필요보장 충족률
+                      </span>
+
+                      <b>
+                        ${formatPercent(route.neededCoverageRatio)}
+                      </b>
+                    </div>
+
+                    <div class="result-line">
+                      <span>
+                        대기·감액기간
+                      </span>
+
+                      <b>
+                        ${
+                          route.waitingMonths >
+                          0
+                            ? `${route.waitingMonths}개월`
+                            : "없음 입력"
+                        }
+                      </b>
+                    </div>
+                  </div>
+                </article>
+              `;
+            }
+          )
+          .join("");
+    }
+
+    function renderMatrix(
+      keep,
+      reduce,
+      surrender,
+      winner
+    ) {
+      const rows = [
+        {
+          label:
+            "월 보험료",
+
+          values: [
+            formatMoney(
+              keep.premium,
+              1
+            ),
+
+            formatMoney(
+              reduce.premium,
+              1
+            ),
+
+            formatMoney(
+              surrender.premium,
+              1
+            )
+          ]
+        },
+
+        {
+          label:
+            "비교기간 명목 총보험료",
+
+          values: [
+            formatMoney(
+              keep.nominalPremiums,
+              1
+            ),
+
+            formatMoney(
+              reduce.nominalPremiums,
+              1
+            ),
+
+            formatMoney(
+              surrender.nominalPremiums,
+              1
+            )
+          ]
+        },
+
+        {
+          label:
+            "즉시 받는 환급금",
+
+          values: [
+            formatMoney(
+              keep.initialInflow,
+              1
+            ),
+
+            formatMoney(
+              reduce.initialInflow,
+              1
+            ),
+
+            formatMoney(
+              surrender.initialInflow,
+              1
+            )
+          ]
+        },
+
+        {
+          label:
+            "비교기간 종료 예상환급금",
+
+          values: [
+            formatMoney(
+              keep.endPolicyValue,
+              1
+            ),
+
+            formatMoney(
+              reduce.endPolicyValue,
+              1
+            ),
+
+            formatMoney(
+              surrender.endPolicyValue,
+              1
+            )
+          ]
+        },
+
+        {
+          label:
+            "명목 순현금부담",
+
+          values: [
+            formatMoney(
+              keep.nominalNetBurden,
+              1
+            ),
+
+            formatMoney(
+              reduce.nominalNetBurden,
+              1
+            ),
+
+            formatMoney(
+              surrender.nominalNetBurden,
+              1
+            )
+          ]
+        },
+
+        {
+          label:
+            "현재가치 순포지션",
+
+          highlight:
+            true,
+
+          values: [
+            formatSignedMoney(
+              keep.pvNetPosition
+            ),
+
+            formatSignedMoney(
+              reduce.pvNetPosition
+            ),
+
+            formatSignedMoney(
+              surrender.pvNetPosition
+            )
+          ]
+        },
+
+        {
+          label:
+            "유지되는 보장금액",
+
+          values: [
+            formatMoney(
+              keep.coverage
+            ),
+
+            formatMoney(
+              reduce.coverage
+            ),
+
+            formatMoney(
+              surrender.coverage
+            )
+          ]
+        },
+
+        {
+          label:
+            "최소 필요보장 충족",
+
+          values: [
+            keep.meetsCoverage
+              ? "충족"
+              : "미달",
+
+            reduce.meetsCoverage
+              ? "충족"
+              : "미달",
+
+            surrender.meetsCoverage
+              ? "충족"
+              : "미달"
+          ]
+        }
+      ];
+
+      $("matrixRows").innerHTML =
+        rows
+          .map(
+            (row) => `
+              <div class="matrix-row ${row.highlight ? "highlight" : ""}">
+                <div>
+                  ${row.label}
+                </div>
+
+                <div>
+                  ${row.values[0]}
+                </div>
+
+                <div>
+                  ${row.values[1]}
+                </div>
+
+                <div>
+                  ${row.values[2]}
+                </div>
+              </div>
+            `
+          )
+          .join("");
+
+      $("matrixSummary").textContent =
+        `조건부 우세: ${winner.name}`;
+    }
+
+    function crossingDescription(
+      crossing,
+      alternativeName
+    ) {
+      if (
+        crossing.crossed
+      ) {
+        return (
+          `${formatMonths(crossing.month)} 후 ${
+            crossing.afterWinner ===
+            "alternative"
+              ? alternativeName
+              : "기존 유지"
+          } 우세`
+        );
+      }
+
+      return (
+        crossing.afterWinner ===
+        "alternative"
+          ? `비교기간 내 ${alternativeName} 우세 유지`
+          : "비교기간 내 기존 유지 우세"
+      );
+    }
+
+    function renderTimeline(
+      keep,
+      reduce,
+      surrender,
+      keepSeries,
+      reduceSeries,
+      surrenderSeries,
+      reduceCross,
+      surrenderCross,
+      values
+    ) {
+      const finalPositions = [
+        {
+          key:
+            "keep",
+
+          label:
+            "기존 유지",
+
+          value:
+            keepSeries[
+              keepSeries.length -
+              1
+            ].position,
+
+          detail:
+            "기준선"
+        },
+
+        {
+          key:
+            "reduce",
+
+          label:
+            "보장 감액",
+
+          value:
+            reduceSeries[
+              reduceSeries.length -
+              1
+            ].position,
+
+          detail:
+            crossingDescription(
+              reduceCross,
+              "감액"
+            )
+        },
+
+        {
+          key:
+            "surrender",
+
+          label:
+            "해지·재가입",
+
+          value:
+            surrenderSeries[
+              surrenderSeries.length -
+              1
+            ].position,
+
+          detail:
+            crossingDescription(
+              surrenderCross,
+              "재가입"
+            )
+        }
+      ];
+
+      const minimum =
+        Math.min(
+          ...finalPositions.map(
+            (item) =>
+              item.value
+          )
+        );
+
+      const maximum =
+        Math.max(
+          ...finalPositions.map(
+            (item) =>
+              item.value
+          )
+        );
+
+      const span =
+        Math.max(
+          1,
+          maximum -
+          minimum
+        );
+
+      const rows =
+        finalPositions
+          .map(
+            (item) => {
+              const normalized =
+                (
+                  item.value -
+                  minimum
+                ) /
+                span;
+
+              const width =
+                18 +
+                normalized *
+                82;
+
+              return `
+                <div class="timeline-row ${item.key}">
+                  <div class="timeline-label">
+                    <strong>
+                      ${item.label}
+                    </strong>
+
+                    <small>
+                      ${item.detail}
+                    </small>
+                  </div>
+
+                  <div class="timeline-track-line">
+                    <div
+                      class="timeline-bar"
+                      style="width:${width}%"
+                    >
+                      ${formatSignedMoney(item.value)}
+                    </div>
+                  </div>
+
+                  <div class="timeline-result">
+                    ${formatMonths(values.horizonMonths)} 시점
+                  </div>
+                </div>
+              `;
+            }
+          )
+          .join("");
+
+      $("timelineChart").innerHTML =
+        `
+          <div class="timeline-axis">
+            <span>
+              낮은 순금융포지션
+            </span>
+
+            <span>
+              비교기간 ${formatMonths(values.horizonMonths)}
+            </span>
+
+            <span>
+              높은 순금융포지션
+            </span>
+          </div>
+
+          ${rows}
+        `;
+
+      $("timelineSummary").textContent =
+        `감액: ${crossingDescription(reduceCross, "감액")} · 재가입: ${crossingDescription(surrenderCross, "재가입")}`;
+    }
+
+    function coverageDetail(
+      route,
+      values
+    ) {
+      if (
+        values.neededCoverage <=
+        0
+      ) {
+        return "최소 필요보장 미설정";
+      }
+
+      const difference =
+        route.coverage -
+        values.neededCoverage;
+
+      return (
+        difference >=
+        0
+          ? `필요보장보다 ${formatMoney(difference)} 여유`
+          : `필요보장보다 ${formatMoney(Math.abs(difference))} 부족`
+      );
+    }
+
+    function renderCoverage(
+      keep,
+      reduce,
+      surrender,
+      values
+    ) {
+      $("keepCoverageResult").textContent =
+        formatPercent(
+          keep.neededCoverageRatio
+        );
+
+      $("keepCoverageDetail").textContent =
+        coverageDetail(
+          keep,
+          values
+        );
+
+      $("reduceCoverageResult").textContent =
+        formatPercent(
+          reduce.neededCoverageRatio
+        );
+
+      $("reduceCoverageDetail").textContent =
+        coverageDetail(
+          reduce,
+          values
+        );
+
+      $("surrenderCoverageResult").textContent =
+        formatPercent(
+          surrender.neededCoverageRatio
+        );
+
+      $("surrenderCoverageDetail").textContent =
+        coverageDetail(
+          surrender,
+          values
+        );
+
+      const eligible =
+        [
+          keep,
+          reduce,
+          surrender
+        ].filter(
+          (route) =>
+            route.meetsCoverage
+        );
+
+      $("coverageSummary").textContent =
+        `3개 선택 중 ${eligible.length}개가 최소 필요보장 충족`;
+    }
+
+    function renderStatus(
+      winner,
+      routes,
+      values
+    ) {
+      const status =
+        $("statusBox");
+
+      status.className =
+        "status-box";
+
+      const eligible =
+        routes.filter(
+          (route) =>
+            route.meetsCoverage
+        );
+
+      const surrender =
+        routes.find(
+          (route) =>
+            route.key ===
+            "surrender"
+        );
+
+      const reduce =
+        routes.find(
+          (route) =>
+            route.key ===
+            "reduce"
+        );
+
+      if (
+        eligible.length ===
+        0
+      ) {
+        status.classList.add(
+          "danger"
+        );
+
+        status.textContent =
+          `입력한 세 가지 선택 모두 최소 필요보장 ${formatMoney(values.neededCoverage)}을 충족하지 못합니다. ` +
+          "보험료 절감보다 필요한 보장금액을 다시 산정하고 각 계약의 보장범위를 재설계해야 합니다.";
+
+        return;
+      }
+
+      if (
+        winner.key ===
+          "surrender" &&
+        surrender.waitingMonths >
+          0
+      ) {
+        status.classList.add(
+          "warn"
+        );
+
+        status.textContent =
+          `경제성 비교에서는 해지 후 재가입이 우세하지만 신규계약에 ${surrender.waitingMonths}개월의 대기·감액기간을 입력했습니다. ` +
+          "신규계약이 승인되고 보장이 정상 개시된 것을 확인하기 전에는 기존 보험을 해지하지 마세요.";
+
+        return;
+      }
+
+      if (
+        winner.key ===
+          "reduce" &&
+        reduce.coverageRetention <
+          70
+      ) {
+        status.classList.add(
+          "warn"
+        );
+
+        status.textContent =
+          `감액안의 월 보험료는 줄지만 기존 보장의 ${reduce.coverageRetention.toFixed(1)}%만 남습니다. ` +
+          "감액으로 없어지는 주계약·특약과 다시 증액할 수 있는지 보험회사에서 확인해야 합니다.";
+
+        return;
+      }
+
+      if (
+        values.currentSurrender >
+          values.paidToDate &&
+        values.paidToDate >
+          0
+      ) {
+        status.textContent =
+          `현재 해약환급금이 누적 납입보험료를 초과하도록 입력됐습니다. ` +
+          `${winner.name}이 조건부 비교 우세안이지만 세금·변액보험 기준가격과 실제 수령액을 다시 확인하세요.`;
+
+        return;
+      }
+
+      if (
+        winner.key ===
+        "keep"
+      ) {
+        status.textContent =
+          `최소 필요보장을 충족하는 선택 중 기존 보험 유지가 현재 조건의 비교 우세안입니다. ` +
+          "다만 월 보험료가 부담된다면 계약을 해지하기 전에 감액완납·납입유예·특약정리 가능 여부를 먼저 확인하세요.";
+
+        return;
+      }
+
+      status.textContent =
+        `${winner.name}이 입력한 우선순위와 최소 필요보장 조건에서 비교 우세안으로 계산됐습니다. ` +
+        "결정 전 실제 변경설계서, 해약환급금, 신규계약 승인조건과 보장개시일을 확인해야 합니다.";
+    }
+
+    function calculate(
+      event
+    ) {
+      event.preventDefault();
+
+      let values;
+
+      try {
+        values =
+          getValues();
+      } catch (error) {
+        alert(
+          error.message
+        );
+
+        return;
+      }
+
+      const keep =
+        buildRoute(
+          "keep",
+          values
+        );
+
+      const reduce =
+        buildRoute(
+          "reduce",
+          values
+        );
+
+      const surrender =
+        buildRoute(
+          "surrender",
+          values
+        );
+
+      const routes = [
+        keep,
+        reduce,
+        surrender
+      ];
+
+      const winner =
+        chooseWinner(
+          routes,
+          values
+        );
+
+      const keepSeries =
+        buildPositionSeries(
+          keep,
+          values
+        );
+
+      const reduceSeries =
+        buildPositionSeries(
+          reduce,
+          values
+        );
+
+      const surrenderSeries =
+        buildPositionSeries(
+          surrender,
+          values
+        );
+
+      const reduceCross =
+        findCrossing(
+          keepSeries,
+          reduceSeries
+        );
+
+      const surrenderCross =
+        findCrossing(
+          keepSeries,
+          surrenderSeries
+        );
+
+      const eligible =
+        routes.filter(
+          (route) =>
+            route.meetsCoverage
+        );
+
+      latestResult = {
+        values,
+        routes,
+        winner,
+        keepSeries,
+        reduceSeries,
+        surrenderSeries,
+        reduceCross,
+        surrenderCross
+      };
+
+      $("resultTitle").innerHTML =
+        `현재 조건의 비교 우세안은 <b>${winner.name}</b>입니다`;
+
+      $("resultMessage").textContent =
+        `비교기간 ${formatMonths(values.horizonMonths)}, 기회수익률 ${values.annualRate.toFixed(1)}%, ` +
+        `최소 필요보장 ${formatMoney(values.neededCoverage)}을 기준으로 계산했습니다. ` +
+        `${winner.name}의 월 보험료는 ${formatMoney(winner.premium, 1)}, ` +
+        `보장금액은 ${formatMoney(winner.coverage)}, 현재가치 순포지션은 ${formatSignedMoney(winner.pvNetPosition)}입니다.`;
+
+      $("eligibleCountResult").textContent =
+        `${eligible.length}개 선택`;
+
+      $("eligibleDetailResult").textContent =
+        eligible.length >
+        0
+          ? eligible
+              .map(
+                (route) =>
+                  route.name
+              )
+              .join(" · ")
+          : "충족하는 선택 없음";
+
+      renderResultCards(
+        routes,
+        winner
+      );
+
+      renderMatrix(
+        keep,
+        reduce,
+        surrender,
+        winner
+      );
+
+      renderTimeline(
+        keep,
+        reduce,
+        surrender,
+        keepSeries,
+        reduceSeries,
+        surrenderSeries,
+        reduceCross,
+        surrenderCross,
+        values
+      );
+
+      renderCoverage(
+        keep,
+        reduce,
+        surrender,
+        values
+      );
+
+      const refundRatio =
+        values.paidToDate >
+        0
+          ? values.currentSurrender /
+            values.paidToDate *
+            100
+          : 0;
+
+      const pastGap =
+        values.paidToDate -
+        values.currentSurrender;
+
+      $("paidTotalResult").textContent =
+        formatMoney(
+          values.paidToDate,
+          1
+        );
+
+      $("currentRefundResult").textContent =
+        formatMoney(
+          values.currentSurrender,
+          1
+        );
+
+      $("refundRatioResult").textContent =
+        values.paidToDate >
+        0
+          ? formatPercent(
+              refundRatio
+            )
+          : "납입액 미입력";
+
+      $("pastGapResult").textContent =
+        formatSignedMoney(
+          -pastGap
+        );
+
+      $("refundSummary").textContent =
+        values.paidToDate >
+        0
+          ? `현재 환급률 ${refundRatio.toFixed(1)}%`
+          : "누적 납입보험료를 입력하면 환급률 표시";
+
+      renderStatus(
+        winner,
+        routes,
+        values
+      );
+
+      $("resultEmpty").style.display =
+        "none";
+
+      $("resultContent").classList.add(
+        "show"
+      );
+
+      lastResultText =
+`[보험 유지·감액·해지 손익분기 계산기]
+
+누적 납입보험료: ${formatMoney(values.paidToDate, 1)}
+현재 월 보험료: ${formatMoney(values.currentPremium, 1)}
+남은 납입기간: ${values.remainingMonths}개월
+현재 해약환급금: ${formatMoney(values.currentSurrender, 1)}
+현재 핵심 보장금액: ${formatMoney(values.currentCoverage)}
+현재 환급률: ${
+  values.paidToDate > 0
+    ? formatPercent(refundRatio)
+    : "계산 불가"
+}
+
+비교 분석기간: ${values.horizonMonths}개월
+기회수익률: ${formatPercent(values.annualRate)}
+최소 필요 보장금액: ${formatMoney(values.neededCoverage)}
+의사결정 우선순위: ${inputs.decisionPriority.options[inputs.decisionPriority.selectedIndex].text}
+
+[기존 보험 유지]
+월 보험료: ${formatMoney(keep.premium, 1)}
+명목 총보험료: ${formatMoney(keep.nominalPremiums, 1)}
+종료 예상환급금: ${formatMoney(keep.endPolicyValue, 1)}
+보장금액: ${formatMoney(keep.coverage)}
+필요보장 충족률: ${formatPercent(keep.neededCoverageRatio)}
+현재가치 순포지션: ${formatSignedMoney(keep.pvNetPosition)}
+
+[보장 감액]
+월 보험료: ${formatMoney(reduce.premium, 1)}
+명목 총보험료: ${formatMoney(reduce.nominalPremiums, 1)}
+감액 즉시환급금: ${formatMoney(reduce.initialInflow, 1)}
+종료 예상환급금: ${formatMoney(reduce.endPolicyValue, 1)}
+보장금액: ${formatMoney(reduce.coverage)}
+기존 대비 보장유지율: ${formatPercent(reduce.coverageRetention)}
+필요보장 충족률: ${formatPercent(reduce.neededCoverageRatio)}
+현재가치 순포지션: ${formatSignedMoney(reduce.pvNetPosition)}
+유지 대비 손익교차: ${crossingDescription(reduceCross, "감액")}
+
+[해지 후 재가입]
+해지환급금 수령액: ${formatMoney(surrender.initialInflow, 1)}
+신규 월 보험료: ${formatMoney(surrender.premium, 1)}
+명목 총보험료: ${formatMoney(surrender.nominalPremiums, 1)}
+신규 계약 종료 예상환급금: ${formatMoney(surrender.endPolicyValue, 1)}
+신규 보장금액: ${formatMoney(surrender.coverage)}
+기존 대비 보장유지율: ${formatPercent(surrender.coverageRetention)}
+필요보장 충족률: ${formatPercent(surrender.neededCoverageRatio)}
+대기·감액기간: ${surrender.waitingMonths}개월
+현재가치 순포지션: ${formatSignedMoney(surrender.pvNetPosition)}
+유지 대비 손익교차: ${crossingDescription(surrenderCross, "재가입")}
+
+조건부 비교 우세안: ${winner.name}
+최소 필요보장을 충족하는 선택: ${
+  eligible.length > 0
+    ? eligible.map((route) => route.name).join(", ")
+    : "없음"
+}
+
+※ 실제 감액·환급금·재가입 승인 여부와 보장조건을 보장하지 않는 단순 재무 시뮬레이션입니다.
+※ 신규계약 승인과 보장개시 전 기존 보험을 먼저 해지하지 마세요.`;
+
+      saveForm();
+
+      $("results").scrollIntoView({
+        behavior:
+          "smooth",
+
+        block:
+          "start"
+      });
+    }
+
+    function updatePreview() {
+      const paid =
+        numberValue(
+          inputs.paidToDate
+        );
+
+      const refund =
+        numberValue(
+          inputs.currentSurrender
+        );
+
+      const currentPremium =
+        numberValue(
+          inputs.currentPremium
+        );
+
+      const remaining =
+        numberValue(
+          inputs.remainingMonths
+        );
+
+      const reducedPremium =
+        numberValue(
+          inputs.reducedPremium
+        );
+
+      const replacementPremium =
+        numberValue(
+          inputs.replacementPremium
+        );
+
+      const refundRate =
+        paid >
+        0
+          ? refund /
+            paid *
+            100
+          : 0;
+
+      $("refundRatePreview").textContent =
+        paid >
+        0
+          ? formatPercent(
+              refundRate
+            )
+          : "-";
+
+      $("remainingPremiumPreview").textContent =
+        formatMoney(
+          currentPremium *
+          remaining,
+          1
+        );
+
+      $("reductionSavingPreview").textContent =
+        formatMoney(
+          currentPremium -
+          reducedPremium,
+          1
+        );
+
+      $("replacementSavingPreview").textContent =
+        formatMoney(
+          currentPremium -
+          replacementPremium,
+          1
+        );
+    }
+
+    function saveForm() {
+      try {
+        const data =
+          {};
+
+        Object.entries(
+          inputs
+        ).forEach(
+          (
+            [
+              key,
+              input
+            ]
+          ) => {
+            data[
+              key
+            ] =
+              input.value;
+          }
+        );
+
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify(
+            data
+          )
+        );
+      } catch (error) {
+        console.warn(
+          error
+        );
+      }
+    }
+
+    function restoreForm() {
+      try {
+        const saved =
+          JSON.parse(
+            localStorage.getItem(
+              STORAGE_KEY
+            ) ||
+            "null"
+          );
+
+        if (
+          saved
+        ) {
+          Object.entries(
+            inputs
+          ).forEach(
+            (
+              [
+                key,
+                input
+              ]
+            ) => {
+              if (
+                saved[
+                  key
+                ] !==
+                  undefined &&
+                saved[
+                  key
+                ] !==
+                  ""
+              ) {
+                input.value =
+                  saved[
+                    key
+                  ];
+              }
+            }
+          );
+        }
+      } catch (error) {
+        console.warn(
+          error
+        );
+      }
+
+      updatePreview();
+    }
+
+    function resetCalculator() {
+      try {
+        localStorage.removeItem(
+          STORAGE_KEY
+        );
+      } catch (error) {
+        console.warn(
+          error
+        );
+      }
+
+      const defaults = {
+        paidToDate:
+          "2400",
+
+        currentPremium:
+          "20",
+
+        remainingMonths:
+          "120",
+
+        currentSurrender:
+          "1500",
+
+        currentCoverage:
+          "10000",
+
+        maintainEndValue:
+          "3000",
+
+        maintainCoverage:
+          "10000",
+
+        reducedPremium:
+          "12",
+
+        reducedCoverage:
+          "6000",
+
+        reductionRefund:
+          "500",
+
+        reducedEndValue:
+          "1700",
+
+        replacementPremium:
+          "14",
+
+        replacementPayMonths:
+          "120",
+
+        replacementCoverage:
+          "8000",
+
+        replacementUpfront:
+          "0",
+
+        replacementEndValue:
+          "800",
+
+        waitingMonths:
+          "3",
+
+        horizonMonths:
+          "120",
+
+        annualRate:
+          "3",
+
+        neededCoverage:
+          "7000",
+
+        decisionPriority:
+          "balanced"
+      };
+
+      Object.entries(
+        defaults
+      ).forEach(
+        (
+          [
+            key,
+            value
+          ]
+        ) => {
+          inputs[
+            key
+          ].value =
+            value;
+        }
+      );
+
+      $("resultContent").classList.remove(
+        "show"
+      );
+
+      $("resultEmpty").style.display =
+        "grid";
+
+      lastResultText =
+        "";
+
+      latestResult =
+        null;
+
+      updatePreview();
+    }
+
+    async function copyResult() {
+      if (
+        !lastResultText
+      ) {
+        alert(
+          "먼저 계산해주세요."
+        );
+
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(
+          lastResultText
+        );
+      } catch (error) {
+        const textarea =
+          document.createElement(
+            "textarea"
+          );
+
+        textarea.value =
+          lastResultText;
+
+        textarea.style.position =
+          "fixed";
+
+        textarea.style.opacity =
+          "0";
+
+        document.body.appendChild(
+          textarea
+        );
+
+        textarea.select();
+
+        document.execCommand(
+          "copy"
+        );
+
+        textarea.remove();
+      }
+
+      const original =
+        $("copyBtn").textContent;
+
+      $("copyBtn").textContent =
+        "복사 완료";
+
+      setTimeout(
+        () => {
+          $("copyBtn").textContent =
+            original;
+        },
+        1200
+      );
+    }
+
+    Object.values(
+      inputs
+    ).forEach(
+      (input) => {
+        input.addEventListener(
+          "input",
+          () => {
+            updatePreview();
+            saveForm();
+          }
+        );
+
+        input.addEventListener(
+          "change",
+          () => {
+            updatePreview();
+            saveForm();
+          }
+        );
+      }
+    );
+
+    form.addEventListener(
+      "submit",
+      calculate
+    );
+
+    $("resetBtn").addEventListener(
+      "click",
+      resetCalculator
+    );
+
+    $("copyBtn").addEventListener(
+      "click",
+      copyResult
+    );
+
+    $("printBtn").addEventListener(
+      "click",
+      () => {
+        window.print();
+      }
+    );
+
+    restoreForm();
+  </script>
+
+  <script
+    defer
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'
+  ></script>
+</body>
+</html>
