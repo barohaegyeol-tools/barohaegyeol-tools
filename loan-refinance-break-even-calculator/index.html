@@ -1,0 +1,2001 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>대출 갈아타기 손익분기 계산기 | 금리인하·대환대출 비용 비교 | 바로해결툴즈</title>
+
+  <meta
+    name="description"
+    content="현재 대출과 새 대출의 금리, 남은 기간, 중도상환수수료, 부대비용을 입력하면 월 납입액 차이, 총이자 절감액, 손익분기 개월 수와 대환대출 유불리를 계산합니다."
+  />
+  <meta
+    name="keywords"
+    content="대출 갈아타기 계산기, 대환대출 계산기, 손익분기 계산기, 대출 갈아타기 손익분기, 금리인하 계산기, 중도상환수수료 계산, 대출 비교, 바로해결툴즈"
+  />
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/loan-refinance-break-even-calculator/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="대출 갈아타기 손익분기 계산기 | 바로해결툴즈" />
+  <meta
+    property="og:description"
+    content="현재 대출과 새 대출의 비용을 비교해 대환대출이 실제로 이득인지 손익분기 시점까지 계산하세요."
+  />
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/loan-refinance-break-even-calculator/" />
+  <meta property="og:site_name" content="바로해결툴즈" />
+  <meta name="theme-color" content="#2962ff" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "대출 갈아타기 손익분기 계산기",
+    "url": "https://barohaegyeol-tools.pages.dev/loan-refinance-break-even-calculator/",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "All",
+    "description": "현재 대출과 새 대출의 금리, 기간, 수수료를 비교해 월 상환액, 총이자, 손익분기 개월 수를 계산하는 무료 웹 도구입니다.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "KRW"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg1: #f7fbff;
+      --bg2: #eef6ff;
+      --bg3: #fdfdf8;
+      --card: rgba(255,255,255,0.82);
+      --card-strong: #ffffff;
+      --line: rgba(54, 87, 155, 0.14);
+      --line-strong: rgba(54, 87, 155, 0.24);
+      --text: #172033;
+      --muted: #64708a;
+      --blue: #2962ff;
+      --blue-2: #4b8cff;
+      --navy: #14325c;
+      --mint: #23c7a2;
+      --mint-2: #dffbf5;
+      --sky: #e9f4ff;
+      --yellow: #ffd76a;
+      --red: #ea5b5b;
+      --red-soft: #fff0f0;
+      --green: #17a36b;
+      --green-soft: #ebfff6;
+      --shadow: 0 24px 60px rgba(18, 52, 104, 0.12);
+      --shadow-soft: 0 10px 30px rgba(18, 52, 104, 0.08);
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --radius-sm: 14px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      min-width: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Pretendard",
+        "Noto Sans KR",
+        "Apple SD Gothic Neo",
+        sans-serif;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(87, 171, 255, 0.18), transparent 35%),
+        radial-gradient(circle at 100% 0%, rgba(255, 224, 120, 0.18), transparent 32%),
+        linear-gradient(135deg, var(--bg1), var(--bg2) 58%, var(--bg3));
+      line-height: 1.6;
+      overflow-x: hidden;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(41, 98, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(41, 98, 255, 0.03) 1px, transparent 1px);
+      background-size: 24px 24px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.32), rgba(0,0,0,0.05));
+      z-index: -1;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: 0;
+    }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(14px);
+      background: rgba(247, 251, 255, 0.72);
+      border-bottom: 1px solid rgba(41, 98, 255, 0.08);
+    }
+
+    .header-inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #3c8cff, #2a4dff 70%, #30d6af);
+      color: #fff;
+      font-weight: 900;
+      box-shadow: 0 10px 24px rgba(41, 98, 255, 0.25);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .brand-text strong {
+      font-size: 14px;
+      letter-spacing: -0.03em;
+    }
+
+    .brand-text span {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .nav a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(41,98,255,0.08);
+      color: #44516a;
+      font-size: 12px;
+      font-weight: 800;
+      transition: 0.18s ease;
+    }
+
+    .nav a:hover {
+      transform: translateY(-1px);
+      border-color: rgba(41,98,255,0.22);
+      color: var(--blue);
+    }
+
+    .hero {
+      padding: 42px 0 28px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+      gap: 26px;
+      align-items: center;
+    }
+
+    .hero-copy {
+      padding: 18px 0;
+    }
+
+    .eyebrow-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow,
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 34px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(41,98,255,0.08);
+      color: #42506a;
+      font-size: 12px;
+      font-weight: 800;
+      box-shadow: 0 8px 24px rgba(30, 77, 145, 0.06);
+    }
+
+    .eyebrow b {
+      color: var(--mint);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(40px, 6vw, 76px);
+      line-height: 1.08;
+      letter-spacing: -0.06em;
+      word-break: keep-all;
+    }
+
+    .accent {
+      color: var(--blue);
+      display: inline;
+    }
+
+    .hero-copy p {
+      margin: 18px 0 0;
+      max-width: 700px;
+      color: var(--muted);
+      font-size: clamp(15px, 1.8vw, 18px);
+      line-height: 1.8;
+      font-weight: 700;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .btn-primary,
+    .btn-secondary,
+    .btn-ghost {
+      min-height: 52px;
+      padding: 14px 20px;
+      border-radius: 16px;
+      font-weight: 900;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--blue), var(--mint));
+      box-shadow: 0 18px 34px rgba(41, 98, 255, 0.22);
+    }
+
+    .btn-primary:hover,
+    .btn-secondary:hover,
+    .btn-ghost:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      color: var(--navy);
+      background: rgba(255,255,255,0.85);
+      border: 1px solid rgba(41,98,255,0.12);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero-visual {
+      position: relative;
+      background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.78));
+      border: 1px solid rgba(41,98,255,0.1);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      padding: 26px;
+      overflow: hidden;
+    }
+
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      inset: 22px;
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at top right, rgba(41,98,255,0.12), transparent 34%),
+        linear-gradient(135deg, rgba(235,245,255,0.9), rgba(240,255,251,0.85));
+      border: 1px dashed rgba(41,98,255,0.12);
+    }
+
+    .visual-content {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 14px;
+    }
+
+    .mini-summary {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .mini-card {
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.88);
+      border: 1px solid rgba(41,98,255,0.08);
+      box-shadow: 0 12px 30px rgba(32, 80, 151, 0.08);
+    }
+
+    .mini-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .mini-card strong {
+      display: block;
+      margin-top: 8px;
+      font-size: 30px;
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .mini-chart {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      align-items: end;
+    }
+
+    .chart-card {
+      min-height: 180px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, #173762, #2962ff);
+      color: #fff;
+      padding: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chart-card::after {
+      content: "";
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 22px;
+      height: 70px;
+      border-radius: 14px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)),
+        repeating-linear-gradient(
+          90deg,
+          rgba(255,255,255,0.07) 0 1px,
+          transparent 1px 34px
+        );
+    }
+
+    .line {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 46px;
+      height: 42px;
+      border-bottom: 3px solid rgba(255,255,255,0.7);
+      border-radius: 0 0 22px 22px;
+      transform: skewX(-14deg);
+      opacity: 0.78;
+    }
+
+    .chart-card small,
+    .savings-card small {
+      position: relative;
+      z-index: 1;
+      font-size: 11px;
+      color: rgba(255,255,255,0.72);
+      font-weight: 800;
+    }
+
+    .chart-card strong,
+    .savings-card strong {
+      position: relative;
+      z-index: 1;
+      display: block;
+      margin-top: 10px;
+      font-size: clamp(28px, 4vw, 38px);
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .savings-card {
+      min-height: 150px;
+      border-radius: 24px;
+      padding: 18px;
+      background: linear-gradient(180deg, #eafff9, #dff7f0);
+      border: 1px solid rgba(35,199,162,0.22);
+      color: #183842;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .savings-card .badge {
+      align-self: flex-start;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(35,199,162,0.12);
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .quick-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .quick-chips .chip {
+      background: rgba(255,255,255,0.9);
+    }
+
+    .section {
+      padding: 12px 0 24px;
+    }
+
+    .tool-shell {
+      background: linear-gradient(180deg, rgba(255,255,255,0.84), rgba(255,255,255,0.72));
+      border: 1px solid rgba(41,98,255,0.08);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .shell-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      padding: 26px 26px 18px;
+      border-bottom: 1px solid rgba(41,98,255,0.08);
+      background: linear-gradient(180deg, rgba(243,248,255,0.88), rgba(255,255,255,0.2));
+    }
+
+    .shell-head h2 {
+      margin: 0;
+      font-size: clamp(26px, 3vw, 38px);
+      line-height: 1.15;
+      letter-spacing: -0.045em;
+    }
+
+    .shell-head p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .shell-tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(41,98,255,0.08);
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .tool-body {
+      padding: 24px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .form-panel,
+    .result-panel {
+      border-radius: 26px;
+      background: rgba(255,255,255,0.88);
+      border: 1px solid rgba(41,98,255,0.09);
+      box-shadow: 0 14px 34px rgba(26, 72, 138, 0.06);
+    }
+
+    .panel-head {
+      padding: 20px 20px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .panel-head strong {
+      font-size: 22px;
+      letter-spacing: -0.03em;
+    }
+
+    .panel-head span {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .panel-body {
+      padding: 0 20px 20px;
+    }
+
+    .subsection {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(245,250,255,0.9), rgba(255,255,255,0.9));
+      border: 1px solid rgba(41,98,255,0.08);
+    }
+
+    .subsection:first-child {
+      margin-top: 0;
+    }
+
+    .subsection h3 {
+      margin: 0 0 12px;
+      font-size: 16px;
+      letter-spacing: -0.03em;
+    }
+
+    .subsection-note {
+      margin: -4px 0 14px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .grid-2,
+    .grid-3 {
+      display: grid;
+      gap: 12px;
+    }
+
+    .grid-2 {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .grid-3 {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 7px;
+      color: #32435f;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .field label small {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 52px;
+      padding: 14px 44px 14px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(41,98,255,0.12);
+      background: rgba(255,255,255,0.96);
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 800;
+      outline: none;
+      transition: 0.18s ease;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: rgba(41,98,255,0.32);
+      box-shadow: 0 0 0 4px rgba(41,98,255,0.08);
+    }
+
+    .unit {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 900;
+      pointer-events: none;
+    }
+
+    .helper-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .helper-btn {
+      min-height: 36px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid rgba(41,98,255,0.12);
+      color: #42506a;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .helper-btn:hover {
+      background: rgba(41,98,255,0.06);
+      color: var(--blue);
+    }
+
+    .action-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .btn-calc,
+    .btn-reset,
+    .btn-copy {
+      min-height: 52px;
+      border-radius: 16px;
+      font-weight: 900;
+    }
+
+    .btn-calc {
+      color: #fff;
+      background: linear-gradient(135deg, var(--blue), var(--mint));
+      box-shadow: 0 16px 30px rgba(41, 98, 255, 0.2);
+    }
+
+    .btn-reset,
+    .btn-copy {
+      color: #3c4a63;
+      background: rgba(255,255,255,0.96);
+      border: 1px solid rgba(41,98,255,0.12);
+    }
+
+    .notice {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(255, 244, 214, 0.66);
+      color: #72571e;
+      font-size: 12px;
+      line-height: 1.7;
+      font-weight: 800;
+    }
+
+    .result-empty {
+      padding: 28px 22px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(244,249,255,0.8), rgba(255,255,255,0.9));
+      border: 1px dashed rgba(41,98,255,0.18);
+      text-align: center;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .result-wrap {
+      display: none;
+    }
+
+    .result-wrap.show {
+      display: block;
+    }
+
+    .hero-result {
+      padding: 20px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #163867, #2962ff 65%, #45b7ff 100%);
+      color: #fff;
+      box-shadow: 0 22px 46px rgba(41, 98, 255, 0.22);
+    }
+
+    .hero-result small {
+      display: block;
+      color: rgba(255,255,255,0.72);
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .hero-result strong {
+      display: block;
+      margin-top: 10px;
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 1.08;
+      letter-spacing: -0.06em;
+    }
+
+    .hero-result p {
+      margin: 12px 0 0;
+      color: rgba(255,255,255,0.84);
+      font-size: 13px;
+      line-height: 1.7;
+      font-weight: 700;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .metric {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.96);
+      border: 1px solid rgba(41,98,255,0.08);
+      box-shadow: 0 10px 24px rgba(23, 59, 112, 0.06);
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .metric strong {
+      display: block;
+      margin-top: 8px;
+      font-size: 26px;
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .metric em {
+      display: block;
+      margin-top: 6px;
+      color: #5f6b84;
+      font-style: normal;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .ledger {
+      margin-top: 14px;
+      overflow: hidden;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.96);
+      border: 1px solid rgba(41,98,255,0.08);
+    }
+
+    .ledger-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(41,98,255,0.07);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .ledger-row:last-child {
+      border-bottom: 0;
+    }
+
+    .ledger-row span {
+      color: #42516b;
+    }
+
+    .ledger-row strong {
+      text-align: right;
+      letter-spacing: -0.02em;
+    }
+
+    .ledger-row.highlight {
+      background: rgba(35,199,162,0.08);
+    }
+
+    .status-box {
+      margin-top: 14px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      font-size: 13px;
+      line-height: 1.75;
+      font-weight: 800;
+    }
+
+    .status-good {
+      background: var(--green-soft);
+      color: #15634a;
+      border: 1px solid rgba(23,163,107,0.16);
+    }
+
+    .status-warn {
+      background: #fff9e8;
+      color: #765b1d;
+      border: 1px solid rgba(255,215,106,0.26);
+    }
+
+    .status-bad {
+      background: var(--red-soft);
+      color: #9d3838;
+      border: 1px solid rgba(234,91,91,0.18);
+    }
+
+    .compare-card {
+      margin-top: 14px;
+      padding: 18px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(243,248,255,0.9), rgba(255,255,255,0.95));
+      border: 1px solid rgba(41,98,255,0.08);
+    }
+
+    .compare-card h4 {
+      margin: 0 0 12px;
+      font-size: 15px;
+      letter-spacing: -0.02em;
+    }
+
+    .compare-table {
+      display: grid;
+      gap: 10px;
+    }
+
+    .compare-row {
+      display: grid;
+      grid-template-columns: 1.2fr 0.9fr 0.9fr;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .compare-row div {
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(41,98,255,0.08);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .compare-row.head div {
+      background: transparent;
+      border: 0;
+      padding: 0 0 4px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .guide-card {
+      padding: 22px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.84);
+      border: 1px solid rgba(41,98,255,0.08);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .guide-card h3 {
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: -0.03em;
+    }
+
+    .guide-card p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+      font-weight: 700;
+    }
+
+    .faq {
+      margin-top: 20px;
+      display: grid;
+      gap: 10px;
+    }
+
+    details {
+      border-radius: 18px;
+      background: rgba(255,255,255,0.84);
+      border: 1px solid rgba(41,98,255,0.08);
+      padding: 0 18px;
+      box-shadow: 0 8px 24px rgba(23, 59, 112, 0.04);
+    }
+
+    summary {
+      cursor: pointer;
+      padding: 16px 0;
+      font-size: 14px;
+      font-weight: 900;
+      color: #24314d;
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details p {
+      margin: 0;
+      padding: 0 0 16px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.75;
+      font-weight: 700;
+    }
+
+    .footer {
+      padding: 34px 0 40px;
+    }
+
+    .footer-card {
+      padding: 22px;
+      border-radius: 26px;
+      background: linear-gradient(135deg, #173b69, #0d2446);
+      color: rgba(255,255,255,0.8);
+    }
+
+    .footer-card strong {
+      display: block;
+      color: #fff;
+      font-size: 16px;
+    }
+
+    .footer-card p {
+      margin: 8px 0 0;
+      font-size: 12px;
+      line-height: 1.8;
+      font-weight: 700;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .tool-body,
+      .guide-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy {
+        order: 1;
+      }
+
+      .hero-visual {
+        order: 2;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .header-inner {
+        min-height: unset;
+        padding: 14px 0;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .wrap {
+        width: min(var(--max), calc(100% - 20px));
+      }
+
+      .grid-2,
+      .grid-3,
+      .metric-grid,
+      .action-row {
+        grid-template-columns: 1fr;
+      }
+
+      .shell-head {
+        padding: 22px 18px 16px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .tool-body,
+      .panel-body {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .tool-body {
+        padding-top: 18px;
+        padding-bottom: 18px;
+      }
+
+      .panel-head {
+        padding: 18px 16px 10px;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .subsection {
+        padding: 16px;
+      }
+
+      .compare-row {
+        grid-template-columns: 1fr;
+      }
+
+      .compare-row.head {
+        display: none;
+      }
+
+      .compare-row div {
+        padding: 10px 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 38px;
+        line-height: 1.12;
+      }
+
+      .hero {
+        padding-top: 28px;
+      }
+
+      .eyebrow-row {
+        gap: 8px;
+      }
+
+      .eyebrow,
+      .chip {
+        min-height: 30px;
+        padding: 7px 12px;
+        font-size: 11px;
+      }
+
+      .hero-visual,
+      .tool-shell,
+      .guide-card,
+      .footer-card {
+        border-radius: 22px;
+      }
+
+      .mini-summary,
+      .mini-chart {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="wrap header-inner">
+      <a class="brand" href="https://barohaegyeol-tools.pages.dev/" aria-label="바로해결툴즈 홈">
+        <div class="brand-mark">B</div>
+        <div class="brand-text">
+          <strong>바로해결툴즈</strong>
+          <span>금융 계산 · 생활 해결 · 빠른 비교</span>
+        </div>
+      </a>
+
+      <nav class="nav" aria-label="페이지 메뉴">
+        <a href="#calculator">계산하기</a>
+        <a href="#results">결과 보기</a>
+        <a href="#guide">계산 기준</a>
+        <a href="https://barohaegyeol-tools.pages.dev/">전체 도구</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow-row">
+            <span class="eyebrow"><b>●</b> 금리 인하 효과를 실질비용까지 계산</span>
+            <span class="chip">대환대출 · 중도상환수수료 · 손익분기</span>
+          </div>
+
+          <h1>
+            대출 갈아타기,<br />
+            <span class="accent">언제부터 진짜 이득</span>일까?
+          </h1>
+
+          <p>
+            현재 대출과 새 대출의 금리, 남은 기간, 중도상환수수료와 각종 부대비용을 비교해
+            <strong>월 납입액 차이, 총이자 절감액, 손익분기 개월 수, 최종 순이익</strong>을 한 번에 계산합니다.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn-primary" href="#calculator">갈아타기 바로 계산하기</a>
+            <a class="btn-secondary" href="#guide">계산 기준 확인</a>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="visual-content">
+            <div class="mini-summary">
+              <div class="mini-card">
+                <span>예상 월 절감액</span>
+                <strong id="heroMonthlySave">26.7만</strong>
+              </div>
+              <div class="mini-card">
+                <span>손익분기 예상</span>
+                <strong id="heroBreakEven">11개월</strong>
+              </div>
+            </div>
+
+            <div class="mini-chart">
+              <div class="chart-card">
+                <small>대환 후 총비용</small>
+                <strong id="heroNewCost">1,130만</strong>
+                <div class="line"></div>
+              </div>
+
+              <div class="savings-card">
+                <div class="badge">절감 시뮬레이션</div>
+                <div>
+                  <small>예상 총 절감액</small>
+                  <strong id="heroTotalSave">782만</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="quick-chips">
+              <span class="chip">중도상환수수료 포함</span>
+              <span class="chip">인지·법무비용 포함</span>
+              <span class="chip">월 상환액 바로 비교</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="calculator">
+      <div class="wrap">
+        <div class="tool-shell">
+          <div class="shell-head">
+            <div>
+              <h2>대환대출 비교 계산실</h2>
+              <p>현재 대출과 새 대출 조건을 입력하면 실시간으로 손익분기와 순절감액을 계산합니다.</p>
+            </div>
+            <div class="shell-tag">대출 갈아타기 계산기</div>
+          </div>
+
+          <div class="tool-body">
+            <section class="form-panel">
+              <div class="panel-head">
+                <div>
+                  <strong>조건 입력</strong>
+                  <span>금액 단위는 원입니다.</span>
+                </div>
+                <span>입력 후 계산 버튼 클릭</span>
+              </div>
+
+              <div class="panel-body">
+                <form id="refinanceForm">
+                  <div class="subsection">
+                    <h3>현재 대출 조건</h3>
+                    <p class="subsection-note">현재 남은 원금과 남은 기간 기준으로 입력하세요.</p>
+
+                    <div class="grid-2">
+                      <div class="field">
+                        <label for="currentBalance">
+                          현재 남은 원금
+                        </label>
+                        <div class="input-wrap">
+                          <input id="currentBalance" type="number" inputmode="numeric" min="0" step="100000" value="50000000" required />
+                          <span class="unit">원</span>
+                        </div>
+                      </div>
+
+                      <div class="field">
+                        <label for="currentRate">
+                          현재 금리
+                          <small>연 이자율</small>
+                        </label>
+                        <div class="input-wrap">
+                          <input id="currentRate" type="number" inputmode="decimal" min="0" step="0.01" value="5.20" required />
+                          <span class="unit">%</span>
+                        </div>
+                      </div>
+
+                      <div class="field">
+                        <label for="currentRemainingMonths">
+                          남은 기간
+                        </label>
+                        <div class="input-wrap">
+                          <input id="currentRemainingMonths" type="number" inputmode="numeric" min="1" step="1" value="36" required />
+                          <span class="unit">개월</span>
+                        </div>
+                      </div>
+
+                      <div class="field">
+                        <label for="repaymentType">
+                          상환 방식
+                          <small>비교 정확도를 위해 동일 방식 기준</small>
+                        </label>
+                        <select id="repaymentType">
+                          <option value="equal-payment" selected>원리금균등상환</option>
+                          <option value="interest-only">만기일시상환(이자만 납부)</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="subsection">
+                    <h3>새 대출 조건</h3>
+                    <p class="subsection-note">대환 후 새로 적용될 금리와 기간을 입력하세요.</p>
+
+                    <div class="grid-2">
+                      <div class="field">
+                        <label for="newRate">
+                          새 대출 금리
+                          <small>연 이자율</small>
+                        </label>
+                        <div class="input-wrap">
+                          <input id="newRate" type="number" inputmode="decimal" min="0" step="0.01" value="3.85" required />
+                          <span class="unit">%</span>
+                        </div>
+                      </div>
+
+                      <div class="field">
+                        <label for="newTermMonths">
+                          새 대출 기간
+                        </label>
+                        <div class="input-wrap">
+                          <input id="newTermMonths" type="number" inputmode="numeric" min="1" step="1" value="36" required />
+                          <span class="unit">개월</span>
+                        </div>
+                      </div>
+
+                      <div class="field">
+                        <label for="newLoanAmount">
+                          새 대출 실행금액
+                          <small>보통 현재 남은 원금과 같게 입력</small>
+                        </label>
+                        <div class="input-wrap">
+                          <input id="newLoanAmount" type="number" inputmode="numeric" min="0" step="100000" value="50000000" required />
+                          <span class="unit">원</span>
+                        </div>
+                      </div>
+
+                      <div class="field">
+                        <label for="cashback">
+                          캐시백·환급 혜택
+                          <small>없으면 0 입력</small>
+                        </label>
+                        <div class="input-wrap">
+                          <input id="cashback" type="number" inputmode="numeric" min="0" step="10000" value="0" required />
+                          <span class="unit">원</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="helper-row">
+                      <button class="helper-btn" type="button" data-fill="same-term">새 대출 기간 = 남은 기간</button>
+                      <button class="helper-btn" type="button" data-fill="copy-balance">새 대출금액 = 남은 원금</button>
+                    </div>
+                  </div>
+
+                  <div class="subsection">
+                    <h3>갈아타기 비용</h3>
+                    <p class="subsection-note">실제 발생할 수 있는 수수료와 부대비용을 합산합니다.</p>
+
+                    <div class="grid-2">
+                      <div class="field">
+                        <label for="prepaymentFee">
+                          중도상환수수료
+                        </label>
+                        <div class="input-wrap">
+                          <input id="prepaymentFee" type="number" inputmode="numeric" min="0" step="10000" value="350000" required />
+                          <span class="unit">원</span>
+                        </div>
+                      </div>
+
+                      <div class="field">
+                        <label for="processingFee">
+                          인지·설정·법무·심사 비용
+                        </label>
+                        <div class="input-wrap">
+                          <input id="processingFee" type="number" inputmode="numeric" min="0" step="10000" value="250000" required />
+                          <span class="unit">원</span>
+                        </div>
+                      </div>
+
+                      <div class="field">
+                        <label for="otherCost">
+                          기타 비용
+                          <small>서류·이전비용 등</small>
+                        </label>
+                        <div class="input-wrap">
+                          <input id="otherCost" type="number" inputmode="numeric" min="0" step="10000" value="0" required />
+                          <span class="unit">원</span>
+                        </div>
+                      </div>
+
+                      <div class="field">
+                        <label for="compareMonths">
+                          비교 기간
+                          <small>비워두면 새 대출 기간 기준 비교</small>
+                        </label>
+                        <div class="input-wrap">
+                          <input id="compareMonths" type="number" inputmode="numeric" min="0" step="1" value="0" />
+                          <span class="unit">개월</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="action-row">
+                    <button class="btn-calc" type="submit">손익분기 계산</button>
+                    <button class="btn-reset" type="button" id="resetBtn">초기화</button>
+                    <button class="btn-copy" type="button" id="copyBtn">결과 복사</button>
+                  </div>
+                </form>
+
+                <div class="notice">
+                  실제 대환대출 심사에서는 신용점수, 우대금리 조건, 금리변동 가능성, 상환 방식 변경, 중도상환수수료 면제 여부,
+                  인지세 분담비율 등이 달라질 수 있습니다. 본 계산은 입력값을 기준으로 한 참고용 추정치입니다.
+                </div>
+              </div>
+            </section>
+
+            <section class="result-panel" id="results">
+              <div class="panel-head">
+                <div>
+                  <strong>실시간 계산 결과</strong>
+                  <span>월 상환액·총비용·손익분기 자동 계산</span>
+                </div>
+                <span id="resultBadge">계산 전</span>
+              </div>
+
+              <div class="panel-body">
+                <div class="result-empty" id="resultEmpty">
+                  현재 대출과 새 대출 조건을 입력한 뒤<br />
+                  <strong>손익분기 계산</strong> 버튼을 누르세요.
+                </div>
+
+                <div class="result-wrap" id="resultWrap">
+                  <div class="hero-result">
+                    <small>대환대출 최종 판단</small>
+                    <strong id="mainVerdict">대환이 유리합니다</strong>
+                    <p id="mainMessage">월 납입액과 총이자 기준으로 새 대출이 더 유리합니다.</p>
+                  </div>
+
+                  <div class="metric-grid">
+                    <div class="metric">
+                      <span>손익분기 시점</span>
+                      <strong id="breakEvenMonthsText">10개월</strong>
+                      <em id="breakEvenSub">갈아타기 비용을 회수하는 예상 시점</em>
+                    </div>
+
+                    <div class="metric">
+                      <span>예상 총 순절감액</span>
+                      <strong id="netSavingsText">0원</strong>
+                      <em id="netSavingsSub">비용 포함 최종 차이</em>
+                    </div>
+
+                    <div class="metric">
+                      <span>현재 월 납입액</span>
+                      <strong id="currentMonthlyText">0원</strong>
+                      <em id="currentMonthlySub">현재 조건 기준</em>
+                    </div>
+
+                    <div class="metric">
+                      <span>새 대출 월 납입액</span>
+                      <strong id="newMonthlyText">0원</strong>
+                      <em id="newMonthlySub">대환 후 조건 기준</em>
+                    </div>
+                  </div>
+
+                  <div class="ledger">
+                    <div class="ledger-row">
+                      <span>현재 대출 비교기간 총비용</span>
+                      <strong id="currentTotalCostText">0원</strong>
+                    </div>
+                    <div class="ledger-row">
+                      <span>새 대출 비교기간 총비용</span>
+                      <strong id="newTotalCostText">0원</strong>
+                    </div>
+                    <div class="ledger-row">
+                      <span>갈아타기 총비용</span>
+                      <strong id="switchCostText">0원</strong>
+                    </div>
+                    <div class="ledger-row">
+                      <span>캐시백·환급 혜택</span>
+                      <strong id="cashbackText">0원</strong>
+                    </div>
+                    <div class="ledger-row highlight">
+                      <span>비용 반영 후 최종 순절감액</span>
+                      <strong id="finalDifferenceText">0원</strong>
+                    </div>
+                  </div>
+
+                  <div class="compare-card">
+                    <h4>현재 대출 vs 새 대출 비교</h4>
+                    <div class="compare-table">
+                      <div class="compare-row head">
+                        <div>항목</div>
+                        <div>현재 대출</div>
+                        <div>새 대출</div>
+                      </div>
+
+                      <div class="compare-row">
+                        <div>월 납입액</div>
+                        <div id="compareMonthlyCurrent">-</div>
+                        <div id="compareMonthlyNew">-</div>
+                      </div>
+
+                      <div class="compare-row">
+                        <div>비교기간 총납입액</div>
+                        <div id="comparePaidCurrent">-</div>
+                        <div id="comparePaidNew">-</div>
+                      </div>
+
+                      <div class="compare-row">
+                        <div>비교기간 총이자</div>
+                        <div id="compareInterestCurrent">-</div>
+                        <div id="compareInterestNew">-</div>
+                      </div>
+
+                      <div class="compare-row">
+                        <div>비교기간 종료 후 남은 원금</div>
+                        <div id="compareRemainCurrent">-</div>
+                        <div id="compareRemainNew">-</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="status-box status-good" id="statusBox">
+                    계산 결과가 여기에 표시됩니다.
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="guide">
+      <div class="wrap">
+        <div class="guide-grid">
+          <article class="guide-card">
+            <h3>손익분기란?</h3>
+            <p>
+              갈아타기 비용을 월 납입액 절감분이나 총비용 절감분으로 회수하는 시점입니다.
+              예를 들어 손익분기가 12개월이면, 12개월 이상 유지해야 대환 효과가 본격적으로 이익으로 전환됩니다.
+            </p>
+          </article>
+
+          <article class="guide-card">
+            <h3>총이자만 보면 안 되는 이유</h3>
+            <p>
+              새 대출 금리가 낮아도 대출 기간이 늘어나면 총이자가 더 커질 수 있습니다.
+              또한 중도상환수수료와 인지·법무비용을 반영하면 기대보다 이득이 줄어들 수 있습니다.
+            </p>
+          </article>
+
+          <article class="guide-card">
+            <h3>이 계산기의 핵심 기준</h3>
+            <p>
+              비교기간 동안의 총납입액, 총이자, 남은 원금까지 함께 비교합니다.
+              따라서 단순 월 상환액 절감만이 아니라, 실제 재무적으로 더 유리한지 폭넓게 판단할 수 있습니다.
+            </p>
+          </article>
+        </div>
+
+        <div class="faq">
+          <details>
+            <summary>비교 기간은 어떻게 잡는 게 좋나요?</summary>
+            <p>
+              일반적으로는 새 대출 기간 전체를 기준으로 보거나, 실제로 그 대출을 유지할 예상 기간을 입력해 비교합니다.
+              곧 집을 팔거나 다시 대출을 바꿀 가능성이 있다면 그 시점까지의 개월 수로 비교하는 편이 현실적입니다.
+            </p>
+          </details>
+
+          <details>
+            <summary>만기일시상환 대출도 계산 가능한가요?</summary>
+            <p>
+              가능합니다. 상환 방식에서 만기일시상환을 선택하면 비교기간 동안 이자만 납부하고 만기에 원금을 상환하는 방식으로 계산합니다.
+              다만 실제 상품 구조가 일부 다를 수 있으므로 약관을 함께 확인하세요.
+            </p>
+          </details>
+
+          <details>
+            <summary>손익분기가 없다고 나오면 무슨 뜻인가요?</summary>
+            <p>
+              갈아타기 비용과 새 대출 조건을 모두 반영했을 때 비교기간 안에 비용을 회수하지 못한다는 뜻입니다.
+              즉 금리는 더 낮더라도 부대비용이나 기간 차이 때문에 이번 갈아타기는 실익이 낮을 수 있습니다.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-card">
+        <strong>바로해결툴즈</strong>
+        <p>
+          본 결과는 입력한 금리와 상환조건을 기준으로 계산한 참고용 추정치입니다.
+          실제 대환대출 실행 전에는 금융회사 상품설명서, 중도상환수수료 약정, 인지세 분담, 우대금리 유지 조건을 반드시 확인하세요.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    "use strict";
+
+    const STORAGE_KEY = "loanRefinanceBreakEvenCalculator";
+
+    const form = document.getElementById("refinanceForm");
+    const resetBtn = document.getElementById("resetBtn");
+    const copyBtn = document.getElementById("copyBtn");
+    const resultEmpty = document.getElementById("resultEmpty");
+    const resultWrap = document.getElementById("resultWrap");
+    const resultBadge = document.getElementById("resultBadge");
+
+    const inputs = {
+      currentBalance: document.getElementById("currentBalance"),
+      currentRate: document.getElementById("currentRate"),
+      currentRemainingMonths: document.getElementById("currentRemainingMonths"),
+      repaymentType: document.getElementById("repaymentType"),
+      newRate: document.getElementById("newRate"),
+      newTermMonths: document.getElementById("newTermMonths"),
+      newLoanAmount: document.getElementById("newLoanAmount"),
+      cashback: document.getElementById("cashback"),
+      prepaymentFee: document.getElementById("prepaymentFee"),
+      processingFee: document.getElementById("processingFee"),
+      otherCost: document.getElementById("otherCost"),
+      compareMonths: document.getElementById("compareMonths")
+    };
+
+    const resultEls = {
+      mainVerdict: document.getElementById("mainVerdict"),
+      mainMessage: document.getElementById("mainMessage"),
+      breakEvenMonthsText: document.getElementById("breakEvenMonthsText"),
+      breakEvenSub: document.getElementById("breakEvenSub"),
+      netSavingsText: document.getElementById("netSavingsText"),
+      netSavingsSub: document.getElementById("netSavingsSub"),
+      currentMonthlyText: document.getElementById("currentMonthlyText"),
+      newMonthlyText: document.getElementById("newMonthlyText"),
+      currentMonthlySub: document.getElementById("currentMonthlySub"),
+      newMonthlySub: document.getElementById("newMonthlySub"),
+      currentTotalCostText: document.getElementById("currentTotalCostText"),
+      newTotalCostText: document.getElementById("newTotalCostText"),
+      switchCostText: document.getElementById("switchCostText"),
+      cashbackText: document.getElementById("cashbackText"),
+      finalDifferenceText: document.getElementById("finalDifferenceText"),
+      compareMonthlyCurrent: document.getElementById("compareMonthlyCurrent"),
+      compareMonthlyNew: document.getElementById("compareMonthlyNew"),
+      comparePaidCurrent: document.getElementById("comparePaidCurrent"),
+      comparePaidNew: document.getElementById("comparePaidNew"),
+      compareInterestCurrent: document.getElementById("compareInterestCurrent"),
+      compareInterestNew: document.getElementById("compareInterestNew"),
+      compareRemainCurrent: document.getElementById("compareRemainCurrent"),
+      compareRemainNew: document.getElementById("compareRemainNew"),
+      statusBox: document.getElementById("statusBox"),
+
+      heroMonthlySave: document.getElementById("heroMonthlySave"),
+      heroBreakEven: document.getElementById("heroBreakEven"),
+      heroNewCost: document.getElementById("heroNewCost"),
+      heroTotalSave: document.getElementById("heroTotalSave")
+    };
+
+    let lastResultText = "";
+
+    function formatWon(value) {
+      return `${Math.round(value).toLocaleString("ko-KR")}원`;
+    }
+
+    function formatCompactWon(value) {
+      const abs = Math.abs(value);
+      if (abs >= 100000000) {
+        const eok = value / 100000000;
+        return `${eok.toFixed(Math.abs(eok) >= 10 ? 1 : 2)}억`;
+      }
+      if (abs >= 10000) {
+        const man = value / 10000;
+        return `${man.toFixed(Math.abs(man) >= 100 ? 0 : 1)}만`;
+      }
+      return `${Math.round(value).toLocaleString("ko-KR")}원`;
+    }
+
+    function getNum(el) {
+      return Number(el.value || 0);
+    }
+
+    function getValues() {
+      return {
+        currentBalance: getNum(inputs.currentBalance),
+        currentRate: getNum(inputs.currentRate),
+        currentRemainingMonths: getNum(inputs.currentRemainingMonths),
+        repaymentType: inputs.repaymentType.value,
+        newRate: getNum(inputs.newRate),
+        newTermMonths: getNum(inputs.newTermMonths),
+        newLoanAmount: getNum(inputs.newLoanAmount),
+        cashback: getNum(inputs.cashback),
+        prepaymentFee: getNum(inputs.prepaymentFee),
+        processingFee: getNum(inputs.processingFee),
+        otherCost: getNum(inputs.otherCost),
+        compareMonths: getNum(inputs.compareMonths)
+      };
+    }
+
+    function validate(v) {
+      return (
+        v.currentBalance > 0 &&
+        v.currentRate >= 0 &&
+        v.currentRemainingMonths > 0 &&
+        v.newRate >= 0 &&
+        v.newTermMonths > 0 &&
+        v.newLoanAmount > 0 &&
+        v.cashback >= 0 &&
+        v.prepaymentFee >= 0 &&
+        v.processingFee >= 0 &&
+        v.otherCost >= 0 &&
+        (v.compareMonths >= 0)
+      );
+    }
+
+    function calcMonthlyEqualPayment(principal, annualRate, months) {
+      if (months <= 0) return 0;
+      if (annualRate === 0) return principal / months;
+
+      const r = annualRate / 100 / 12;
+      return principal * r * Math.pow(1 + r, months) / (Math.pow(1 + r, months) - 1);
+    }
+
+    function simulateLoan(principal, annualRate, totalMonths, compareMonths, type) {
+      const monthsToSimulate = Math.min(totalMonths, compareMonths);
+      const monthlyRate = annualRate / 100 / 12;
+
+      let monthlyPayment = 0;
+      let totalPaid = 0;
+      let totalInterest = 0;
+      let remainingPrincipal = principal;
+
+      if (type === "interest-only") {
+        monthlyPayment = principal * monthlyRate;
+        for (let i = 0; i < monthsToSimulate; i += 1) {
+          const interest = principal * monthlyRate;
+          totalInterest += interest;
+          totalPaid += interest;
+        }
+        remainingPrincipal = principal;
+      } else {
+        monthlyPayment = calcMonthlyEqualPayment(principal, annualRate, totalMonths);
+
+        for (let i = 0; i < monthsToSimulate; i += 1) {
+          const interest = remainingPrincipal * monthlyRate;
+          const principalPaid = annualRate === 0
+            ? principal / totalMonths
+            : Math.min(monthlyPayment - interest, remainingPrincipal);
+
+          totalInterest += interest;
+          totalPaid += (interest + principalPaid);
+          remainingPrincipal = Math.max(0, remainingPrincipal - principalPaid);
+        }
+      }
+
+      return {
+        monthlyPayment,
+        totalPaid,
+        totalInterest,
+        remainingPrincipal
+      };
+    }
+
+    function getBreakEvenMonths(currentMonthly, newMonthly, switchCost) {
+      const monthlySaving = currentMonthly - newMonthly;
+      if (monthlySaving <= 0) return null;
+      return Math.ceil(switchCost / monthlySaving);
+    }
+
+    function calculate(event) {
+      event.preventDefault();
+
+      const v = getValues();
+      if (!validate(v)) {
+        alert("입력값을 다시 확인해주세요. 금액과 기간은 0보다 커야 하며, 금리는 음수일 수 없습니다.");
+        return;
+      }
+
+      const compareMonths = v.compareMonths > 0
+        ? Math.min(v.compareMonths, Math.max(v.currentRemainingMonths, v.newTermMonths))
+        : v.newTermMonths;
+
+      const switchCost = v.prepaymentFee + v.processingFee + v.otherCost;
+      const currentSim = simulateLoan(
+        v.currentBalance,
+        v.currentRate,
+        v.currentRemainingMonths,
+        compareMonths,
+        v.repaymentType
+      );
+
+      const newSim = simulateLoan(
+        v.newLoanAmount,
+        v.newRate,
+        v.newTermMonths,
+        compareMonths,
+        v.repaymentType
+      );
+
+      const currentTotalCost = currentSim.totalPaid + currentSim.remainingPrincipal;
+      const newTotalCost = newSim.totalPaid + newSim.remainingPrincipal + switchCost - v.cashback;
+      const netSavings = currentTotalCost - newTotalCost;
+
+      const monthlySaving = currentSim.monthlyPayment - newSim.monthlyPayment;
+      const breakEvenMonths = getBreakEvenMonths(currentSim.monthlyPayment, newSim.monthlyPayment, Math.max(0, switchCost - v.cashback));
+
+      let verdict = "";
+      let message = "";
+      let statusClass = "status-good";
+      let statusText = "";
+
+      if (netSavings > 0 && breakEvenMonths !== null && breakEvenMonths <= compareMonths) {
+        verdict = "대환이 유리합니다";
+        message = `비교기간 ${compareMonths}개월 기준, 갈아타기 비용을 반영해도 약 ${formatWon(netSavings)} 절감됩니다.`;
+        statusText = `월 납입액이 ${formatWon(monthlySaving)} 줄고, 손익분기 예상은 ${breakEvenMonths}개월입니다. 해당 기간 이상 유지할 가능성이 높다면 대환 실익이 있는 편입니다.`;
+      } else if (netSavings > 0 && breakEvenMonths === null) {
+        verdict = "총비용은 유리하지만 월 절감은 적습니다";
+        message = `새 대출이 비교기간 총비용 기준으로는 유리하지만, 월 납입액 절감으로 손익분기를 계산하기는 어렵습니다.`;
+        statusClass = "status-warn";
+        statusText = `상환 구조 차이로 월 절감효과가 크지 않거나 오히려 월 납입액이 늘 수 있습니다. 다만 총이자나 잔존원금 기준으로는 새 대출이 더 유리할 수 있으니 구조를 함께 보세요.`;
+      } else if (netSavings > 0 && breakEvenMonths !== null && breakEvenMonths > compareMonths) {
+        verdict = "장기 유지 시에만 유리합니다";
+        message = `최종 순절감액은 플러스지만 손익분기 예상이 ${breakEvenMonths}개월로 비교기간보다 깁니다.`;
+        statusClass = "status-warn";
+        statusText = `갈아타기 직후 바로 이득이 나는 구조는 아닙니다. 대출을 오래 유지할 계획이라면 검토할 수 있지만, 단기 상환 예정이면 실익이 약할 수 있습니다.`;
+      } else {
+        verdict = "지금은 대환 실익이 낮습니다";
+        message = `갈아타기 비용과 비교기간을 반영하면 약 ${formatWon(Math.abs(netSavings))} 불리한 것으로 계산됩니다.`;
+        statusClass = "status-bad";
+        statusText = `새 금리가 낮아 보여도 기간 연장, 중도상환수수료, 인지·법무비용 때문에 전체적으로 불리할 수 있습니다. 수수료 면제나 금리 추가 인하 여지가 있는지 다시 확인해보세요.`;
+      }
+
+      resultEls.mainVerdict.textContent = verdict;
+      resultEls.mainMessage.textContent = message;
+      resultEls.breakEvenMonthsText.textContent = breakEvenMonths === null ? "없음" : `${breakEvenMonths}개월`;
+      resultEls.breakEvenSub.textContent = breakEvenMonths === null
+        ? "월 절감 기준 손익분기 계산 불가"
+        : `${breakEvenMonths}개월 이상 유지 시 비용 회수 예상`;
+      resultEls.netSavingsText.textContent = `${netSavings >= 0 ? "" : "-"}${formatWon(Math.abs(netSavings))}`;
+      resultEls.netSavingsSub.textContent = netSavings >= 0 ? "비용 반영 후 절감 예상" : "비용 반영 후 추가 부담 예상";
+      resultEls.currentMonthlyText.textContent = formatWon(currentSim.monthlyPayment);
+      resultEls.newMonthlyText.textContent = formatWon(newSim.monthlyPayment);
+      resultEls.currentMonthlySub.textContent = `${compareMonths}개월 비교 기준`;
+      resultEls.newMonthlySub.textContent = `${compareMonths}개월 비교 기준`;
+
+      resultEls.currentTotalCostText.textContent = formatWon(currentTotalCost);
+      resultEls.newTotalCostText.textContent = formatWon(newTotalCost);
+      resultEls.switchCostText.textContent = formatWon(switchCost);
+      resultEls.cashbackText.textContent = formatWon(v.cashback);
+      resultEls.finalDifferenceText.textContent = `${netSavings >= 0 ? "" : "-"}${formatWon(Math.abs(netSavings))}`;
+
+      resultEls.compareMonthlyCurrent.textContent = formatWon(currentSim.monthlyPayment);
+      resultEls.compareMonthlyNew.textContent = formatWon(newSim.monthlyPayment);
+      resultEls.comparePaidCurrent.textContent = formatWon(currentSim.totalPaid);
+      resultEls.comparePaidNew.textContent = formatWon(newSim.totalPaid + switchCost - v.cashback);
+      resultEls.compareInterestCurrent.textContent = formatWon(currentSim.totalInterest);
+      resultEls.compareInterestNew.textContent = formatWon(newSim.totalInterest);
+      resultEls.compareRemainCurrent.textContent = formatWon(currentSim.remainingPrincipal);
+      resultEls.compareRemainNew.textContent = formatWon(newSim.remainingPrincipal);
+
+      resultEls.statusBox.className = `status-box ${statusClass}`;
+      resultEls.statusBox.textContent = statusText;
+
+      resultEls.heroMonthlySave.textContent = formatCompactWon(Math.max(0, monthlySaving));
+      resultEls.heroBreakEven.textContent = breakEvenMonths === null ? "없음" : `${breakEvenMonths}개월`;
+      resultEls.heroNewCost.textContent = formatCompactWon(newTotalCost);
+      resultEls.heroTotalSave.textContent = `${netSavings >= 0 ? "" : "-"}${formatCompactWon(Math.abs(netSavings))}`;
+
+      resultBadge.textContent = verdict;
+      resultEmpty.style.display = "none";
+      resultWrap.classList.add("show");
+
+      lastResultText =
+`[대출 갈아타기 손익분기 계산기]
+
+현재 남은 원금: ${formatWon(v.currentBalance)}
+현재 금리: ${v.currentRate.toFixed(2)}%
+현재 남은 기간: ${v.currentRemainingMonths}개월
+상환 방식: ${v.repaymentType === "equal-payment" ? "원리금균등상환" : "만기일시상환"}
+
+새 대출 금리: ${v.newRate.toFixed(2)}%
+새 대출 기간: ${v.newTermMonths}개월
+새 대출 실행금액: ${formatWon(v.newLoanAmount)}
+
+갈아타기 비용:
+- 중도상환수수료: ${formatWon(v.prepaymentFee)}
+- 인지·설정·법무·심사 비용: ${formatWon(v.processingFee)}
+- 기타 비용: ${formatWon(v.otherCost)}
+- 캐시백·환급 혜택: ${formatWon(v.cashback)}
+
+비교 기간: ${compareMonths}개월
+
+현재 월 납입액: ${formatWon(currentSim.monthlyPayment)}
+새 대출 월 납입액: ${formatWon(newSim.monthlyPayment)}
+월 절감액: ${formatWon(monthlySaving)}
+
+현재 대출 비교기간 총비용: ${formatWon(currentTotalCost)}
+새 대출 비교기간 총비용: ${formatWon(newTotalCost)}
+
+손익분기: ${breakEvenMonths === null ? "없음" : `${breakEvenMonths}개월`}
+최종 순절감액: ${netSavings >= 0 ? "" : "-"}${formatWon(Math.abs(netSavings))}
+최종 판단: ${verdict}
+
+※ 실제 실행 전 금융사 상품설명서와 수수료 조건을 다시 확인하세요.`;
+
+      saveValues();
+
+      document.getElementById("results").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+
+    function saveValues() {
+      const values = {
+        currentBalance: inputs.currentBalance.value,
+        currentRate: inputs.currentRate.value,
+        currentRemainingMonths: inputs.currentRemainingMonths.value,
+        repaymentType: inputs.repaymentType.value,
+        newRate: inputs.newRate.value,
+        newTermMonths: inputs.newTermMonths.value,
+        newLoanAmount: inputs.newLoanAmount.value,
+        cashback: inputs.cashback.value,
+        prepaymentFee: inputs.prepaymentFee.value,
+        processingFee: inputs.processingFee.value,
+        otherCost: inputs.otherCost.value,
+        compareMonths: inputs.compareMonths.value
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(values));
+    }
+
+    function restoreValues() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      try {
+        const values = JSON.parse(raw);
+        Object.keys(values).forEach((key) => {
+          if (inputs[key]) {
+            inputs[key].value = values[key];
+          }
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    function resetValues() {
+      inputs.currentBalance.value = "50000000";
+      inputs.currentRate.value = "5.20";
+      inputs.currentRemainingMonths.value = "36";
+      inputs.repaymentType.value = "equal-payment";
+      inputs.newRate.value = "3.85";
+      inputs.newTermMonths.value = "36";
+      inputs.newLoanAmount.value = "50000000";
+      inputs.cashback.value = "0";
+      inputs.prepaymentFee.value = "350000";
+      inputs.processingFee.value = "250000";
+      inputs.otherCost.value = "0";
+      inputs.compareMonths.value = "0";
+
+      localStorage.removeItem(STORAGE_KEY);
+      resultEmpty.style.display = "block";
+      resultWrap.classList.remove("show");
+      resultBadge.textContent = "계산 전";
+      lastResultText = "";
+    }
+
+    function copyResult() {
+      if (!lastResultText) {
+        alert("먼저 계산을 완료해주세요.");
+        return;
+      }
+
+      navigator.clipboard.writeText(lastResultText)
+        .then(() => {
+          const original = copyBtn.textContent;
+          copyBtn.textContent = "복사 완료";
+          setTimeout(() => {
+            copyBtn.textContent = original;
+          }, 1200);
+        })
+        .catch(() => {
+          alert("복사에 실패했습니다. 다시 시도해주세요.");
+        });
+    }
+
+    document.querySelectorAll(".helper-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        const type = button.dataset.fill;
+        if (type === "same-term") {
+          inputs.newTermMonths.value = inputs.currentRemainingMonths.value;
+        }
+        if (type === "copy-balance") {
+          inputs.newLoanAmount.value = inputs.currentBalance.value;
+        }
+        saveValues();
+      });
+    });
+
+    Object.values(inputs).forEach((input) => {
+      input.addEventListener("input", saveValues);
+      input.addEventListener("change", saveValues);
+    });
+
+    form.addEventListener("submit", calculate);
+    resetBtn.addEventListener("click", resetValues);
+    copyBtn.addEventListener("click", copyResult);
+
+    restoreValues();
+
+    // 초기 히어로 수치 보정
+    (function initHeroPreview() {
+      const v = getValues();
+      const currentMonthly = calcMonthlyEqualPayment(v.currentBalance, v.currentRate, Math.max(v.currentRemainingMonths, 1));
+      const newMonthly = calcMonthlyEqualPayment(v.newLoanAmount, v.newRate, Math.max(v.newTermMonths, 1));
+      const monthlySaving = Math.max(0, currentMonthly - newMonthly);
+      const breakEven = getBreakEvenMonths(currentMonthly, newMonthly, v.prepaymentFee + v.processingFee + v.otherCost);
+
+      resultEls.heroMonthlySave.textContent = formatCompactWon(monthlySaving);
+      resultEls.heroBreakEven.textContent = breakEven === null ? "없음" : `${breakEven}개월`;
+      resultEls.heroNewCost.textContent = formatCompactWon(v.newLoanAmount * (1 + v.newRate / 100 * (v.newTermMonths / 12)));
+      resultEls.heroTotalSave.textContent = formatCompactWon(monthlySaving * Math.max(v.newTermMonths, 1) - (v.prepaymentFee + v.processingFee + v.otherCost));
+    })();
+  </script>
+
+  <script
+    defer
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'
+  ></script>
+</body>
+</html>
