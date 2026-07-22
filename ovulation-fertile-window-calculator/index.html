@@ -1,0 +1,5811 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>배란일·가임기 계산기 | 생리주기·임신 가능 기간 계산 | 바로해결툴즈</title>
+
+  <meta
+    name="description"
+    content="마지막 생리 시작일과 평균 생리주기를 입력하면 예상 배란일, 가임기, 임신 가능성이 높은 날, 다음 생리 예정일과 향후 3개월 주기를 계산합니다."
+  >
+
+  <meta
+    name="keywords"
+    content="배란일 계산기, 가임기 계산기, 임신 가능 기간, 생리주기 계산기, 다음 생리 예정일, 배란일 예측, 임신 준비, 바로해결툴즈"
+  >
+
+  <meta
+    name="author"
+    content="바로해결툴즈"
+  >
+
+  <meta
+    name="robots"
+    content="index, follow"
+  >
+
+  <link
+    rel="canonical"
+    href="https://barohaegyeol-tools.pages.dev/ovulation-fertile-window-calculator/"
+  >
+
+  <meta
+    name="theme-color"
+    content="#5e4ba0"
+  >
+
+  <meta
+    property="og:type"
+    content="website"
+  >
+
+  <meta
+    property="og:title"
+    content="배란일·가임기 계산기 | 바로해결툴즈"
+  >
+
+  <meta
+    property="og:description"
+    content="마지막 생리일과 주기를 기준으로 예상 배란일과 가임기, 다음 생리 예정일을 확인하세요."
+  >
+
+  <meta
+    property="og:url"
+    content="https://barohaegyeol-tools.pages.dev/ovulation-fertile-window-calculator/"
+  >
+
+  <meta
+    property="og:site_name"
+    content="바로해결툴즈"
+  >
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "배란일·가임기 계산기",
+    "url": "https://barohaegyeol-tools.pages.dev/ovulation-fertile-window-calculator/",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "All",
+    "description": "마지막 생리 시작일과 평균 생리주기를 기준으로 예상 배란일, 가임기와 다음 생리 예정일을 계산하는 무료 웹 도구입니다.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "KRW"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --ink: #27233a;
+      --ink-2: #47415d;
+      --text: #5e5870;
+      --muted: #8b8599;
+
+      --violet: #6953b6;
+      --violet-dark: #4a387f;
+      --violet-soft: #eeeafe;
+
+      --coral: #ef7f78;
+      --coral-dark: #b85253;
+      --coral-soft: #fff0ee;
+
+      --pink: #e687b4;
+      --pink-soft: #fff0f7;
+
+      --mint: #56bca7;
+      --mint-dark: #2d8271;
+      --mint-soft: #e5f8f3;
+
+      --sky: #70a8d6;
+      --sky-soft: #edf6fd;
+
+      --yellow: #f2cf62;
+      --yellow-soft: #fff8d9;
+
+      --green: #378264;
+      --green-soft: #e8f7f0;
+
+      --red: #c75562;
+      --red-soft: #fff0f2;
+
+      --line: rgba(74, 56, 127, 0.12);
+      --line-strong: rgba(74, 56, 127, 0.22);
+
+      --white: #ffffff;
+      --card: rgba(255, 255, 255, 0.92);
+
+      --shadow:
+        0 26px 68px rgba(73, 57, 123, 0.13);
+
+      --shadow-soft:
+        0 12px 30px rgba(73, 57, 123, 0.08);
+
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --radius-sm: 14px;
+
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      min-width: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+
+      color: var(--ink);
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Pretendard",
+        "Noto Sans KR",
+        "Apple SD Gothic Neo",
+        system-ui,
+        sans-serif;
+
+      line-height: 1.65;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+
+      background:
+        radial-gradient(
+          circle at 4% 4%,
+          rgba(239, 127, 120, 0.19),
+          transparent 29%
+        ),
+        radial-gradient(
+          circle at 96% 7%,
+          rgba(105, 83, 182, 0.17),
+          transparent 31%
+        ),
+        radial-gradient(
+          circle at 78% 95%,
+          rgba(86, 188, 167, 0.14),
+          transparent 28%
+        ),
+        linear-gradient(
+          135deg,
+          #fff9f7 0%,
+          #faf8ff 42%,
+          #f5f9ff 69%,
+          #f5fff9 100%
+        );
+    }
+
+    body::before {
+      content: "";
+
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+
+      pointer-events: none;
+      opacity: 0.28;
+
+      background-image:
+        linear-gradient(
+          rgba(74, 56, 127, 0.035) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(74, 56, 127, 0.035) 1px,
+          transparent 1px
+        );
+
+      background-size:
+        34px 34px;
+
+      mask-image:
+        linear-gradient(
+          to bottom,
+          #000,
+          transparent 92%
+        );
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .wrap {
+      width:
+        min(
+          var(--max),
+          calc(100% - 32px)
+        );
+
+      margin:
+        0 auto;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+
+      border-bottom:
+        1px solid rgba(74, 56, 127, 0.08);
+
+      background:
+        rgba(253, 251, 255, 0.83);
+
+      backdrop-filter:
+        blur(15px);
+    }
+
+    .header-inner {
+      min-height: 76px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      font-weight: 950;
+      letter-spacing: -0.04em;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 16px;
+
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--violet),
+          var(--pink),
+          var(--coral)
+        );
+
+      box-shadow:
+        0 12px 28px rgba(105, 83, 182, 0.23);
+
+      font-weight: 1000;
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 2px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+      font-weight: 750;
+      letter-spacing: 0;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 9px;
+    }
+
+    .nav a {
+      padding:
+        9px 13px;
+
+      border:
+        1px solid rgba(74, 56, 127, 0.09);
+
+      border-radius: 999px;
+
+      color: #615b72;
+
+      background:
+        rgba(255, 255, 255, 0.83);
+
+      font-size: 12px;
+      font-weight: 850;
+
+      transition:
+        0.18s ease;
+    }
+
+    .nav a:hover {
+      color: var(--violet);
+
+      border-color:
+        rgba(105, 83, 182, 0.26);
+
+      transform:
+        translateY(-1px);
+    }
+
+    .hero {
+      padding:
+        37px 0 28px;
+    }
+
+    .cycle-desk {
+      position: relative;
+
+      overflow: hidden;
+
+      padding:
+        43px 46px 38px;
+
+      border:
+        1px solid rgba(74, 56, 127, 0.1);
+
+      border-radius:
+        var(--radius-xl);
+
+      background:
+        radial-gradient(
+          circle at 91% 6%,
+          rgba(242, 207, 98, 0.3),
+          transparent 24%
+        ),
+        radial-gradient(
+          circle at 5% 95%,
+          rgba(86, 188, 167, 0.18),
+          transparent 28%
+        ),
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.98),
+          rgba(255, 246, 250, 0.96) 47%,
+          rgba(241, 238, 252, 0.96)
+        );
+
+      box-shadow:
+        var(--shadow);
+    }
+
+    .cycle-desk::before {
+      content: "";
+
+      position: absolute;
+      left: -50px;
+      right: -50px;
+      bottom: -115px;
+
+      height: 230px;
+
+      border:
+        34px solid rgba(105, 83, 182, 0.055);
+
+      border-radius: 50%;
+    }
+
+    .hero-top {
+      position: relative;
+      z-index: 2;
+
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1.1fr)
+        minmax(300px, 0.9fr);
+
+      gap: 30px;
+      align-items: end;
+    }
+
+    .hero-labels {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+
+      margin-bottom: 18px;
+    }
+
+    .hero-label {
+      min-height: 34px;
+
+      display: inline-flex;
+      align-items: center;
+
+      padding:
+        8px 13px;
+
+      border:
+        1px solid rgba(74, 56, 127, 0.1);
+
+      border-radius: 999px;
+
+      color: #655e73;
+
+      background:
+        rgba(255, 255, 255, 0.86);
+
+      box-shadow:
+        0 8px 22px rgba(73, 57, 123, 0.05);
+
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .hero-label.primary {
+      color: var(--violet-dark);
+
+      background: var(--yellow-soft);
+
+      border-color:
+        rgba(242, 207, 98, 0.24);
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 760px;
+
+      font-size:
+        clamp(42px, 5.5vw, 68px);
+
+      line-height: 1.06;
+      letter-spacing: -0.066em;
+
+      word-break: keep-all;
+      overflow-wrap: normal;
+    }
+
+    .title-line {
+      display: block;
+    }
+
+    .title-accent {
+      color: transparent;
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--violet-dark),
+          var(--violet) 42%,
+          var(--pink) 72%,
+          var(--coral-dark)
+        );
+
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .hero-copy p {
+      max-width: 730px;
+
+      margin:
+        19px 0 0;
+
+      color: var(--muted);
+
+      font-size:
+        clamp(15px, 1.7vw, 18px);
+
+      line-height: 1.82;
+      font-weight: 720;
+    }
+
+    .hero-copy strong {
+      color: #514a61;
+      font-weight: 950;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 11px;
+
+      margin-top: 23px;
+    }
+
+    .btn {
+      min-height: 51px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      padding:
+        13px 19px;
+
+      border:
+        1px solid transparent;
+
+      border-radius: 16px;
+
+      font-weight: 920;
+
+      transition:
+        0.18s ease;
+    }
+
+    .btn:hover {
+      transform:
+        translateY(-2px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--violet-dark),
+          var(--violet),
+          var(--pink)
+        );
+
+      box-shadow:
+        0 17px 36px rgba(105, 83, 182, 0.22);
+    }
+
+    .btn-secondary {
+      color: #5b5468;
+
+      border-color:
+        rgba(74, 56, 127, 0.11);
+
+      background:
+        rgba(255, 255, 255, 0.91);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .cycle-meter {
+      position: relative;
+
+      min-height: 250px;
+
+      display: grid;
+      place-items: center;
+
+      padding: 22px;
+
+      border:
+        1px solid rgba(74, 56, 127, 0.1);
+
+      border-radius: 28px;
+
+      background:
+        rgba(255, 255, 255, 0.82);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .cycle-ring {
+      position: relative;
+
+      width: 206px;
+      height: 206px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 50%;
+
+      background:
+        conic-gradient(
+          var(--coral) 0 18%,
+          var(--pink) 18% 36%,
+          var(--yellow) 36% 53%,
+          var(--mint) 53% 68%,
+          var(--sky) 68% 84%,
+          var(--violet) 84% 100%
+        );
+
+      box-shadow:
+        0 20px 42px rgba(73, 57, 123, 0.19);
+    }
+
+    .cycle-ring::before {
+      content: "";
+
+      position: absolute;
+      inset: 18px;
+
+      border-radius: 50%;
+
+      background:
+        linear-gradient(
+          145deg,
+          #ffffff,
+          #f9f6ff
+        );
+    }
+
+    .cycle-center {
+      position: relative;
+      z-index: 1;
+
+      text-align: center;
+    }
+
+    .cycle-center span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+    }
+
+    .cycle-center strong {
+      display: block;
+      margin-top: 7px;
+
+      color: var(--violet-dark);
+
+      font-size: 39px;
+      line-height: 1;
+      letter-spacing: -0.055em;
+    }
+
+    .cycle-center small {
+      display: block;
+      margin-top: 7px;
+
+      color: #8b8398;
+
+      font-size: 9px;
+      font-weight: 750;
+    }
+
+    .ring-tag {
+      position: absolute;
+
+      padding:
+        7px 10px;
+
+      border:
+        1px solid rgba(74, 56, 127, 0.09);
+
+      border-radius: 12px;
+
+      background: #ffffff;
+
+      box-shadow:
+        0 8px 18px rgba(73, 57, 123, 0.08);
+
+      font-size: 9px;
+      font-weight: 900;
+    }
+
+    .ring-tag.period {
+      left: 8px;
+      top: 24px;
+
+      color: var(--coral-dark);
+    }
+
+    .ring-tag.fertile {
+      right: 5px;
+      bottom: 37px;
+
+      color: var(--mint-dark);
+    }
+
+    .ring-tag.ovulation {
+      right: 4px;
+      top: 32px;
+
+      color: var(--violet);
+    }
+
+    .month-board {
+      position: relative;
+      z-index: 2;
+
+      margin-top: 32px;
+
+      padding: 20px;
+
+      border:
+        1px solid rgba(74, 56, 127, 0.09);
+
+      border-radius: 25px;
+
+      background:
+        rgba(255, 255, 255, 0.87);
+
+      box-shadow:
+        0 13px 30px rgba(73, 57, 123, 0.07);
+    }
+
+    .month-board-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      gap: 16px;
+    }
+
+    .month-board-head h2 {
+      margin: 0;
+
+      font-size: 20px;
+      letter-spacing: -0.04em;
+    }
+
+    .month-board-head p {
+      margin:
+        5px 0 0;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 740;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+
+      color: #746d80;
+
+      font-size: 9px;
+      font-weight: 820;
+    }
+
+    .legend i {
+      width: 10px;
+      height: 10px;
+
+      border-radius: 4px;
+
+      background: var(--coral);
+    }
+
+    .legend span:nth-child(2) i {
+      background: var(--mint);
+    }
+
+    .legend span:nth-child(3) i {
+      background: var(--violet);
+    }
+
+    .legend span:nth-child(4) i {
+      background: var(--sky);
+    }
+
+    .hero-calendar {
+      display: grid;
+
+      grid-template-columns:
+        repeat(14, minmax(0, 1fr));
+
+      gap: 7px;
+
+      margin-top: 15px;
+    }
+
+    .hero-day {
+      min-height: 59px;
+
+      display: grid;
+      place-items: center;
+      align-content: center;
+
+      padding: 6px 3px;
+
+      border:
+        1px solid rgba(74, 56, 127, 0.07);
+
+      border-radius: 13px;
+
+      color: #6f687c;
+      background: #f8f7fb;
+
+      text-align: center;
+    }
+
+    .hero-day strong {
+      font-size: 12px;
+    }
+
+    .hero-day small {
+      display: block;
+      margin-top: 2px;
+
+      color: #9a93a5;
+
+      font-size: 7px;
+      font-weight: 730;
+    }
+
+    .hero-day.period {
+      color: #ffffff;
+      background: var(--coral);
+    }
+
+    .hero-day.fertile {
+      color: var(--mint-dark);
+      background: var(--mint-soft);
+    }
+
+    .hero-day.peak {
+      color: #ffffff;
+      background: var(--violet);
+    }
+
+    .hero-day.next {
+      color: var(--sky);
+      background: var(--sky-soft);
+    }
+
+    .section {
+      padding:
+        14px 0 25px;
+    }
+
+    .tool-shell {
+      overflow: hidden;
+
+      border:
+        1px solid rgba(74, 56, 127, 0.09);
+
+      border-radius:
+        var(--radius-xl);
+
+      background:
+        rgba(255, 255, 255, 0.91);
+
+      box-shadow:
+        var(--shadow);
+    }
+
+    .shell-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      gap: 18px;
+
+      padding:
+        26px 26px 19px;
+
+      border-bottom:
+        1px solid rgba(74, 56, 127, 0.08);
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(238, 234, 254, 0.79),
+          rgba(255, 255, 255, 0.26)
+        );
+    }
+
+    .shell-head h2 {
+      margin: 0;
+
+      font-size:
+        clamp(27px, 3.5vw, 40px);
+
+      line-height: 1.15;
+      letter-spacing: -0.05em;
+    }
+
+    .shell-head p {
+      margin:
+        8px 0 0;
+
+      color: var(--muted);
+
+      font-size: 13px;
+      font-weight: 720;
+    }
+
+    .shell-badge {
+      min-height: 34px;
+
+      display: inline-flex;
+      align-items: center;
+
+      padding:
+        8px 12px;
+
+      border-radius: 999px;
+
+      color: var(--violet-dark);
+
+      background:
+        rgba(105, 83, 182, 0.1);
+
+      font-size: 11px;
+      font-weight: 900;
+
+      white-space: nowrap;
+    }
+
+    .calculator-body {
+      padding: 23px;
+    }
+
+    .method-switch {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 10px;
+
+      padding: 8px;
+
+      border:
+        1px solid rgba(74, 56, 127, 0.09);
+
+      border-radius: 21px;
+
+      background: #f2f0f8;
+    }
+
+    .method-btn {
+      min-height: 62px;
+
+      padding:
+        10px 13px;
+
+      border:
+        1px solid transparent;
+
+      border-radius: 15px;
+
+      color: #6c6579;
+      background: transparent;
+
+      font-size: 12px;
+      font-weight: 920;
+
+      transition:
+        0.18s ease;
+    }
+
+    .method-btn span {
+      display: block;
+      margin-top: 3px;
+
+      font-size: 9px;
+      font-weight: 740;
+      opacity: 0.77;
+    }
+
+    .method-btn.active {
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--violet-dark),
+          var(--violet),
+          var(--pink)
+        );
+
+      box-shadow:
+        0 10px 24px rgba(105, 83, 182, 0.19);
+    }
+
+    .input-layout {
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1.2fr)
+        minmax(300px, 0.8fr);
+
+      gap: 17px;
+
+      margin-top: 17px;
+    }
+
+    .input-card,
+    .preview-card {
+      padding: 21px;
+
+      border:
+        1px solid rgba(74, 56, 127, 0.09);
+
+      border-radius: 23px;
+
+      background: #ffffff;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .card-title {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      gap: 14px;
+
+      margin-bottom: 16px;
+    }
+
+    .card-title h3 {
+      margin: 0;
+
+      font-size: 21px;
+      letter-spacing: -0.04em;
+    }
+
+    .card-title span {
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 780;
+      text-align: right;
+    }
+
+    .field-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 12px;
+    }
+
+    .field {
+      margin-top: 12px;
+    }
+
+    .field-grid .field {
+      margin-top: 0;
+    }
+
+    .field label {
+      display: block;
+
+      margin-bottom: 7px;
+
+      color: #5a5367;
+
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .field label small {
+      display: block;
+      margin-top: 3px;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      line-height: 1.45;
+      font-weight: 720;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 53px;
+
+      padding:
+        13px 47px 13px 14px;
+
+      border:
+        1px solid rgba(74, 56, 127, 0.14);
+
+      border-radius: 16px;
+      outline: none;
+
+      color: var(--ink);
+      background: #ffffff;
+
+      font-size: 14px;
+      font-weight: 830;
+
+      transition:
+        0.17s ease;
+    }
+
+    select {
+      padding-right: 13px;
+    }
+
+    input:focus,
+    select:focus {
+      border-color:
+        rgba(105, 83, 182, 0.42);
+
+      box-shadow:
+        0 0 0 4px rgba(105, 83, 182, 0.08);
+    }
+
+    input:disabled {
+      color: #aaa4b1;
+      background: #f1eff4;
+      cursor: not-allowed;
+    }
+
+    .unit {
+      position: absolute;
+      right: 13px;
+      top: 50%;
+
+      transform:
+        translateY(-50%);
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 900;
+
+      pointer-events: none;
+    }
+
+    .range-fields {
+      display: none;
+
+      margin-top: 13px;
+
+      padding: 15px;
+
+      border:
+        1px solid rgba(86, 188, 167, 0.17);
+
+      border-radius: 18px;
+
+      background: var(--mint-soft);
+    }
+
+    .range-fields.active {
+      display: block;
+    }
+
+    .range-fields h4 {
+      margin:
+        0 0 10px;
+
+      color: var(--mint-dark);
+
+      font-size: 13px;
+      letter-spacing: -0.025em;
+    }
+
+    .range-fields p {
+      margin:
+        0 0 12px;
+
+      color: #648177;
+
+      font-size: 9px;
+      line-height: 1.55;
+      font-weight: 740;
+    }
+
+    .formula-note {
+      margin-top: 14px;
+
+      padding:
+        13px 14px;
+
+      border:
+        1px solid rgba(242, 207, 98, 0.25);
+
+      border-radius: 17px;
+
+      color: #705b2b;
+
+      background: var(--yellow-soft);
+
+      font-size: 10px;
+      line-height: 1.65;
+      font-weight: 760;
+    }
+
+    .mini-cycle {
+      min-height: 195px;
+
+      display: grid;
+      place-items: center;
+
+      margin-bottom: 15px;
+
+      border-radius: 21px;
+
+      background:
+        radial-gradient(
+          circle at 50% 48%,
+          rgba(105, 83, 182, 0.15),
+          transparent 36%
+        ),
+        linear-gradient(
+          145deg,
+          var(--coral-soft),
+          var(--pink-soft),
+          var(--violet-soft)
+        );
+    }
+
+    .mini-cycle-ring {
+      position: relative;
+
+      width: 150px;
+      height: 150px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 50%;
+
+      background:
+        conic-gradient(
+          var(--coral) 0 18%,
+          var(--pink) 18% 45%,
+          var(--mint) 45% 68%,
+          var(--violet) 68% 75%,
+          var(--sky) 75% 100%
+        );
+    }
+
+    .mini-cycle-ring::before {
+      content: "";
+
+      position: absolute;
+      inset: 15px;
+
+      border-radius: 50%;
+
+      background: #ffffff;
+    }
+
+    .mini-cycle-content {
+      position: relative;
+      z-index: 1;
+
+      text-align: center;
+    }
+
+    .mini-cycle-content span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 8px;
+      font-weight: 850;
+    }
+
+    .mini-cycle-content strong {
+      display: block;
+      margin-top: 5px;
+
+      color: var(--violet-dark);
+
+      font-size: 28px;
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .mini-cycle-content small {
+      display: block;
+      margin-top: 6px;
+
+      color: #8c8495;
+
+      font-size: 8px;
+      font-weight: 740;
+    }
+
+    .quick-preview {
+      display: grid;
+      gap: 9px;
+    }
+
+    .quick-row {
+      display: grid;
+
+      grid-template-columns:
+        auto 1fr auto;
+
+      gap: 10px;
+      align-items: center;
+
+      padding: 11px;
+
+      border:
+        1px solid rgba(74, 56, 127, 0.08);
+
+      border-radius: 15px;
+
+      background: #faf9fc;
+    }
+
+    .quick-dot {
+      width: 30px;
+      height: 30px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 10px;
+
+      color: #ffffff;
+      background: var(--coral);
+
+      font-size: 10px;
+      font-weight: 950;
+    }
+
+    .quick-row:nth-child(2)
+    .quick-dot {
+      background: var(--mint);
+    }
+
+    .quick-row:nth-child(3)
+    .quick-dot {
+      background: var(--violet);
+    }
+
+    .quick-row span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 8px;
+      font-weight: 820;
+    }
+
+    .quick-row strong {
+      display: block;
+      margin-top: 3px;
+
+      font-size: 12px;
+      letter-spacing: -0.025em;
+    }
+
+    .quick-row b {
+      color: #675f73;
+
+      font-size: 10px;
+      text-align: right;
+    }
+
+    .option-strip {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 11px;
+
+      margin-top: 17px;
+    }
+
+    .option-box {
+      padding: 16px;
+
+      border:
+        1px solid rgba(74, 56, 127, 0.09);
+
+      border-radius: 19px;
+
+      background: #ffffff;
+
+      box-shadow:
+        0 9px 22px rgba(73, 57, 123, 0.05);
+    }
+
+    .option-box label {
+      display: block;
+      margin-bottom: 7px;
+
+      color: #5b5468;
+
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .action-row {
+      display: grid;
+
+      grid-template-columns:
+        1fr 190px;
+
+      gap: 11px;
+
+      margin-top: 18px;
+    }
+
+    .calculate-btn,
+    .reset-btn {
+      min-height: 59px;
+
+      border:
+        1px solid transparent;
+
+      border-radius: 17px;
+
+      font-weight: 950;
+    }
+
+    .calculate-btn {
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--violet-dark),
+          var(--violet),
+          var(--pink)
+        );
+
+      box-shadow:
+        0 17px 35px rgba(105, 83, 182, 0.21);
+    }
+
+    .reset-btn {
+      color: #615a6c;
+
+      border-color:
+        rgba(74, 56, 127, 0.13);
+
+      background: #ffffff;
+    }
+
+    .notice {
+      margin-top: 17px;
+
+      padding:
+        14px 16px;
+
+      border:
+        1px solid rgba(239, 127, 120, 0.19);
+
+      border-radius: 18px;
+
+      color: #7c4d4f;
+
+      background:
+        rgba(255, 240, 238, 0.8);
+
+      font-size: 11px;
+      line-height: 1.75;
+      font-weight: 760;
+    }
+
+    .results {
+      padding:
+        29px 0 19px;
+    }
+
+    .result-empty {
+      min-height: 220px;
+
+      display: grid;
+      place-items: center;
+
+      padding: 28px;
+
+      border:
+        1px dashed rgba(74, 56, 127, 0.25);
+
+      border-radius: 24px;
+
+      color: var(--muted);
+
+      background:
+        rgba(255, 255, 255, 0.7);
+
+      text-align: center;
+      font-weight: 850;
+    }
+
+    .result-content {
+      display: none;
+    }
+
+    .result-content.show {
+      display: block;
+    }
+
+    .result-banner {
+      position: relative;
+
+      overflow: hidden;
+
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1fr)
+        auto;
+
+      gap: 23px;
+      align-items: center;
+
+      padding: 28px;
+
+      border-radius: 29px;
+
+      color: #ffffff;
+
+      background:
+        radial-gradient(
+          circle at 91% 12%,
+          rgba(242, 207, 98, 0.23),
+          transparent 27%
+        ),
+        linear-gradient(
+          135deg,
+          var(--violet-dark),
+          var(--violet) 63%,
+          #a65c92
+        );
+
+      box-shadow:
+        0 25px 55px rgba(73, 57, 123, 0.24);
+    }
+
+    .result-banner::before {
+      content: "";
+
+      position: absolute;
+      left: -75px;
+      bottom: -125px;
+
+      width: 340px;
+      height: 230px;
+
+      border:
+        32px solid rgba(255, 255, 255, 0.055);
+
+      border-radius: 50%;
+    }
+
+    .result-copy,
+    .result-date {
+      position: relative;
+      z-index: 1;
+    }
+
+    .result-copy > span {
+      display: block;
+
+      color:
+        rgba(255, 255, 255, 0.65);
+
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+    }
+
+    .result-copy h2 {
+      margin:
+        8px 0 0;
+
+      max-width: 820px;
+
+      font-size:
+        clamp(34px, 5.2vw, 59px);
+
+      line-height: 1.07;
+      letter-spacing: -0.06em;
+    }
+
+    .result-copy h2 b {
+      color: var(--yellow);
+    }
+
+    .result-copy p {
+      max-width: 770px;
+
+      margin:
+        12px 0 0;
+
+      color:
+        rgba(255, 255, 255, 0.78);
+
+      font-size: 12px;
+      line-height: 1.75;
+      font-weight: 760;
+    }
+
+    .result-date {
+      min-width: 178px;
+
+      padding: 18px;
+
+      border:
+        1px solid rgba(255, 255, 255, 0.17);
+
+      border-radius: 22px;
+
+      background:
+        rgba(255, 255, 255, 0.1);
+
+      text-align: center;
+
+      backdrop-filter:
+        blur(8px);
+    }
+
+    .result-date span {
+      display: block;
+
+      color:
+        rgba(255, 255, 255, 0.64);
+
+      font-size: 9px;
+      font-weight: 830;
+    }
+
+    .result-date strong {
+      display: block;
+      margin-top: 8px;
+
+      color: var(--yellow);
+
+      font-size: 25px;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+    }
+
+    .result-date small {
+      display: block;
+      margin-top: 7px;
+
+      color:
+        rgba(255, 255, 255, 0.66);
+
+      font-size: 9px;
+      line-height: 1.5;
+      font-weight: 740;
+    }
+
+    .metric-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      gap: 12px;
+
+      margin-top: 16px;
+    }
+
+    .metric-card {
+      padding: 18px;
+
+      border:
+        1px solid rgba(74, 56, 127, 0.09);
+
+      border-radius: 20px;
+
+      background: #ffffff;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .metric-card:nth-child(1) {
+      border-top:
+        5px solid var(--coral);
+    }
+
+    .metric-card:nth-child(2) {
+      border-top:
+        5px solid var(--mint);
+    }
+
+    .metric-card:nth-child(3) {
+      border-top:
+        5px solid var(--violet);
+    }
+
+    .metric-card:nth-child(4) {
+      border-top:
+        5px solid var(--sky);
+    }
+
+    .metric-card span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      font-weight: 850;
+    }
+
+    .metric-card strong {
+      display: block;
+      margin-top: 7px;
+
+      font-size: 23px;
+      line-height: 1.15;
+      letter-spacing: -0.045em;
+    }
+
+    .metric-card small {
+      display: block;
+      margin-top: 7px;
+
+      color: #8e8798;
+
+      font-size: 9px;
+      line-height: 1.5;
+      font-weight: 730;
+    }
+
+    .calendar-panel,
+    .wave-panel,
+    .forecast-panel {
+      margin-top: 16px;
+
+      padding: 20px;
+
+      border:
+        1px solid rgba(74, 56, 127, 0.09);
+
+      border-radius: 24px;
+
+      background: #ffffff;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .panel-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+
+      gap: 15px;
+    }
+
+    .panel-head h3 {
+      margin: 0;
+
+      font-size: 19px;
+      letter-spacing: -0.035em;
+    }
+
+    .panel-head p {
+      margin:
+        5px 0 0;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 740;
+    }
+
+    .panel-head span {
+      color: var(--violet);
+
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    .calendar-navigation {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .calendar-navigation button {
+      width: 36px;
+      height: 36px;
+
+      display: grid;
+      place-items: center;
+
+      border:
+        1px solid rgba(74, 56, 127, 0.1);
+
+      border-radius: 12px;
+
+      color: var(--violet-dark);
+      background: #ffffff;
+
+      font-weight: 950;
+    }
+
+    .calendar-navigation strong {
+      min-width: 104px;
+
+      color: #564e63;
+
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .calendar-weekdays,
+    .calendar-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(7, minmax(0, 1fr));
+
+      gap: 7px;
+    }
+
+    .calendar-weekdays {
+      margin-top: 16px;
+    }
+
+    .calendar-weekdays span {
+      padding: 5px;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .calendar-grid {
+      margin-top: 6px;
+    }
+
+    .calendar-day {
+      position: relative;
+
+      min-height: 78px;
+
+      padding: 9px;
+
+      border:
+        1px solid rgba(74, 56, 127, 0.08);
+
+      border-radius: 15px;
+
+      color: #6d6678;
+      background: #faf9fc;
+    }
+
+    .calendar-day.other {
+      opacity: 0.38;
+    }
+
+    .calendar-day.today {
+      box-shadow:
+        inset 0 0 0 2px var(--violet);
+    }
+
+    .calendar-day.period {
+      color: #ffffff;
+      background:
+        linear-gradient(
+          145deg,
+          var(--coral),
+          #e8758f
+        );
+    }
+
+    .calendar-day.fertile {
+      color: var(--mint-dark);
+      background:
+        linear-gradient(
+          145deg,
+          var(--mint-soft),
+          #f6fffc
+        );
+
+      border-color:
+        rgba(86, 188, 167, 0.25);
+    }
+
+    .calendar-day.peak {
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          145deg,
+          var(--violet),
+          var(--pink)
+        );
+
+      box-shadow:
+        0 8px 18px rgba(105, 83, 182, 0.18);
+    }
+
+    .calendar-day.next-period {
+      color: var(--sky);
+      background: var(--sky-soft);
+
+      border-color:
+        rgba(112, 168, 214, 0.24);
+    }
+
+    .calendar-day strong {
+      font-size: 12px;
+    }
+
+    .calendar-day small {
+      display: block;
+      margin-top: 4px;
+
+      font-size: 8px;
+      line-height: 1.35;
+      font-weight: 750;
+    }
+
+    .calendar-day i {
+      position: absolute;
+      right: 7px;
+      bottom: 7px;
+
+      width: 8px;
+      height: 8px;
+
+      border-radius: 50%;
+
+      background: var(--yellow);
+    }
+
+    .cycle-wave {
+      position: relative;
+
+      overflow: hidden;
+
+      min-height: 190px;
+
+      margin-top: 17px;
+
+      border:
+        1px solid rgba(74, 56, 127, 0.08);
+
+      border-radius: 21px;
+
+      background:
+        linear-gradient(
+          180deg,
+          #fbfaff,
+          #f5f4fa
+        );
+    }
+
+    .cycle-wave::before {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      background-image:
+        linear-gradient(
+          rgba(74, 56, 127, 0.05) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(74, 56, 127, 0.05) 1px,
+          transparent 1px
+        );
+
+      background-size:
+        45px 35px;
+    }
+
+    .phase-track {
+      position: absolute;
+      left: 5%;
+      right: 5%;
+      bottom: 29px;
+
+      height: 58px;
+
+      display: grid;
+
+      grid-template-columns:
+        18fr 32fr 14fr 36fr;
+
+      gap: 4px;
+    }
+
+    .phase {
+      position: relative;
+
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+
+      padding-bottom: 8px;
+
+      border-radius:
+        15px 15px 8px 8px;
+
+      color: #ffffff;
+
+      font-size: 9px;
+      font-weight: 900;
+    }
+
+    .phase.period {
+      height: 39px;
+      margin-top: 19px;
+
+      background:
+        linear-gradient(
+          180deg,
+          #f0a0a0,
+          var(--coral)
+        );
+    }
+
+    .phase.follicular {
+      height: 54px;
+      margin-top: 4px;
+
+      background:
+        linear-gradient(
+          180deg,
+          #efb3d1,
+          var(--pink)
+        );
+    }
+
+    .phase.ovulation {
+      height: 78px;
+      margin-top: -20px;
+
+      background:
+        linear-gradient(
+          180deg,
+          #8e79dc,
+          var(--violet)
+        );
+    }
+
+    .phase.luteal {
+      height: 48px;
+      margin-top: 10px;
+
+      background:
+        linear-gradient(
+          180deg,
+          #8ccbbb,
+          var(--mint)
+        );
+    }
+
+    .wave-marker {
+      position: absolute;
+      top: 22px;
+      left: 50%;
+
+      transform:
+        translateX(-50%);
+
+      text-align: center;
+    }
+
+    .wave-marker strong {
+      display: block;
+
+      padding:
+        7px 10px;
+
+      border-radius: 11px;
+
+      color: #ffffff;
+      background: var(--violet-dark);
+
+      box-shadow:
+        0 7px 17px rgba(73, 57, 123, 0.19);
+
+      font-size: 10px;
+      white-space: nowrap;
+    }
+
+    .wave-marker i {
+      display: block;
+
+      width: 2px;
+      height: 91px;
+
+      margin:
+        0 auto;
+
+      background:
+        linear-gradient(
+          var(--violet-dark),
+          transparent
+        );
+    }
+
+    .phase-labels {
+      display: flex;
+      justify-content: space-between;
+
+      margin-top: 11px;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      font-weight: 780;
+    }
+
+    .forecast-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 11px;
+
+      margin-top: 16px;
+    }
+
+    .forecast-card {
+      position: relative;
+
+      overflow: hidden;
+
+      padding: 18px;
+
+      border:
+        1px solid rgba(74, 56, 127, 0.09);
+
+      border-radius: 19px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #ffffff,
+          #faf8fd
+        );
+    }
+
+    .forecast-card::after {
+      content: "";
+
+      position: absolute;
+      right: -22px;
+      bottom: -24px;
+
+      width: 78px;
+      height: 78px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(105, 83, 182, 0.08);
+    }
+
+    .forecast-card:nth-child(2)::after {
+      background:
+        rgba(239, 127, 120, 0.09);
+    }
+
+    .forecast-card:nth-child(3)::after {
+      background:
+        rgba(86, 188, 167, 0.1);
+    }
+
+    .forecast-card span,
+    .forecast-card strong,
+    .forecast-card small,
+    .forecast-card p {
+      position: relative;
+      z-index: 1;
+    }
+
+    .forecast-card span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      font-weight: 850;
+    }
+
+    .forecast-card strong {
+      display: block;
+      margin-top: 7px;
+
+      font-size: 20px;
+      line-height: 1.12;
+      letter-spacing: -0.04em;
+    }
+
+    .forecast-card small {
+      display: block;
+      margin-top: 7px;
+
+      color: #898294;
+
+      font-size: 9px;
+      line-height: 1.5;
+      font-weight: 730;
+    }
+
+    .forecast-card p {
+      margin:
+        11px 0 0;
+
+      padding-top: 10px;
+
+      border-top:
+        1px solid rgba(74, 56, 127, 0.08);
+
+      color: var(--violet);
+
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    .status-box {
+      margin-top: 16px;
+
+      padding:
+        16px 18px;
+
+      border:
+        1px solid rgba(55, 130, 100, 0.17);
+
+      border-radius: 19px;
+
+      color: #31634e;
+      background: var(--green-soft);
+
+      font-size: 12px;
+      line-height: 1.75;
+      font-weight: 820;
+    }
+
+    .status-box.warn {
+      color: #785c2f;
+
+      border-color:
+        rgba(242, 207, 98, 0.27);
+
+      background: var(--yellow-soft);
+    }
+
+    .status-box.danger {
+      color: #8b4550;
+
+      border-color:
+        rgba(199, 85, 98, 0.18);
+
+      background: var(--red-soft);
+    }
+
+    .result-actions {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 11px;
+
+      margin-top: 16px;
+    }
+
+    .utility-btn {
+      min-height: 49px;
+
+      border:
+        1px solid rgba(74, 56, 127, 0.13);
+
+      border-radius: 16px;
+
+      color: #615a6c;
+      background: #ffffff;
+
+      font-weight: 900;
+    }
+
+    .guide-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 15px;
+    }
+
+    .guide-card {
+      padding: 21px;
+
+      border:
+        1px solid rgba(74, 56, 127, 0.09);
+
+      border-radius: 23px;
+
+      background: #ffffff;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .guide-card h3 {
+      margin: 0;
+
+      font-size: 18px;
+      letter-spacing: -0.035em;
+    }
+
+    .guide-card p {
+      margin:
+        9px 0 0;
+
+      color: var(--muted);
+
+      font-size: 12px;
+      line-height: 1.78;
+      font-weight: 730;
+    }
+
+    .guide-card a {
+      color: var(--violet);
+
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .faq {
+      display: grid;
+      gap: 10px;
+
+      margin-top: 18px;
+    }
+
+    details {
+      padding:
+        0 18px;
+
+      border:
+        1px solid rgba(74, 56, 127, 0.09);
+
+      border-radius: 18px;
+
+      background: #ffffff;
+
+      box-shadow:
+        0 8px 24px rgba(73, 57, 123, 0.05);
+    }
+
+    summary {
+      padding:
+        16px 0;
+
+      cursor: pointer;
+
+      font-size: 13px;
+      font-weight: 900;
+
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details p {
+      margin: 0;
+
+      padding:
+        0 0 16px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+      line-height: 1.75;
+      font-weight: 730;
+    }
+
+    footer {
+      padding:
+        32px 0 40px;
+    }
+
+    .footer-card {
+      padding: 22px;
+
+      border-radius: 25px;
+
+      color:
+        rgba(255, 255, 255, 0.8);
+
+      background:
+        linear-gradient(
+          135deg,
+          #453478,
+          #6953b6,
+          #9f5b8c
+        );
+    }
+
+    .footer-card strong {
+      display: block;
+
+      color: #ffffff;
+
+      font-size: 16px;
+    }
+
+    .footer-card p {
+      max-width: 950px;
+
+      margin:
+        8px 0 0;
+
+      font-size: 11px;
+      line-height: 1.75;
+      font-weight: 720;
+    }
+
+    @media print {
+      .header,
+      .hero,
+      #calculator,
+      #guide,
+      footer,
+      .result-actions,
+      .calendar-navigation {
+        display: none !important;
+      }
+
+      body {
+        background: #ffffff;
+      }
+
+      .results {
+        padding: 0;
+      }
+
+      .result-content {
+        display: block !important;
+      }
+
+      .result-banner,
+      .metric-card,
+      .calendar-panel,
+      .wave-panel,
+      .forecast-panel,
+      .status-box {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+    }
+
+    @media (max-width: 1060px) {
+      .hero-top,
+      .input-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .cycle-meter {
+        min-height: 280px;
+      }
+
+      .hero-calendar {
+        grid-template-columns:
+          repeat(7, minmax(0, 1fr));
+      }
+
+      .metric-grid {
+        grid-template-columns:
+          1fr 1fr;
+      }
+
+      .guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .header-inner {
+        min-height: auto;
+
+        padding:
+          13px 0;
+
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav {
+        justify-content: flex-start;
+      }
+
+      .wrap {
+        width:
+          min(
+            var(--max),
+            calc(100% - 20px)
+          );
+      }
+
+      .hero {
+        padding-top: 24px;
+      }
+
+      .cycle-desk {
+        padding:
+          35px 21px 24px;
+      }
+
+      h1 {
+        font-size: 39px;
+        line-height: 1.11;
+        letter-spacing: -0.056em;
+      }
+
+      .month-board-head,
+      .shell-head,
+      .card-title,
+      .panel-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .legend {
+        justify-content: flex-start;
+      }
+
+      .method-switch,
+      .field-grid,
+      .option-strip,
+      .result-banner,
+      .metric-grid,
+      .forecast-grid,
+      .result-actions {
+        grid-template-columns: 1fr;
+      }
+
+      .result-date {
+        width: 100%;
+        text-align: left;
+      }
+
+      .calendar-day {
+        min-height: 67px;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .cycle-desk,
+      .tool-shell,
+      .input-card,
+      .preview-card,
+      .result-banner,
+      .calendar-panel,
+      .wave-panel,
+      .forecast-panel,
+      .guide-card,
+      .footer-card {
+        border-radius: 21px;
+      }
+
+      .hero-calendar {
+        grid-template-columns:
+          repeat(4, minmax(0, 1fr));
+      }
+
+      .action-row {
+        grid-template-columns: 1fr;
+      }
+
+      .calendar-weekdays,
+      .calendar-grid {
+        gap: 4px;
+      }
+
+      .calendar-day {
+        min-height: 59px;
+        padding: 6px 4px;
+      }
+
+      .calendar-day small {
+        font-size: 7px;
+      }
+
+      .phase-track {
+        left: 3%;
+        right: 3%;
+      }
+
+      .phase {
+        font-size: 7px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior:
+          auto !important;
+
+        transition-duration:
+          0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <div class="wrap header-inner">
+      <a
+        class="brand"
+        href="https://barohaegyeol-tools.pages.dev/"
+        aria-label="바로해결툴즈 홈"
+      >
+        <div class="brand-mark">
+          B
+        </div>
+
+        <div>
+          바로해결툴즈
+
+          <small>
+            생리주기 · 배란일 · 가임기 일정 계산
+          </small>
+        </div>
+      </a>
+
+      <nav
+        class="nav"
+        aria-label="페이지 메뉴"
+      >
+        <a href="#calculator">
+          주기 입력
+        </a>
+
+        <a href="#results">
+          가임기 달력
+        </a>
+
+        <a href="#guide">
+          계산 기준
+        </a>
+
+        <a href="https://barohaegyeol-tools.pages.dev/">
+          전체 도구
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="cycle-desk">
+          <div class="hero-top">
+            <div class="hero-copy">
+              <div class="hero-labels">
+                <span class="hero-label primary">
+                  ● 마지막 생리일과 주기로 날짜 예측
+                </span>
+
+                <span class="hero-label">
+                  배란일 · 가임기 · 다음 생리 · 3개월 일정
+                </span>
+              </div>
+
+              <h1>
+                <span class="title-line">
+                  다음 배란일과 가임기,
+                </span>
+
+                <span class="title-line title-accent">
+                  달력에서 날짜로 확인하세요
+                </span>
+              </h1>
+
+              <p>
+                마지막 생리 시작일과 평소 생리주기를 입력하면
+                <strong>
+                  예상 배란일, 약 6일의 가임기,
+                  임신 가능성이 높은 날, 다음 생리 예정일과
+                  향후 3회 예상 주기
+                </strong>
+                를 달력으로 표시합니다.
+              </p>
+
+              <div class="hero-actions">
+                <a
+                  class="btn btn-primary"
+                  href="#calculator"
+                >
+                  내 배란일 계산하기
+                </a>
+
+                <a
+                  class="btn btn-secondary"
+                  href="#guide"
+                >
+                  날짜 계산 기준 확인
+                </a>
+              </div>
+            </div>
+
+            <div class="cycle-meter">
+              <div class="cycle-ring">
+                <div class="cycle-center">
+                  <span>
+                    AVERAGE CYCLE
+                  </span>
+
+                  <strong>
+                    28
+                  </strong>
+
+                  <small>
+                    일 주기 예시
+                  </small>
+                </div>
+              </div>
+
+              <div class="ring-tag period">
+                생리기간
+              </div>
+
+              <div class="ring-tag ovulation">
+                배란일
+              </div>
+
+              <div class="ring-tag fertile">
+                가임기
+              </div>
+            </div>
+          </div>
+
+          <section class="month-board">
+            <div class="month-board-head">
+              <div>
+                <h2>
+                  한 주기 날짜 흐름
+                </h2>
+
+                <p>
+                  28일 주기·생리 5일을 가정한 화면 예시입니다.
+                </p>
+              </div>
+
+              <div class="legend">
+                <span>
+                  <i></i>
+                  생리
+                </span>
+
+                <span>
+                  <i></i>
+                  가임기
+                </span>
+
+                <span>
+                  <i></i>
+                  예상 배란일
+                </span>
+
+                <span>
+                  <i></i>
+                  다음 생리
+                </span>
+              </div>
+            </div>
+
+            <div class="hero-calendar">
+              <div class="hero-day period">
+                <strong>
+                  1일
+                </strong>
+
+                <small>
+                  생리 시작
+                </small>
+              </div>
+
+              <div class="hero-day period">
+                <strong>
+                  2일
+                </strong>
+
+                <small>
+                  생리
+                </small>
+              </div>
+
+              <div class="hero-day period">
+                <strong>
+                  3일
+                </strong>
+
+                <small>
+                  생리
+                </small>
+              </div>
+
+              <div class="hero-day period">
+                <strong>
+                  4일
+                </strong>
+
+                <small>
+                  생리
+                </small>
+              </div>
+
+              <div class="hero-day period">
+                <strong>
+                  5일
+                </strong>
+
+                <small>
+                  생리
+                </small>
+              </div>
+
+              <div class="hero-day">
+                <strong>
+                  6일
+                </strong>
+
+                <small>
+                  주기 중
+                </small>
+              </div>
+
+              <div class="hero-day">
+                <strong>
+                  7일
+                </strong>
+
+                <small>
+                  주기 중
+                </small>
+              </div>
+
+              <div class="hero-day">
+                <strong>
+                  8일
+                </strong>
+
+                <small>
+                  주기 중
+                </small>
+              </div>
+
+              <div class="hero-day fertile">
+                <strong>
+                  9일
+                </strong>
+
+                <small>
+                  가임기 시작
+                </small>
+              </div>
+
+              <div class="hero-day fertile">
+                <strong>
+                  10일
+                </strong>
+
+                <small>
+                  가임기
+                </small>
+              </div>
+
+              <div class="hero-day fertile">
+                <strong>
+                  11일
+                </strong>
+
+                <small>
+                  가임기
+                </small>
+              </div>
+
+              <div class="hero-day fertile">
+                <strong>
+                  12일
+                </strong>
+
+                <small>
+                  가능성 높음
+                </small>
+              </div>
+
+              <div class="hero-day fertile">
+                <strong>
+                  13일
+                </strong>
+
+                <small>
+                  가능성 높음
+                </small>
+              </div>
+
+              <div class="hero-day peak">
+                <strong>
+                  14일
+                </strong>
+
+                <small>
+                  예상 배란
+                </small>
+              </div>
+
+              <div class="hero-day">
+                <strong>
+                  15일
+                </strong>
+
+                <small>
+                  배란 이후
+                </small>
+              </div>
+
+              <div class="hero-day">
+                <strong>
+                  16일
+                </strong>
+
+                <small>
+                  주기 중
+                </small>
+              </div>
+
+              <div class="hero-day">
+                <strong>
+                  17일
+                </strong>
+
+                <small>
+                  주기 중
+                </small>
+              </div>
+
+              <div class="hero-day">
+                <strong>
+                  18일
+                </strong>
+
+                <small>
+                  주기 중
+                </small>
+              </div>
+
+              <div class="hero-day">
+                <strong>
+                  19일
+                </strong>
+
+                <small>
+                  주기 중
+                </small>
+              </div>
+
+              <div class="hero-day">
+                <strong>
+                  20일
+                </strong>
+
+                <small>
+                  주기 중
+                </small>
+              </div>
+
+              <div class="hero-day">
+                <strong>
+                  21일
+                </strong>
+
+                <small>
+                  주기 중
+                </small>
+              </div>
+
+              <div class="hero-day">
+                <strong>
+                  22일
+                </strong>
+
+                <small>
+                  주기 중
+                </small>
+              </div>
+
+              <div class="hero-day">
+                <strong>
+                  23일
+                </strong>
+
+                <small>
+                  주기 중
+                </small>
+              </div>
+
+              <div class="hero-day">
+                <strong>
+                  24일
+                </strong>
+
+                <small>
+                  주기 중
+                </small>
+              </div>
+
+              <div class="hero-day">
+                <strong>
+                  25일
+                </strong>
+
+                <small>
+                  주기 후반
+                </small>
+              </div>
+
+              <div class="hero-day">
+                <strong>
+                  26일
+                </strong>
+
+                <small>
+                  주기 후반
+                </small>
+              </div>
+
+              <div class="hero-day">
+                <strong>
+                  27일
+                </strong>
+
+                <small>
+                  주기 후반
+                </small>
+              </div>
+
+              <div class="hero-day next">
+                <strong>
+                  28일
+                </strong>
+
+                <small>
+                  다음 생리 전
+                </small>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="section"
+      id="calculator"
+    >
+      <div class="wrap">
+        <div class="tool-shell">
+          <div class="shell-head">
+            <div>
+              <h2>
+                생리주기 날짜 입력
+              </h2>
+
+              <p>
+                평소 주기가 일정하면 평균 주기 방식이 가장 간단합니다.
+              </p>
+            </div>
+
+            <div class="shell-badge">
+              CYCLE START → OVULATION → FERTILE WINDOW
+            </div>
+          </div>
+
+          <div class="calculator-body">
+            <form id="calculatorForm">
+              <div class="method-switch">
+                <button
+                  class="method-btn active"
+                  type="button"
+                  data-method="average"
+                >
+                  평균 생리주기로 계산
+
+                  <span>
+                    마지막 생리일 + 평균 주기
+                  </span>
+                </button>
+
+                <button
+                  class="method-btn"
+                  type="button"
+                  data-method="range"
+                >
+                  최단·최장 주기로 넓게 계산
+
+                  <span>
+                    최근 주기 변화 범위 반영
+                  </span>
+                </button>
+              </div>
+
+              <div class="input-layout">
+                <section class="input-card">
+                  <div class="card-title">
+                    <h3>
+                      기본 생리주기 정보
+                    </h3>
+
+                    <span>
+                      생리가 시작된 첫날을 주기 1일로 계산합니다.
+                    </span>
+                  </div>
+
+                  <div class="field-grid">
+                    <div class="field">
+                      <label for="lastPeriod">
+                        마지막 생리 시작일
+                      </label>
+
+                      <input
+                        id="lastPeriod"
+                        type="date"
+                        required
+                      >
+                    </div>
+
+                    <div class="field">
+                      <label for="cycleLength">
+                        평균 생리주기
+
+                        <small>
+                          생리 시작일부터 다음 생리 전날까지
+                        </small>
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="cycleLength"
+                          type="number"
+                          inputmode="numeric"
+                          min="20"
+                          max="45"
+                          step="1"
+                          value="28"
+                          required
+                        >
+
+                        <span class="unit">
+                          일
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="periodLength">
+                        평균 생리기간
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="periodLength"
+                          type="number"
+                          inputmode="numeric"
+                          min="1"
+                          max="10"
+                          step="1"
+                          value="5"
+                          required
+                        >
+
+                        <span class="unit">
+                          일
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="referenceDate">
+                        현재 주기 확인 기준일
+
+                        <small>
+                          기본값은 오늘
+                        </small>
+                      </label>
+
+                      <input
+                        id="referenceDate"
+                        type="date"
+                        required
+                      >
+                    </div>
+                  </div>
+
+                  <div
+                    class="range-fields"
+                    id="rangeFields"
+                  >
+                    <h4>
+                      최근 생리주기 범위
+                    </h4>
+
+                    <p>
+                      최근 6개월 이상 기록에서 가장 짧았던 주기와 가장 길었던 주기를 입력하세요.
+                    </p>
+
+                    <div class="field-grid">
+                      <div class="field">
+                        <label for="shortestCycle">
+                          최단 생리주기
+                        </label>
+
+                        <div class="input-wrap">
+                          <input
+                            id="shortestCycle"
+                            type="number"
+                            inputmode="numeric"
+                            min="20"
+                            max="45"
+                            step="1"
+                            value="26"
+                            disabled
+                          >
+
+                          <span class="unit">
+                            일
+                          </span>
+                        </div>
+                      </div>
+
+                      <div class="field">
+                        <label for="longestCycle">
+                          최장 생리주기
+                        </label>
+
+                        <div class="input-wrap">
+                          <input
+                            id="longestCycle"
+                            type="number"
+                            inputmode="numeric"
+                            min="20"
+                            max="60"
+                            step="1"
+                            value="31"
+                            disabled
+                          >
+
+                          <span class="unit">
+                            일
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="formula-note">
+                    평균 주기 방식은 다음 생리 예정일 약 14일 전을 배란일로 추정하고,
+                    예상 배란일 5일 전부터 배란일까지를 약 6일의 가임기로 표시합니다.
+                    실제 배란일은 같은 사람에게도 매달 달라질 수 있습니다.
+                  </div>
+                </section>
+
+                <aside class="preview-card">
+                  <div class="mini-cycle">
+                    <div class="mini-cycle-ring">
+                      <div class="mini-cycle-content">
+                        <span>
+                          CYCLE PREVIEW
+                        </span>
+
+                        <strong id="previewCycle">
+                          28일
+                        </strong>
+
+                        <small id="previewMethod">
+                          평균 주기 계산
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="quick-preview">
+                    <div class="quick-row">
+                      <div class="quick-dot">
+                        P
+                      </div>
+
+                      <div>
+                        <span>
+                          다음 생리 예정일
+                        </span>
+
+                        <strong id="previewNextPeriod">
+                          -
+                        </strong>
+                      </div>
+
+                      <b>
+                        PERIOD
+                      </b>
+                    </div>
+
+                    <div class="quick-row">
+                      <div class="quick-dot">
+                        F
+                      </div>
+
+                      <div>
+                        <span>
+                          예상 가임기
+                        </span>
+
+                        <strong id="previewFertile">
+                          -
+                        </strong>
+                      </div>
+
+                      <b>
+                        FERTILE
+                      </b>
+                    </div>
+
+                    <div class="quick-row">
+                      <div class="quick-dot">
+                        O
+                      </div>
+
+                      <div>
+                        <span>
+                          예상 배란일
+                        </span>
+
+                        <strong id="previewOvulation">
+                          -
+                        </strong>
+                      </div>
+
+                      <b>
+                        OVULATION
+                      </b>
+                    </div>
+                  </div>
+                </aside>
+              </div>
+
+              <div class="option-strip">
+                <div class="option-box">
+                  <label for="forecastCount">
+                    향후 예측 주기 수
+                  </label>
+
+                  <select id="forecastCount">
+                    <option value="2">
+                      앞으로 2회
+                    </option>
+
+                    <option
+                      value="3"
+                      selected
+                    >
+                      앞으로 3회
+                    </option>
+
+                    <option value="6">
+                      앞으로 6회
+                    </option>
+                  </select>
+                </div>
+
+                <div class="option-box">
+                  <label for="calendarStart">
+                    결과 달력 시작 월
+                  </label>
+
+                  <select id="calendarStart">
+                    <option
+                      value="ovulation"
+                      selected
+                    >
+                      예상 배란일이 포함된 월
+                    </option>
+
+                    <option value="period">
+                      마지막 생리일이 포함된 월
+                    </option>
+
+                    <option value="today">
+                      기준일이 포함된 월
+                    </option>
+                  </select>
+                </div>
+
+                <div class="option-box">
+                  <label for="displayMode">
+                    날짜 표시 방식
+                  </label>
+
+                  <select id="displayMode">
+                    <option
+                      value="full"
+                      selected
+                    >
+                      연도·월·일
+                    </option>
+
+                    <option value="short">
+                      월·일
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="action-row">
+                <button
+                  class="calculate-btn"
+                  type="submit"
+                >
+                  배란일과 가임기 계산하기
+                </button>
+
+                <button
+                  class="reset-btn"
+                  type="button"
+                  id="resetBtn"
+                >
+                  입력값 초기화
+                </button>
+              </div>
+            </form>
+
+            <div class="notice">
+              이 계산기는 생리주기를 이용해 날짜를 추정하는 도구이며
+              실제 배란 여부를 확인하거나 임신 가능성을 진단하지 않습니다.
+              피임을 위한 안전일 계산으로 사용할 수 없으며,
+              생리주기가 불규칙하거나 출산·유산 후, 수유 중,
+              호르몬 피임약 사용 중이거나 PCOS 등으로 배란이 불규칙한 경우 오차가 커질 수 있습니다.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="results"
+      id="results"
+    >
+      <div class="wrap">
+        <div
+          class="result-empty"
+          id="resultEmpty"
+        >
+          마지막 생리 시작일과 주기를 입력하면<br>
+          예상 배란일과 가임기, 다음 생리 예정일이 표시됩니다.
+        </div>
+
+        <div
+          class="result-content"
+          id="resultContent"
+        >
+          <section class="result-banner">
+            <div class="result-copy">
+              <span>
+                ESTIMATED FERTILE WINDOW
+              </span>
+
+              <h2 id="resultTitle">
+                예상 가임기는 <b>-</b>입니다
+              </h2>
+
+              <p id="resultMessage">
+                -
+              </p>
+            </div>
+
+            <div class="result-date">
+              <span>
+                예상 배란일
+              </span>
+
+              <strong id="ovulationMainResult">
+                -
+              </strong>
+
+              <small id="ovulationMainDetail">
+                -
+              </small>
+            </div>
+          </section>
+
+          <div class="metric-grid">
+            <article class="metric-card">
+              <span>
+                마지막 생리 시작일
+              </span>
+
+              <strong id="lastPeriodResult">
+                -
+              </strong>
+
+              <small id="periodLengthResult">
+                -
+              </small>
+            </article>
+
+            <article class="metric-card">
+              <span>
+                예상 가임기
+              </span>
+
+              <strong id="fertileWindowResult">
+                -
+              </strong>
+
+              <small id="fertileDaysResult">
+                -
+              </small>
+            </article>
+
+            <article class="metric-card">
+              <span>
+                임신 가능성이 높은 날
+              </span>
+
+              <strong id="peakWindowResult">
+                -
+              </strong>
+
+              <small>
+                예상 배란일 전후 참고 기간
+              </small>
+            </article>
+
+            <article class="metric-card">
+              <span>
+                다음 생리 예정일
+              </span>
+
+              <strong id="nextPeriodResult">
+                -
+              </strong>
+
+              <small id="cycleDayResult">
+                -
+              </small>
+            </article>
+          </div>
+
+          <section class="calendar-panel">
+            <div class="panel-head">
+              <div>
+                <h3>
+                  배란일·가임기 월간 달력
+                </h3>
+
+                <p>
+                  계산된 날짜를 월간 달력에 색상으로 표시합니다.
+                </p>
+              </div>
+
+              <div class="calendar-navigation">
+                <button
+                  type="button"
+                  id="prevMonthBtn"
+                  aria-label="이전 달"
+                >
+                  ‹
+                </button>
+
+                <strong id="calendarMonthTitle">
+                  -
+                </strong>
+
+                <button
+                  type="button"
+                  id="nextMonthBtn"
+                  aria-label="다음 달"
+                >
+                  ›
+                </button>
+              </div>
+            </div>
+
+            <div class="calendar-weekdays">
+              <span>
+                일
+              </span>
+
+              <span>
+                월
+              </span>
+
+              <span>
+                화
+              </span>
+
+              <span>
+                수
+              </span>
+
+              <span>
+                목
+              </span>
+
+              <span>
+                금
+              </span>
+
+              <span>
+                토
+              </span>
+            </div>
+
+            <div
+              class="calendar-grid"
+              id="calendarGrid"
+            ></div>
+          </section>
+
+          <section class="wave-panel">
+            <div class="panel-head">
+              <div>
+                <h3>
+                  현재 주기 위치
+                </h3>
+
+                <p>
+                  마지막 생리 시작일을 주기 1일로 계산한 참고 위치입니다.
+                </p>
+              </div>
+
+              <span id="waveSummary">
+                -
+              </span>
+            </div>
+
+            <div class="cycle-wave">
+              <div class="phase-track">
+                <div class="phase period">
+                  생리기간
+                </div>
+
+                <div class="phase follicular">
+                  난포기
+                </div>
+
+                <div class="phase ovulation">
+                  배란기
+                </div>
+
+                <div class="phase luteal">
+                  황체기
+                </div>
+              </div>
+
+              <div
+                class="wave-marker"
+                id="waveMarker"
+              >
+                <strong id="waveMarkerLabel">
+                  -
+                </strong>
+
+                <i></i>
+              </div>
+            </div>
+
+            <div class="phase-labels">
+              <span>
+                주기 1일
+              </span>
+
+              <span>
+                예상 가임기
+              </span>
+
+              <span>
+                예상 배란
+              </span>
+
+              <span>
+                다음 생리
+              </span>
+            </div>
+          </section>
+
+          <section class="forecast-panel">
+            <div class="panel-head">
+              <div>
+                <h3>
+                  향후 예상 주기
+                </h3>
+
+                <p>
+                  현재 입력한 주기가 계속 같다고 가정한 날짜입니다.
+                </p>
+              </div>
+
+              <span id="forecastSummary">
+                -
+              </span>
+            </div>
+
+            <div
+              class="forecast-grid"
+              id="forecastGrid"
+            ></div>
+          </section>
+
+          <div
+            class="status-box"
+            id="statusBox"
+          >
+            -
+          </div>
+
+          <div class="result-actions">
+            <button
+              class="utility-btn"
+              type="button"
+              id="copyBtn"
+            >
+              결과 복사
+            </button>
+
+            <button
+              class="utility-btn"
+              type="button"
+              id="printBtn"
+            >
+              인쇄·PDF 저장
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="section"
+      id="guide"
+    >
+      <div class="wrap">
+        <div class="guide-grid">
+          <article class="guide-card">
+            <h3>
+              배란일 계산 기준
+            </h3>
+
+            <p>
+              평균적인 생리주기에서는 배란이 다음 생리 시작일 약 14일 전에 일어나는 것으로 추정합니다.
+              실제 배란일은 주기의 정확한 중간 날짜와 다를 수 있습니다.
+
+              <a
+                href="https://www.acog.org/womens-health/faqs/fertility-awareness-based-methods-of-family-planning"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                ACOG 배란 기준 확인
+              </a>
+            </p>
+          </article>
+
+          <article class="guide-card">
+            <h3>
+              가임기 약 6일
+            </h3>
+
+            <p>
+              임신 가능성이 있는 기간은 예상 배란일 하루만이 아니라
+              배란 전 며칠을 포함한 약 6일의 범위로 설명됩니다.
+              계산기는 배란일 5일 전부터 배란일까지를 표시합니다.
+
+              <a
+                href="https://womenshealth.gov/ovulation-calculator"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                미국 여성건강국 안내
+              </a>
+            </p>
+          </article>
+
+          <article class="guide-card">
+            <h3>
+              날짜만으로 피임 불가
+            </h3>
+
+            <p>
+              배란일은 같은 사람에게도 주기마다 달라질 수 있어
+              달력 계산만으로 임신 가능성이 없는 날을 확정할 수 없습니다.
+              피임이 목적이라면 적절한 피임법을 사용해야 합니다.
+
+              <a
+                href="https://www.nhs.uk/contraception/methods-of-contraception/natural-family-planning/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                NHS 자연주기법 안내
+              </a>
+            </p>
+          </article>
+        </div>
+
+        <div class="faq">
+          <details>
+            <summary>
+              생리주기는 어떻게 계산하나요?
+            </summary>
+
+            <p>
+              생리가 시작된 첫날을 주기 1일로 하고
+              다음 생리가 시작되기 전날까지의 일수를 계산합니다.
+              최근 여러 달의 주기 길이를 더한 뒤 횟수로 나누면 평균 주기를 구할 수 있습니다.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              생리주기가 불규칙하면 어떤 방식을 사용하나요?
+            </summary>
+
+            <p>
+              최근 주기의 최단일수와 최장일수를 입력해 넓은 범위로 확인할 수 있습니다.
+              다만 날짜 범위가 넓어질수록 실제 배란일을 정확히 특정하기 어렵기 때문에
+              배란테스트기, 자궁경부 점액 변화 또는 의료진 상담을 함께 고려하세요.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              배란테스트기 날짜와 계산 결과가 다르면 무엇이 맞나요?
+            </summary>
+
+            <p>
+              이 계산기는 생리주기를 이용한 통계적 추정값입니다.
+              실제 호르몬 변화를 측정하는 배란테스트기 결과와 차이가 날 수 있으며
+              배란테스트기도 배란 자체를 완전히 확정하는 검사는 아닙니다.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              생리가 늦어지면 배란일도 늦어진 것인가요?
+            </summary>
+
+            <p>
+              배란이 예상보다 늦어져 다음 생리도 늦어질 수 있지만
+              임신, 스트레스, 체중 변화, 질환, 약물과 호르몬 변화 등 다른 원인도 있습니다.
+              임신 가능성이 있거나 생리 지연이 반복되면 임신테스트 또는 의료진 상담을 고려하세요.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-card">
+        <strong>
+          바로해결툴즈
+        </strong>
+
+        <p>
+          본 결과는 입력한 생리주기를 이용해 배란일과 가임기를 추정한 참고값이며
+          임신 여부, 배란 여부, 불임 원인 또는 피임 가능성을 진단하지 않습니다.
+          달력상 가임기 밖에서도 임신 가능성이 있으므로 피임을 위한 안전일 계산으로 사용하지 마세요.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    "use strict";
+
+    const STORAGE_KEY =
+      "ovulationFertileWindowCalculator";
+
+    const DAY_MS =
+      24 *
+      60 *
+      60 *
+      1000;
+
+    const form =
+      document.getElementById(
+        "calculatorForm"
+      );
+
+    const methodButtons =
+      document.querySelectorAll(
+        ".method-btn"
+      );
+
+    const inputs = {
+      lastPeriod:
+        document.getElementById(
+          "lastPeriod"
+        ),
+
+      cycleLength:
+        document.getElementById(
+          "cycleLength"
+        ),
+
+      periodLength:
+        document.getElementById(
+          "periodLength"
+        ),
+
+      referenceDate:
+        document.getElementById(
+          "referenceDate"
+        ),
+
+      shortestCycle:
+        document.getElementById(
+          "shortestCycle"
+        ),
+
+      longestCycle:
+        document.getElementById(
+          "longestCycle"
+        ),
+
+      forecastCount:
+        document.getElementById(
+          "forecastCount"
+        ),
+
+      calendarStart:
+        document.getElementById(
+          "calendarStart"
+        ),
+
+      displayMode:
+        document.getElementById(
+          "displayMode"
+        )
+    };
+
+    const rangeFields =
+      document.getElementById(
+        "rangeFields"
+      );
+
+    const resultEmpty =
+      document.getElementById(
+        "resultEmpty"
+      );
+
+    const resultContent =
+      document.getElementById(
+        "resultContent"
+      );
+
+    const resetBtn =
+      document.getElementById(
+        "resetBtn"
+      );
+
+    const copyBtn =
+      document.getElementById(
+        "copyBtn"
+      );
+
+    const printBtn =
+      document.getElementById(
+        "printBtn"
+      );
+
+    const prevMonthBtn =
+      document.getElementById(
+        "prevMonthBtn"
+      );
+
+    const nextMonthBtn =
+      document.getElementById(
+        "nextMonthBtn"
+      );
+
+    let currentMethod =
+      "average";
+
+    let currentCalendarMonth =
+      null;
+
+    let currentCalculation =
+      null;
+
+    let lastResultText =
+      "";
+
+    function numberValue(
+      input
+    ) {
+      return Number(
+        input.value || 0
+      );
+    }
+
+    function parseDate(
+      value
+    ) {
+      if (
+        !value
+      ) {
+        return null;
+      }
+
+      const [
+        year,
+        month,
+        day
+      ] =
+        value
+          .split("-")
+          .map(
+            Number
+          );
+
+      const date =
+        new Date(
+          year,
+          month - 1,
+          day,
+          12,
+          0,
+          0,
+          0
+        );
+
+      if (
+        Number.isNaN(
+          date.getTime()
+        )
+      ) {
+        return null;
+      }
+
+      return date;
+    }
+
+    function toInputDate(
+      date
+    ) {
+      return (
+        `${date.getFullYear()}-` +
+        `${String(
+          date.getMonth() + 1
+        ).padStart(
+          2,
+          "0"
+        )}-` +
+        `${String(
+          date.getDate()
+        ).padStart(
+          2,
+          "0"
+        )}`
+      );
+    }
+
+    function addDays(
+      date,
+      days
+    ) {
+      const result =
+        new Date(
+          date
+        );
+
+      result.setDate(
+        result.getDate() +
+        days
+      );
+
+      return result;
+    }
+
+    function addMonths(
+      date,
+      months
+    ) {
+      return new Date(
+        date.getFullYear(),
+        date.getMonth() +
+          months,
+        1,
+        12
+      );
+    }
+
+    function diffDays(
+      from,
+      to
+    ) {
+      const fromUtc =
+        Date.UTC(
+          from.getFullYear(),
+          from.getMonth(),
+          from.getDate()
+        );
+
+      const toUtc =
+        Date.UTC(
+          to.getFullYear(),
+          to.getMonth(),
+          to.getDate()
+        );
+
+      return Math.round(
+        (
+          toUtc -
+          fromUtc
+        ) /
+        DAY_MS
+      );
+    }
+
+    function sameDate(
+      a,
+      b
+    ) {
+      return (
+        a.getFullYear() ===
+          b.getFullYear() &&
+        a.getMonth() ===
+          b.getMonth() &&
+        a.getDate() ===
+          b.getDate()
+      );
+    }
+
+    function dateBetween(
+      date,
+      start,
+      end
+    ) {
+      const target =
+        Date.UTC(
+          date.getFullYear(),
+          date.getMonth(),
+          date.getDate()
+        );
+
+      const startValue =
+        Date.UTC(
+          start.getFullYear(),
+          start.getMonth(),
+          start.getDate()
+        );
+
+      const endValue =
+        Date.UTC(
+          end.getFullYear(),
+          end.getMonth(),
+          end.getDate()
+        );
+
+      return (
+        target >=
+          startValue &&
+        target <=
+          endValue
+      );
+    }
+
+    function formatDate(
+      date
+    ) {
+      const options =
+        inputs.displayMode.value ===
+        "short"
+          ? {
+              month:
+                "long",
+
+              day:
+                "numeric",
+
+              weekday:
+                "short"
+            }
+          : {
+              year:
+                "numeric",
+
+              month:
+                "long",
+
+              day:
+                "numeric",
+
+              weekday:
+                "short"
+            };
+
+      return new Intl.DateTimeFormat(
+        "ko-KR",
+        options
+      ).format(
+        date
+      );
+    }
+
+    function formatDateCompact(
+      date
+    ) {
+      return (
+        `${date.getMonth() + 1}.` +
+        `${date.getDate()}`
+      );
+    }
+
+    function formatDateRange(
+      start,
+      end
+    ) {
+      if (
+        start.getFullYear() ===
+          end.getFullYear() &&
+        start.getMonth() ===
+          end.getMonth()
+      ) {
+        return (
+          `${start.getMonth() + 1}월 ` +
+          `${start.getDate()}일~${end.getDate()}일`
+        );
+      }
+
+      return (
+        `${start.getMonth() + 1}월 ${start.getDate()}일~` +
+        `${end.getMonth() + 1}월 ${end.getDate()}일`
+      );
+    }
+
+    function formatMonth(
+      date
+    ) {
+      return new Intl.DateTimeFormat(
+        "ko-KR",
+        {
+          year:
+            "numeric",
+
+          month:
+            "long"
+        }
+      ).format(
+        date
+      );
+    }
+
+    function getAverageCalculation(
+      cycleStart,
+      cycleLength,
+      periodLength
+    ) {
+      const nextPeriod =
+        addDays(
+          cycleStart,
+          cycleLength
+        );
+
+      const ovulation =
+        addDays(
+          nextPeriod,
+          -14
+        );
+
+      const fertileStart =
+        addDays(
+          ovulation,
+          -5
+        );
+
+      const fertileEnd =
+        ovulation;
+
+      const peakStart =
+        addDays(
+          ovulation,
+          -2
+        );
+
+      const peakEnd =
+        ovulation;
+
+      const periodEnd =
+        addDays(
+          cycleStart,
+          periodLength -
+          1
+        );
+
+      return {
+        method:
+          "average",
+
+        cycleStart,
+        cycleLength,
+        periodLength,
+        periodEnd,
+        nextPeriod,
+        ovulation,
+        fertileStart,
+        fertileEnd,
+        peakStart,
+        peakEnd,
+        broadFertileStart:
+          fertileStart,
+
+        broadFertileEnd:
+          fertileEnd
+      };
+    }
+
+    function getRangeCalculation(
+      cycleStart,
+      cycleLength,
+      periodLength,
+      shortestCycle,
+      longestCycle
+    ) {
+      const base =
+        getAverageCalculation(
+          cycleStart,
+          cycleLength,
+          periodLength
+        );
+
+      const earliestDay =
+        Math.max(
+          1,
+          shortestCycle -
+          18
+        );
+
+      const latestDay =
+        Math.max(
+          earliestDay,
+          longestCycle -
+          11
+        );
+
+      base.method =
+        "range";
+
+      base.broadFertileStart =
+        addDays(
+          cycleStart,
+          earliestDay -
+          1
+        );
+
+      base.broadFertileEnd =
+        addDays(
+          cycleStart,
+          latestDay -
+          1
+        );
+
+      base.shortestCycle =
+        shortestCycle;
+
+      base.longestCycle =
+        longestCycle;
+
+      base.earliestFertileDay =
+        earliestDay;
+
+      base.latestFertileDay =
+        latestDay;
+
+      return base;
+    }
+
+    function getCalculation() {
+      const cycleStart =
+        parseDate(
+          inputs.lastPeriod.value
+        );
+
+      const referenceDate =
+        parseDate(
+          inputs.referenceDate.value
+        );
+
+      const cycleLength =
+        numberValue(
+          inputs.cycleLength
+        );
+
+      const periodLength =
+        numberValue(
+          inputs.periodLength
+        );
+
+      if (
+        !cycleStart ||
+        !referenceDate ||
+        !Number.isFinite(
+          cycleLength
+        ) ||
+        cycleLength <
+          20 ||
+        cycleLength >
+          45 ||
+        !Number.isFinite(
+          periodLength
+        ) ||
+        periodLength <
+          1 ||
+        periodLength >
+          10
+      ) {
+        throw new Error(
+          "마지막 생리 시작일, 평균 생리주기와 생리기간을 확인해주세요."
+        );
+      }
+
+      let calculation;
+
+      if (
+        currentMethod ===
+        "range"
+      ) {
+        const shortestCycle =
+          numberValue(
+            inputs.shortestCycle
+          );
+
+        const longestCycle =
+          numberValue(
+            inputs.longestCycle
+          );
+
+        if (
+          !Number.isFinite(
+            shortestCycle
+          ) ||
+          !Number.isFinite(
+            longestCycle
+          ) ||
+          shortestCycle <
+            20 ||
+          shortestCycle >
+            45 ||
+          longestCycle <
+            shortestCycle ||
+          longestCycle >
+            60
+        ) {
+          throw new Error(
+            "최단 생리주기와 최장 생리주기를 확인해주세요."
+          );
+        }
+
+        calculation =
+          getRangeCalculation(
+            cycleStart,
+            cycleLength,
+            periodLength,
+            shortestCycle,
+            longestCycle
+          );
+      } else {
+        calculation =
+          getAverageCalculation(
+            cycleStart,
+            cycleLength,
+            periodLength
+          );
+      }
+
+      calculation.referenceDate =
+        referenceDate;
+
+      return calculation;
+    }
+
+    function setMethod(
+      method
+    ) {
+      currentMethod =
+        method;
+
+      methodButtons.forEach(
+        (button) => {
+          button.classList.toggle(
+            "active",
+            button.dataset.method ===
+              method
+          );
+        }
+      );
+
+      const rangeMode =
+        method ===
+        "range";
+
+      rangeFields.classList.toggle(
+        "active",
+        rangeMode
+      );
+
+      inputs.shortestCycle.disabled =
+        !rangeMode;
+
+      inputs.longestCycle.disabled =
+        !rangeMode;
+
+      document
+        .getElementById(
+          "previewMethod"
+        )
+        .textContent =
+          rangeMode
+            ? "최단·최장 주기 반영"
+            : "평균 주기 계산";
+
+      updatePreview();
+      saveForm();
+    }
+
+    function updatePreview() {
+      const cycleLength =
+        numberValue(
+          inputs.cycleLength
+        );
+
+      document
+        .getElementById(
+          "previewCycle"
+        )
+        .textContent =
+          cycleLength
+            ? `${cycleLength}일`
+            : "-";
+
+      try {
+        const calculation =
+          getCalculation();
+
+        document
+          .getElementById(
+            "previewNextPeriod"
+          )
+          .textContent =
+            formatDateCompact(
+              calculation.nextPeriod
+            );
+
+        document
+          .getElementById(
+            "previewOvulation"
+          )
+          .textContent =
+            formatDateCompact(
+              calculation.ovulation
+            );
+
+        document
+          .getElementById(
+            "previewFertile"
+          )
+          .textContent =
+            currentMethod ===
+            "range"
+              ? formatDateRange(
+                  calculation.broadFertileStart,
+                  calculation.broadFertileEnd
+                )
+              : formatDateRange(
+                  calculation.fertileStart,
+                  calculation.fertileEnd
+                );
+      } catch (error) {
+        document
+          .getElementById(
+            "previewNextPeriod"
+          )
+          .textContent =
+            "-";
+
+        document
+          .getElementById(
+            "previewOvulation"
+          )
+          .textContent =
+            "-";
+
+        document
+          .getElementById(
+            "previewFertile"
+          )
+          .textContent =
+            "-";
+      }
+    }
+
+    function getCycleDay(
+      cycleStart,
+      referenceDate,
+      cycleLength
+    ) {
+      const elapsed =
+        diffDays(
+          cycleStart,
+          referenceDate
+        );
+
+      if (
+        elapsed <
+        0
+      ) {
+        return {
+          cycleNumber:
+            0,
+
+          cycleDay:
+            elapsed +
+            1,
+
+          adjustedStart:
+            cycleStart
+        };
+      }
+
+      const cycleNumber =
+        Math.floor(
+          elapsed /
+          cycleLength
+        );
+
+      const cycleDay =
+        (
+          elapsed %
+          cycleLength
+        ) +
+        1;
+
+      return {
+        cycleNumber,
+        cycleDay,
+        adjustedStart:
+          addDays(
+            cycleStart,
+            cycleNumber *
+            cycleLength
+          )
+      };
+    }
+
+    function getCalendarStartMonth(
+      calculation
+    ) {
+      let target =
+        calculation.ovulation;
+
+      if (
+        inputs.calendarStart.value ===
+        "period"
+      ) {
+        target =
+          calculation.cycleStart;
+      }
+
+      if (
+        inputs.calendarStart.value ===
+        "today"
+      ) {
+        target =
+          calculation.referenceDate;
+      }
+
+      return new Date(
+        target.getFullYear(),
+        target.getMonth(),
+        1,
+        12
+      );
+    }
+
+    function getEventForDate(
+      date,
+      calculation
+    ) {
+      const cycles =
+        [];
+
+      for (
+        let index = -2;
+        index <= 7;
+        index += 1
+      ) {
+        const cycleStart =
+          addDays(
+            calculation.cycleStart,
+            index *
+            calculation.cycleLength
+          );
+
+        const cycle =
+          currentMethod ===
+          "range"
+            ? getRangeCalculation(
+                cycleStart,
+                calculation.cycleLength,
+                calculation.periodLength,
+                calculation.shortestCycle,
+                calculation.longestCycle
+              )
+            : getAverageCalculation(
+                cycleStart,
+                calculation.cycleLength,
+                calculation.periodLength
+              );
+
+        cycles.push(
+          cycle
+        );
+      }
+
+      let type =
+        "";
+
+      let label =
+        "";
+
+      cycles.forEach(
+        (cycle) => {
+          if (
+            dateBetween(
+              date,
+              cycle.cycleStart,
+              cycle.periodEnd
+            )
+          ) {
+            type =
+              "period";
+
+            label =
+              sameDate(
+                date,
+                cycle.cycleStart
+              )
+                ? "생리 시작"
+                : "생리";
+          }
+
+          if (
+            currentMethod ===
+              "range" &&
+            dateBetween(
+              date,
+              cycle.broadFertileStart,
+              cycle.broadFertileEnd
+            )
+          ) {
+            type =
+              "fertile";
+
+            label =
+              "넓은 가임기";
+          }
+
+          if (
+            currentMethod ===
+              "average" &&
+            dateBetween(
+              date,
+              cycle.fertileStart,
+              cycle.fertileEnd
+            )
+          ) {
+            type =
+              "fertile";
+
+            label =
+              "예상 가임기";
+          }
+
+          if (
+            dateBetween(
+              date,
+              cycle.peakStart,
+              cycle.peakEnd
+            )
+          ) {
+            type =
+              "peak";
+
+            label =
+              sameDate(
+                date,
+                cycle.ovulation
+              )
+                ? "예상 배란"
+                : "가능성 높음";
+          }
+
+          if (
+            sameDate(
+              date,
+              cycle.nextPeriod
+            )
+          ) {
+            type =
+              "next-period";
+
+            label =
+              "다음 생리";
+          }
+        }
+      );
+
+      return {
+        type,
+        label
+      };
+    }
+
+    function renderCalendar() {
+      if (
+        !currentCalendarMonth ||
+        !currentCalculation
+      ) {
+        return;
+      }
+
+      const calendarGrid =
+        document.getElementById(
+          "calendarGrid"
+        );
+
+      const year =
+        currentCalendarMonth.getFullYear();
+
+      const month =
+        currentCalendarMonth.getMonth();
+
+      const firstDay =
+        new Date(
+          year,
+          month,
+          1,
+          12
+        );
+
+      const startOffset =
+        firstDay.getDay();
+
+      const gridStart =
+        addDays(
+          firstDay,
+          -startOffset
+        );
+
+      const today =
+        new Date();
+
+      const cells =
+        [];
+
+      for (
+        let index = 0;
+        index < 42;
+        index += 1
+      ) {
+        const date =
+          addDays(
+            gridStart,
+            index
+          );
+
+        const event =
+          getEventForDate(
+            date,
+            currentCalculation
+          );
+
+        const classNames = [
+          "calendar-day"
+        ];
+
+        if (
+          date.getMonth() !==
+          month
+        ) {
+          classNames.push(
+            "other"
+          );
+        }
+
+        if (
+          sameDate(
+            date,
+            today
+          )
+        ) {
+          classNames.push(
+            "today"
+          );
+        }
+
+        if (
+          event.type
+        ) {
+          classNames.push(
+            event.type
+          );
+        }
+
+        const referenceMarker =
+          sameDate(
+            date,
+            currentCalculation.referenceDate
+          )
+            ? "<i></i>"
+            : "";
+
+        cells.push(
+          `
+            <div class="${classNames.join(" ")}">
+              <strong>
+                ${date.getDate()}
+              </strong>
+
+              <small>
+                ${event.label || ""}
+              </small>
+
+              ${referenceMarker}
+            </div>
+          `
+        );
+      }
+
+      calendarGrid.innerHTML =
+        cells.join("");
+
+      document
+        .getElementById(
+          "calendarMonthTitle"
+        )
+        .textContent =
+          formatMonth(
+            currentCalendarMonth
+          );
+    }
+
+    function renderForecast(
+      calculation
+    ) {
+      const forecastCount =
+        Number(
+          inputs.forecastCount.value
+        );
+
+      const forecastGrid =
+        document.getElementById(
+          "forecastGrid"
+        );
+
+      const cards =
+        [];
+
+      for (
+        let index = 0;
+        index < forecastCount;
+        index += 1
+      ) {
+        const cycleStart =
+          addDays(
+            calculation.cycleStart,
+            index *
+            calculation.cycleLength
+          );
+
+        const cycle =
+          currentMethod ===
+          "range"
+            ? getRangeCalculation(
+                cycleStart,
+                calculation.cycleLength,
+                calculation.periodLength,
+                calculation.shortestCycle,
+                calculation.longestCycle
+              )
+            : getAverageCalculation(
+                cycleStart,
+                calculation.cycleLength,
+                calculation.periodLength
+              );
+
+        const fertileStart =
+          currentMethod ===
+          "range"
+            ? cycle.broadFertileStart
+            : cycle.fertileStart;
+
+        const fertileEnd =
+          currentMethod ===
+          "range"
+            ? cycle.broadFertileEnd
+            : cycle.fertileEnd;
+
+        cards.push(
+          `
+            <article class="forecast-card">
+              <span>
+                ${index + 1}번째 예상 주기
+              </span>
+
+              <strong>
+                ${formatDate(cycle.cycleStart)}
+              </strong>
+
+              <small>
+                다음 생리 예정일<br>
+                ${formatDate(cycle.nextPeriod)}
+              </small>
+
+              <p>
+                가임기 ${formatDateRange(fertileStart, fertileEnd)}<br>
+                배란 ${formatDateCompact(cycle.ovulation)}
+              </p>
+            </article>
+          `
+        );
+      }
+
+      forecastGrid.innerHTML =
+        cards.join("");
+
+      document
+        .getElementById(
+          "forecastSummary"
+        )
+        .textContent =
+          `${forecastCount}회 · ${calculation.cycleLength}일 주기 가정`;
+    }
+
+    function renderWave(
+      calculation
+    ) {
+      const cyclePosition =
+        getCycleDay(
+          calculation.cycleStart,
+          calculation.referenceDate,
+          calculation.cycleLength
+        );
+
+      const cycleDay =
+        cyclePosition.cycleDay;
+
+      const position =
+        cycleDay <=
+        0
+          ? 2
+          : Math.min(
+              98,
+              Math.max(
+                2,
+                (
+                  cycleDay -
+                  1
+                ) /
+                calculation.cycleLength *
+                100
+              )
+            );
+
+      document
+        .getElementById(
+          "waveMarker"
+        )
+        .style.left =
+          `${position}%`;
+
+      document
+        .getElementById(
+          "waveMarkerLabel"
+        )
+        .textContent =
+          cycleDay >
+          0
+            ? `주기 ${cycleDay}일`
+            : "주기 시작 전";
+
+      let phase =
+        "난포기";
+
+      if (
+        cycleDay >=
+          1 &&
+        cycleDay <=
+          calculation.periodLength
+      ) {
+        phase =
+          "생리기간";
+      } else if (
+        cycleDay >=
+          calculation.cycleLength -
+            18 &&
+        cycleDay <=
+          calculation.cycleLength -
+            14
+      ) {
+        phase =
+          "예상 가임기";
+      } else if (
+        cycleDay ===
+        calculation.cycleLength -
+          13
+      ) {
+        phase =
+          "예상 배란기";
+      } else if (
+        cycleDay >
+        calculation.cycleLength -
+          13
+      ) {
+        phase =
+          "황체기";
+      }
+
+      document
+        .getElementById(
+          "waveSummary"
+        )
+        .textContent =
+          cycleDay >
+          0
+            ? `주기 ${cycleDay}일 · ${phase}`
+            : "선택한 기준일은 생리 시작 전";
+    }
+
+    function calculate(
+      event
+    ) {
+      event.preventDefault();
+
+      let calculation;
+
+      try {
+        calculation =
+          getCalculation();
+      } catch (error) {
+        alert(
+          error.message
+        );
+
+        return;
+      }
+
+      currentCalculation =
+        calculation;
+
+      currentCalendarMonth =
+        getCalendarStartMonth(
+          calculation
+        );
+
+      const fertileStart =
+        currentMethod ===
+        "range"
+          ? calculation.broadFertileStart
+          : calculation.fertileStart;
+
+      const fertileEnd =
+        currentMethod ===
+        "range"
+          ? calculation.broadFertileEnd
+          : calculation.fertileEnd;
+
+      const fertileDayCount =
+        diffDays(
+          fertileStart,
+          fertileEnd
+        ) +
+        1;
+
+      const cyclePosition =
+        getCycleDay(
+          calculation.cycleStart,
+          calculation.referenceDate,
+          calculation.cycleLength
+        );
+
+      document
+        .getElementById(
+          "resultTitle"
+        )
+        .innerHTML =
+          `예상 가임기는 <b>${formatDateRange(fertileStart, fertileEnd)}</b>입니다`;
+
+      document
+        .getElementById(
+          "resultMessage"
+        )
+        .textContent =
+          currentMethod ===
+          "range"
+            ? `최근 최단 ${calculation.shortestCycle}일, 최장 ${calculation.longestCycle}일 주기를 반영해 넓은 가임기 범위를 계산했습니다. 평균 ${calculation.cycleLength}일 주기 기준 예상 배란일은 ${formatDate(calculation.ovulation)}입니다.`
+            : `평균 ${calculation.cycleLength}일 주기에서 다음 생리 예정일 약 14일 전을 배란일로 계산했습니다. 배란일 5일 전부터 배란일까지 약 6일을 예상 가임기로 표시합니다.`;
+
+      document
+        .getElementById(
+          "ovulationMainResult"
+        )
+        .textContent =
+          formatDate(
+            calculation.ovulation
+          );
+
+      document
+        .getElementById(
+          "ovulationMainDetail"
+        )
+        .textContent =
+          `주기 ${calculation.cycleLength - 13}일째 예상`;
+
+      document
+        .getElementById(
+          "lastPeriodResult"
+        )
+        .textContent =
+          formatDate(
+            calculation.cycleStart
+          );
+
+      document
+        .getElementById(
+          "periodLengthResult"
+        )
+        .textContent =
+          `생리기간 ${calculation.periodLength}일 입력`;
+
+      document
+        .getElementById(
+          "fertileWindowResult"
+        )
+        .textContent =
+          formatDateRange(
+            fertileStart,
+            fertileEnd
+          );
+
+      document
+        .getElementById(
+          "fertileDaysResult"
+        )
+        .textContent =
+          currentMethod ===
+          "range"
+            ? `넓은 추정 범위 · ${fertileDayCount}일`
+            : `배란 전 5일 포함 · ${fertileDayCount}일`;
+
+      document
+        .getElementById(
+          "peakWindowResult"
+        )
+        .textContent =
+          formatDateRange(
+            calculation.peakStart,
+            calculation.peakEnd
+          );
+
+      document
+        .getElementById(
+          "nextPeriodResult"
+        )
+        .textContent =
+          formatDate(
+            calculation.nextPeriod
+          );
+
+      document
+        .getElementById(
+          "cycleDayResult"
+        )
+        .textContent =
+          cyclePosition.cycleDay >
+          0
+            ? `${formatDate(calculation.referenceDate)} 기준 주기 ${cyclePosition.cycleDay}일`
+            : "기준일이 마지막 생리 시작일보다 빠름";
+
+      renderCalendar();
+      renderWave(
+        calculation
+      );
+
+      renderForecast(
+        calculation
+      );
+
+      const statusBox =
+        document.getElementById(
+          "statusBox"
+        );
+
+      statusBox.className =
+        "status-box";
+
+      const variability =
+        currentMethod ===
+        "range"
+          ? calculation.longestCycle -
+            calculation.shortestCycle
+          : 0;
+
+      if (
+        currentMethod ===
+          "range" &&
+        variability >=
+          8
+      ) {
+        statusBox.classList.add(
+          "warn"
+        );
+
+        statusBox.textContent =
+          `최단 주기와 최장 주기의 차이가 ${variability}일로 큰 편입니다. 날짜 계산만으로 실제 배란일을 좁히기 어렵기 때문에 배란테스트기, 자궁경부 점액 변화 또는 의료진 상담을 함께 고려하세요.`;
+      } else if (
+        calculation.cycleLength <
+          21 ||
+        calculation.cycleLength >
+          35
+      ) {
+        statusBox.classList.add(
+          "warn"
+        );
+
+        statusBox.textContent =
+          "입력한 평균 생리주기가 일반적인 21~35일 범위 밖입니다. 개인의 평소 주기일 수 있지만 변화가 반복되거나 다른 증상이 있다면 의료진과 상담하세요.";
+      } else if (
+        calculation.referenceDate >
+        addDays(
+          calculation.nextPeriod,
+          7
+        )
+      ) {
+        statusBox.classList.add(
+          "warn"
+        );
+
+        statusBox.textContent =
+          "기준일이 계산된 다음 생리 예정일보다 7일 이상 늦습니다. 실제 생리가 아직 시작되지 않았고 임신 가능성이 있다면 임신테스트 또는 의료진 상담을 고려하세요.";
+      } else {
+        statusBox.textContent =
+          "입력한 생리주기를 기준으로 계산한 추정 일정입니다. 수면, 스트레스, 질환, 체중 변화와 호르몬 상태에 따라 실제 배란일과 생리 시작일은 달라질 수 있습니다.";
+      }
+
+      resultEmpty.style.display =
+        "none";
+
+      resultContent.classList.add(
+        "show"
+      );
+
+      lastResultText =
+`[배란일·가임기 계산기]
+
+계산 방식: ${
+  currentMethod === "average"
+    ? "평균 생리주기"
+    : "최단·최장 주기 범위"
+}
+마지막 생리 시작일: ${formatDate(calculation.cycleStart)}
+평균 생리주기: ${calculation.cycleLength}일
+평균 생리기간: ${calculation.periodLength}일
+현재 주기 확인 기준일: ${formatDate(calculation.referenceDate)}
+
+예상 배란일: ${formatDate(calculation.ovulation)}
+예상 가임기: ${formatDate(fertileStart)} ~ ${formatDate(fertileEnd)}
+임신 가능성이 높은 날: ${formatDate(calculation.peakStart)} ~ ${formatDate(calculation.peakEnd)}
+다음 생리 예정일: ${formatDate(calculation.nextPeriod)}
+현재 주기 위치: ${
+  cyclePosition.cycleDay > 0
+    ? `주기 ${cyclePosition.cycleDay}일`
+    : "주기 시작 전"
+}
+
+${
+  currentMethod === "range"
+    ? `최단 생리주기: ${calculation.shortestCycle}일
+최장 생리주기: ${calculation.longestCycle}일
+넓은 가임기 범위: 주기 ${calculation.earliestFertileDay}일~${calculation.latestFertileDay}일`
+    : ""
+}
+
+※ 생리주기를 이용한 추정 날짜이며 실제 배란을 확인하거나 임신·피임 가능성을 보장하지 않습니다.`;
+
+      saveForm();
+
+      document
+        .getElementById(
+          "results"
+        )
+        .scrollIntoView({
+          behavior:
+            "smooth",
+
+          block:
+            "start"
+        });
+    }
+
+    function saveForm() {
+      try {
+        const data = {
+          method:
+            currentMethod
+        };
+
+        Object.entries(
+          inputs
+        ).forEach(
+          (
+            [
+              key,
+              input
+            ]
+          ) => {
+            data[
+              key
+            ] =
+              input.value;
+          }
+        );
+
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify(
+            data
+          )
+        );
+      } catch (error) {
+        console.warn(
+          error
+        );
+      }
+    }
+
+    function setDefaultDates() {
+      const today =
+        new Date();
+
+      const lastPeriod =
+        addDays(
+          today,
+          -12
+        );
+
+      inputs.lastPeriod.value =
+        toInputDate(
+          lastPeriod
+        );
+
+      inputs.referenceDate.value =
+        toInputDate(
+          today
+        );
+    }
+
+    function restoreForm() {
+      setDefaultDates();
+
+      try {
+        const saved =
+          JSON.parse(
+            localStorage.getItem(
+              STORAGE_KEY
+            ) ||
+            "null"
+          );
+
+        if (
+          saved
+        ) {
+          Object.entries(
+            inputs
+          ).forEach(
+            (
+              [
+                key,
+                input
+              ]
+            ) => {
+              if (
+                saved[
+                  key
+                ] !==
+                undefined &&
+                saved[
+                  key
+                ] !==
+                ""
+              ) {
+                input.value =
+                  saved[
+                    key
+                  ];
+              }
+            }
+          );
+
+          currentMethod =
+            saved.method ===
+            "range"
+              ? "range"
+              : "average";
+        }
+      } catch (error) {
+        console.warn(
+          error
+        );
+      }
+
+      setMethod(
+        currentMethod
+      );
+
+      updatePreview();
+    }
+
+    function resetCalculator() {
+      try {
+        localStorage.removeItem(
+          STORAGE_KEY
+        );
+      } catch (error) {
+        console.warn(
+          error
+        );
+      }
+
+      inputs.cycleLength.value =
+        "28";
+
+      inputs.periodLength.value =
+        "5";
+
+      inputs.shortestCycle.value =
+        "26";
+
+      inputs.longestCycle.value =
+        "31";
+
+      inputs.forecastCount.value =
+        "3";
+
+      inputs.calendarStart.value =
+        "ovulation";
+
+      inputs.displayMode.value =
+        "full";
+
+      setDefaultDates();
+      setMethod(
+        "average"
+      );
+
+      resultContent.classList.remove(
+        "show"
+      );
+
+      resultEmpty.style.display =
+        "grid";
+
+      currentCalculation =
+        null;
+
+      currentCalendarMonth =
+        null;
+
+      lastResultText =
+        "";
+    }
+
+    async function copyResult() {
+      if (
+        !lastResultText
+      ) {
+        alert(
+          "먼저 계산해주세요."
+        );
+
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(
+          lastResultText
+        );
+      } catch (error) {
+        const textarea =
+          document.createElement(
+            "textarea"
+          );
+
+        textarea.value =
+          lastResultText;
+
+        textarea.style.position =
+          "fixed";
+
+        textarea.style.opacity =
+          "0";
+
+        document.body.appendChild(
+          textarea
+        );
+
+        textarea.select();
+
+        document.execCommand(
+          "copy"
+        );
+
+        textarea.remove();
+      }
+
+      const original =
+        copyBtn.textContent;
+
+      copyBtn.textContent =
+        "복사 완료";
+
+      setTimeout(
+        () => {
+          copyBtn.textContent =
+            original;
+        },
+        1300
+      );
+    }
+
+    methodButtons.forEach(
+      (button) => {
+        button.addEventListener(
+          "click",
+          () => {
+            setMethod(
+              button.dataset.method
+            );
+          }
+        );
+      }
+    );
+
+    Object.values(
+      inputs
+    ).forEach(
+      (input) => {
+        input.addEventListener(
+          "input",
+          () => {
+            updatePreview();
+            saveForm();
+          }
+        );
+
+        input.addEventListener(
+          "change",
+          () => {
+            updatePreview();
+            saveForm();
+          }
+        );
+      }
+    );
+
+    form.addEventListener(
+      "submit",
+      calculate
+    );
+
+    resetBtn.addEventListener(
+      "click",
+      resetCalculator
+    );
+
+    copyBtn.addEventListener(
+      "click",
+      copyResult
+    );
+
+    printBtn.addEventListener(
+      "click",
+      () => {
+        window.print();
+      }
+    );
+
+    prevMonthBtn.addEventListener(
+      "click",
+      () => {
+        if (
+          !currentCalendarMonth
+        ) {
+          return;
+        }
+
+        currentCalendarMonth =
+          addMonths(
+            currentCalendarMonth,
+            -1
+          );
+
+        renderCalendar();
+      }
+    );
+
+    nextMonthBtn.addEventListener(
+      "click",
+      () => {
+        if (
+          !currentCalendarMonth
+        ) {
+          return;
+        }
+
+        currentCalendarMonth =
+          addMonths(
+            currentCalendarMonth,
+            1
+          );
+
+        renderCalendar();
+      }
+    );
+
+    restoreForm();
+  </script>
+
+  <script
+    defer
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'
+  ></script>
+</body>
+</html>
