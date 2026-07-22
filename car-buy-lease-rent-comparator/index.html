@@ -1,0 +1,4778 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>자동차 구매·리스·렌트 비교기 | 총비용·월부담 계산 | 바로해결툴즈</title>
+
+  <meta
+    name="description"
+    content="차량 가격, 보유기간, 구매 대출, 리스료, 장기렌트료와 예상 잔존가치를 입력하면 구매·리스·렌트의 총비용, 월평균 비용과 1km당 비용을 비교합니다."
+  >
+
+  <meta
+    name="keywords"
+    content="자동차 구매 리스 렌트 비교, 장기렌트 리스 비교, 자동차 구매 계산기, 리스 총비용, 렌트 총비용, 차량 유지비 계산, 바로해결툴즈"
+  >
+
+  <meta name="author" content="바로해결툴즈">
+  <meta name="robots" content="index, follow">
+
+  <link
+    rel="canonical"
+    href="https://barohaegyeol-tools.pages.dev/car-buy-lease-rent-comparator/"
+  >
+
+  <meta name="theme-color" content="#3d3028">
+
+  <meta property="og:type" content="website">
+  <meta
+    property="og:title"
+    content="자동차 구매·리스·렌트 비교기 | 바로해결툴즈"
+  >
+  <meta
+    property="og:description"
+    content="같은 차량을 구매·리스·장기렌트할 때 총비용과 월부담을 비교하세요."
+  >
+  <meta
+    property="og:url"
+    content="https://barohaegyeol-tools.pages.dev/car-buy-lease-rent-comparator/"
+  >
+  <meta property="og:site_name" content="바로해결툴즈">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "자동차 구매·리스·렌트 비교기",
+    "url": "https://barohaegyeol-tools.pages.dev/car-buy-lease-rent-comparator/",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "All",
+    "description": "자동차 구매, 리스와 장기렌트 조건을 입력해 총비용과 월평균 비용을 비교하는 무료 웹 도구입니다.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "KRW"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --ink: #302a26;
+      --text: #5d554f;
+      --muted: #918882;
+      --line: rgba(61, 48, 40, 0.12);
+
+      --brown: #5a4133;
+      --brown-dark: #3d3028;
+      --brown-soft: #f4ede8;
+
+      --orange: #e87e42;
+      --orange-dark: #b95825;
+      --orange-soft: #fff0e6;
+
+      --yellow: #edc85a;
+      --yellow-soft: #fff7d8;
+
+      --green: #5c9e7f;
+      --green-dark: #34705a;
+      --green-soft: #e8f7f0;
+
+      --blue: #5d8fac;
+      --blue-dark: #38657e;
+      --blue-soft: #eaf4f8;
+
+      --violet: #8475b5;
+      --violet-soft: #f1eefb;
+
+      --red: #c6575c;
+      --red-soft: #fff0f1;
+
+      --white: #ffffff;
+
+      --shadow:
+        0 28px 72px rgba(71, 50, 37, 0.14);
+
+      --shadow-soft:
+        0 12px 30px rgba(71, 50, 37, 0.08);
+
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      min-width: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+
+      color: var(--ink);
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Pretendard",
+        "Noto Sans KR",
+        "Apple SD Gothic Neo",
+        system-ui,
+        sans-serif;
+
+      line-height: 1.65;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+
+      background:
+        radial-gradient(
+          circle at 5% 4%,
+          rgba(232, 126, 66, 0.18),
+          transparent 29%
+        ),
+        radial-gradient(
+          circle at 96% 7%,
+          rgba(92, 158, 127, 0.17),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 80% 96%,
+          rgba(93, 143, 172, 0.14),
+          transparent 27%
+        ),
+        linear-gradient(
+          135deg,
+          #fffaf5 0%,
+          #fffdf8 43%,
+          #f6fbf8 72%,
+          #f4f9fc 100%
+        );
+    }
+
+    body::before {
+      content: "";
+
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+
+      pointer-events: none;
+      opacity: 0.24;
+
+      background-image:
+        radial-gradient(
+          circle,
+          rgba(61, 48, 40, 0.11) 1px,
+          transparent 1.5px
+        );
+
+      background-size: 28px 28px;
+
+      mask-image:
+        linear-gradient(
+          to bottom,
+          #000,
+          transparent 93%
+        );
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .wrap {
+      width:
+        min(
+          var(--max),
+          calc(100% - 32px)
+        );
+
+      margin: 0 auto;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+
+      border-bottom:
+        1px solid rgba(61, 48, 40, 0.08);
+
+      background:
+        rgba(255, 252, 248, 0.86);
+
+      backdrop-filter:
+        blur(16px);
+    }
+
+    .header-inner {
+      min-height: 76px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      font-weight: 950;
+      letter-spacing: -0.04em;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 16px;
+
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--brown-dark),
+          var(--orange),
+          var(--yellow)
+        );
+
+      box-shadow:
+        0 12px 28px rgba(90, 65, 51, 0.23);
+
+      font-weight: 1000;
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 2px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+      font-weight: 750;
+      letter-spacing: 0;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+
+      gap: 9px;
+    }
+
+    .nav a {
+      padding: 9px 13px;
+
+      border:
+        1px solid rgba(61, 48, 40, 0.09);
+
+      border-radius: 999px;
+
+      color: #665d57;
+
+      background:
+        rgba(255, 255, 255, 0.86);
+
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .hero {
+      padding: 38px 0 28px;
+    }
+
+    .road-hero {
+      position: relative;
+      overflow: hidden;
+
+      padding: 48px 46px 38px;
+
+      border:
+        1px solid rgba(61, 48, 40, 0.10);
+
+      border-radius: 34px;
+
+      background:
+        radial-gradient(
+          circle at 90% 7%,
+          rgba(237, 200, 90, 0.31),
+          transparent 23%
+        ),
+        radial-gradient(
+          circle at 7% 94%,
+          rgba(92, 158, 127, 0.20),
+          transparent 27%
+        ),
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.98),
+          rgba(255, 246, 237, 0.96) 48%,
+          rgba(240, 248, 244, 0.96)
+        );
+
+      box-shadow: var(--shadow);
+    }
+
+    .road-hero::before {
+      content: "";
+
+      position: absolute;
+      left: -10%;
+      right: -10%;
+      bottom: -155px;
+
+      height: 330px;
+
+      border-radius: 50% 50% 0 0;
+
+      background:
+        linear-gradient(
+          180deg,
+          #5a554f,
+          #363330
+        );
+
+      transform:
+        perspective(500px)
+        rotateX(28deg);
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 2;
+
+      max-width: 950px;
+      margin: 0 auto;
+
+      text-align: center;
+    }
+
+    .hero-chips {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 9px;
+
+      margin-bottom: 18px;
+    }
+
+    .hero-chip {
+      min-height: 34px;
+
+      display: inline-flex;
+      align-items: center;
+
+      padding: 8px 13px;
+
+      border:
+        1px solid rgba(61, 48, 40, 0.10);
+
+      border-radius: 999px;
+
+      color: #6d635d;
+
+      background:
+        rgba(255, 255, 255, 0.88);
+
+      box-shadow:
+        0 8px 22px rgba(71, 50, 37, 0.05);
+
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .hero-chip.primary {
+      color: #75551a;
+
+      border-color:
+        rgba(237, 200, 90, 0.25);
+
+      background: var(--yellow-soft);
+    }
+
+    h1 {
+      margin: 0 auto;
+      max-width: 940px;
+
+      font-size:
+        clamp(43px, 5.8vw, 72px);
+
+      line-height: 1.06;
+      letter-spacing: -0.068em;
+
+      word-break: keep-all;
+      overflow-wrap: normal;
+    }
+
+    .title-line {
+      display: block;
+    }
+
+    .title-accent {
+      color: transparent;
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--brown-dark),
+          var(--orange-dark) 38%,
+          var(--orange) 68%,
+          var(--green-dark)
+        );
+
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .hero-copy p {
+      max-width: 820px;
+
+      margin: 19px auto 0;
+
+      color: var(--muted);
+
+      font-size:
+        clamp(15px, 1.7vw, 18px);
+
+      line-height: 1.82;
+      font-weight: 720;
+    }
+
+    .hero-copy strong {
+      color: #554d48;
+      font-weight: 950;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 11px;
+
+      margin-top: 23px;
+    }
+
+    .btn {
+      min-height: 51px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 13px 19px;
+
+      border:
+        1px solid transparent;
+
+      border-radius: 16px;
+
+      font-weight: 920;
+    }
+
+    .btn-primary {
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--brown-dark),
+          var(--orange-dark),
+          var(--orange)
+        );
+
+      box-shadow:
+        0 17px 36px rgba(185, 88, 37, 0.22);
+    }
+
+    .btn-secondary {
+      color: #625852;
+
+      border-color:
+        rgba(61, 48, 40, 0.11);
+
+      background:
+        rgba(255, 255, 255, 0.93);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .road-lanes {
+      position: relative;
+      z-index: 3;
+
+      display: grid;
+      gap: 9px;
+
+      margin-top: 38px;
+    }
+
+    .road-lane {
+      display: grid;
+
+      grid-template-columns:
+        115px minmax(0, 1fr) auto;
+
+      gap: 14px;
+      align-items: center;
+
+      min-height: 72px;
+
+      padding: 11px 16px;
+
+      border:
+        1px solid rgba(255, 255, 255, 0.16);
+
+      border-radius: 18px;
+
+      color: #ffffff;
+
+      background:
+        rgba(35, 33, 31, 0.88);
+
+      box-shadow:
+        0 11px 25px rgba(41, 32, 26, 0.17);
+    }
+
+    .road-lane::before {
+      content: "";
+
+      position: absolute;
+      left: 150px;
+      right: 110px;
+
+      height: 2px;
+
+      background:
+        repeating-linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.55) 0 24px,
+          transparent 24px 44px
+        );
+    }
+
+    .lane-name {
+      position: relative;
+      z-index: 1;
+
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      font-weight: 950;
+    }
+
+    .lane-icon {
+      width: 38px;
+      height: 38px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 13px;
+
+      color: #ffffff;
+      background: var(--orange);
+
+      font-size: 11px;
+      font-weight: 1000;
+    }
+
+    .road-lane:nth-child(2)
+    .lane-icon {
+      background: var(--green);
+    }
+
+    .road-lane:nth-child(3)
+    .lane-icon {
+      background: var(--blue);
+    }
+
+    .lane-car {
+      position: relative;
+      z-index: 2;
+
+      justify-self: center;
+
+      width: 90px;
+      height: 34px;
+
+      border-radius:
+        20px 24px 11px 11px;
+
+      background: var(--orange);
+
+      box-shadow:
+        inset 0 -7px 0 rgba(0, 0, 0, 0.08);
+    }
+
+    .lane-car::before {
+      content: "";
+
+      position: absolute;
+      left: 19px;
+      top: -13px;
+
+      width: 46px;
+      height: 20px;
+
+      border-radius:
+        17px 17px 3px 3px;
+
+      background: inherit;
+    }
+
+    .lane-car::after {
+      content: "";
+
+      position: absolute;
+      left: 13px;
+      right: 13px;
+      bottom: -7px;
+
+      height: 13px;
+
+      background:
+        radial-gradient(
+          circle at 10px 6px,
+          #242322 0 6px,
+          transparent 6.5px
+        ),
+        radial-gradient(
+          circle at calc(100% - 10px) 6px,
+          #242322 0 6px,
+          transparent 6.5px
+        );
+    }
+
+    .road-lane:nth-child(2)
+    .lane-car {
+      background: var(--green);
+    }
+
+    .road-lane:nth-child(3)
+    .lane-car {
+      background: var(--blue);
+    }
+
+    .lane-copy {
+      position: relative;
+      z-index: 1;
+
+      text-align: right;
+    }
+
+    .lane-copy strong {
+      display: block;
+
+      font-size: 13px;
+      letter-spacing: -0.03em;
+    }
+
+    .lane-copy small {
+      display: block;
+      margin-top: 3px;
+
+      color:
+        rgba(255, 255, 255, 0.64);
+
+      font-size: 8px;
+      font-weight: 740;
+    }
+
+    .section {
+      padding: 14px 0 25px;
+    }
+
+    .tool-shell {
+      overflow: hidden;
+
+      border:
+        1px solid rgba(61, 48, 40, 0.09);
+
+      border-radius: 32px;
+
+      background:
+        rgba(255, 255, 255, 0.93);
+
+      box-shadow: var(--shadow);
+    }
+
+    .shell-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      gap: 18px;
+
+      padding: 26px 26px 19px;
+
+      border-bottom:
+        1px solid rgba(61, 48, 40, 0.08);
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(244, 237, 232, 0.82),
+          rgba(255, 255, 255, 0.24)
+        );
+    }
+
+    .shell-head h2 {
+      margin: 0;
+
+      font-size:
+        clamp(27px, 3.5vw, 40px);
+
+      line-height: 1.15;
+      letter-spacing: -0.05em;
+    }
+
+    .shell-head p {
+      margin: 8px 0 0;
+
+      color: var(--muted);
+
+      font-size: 13px;
+      font-weight: 720;
+    }
+
+    .shell-badge {
+      padding: 8px 12px;
+
+      border-radius: 999px;
+
+      color: var(--brown);
+
+      background:
+        rgba(90, 65, 51, 0.10);
+
+      font-size: 11px;
+      font-weight: 900;
+
+      white-space: nowrap;
+    }
+
+    .calculator-body {
+      padding: 23px;
+    }
+
+    .common-strip {
+      display: grid;
+
+      grid-template-columns:
+        1.15fr 0.85fr 0.85fr 0.85fr;
+
+      gap: 11px;
+
+      padding: 18px;
+
+      border:
+        1px solid rgba(61, 48, 40, 0.09);
+
+      border-radius: 22px;
+
+      background:
+        linear-gradient(
+          145deg,
+          var(--yellow-soft),
+          #ffffff
+        );
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .field label {
+      display: block;
+
+      margin-bottom: 7px;
+
+      color: #5f554f;
+
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .field label small {
+      display: block;
+      margin-top: 3px;
+
+      color: var(--muted);
+
+      font-size: 8px;
+      line-height: 1.45;
+      font-weight: 720;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 52px;
+
+      padding:
+        13px 49px 13px 14px;
+
+      border:
+        1px solid rgba(61, 48, 40, 0.14);
+
+      border-radius: 16px;
+      outline: none;
+
+      color: var(--ink);
+      background: #ffffff;
+
+      font-size: 14px;
+      font-weight: 830;
+    }
+
+    select {
+      padding-right: 13px;
+    }
+
+    input:focus,
+    select:focus {
+      border-color:
+        rgba(232, 126, 66, 0.45);
+
+      box-shadow:
+        0 0 0 4px rgba(232, 126, 66, 0.08);
+    }
+
+    .unit {
+      position: absolute;
+      right: 13px;
+      top: 50%;
+
+      transform:
+        translateY(-50%);
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 900;
+
+      pointer-events: none;
+    }
+
+    .route-inputs {
+      display: grid;
+      gap: 12px;
+
+      margin-top: 16px;
+    }
+
+    .route-input {
+      display: grid;
+
+      grid-template-columns:
+        170px minmax(0, 1fr);
+
+      gap: 15px;
+
+      padding: 19px;
+
+      border:
+        1px solid rgba(61, 48, 40, 0.09);
+
+      border-radius: 23px;
+
+      background: #ffffff;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .route-label {
+      position: relative;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      padding: 16px;
+
+      overflow: hidden;
+
+      border-radius: 18px;
+
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          145deg,
+          var(--orange-dark),
+          var(--orange)
+        );
+    }
+
+    .route-input:nth-child(2)
+    .route-label {
+      background:
+        linear-gradient(
+          145deg,
+          var(--green-dark),
+          var(--green)
+        );
+    }
+
+    .route-input:nth-child(3)
+    .route-label {
+      background:
+        linear-gradient(
+          145deg,
+          var(--blue-dark),
+          var(--blue)
+        );
+    }
+
+    .route-label::after {
+      content: "";
+
+      position: absolute;
+      right: -24px;
+      bottom: -24px;
+
+      width: 90px;
+      height: 90px;
+
+      border:
+        17px solid rgba(255, 255, 255, 0.10);
+
+      border-radius: 50%;
+    }
+
+    .route-label span,
+    .route-label strong,
+    .route-label small {
+      position: relative;
+      z-index: 1;
+    }
+
+    .route-label span {
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      opacity: 0.74;
+    }
+
+    .route-label strong {
+      display: block;
+      margin-top: 7px;
+
+      font-size: 25px;
+      line-height: 1.1;
+      letter-spacing: -0.045em;
+    }
+
+    .route-label small {
+      display: block;
+      margin-top: 9px;
+
+      font-size: 9px;
+      line-height: 1.55;
+      font-weight: 730;
+      opacity: 0.78;
+    }
+
+    .route-fields {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      gap: 10px;
+      align-content: center;
+    }
+
+    .action-row {
+      display: grid;
+
+      grid-template-columns:
+        1fr 190px;
+
+      gap: 11px;
+
+      margin-top: 18px;
+    }
+
+    .calculate-btn,
+    .reset-btn {
+      min-height: 59px;
+
+      border-radius: 17px;
+
+      font-weight: 950;
+    }
+
+    .calculate-btn {
+      border: 0;
+
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--brown-dark),
+          var(--orange-dark),
+          var(--orange)
+        );
+
+      box-shadow:
+        0 17px 35px rgba(185, 88, 37, 0.21);
+    }
+
+    .reset-btn {
+      border:
+        1px solid rgba(61, 48, 40, 0.13);
+
+      color: #665c56;
+      background: #ffffff;
+    }
+
+    .notice {
+      margin-top: 17px;
+
+      padding: 14px 16px;
+
+      border:
+        1px solid rgba(237, 200, 90, 0.27);
+
+      border-radius: 18px;
+
+      color: #735c2a;
+
+      background:
+        rgba(255, 247, 216, 0.84);
+
+      font-size: 11px;
+      line-height: 1.75;
+      font-weight: 760;
+    }
+
+    .results {
+      padding: 29px 0 19px;
+    }
+
+    .result-empty {
+      min-height: 220px;
+
+      display: grid;
+      place-items: center;
+
+      padding: 28px;
+
+      border:
+        1px dashed rgba(61, 48, 40, 0.25);
+
+      border-radius: 24px;
+
+      color: var(--muted);
+
+      background:
+        rgba(255, 255, 255, 0.72);
+
+      text-align: center;
+      font-weight: 850;
+    }
+
+    .result-content {
+      display: none;
+    }
+
+    .result-content.show {
+      display: block;
+    }
+
+    .winner-banner {
+      position: relative;
+      overflow: hidden;
+
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1fr)
+        auto;
+
+      gap: 22px;
+      align-items: center;
+
+      padding: 28px;
+
+      border-radius: 29px;
+
+      color: #ffffff;
+
+      background:
+        radial-gradient(
+          circle at 91% 10%,
+          rgba(237, 200, 90, 0.23),
+          transparent 27%
+        ),
+        linear-gradient(
+          135deg,
+          var(--brown-dark),
+          var(--brown) 61%,
+          #8a563b
+        );
+
+      box-shadow:
+        0 25px 55px rgba(71, 50, 37, 0.24);
+    }
+
+    .winner-banner::before {
+      content: "";
+
+      position: absolute;
+      left: -80px;
+      bottom: -124px;
+
+      width: 340px;
+      height: 230px;
+
+      border:
+        32px solid rgba(255, 255, 255, 0.055);
+
+      border-radius: 50%;
+    }
+
+    .winner-copy,
+    .winner-ticket {
+      position: relative;
+      z-index: 1;
+    }
+
+    .winner-copy > span {
+      display: block;
+
+      color:
+        rgba(255, 255, 255, 0.64);
+
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+    }
+
+    .winner-copy h2 {
+      margin: 8px 0 0;
+
+      max-width: 830px;
+
+      font-size:
+        clamp(34px, 5.2vw, 59px);
+
+      line-height: 1.07;
+      letter-spacing: -0.06em;
+    }
+
+    .winner-copy h2 b {
+      color: var(--yellow);
+    }
+
+    .winner-copy p {
+      max-width: 780px;
+
+      margin: 12px 0 0;
+
+      color:
+        rgba(255, 255, 255, 0.78);
+
+      font-size: 12px;
+      line-height: 1.75;
+      font-weight: 760;
+    }
+
+    .winner-ticket {
+      min-width: 195px;
+
+      padding: 18px;
+
+      border:
+        1px solid rgba(255, 255, 255, 0.17);
+
+      border-radius: 22px;
+
+      background:
+        rgba(255, 255, 255, 0.10);
+
+      text-align: center;
+    }
+
+    .winner-ticket span {
+      display: block;
+
+      color:
+        rgba(255, 255, 255, 0.64);
+
+      font-size: 9px;
+      font-weight: 830;
+    }
+
+    .winner-ticket strong {
+      display: block;
+      margin-top: 8px;
+
+      color: var(--yellow);
+
+      font-size: 29px;
+      line-height: 1.06;
+      letter-spacing: -0.05em;
+    }
+
+    .winner-ticket small {
+      display: block;
+      margin-top: 7px;
+
+      color:
+        rgba(255, 255, 255, 0.66);
+
+      font-size: 9px;
+      line-height: 1.5;
+      font-weight: 740;
+    }
+
+    .rank-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 12px;
+
+      margin-top: 16px;
+    }
+
+    .rank-card {
+      position: relative;
+
+      padding: 19px;
+
+      border:
+        1px solid rgba(61, 48, 40, 0.09);
+
+      border-radius: 22px;
+
+      background: #ffffff;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .rank-card.first {
+      border-color:
+        rgba(237, 200, 90, 0.42);
+
+      background:
+        linear-gradient(
+          145deg,
+          var(--yellow-soft),
+          #ffffff
+        );
+    }
+
+    .rank-number {
+      position: absolute;
+      right: 14px;
+      top: 14px;
+
+      width: 34px;
+      height: 34px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 12px;
+
+      color: #ffffff;
+      background: var(--orange);
+
+      font-size: 11px;
+      font-weight: 1000;
+    }
+
+    .rank-card[data-type="lease"]
+    .rank-number {
+      background: var(--green);
+    }
+
+    .rank-card[data-type="rent"]
+    .rank-number {
+      background: var(--blue);
+    }
+
+    .rank-card span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      font-weight: 850;
+    }
+
+    .rank-card h3 {
+      margin: 6px 0 0;
+
+      font-size: 21px;
+      letter-spacing: -0.04em;
+    }
+
+    .rank-card strong {
+      display: block;
+      margin-top: 14px;
+
+      font-size: 25px;
+      line-height: 1.08;
+      letter-spacing: -0.045em;
+    }
+
+    .rank-card p {
+      margin: 8px 0 0;
+
+      color: #7c736e;
+
+      font-size: 10px;
+      line-height: 1.6;
+      font-weight: 740;
+    }
+
+    .comparison-panel,
+    .breakdown-panel,
+    .insight-panel {
+      margin-top: 16px;
+
+      padding: 20px;
+
+      border:
+        1px solid rgba(61, 48, 40, 0.09);
+
+      border-radius: 24px;
+
+      background: #ffffff;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      gap: 15px;
+    }
+
+    .panel-head h3 {
+      margin: 0;
+
+      font-size: 19px;
+      letter-spacing: -0.035em;
+    }
+
+    .panel-head p {
+      margin: 5px 0 0;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 740;
+    }
+
+    .panel-head span {
+      color: var(--orange-dark);
+
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    .bar-chart {
+      display: grid;
+      gap: 13px;
+
+      margin-top: 18px;
+    }
+
+    .bar-row {
+      display: grid;
+
+      grid-template-columns:
+        95px minmax(0, 1fr) 150px;
+
+      gap: 12px;
+      align-items: center;
+    }
+
+    .bar-label {
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    .bar-track {
+      height: 35px;
+
+      overflow: hidden;
+
+      border-radius: 999px;
+
+      background: #f1edeb;
+    }
+
+    .bar-fill {
+      min-width: 4%;
+      height: 100%;
+
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      padding-right: 12px;
+
+      border-radius: inherit;
+
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--orange-dark),
+          var(--orange)
+        );
+
+      font-size: 9px;
+      font-weight: 900;
+
+      transition:
+        width 0.35s ease;
+    }
+
+    .bar-row[data-type="lease"]
+    .bar-fill {
+      background:
+        linear-gradient(
+          90deg,
+          var(--green-dark),
+          var(--green)
+        );
+    }
+
+    .bar-row[data-type="rent"]
+    .bar-fill {
+      background:
+        linear-gradient(
+          90deg,
+          var(--blue-dark),
+          var(--blue)
+        );
+    }
+
+    .bar-value {
+      color: #5f5650;
+
+      font-size: 11px;
+      font-weight: 900;
+
+      text-align: right;
+    }
+
+    .table-wrap {
+      margin-top: 16px;
+
+      overflow-x: auto;
+
+      border:
+        1px solid rgba(61, 48, 40, 0.08);
+
+      border-radius: 18px;
+    }
+
+    .compare-row {
+      min-width: 760px;
+
+      display: grid;
+
+      grid-template-columns:
+        170px repeat(3, 1fr);
+
+      border-bottom:
+        1px solid rgba(61, 48, 40, 0.07);
+    }
+
+    .compare-row:last-child {
+      border-bottom: 0;
+    }
+
+    .compare-row > div {
+      padding: 13px 15px;
+
+      font-size: 11px;
+      font-weight: 800;
+
+      text-align: right;
+    }
+
+    .compare-row > div:first-child {
+      color: #625952;
+      text-align: left;
+    }
+
+    .compare-row.head {
+      background: #f3efec;
+    }
+
+    .compare-row.head > div {
+      color: #5c534d;
+
+      font-size: 10px;
+      font-weight: 920;
+    }
+
+    .compare-row.total {
+      background:
+        linear-gradient(
+          90deg,
+          var(--yellow-soft),
+          var(--orange-soft)
+        );
+    }
+
+    .insight-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 11px;
+
+      margin-top: 16px;
+    }
+
+    .insight-card {
+      padding: 17px;
+
+      border:
+        1px solid rgba(61, 48, 40, 0.09);
+
+      border-radius: 19px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #ffffff,
+          #faf8f6
+        );
+    }
+
+    .insight-card span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      font-weight: 850;
+    }
+
+    .insight-card strong {
+      display: block;
+      margin-top: 7px;
+
+      font-size: 21px;
+      line-height: 1.14;
+      letter-spacing: -0.04em;
+    }
+
+    .insight-card small {
+      display: block;
+      margin-top: 7px;
+
+      color: #887f79;
+
+      font-size: 9px;
+      line-height: 1.5;
+      font-weight: 730;
+    }
+
+    .status-box {
+      margin-top: 16px;
+
+      padding: 16px 18px;
+
+      border:
+        1px solid rgba(92, 158, 127, 0.18);
+
+      border-radius: 19px;
+
+      color: #31634e;
+      background: var(--green-soft);
+
+      font-size: 12px;
+      line-height: 1.75;
+      font-weight: 820;
+    }
+
+    .status-box.warn {
+      color: #755d2d;
+
+      border-color:
+        rgba(237, 200, 90, 0.28);
+
+      background: var(--yellow-soft);
+    }
+
+    .result-actions {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 11px;
+
+      margin-top: 16px;
+    }
+
+    .utility-btn {
+      min-height: 49px;
+
+      border:
+        1px solid rgba(61, 48, 40, 0.13);
+
+      border-radius: 16px;
+
+      color: #665c56;
+      background: #ffffff;
+
+      font-weight: 900;
+    }
+
+    .guide-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 15px;
+    }
+
+    .guide-card {
+      padding: 21px;
+
+      border:
+        1px solid rgba(61, 48, 40, 0.09);
+
+      border-radius: 23px;
+
+      background: #ffffff;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .guide-card h3 {
+      margin: 0;
+
+      font-size: 18px;
+      letter-spacing: -0.035em;
+    }
+
+    .guide-card p {
+      margin: 9px 0 0;
+
+      color: var(--muted);
+
+      font-size: 12px;
+      line-height: 1.78;
+      font-weight: 730;
+    }
+
+    .faq {
+      display: grid;
+      gap: 10px;
+
+      margin-top: 18px;
+    }
+
+    details {
+      padding: 0 18px;
+
+      border:
+        1px solid rgba(61, 48, 40, 0.09);
+
+      border-radius: 18px;
+
+      background: #ffffff;
+
+      box-shadow:
+        0 8px 24px rgba(71, 50, 37, 0.05);
+    }
+
+    summary {
+      padding: 16px 0;
+
+      cursor: pointer;
+
+      font-size: 13px;
+      font-weight: 900;
+
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details p {
+      margin: 0;
+
+      padding: 0 0 16px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+      line-height: 1.75;
+      font-weight: 730;
+    }
+
+    footer {
+      padding: 32px 0 40px;
+    }
+
+    .footer-card {
+      padding: 22px;
+
+      border-radius: 25px;
+
+      color:
+        rgba(255, 255, 255, 0.80);
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--brown-dark),
+          var(--brown),
+          #8b593f
+        );
+    }
+
+    .footer-card strong {
+      display: block;
+
+      color: #ffffff;
+
+      font-size: 16px;
+    }
+
+    .footer-card p {
+      max-width: 960px;
+
+      margin: 8px 0 0;
+
+      font-size: 11px;
+      line-height: 1.75;
+      font-weight: 720;
+    }
+
+    @media print {
+      .header,
+      .hero,
+      #calculator,
+      #guide,
+      footer,
+      .result-actions {
+        display: none !important;
+      }
+
+      body {
+        background: #ffffff;
+      }
+
+      .result-content {
+        display: block !important;
+      }
+
+      .results {
+        padding: 0;
+      }
+
+      .winner-banner,
+      .rank-card,
+      .comparison-panel,
+      .breakdown-panel,
+      .insight-panel,
+      .status-box {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+    }
+
+    @media (max-width: 1080px) {
+      .route-fields {
+        grid-template-columns:
+          1fr 1fr;
+      }
+
+      .common-strip {
+        grid-template-columns:
+          1fr 1fr;
+      }
+
+      .rank-grid,
+      .insight-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .header-inner {
+        min-height: auto;
+
+        padding: 13px 0;
+
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav {
+        justify-content: flex-start;
+      }
+
+      .wrap {
+        width:
+          min(
+            var(--max),
+            calc(100% - 20px)
+          );
+      }
+
+      .hero {
+        padding-top: 24px;
+      }
+
+      .road-hero {
+        padding: 37px 21px 24px;
+      }
+
+      h1 {
+        font-size: 39px;
+        line-height: 1.11;
+        letter-spacing: -0.056em;
+      }
+
+      .road-lane {
+        grid-template-columns:
+          100px 1fr;
+      }
+
+      .road-lane::before,
+      .lane-car {
+        display: none;
+      }
+
+      .route-input {
+        grid-template-columns: 1fr;
+      }
+
+      .route-label {
+        min-height: 140px;
+      }
+
+      .common-strip,
+      .route-fields,
+      .winner-banner,
+      .result-actions {
+        grid-template-columns: 1fr;
+      }
+
+      .winner-ticket {
+        width: 100%;
+        text-align: left;
+      }
+
+      .shell-head,
+      .panel-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .bar-row {
+        grid-template-columns:
+          72px minmax(0, 1fr);
+
+        gap: 8px;
+      }
+
+      .bar-value {
+        grid-column: 2;
+
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .road-hero,
+      .tool-shell,
+      .route-input,
+      .winner-banner,
+      .rank-card,
+      .comparison-panel,
+      .breakdown-panel,
+      .insight-panel,
+      .guide-card,
+      .footer-card {
+        border-radius: 21px;
+      }
+
+      .road-lane {
+        grid-template-columns: 1fr;
+      }
+
+      .lane-copy {
+        text-align: left;
+      }
+
+      .action-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <div class="wrap header-inner">
+      <a
+        class="brand"
+        href="https://barohaegyeol-tools.pages.dev/"
+        aria-label="바로해결툴즈 홈"
+      >
+        <div class="brand-mark">
+          B
+        </div>
+
+        <div>
+          바로해결툴즈
+
+          <small>
+            구매 · 리스 · 장기렌트 총비용 비교
+          </small>
+        </div>
+      </a>
+
+      <nav class="nav" aria-label="페이지 메뉴">
+        <a href="#calculator">
+          조건 입력
+        </a>
+
+        <a href="#results">
+          비용 비교
+        </a>
+
+        <a href="#guide">
+          계산 기준
+        </a>
+
+        <a href="https://barohaegyeol-tools.pages.dev/">
+          전체 도구
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="road-hero">
+          <div class="hero-copy">
+            <div class="hero-chips">
+              <span class="hero-chip primary">
+                ● 같은 차량을 세 가지 이용 방식으로 비교
+              </span>
+
+              <span class="hero-chip">
+                총비용 · 월평균 · 초기자금 · 1km당 비용
+              </span>
+            </div>
+
+            <h1>
+              <span class="title-line">
+                자동차 구매·리스·렌트,
+              </span>
+
+              <span class="title-line title-accent">
+                결국 어느 방식이 가장 저렴할까?
+              </span>
+            </h1>
+
+            <p>
+              차량가격과 이용기간, 구매 대출조건,
+              리스료와 장기렌트료를 입력하면
+              <strong>
+                예상 잔존가치와 남은 대출잔액까지 반영한 구매 순비용,
+                리스·렌트 총납입액, 월평균 비용과 주행거리당 비용
+              </strong>
+              을 비교합니다.
+            </p>
+
+            <div class="hero-actions">
+              <a
+                class="btn btn-primary"
+                href="#calculator"
+              >
+                세 가지 방식 비교하기
+              </a>
+
+              <a
+                class="btn btn-secondary"
+                href="#guide"
+              >
+                계산 구조 확인
+              </a>
+            </div>
+          </div>
+
+          <div class="road-lanes">
+            <article class="road-lane">
+              <div class="lane-name">
+                <div class="lane-icon">
+                  BUY
+                </div>
+
+                구매
+              </div>
+
+              <div class="lane-car"></div>
+
+              <div class="lane-copy">
+                <strong>
+                  내 차로 소유
+                </strong>
+
+                <small>
+                  대출·세금·유지비·중고차 가치 반영
+                </small>
+              </div>
+            </article>
+
+            <article class="road-lane">
+              <div class="lane-name">
+                <div class="lane-icon">
+                  L
+                </div>
+
+                리스
+              </div>
+
+              <div class="lane-car"></div>
+
+              <div class="lane-copy">
+                <strong>
+                  월 리스료 중심
+                </strong>
+
+                <small>
+                  선납금·보증금·약정거리 반영
+                </small>
+              </div>
+            </article>
+
+            <article class="road-lane">
+              <div class="lane-name">
+                <div class="lane-icon">
+                  R
+                </div>
+
+                장기렌트
+              </div>
+
+              <div class="lane-car"></div>
+
+              <div class="lane-copy">
+                <strong>
+                  관리비용 포함 계약
+                </strong>
+
+                <small>
+                  월 렌트료·초기비용·약정거리 반영
+                </small>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="section"
+      id="calculator"
+    >
+      <div class="wrap">
+        <div class="tool-shell">
+          <div class="shell-head">
+            <div>
+              <h2>
+                자동차 이용방식 비교 주행로
+              </h2>
+
+              <p>
+                공통조건을 입력한 뒤 구매·리스·렌트 계약조건을 비교하세요.
+              </p>
+            </div>
+
+            <div class="shell-badge">
+              BUY ↔ LEASE ↔ RENT
+            </div>
+          </div>
+
+          <div class="calculator-body">
+            <form id="calculatorForm">
+              <div class="common-strip">
+                <div class="field">
+                  <label for="vehiclePrice">
+                    차량 가격
+                  </label>
+
+                  <div class="input-wrap">
+                    <input
+                      id="vehiclePrice"
+                      type="number"
+                      inputmode="numeric"
+                      min="0"
+                      max="100000"
+                      step="100"
+                      value="5000"
+                      required
+                    >
+
+                    <span class="unit">
+                      만원
+                    </span>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="comparisonMonths">
+                    비교 이용기간
+                  </label>
+
+                  <select id="comparisonMonths">
+                    <option value="24">
+                      24개월
+                    </option>
+
+                    <option value="36">
+                      36개월
+                    </option>
+
+                    <option
+                      value="48"
+                      selected
+                    >
+                      48개월
+                    </option>
+
+                    <option value="60">
+                      60개월
+                    </option>
+
+                    <option value="72">
+                      72개월
+                    </option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="annualDistance">
+                    연간 주행거리
+                  </label>
+
+                  <div class="input-wrap">
+                    <input
+                      id="annualDistance"
+                      type="number"
+                      inputmode="numeric"
+                      min="0"
+                      max="100000"
+                      step="1000"
+                      value="15000"
+                      required
+                    >
+
+                    <span class="unit">
+                      km
+                    </span>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="depositRate">
+                    보증금 기회비용률
+
+                    <small>
+                      돌려받는 보증금의 연간 자금비용
+                    </small>
+                  </label>
+
+                  <div class="input-wrap">
+                    <input
+                      id="depositRate"
+                      type="number"
+                      inputmode="decimal"
+                      min="0"
+                      max="30"
+                      step="0.1"
+                      value="3"
+                    >
+
+                    <span class="unit">
+                      %
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="route-inputs">
+                <section class="route-input">
+                  <div class="route-label">
+                    <div>
+                      <span>
+                        OWNERSHIP ROUTE
+                      </span>
+
+                      <strong>
+                        차량 구매
+                      </strong>
+                    </div>
+
+                    <small>
+                      계약 종료 시 중고차 가치와 남은 할부잔액을 반영합니다.
+                    </small>
+                  </div>
+
+                  <div class="route-fields">
+                    <div class="field">
+                      <label for="purchaseDownPayment">
+                        초기 자기자금
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="purchaseDownPayment"
+                          type="number"
+                          inputmode="numeric"
+                          min="0"
+                          max="100000"
+                          step="100"
+                          value="1500"
+                        >
+
+                        <span class="unit">
+                          만원
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="purchaseLoanRate">
+                        할부·대출금리
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="purchaseLoanRate"
+                          type="number"
+                          inputmode="decimal"
+                          min="0"
+                          max="30"
+                          step="0.01"
+                          value="5.5"
+                        >
+
+                        <span class="unit">
+                          %
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="purchaseLoanMonths">
+                        대출기간
+                      </label>
+
+                      <select id="purchaseLoanMonths">
+                        <option value="24">
+                          24개월
+                        </option>
+
+                        <option value="36">
+                          36개월
+                        </option>
+
+                        <option
+                          value="48"
+                          selected
+                        >
+                          48개월
+                        </option>
+
+                        <option value="60">
+                          60개월
+                        </option>
+
+                        <option value="72">
+                          72개월
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="field">
+                      <label for="purchaseInitialCost">
+                        취득·등록 초기비용
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="purchaseInitialCost"
+                          type="number"
+                          inputmode="numeric"
+                          min="0"
+                          max="30000"
+                          step="10"
+                          value="350"
+                        >
+
+                        <span class="unit">
+                          만원
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="purchaseAnnualCost">
+                        연간 보험·세금·정비
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="purchaseAnnualCost"
+                          type="number"
+                          inputmode="numeric"
+                          min="0"
+                          max="10000"
+                          step="10"
+                          value="220"
+                        >
+
+                        <span class="unit">
+                          만원
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="purchaseResaleRate">
+                        종료 시 잔존가치
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="purchaseResaleRate"
+                          type="number"
+                          inputmode="decimal"
+                          min="0"
+                          max="100"
+                          step="0.1"
+                          value="55"
+                        >
+
+                        <span class="unit">
+                          %
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="purchaseOtherCost">
+                        기타 예상비용
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="purchaseOtherCost"
+                          type="number"
+                          inputmode="numeric"
+                          min="0"
+                          max="30000"
+                          step="10"
+                          value="0"
+                        >
+
+                        <span class="unit">
+                          만원
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="purchaseMonthlyParking">
+                        월 추가 고정비
+
+                        <small>
+                          상품별 차이가 없으면 0
+                        </small>
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="purchaseMonthlyParking"
+                          type="number"
+                          inputmode="numeric"
+                          min="0"
+                          max="1000"
+                          step="1"
+                          value="0"
+                        >
+
+                        <span class="unit">
+                          만원
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="route-input">
+                  <div class="route-label">
+                    <div>
+                      <span>
+                        LEASE ROUTE
+                      </span>
+
+                      <strong>
+                        자동차 리스
+                      </strong>
+                    </div>
+
+                    <small>
+                      보증금은 반환되는 것으로 보고 기회비용만 계산합니다.
+                    </small>
+                  </div>
+
+                  <div class="route-fields">
+                    <div class="field">
+                      <label for="leaseDeposit">
+                        리스 보증금
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="leaseDeposit"
+                          type="number"
+                          inputmode="numeric"
+                          min="0"
+                          max="100000"
+                          step="100"
+                          value="1000"
+                        >
+
+                        <span class="unit">
+                          만원
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="leasePrepayment">
+                        리스 선납금
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="leasePrepayment"
+                          type="number"
+                          inputmode="numeric"
+                          min="0"
+                          max="100000"
+                          step="100"
+                          value="500"
+                        >
+
+                        <span class="unit">
+                          만원
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="leaseMonthlyFee">
+                        월 리스료
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="leaseMonthlyFee"
+                          type="number"
+                          inputmode="decimal"
+                          min="0"
+                          max="5000"
+                          step="1"
+                          value="82"
+                        >
+
+                        <span class="unit">
+                          만원
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="leaseAnnualCost">
+                        연간 추가 유지비
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="leaseAnnualCost"
+                          type="number"
+                          inputmode="numeric"
+                          min="0"
+                          max="10000"
+                          step="10"
+                          value="150"
+                        >
+
+                        <span class="unit">
+                          만원
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="leaseAllowedDistance">
+                        연간 약정거리
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="leaseAllowedDistance"
+                          type="number"
+                          inputmode="numeric"
+                          min="0"
+                          max="100000"
+                          step="1000"
+                          value="15000"
+                        >
+
+                        <span class="unit">
+                          km
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="leaseOverageRate">
+                        초과거리 비용
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="leaseOverageRate"
+                          type="number"
+                          inputmode="numeric"
+                          min="0"
+                          max="5000"
+                          step="10"
+                          value="200"
+                        >
+
+                        <span class="unit">
+                          원/km
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="leaseReturnCost">
+                        반납·복구 예상비용
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="leaseReturnCost"
+                          type="number"
+                          inputmode="numeric"
+                          min="0"
+                          max="30000"
+                          step="10"
+                          value="100"
+                        >
+
+                        <span class="unit">
+                          만원
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="leaseOtherCost">
+                        기타 계약비용
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="leaseOtherCost"
+                          type="number"
+                          inputmode="numeric"
+                          min="0"
+                          max="30000"
+                          step="10"
+                          value="0"
+                        >
+
+                        <span class="unit">
+                          만원
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="route-input">
+                  <div class="route-label">
+                    <div>
+                      <span>
+                        LONG-TERM RENT ROUTE
+                      </span>
+
+                      <strong>
+                        장기렌트
+                      </strong>
+                    </div>
+
+                    <small>
+                      렌트료에 포함되지 않는 추가비용만 별도로 입력합니다.
+                    </small>
+                  </div>
+
+                  <div class="route-fields">
+                    <div class="field">
+                      <label for="rentDeposit">
+                        렌트 보증금
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="rentDeposit"
+                          type="number"
+                          inputmode="numeric"
+                          min="0"
+                          max="100000"
+                          step="100"
+                          value="1000"
+                        >
+
+                        <span class="unit">
+                          만원
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="rentPrepayment">
+                        렌트 선납금
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="rentPrepayment"
+                          type="number"
+                          inputmode="numeric"
+                          min="0"
+                          max="100000"
+                          step="100"
+                          value="0"
+                        >
+
+                        <span class="unit">
+                          만원
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="rentMonthlyFee">
+                        월 렌트료
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="rentMonthlyFee"
+                          type="number"
+                          inputmode="decimal"
+                          min="0"
+                          max="5000"
+                          step="1"
+                          value="96"
+                        >
+
+                        <span class="unit">
+                          만원
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="rentAnnualCost">
+                        연간 추가 유지비
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="rentAnnualCost"
+                          type="number"
+                          inputmode="numeric"
+                          min="0"
+                          max="10000"
+                          step="10"
+                          value="20"
+                        >
+
+                        <span class="unit">
+                          만원
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="rentAllowedDistance">
+                        연간 약정거리
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="rentAllowedDistance"
+                          type="number"
+                          inputmode="numeric"
+                          min="0"
+                          max="100000"
+                          step="1000"
+                          value="15000"
+                        >
+
+                        <span class="unit">
+                          km
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="rentOverageRate">
+                        초과거리 비용
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="rentOverageRate"
+                          type="number"
+                          inputmode="numeric"
+                          min="0"
+                          max="5000"
+                          step="10"
+                          value="200"
+                        >
+
+                        <span class="unit">
+                          원/km
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="rentReturnCost">
+                        반납·복구 예상비용
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="rentReturnCost"
+                          type="number"
+                          inputmode="numeric"
+                          min="0"
+                          max="30000"
+                          step="10"
+                          value="100"
+                        >
+
+                        <span class="unit">
+                          만원
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="rentOtherCost">
+                        기타 계약비용
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="rentOtherCost"
+                          type="number"
+                          inputmode="numeric"
+                          min="0"
+                          max="30000"
+                          step="10"
+                          value="0"
+                        >
+
+                        <span class="unit">
+                          만원
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+
+              <div class="action-row">
+                <button
+                  class="calculate-btn"
+                  type="submit"
+                >
+                  구매·리스·렌트 총비용 비교하기
+                </button>
+
+                <button
+                  class="reset-btn"
+                  type="button"
+                  id="resetBtn"
+                >
+                  입력값 초기화
+                </button>
+              </div>
+            </form>
+
+            <div class="notice">
+              유류비·전기충전비·주차비처럼 세 방식에서 동일하게 발생하는 비용은
+              비교 결과에 큰 영향을 주지 않아 기본 계산에서 제외했습니다.
+              보험, 자동차세, 정비비가 리스료나 렌트료에 포함되는지는 계약마다 다르므로
+              포함되지 않는 금액만 연간 추가 유지비에 입력하세요.
+              보증금은 계약 종료 후 전액 반환된다는 가정입니다.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="results"
+      id="results"
+    >
+      <div class="wrap">
+        <div
+          class="result-empty"
+          id="resultEmpty"
+        >
+          구매·리스·렌트 조건을 입력하면<br>
+          총비용과 월평균 부담이 순위로 표시됩니다.
+        </div>
+
+        <div
+          class="result-content"
+          id="resultContent"
+        >
+          <section class="winner-banner">
+            <div class="winner-copy">
+              <span>
+                LOWEST ESTIMATED TOTAL COST
+              </span>
+
+              <h2 id="resultTitle">
+                총비용이 가장 낮은 방식은 <b>-</b>입니다
+              </h2>
+
+              <p id="resultMessage">
+                -
+              </p>
+            </div>
+
+            <div class="winner-ticket">
+              <span>
+                최저 월평균 비용
+              </span>
+
+              <strong id="winnerMonthlyResult">
+                -
+              </strong>
+
+              <small id="winnerDifferenceResult">
+                -
+              </small>
+            </div>
+          </section>
+
+          <div
+            class="rank-grid"
+            id="rankGrid"
+          ></div>
+
+          <section class="comparison-panel">
+            <div class="panel-head">
+              <div>
+                <h3>
+                  총비용 비교
+                </h3>
+
+                <p>
+                  가장 높은 총비용을 100으로 두고 상대적인 크기를 표시합니다.
+                </p>
+              </div>
+
+              <span id="comparisonSummary">
+                -
+              </span>
+            </div>
+
+            <div class="bar-chart">
+              <div
+                class="bar-row"
+                data-type="purchase"
+              >
+                <div class="bar-label">
+                  구매
+                </div>
+
+                <div class="bar-track">
+                  <div
+                    class="bar-fill"
+                    id="purchaseBar"
+                  >
+                    구매
+                  </div>
+                </div>
+
+                <div
+                  class="bar-value"
+                  id="purchaseBarValue"
+                >
+                  -
+                </div>
+              </div>
+
+              <div
+                class="bar-row"
+                data-type="lease"
+              >
+                <div class="bar-label">
+                  리스
+                </div>
+
+                <div class="bar-track">
+                  <div
+                    class="bar-fill"
+                    id="leaseBar"
+                  >
+                    리스
+                  </div>
+                </div>
+
+                <div
+                  class="bar-value"
+                  id="leaseBarValue"
+                >
+                  -
+                </div>
+              </div>
+
+              <div
+                class="bar-row"
+                data-type="rent"
+              >
+                <div class="bar-label">
+                  장기렌트
+                </div>
+
+                <div class="bar-track">
+                  <div
+                    class="bar-fill"
+                    id="rentBar"
+                  >
+                    렌트
+                  </div>
+                </div>
+
+                <div
+                  class="bar-value"
+                  id="rentBarValue"
+                >
+                  -
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="breakdown-panel">
+            <div class="panel-head">
+              <div>
+                <h3>
+                  방식별 비용 상세
+                </h3>
+
+                <p>
+                  구매는 매각가치와 남은 대출잔액을 정산한 순비용입니다.
+                </p>
+              </div>
+
+              <span id="breakdownSummary">
+                -
+              </span>
+            </div>
+
+            <div class="table-wrap">
+              <div class="compare-row head">
+                <div>
+                  구분
+                </div>
+
+                <div>
+                  구매
+                </div>
+
+                <div>
+                  리스
+                </div>
+
+                <div>
+                  장기렌트
+                </div>
+              </div>
+
+              <div id="breakdownRows"></div>
+            </div>
+          </section>
+
+          <section class="insight-panel">
+            <div class="panel-head">
+              <div>
+                <h3>
+                  비교 핵심 수치
+                </h3>
+
+                <p>
+                  초기자금과 주행거리까지 함께 비교합니다.
+                </p>
+              </div>
+
+              <span id="insightSummary">
+                -
+              </span>
+            </div>
+
+            <div class="insight-grid">
+              <article class="insight-card">
+                <span>
+                  가장 적은 초기자금
+                </span>
+
+                <strong id="lowestUpfrontResult">
+                  -
+                </strong>
+
+                <small id="lowestUpfrontDetail">
+                  -
+                </small>
+              </article>
+
+              <article class="insight-card">
+                <span>
+                  가장 낮은 1km당 비용
+                </span>
+
+                <strong id="lowestKmResult">
+                  -
+                </strong>
+
+                <small id="lowestKmDetail">
+                  -
+                </small>
+              </article>
+
+              <article class="insight-card">
+                <span>
+                  구매 종료 시 예상 순자산
+                </span>
+
+                <strong id="purchaseEquityResult">
+                  -
+                </strong>
+
+                <small id="purchaseEquityDetail">
+                  -
+                </small>
+              </article>
+            </div>
+          </section>
+
+          <div
+            class="status-box"
+            id="statusBox"
+          >
+            -
+          </div>
+
+          <div class="result-actions">
+            <button
+              class="utility-btn"
+              type="button"
+              id="copyBtn"
+            >
+              결과 복사
+            </button>
+
+            <button
+              class="utility-btn"
+              type="button"
+              id="printBtn"
+            >
+              인쇄·PDF 저장
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="section"
+      id="guide"
+    >
+      <div class="wrap">
+        <div class="guide-grid">
+          <article class="guide-card">
+            <h3>
+              구매 순비용 계산
+            </h3>
+
+            <p>
+              초기 자기자금, 비교기간 동안 납입한 할부금,
+              취득비용과 유지비를 더한 뒤
+              종료 시 중고차 가치에서 남은 대출잔액을 뺀 순자산을 차감합니다.
+            </p>
+          </article>
+
+          <article class="guide-card">
+            <h3>
+              보증금과 선납금의 차이
+            </h3>
+
+            <p>
+              보증금은 계약 종료 후 반환되는 자금으로 가정해
+              보증금 자체가 아닌 자금이 묶이는 기간의 기회비용만 계산합니다.
+              선납금은 반환되지 않는 비용으로 총비용에 포함합니다.
+            </p>
+          </article>
+
+          <article class="guide-card">
+            <h3>
+              약정거리 초과비용
+            </h3>
+
+            <p>
+              실제 연간 주행거리가 약정거리보다 많으면
+              초과거리와 입력한 1km당 비용을 곱해 추가비용으로 계산합니다.
+              실제 정산단가와 면제조건은 계약서를 확인해야 합니다.
+            </p>
+          </article>
+        </div>
+
+        <div class="faq">
+          <details>
+            <summary>
+              구매의 월 할부금만 리스료와 비교하면 안 되나요?
+            </summary>
+
+            <p>
+              구매는 취득비용, 보험·세금·정비비가 별도로 발생하지만
+              계약 종료 후 차량을 매각할 수 있습니다.
+              월납입액만 비교하면 남은 차량가치가 빠져 결과가 왜곡될 수 있습니다.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              리스나 렌트 인수금액은 왜 없나요?
+            </summary>
+
+            <p>
+              이 계산기는 계약 종료 후 차량을 반납하는 이용비용 비교입니다.
+              인수를 계획한다면 인수금, 취득비용과 인수 후 예상 차량가치를
+              기타 계약비용에 추가해 별도로 비교해야 합니다.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              연간 추가 유지비에는 무엇을 넣나요?
+            </summary>
+
+            <p>
+              계약료에 포함되지 않는 보험, 세금, 정비,
+              소모품과 별도 관리비를 합산해 입력합니다.
+              유류비나 충전비처럼 세 방식에 동일한 비용은 제외해도 비교순위에 큰 영향이 없습니다.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              총비용이 낮은 방식이 무조건 가장 좋은가요?
+            </summary>
+
+            <p>
+              아닙니다.
+              차량 소유 여부, 번호판, 사고처리 방식, 중도해지 위험,
+              세무처리, 주행거리와 계약 관리 편의성도 함께 비교해야 합니다.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-card">
+        <strong>
+          바로해결툴즈
+        </strong>
+
+        <p>
+          본 결과는 사용자가 입력한 차량가격, 금융조건, 계약료,
+          유지비, 예상 잔존가치와 주행거리를 이용한 단순 비교입니다.
+          실제 견적, 보험료, 세금, 정비비, 중도해지금,
+          반납 감가와 초과거리 정산금액을 보장하지 않습니다.
+          계약 전 금융사·렌터카사의 견적서와 약관을 직접 확인하세요.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    "use strict";
+
+    const STORAGE_KEY =
+      "carBuyLeaseRentComparator";
+
+    const WON_PER_MANWON =
+      10000;
+
+    const $ =
+      (id) =>
+        document.getElementById(
+          id
+        );
+
+    const form =
+      $("calculatorForm");
+
+    const inputs = {
+      vehiclePrice:
+        $("vehiclePrice"),
+
+      comparisonMonths:
+        $("comparisonMonths"),
+
+      annualDistance:
+        $("annualDistance"),
+
+      depositRate:
+        $("depositRate"),
+
+      purchaseDownPayment:
+        $("purchaseDownPayment"),
+
+      purchaseLoanRate:
+        $("purchaseLoanRate"),
+
+      purchaseLoanMonths:
+        $("purchaseLoanMonths"),
+
+      purchaseInitialCost:
+        $("purchaseInitialCost"),
+
+      purchaseAnnualCost:
+        $("purchaseAnnualCost"),
+
+      purchaseResaleRate:
+        $("purchaseResaleRate"),
+
+      purchaseOtherCost:
+        $("purchaseOtherCost"),
+
+      purchaseMonthlyParking:
+        $("purchaseMonthlyParking"),
+
+      leaseDeposit:
+        $("leaseDeposit"),
+
+      leasePrepayment:
+        $("leasePrepayment"),
+
+      leaseMonthlyFee:
+        $("leaseMonthlyFee"),
+
+      leaseAnnualCost:
+        $("leaseAnnualCost"),
+
+      leaseAllowedDistance:
+        $("leaseAllowedDistance"),
+
+      leaseOverageRate:
+        $("leaseOverageRate"),
+
+      leaseReturnCost:
+        $("leaseReturnCost"),
+
+      leaseOtherCost:
+        $("leaseOtherCost"),
+
+      rentDeposit:
+        $("rentDeposit"),
+
+      rentPrepayment:
+        $("rentPrepayment"),
+
+      rentMonthlyFee:
+        $("rentMonthlyFee"),
+
+      rentAnnualCost:
+        $("rentAnnualCost"),
+
+      rentAllowedDistance:
+        $("rentAllowedDistance"),
+
+      rentOverageRate:
+        $("rentOverageRate"),
+
+      rentReturnCost:
+        $("rentReturnCost"),
+
+      rentOtherCost:
+        $("rentOtherCost")
+    };
+
+    let lastResultText =
+      "";
+
+    function numberValue(
+      input
+    ) {
+      const value =
+        input.value.trim();
+
+      return value ===
+        ""
+        ? 0
+        : Number(
+            value
+          );
+    }
+
+    function formatManwon(
+      value
+    ) {
+      const rounded =
+        Math.round(
+          value
+        );
+
+      if (
+        Math.abs(
+          rounded
+        ) >=
+        10000
+      ) {
+        const eok =
+          rounded /
+          10000;
+
+        return (
+          `${eok.toFixed(
+            eok >=
+            10
+              ? 1
+              : 2
+          )}억원`
+        );
+      }
+
+      return (
+        `${rounded.toLocaleString("ko-KR")}만원`
+      );
+    }
+
+    function formatMonthly(
+      total,
+      months
+    ) {
+      return (
+        `${(
+          total /
+          months
+        ).toFixed(1)}만원`
+      );
+    }
+
+    function formatWon(
+      value
+    ) {
+      return (
+        `${Math.round(value).toLocaleString("ko-KR")}원`
+      );
+    }
+
+    function amortizeLoan(
+      principal,
+      annualRate,
+      loanMonths,
+      comparisonMonths
+    ) {
+      if (
+        principal <=
+        0
+      ) {
+        return {
+          monthlyPayment:
+            0,
+
+          paidAmount:
+            0,
+
+          paidInterest:
+            0,
+
+          remainingBalance:
+            0
+        };
+      }
+
+      const monthlyRate =
+        annualRate /
+        100 /
+        12;
+
+      let monthlyPayment;
+
+      if (
+        monthlyRate ===
+        0
+      ) {
+        monthlyPayment =
+          principal /
+          loanMonths;
+      } else {
+        const factor =
+          Math.pow(
+            1 +
+            monthlyRate,
+            loanMonths
+          );
+
+        monthlyPayment =
+          principal *
+          monthlyRate *
+          factor /
+          (
+            factor -
+            1
+          );
+      }
+
+      const monthsPaid =
+        Math.min(
+          comparisonMonths,
+          loanMonths
+        );
+
+      let balance =
+        principal;
+
+      let paidAmount =
+        0;
+
+      let paidInterest =
+        0;
+
+      for (
+        let month = 1;
+        month <= monthsPaid;
+        month += 1
+      ) {
+        const interest =
+          balance *
+          monthlyRate;
+
+        let principalPaid =
+          monthlyPayment -
+          interest;
+
+        if (
+          month ===
+          loanMonths ||
+          principalPaid >
+          balance
+        ) {
+          principalPaid =
+            balance;
+        }
+
+        const payment =
+          principalPaid +
+          interest;
+
+        paidAmount +=
+          payment;
+
+        paidInterest +=
+          interest;
+
+        balance -=
+          principalPaid;
+
+        if (
+          balance <
+          0.000001
+        ) {
+          balance =
+            0;
+
+          break;
+        }
+      }
+
+      return {
+        monthlyPayment,
+        paidAmount,
+        paidInterest,
+        remainingBalance:
+          balance
+      };
+    }
+
+    function validateValues(
+      values
+    ) {
+      const invalidNumber =
+        Object.values(
+          values
+        ).some(
+          (value) =>
+            !Number.isFinite(
+              value
+            ) ||
+            value <
+              0
+        );
+
+      if (
+        invalidNumber
+      ) {
+        throw new Error(
+          "입력값은 0 이상의 숫자로 입력해주세요."
+        );
+      }
+
+      if (
+        values.vehiclePrice <=
+        0
+      ) {
+        throw new Error(
+          "차량 가격을 입력해주세요."
+        );
+      }
+
+      if (
+        values.purchaseDownPayment >
+        values.vehiclePrice
+      ) {
+        throw new Error(
+          "구매 초기 자기자금은 차량 가격보다 클 수 없습니다."
+        );
+      }
+
+      if (
+        values.purchaseResaleRate >
+        100
+      ) {
+        throw new Error(
+          "구매 종료 시 잔존가치는 100% 이하로 입력해주세요."
+        );
+      }
+
+      if (
+        values.depositRate >
+          30 ||
+        values.purchaseLoanRate >
+          30
+      ) {
+        throw new Error(
+          "금리 입력값을 확인해주세요."
+        );
+      }
+    }
+
+    function getValues() {
+      const values =
+        {};
+
+      Object.entries(
+        inputs
+      ).forEach(
+        (
+          [
+            key,
+            input
+          ]
+        ) => {
+          values[
+            key
+          ] =
+            numberValue(
+              input
+            );
+        }
+      );
+
+      values.comparisonMonths =
+        Number(
+          inputs.comparisonMonths.value
+        );
+
+      values.purchaseLoanMonths =
+        Number(
+          inputs.purchaseLoanMonths.value
+        );
+
+      validateValues(
+        values
+      );
+
+      return values;
+    }
+
+    function calculatePurchase(
+      values
+    ) {
+      const years =
+        values.comparisonMonths /
+        12;
+
+      const loanPrincipal =
+        Math.max(
+          0,
+          values.vehiclePrice -
+          values.purchaseDownPayment
+        );
+
+      const loan =
+        amortizeLoan(
+          loanPrincipal,
+          values.purchaseLoanRate,
+          values.purchaseLoanMonths,
+          values.comparisonMonths
+        );
+
+      const resaleValue =
+        values.vehiclePrice *
+        values.purchaseResaleRate /
+        100;
+
+      const endEquity =
+        resaleValue -
+        loan.remainingBalance;
+
+      const annualCosts =
+        values.purchaseAnnualCost *
+        years;
+
+      const monthlyCosts =
+        values.purchaseMonthlyParking *
+        values.comparisonMonths;
+
+      const totalCost =
+        values.purchaseDownPayment +
+        values.purchaseInitialCost +
+        loan.paidAmount +
+        annualCosts +
+        monthlyCosts +
+        values.purchaseOtherCost -
+        endEquity;
+
+      const upfront =
+        values.purchaseDownPayment +
+        values.purchaseInitialCost;
+
+      return {
+        key:
+          "purchase",
+
+        name:
+          "구매",
+
+        total:
+          Math.max(
+            0,
+            totalCost
+          ),
+
+        upfront,
+
+        monthly:
+          totalCost /
+          values.comparisonMonths,
+
+        perKm:
+          totalCost *
+          WON_PER_MANWON /
+          (
+            values.annualDistance *
+            years ||
+            1
+          ),
+
+        monthlyContract:
+          loan.monthlyPayment,
+
+        annualCost:
+          annualCosts,
+
+        distanceCost:
+          0,
+
+        otherCost:
+          values.purchaseInitialCost +
+          values.purchaseOtherCost +
+          monthlyCosts,
+
+        depositOpportunity:
+          0,
+
+        endValue:
+          resaleValue,
+
+        remainingBalance:
+          loan.remainingBalance,
+
+        endEquity,
+
+        loanInterest:
+          loan.paidInterest,
+
+        description:
+          "차량을 소유하고 종료 시 중고차 가치가 남는 방식"
+      };
+    }
+
+    function calculateContract(
+      type,
+      values
+    ) {
+      const years =
+        values.comparisonMonths /
+        12;
+
+      const prefix =
+        type ===
+        "lease"
+          ? "lease"
+          : "rent";
+
+      const name =
+        type ===
+        "lease"
+          ? "리스"
+          : "장기렌트";
+
+      const deposit =
+        values[
+          `${prefix}Deposit`
+        ];
+
+      const prepayment =
+        values[
+          `${prefix}Prepayment`
+        ];
+
+      const monthlyFee =
+        values[
+          `${prefix}MonthlyFee`
+        ];
+
+      const annualCost =
+        values[
+          `${prefix}AnnualCost`
+        ] *
+        years;
+
+      const allowedDistance =
+        values[
+          `${prefix}AllowedDistance`
+        ];
+
+      const overageRate =
+        values[
+          `${prefix}OverageRate`
+        ];
+
+      const returnCost =
+        values[
+          `${prefix}ReturnCost`
+        ];
+
+      const otherCost =
+        values[
+          `${prefix}OtherCost`
+        ];
+
+      const excessDistance =
+        Math.max(
+          0,
+          values.annualDistance -
+          allowedDistance
+        ) *
+        years;
+
+      const distanceCost =
+        excessDistance *
+        overageRate /
+        WON_PER_MANWON;
+
+      const depositOpportunity =
+        deposit *
+        values.depositRate /
+        100 *
+        years;
+
+      const contractPayments =
+        monthlyFee *
+        values.comparisonMonths;
+
+      const totalCost =
+        prepayment +
+        contractPayments +
+        annualCost +
+        distanceCost +
+        returnCost +
+        otherCost +
+        depositOpportunity;
+
+      return {
+        key:
+          type,
+
+        name,
+
+        total:
+          totalCost,
+
+        upfront:
+          deposit +
+          prepayment,
+
+        monthly:
+          totalCost /
+          values.comparisonMonths,
+
+        perKm:
+          totalCost *
+          WON_PER_MANWON /
+          (
+            values.annualDistance *
+            years ||
+            1
+          ),
+
+        monthlyContract:
+          monthlyFee,
+
+        annualCost,
+
+        distanceCost,
+
+        otherCost:
+          prepayment +
+          returnCost +
+          otherCost,
+
+        depositOpportunity,
+
+        endValue:
+          0,
+
+        remainingBalance:
+          0,
+
+        endEquity:
+          0,
+
+        loanInterest:
+          0,
+
+        description:
+          type ===
+          "lease"
+            ? "월 리스료를 내고 계약 종료 시 차량을 반납하는 방식"
+            : "월 렌트료에 보험·세금 등이 포함될 수 있는 방식"
+      };
+    }
+
+    function renderRanks(
+      results
+    ) {
+      const rankGrid =
+        $("rankGrid");
+
+      rankGrid.innerHTML =
+        results
+          .map(
+            (
+              result,
+              index
+            ) => `
+              <article
+                class="rank-card ${index === 0 ? "first" : ""}"
+                data-type="${result.key}"
+              >
+                <div class="rank-number">
+                  ${index + 1}
+                </div>
+
+                <span>
+                  총비용 ${index + 1}위
+                </span>
+
+                <h3>
+                  ${result.name}
+                </h3>
+
+                <strong>
+                  ${formatManwon(result.total)}
+                </strong>
+
+                <p>
+                  월평균 ${formatMonthly(result.total, Number(inputs.comparisonMonths.value))}
+                  · 1km당 ${formatWon(result.perKm)}
+                </p>
+              </article>
+            `
+          )
+          .join("");
+    }
+
+    function renderBars(
+      results
+    ) {
+      const maximum =
+        Math.max(
+          ...results.map(
+            (result) =>
+              result.total
+          ),
+          1
+        );
+
+      results.forEach(
+        (result) => {
+          const width =
+            Math.max(
+              4,
+              result.total /
+              maximum *
+              100
+            );
+
+          $(
+            `${result.key}Bar`
+          ).style.width =
+            `${width}%`;
+
+          $(
+            `${result.key}BarValue`
+          ).textContent =
+            `${formatManwon(result.total)} · 월 ${formatMonthly(result.total, Number(inputs.comparisonMonths.value))}`;
+        }
+      );
+    }
+
+    function renderBreakdown(
+      purchase,
+      lease,
+      rent
+    ) {
+      const rows = [
+        {
+          label:
+            "초기 투입·예치자금",
+
+          purchase:
+            purchase.upfront,
+
+          lease:
+            lease.upfront,
+
+          rent:
+            rent.upfront
+        },
+
+        {
+          label:
+            "월 계약료·할부금",
+
+          purchase:
+            purchase.monthlyContract,
+
+          lease:
+            lease.monthlyContract,
+
+          rent:
+            rent.monthlyContract,
+
+          monthly:
+            true
+        },
+
+        {
+          label:
+            "비교기간 유지비",
+
+          purchase:
+            purchase.annualCost,
+
+          lease:
+            lease.annualCost,
+
+          rent:
+            rent.annualCost
+        },
+
+        {
+          label:
+            "초과거리 비용",
+
+          purchase:
+            purchase.distanceCost,
+
+          lease:
+            lease.distanceCost,
+
+          rent:
+            rent.distanceCost
+        },
+
+        {
+          label:
+            "기타·초기·반납비용",
+
+          purchase:
+            purchase.otherCost,
+
+          lease:
+            lease.otherCost,
+
+          rent:
+            rent.otherCost
+        },
+
+        {
+          label:
+            "보증금 기회비용",
+
+          purchase:
+            purchase.depositOpportunity,
+
+          lease:
+            lease.depositOpportunity,
+
+          rent:
+            rent.depositOpportunity
+        },
+
+        {
+          label:
+            "종료 시 차량가치·순자산",
+
+          purchase:
+            purchase.endEquity,
+
+          lease:
+            0,
+
+          rent:
+            0,
+
+          subtract:
+            true
+        },
+
+        {
+          label:
+            "최종 총비용",
+
+          purchase:
+            purchase.total,
+
+          lease:
+            lease.total,
+
+          rent:
+            rent.total,
+
+          total:
+            true
+        }
+      ];
+
+      $("breakdownRows").innerHTML =
+        rows
+          .map(
+            (row) => `
+              <div class="compare-row ${row.total ? "total" : ""}">
+                <div>
+                  ${row.label}
+                </div>
+
+                <div>
+                  ${
+                    row.monthly
+                      ? `${row.purchase.toFixed(1)}만원/월`
+                      : row.subtract
+                        ? `-${formatManwon(Math.max(0, row.purchase))}`
+                        : formatManwon(row.purchase)
+                  }
+                </div>
+
+                <div>
+                  ${
+                    row.monthly
+                      ? `${row.lease.toFixed(1)}만원/월`
+                      : formatManwon(row.lease)
+                  }
+                </div>
+
+                <div>
+                  ${
+                    row.monthly
+                      ? `${row.rent.toFixed(1)}만원/월`
+                      : formatManwon(row.rent)
+                  }
+                </div>
+              </div>
+            `
+          )
+          .join("");
+    }
+
+    function calculate(
+      event
+    ) {
+      event.preventDefault();
+
+      let values;
+
+      try {
+        values =
+          getValues();
+      } catch (error) {
+        alert(
+          error.message
+        );
+
+        return;
+      }
+
+      const purchase =
+        calculatePurchase(
+          values
+        );
+
+      const lease =
+        calculateContract(
+          "lease",
+          values
+        );
+
+      const rent =
+        calculateContract(
+          "rent",
+          values
+        );
+
+      const results = [
+        purchase,
+        lease,
+        rent
+      ].sort(
+        (
+          a,
+          b
+        ) =>
+          a.total -
+          b.total
+      );
+
+      const winner =
+        results[
+          0
+        ];
+
+      const second =
+        results[
+          1
+        ];
+
+      const difference =
+        second.total -
+        winner.total;
+
+      const totalDistance =
+        values.annualDistance *
+        values.comparisonMonths /
+        12;
+
+      $("resultTitle").innerHTML =
+        `총비용이 가장 낮은 방식은 <b>${winner.name}</b>입니다`;
+
+      $("resultMessage").textContent =
+        `${values.comparisonMonths}개월 동안 총 ${totalDistance.toLocaleString("ko-KR")}km를 주행한다고 가정했습니다. ` +
+        `${winner.name}의 예상 총비용은 ${formatManwon(winner.total)}이며 ` +
+        `두 번째로 낮은 ${second.name}보다 약 ${formatManwon(difference)} 낮습니다.`;
+
+      $("winnerMonthlyResult").textContent =
+        formatMonthly(
+          winner.total,
+          values.comparisonMonths
+        );
+
+      $("winnerDifferenceResult").textContent =
+        `${second.name} 대비 ${formatManwon(difference)} 절감`;
+
+      renderRanks(
+        results
+      );
+
+      renderBars([
+        purchase,
+        lease,
+        rent
+      ]);
+
+      renderBreakdown(
+        purchase,
+        lease,
+        rent
+      );
+
+      $("comparisonSummary").textContent =
+        `${values.comparisonMonths}개월 · ${totalDistance.toLocaleString("ko-KR")}km`;
+
+      $("breakdownSummary").textContent =
+        `차량가 ${formatManwon(values.vehiclePrice)}`;
+
+      const upfrontResults = [
+        purchase,
+        lease,
+        rent
+      ].sort(
+        (
+          a,
+          b
+        ) =>
+          a.upfront -
+          b.upfront
+      );
+
+      const kmResults = [
+        purchase,
+        lease,
+        rent
+      ].sort(
+        (
+          a,
+          b
+        ) =>
+          a.perKm -
+          b.perKm
+      );
+
+      $("lowestUpfrontResult").textContent =
+        upfrontResults[
+          0
+        ].name;
+
+      $("lowestUpfrontDetail").textContent =
+        `초기 투입·예치자금 ${formatManwon(upfrontResults[0].upfront)}`;
+
+      $("lowestKmResult").textContent =
+        `${kmResults[0].name} · ${formatWon(kmResults[0].perKm)}`;
+
+      $("lowestKmDetail").textContent =
+        `총비용 ÷ ${totalDistance.toLocaleString("ko-KR")}km`;
+
+      $("purchaseEquityResult").textContent =
+        formatManwon(
+          purchase.endEquity
+        );
+
+      $("purchaseEquityDetail").textContent =
+        `중고차가치 ${formatManwon(purchase.endValue)} - 남은 대출 ${formatManwon(purchase.remainingBalance)}`;
+
+      $("insightSummary").textContent =
+        `총 주행거리 ${totalDistance.toLocaleString("ko-KR")}km`;
+
+      const statusBox =
+        $("statusBox");
+
+      statusBox.className =
+        "status-box";
+
+      const costs =
+        results.map(
+          (result) =>
+            result.total
+        );
+
+      const spread =
+        Math.max(
+          ...costs
+        ) -
+        Math.min(
+          ...costs
+        );
+
+      if (
+        values.annualDistance >
+        values.leaseAllowedDistance ||
+        values.annualDistance >
+        values.rentAllowedDistance
+      ) {
+        statusBox.classList.add(
+          "warn"
+        );
+
+        statusBox.textContent =
+          "입력한 연간 주행거리가 리스 또는 장기렌트 약정거리를 초과해 초과거리 비용이 반영됐습니다. " +
+          "실제 계약에서는 약정거리 상향에 따른 월납입액 변화와 초과거리 정산 중 어느 쪽이 유리한지 함께 비교하세요.";
+      } else if (
+        values.purchaseResaleRate >
+        75
+      ) {
+        statusBox.classList.add(
+          "warn"
+        );
+
+        statusBox.textContent =
+          "구매 차량의 종료 시 잔존가치를 75%보다 높게 입력했습니다. " +
+          "중고차 가격이 예상보다 낮아지면 구매 총비용이 크게 증가할 수 있으므로 보수적인 잔존가치도 함께 계산하세요.";
+      } else if (
+        spread <
+        values.vehiclePrice *
+        0.05
+      ) {
+        statusBox.textContent =
+          "세 방식의 총비용 차이가 차량가격의 5% 이내입니다. " +
+          "이 경우 비용만으로 결정하기보다 소유권, 번호판, 보험경력, 사고처리, 중도해지와 계약 관리 편의성을 함께 비교하는 편이 합리적입니다.";
+      } else {
+        statusBox.textContent =
+          `${winner.name}이 입력 조건에서 가장 낮은 총비용으로 계산됐습니다. ` +
+          "다만 잔존가치, 보험료, 정비비, 반납 감가와 중도해지금은 실제 계약에 따라 달라질 수 있으므로 견적서 기준으로 입력값을 다시 확인하세요.";
+      }
+
+      $("resultEmpty").style.display =
+        "none";
+
+      $("resultContent").classList.add(
+        "show"
+      );
+
+      lastResultText =
+`[자동차 구매·리스·렌트 비교기]
+
+차량 가격: ${formatManwon(values.vehiclePrice)}
+비교 이용기간: ${values.comparisonMonths}개월
+연간 주행거리: ${values.annualDistance.toLocaleString("ko-KR")}km
+총 주행거리: ${totalDistance.toLocaleString("ko-KR")}km
+
+1위 ${results[0].name}
+총비용: ${formatManwon(results[0].total)}
+월평균: ${formatMonthly(results[0].total, values.comparisonMonths)}
+1km당 비용: ${formatWon(results[0].perKm)}
+
+2위 ${results[1].name}
+총비용: ${formatManwon(results[1].total)}
+월평균: ${formatMonthly(results[1].total, values.comparisonMonths)}
+1km당 비용: ${formatWon(results[1].perKm)}
+
+3위 ${results[2].name}
+총비용: ${formatManwon(results[2].total)}
+월평균: ${formatMonthly(results[2].total, values.comparisonMonths)}
+1km당 비용: ${formatWon(results[2].perKm)}
+
+구매 종료 시 예상 중고차가치: ${formatManwon(purchase.endValue)}
+구매 종료 시 남은 대출잔액: ${formatManwon(purchase.remainingBalance)}
+구매 종료 시 예상 순자산: ${formatManwon(purchase.endEquity)}
+
+※ 입력 조건을 이용한 단순 비교이며 실제 견적과 계약비용을 보장하지 않습니다.`;
+
+      saveForm();
+
+      $("results").scrollIntoView({
+        behavior:
+          "smooth",
+
+        block:
+          "start"
+      });
+    }
+
+    function saveForm() {
+      try {
+        const data =
+          {};
+
+        Object.entries(
+          inputs
+        ).forEach(
+          (
+            [
+              key,
+              input
+            ]
+          ) => {
+            data[
+              key
+            ] =
+              input.value;
+          }
+        );
+
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify(
+            data
+          )
+        );
+      } catch (error) {
+        console.warn(
+          error
+        );
+      }
+    }
+
+    function restoreForm() {
+      try {
+        const saved =
+          JSON.parse(
+            localStorage.getItem(
+              STORAGE_KEY
+            ) ||
+            "null"
+          );
+
+        if (
+          saved
+        ) {
+          Object.entries(
+            inputs
+          ).forEach(
+            (
+              [
+                key,
+                input
+              ]
+            ) => {
+              if (
+                saved[
+                  key
+                ] !==
+                  undefined &&
+                saved[
+                  key
+                ] !==
+                  ""
+              ) {
+                input.value =
+                  saved[
+                    key
+                  ];
+              }
+            }
+          );
+        }
+      } catch (error) {
+        console.warn(
+          error
+        );
+      }
+    }
+
+    function resetCalculator() {
+      try {
+        localStorage.removeItem(
+          STORAGE_KEY
+        );
+      } catch (error) {
+        console.warn(
+          error
+        );
+      }
+
+      const defaults = {
+        vehiclePrice:
+          "5000",
+
+        comparisonMonths:
+          "48",
+
+        annualDistance:
+          "15000",
+
+        depositRate:
+          "3",
+
+        purchaseDownPayment:
+          "1500",
+
+        purchaseLoanRate:
+          "5.5",
+
+        purchaseLoanMonths:
+          "48",
+
+        purchaseInitialCost:
+          "350",
+
+        purchaseAnnualCost:
+          "220",
+
+        purchaseResaleRate:
+          "55",
+
+        purchaseOtherCost:
+          "0",
+
+        purchaseMonthlyParking:
+          "0",
+
+        leaseDeposit:
+          "1000",
+
+        leasePrepayment:
+          "500",
+
+        leaseMonthlyFee:
+          "82",
+
+        leaseAnnualCost:
+          "150",
+
+        leaseAllowedDistance:
+          "15000",
+
+        leaseOverageRate:
+          "200",
+
+        leaseReturnCost:
+          "100",
+
+        leaseOtherCost:
+          "0",
+
+        rentDeposit:
+          "1000",
+
+        rentPrepayment:
+          "0",
+
+        rentMonthlyFee:
+          "96",
+
+        rentAnnualCost:
+          "20",
+
+        rentAllowedDistance:
+          "15000",
+
+        rentOverageRate:
+          "200",
+
+        rentReturnCost:
+          "100",
+
+        rentOtherCost:
+          "0"
+      };
+
+      Object.entries(
+        defaults
+      ).forEach(
+        (
+          [
+            key,
+            value
+          ]
+        ) => {
+          inputs[
+            key
+          ].value =
+            value;
+        }
+      );
+
+      $("resultContent").classList.remove(
+        "show"
+      );
+
+      $("resultEmpty").style.display =
+        "grid";
+
+      lastResultText =
+        "";
+    }
+
+    async function copyResult() {
+      if (
+        !lastResultText
+      ) {
+        alert(
+          "먼저 계산해주세요."
+        );
+
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(
+          lastResultText
+        );
+      } catch (error) {
+        const textarea =
+          document.createElement(
+            "textarea"
+          );
+
+        textarea.value =
+          lastResultText;
+
+        textarea.style.position =
+          "fixed";
+
+        textarea.style.opacity =
+          "0";
+
+        document.body.appendChild(
+          textarea
+        );
+
+        textarea.select();
+
+        document.execCommand(
+          "copy"
+        );
+
+        textarea.remove();
+      }
+
+      const original =
+        $("copyBtn").textContent;
+
+      $("copyBtn").textContent =
+        "복사 완료";
+
+      setTimeout(
+        () => {
+          $("copyBtn").textContent =
+            original;
+        },
+        1200
+      );
+    }
+
+    Object.values(
+      inputs
+    ).forEach(
+      (input) => {
+        input.addEventListener(
+          "input",
+          saveForm
+        );
+
+        input.addEventListener(
+          "change",
+          saveForm
+        );
+      }
+    );
+
+    form.addEventListener(
+      "submit",
+      calculate
+    );
+
+    $("resetBtn").addEventListener(
+      "click",
+      resetCalculator
+    );
+
+    $("copyBtn").addEventListener(
+      "click",
+      copyResult
+    );
+
+    $("printBtn").addEventListener(
+      "click",
+      () => {
+        window.print();
+      }
+    );
+
+    restoreForm();
+  </script>
+
+  <script
+    defer
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'
+  ></script>
+</body>
+</html>
