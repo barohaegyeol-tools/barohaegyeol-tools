@@ -1,0 +1,5014 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>임신주수·출산예정일 계산기 | 생리일·배아이식일 계산 | 바로해결툴즈</title>
+
+  <meta
+    name="description"
+    content="마지막 생리 시작일, 임신 추정일, 시험관 배아이식일 또는 병원 확정 예정일을 입력하면 현재 임신주수, 출산예정일, D-day, 임신 진행률과 주요 주차 날짜를 계산합니다."
+  />
+
+  <meta
+    name="keywords"
+    content="임신주수 계산기, 출산예정일 계산기, 임신 몇주, 마지막 생리일 계산, 배아이식 출산예정일, 시험관 임신주수, 임신 디데이, 바로해결툴즈"
+  />
+
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+
+  <link
+    rel="canonical"
+    href="https://barohaegyeol-tools.pages.dev/pregnancy-due-date-calculator/"
+  />
+
+  <meta name="theme-color" content="#7a5a8f" />
+
+  <meta property="og:type" content="website" />
+
+  <meta
+    property="og:title"
+    content="임신주수·출산예정일 계산기 | 바로해결툴즈"
+  />
+
+  <meta
+    property="og:description"
+    content="기준 날짜를 입력하면 현재 임신주수와 출산예정일, 주요 주차 날짜를 계산합니다."
+  />
+
+  <meta
+    property="og:url"
+    content="https://barohaegyeol-tools.pages.dev/pregnancy-due-date-calculator/"
+  />
+
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "임신주수·출산예정일 계산기",
+    "url": "https://barohaegyeol-tools.pages.dev/pregnancy-due-date-calculator/",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "All",
+    "description": "마지막 생리 시작일, 임신 추정일, 배아이식일 또는 확정 예정일을 기준으로 임신주수와 출산예정일을 계산하는 무료 웹 도구입니다.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "KRW"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --ink: #302a39;
+      --ink-soft: #554b61;
+      --text: #655d6e;
+      --muted: #908897;
+
+      --plum: #7a5a8f;
+      --plum-dark: #553d66;
+      --plum-soft: #f1eaf5;
+
+      --rose: #e9849f;
+      --rose-dark: #b45170;
+      --rose-soft: #fff0f4;
+
+      --peach: #f2aa7e;
+      --peach-soft: #fff1e8;
+
+      --sage: #76ad9b;
+      --sage-dark: #477c6c;
+      --sage-soft: #e8f6f1;
+
+      --cream: #fffaf0;
+      --butter: #f4d77b;
+      --butter-soft: #fff8dd;
+
+      --blue: #7795c9;
+      --blue-soft: #edf2fb;
+
+      --green: #3e8a68;
+      --green-soft: #e9f7f0;
+
+      --red: #c95665;
+      --red-soft: #fff0f2;
+
+      --line: rgba(85, 61, 102, 0.12);
+      --line-strong: rgba(85, 61, 102, 0.22);
+
+      --card: rgba(255, 255, 255, 0.91);
+      --white: #ffffff;
+
+      --shadow:
+        0 26px 68px rgba(83, 60, 99, 0.13);
+
+      --shadow-soft:
+        0 12px 30px rgba(83, 60, 99, 0.08);
+
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --radius-sm: 14px;
+
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      min-width: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+
+      color: var(--ink);
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Pretendard",
+        "Noto Sans KR",
+        "Apple SD Gothic Neo",
+        system-ui,
+        sans-serif;
+
+      line-height: 1.65;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+
+      background:
+        radial-gradient(
+          circle at 4% 4%,
+          rgba(242, 170, 126, 0.2),
+          transparent 29%
+        ),
+        radial-gradient(
+          circle at 96% 7%,
+          rgba(122, 90, 143, 0.16),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 76% 94%,
+          rgba(118, 173, 155, 0.14),
+          transparent 28%
+        ),
+        linear-gradient(
+          135deg,
+          #fff9f4 0%,
+          #fdf9ff 43%,
+          #f7fbff 70%,
+          #f5fff9 100%
+        );
+    }
+
+    body::before {
+      content: "";
+
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+
+      pointer-events: none;
+
+      opacity: 0.29;
+
+      background-image:
+        linear-gradient(
+          rgba(122, 90, 143, 0.035) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(122, 90, 143, 0.035) 1px,
+          transparent 1px
+        );
+
+      background-size:
+        32px 32px;
+
+      mask-image:
+        linear-gradient(
+          to bottom,
+          #000,
+          transparent 92%
+        );
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .wrap {
+      width:
+        min(
+          var(--max),
+          calc(100% - 32px)
+        );
+
+      margin:
+        0 auto;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+
+      border-bottom:
+        1px solid rgba(85, 61, 102, 0.08);
+
+      background:
+        rgba(255, 251, 253, 0.82);
+
+      backdrop-filter:
+        blur(15px);
+    }
+
+    .header-inner {
+      min-height: 76px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      font-weight: 950;
+      letter-spacing: -0.04em;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 16px;
+
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--plum),
+          var(--rose),
+          var(--peach)
+        );
+
+      box-shadow:
+        0 12px 28px rgba(122, 90, 143, 0.23);
+
+      font-weight: 1000;
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 2px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+      font-weight: 750;
+      letter-spacing: 0;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 9px;
+    }
+
+    .nav a {
+      padding:
+        9px 13px;
+
+      border:
+        1px solid rgba(85, 61, 102, 0.09);
+
+      border-radius: 999px;
+
+      color: #645b6c;
+
+      background:
+        rgba(255, 255, 255, 0.82);
+
+      font-size: 12px;
+      font-weight: 850;
+
+      transition:
+        0.18s ease;
+    }
+
+    .nav a:hover {
+      color: var(--plum);
+
+      border-color:
+        rgba(122, 90, 143, 0.27);
+
+      transform:
+        translateY(-1px);
+    }
+
+    .hero {
+      padding:
+        37px 0 28px;
+    }
+
+    .journal-hero {
+      position: relative;
+
+      overflow: hidden;
+
+      min-height: 555px;
+
+      padding:
+        48px 48px 35px;
+
+      border:
+        1px solid rgba(85, 61, 102, 0.1);
+
+      border-radius:
+        var(--radius-xl);
+
+      background:
+        radial-gradient(
+          circle at 88% 5%,
+          rgba(244, 215, 123, 0.27),
+          transparent 24%
+        ),
+        radial-gradient(
+          circle at 8% 92%,
+          rgba(118, 173, 155, 0.18),
+          transparent 28%
+        ),
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.98),
+          rgba(255, 246, 250, 0.95) 48%,
+          rgba(243, 239, 249, 0.95)
+        );
+
+      box-shadow:
+        var(--shadow);
+    }
+
+    .journal-hero::before {
+      content: "";
+
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100px;
+
+      height: 1px;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(122, 90, 143, 0.13),
+          transparent
+        );
+    }
+
+    .spiral {
+      position: absolute;
+      top: -8px;
+      left: 50%;
+
+      display: flex;
+      gap: 22px;
+
+      transform:
+        translateX(-50%);
+    }
+
+    .spiral i {
+      position: relative;
+
+      width: 14px;
+      height: 38px;
+
+      border:
+        3px solid var(--plum);
+      border-bottom-color: transparent;
+
+      border-radius:
+        12px 12px 0 0;
+
+      opacity: 0.58;
+    }
+
+    .hero-heading {
+      position: relative;
+      z-index: 2;
+
+      max-width: 900px;
+      margin:
+        30px auto 0;
+
+      text-align: center;
+    }
+
+    .hero-labels {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 9px;
+
+      margin-bottom: 18px;
+    }
+
+    .hero-label {
+      min-height: 34px;
+
+      display: inline-flex;
+      align-items: center;
+
+      padding:
+        8px 13px;
+
+      border:
+        1px solid rgba(122, 90, 143, 0.1);
+
+      border-radius: 999px;
+
+      color: #665d6e;
+
+      background:
+        rgba(255, 255, 255, 0.85);
+
+      box-shadow:
+        0 8px 22px rgba(83, 60, 99, 0.05);
+
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .hero-label.primary {
+      color: var(--plum-dark);
+
+      background: var(--butter-soft);
+      border-color:
+        rgba(244, 215, 123, 0.24);
+    }
+
+    h1 {
+      margin: 0 auto;
+      max-width: 850px;
+
+      font-size:
+        clamp(43px, 5.8vw, 72px);
+
+      line-height: 1.06;
+      letter-spacing: -0.066em;
+
+      word-break: keep-all;
+      overflow-wrap: normal;
+    }
+
+    .title-line {
+      display: block;
+    }
+
+    .title-accent {
+      color: transparent;
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--plum-dark),
+          var(--plum) 42%,
+          var(--rose) 73%,
+          var(--peach)
+        );
+
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .hero-heading p {
+      max-width: 760px;
+
+      margin:
+        19px auto 0;
+
+      color: var(--muted);
+
+      font-size:
+        clamp(15px, 1.7vw, 18px);
+
+      line-height: 1.82;
+      font-weight: 720;
+    }
+
+    .hero-heading strong {
+      color: #554a5d;
+      font-weight: 950;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 11px;
+
+      margin-top: 23px;
+    }
+
+    .btn {
+      min-height: 51px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      padding:
+        13px 19px;
+
+      border:
+        1px solid transparent;
+
+      border-radius: 16px;
+
+      font-weight: 920;
+
+      transition:
+        0.18s ease;
+    }
+
+    .btn:hover {
+      transform:
+        translateY(-2px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--plum-dark),
+          var(--plum),
+          var(--rose)
+        );
+
+      box-shadow:
+        0 17px 36px rgba(122, 90, 143, 0.22);
+    }
+
+    .btn-secondary {
+      color: #5d5365;
+
+      border-color:
+        rgba(85, 61, 102, 0.11);
+
+      background:
+        rgba(255, 255, 255, 0.9);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .preview-timeline {
+      position: relative;
+      z-index: 2;
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(5, minmax(0, 1fr));
+
+      gap: 11px;
+
+      margin-top: 37px;
+    }
+
+    .preview-timeline::before {
+      content: "";
+
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      top: 34px;
+
+      height: 4px;
+
+      border-radius: 999px;
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--peach),
+          var(--rose),
+          var(--plum),
+          var(--blue),
+          var(--sage)
+        );
+
+      opacity: 0.28;
+    }
+
+    .preview-ticket {
+      position: relative;
+      z-index: 1;
+
+      min-height: 132px;
+
+      padding:
+        16px 13px;
+
+      border:
+        1px solid rgba(85, 61, 102, 0.09);
+
+      border-radius: 20px;
+
+      background:
+        rgba(255, 255, 255, 0.9);
+
+      box-shadow:
+        0 11px 25px rgba(83, 60, 99, 0.07);
+
+      text-align: center;
+    }
+
+    .preview-dot {
+      width: 37px;
+      height: 37px;
+
+      display: grid;
+      place-items: center;
+
+      margin:
+        0 auto 12px;
+
+      border:
+        5px solid #ffffff;
+
+      border-radius: 50%;
+
+      color: #ffffff;
+
+      background: var(--peach);
+
+      box-shadow:
+        0 8px 17px rgba(83, 60, 99, 0.15);
+
+      font-size: 10px;
+      font-weight: 1000;
+    }
+
+    .preview-ticket:nth-child(2)
+    .preview-dot {
+      background: var(--rose);
+    }
+
+    .preview-ticket:nth-child(3)
+    .preview-dot {
+      background: var(--plum);
+    }
+
+    .preview-ticket:nth-child(4)
+    .preview-dot {
+      background: var(--blue);
+    }
+
+    .preview-ticket:nth-child(5)
+    .preview-dot {
+      background: var(--sage);
+    }
+
+    .preview-ticket span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      font-weight: 820;
+    }
+
+    .preview-ticket strong {
+      display: block;
+      margin-top: 5px;
+
+      font-size: 17px;
+      line-height: 1.1;
+      letter-spacing: -0.035em;
+    }
+
+    .preview-ticket small {
+      display: block;
+      margin-top: 6px;
+
+      color: #958c9b;
+
+      font-size: 8px;
+      font-weight: 730;
+    }
+
+    .section {
+      padding:
+        14px 0 25px;
+    }
+
+    .tool-shell {
+      overflow: hidden;
+
+      border:
+        1px solid rgba(85, 61, 102, 0.09);
+
+      border-radius:
+        var(--radius-xl);
+
+      background:
+        rgba(255, 255, 255, 0.91);
+
+      box-shadow:
+        var(--shadow);
+    }
+
+    .shell-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      gap: 18px;
+
+      padding:
+        26px 26px 19px;
+
+      border-bottom:
+        1px solid rgba(85, 61, 102, 0.08);
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(241, 234, 245, 0.75),
+          rgba(255, 255, 255, 0.24)
+        );
+    }
+
+    .shell-head h2 {
+      margin: 0;
+
+      font-size:
+        clamp(27px, 3.5vw, 40px);
+
+      line-height: 1.15;
+      letter-spacing: -0.05em;
+    }
+
+    .shell-head p {
+      margin:
+        8px 0 0;
+
+      color: var(--muted);
+
+      font-size: 13px;
+      font-weight: 720;
+    }
+
+    .shell-badge {
+      min-height: 34px;
+
+      display: inline-flex;
+      align-items: center;
+
+      padding:
+        8px 12px;
+
+      border-radius: 999px;
+
+      color: var(--plum-dark);
+
+      background:
+        rgba(122, 90, 143, 0.1);
+
+      font-size: 11px;
+      font-weight: 900;
+
+      white-space: nowrap;
+    }
+
+    .calculator-body {
+      padding: 23px;
+    }
+
+    .method-rail {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      gap: 10px;
+    }
+
+    .method-option {
+      position: relative;
+    }
+
+    .method-option input {
+      position: absolute;
+
+      width: 1px;
+      height: 1px;
+
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .method-option label {
+      min-height: 116px;
+
+      display: block;
+
+      padding: 15px;
+
+      border:
+        1px solid rgba(85, 61, 102, 0.11);
+
+      border-radius: 19px;
+
+      background: #ffffff;
+
+      cursor: pointer;
+
+      transition:
+        0.18s ease;
+    }
+
+    .method-option label:hover {
+      transform:
+        translateY(-2px);
+
+      border-color:
+        rgba(122, 90, 143, 0.28);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .method-option input:checked +
+    label {
+      border-color: var(--plum);
+
+      background:
+        linear-gradient(
+          145deg,
+          var(--plum-soft),
+          #ffffff
+        );
+
+      box-shadow:
+        0 0 0 3px rgba(122, 90, 143, 0.08);
+    }
+
+    .method-icon {
+      width: 37px;
+      height: 37px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 13px;
+
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--plum),
+          var(--rose)
+        );
+
+      font-size: 16px;
+      font-weight: 950;
+    }
+
+    .method-option:nth-child(2)
+    .method-icon {
+      background:
+        linear-gradient(
+          135deg,
+          var(--peach),
+          var(--rose)
+        );
+    }
+
+    .method-option:nth-child(3)
+    .method-icon {
+      background:
+        linear-gradient(
+          135deg,
+          var(--blue),
+          var(--plum)
+        );
+    }
+
+    .method-option:nth-child(4)
+    .method-icon {
+      background:
+        linear-gradient(
+          135deg,
+          var(--sage),
+          var(--blue)
+        );
+    }
+
+    .method-option strong {
+      display: block;
+      margin-top: 10px;
+
+      font-size: 14px;
+      letter-spacing: -0.025em;
+    }
+
+    .method-option small {
+      display: block;
+      margin-top: 5px;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      line-height: 1.48;
+      font-weight: 730;
+    }
+
+    .date-workspace {
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1.2fr)
+        minmax(270px, 0.8fr);
+
+      gap: 17px;
+
+      margin-top: 17px;
+    }
+
+    .date-card,
+    .reference-card {
+      padding: 21px;
+
+      border:
+        1px solid rgba(85, 61, 102, 0.09);
+
+      border-radius: 23px;
+
+      background: #ffffff;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .card-title {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      gap: 14px;
+
+      margin-bottom: 16px;
+    }
+
+    .card-title h3 {
+      margin: 0;
+
+      font-size: 21px;
+      letter-spacing: -0.04em;
+    }
+
+    .card-title span {
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 780;
+      text-align: right;
+    }
+
+    .method-fields {
+      display: none;
+    }
+
+    .method-fields.active {
+      display: block;
+    }
+
+    .field-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 12px;
+    }
+
+    .field {
+      margin-top: 11px;
+    }
+
+    .field:first-child,
+    .field-grid .field {
+      margin-top: 0;
+    }
+
+    .field label {
+      display: block;
+
+      margin-bottom: 7px;
+
+      color: #5d5365;
+
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .field label small {
+      display: block;
+      margin-top: 3px;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      line-height: 1.45;
+      font-weight: 720;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 53px;
+
+      padding:
+        13px 47px 13px 14px;
+
+      border:
+        1px solid rgba(85, 61, 102, 0.14);
+
+      border-radius: 16px;
+      outline: none;
+
+      color: var(--ink);
+
+      background: #ffffff;
+
+      font-size: 14px;
+      font-weight: 830;
+
+      transition:
+        0.17s ease;
+    }
+
+    select {
+      padding-right: 13px;
+    }
+
+    input:focus,
+    select:focus {
+      border-color:
+        rgba(122, 90, 143, 0.42);
+
+      box-shadow:
+        0 0 0 4px rgba(122, 90, 143, 0.08);
+    }
+
+    .unit {
+      position: absolute;
+      right: 13px;
+      top: 50%;
+
+      transform:
+        translateY(-50%);
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 900;
+
+      pointer-events: none;
+    }
+
+    .formula-note {
+      margin-top: 13px;
+
+      padding:
+        13px 14px;
+
+      border:
+        1px solid rgba(244, 215, 123, 0.25);
+
+      border-radius: 17px;
+
+      color: #715d2f;
+
+      background: var(--butter-soft);
+
+      font-size: 10px;
+      line-height: 1.65;
+      font-weight: 760;
+    }
+
+    .reference-card {
+      background:
+        linear-gradient(
+          145deg,
+          #ffffff,
+          #fcf9fd
+        );
+    }
+
+    .reference-visual {
+      position: relative;
+
+      display: grid;
+      place-items: center;
+
+      min-height: 160px;
+
+      margin-bottom: 15px;
+
+      overflow: hidden;
+
+      border-radius: 20px;
+
+      background:
+        radial-gradient(
+          circle at 50% 42%,
+          rgba(233, 132, 159, 0.16),
+          transparent 34%
+        ),
+        linear-gradient(
+          145deg,
+          var(--plum-soft),
+          var(--rose-soft),
+          var(--peach-soft)
+        );
+    }
+
+    .reference-visual::before,
+    .reference-visual::after {
+      content: "";
+
+      position: absolute;
+
+      border:
+        1px solid rgba(122, 90, 143, 0.15);
+
+      border-radius: 50%;
+    }
+
+    .reference-visual::before {
+      width: 120px;
+      height: 120px;
+    }
+
+    .reference-visual::after {
+      width: 82px;
+      height: 82px;
+    }
+
+    .reference-visual div {
+      position: relative;
+      z-index: 1;
+
+      text-align: center;
+    }
+
+    .reference-visual span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      font-weight: 850;
+    }
+
+    .reference-visual strong {
+      display: block;
+      margin-top: 6px;
+
+      color: var(--plum-dark);
+
+      font-size: 31px;
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .reference-visual small {
+      display: block;
+      margin-top: 7px;
+
+      color: #827889;
+
+      font-size: 9px;
+      font-weight: 740;
+    }
+
+    .action-row {
+      display: grid;
+
+      grid-template-columns:
+        1fr 190px;
+
+      gap: 11px;
+
+      margin-top: 18px;
+    }
+
+    .calculate-btn,
+    .reset-btn {
+      min-height: 59px;
+
+      border:
+        1px solid transparent;
+
+      border-radius: 17px;
+
+      font-weight: 950;
+    }
+
+    .calculate-btn {
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--plum-dark),
+          var(--plum),
+          var(--rose)
+        );
+
+      box-shadow:
+        0 17px 35px rgba(122, 90, 143, 0.21);
+    }
+
+    .reset-btn {
+      color: #615768;
+
+      border-color:
+        rgba(85, 61, 102, 0.13);
+
+      background: #ffffff;
+    }
+
+    .notice {
+      margin-top: 17px;
+
+      padding:
+        14px 16px;
+
+      border:
+        1px solid rgba(233, 132, 159, 0.18);
+
+      border-radius: 18px;
+
+      color: #7c4e5f;
+
+      background:
+        rgba(255, 240, 244, 0.8);
+
+      font-size: 11px;
+      line-height: 1.75;
+      font-weight: 760;
+    }
+
+    .results {
+      padding:
+        29px 0 19px;
+    }
+
+    .result-empty {
+      min-height: 220px;
+
+      display: grid;
+      place-items: center;
+
+      padding: 28px;
+
+      border:
+        1px dashed rgba(85, 61, 102, 0.25);
+
+      border-radius: 24px;
+
+      color: var(--muted);
+
+      background:
+        rgba(255, 255, 255, 0.7);
+
+      text-align: center;
+      font-weight: 850;
+    }
+
+    .result-content {
+      display: none;
+    }
+
+    .result-content.show {
+      display: block;
+    }
+
+    .due-calendar {
+      position: relative;
+
+      overflow: hidden;
+
+      padding:
+        28px;
+
+      border:
+        1px solid rgba(85, 61, 102, 0.09);
+
+      border-radius: 30px;
+
+      color: #ffffff;
+
+      background:
+        radial-gradient(
+          circle at 90% 12%,
+          rgba(244, 215, 123, 0.22),
+          transparent 27%
+        ),
+        linear-gradient(
+          135deg,
+          var(--plum-dark),
+          var(--plum) 62%,
+          #99709c
+        );
+
+      box-shadow:
+        0 25px 55px rgba(83, 60, 99, 0.24);
+    }
+
+    .due-calendar::before {
+      content: "";
+
+      position: absolute;
+      left: -30px;
+      right: -30px;
+      bottom: -97px;
+
+      height: 180px;
+
+      border:
+        27px solid rgba(255, 255, 255, 0.06);
+
+      border-radius: 50%;
+    }
+
+    .due-top {
+      position: relative;
+      z-index: 1;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      gap: 18px;
+    }
+
+    .due-copy span {
+      display: block;
+
+      color:
+        rgba(255, 255, 255, 0.65);
+
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+    }
+
+    .due-copy h2 {
+      margin:
+        8px 0 0;
+
+      font-size:
+        clamp(35px, 5.4vw, 61px);
+
+      line-height: 1.06;
+      letter-spacing: -0.06em;
+    }
+
+    .due-copy h2 b {
+      color: var(--butter);
+    }
+
+    .due-copy p {
+      max-width: 770px;
+
+      margin:
+        12px 0 0;
+
+      color:
+        rgba(255, 255, 255, 0.78);
+
+      font-size: 12px;
+      line-height: 1.75;
+      font-weight: 760;
+    }
+
+    .due-dday {
+      min-width: 155px;
+
+      padding: 17px;
+
+      border:
+        1px solid rgba(255, 255, 255, 0.17);
+
+      border-radius: 21px;
+
+      background:
+        rgba(255, 255, 255, 0.1);
+
+      text-align: center;
+
+      backdrop-filter:
+        blur(8px);
+    }
+
+    .due-dday span {
+      display: block;
+
+      color:
+        rgba(255, 255, 255, 0.64);
+
+      font-size: 9px;
+      font-weight: 830;
+    }
+
+    .due-dday strong {
+      display: block;
+      margin-top: 7px;
+
+      color: var(--butter);
+
+      font-size: 29px;
+      line-height: 1;
+      letter-spacing: -0.045em;
+    }
+
+    .due-dday small {
+      display: block;
+      margin-top: 6px;
+
+      color:
+        rgba(255, 255, 255, 0.65);
+
+      font-size: 9px;
+      font-weight: 740;
+    }
+
+    .due-date-strip {
+      position: relative;
+      z-index: 1;
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 10px;
+
+      margin-top: 22px;
+    }
+
+    .due-date-box {
+      padding: 15px;
+
+      border:
+        1px solid rgba(255, 255, 255, 0.12);
+
+      border-radius: 18px;
+
+      background:
+        rgba(255, 255, 255, 0.08);
+    }
+
+    .due-date-box span {
+      display: block;
+
+      color:
+        rgba(255, 255, 255, 0.58);
+
+      font-size: 9px;
+      font-weight: 830;
+    }
+
+    .due-date-box strong {
+      display: block;
+      margin-top: 6px;
+
+      font-size: 17px;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+    }
+
+    .metric-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      gap: 12px;
+
+      margin-top: 16px;
+    }
+
+    .metric-card {
+      padding: 18px;
+
+      border:
+        1px solid rgba(85, 61, 102, 0.09);
+
+      border-radius: 20px;
+
+      background: #ffffff;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .metric-card:nth-child(1) {
+      border-top:
+        5px solid var(--peach);
+    }
+
+    .metric-card:nth-child(2) {
+      border-top:
+        5px solid var(--rose);
+    }
+
+    .metric-card:nth-child(3) {
+      border-top:
+        5px solid var(--plum);
+    }
+
+    .metric-card:nth-child(4) {
+      border-top:
+        5px solid var(--sage);
+    }
+
+    .metric-card span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      font-weight: 850;
+    }
+
+    .metric-card strong {
+      display: block;
+      margin-top: 7px;
+
+      font-size: 24px;
+      line-height: 1.08;
+      letter-spacing: -0.045em;
+    }
+
+    .metric-card small {
+      display: block;
+      margin-top: 7px;
+
+      color: #8e8594;
+
+      font-size: 9px;
+      line-height: 1.5;
+      font-weight: 730;
+    }
+
+    .progress-panel,
+    .week-panel,
+    .milestone-panel {
+      margin-top: 16px;
+
+      padding: 20px;
+
+      border:
+        1px solid rgba(85, 61, 102, 0.09);
+
+      border-radius: 24px;
+
+      background: #ffffff;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .panel-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+
+      gap: 15px;
+    }
+
+    .panel-head h3 {
+      margin: 0;
+
+      font-size: 19px;
+      letter-spacing: -0.035em;
+    }
+
+    .panel-head p {
+      margin:
+        5px 0 0;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 740;
+    }
+
+    .panel-head span {
+      color: var(--plum);
+
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    .trimester-track {
+      position: relative;
+
+      display: grid;
+
+      grid-template-columns:
+        14fr 14fr 12fr;
+
+      gap: 4px;
+
+      height: 29px;
+
+      margin-top: 17px;
+    }
+
+    .trimester-part {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      overflow: hidden;
+
+      color: #ffffff;
+
+      font-size: 9px;
+      font-weight: 900;
+    }
+
+    .trimester-part:first-child {
+      border-radius:
+        999px 8px 8px 999px;
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--peach),
+          var(--rose)
+        );
+    }
+
+    .trimester-part:nth-child(2) {
+      border-radius: 8px;
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--rose),
+          var(--plum)
+        );
+    }
+
+    .trimester-part:last-child {
+      border-radius:
+        8px 999px 999px 8px;
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--plum),
+          var(--sage)
+        );
+    }
+
+    .progress-marker {
+      position: absolute;
+      top: 50%;
+      left: 0;
+
+      width: 23px;
+      height: 23px;
+
+      transform:
+        translate(-50%, -50%);
+
+      border:
+        4px solid #ffffff;
+
+      border-radius: 50%;
+
+      background: var(--butter);
+
+      box-shadow:
+        0 5px 14px rgba(83, 60, 99, 0.25);
+
+      transition:
+        left 0.3s ease;
+    }
+
+    .progress-labels {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+
+      margin-top: 9px;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      font-weight: 780;
+    }
+
+    .week-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(7, minmax(0, 1fr));
+
+      gap: 7px;
+
+      margin-top: 16px;
+    }
+
+    .week-cell {
+      min-height: 56px;
+
+      display: grid;
+      place-items: center;
+      align-content: center;
+
+      padding: 7px 4px;
+
+      border:
+        1px solid rgba(85, 61, 102, 0.08);
+
+      border-radius: 13px;
+
+      color: #766c7c;
+      background: #f7f4f8;
+
+      text-align: center;
+    }
+
+    .week-cell span {
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    .week-cell small {
+      display: block;
+      margin-top: 2px;
+
+      color: #9b929f;
+
+      font-size: 7px;
+      font-weight: 720;
+    }
+
+    .week-cell.past {
+      color: var(--plum-dark);
+      background: var(--plum-soft);
+    }
+
+    .week-cell.current {
+      color: #ffffff;
+
+      border-color: var(--plum);
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--plum),
+          var(--rose)
+        );
+
+      box-shadow:
+        0 9px 20px rgba(122, 90, 143, 0.2);
+
+      transform:
+        translateY(-2px);
+    }
+
+    .week-cell.current small {
+      color:
+        rgba(255, 255, 255, 0.75);
+    }
+
+    .week-cell.term {
+      border-color:
+        rgba(118, 173, 155, 0.2);
+
+      background: var(--sage-soft);
+    }
+
+    .milestone-list {
+      position: relative;
+
+      display: grid;
+      gap: 10px;
+
+      margin-top: 16px;
+    }
+
+    .milestone-list::before {
+      content: "";
+
+      position: absolute;
+      left: 21px;
+      top: 22px;
+      bottom: 22px;
+
+      width: 3px;
+
+      border-radius: 999px;
+
+      background:
+        linear-gradient(
+          var(--peach),
+          var(--rose),
+          var(--plum),
+          var(--sage)
+        );
+
+      opacity: 0.28;
+    }
+
+    .milestone-item {
+      position: relative;
+
+      display: grid;
+
+      grid-template-columns:
+        44px minmax(0, 1fr)
+        auto;
+
+      gap: 12px;
+      align-items: center;
+
+      padding: 13px;
+
+      border:
+        1px solid rgba(85, 61, 102, 0.08);
+
+      border-radius: 18px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #ffffff,
+          #fcfafc
+        );
+    }
+
+    .milestone-dot {
+      position: relative;
+      z-index: 1;
+
+      width: 42px;
+      height: 42px;
+
+      display: grid;
+      place-items: center;
+
+      border:
+        5px solid #ffffff;
+
+      border-radius: 50%;
+
+      color: #ffffff;
+      background: var(--peach);
+
+      box-shadow:
+        0 7px 16px rgba(83, 60, 99, 0.13);
+
+      font-size: 10px;
+      font-weight: 1000;
+    }
+
+    .milestone-item:nth-child(2)
+    .milestone-dot {
+      background: var(--rose);
+    }
+
+    .milestone-item:nth-child(3)
+    .milestone-dot {
+      background: var(--plum);
+    }
+
+    .milestone-item:nth-child(4)
+    .milestone-dot {
+      background: var(--blue);
+    }
+
+    .milestone-item:nth-child(5)
+    .milestone-dot,
+    .milestone-item:nth-child(6)
+    .milestone-dot {
+      background: var(--sage);
+    }
+
+    .milestone-copy span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      font-weight: 820;
+    }
+
+    .milestone-copy strong {
+      display: block;
+      margin-top: 3px;
+
+      font-size: 14px;
+      letter-spacing: -0.025em;
+    }
+
+    .milestone-date {
+      color: #62596a;
+
+      font-size: 11px;
+      font-weight: 900;
+
+      text-align: right;
+    }
+
+    .milestone-item.active {
+      border-color:
+        rgba(122, 90, 143, 0.24);
+
+      background:
+        linear-gradient(
+          145deg,
+          var(--plum-soft),
+          #ffffff
+        );
+    }
+
+    .milestone-item.done {
+      opacity: 0.7;
+    }
+
+    .status-box {
+      margin-top: 16px;
+
+      padding:
+        16px 18px;
+
+      border:
+        1px solid rgba(62, 138, 104, 0.17);
+
+      border-radius: 19px;
+
+      color: #31634e;
+
+      background: var(--green-soft);
+
+      font-size: 12px;
+      line-height: 1.75;
+      font-weight: 820;
+    }
+
+    .status-box.warn {
+      color: #775a31;
+
+      border-color:
+        rgba(244, 215, 123, 0.26);
+
+      background: var(--butter-soft);
+    }
+
+    .status-box.danger {
+      color: #8b4550;
+
+      border-color:
+        rgba(201, 86, 101, 0.18);
+
+      background: var(--red-soft);
+    }
+
+    .result-actions {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 11px;
+
+      margin-top: 16px;
+    }
+
+    .utility-btn {
+      min-height: 49px;
+
+      border:
+        1px solid rgba(85, 61, 102, 0.13);
+
+      border-radius: 16px;
+
+      color: #615768;
+      background: #ffffff;
+
+      font-weight: 900;
+    }
+
+    .guide-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 15px;
+    }
+
+    .guide-card {
+      padding: 21px;
+
+      border:
+        1px solid rgba(85, 61, 102, 0.09);
+
+      border-radius: 23px;
+
+      background: #ffffff;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .guide-card h3 {
+      margin: 0;
+
+      font-size: 18px;
+      letter-spacing: -0.035em;
+    }
+
+    .guide-card p {
+      margin:
+        9px 0 0;
+
+      color: var(--muted);
+
+      font-size: 12px;
+      line-height: 1.78;
+      font-weight: 730;
+    }
+
+    .guide-card a {
+      color: var(--plum);
+
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .faq {
+      display: grid;
+      gap: 10px;
+
+      margin-top: 18px;
+    }
+
+    details {
+      padding:
+        0 18px;
+
+      border:
+        1px solid rgba(85, 61, 102, 0.09);
+
+      border-radius: 18px;
+
+      background: #ffffff;
+
+      box-shadow:
+        0 8px 24px rgba(83, 60, 99, 0.05);
+    }
+
+    summary {
+      padding:
+        16px 0;
+
+      cursor: pointer;
+
+      font-size: 13px;
+      font-weight: 900;
+
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details p {
+      margin: 0;
+
+      padding:
+        0 0 16px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+      line-height: 1.75;
+      font-weight: 730;
+    }
+
+    footer {
+      padding:
+        32px 0 40px;
+    }
+
+    .footer-card {
+      padding: 22px;
+
+      border-radius: 25px;
+
+      color:
+        rgba(255, 255, 255, 0.8);
+
+      background:
+        linear-gradient(
+          135deg,
+          #503961,
+          #75568a,
+          #9d667d
+        );
+    }
+
+    .footer-card strong {
+      display: block;
+
+      color: #ffffff;
+
+      font-size: 16px;
+    }
+
+    .footer-card p {
+      max-width: 950px;
+
+      margin:
+        8px 0 0;
+
+      font-size: 11px;
+      line-height: 1.75;
+      font-weight: 720;
+    }
+
+    @media print {
+      .header,
+      .hero,
+      #calculator,
+      #guide,
+      footer,
+      .result-actions {
+        display: none !important;
+      }
+
+      body {
+        background: #ffffff;
+      }
+
+      .results {
+        padding: 0;
+      }
+
+      .result-content {
+        display: block !important;
+      }
+
+      .due-calendar,
+      .metric-card,
+      .progress-panel,
+      .week-panel,
+      .milestone-panel,
+      .status-box {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+    }
+
+    @media (max-width: 1020px) {
+      .method-rail {
+        grid-template-columns:
+          1fr 1fr;
+      }
+
+      .date-workspace {
+        grid-template-columns: 1fr;
+      }
+
+      .metric-grid {
+        grid-template-columns:
+          1fr 1fr;
+      }
+
+      .preview-timeline {
+        grid-template-columns:
+          repeat(3, minmax(0, 1fr));
+      }
+
+      .preview-timeline::before {
+        display: none;
+      }
+
+      .guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .header-inner {
+        min-height: auto;
+
+        padding:
+          13px 0;
+
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav {
+        justify-content: flex-start;
+      }
+
+      .wrap {
+        width:
+          min(
+            var(--max),
+            calc(100% - 20px)
+          );
+      }
+
+      .hero {
+        padding-top: 24px;
+      }
+
+      .journal-hero {
+        min-height: auto;
+
+        padding:
+          38px 21px 24px;
+      }
+
+      h1 {
+        font-size: 39px;
+        line-height: 1.11;
+        letter-spacing: -0.056em;
+      }
+
+      .preview-timeline {
+        grid-template-columns:
+          1fr 1fr;
+      }
+
+      .due-top,
+      .shell-head,
+      .card-title,
+      .panel-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .due-dday {
+        width: 100%;
+        text-align: left;
+      }
+
+      .due-date-strip,
+      .metric-grid,
+      .result-actions {
+        grid-template-columns: 1fr;
+      }
+
+      .week-grid {
+        grid-template-columns:
+          repeat(5, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 520px) {
+      .journal-hero,
+      .tool-shell,
+      .date-card,
+      .reference-card,
+      .due-calendar,
+      .progress-panel,
+      .week-panel,
+      .milestone-panel,
+      .guide-card,
+      .footer-card {
+        border-radius: 21px;
+      }
+
+      .method-rail,
+      .field-grid,
+      .action-row,
+      .preview-timeline {
+        grid-template-columns: 1fr;
+      }
+
+      .week-grid {
+        grid-template-columns:
+          repeat(4, minmax(0, 1fr));
+      }
+
+      .milestone-item {
+        grid-template-columns:
+          42px 1fr;
+      }
+
+      .milestone-date {
+        grid-column: 2;
+        text-align: left;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior:
+          auto !important;
+
+        transition-duration:
+          0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <div class="wrap header-inner">
+      <a
+        class="brand"
+        href="https://barohaegyeol-tools.pages.dev/"
+        aria-label="바로해결툴즈 홈"
+      >
+        <div class="brand-mark">
+          B
+        </div>
+
+        <div>
+          바로해결툴즈
+
+          <small>
+            임신주수 · 출산예정일 · 주차 타임라인
+          </small>
+        </div>
+      </a>
+
+      <nav
+        class="nav"
+        aria-label="페이지 메뉴"
+      >
+        <a href="#calculator">
+          날짜 입력
+        </a>
+
+        <a href="#results">
+          임신주수
+        </a>
+
+        <a href="#guide">
+          계산 기준
+        </a>
+
+        <a href="https://barohaegyeol-tools.pages.dev/">
+          전체 도구
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="journal-hero">
+          <div
+            class="spiral"
+            aria-hidden="true"
+          >
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+          </div>
+
+          <div class="hero-heading">
+            <div class="hero-labels">
+              <span class="hero-label primary">
+                ● 기준 날짜 하나로 임신 일정 계산
+              </span>
+
+              <span class="hero-label">
+                현재 주수 · 예정일 · D-day · 주차별 날짜
+              </span>
+            </div>
+
+            <h1>
+              <span class="title-line">
+                지금 임신 몇 주인지,
+              </span>
+
+              <span class="title-line title-accent">
+                출산예정일까지 한눈에
+              </span>
+            </h1>
+
+            <p>
+              마지막 생리 시작일, 임신 추정일, 시험관 배아이식일 또는
+              병원에서 확인한 예정일을 입력하면
+              <strong>
+                현재 임신주수, 출산예정일, 남은 날짜,
+                임신 진행률과 주요 주차 날짜
+              </strong>
+              를 한 번에 확인할 수 있습니다.
+            </p>
+
+            <div class="hero-actions">
+              <a
+                class="btn btn-primary"
+                href="#calculator"
+              >
+                임신주수 계산하기
+              </a>
+
+              <a
+                class="btn btn-secondary"
+                href="#guide"
+              >
+                예정일 계산 기준
+              </a>
+            </div>
+          </div>
+
+          <div class="preview-timeline">
+            <article class="preview-ticket">
+              <div class="preview-dot">
+                0
+              </div>
+
+              <span>
+                기준 시작일
+              </span>
+
+              <strong>
+                임신 0주
+              </strong>
+
+              <small>
+                마지막 생리일 기준
+              </small>
+            </article>
+
+            <article class="preview-ticket">
+              <div class="preview-dot">
+                12
+              </div>
+
+              <span>
+                첫 번째 구간
+              </span>
+
+              <strong>
+                임신 12주
+              </strong>
+
+              <small>
+                초기 일정 확인
+              </small>
+            </article>
+
+            <article class="preview-ticket">
+              <div class="preview-dot">
+                20
+              </div>
+
+              <span>
+                전체 기간의 중간
+              </span>
+
+              <strong>
+                임신 20주
+              </strong>
+
+              <small>
+                예정일까지 절반
+              </small>
+            </article>
+
+            <article class="preview-ticket">
+              <div class="preview-dot">
+                37
+              </div>
+
+              <span>
+                출산 가능 참고 구간
+              </span>
+
+              <strong>
+                임신 37주
+              </strong>
+
+              <small>
+                만삭 구간 시작
+              </small>
+            </article>
+
+            <article class="preview-ticket">
+              <div class="preview-dot">
+                40
+              </div>
+
+              <span>
+                예상 출산일
+              </span>
+
+              <strong>
+                임신 40주
+              </strong>
+
+              <small>
+                출산예정일
+              </small>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="section"
+      id="calculator"
+    >
+      <div class="wrap">
+        <div class="tool-shell">
+          <div class="shell-head">
+            <div>
+              <h2>
+                출산예정일 계산 캘린더
+              </h2>
+
+              <p>
+                가장 정확하게 알고 있는 날짜 기준을 하나 선택하세요.
+              </p>
+            </div>
+
+            <div class="shell-badge">
+              DATE → GESTATIONAL AGE → DUE DATE
+            </div>
+          </div>
+
+          <div class="calculator-body">
+            <form id="calculatorForm">
+              <div class="method-rail">
+                <div class="method-option">
+                  <input
+                    id="methodLmp"
+                    type="radio"
+                    name="method"
+                    value="lmp"
+                    checked
+                  />
+
+                  <label for="methodLmp">
+                    <div class="method-icon">
+                      01
+                    </div>
+
+                    <strong>
+                      마지막 생리 시작일
+                    </strong>
+
+                    <small>
+                      마지막 생리 첫날과 평균 생리주기로 계산
+                    </small>
+                  </label>
+                </div>
+
+                <div class="method-option">
+                  <input
+                    id="methodConception"
+                    type="radio"
+                    name="method"
+                    value="conception"
+                  />
+
+                  <label for="methodConception">
+                    <div class="method-icon">
+                      02
+                    </div>
+
+                    <strong>
+                      임신 추정일
+                    </strong>
+
+                    <small>
+                      배란일이나 임신이 된 것으로 추정되는 날짜
+                    </small>
+                  </label>
+                </div>
+
+                <div class="method-option">
+                  <input
+                    id="methodIvf"
+                    type="radio"
+                    name="method"
+                    value="ivf"
+                  />
+
+                  <label for="methodIvf">
+                    <div class="method-icon">
+                      03
+                    </div>
+
+                    <strong>
+                      시험관 배아이식일
+                    </strong>
+
+                    <small>
+                      3일 배양 또는 5일 배양 배아이식일 기준
+                    </small>
+                  </label>
+                </div>
+
+                <div class="method-option">
+                  <input
+                    id="methodDue"
+                    type="radio"
+                    name="method"
+                    value="due"
+                  />
+
+                  <label for="methodDue">
+                    <div class="method-icon">
+                      04
+                    </div>
+
+                    <strong>
+                      병원 확정 예정일
+                    </strong>
+
+                    <small>
+                      초음파 등으로 안내받은 출산예정일 기준
+                    </small>
+                  </label>
+                </div>
+              </div>
+
+              <div class="date-workspace">
+                <section class="date-card">
+                  <div class="card-title">
+                    <h3 id="dateCardTitle">
+                      마지막 생리 시작일 입력
+                    </h3>
+
+                    <span id="dateCardDescription">
+                      마지막 생리가 시작된 첫날을 입력하세요.
+                    </span>
+                  </div>
+
+                  <div
+                    class="method-fields active"
+                    data-method-fields="lmp"
+                  >
+                    <div class="field-grid">
+                      <div class="field">
+                        <label for="lmpDate">
+                          마지막 생리 시작일
+                        </label>
+
+                        <input
+                          id="lmpDate"
+                          type="date"
+                          required
+                        />
+                      </div>
+
+                      <div class="field">
+                        <label for="cycleLength">
+                          평균 생리주기
+
+                          <small>
+                            보통 28일을 기준으로 보정
+                          </small>
+                        </label>
+
+                        <div class="input-wrap">
+                          <input
+                            id="cycleLength"
+                            type="number"
+                            inputmode="numeric"
+                            min="20"
+                            max="45"
+                            step="1"
+                            value="28"
+                          />
+
+                          <span class="unit">
+                            일
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="formula-note">
+                      28일 주기에서는 마지막 생리 시작일로부터 약 40주를 기준으로 계산하며,
+                      생리주기가 짧거나 길면 28일과의 차이를 예정일에 반영합니다.
+                    </div>
+                  </div>
+
+                  <div
+                    class="method-fields"
+                    data-method-fields="conception"
+                  >
+                    <div class="field">
+                      <label for="conceptionDate">
+                        임신 추정일·배란일
+                      </label>
+
+                      <input
+                        id="conceptionDate"
+                        type="date"
+                      />
+                    </div>
+
+                    <div class="formula-note">
+                      임신 추정일은 임신주수 2주 0일에 해당하는 것으로 보고
+                      약 38주 뒤를 출산예정일로 계산합니다.
+                    </div>
+                  </div>
+
+                  <div
+                    class="method-fields"
+                    data-method-fields="ivf"
+                  >
+                    <div class="field-grid">
+                      <div class="field">
+                        <label for="transferDate">
+                          배아이식일
+                        </label>
+
+                        <input
+                          id="transferDate"
+                          type="date"
+                        />
+                      </div>
+
+                      <div class="field">
+                        <label for="embryoAge">
+                          이식한 배아의 배양일수
+                        </label>
+
+                        <select id="embryoAge">
+                          <option value="3">
+                            3일 배양 배아
+                          </option>
+
+                          <option
+                            value="5"
+                            selected
+                          >
+                            5일 배양 배아
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="formula-note">
+                      배아이식일 당시 임신주수를 2주에 배아 배양일수를 더한 값으로 보고
+                      출산예정일과 현재 임신주수를 계산합니다.
+                    </div>
+                  </div>
+
+                  <div
+                    class="method-fields"
+                    data-method-fields="due"
+                  >
+                    <div class="field">
+                      <label for="confirmedDueDate">
+                        병원에서 안내받은 출산예정일
+                      </label>
+
+                      <input
+                        id="confirmedDueDate"
+                        type="date"
+                      />
+                    </div>
+
+                    <div class="formula-note">
+                      병원에서 확정받은 예정일을 임신 40주 0일로 보고
+                      선택한 기준일의 임신주수를 역산합니다.
+                    </div>
+                  </div>
+                </section>
+
+                <aside class="reference-card">
+                  <div class="reference-visual">
+                    <div>
+                      <span>
+                        REFERENCE DATE
+                      </span>
+
+                      <strong id="referencePreview">
+                        오늘
+                      </strong>
+
+                      <small>
+                        이 날짜의 임신주수 계산
+                      </small>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="referenceDate">
+                      임신주수를 확인할 기준일
+
+                      <small>
+                        기본값은 오늘 날짜
+                      </small>
+                    </label>
+
+                    <input
+                      id="referenceDate"
+                      type="date"
+                      required
+                    />
+                  </div>
+
+                  <div class="field">
+                    <label for="displayMode">
+                      결과 표시 방식
+                    </label>
+
+                    <select id="displayMode">
+                      <option
+                        value="weeks"
+                        selected
+                      >
+                        임신주수 중심
+                      </option>
+
+                      <option value="dates">
+                        주요 날짜 중심
+                      </option>
+
+                      <option value="timeline">
+                        전체 주차표 중심
+                      </option>
+                    </select>
+                  </div>
+                </aside>
+              </div>
+
+              <div class="action-row">
+                <button
+                  class="calculate-btn"
+                  type="submit"
+                >
+                  임신주수와 출산예정일 계산하기
+                </button>
+
+                <button
+                  class="reset-btn"
+                  type="button"
+                  id="resetBtn"
+                >
+                  입력값 초기화
+                </button>
+              </div>
+            </form>
+
+            <div class="notice">
+              계산 결과는 일정 확인을 위한 추정치입니다.
+              생리주기가 불규칙하거나 마지막 생리일이 불확실한 경우,
+              초음파 검사 결과와 계산값이 다른 경우에는 산부인과에서 안내받은 임신주수와 예정일을 우선하세요.
+              이 도구는 증상 판단이나 응급도 평가를 제공하지 않습니다.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="results"
+      id="results"
+    >
+      <div class="wrap">
+        <div
+          class="result-empty"
+          id="resultEmpty"
+        >
+          기준 날짜를 입력하면<br />
+          현재 임신주수와 출산예정일, 주요 주차 날짜가 표시됩니다.
+        </div>
+
+        <div
+          class="result-content"
+          id="resultContent"
+        >
+          <section class="due-calendar">
+            <div class="due-top">
+              <div class="due-copy">
+                <span>
+                  ESTIMATED DUE DATE
+                </span>
+
+                <h2 id="dueTitle">
+                  출산예정일은 <b>-</b>입니다
+                </h2>
+
+                <p id="dueMessage">
+                  -
+                </p>
+              </div>
+
+              <div class="due-dday">
+                <span id="ddayLabel">
+                  출산예정일까지
+                </span>
+
+                <strong id="ddayResult">
+                  -
+                </strong>
+
+                <small id="ddayDetail">
+                  -
+                </small>
+              </div>
+            </div>
+
+            <div class="due-date-strip">
+              <div class="due-date-box">
+                <span>
+                  임신 시작 기준일
+                </span>
+
+                <strong id="pregnancyStartResult">
+                  -
+                </strong>
+              </div>
+
+              <div class="due-date-box">
+                <span>
+                  임신 추정일
+                </span>
+
+                <strong id="conceptionResult">
+                  -
+                </strong>
+              </div>
+
+              <div class="due-date-box">
+                <span>
+                  출산 가능 참고 구간
+                </span>
+
+                <strong id="birthWindowResult">
+                  -
+                </strong>
+              </div>
+            </div>
+          </section>
+
+          <div class="metric-grid">
+            <article class="metric-card">
+              <span>
+                현재 임신주수
+              </span>
+
+              <strong id="gestationalAgeResult">
+                -
+              </strong>
+
+              <small id="gestationalAgeDetail">
+                -
+              </small>
+            </article>
+
+            <article class="metric-card">
+              <span>
+                현재 임신 구간
+              </span>
+
+              <strong id="trimesterResult">
+                -
+              </strong>
+
+              <small id="trimesterDetail">
+                -
+              </small>
+            </article>
+
+            <article class="metric-card">
+              <span>
+                임신 진행률
+              </span>
+
+              <strong id="progressResult">
+                -
+              </strong>
+
+              <small id="progressDetail">
+                -
+              </small>
+            </article>
+
+            <article class="metric-card">
+              <span>
+                40주 중 남은 기간
+              </span>
+
+              <strong id="remainingResult">
+                -
+              </strong>
+
+              <small id="remainingDetail">
+                -
+              </small>
+            </article>
+          </div>
+
+          <section class="progress-panel">
+            <div class="panel-head">
+              <div>
+                <h3>
+                  임신 40주 진행 위치
+                </h3>
+
+                <p>
+                  출산예정일을 임신 40주 0일로 두고 표시한 참고 위치입니다.
+                </p>
+              </div>
+
+              <span id="progressPanelLabel">
+                -
+              </span>
+            </div>
+
+            <div class="trimester-track">
+              <div class="trimester-part">
+                1삼분기
+              </div>
+
+              <div class="trimester-part">
+                2삼분기
+              </div>
+
+              <div class="trimester-part">
+                3삼분기
+              </div>
+
+              <i
+                class="progress-marker"
+                id="progressMarker"
+              ></i>
+            </div>
+
+            <div class="progress-labels">
+              <span>
+                0주
+              </span>
+
+              <span>
+                14주
+              </span>
+
+              <span>
+                28주
+              </span>
+
+              <span>
+                40주
+              </span>
+            </div>
+          </section>
+
+          <section class="week-panel">
+            <div class="panel-head">
+              <div>
+                <h3>
+                  임신주수 전체 캘린더
+                </h3>
+
+                <p>
+                  현재 기준일이 포함된 주차를 강조해 표시합니다.
+                </p>
+              </div>
+
+              <span id="weekPanelLabel">
+                0주부터 42주
+              </span>
+            </div>
+
+            <div
+              class="week-grid"
+              id="weekGrid"
+            ></div>
+          </section>
+
+          <section class="milestone-panel">
+            <div class="panel-head">
+              <div>
+                <h3>
+                  주요 주차 날짜
+                </h3>
+
+                <p>
+                  의료검사 일정이 아닌 임신주수별 날짜 확인용 타임라인입니다.
+                </p>
+              </div>
+
+              <span id="milestoneSummary">
+                -
+              </span>
+            </div>
+
+            <div
+              class="milestone-list"
+              id="milestoneList"
+            ></div>
+          </section>
+
+          <div
+            class="status-box"
+            id="statusBox"
+          >
+            -
+          </div>
+
+          <div class="result-actions">
+            <button
+              class="utility-btn"
+              type="button"
+              id="copyBtn"
+            >
+              결과 복사
+            </button>
+
+            <button
+              class="utility-btn"
+              type="button"
+              id="printBtn"
+            >
+              인쇄·PDF 저장
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="section"
+      id="guide"
+    >
+      <div class="wrap">
+        <div class="guide-grid">
+          <article class="guide-card">
+            <h3>
+              마지막 생리일 기준
+            </h3>
+
+            <p>
+              일반적인 계산은 마지막 생리가 시작된 첫날부터 약 40주를 적용합니다.
+              생리주기가 28일보다 짧거나 길면 주기 차이를 예정일에 반영합니다.
+
+              <a
+                href="https://www.nhs.uk/pregnancy/finding-out/due-date-calculator/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                NHS 예정일 계산 안내
+              </a>
+            </p>
+          </article>
+
+          <article class="guide-card">
+            <h3>
+              배아이식일 기준
+            </h3>
+
+            <p>
+              시험관 시술은 배아이식일과 배아의 배양일수를 이용해
+              임신 시작 기준일과 출산예정일을 역산합니다.
+              병원에서 별도 예정일을 안내받았다면 병원 확정값을 우선하세요.
+            </p>
+          </article>
+
+          <article class="guide-card">
+            <h3>
+              초음파 결과가 다른 경우
+            </h3>
+
+            <p>
+              마지막 생리일이 불확실하거나 생리주기가 불규칙하면
+              계산기 결과와 실제 임신주수가 다를 수 있습니다.
+              산전 진료에서 의료진이 확정한 예정일을 기준으로 일정을 관리하세요.
+
+              <a
+                href="https://www.acog.org/clinical/clinical-guidance/committee-opinion/articles/2017/05/methods-for-estimating-the-due-date"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                ACOG 예정일 산정 기준
+              </a>
+            </p>
+          </article>
+        </div>
+
+        <div class="faq">
+          <details>
+            <summary>
+              임신 1주는 임신이 된 날부터 시작하나요?
+            </summary>
+
+            <p>
+              일반적인 임신주수는 수정일이 아니라 마지막 생리 시작일을 임신 0주 0일로 계산합니다.
+              따라서 실제 수정 시점보다 약 2주 앞서 임신주수가 시작됩니다.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              생리주기가 28일이 아니면 어떻게 계산하나요?
+            </summary>
+
+            <p>
+              마지막 생리일 방식에서 평균 생리주기를 입력하면
+              28일과의 차이만큼 출산예정일을 앞당기거나 늦춰 계산합니다.
+              생리주기가 매번 크게 다르다면 계산값보다 의료진의 확인이 더 중요합니다.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              3일 배양과 5일 배양은 왜 결과가 다른가요?
+            </summary>
+
+            <p>
+              이식 당시 배아의 발달일수가 다르기 때문입니다.
+              같은 이식일이라면 5일 배양 배아는 3일 배양 배아보다 임신주수가 이틀 더 진행된 것으로 계산합니다.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              출산예정일에 반드시 출산하나요?
+            </summary>
+
+            <p>
+              출산예정일은 임신 40주 0일에 해당하는 추정 기준일입니다.
+              실제 출산일은 예정일보다 빠르거나 늦을 수 있으며
+              개인별 진료 일정과 출산 계획은 의료진의 안내를 따라야 합니다.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-card">
+        <strong>
+          바로해결툴즈
+        </strong>
+
+        <p>
+          본 결과는 입력 날짜를 수학적으로 환산한 일정 참고값이며
+          의료 진단, 태아 상태 평가, 출산 시기 결정 또는 응급상황 판단을 대신하지 않습니다.
+          계산 결과와 산부인과 진료 결과가 다르면 의료진이 확정한 임신주수와 출산예정일을 우선하세요.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    "use strict";
+
+    const STORAGE_KEY =
+      "pregnancyDueDateCalculator";
+
+    const DAY_MS =
+      24 *
+      60 *
+      60 *
+      1000;
+
+    const form =
+      document.getElementById(
+        "calculatorForm"
+      );
+
+    const methodInputs =
+      document.querySelectorAll(
+        'input[name="method"]'
+      );
+
+    const inputs = {
+      lmpDate:
+        document.getElementById(
+          "lmpDate"
+        ),
+
+      cycleLength:
+        document.getElementById(
+          "cycleLength"
+        ),
+
+      conceptionDate:
+        document.getElementById(
+          "conceptionDate"
+        ),
+
+      transferDate:
+        document.getElementById(
+          "transferDate"
+        ),
+
+      embryoAge:
+        document.getElementById(
+          "embryoAge"
+        ),
+
+      confirmedDueDate:
+        document.getElementById(
+          "confirmedDueDate"
+        ),
+
+      referenceDate:
+        document.getElementById(
+          "referenceDate"
+        ),
+
+      displayMode:
+        document.getElementById(
+          "displayMode"
+        )
+    };
+
+    const dateCardTitle =
+      document.getElementById(
+        "dateCardTitle"
+      );
+
+    const dateCardDescription =
+      document.getElementById(
+        "dateCardDescription"
+      );
+
+    const referencePreview =
+      document.getElementById(
+        "referencePreview"
+      );
+
+    const resultEmpty =
+      document.getElementById(
+        "resultEmpty"
+      );
+
+    const resultContent =
+      document.getElementById(
+        "resultContent"
+      );
+
+    const resetBtn =
+      document.getElementById(
+        "resetBtn"
+      );
+
+    const copyBtn =
+      document.getElementById(
+        "copyBtn"
+      );
+
+    const printBtn =
+      document.getElementById(
+        "printBtn"
+      );
+
+    let lastResultText =
+      "";
+
+    function selectedMethod() {
+      return (
+        document.querySelector(
+          'input[name="method"]:checked'
+        )?.value ||
+        "lmp"
+      );
+    }
+
+    function parseDate(
+      value
+    ) {
+      if (!value) {
+        return null;
+      }
+
+      const [
+        year,
+        month,
+        day
+      ] =
+        value
+          .split("-")
+          .map(
+            Number
+          );
+
+      const date =
+        new Date(
+          year,
+          month - 1,
+          day,
+          12,
+          0,
+          0,
+          0
+        );
+
+      if (
+        Number.isNaN(
+          date.getTime()
+        )
+      ) {
+        return null;
+      }
+
+      return date;
+    }
+
+    function toInputDate(
+      date
+    ) {
+      return (
+        `${date.getFullYear()}-` +
+        `${String(
+          date.getMonth() + 1
+        ).padStart(
+          2,
+          "0"
+        )}-` +
+        `${String(
+          date.getDate()
+        ).padStart(
+          2,
+          "0"
+        )}`
+      );
+    }
+
+    function addDays(
+      date,
+      days
+    ) {
+      const result =
+        new Date(
+          date
+        );
+
+      result.setDate(
+        result.getDate() +
+        days
+      );
+
+      return result;
+    }
+
+    function diffDays(
+      from,
+      to
+    ) {
+      const fromUtc =
+        Date.UTC(
+          from.getFullYear(),
+          from.getMonth(),
+          from.getDate()
+        );
+
+      const toUtc =
+        Date.UTC(
+          to.getFullYear(),
+          to.getMonth(),
+          to.getDate()
+        );
+
+      return Math.round(
+        (
+          toUtc -
+          fromUtc
+        ) /
+        DAY_MS
+      );
+    }
+
+    function formatDate(
+      date
+    ) {
+      return new Intl.DateTimeFormat(
+        "ko-KR",
+        {
+          year:
+            "numeric",
+
+          month:
+            "long",
+
+          day:
+            "numeric",
+
+          weekday:
+            "short"
+        }
+      ).format(
+        date
+      );
+    }
+
+    function formatDateShort(
+      date
+    ) {
+      return new Intl.DateTimeFormat(
+        "ko-KR",
+        {
+          year:
+            "numeric",
+
+          month:
+            "2-digit",
+
+          day:
+            "2-digit"
+        }
+      ).format(
+        date
+      );
+    }
+
+    function formatDaysAsWeeks(
+      totalDays
+    ) {
+      const absolute =
+        Math.abs(
+          totalDays
+        );
+
+      const weeks =
+        Math.floor(
+          absolute /
+          7
+        );
+
+      const days =
+        absolute %
+        7;
+
+      if (
+        weeks ===
+        0
+      ) {
+        return (
+          `${days}일`
+        );
+      }
+
+      if (
+        days ===
+        0
+      ) {
+        return (
+          `${weeks}주`
+        );
+      }
+
+      return (
+        `${weeks}주 ${days}일`
+      );
+    }
+
+    function getCalculationBase() {
+      const method =
+        selectedMethod();
+
+      let pregnancyStart =
+        null;
+
+      let dueDate =
+        null;
+
+      let sourceDate =
+        null;
+
+      let sourceLabel =
+        "";
+
+      if (
+        method ===
+        "lmp"
+      ) {
+        const lmp =
+          parseDate(
+            inputs.lmpDate.value
+          );
+
+        const cycleLength =
+          Number(
+            inputs.cycleLength.value
+          );
+
+        if (
+          !lmp ||
+          !Number.isFinite(
+            cycleLength
+          ) ||
+          cycleLength <
+            20 ||
+          cycleLength >
+            45
+        ) {
+          throw new Error(
+            "마지막 생리 시작일과 평균 생리주기를 확인해주세요."
+          );
+        }
+
+        const cycleAdjustment =
+          cycleLength -
+          28;
+
+        dueDate =
+          addDays(
+            lmp,
+            280 +
+            cycleAdjustment
+          );
+
+        pregnancyStart =
+          addDays(
+            dueDate,
+            -280
+          );
+
+        sourceDate =
+          lmp;
+
+        sourceLabel =
+          `마지막 생리 시작일 · ${cycleLength}일 주기`;
+      }
+
+      if (
+        method ===
+        "conception"
+      ) {
+        const conception =
+          parseDate(
+            inputs.conceptionDate.value
+          );
+
+        if (
+          !conception
+        ) {
+          throw new Error(
+            "임신 추정일을 입력해주세요."
+          );
+        }
+
+        dueDate =
+          addDays(
+            conception,
+            266
+          );
+
+        pregnancyStart =
+          addDays(
+            conception,
+            -14
+          );
+
+        sourceDate =
+          conception;
+
+        sourceLabel =
+          "임신 추정일·배란일";
+      }
+
+      if (
+        method ===
+        "ivf"
+      ) {
+        const transfer =
+          parseDate(
+            inputs.transferDate.value
+          );
+
+        const embryoAge =
+          Number(
+            inputs.embryoAge.value
+          );
+
+        if (
+          !transfer ||
+          ![
+            3,
+            5
+          ].includes(
+            embryoAge
+          )
+        ) {
+          throw new Error(
+            "배아이식일과 배아 배양일수를 확인해주세요."
+          );
+        }
+
+        dueDate =
+          addDays(
+            transfer,
+            266 -
+            embryoAge
+          );
+
+        pregnancyStart =
+          addDays(
+            transfer,
+            -(
+              14 +
+              embryoAge
+            )
+          );
+
+        sourceDate =
+          transfer;
+
+        sourceLabel =
+          `${embryoAge}일 배양 배아이식일`;
+      }
+
+      if (
+        method ===
+        "due"
+      ) {
+        const confirmed =
+          parseDate(
+            inputs.confirmedDueDate.value
+          );
+
+        if (
+          !confirmed
+        ) {
+          throw new Error(
+            "병원에서 안내받은 출산예정일을 입력해주세요."
+          );
+        }
+
+        dueDate =
+          confirmed;
+
+        pregnancyStart =
+          addDays(
+            confirmed,
+            -280
+          );
+
+        sourceDate =
+          confirmed;
+
+        sourceLabel =
+          "병원 확정 출산예정일";
+      }
+
+      return {
+        method,
+        pregnancyStart,
+        dueDate,
+        sourceDate,
+        sourceLabel
+      };
+    }
+
+    function getTrimester(
+      gestationalDays
+    ) {
+      if (
+        gestationalDays <
+        0
+      ) {
+        return {
+          title:
+            "임신 시작 전",
+
+          detail:
+            "선택한 기준일이 임신 시작 기준일보다 빠릅니다."
+        };
+      }
+
+      if (
+        gestationalDays <
+        14 *
+        7
+      ) {
+        return {
+          title:
+            "1삼분기",
+
+          detail:
+            "임신 0주부터 13주 6일까지"
+        };
+      }
+
+      if (
+        gestationalDays <
+        28 *
+        7
+      ) {
+        return {
+          title:
+            "2삼분기",
+
+          detail:
+            "임신 14주부터 27주 6일까지"
+        };
+      }
+
+      if (
+        gestationalDays <=
+        42 *
+        7
+      ) {
+        return {
+          title:
+            "3삼분기",
+
+          detail:
+            "임신 28주 이후"
+        };
+      }
+
+      return {
+        title:
+          "예정일 이후",
+
+        detail:
+          "선택한 기준일이 임신 42주 이후입니다."
+      };
+    }
+
+    function renderWeekGrid(
+      pregnancyStart,
+      currentWeek
+    ) {
+      const weekGrid =
+        document.getElementById(
+          "weekGrid"
+        );
+
+      const weeks =
+        [];
+
+      for (
+        let week = 0;
+        week <= 42;
+        week += 1
+      ) {
+        const weekStart =
+          addDays(
+            pregnancyStart,
+            week *
+            7
+          );
+
+        const classNames = [
+          "week-cell"
+        ];
+
+        if (
+          week <
+          currentWeek
+        ) {
+          classNames.push(
+            "past"
+          );
+        }
+
+        if (
+          week ===
+          currentWeek
+        ) {
+          classNames.push(
+            "current"
+          );
+        }
+
+        if (
+          week >=
+          37
+        ) {
+          classNames.push(
+            "term"
+          );
+        }
+
+        weeks.push(
+          `
+            <div class="${classNames.join(" ")}">
+              <span>
+                ${week}주
+              </span>
+
+              <small>
+                ${weekStart.getMonth() + 1}/${weekStart.getDate()}
+              </small>
+            </div>
+          `
+        );
+      }
+
+      weekGrid.innerHTML =
+        weeks.join("");
+    }
+
+    function renderMilestones(
+      pregnancyStart,
+      referenceDate
+    ) {
+      const milestones = [
+        {
+          week:
+            4,
+
+          label:
+            "임신 4주",
+
+          description:
+            "임신 초기 주차 기준"
+        },
+
+        {
+          week:
+            12,
+
+          label:
+            "임신 12주",
+
+          description:
+            "첫 번째 주요 주차"
+        },
+
+        {
+          week:
+            20,
+
+          label:
+            "임신 20주",
+
+          description:
+            "40주 일정의 중간 지점"
+        },
+
+        {
+          week:
+            28,
+
+          label:
+            "임신 28주",
+
+          description:
+            "3삼분기 시작 기준"
+        },
+
+        {
+          week:
+            37,
+
+          label:
+            "임신 37주",
+
+          description:
+            "출산 가능 참고 구간 시작"
+        },
+
+        {
+          week:
+            40,
+
+          label:
+            "임신 40주",
+
+          description:
+            "출산예정일"
+        }
+      ];
+
+      const milestoneList =
+        document.getElementById(
+          "milestoneList"
+        );
+
+      milestoneList.innerHTML =
+        milestones
+          .map(
+            (
+              milestone,
+              index
+            ) => {
+              const date =
+                addDays(
+                  pregnancyStart,
+                  milestone.week *
+                  7
+                );
+
+              const endDate =
+                addDays(
+                  date,
+                  6
+                );
+
+              const classes = [
+                "milestone-item"
+              ];
+
+              if (
+                referenceDate >
+                endDate
+              ) {
+                classes.push(
+                  "done"
+                );
+              } else if (
+                referenceDate >=
+                  date &&
+                referenceDate <=
+                  endDate
+              ) {
+                classes.push(
+                  "active"
+                );
+              }
+
+              return `
+                <article class="${classes.join(" ")}">
+                  <div class="milestone-dot">
+                    ${milestone.week}
+                  </div>
+
+                  <div class="milestone-copy">
+                    <span>
+                      ${milestone.description}
+                    </span>
+
+                    <strong>
+                      ${milestone.label}
+                    </strong>
+                  </div>
+
+                  <div class="milestone-date">
+                    ${formatDate(date)}
+                  </div>
+                </article>
+              `;
+            }
+          )
+          .join("");
+
+      const futureMilestone =
+        milestones.find(
+          (milestone) =>
+            addDays(
+              pregnancyStart,
+              milestone.week *
+              7
+            ) >=
+            referenceDate
+        );
+
+      document
+        .getElementById(
+          "milestoneSummary"
+        )
+        .textContent =
+          futureMilestone
+            ? `다음 표시 주차 · ${futureMilestone.week}주`
+            : "40주 일정 이후";
+    }
+
+    function updateMethodFields() {
+      const method =
+        selectedMethod();
+
+      document
+        .querySelectorAll(
+          "[data-method-fields]"
+        )
+        .forEach(
+          (container) => {
+            container.classList.toggle(
+              "active",
+              container.dataset.methodFields ===
+                method
+            );
+          }
+        );
+
+      const titles = {
+        lmp:
+          {
+            title:
+              "마지막 생리 시작일 입력",
+
+            description:
+              "마지막 생리가 시작된 첫날을 입력하세요."
+          },
+
+        conception:
+          {
+            title:
+              "임신 추정일 입력",
+
+            description:
+              "배란일 또는 임신된 것으로 추정되는 날짜를 입력하세요."
+          },
+
+        ivf:
+          {
+            title:
+              "시험관 배아이식일 입력",
+
+            description:
+              "이식일과 배아 배양일수를 선택하세요."
+          },
+
+        due:
+          {
+            title:
+              "병원 확정 예정일 입력",
+
+            description:
+              "산부인과에서 안내받은 출산예정일을 입력하세요."
+          }
+      };
+
+      dateCardTitle.textContent =
+        titles[
+          method
+        ].title;
+
+      dateCardDescription.textContent =
+        titles[
+          method
+        ].description;
+
+      saveForm();
+    }
+
+    function updateReferencePreview() {
+      const referenceDate =
+        parseDate(
+          inputs.referenceDate.value
+        );
+
+      if (
+        !referenceDate
+      ) {
+        referencePreview.textContent =
+          "날짜 선택";
+
+        return;
+      }
+
+      const today =
+        new Date();
+
+      const todayValue =
+        toInputDate(
+          today
+        );
+
+      if (
+        inputs.referenceDate.value ===
+        todayValue
+      ) {
+        referencePreview.textContent =
+          "오늘";
+
+        return;
+      }
+
+      referencePreview.textContent =
+        `${referenceDate.getMonth() + 1}.${referenceDate.getDate()}`;
+    }
+
+    function calculate(
+      event
+    ) {
+      event.preventDefault();
+
+      let base;
+
+      try {
+        base =
+          getCalculationBase();
+      } catch (error) {
+        alert(
+          error.message
+        );
+
+        return;
+      }
+
+      const referenceDate =
+        parseDate(
+          inputs.referenceDate.value
+        );
+
+      if (
+        !referenceDate
+      ) {
+        alert(
+          "임신주수를 확인할 기준일을 입력해주세요."
+        );
+
+        return;
+      }
+
+      const {
+        method,
+        pregnancyStart,
+        dueDate,
+        sourceLabel
+      } =
+        base;
+
+      const gestationalDays =
+        diffDays(
+          pregnancyStart,
+          referenceDate
+        );
+
+      const currentWeek =
+        Math.floor(
+          gestationalDays /
+          7
+        );
+
+      const currentDay =
+        (
+          (
+            gestationalDays %
+            7
+          ) +
+          7
+        ) %
+        7;
+
+      const daysToDue =
+        diffDays(
+          referenceDate,
+          dueDate
+        );
+
+      const conceptionEstimate =
+        addDays(
+          pregnancyStart,
+          14
+        );
+
+      const week37 =
+        addDays(
+          pregnancyStart,
+          37 *
+          7
+        );
+
+      const week42 =
+        addDays(
+          pregnancyStart,
+          42 *
+          7
+        );
+
+      const trimester =
+        getTrimester(
+          gestationalDays
+        );
+
+      const progress =
+        Math.min(
+          100,
+          Math.max(
+            0,
+            gestationalDays /
+            280 *
+            100
+          )
+        );
+
+      const clampedWeek =
+        Math.min(
+          42,
+          Math.max(
+            0,
+            currentWeek
+          )
+        );
+
+      document
+        .getElementById(
+          "dueTitle"
+        )
+        .innerHTML =
+          `출산예정일은 <b>${formatDate(dueDate)}</b>입니다`;
+
+      document
+        .getElementById(
+          "dueMessage"
+        )
+        .textContent =
+          `${sourceLabel}을 기준으로 계산했습니다. ` +
+          `${formatDate(referenceDate)} 현재 ` +
+          (
+            gestationalDays >=
+            0
+              ? `임신 ${currentWeek}주 ${currentDay}일`
+              : `임신 시작 기준일 ${formatDaysAsWeeks(gestationalDays)} 전`
+          ) +
+          "에 해당합니다.";
+
+      const ddayLabel =
+        document.getElementById(
+          "ddayLabel"
+        );
+
+      const ddayResult =
+        document.getElementById(
+          "ddayResult"
+        );
+
+      const ddayDetail =
+        document.getElementById(
+          "ddayDetail"
+        );
+
+      if (
+        daysToDue >
+        0
+      ) {
+        ddayLabel.textContent =
+          "출산예정일까지";
+
+        ddayResult.textContent =
+          `D-${daysToDue}`;
+
+        ddayDetail.textContent =
+          `${formatDaysAsWeeks(daysToDue)} 남음`;
+      } else if (
+        daysToDue ===
+        0
+      ) {
+        ddayLabel.textContent =
+          "출산예정일";
+
+        ddayResult.textContent =
+          "D-DAY";
+
+        ddayDetail.textContent =
+          "오늘이 계산된 예정일입니다.";
+      } else {
+        ddayLabel.textContent =
+          "출산예정일 경과";
+
+        ddayResult.textContent =
+          `D+${Math.abs(daysToDue)}`;
+
+        ddayDetail.textContent =
+          `${formatDaysAsWeeks(daysToDue)} 경과`;
+      }
+
+      document
+        .getElementById(
+          "pregnancyStartResult"
+        )
+        .textContent =
+          formatDate(
+            pregnancyStart
+          );
+
+      document
+        .getElementById(
+          "conceptionResult"
+        )
+        .textContent =
+          formatDate(
+            conceptionEstimate
+          );
+
+      document
+        .getElementById(
+          "birthWindowResult"
+        )
+        .textContent =
+          `${formatDateShort(week37)} ~ ${formatDateShort(week42)}`;
+
+      const gestationalAgeResult =
+        document.getElementById(
+          "gestationalAgeResult"
+        );
+
+      const gestationalAgeDetail =
+        document.getElementById(
+          "gestationalAgeDetail"
+        );
+
+      if (
+        gestationalDays <
+        0
+      ) {
+        gestationalAgeResult.textContent =
+          "임신 시작 전";
+
+        gestationalAgeDetail.textContent =
+          `${formatDaysAsWeeks(gestationalDays)} 뒤 임신 시작 기준일`;
+      } else {
+        gestationalAgeResult.textContent =
+          `${currentWeek}주 ${currentDay}일`;
+
+        gestationalAgeDetail.textContent =
+          `총 ${gestationalDays}일 경과`;
+      }
+
+      document
+        .getElementById(
+          "trimesterResult"
+        )
+        .textContent =
+          trimester.title;
+
+      document
+        .getElementById(
+          "trimesterDetail"
+        )
+        .textContent =
+          trimester.detail;
+
+      document
+        .getElementById(
+          "progressResult"
+        )
+        .textContent =
+          `${progress.toFixed(1)}%`;
+
+      document
+        .getElementById(
+          "progressDetail"
+        )
+        .textContent =
+          `임신 40주 기준`;
+
+      const remainingResult =
+        document.getElementById(
+          "remainingResult"
+        );
+
+      const remainingDetail =
+        document.getElementById(
+          "remainingDetail"
+        );
+
+      if (
+        daysToDue >=
+        0
+      ) {
+        remainingResult.textContent =
+          formatDaysAsWeeks(
+            daysToDue
+          );
+
+        remainingDetail.textContent =
+          `${daysToDue}일 남음`;
+      } else {
+        remainingResult.textContent =
+          formatDaysAsWeeks(
+            daysToDue
+          );
+
+        remainingDetail.textContent =
+          `${Math.abs(daysToDue)}일 경과`;
+      }
+
+      document
+        .getElementById(
+          "progressPanelLabel"
+        )
+        .textContent =
+          gestationalDays >=
+            0
+            ? `${currentWeek}주 ${currentDay}일 · ${progress.toFixed(1)}%`
+            : "임신 시작 전";
+
+      document
+        .getElementById(
+          "progressMarker"
+        )
+        .style.left =
+          `${progress}%`;
+
+      renderWeekGrid(
+        pregnancyStart,
+        clampedWeek
+      );
+
+      renderMilestones(
+        pregnancyStart,
+        referenceDate
+      );
+
+      document
+        .getElementById(
+          "weekPanelLabel"
+        )
+        .textContent =
+          gestationalDays >=
+            0
+            ? `현재 위치 · ${currentWeek}주`
+            : "현재 기준일은 임신 시작 전";
+
+      const statusBox =
+        document.getElementById(
+          "statusBox"
+        );
+
+      statusBox.className =
+        "status-box";
+
+      if (
+        gestationalDays <
+        0
+      ) {
+        statusBox.classList.add(
+          "warn"
+        );
+
+        statusBox.textContent =
+          "선택한 임신주수 기준일이 계산된 임신 시작일보다 빠릅니다. 기준일 또는 입력한 날짜가 정확한지 확인해주세요.";
+      } else if (
+        gestationalDays >
+        42 *
+        7
+      ) {
+        statusBox.classList.add(
+          "danger"
+        );
+
+        statusBox.textContent =
+          "선택한 기준일이 계산상 임신 42주 이후입니다. 실제 임신 일정이라면 계산기 결과가 아닌 산부인과에서 확정한 임신주수와 진료 지침을 확인하세요.";
+      } else if (
+        method ===
+        "lmp"
+      ) {
+        statusBox.textContent =
+          "마지막 생리 시작일과 평균 생리주기로 계산한 추정값입니다. 생리주기가 불규칙하거나 날짜가 불확실하면 초음파 검사 후 확정된 예정일과 차이가 날 수 있습니다.";
+      } else if (
+        method ===
+        "ivf"
+      ) {
+        statusBox.textContent =
+          "배아이식일과 배아 배양일수를 반영해 계산했습니다. 병원에서 별도의 임신주수 또는 예정일을 안내받았다면 병원 기록을 우선하세요.";
+      } else if (
+        method ===
+        "due"
+      ) {
+        statusBox.textContent =
+          "병원에서 안내받은 출산예정일을 임신 40주 0일로 보고 현재 임신주수를 역산했습니다.";
+      } else {
+        statusBox.textContent =
+          "입력한 임신 추정일을 수정일로 보고 계산했습니다. 추정일이 정확하지 않다면 실제 임신주수와 차이가 발생할 수 있습니다.";
+      }
+
+      resultEmpty.style.display =
+        "none";
+
+      resultContent.classList.add(
+        "show"
+      );
+
+      lastResultText =
+`[임신주수·출산예정일 계산기]
+
+계산 기준: ${sourceLabel}
+임신주수 확인 기준일: ${formatDate(referenceDate)}
+
+임신 시작 기준일: ${formatDate(pregnancyStart)}
+임신 추정일: ${formatDate(conceptionEstimate)}
+출산예정일: ${formatDate(dueDate)}
+출산 가능 참고 구간: ${formatDate(week37)} ~ ${formatDate(week42)}
+
+현재 임신주수: ${
+  gestationalDays >= 0
+    ? `${currentWeek}주 ${currentDay}일`
+    : `임신 시작 기준일 ${formatDaysAsWeeks(gestationalDays)} 전`
+}
+현재 임신 구간: ${trimester.title}
+40주 기준 진행률: ${progress.toFixed(1)}%
+출산예정일까지: ${
+  daysToDue > 0
+    ? `${daysToDue}일 · D-${daysToDue}`
+    : daysToDue === 0
+      ? "오늘 · D-DAY"
+      : `${Math.abs(daysToDue)}일 경과 · D+${Math.abs(daysToDue)}`
+}
+
+[주요 주차 날짜]
+임신 4주: ${formatDate(addDays(pregnancyStart, 28))}
+임신 12주: ${formatDate(addDays(pregnancyStart, 84))}
+임신 20주: ${formatDate(addDays(pregnancyStart, 140))}
+임신 28주: ${formatDate(addDays(pregnancyStart, 196))}
+임신 37주: ${formatDate(week37)}
+임신 40주: ${formatDate(dueDate)}
+임신 42주: ${formatDate(week42)}
+
+※ 입력 날짜를 이용한 일정 참고값이며 산부인과의 임신주수와 예정일 확정을 대신하지 않습니다.`;
+
+      saveForm();
+
+      document
+        .getElementById(
+          "results"
+        )
+        .scrollIntoView({
+          behavior:
+            "smooth",
+
+          block:
+            "start"
+        });
+    }
+
+    function saveForm() {
+      try {
+        const data = {
+          method:
+            selectedMethod(),
+
+          lmpDate:
+            inputs.lmpDate.value,
+
+          cycleLength:
+            inputs.cycleLength.value,
+
+          conceptionDate:
+            inputs.conceptionDate.value,
+
+          transferDate:
+            inputs.transferDate.value,
+
+          embryoAge:
+            inputs.embryoAge.value,
+
+          confirmedDueDate:
+            inputs.confirmedDueDate.value,
+
+          referenceDate:
+            inputs.referenceDate.value,
+
+          displayMode:
+            inputs.displayMode.value
+        };
+
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify(
+            data
+          )
+        );
+      } catch (error) {
+        console.warn(
+          error
+        );
+      }
+    }
+
+    function setDefaultDates() {
+      const today =
+        new Date();
+
+      const lmp =
+        addDays(
+          today,
+          -70
+        );
+
+      const conception =
+        addDays(
+          today,
+          -56
+        );
+
+      const transfer =
+        addDays(
+          today,
+          -51
+        );
+
+      const due =
+        addDays(
+          lmp,
+          280
+        );
+
+      inputs.lmpDate.value =
+        toInputDate(
+          lmp
+        );
+
+      inputs.conceptionDate.value =
+        toInputDate(
+          conception
+        );
+
+      inputs.transferDate.value =
+        toInputDate(
+          transfer
+        );
+
+      inputs.confirmedDueDate.value =
+        toInputDate(
+          due
+        );
+
+      inputs.referenceDate.value =
+        toInputDate(
+          today
+        );
+
+      updateReferencePreview();
+    }
+
+    function restoreForm() {
+      setDefaultDates();
+
+      try {
+        const saved =
+          JSON.parse(
+            localStorage.getItem(
+              STORAGE_KEY
+            ) ||
+            "null"
+          );
+
+        if (!saved) {
+          updateMethodFields();
+
+          return;
+        }
+
+        Object.entries(
+          inputs
+        ).forEach(
+          ([key, input]) => {
+            if (
+              saved[key] !==
+              undefined &&
+              saved[key] !==
+              ""
+            ) {
+              input.value =
+                saved[key];
+            }
+          }
+        );
+
+        const methodInput =
+          document.querySelector(
+            `input[name="method"][value="${saved.method}"]`
+          );
+
+        if (
+          methodInput
+        ) {
+          methodInput.checked =
+            true;
+        }
+
+        updateMethodFields();
+        updateReferencePreview();
+      } catch (error) {
+        console.warn(
+          error
+        );
+
+        updateMethodFields();
+      }
+    }
+
+    function resetCalculator() {
+      try {
+        localStorage.removeItem(
+          STORAGE_KEY
+        );
+      } catch (error) {
+        console.warn(
+          error
+        );
+      }
+
+      document
+        .getElementById(
+          "methodLmp"
+        )
+        .checked =
+          true;
+
+      inputs.cycleLength.value =
+        "28";
+
+      inputs.embryoAge.value =
+        "5";
+
+      inputs.displayMode.value =
+        "weeks";
+
+      setDefaultDates();
+      updateMethodFields();
+
+      resultContent.classList.remove(
+        "show"
+      );
+
+      resultEmpty.style.display =
+        "grid";
+
+      lastResultText =
+        "";
+    }
+
+    async function copyResult() {
+      if (
+        !lastResultText
+      ) {
+        alert(
+          "먼저 계산해주세요."
+        );
+
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(
+          lastResultText
+        );
+      } catch (error) {
+        const textarea =
+          document.createElement(
+            "textarea"
+          );
+
+        textarea.value =
+          lastResultText;
+
+        textarea.style.position =
+          "fixed";
+
+        textarea.style.opacity =
+          "0";
+
+        document.body.appendChild(
+          textarea
+        );
+
+        textarea.select();
+
+        document.execCommand(
+          "copy"
+        );
+
+        textarea.remove();
+      }
+
+      const original =
+        copyBtn.textContent;
+
+      copyBtn.textContent =
+        "복사 완료";
+
+      setTimeout(
+        () => {
+          copyBtn.textContent =
+            original;
+        },
+        1300
+      );
+    }
+
+    methodInputs.forEach(
+      (input) => {
+        input.addEventListener(
+          "change",
+          updateMethodFields
+        );
+      }
+    );
+
+    inputs.referenceDate.addEventListener(
+      "change",
+      () => {
+        updateReferencePreview();
+        saveForm();
+      }
+    );
+
+    Object.values(
+      inputs
+    ).forEach(
+      (input) => {
+        input.addEventListener(
+          "input",
+          saveForm
+        );
+
+        input.addEventListener(
+          "change",
+          saveForm
+        );
+      }
+    );
+
+    form.addEventListener(
+      "submit",
+      calculate
+    );
+
+    resetBtn.addEventListener(
+      "click",
+      resetCalculator
+    );
+
+    copyBtn.addEventListener(
+      "click",
+      copyResult
+    );
+
+    printBtn.addEventListener(
+      "click",
+      () => {
+        window.print();
+      }
+    );
+
+    restoreForm();
+  </script>
+
+  <script
+    defer
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'
+  ></script>
+</body>
+</html>
