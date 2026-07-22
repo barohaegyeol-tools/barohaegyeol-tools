@@ -1,0 +1,4777 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>아이 예상키 계산기 | 부모키·성별로 성인키 범위 계산 | 바로해결툴즈</title>
+
+<meta
+  name="description"
+  content="아빠키와 엄마키, 아이 성별을 입력하면 중간부모키 공식으로 유전적 목표 성인키와 참고 범위를 계산합니다. 현재 키와 이전 측정값으로 성장속도도 함께 확인할 수 있습니다."
+>
+
+<meta
+  name="keywords"
+  content="아이 예상키 계산기, 자녀 키 계산기, 부모키 예상키, 성인키 예측, 중간부모키, 아이 성장속도, 키 성장 계산기, 바로해결툴즈"
+>
+
+<meta name="author" content="바로해결툴즈">
+<meta name="robots" content="index,follow">
+
+<link
+  rel="canonical"
+  href="https://barohaegyeol-tools.pages.dev/child-height-predictor/"
+>
+
+<meta name="theme-color" content="#245c72">
+
+<meta property="og:type" content="website">
+
+<meta
+  property="og:title"
+  content="아이 예상키 계산기 | 바로해결툴즈"
+>
+
+<meta
+  property="og:description"
+  content="부모키와 아이 성별로 유전적 목표키와 참고 범위를 계산하고 현재 성장 기록을 함께 정리하세요."
+>
+
+<meta
+  property="og:url"
+  content="https://barohaegyeol-tools.pages.dev/child-height-predictor/"
+>
+
+<meta
+  property="og:site_name"
+  content="바로해결툴즈"
+>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "아이 예상키 계산기",
+  "url": "https://barohaegyeol-tools.pages.dev/child-height-predictor/",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "All",
+  "description": "부모키와 아이 성별로 중간부모키와 목표키 범위를 계산하고 현재 키 기록을 정리하는 무료 웹 도구입니다.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "KRW"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "바로해결툴즈"
+  }
+}
+</script>
+
+<style>
+:root {
+  --ink: #17313c;
+  --text: #425d68;
+  --muted: #7a9099;
+  --line: rgba(30, 78, 96, 0.12);
+
+  --deep: #245c72;
+  --deep-2: #183f50;
+  --sky: #5ba8cf;
+  --sky-soft: #e9f6fc;
+
+  --lime: #b8dc63;
+  --lime-soft: #f3fadf;
+
+  --sun: #f3c866;
+  --sun-soft: #fff6da;
+
+  --coral: #ee8a72;
+  --coral-soft: #fff0eb;
+
+  --purple: #8173c8;
+  --purple-soft: #f1effc;
+
+  --mint: #56b99f;
+  --mint-soft: #e7f8f3;
+
+  --white: #ffffff;
+
+  --shadow:
+    0 28px 72px rgba(24, 63, 80, 0.14);
+
+  --shadow-soft:
+    0 12px 30px rgba(24, 63, 80, 0.08);
+
+  --max: 1180px;
+}
+
+* {
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+
+  color: var(--ink);
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Pretendard",
+    "Noto Sans KR",
+    "Apple SD Gothic Neo",
+    system-ui,
+    sans-serif;
+
+  line-height: 1.65;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+
+  background:
+    radial-gradient(
+      circle at 5% 4%,
+      rgba(184, 220, 99, 0.22),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 96% 7%,
+      rgba(91, 168, 207, 0.2),
+      transparent 29%
+    ),
+    radial-gradient(
+      circle at 82% 94%,
+      rgba(238, 138, 114, 0.13),
+      transparent 27%
+    ),
+    linear-gradient(
+      135deg,
+      #fbfff2,
+      #f4fbff 45%,
+      #f8f7ff 75%,
+      #fff9f5
+    );
+}
+
+body::before {
+  content: "";
+
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+
+  pointer-events: none;
+  opacity: 0.27;
+
+  background-image:
+    linear-gradient(
+      rgba(36, 92, 114, 0.04) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(36, 92, 114, 0.04) 1px,
+      transparent 1px
+    );
+
+  background-size:
+    30px 30px;
+
+  mask-image:
+    linear-gradient(
+      #000,
+      transparent 93%
+    );
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.wrap {
+  width:
+    min(
+      var(--max),
+      calc(100% - 32px)
+    );
+
+  margin: auto;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+
+  border-bottom:
+    1px solid rgba(24, 63, 80, 0.08);
+
+  background:
+    rgba(249, 253, 252, 0.84);
+
+  backdrop-filter:
+    blur(16px);
+}
+
+.head {
+  min-height: 76px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 18px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  font-weight: 950;
+  letter-spacing: -0.04em;
+}
+
+.logo {
+  width: 44px;
+  height: 44px;
+
+  border-radius: 16px;
+
+  display: grid;
+  place-items: center;
+
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--deep-2),
+      var(--sky),
+      var(--lime)
+    );
+
+  box-shadow:
+    0 12px 28px rgba(36, 92, 114, 0.22);
+}
+
+.brand small {
+  display: block;
+  margin-top: 2px;
+
+  color: var(--muted);
+
+  font-size: 11px;
+  letter-spacing: 0;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.nav a {
+  padding:
+    9px 13px;
+
+  border:
+    1px solid rgba(24, 63, 80, 0.09);
+
+  border-radius: 999px;
+
+  color: #536d77;
+
+  background:
+    rgba(255, 255, 255, 0.84);
+
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.hero {
+  padding:
+    38px 0 28px;
+}
+
+.growth-wall {
+  position: relative;
+  overflow: hidden;
+
+  padding:
+    44px 46px 32px;
+
+  border:
+    1px solid rgba(24, 63, 80, 0.1);
+
+  border-radius: 34px;
+
+  background:
+    radial-gradient(
+      circle at 92% 4%,
+      rgba(243, 200, 102, 0.29),
+      transparent 24%
+    ),
+    radial-gradient(
+      circle at 5% 96%,
+      rgba(184, 220, 99, 0.22),
+      transparent 27%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.98),
+      rgba(240, 250, 254, 0.96) 55%,
+      rgba(242, 248, 235, 0.95)
+    );
+
+  box-shadow:
+    var(--shadow);
+}
+
+.growth-wall::before {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 25px;
+
+  height: 220px;
+
+  background:
+    repeating-linear-gradient(
+      to right,
+      rgba(36, 92, 114, 0.09) 0 1px,
+      transparent 1px 50px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      rgba(36, 92, 114, 0.08) 0 1px,
+      transparent 1px 25px
+    );
+
+  mask-image:
+    linear-gradient(
+      transparent,
+      #000
+    );
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 2;
+
+  max-width: 940px;
+  margin: auto;
+
+  text-align: center;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 9px;
+
+  margin-bottom: 18px;
+}
+
+.chip {
+  padding:
+    8px 13px;
+
+  border:
+    1px solid rgba(24, 63, 80, 0.1);
+
+  border-radius: 999px;
+
+  color: #5a7079;
+
+  background:
+    rgba(255, 255, 255, 0.86);
+
+  box-shadow:
+    0 8px 20px rgba(24, 63, 80, 0.05);
+
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.chip.primary {
+  color: #4b6319;
+  background: var(--lime-soft);
+}
+
+h1 {
+  margin:
+    0 auto;
+
+  max-width: 900px;
+
+  font-size:
+    clamp(43px, 5.8vw, 72px);
+
+  line-height: 1.06;
+  letter-spacing: -0.068em;
+
+  overflow-wrap: normal;
+}
+
+.title-line {
+  display: block;
+}
+
+.title-accent {
+  color: transparent;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--deep-2),
+      var(--deep) 40%,
+      #3d8799 70%,
+      #7a9c27
+    );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.hero-copy p {
+  max-width: 790px;
+
+  margin:
+    19px auto 0;
+
+  color: var(--muted);
+
+  font-size:
+    clamp(15px, 1.7vw, 18px);
+
+  line-height: 1.82;
+  font-weight: 720;
+}
+
+.hero-copy p strong {
+  color: #405962;
+  font-weight: 950;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 11px;
+
+  margin-top: 23px;
+}
+
+.btn {
+  min-height: 51px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding:
+    13px 19px;
+
+  border-radius: 16px;
+
+  font-weight: 920;
+}
+
+.btn.primary {
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--deep-2),
+      var(--deep),
+      var(--sky)
+    );
+
+  box-shadow:
+    0 17px 36px rgba(36, 92, 114, 0.22);
+}
+
+.btn.secondary {
+  border:
+    1px solid rgba(24, 63, 80, 0.11);
+
+  background: #ffffff;
+
+  box-shadow:
+    var(--shadow-soft);
+}
+
+.family-stage {
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 12px;
+  align-items: end;
+
+  margin-top: 36px;
+}
+
+.person {
+  position: relative;
+
+  min-height: 180px;
+
+  padding:
+    14px 13px 16px;
+
+  border:
+    1px solid rgba(24, 63, 80, 0.09);
+
+  border-radius:
+    21px 21px 14px 14px;
+
+  background:
+    rgba(255, 255, 255, 0.9);
+
+  box-shadow:
+    0 12px 28px rgba(24, 63, 80, 0.07);
+
+  text-align: center;
+}
+
+.person::before {
+  content: "";
+
+  display: block;
+
+  width: 48px;
+  height: 48px;
+
+  margin:
+    0 auto 10px;
+
+  border-radius:
+    50% 50% 45% 45%;
+
+  background: var(--coral);
+
+  box-shadow:
+    0 42px 0 14px var(--coral);
+}
+
+.person.father::before {
+  background: var(--deep);
+
+  box-shadow:
+    0 42px 0 14px var(--deep);
+}
+
+.person.child::before {
+  width: 42px;
+  height: 42px;
+
+  background: var(--sky);
+
+  box-shadow:
+    0 38px 0 12px var(--sky);
+}
+
+.person.target::before {
+  background: var(--lime);
+
+  box-shadow:
+    0 42px 0 14px var(--lime);
+}
+
+.person span {
+  display: block;
+
+  margin-top: 49px;
+
+  color: var(--muted);
+
+  font-size: 9px;
+  font-weight: 850;
+}
+
+.person strong {
+  display: block;
+  margin-top: 4px;
+
+  font-size: 20px;
+  letter-spacing: -0.04em;
+}
+
+.person small {
+  display: block;
+  margin-top: 5px;
+
+  color: #8a9ba1;
+
+  font-size: 8px;
+  font-weight: 740;
+}
+
+.height-tag {
+  position: absolute;
+  right: 9px;
+  top: 9px;
+
+  padding:
+    5px 7px;
+
+  border-radius: 999px;
+
+  color: #765c18;
+  background: var(--sun-soft);
+
+  font-size: 8px;
+  font-weight: 950;
+}
+
+.section {
+  padding:
+    14px 0 25px;
+}
+
+.shell {
+  overflow: hidden;
+
+  border:
+    1px solid rgba(24, 63, 80, 0.09);
+
+  border-radius: 32px;
+
+  background:
+    rgba(255, 255, 255, 0.92);
+
+  box-shadow:
+    var(--shadow);
+}
+
+.shell-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 18px;
+
+  padding:
+    26px 26px 19px;
+
+  border-bottom:
+    1px solid rgba(24, 63, 80, 0.08);
+
+  background:
+    linear-gradient(
+      rgba(233, 246, 252, 0.8),
+      rgba(255, 255, 255, 0.25)
+    );
+}
+
+.shell-head h2 {
+  margin: 0;
+
+  font-size:
+    clamp(27px, 3.5vw, 40px);
+
+  letter-spacing: -0.05em;
+}
+
+.shell-head p {
+  margin:
+    8px 0 0;
+
+  color: var(--muted);
+
+  font-size: 13px;
+  font-weight: 720;
+}
+
+.badge {
+  padding:
+    8px 12px;
+
+  border-radius: 999px;
+
+  color: var(--deep);
+
+  background:
+    rgba(36, 92, 114, 0.1);
+
+  font-size: 11px;
+  font-weight: 900;
+
+  white-space: nowrap;
+}
+
+.body {
+  padding: 23px;
+}
+
+.family-console {
+  display: grid;
+
+  grid-template-columns:
+    1.12fr 0.88fr 0.88fr 1.12fr;
+
+  gap: 12px;
+}
+
+.console-card {
+  position: relative;
+
+  padding: 19px;
+
+  border:
+    1px solid rgba(24, 63, 80, 0.09);
+
+  border-radius: 22px;
+
+  background: #ffffff;
+
+  box-shadow:
+    var(--shadow-soft);
+}
+
+.console-card::before {
+  content: "";
+
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  top: 0;
+
+  height: 5px;
+
+  border-radius:
+    0 0 999px 999px;
+
+  background: var(--sky);
+}
+
+.console-card:nth-child(2)::before {
+  background: var(--deep);
+}
+
+.console-card:nth-child(3)::before {
+  background: var(--coral);
+}
+
+.console-card:nth-child(4)::before {
+  background: var(--lime);
+}
+
+.console-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-bottom: 12px;
+}
+
+.step {
+  width: 36px;
+  height: 36px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 12px;
+
+  color: #ffffff;
+  background: var(--sky);
+
+  font-size: 11px;
+  font-weight: 1000;
+}
+
+.console-card:nth-child(2) .step {
+  background: var(--deep);
+}
+
+.console-card:nth-child(3) .step {
+  background: var(--coral);
+}
+
+.console-card:nth-child(4) .step {
+  background: #87aa32;
+}
+
+.console-top h3 {
+  margin: 0;
+
+  font-size: 17px;
+  letter-spacing: -0.04em;
+}
+
+.console-card > p {
+  min-height: 30px;
+
+  margin:
+    0 0 12px;
+
+  color: var(--muted);
+
+  font-size: 9px;
+  line-height: 1.55;
+  font-weight: 730;
+}
+
+.field {
+  margin-top: 10px;
+}
+
+.field label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #4d6873;
+
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.field label small {
+  display: block;
+  margin-top: 3px;
+
+  color: var(--muted);
+
+  font-size: 8px;
+  font-weight: 720;
+}
+
+.input-wrap {
+  position: relative;
+}
+
+input,
+select {
+  width: 100%;
+  min-height: 52px;
+
+  padding:
+    13px 47px 13px 14px;
+
+  border:
+    1px solid rgba(24, 63, 80, 0.14);
+
+  border-radius: 16px;
+  outline: none;
+
+  color: var(--ink);
+  background: #ffffff;
+
+  font-size: 14px;
+  font-weight: 830;
+}
+
+select {
+  padding-right: 13px;
+}
+
+input:focus,
+select:focus {
+  border-color:
+    rgba(36, 92, 114, 0.42);
+
+  box-shadow:
+    0 0 0 4px rgba(36, 92, 114, 0.08);
+}
+
+.unit {
+  position: absolute;
+  right: 13px;
+  top: 50%;
+
+  transform:
+    translateY(-50%);
+
+  color: var(--muted);
+
+  font-size: 10px;
+  font-weight: 900;
+
+  pointer-events: none;
+}
+
+.pair {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 8px;
+}
+
+.option-bar {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr 1.2fr;
+
+  gap: 11px;
+
+  margin-top: 16px;
+}
+
+.option {
+  padding: 15px;
+
+  border:
+    1px solid rgba(24, 63, 80, 0.09);
+
+  border-radius: 19px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 9px 22px rgba(24, 63, 80, 0.05);
+}
+
+.option label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #4f6872;
+
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.formula-preview {
+  display: grid;
+
+  grid-template-columns:
+    auto 1fr;
+
+  gap: 12px;
+  align-items: center;
+}
+
+.formula-icon {
+  width: 46px;
+  height: 46px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 15px;
+
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--deep),
+      var(--sky)
+    );
+
+  font-weight: 950;
+}
+
+.formula-preview span {
+  display: block;
+
+  color: var(--muted);
+
+  font-size: 9px;
+  font-weight: 820;
+}
+
+.formula-preview strong {
+  display: block;
+  margin-top: 4px;
+
+  font-size: 14px;
+}
+
+.action-row {
+  display: grid;
+
+  grid-template-columns:
+    1fr 190px;
+
+  gap: 11px;
+
+  margin-top: 18px;
+}
+
+.calculate-button,
+.reset-button {
+  min-height: 59px;
+
+  border-radius: 17px;
+
+  font-weight: 950;
+}
+
+.calculate-button {
+  border: 0;
+
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--deep-2),
+      var(--deep),
+      var(--sky)
+    );
+
+  box-shadow:
+    0 17px 35px rgba(36, 92, 114, 0.21);
+}
+
+.reset-button {
+  border:
+    1px solid rgba(24, 63, 80, 0.13);
+
+  color: #586d76;
+  background: #ffffff;
+}
+
+.notice {
+  margin-top: 17px;
+
+  padding:
+    14px 16px;
+
+  border:
+    1px solid rgba(243, 200, 102, 0.26);
+
+  border-radius: 18px;
+
+  color: #705d2e;
+
+  background:
+    rgba(255, 246, 218, 0.82);
+
+  font-size: 11px;
+  line-height: 1.75;
+  font-weight: 760;
+}
+
+.results {
+  padding:
+    29px 0 19px;
+}
+
+.result-empty {
+  min-height: 220px;
+
+  display: grid;
+  place-items: center;
+
+  padding: 28px;
+
+  border:
+    1px dashed rgba(24, 63, 80, 0.25);
+
+  border-radius: 24px;
+
+  color: var(--muted);
+
+  background:
+    rgba(255, 255, 255, 0.72);
+
+  text-align: center;
+  font-weight: 850;
+}
+
+.result-content {
+  display: none;
+}
+
+.result-content.show {
+  display: block;
+}
+
+.prediction-ticket {
+  position: relative;
+  overflow: hidden;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    auto;
+
+  gap: 23px;
+  align-items: center;
+
+  padding: 28px;
+
+  border-radius: 29px;
+
+  color: #ffffff;
+
+  background:
+    radial-gradient(
+      circle at 91% 10%,
+      rgba(184, 220, 99, 0.23),
+      transparent 27%
+    ),
+    linear-gradient(
+      135deg,
+      var(--deep-2),
+      var(--deep) 60%,
+      #3f8ea0
+    );
+
+  box-shadow:
+    0 25px 55px rgba(24, 63, 80, 0.24);
+}
+
+.prediction-ticket::before {
+  content: "";
+
+  position: absolute;
+  left: -80px;
+  bottom: -120px;
+
+  width: 340px;
+  height: 220px;
+
+  border:
+    32px solid rgba(255, 255, 255, 0.055);
+
+  border-radius: 50%;
+}
+
+.ticket-copy,
+.ticket-number {
+  position: relative;
+  z-index: 1;
+}
+
+.ticket-copy > span {
+  display: block;
+
+  color:
+    rgba(255, 255, 255, 0.64);
+
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.ticket-copy h2 {
+  margin:
+    8px 0 0;
+
+  max-width: 820px;
+
+  font-size:
+    clamp(35px, 5.3vw, 60px);
+
+  line-height: 1.07;
+  letter-spacing: -0.06em;
+}
+
+.ticket-copy h2 b {
+  color: var(--lime);
+}
+
+.ticket-copy p {
+  max-width: 780px;
+
+  margin:
+    12px 0 0;
+
+  color:
+    rgba(255, 255, 255, 0.78);
+
+  font-size: 12px;
+  line-height: 1.75;
+  font-weight: 760;
+}
+
+.ticket-number {
+  min-width: 190px;
+
+  padding: 18px;
+
+  border:
+    1px solid rgba(255, 255, 255, 0.17);
+
+  border-radius: 22px;
+
+  background:
+    rgba(255, 255, 255, 0.1);
+
+  text-align: center;
+
+  backdrop-filter:
+    blur(8px);
+}
+
+.ticket-number span {
+  display: block;
+
+  color:
+    rgba(255, 255, 255, 0.63);
+
+  font-size: 9px;
+  font-weight: 830;
+}
+
+.ticket-number strong {
+  display: block;
+  margin-top: 8px;
+
+  color: var(--lime);
+
+  font-size: 34px;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.ticket-number small {
+  display: block;
+  margin-top: 7px;
+
+  color:
+    rgba(255, 255, 255, 0.66);
+
+  font-size: 9px;
+  font-weight: 740;
+}
+
+.metric-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 12px;
+
+  margin-top: 16px;
+}
+
+.metric {
+  padding: 18px;
+
+  border:
+    1px solid rgba(24, 63, 80, 0.09);
+
+  border-radius: 20px;
+
+  background: #ffffff;
+
+  box-shadow:
+    var(--shadow-soft);
+}
+
+.metric:nth-child(1) {
+  border-top:
+    5px solid var(--sky);
+}
+
+.metric:nth-child(2) {
+  border-top:
+    5px solid var(--lime);
+}
+
+.metric:nth-child(3) {
+  border-top:
+    5px solid var(--coral);
+}
+
+.metric:nth-child(4) {
+  border-top:
+    5px solid var(--purple);
+}
+
+.metric span {
+  display: block;
+
+  color: var(--muted);
+
+  font-size: 9px;
+  font-weight: 850;
+}
+
+.metric strong {
+  display: block;
+  margin-top: 7px;
+
+  font-size: 23px;
+  line-height: 1.12;
+  letter-spacing: -0.045em;
+}
+
+.metric small {
+  display: block;
+  margin-top: 7px;
+
+  color: #87999f;
+
+  font-size: 9px;
+  line-height: 1.5;
+  font-weight: 730;
+}
+
+.ruler-panel,
+.formula-panel,
+.velocity-panel {
+  margin-top: 16px;
+
+  padding: 20px;
+
+  border:
+    1px solid rgba(24, 63, 80, 0.09);
+
+  border-radius: 24px;
+
+  background: #ffffff;
+
+  box-shadow:
+    var(--shadow-soft);
+}
+
+.panel-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 15px;
+}
+
+.panel-head h3 {
+  margin: 0;
+
+  font-size: 19px;
+  letter-spacing: -0.035em;
+}
+
+.panel-head p {
+  margin:
+    5px 0 0;
+
+  color: var(--muted);
+
+  font-size: 10px;
+  font-weight: 740;
+}
+
+.panel-head span {
+  color: var(--deep);
+
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.ruler-layout {
+  display: grid;
+
+  grid-template-columns:
+    minmax(280px, 0.78fr)
+    minmax(0, 1.22fr);
+
+  gap: 18px;
+
+  margin-top: 17px;
+}
+
+.vertical-ruler {
+  position: relative;
+  overflow: hidden;
+
+  min-height: 590px;
+
+  border:
+    1px solid rgba(24, 63, 80, 0.09);
+
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #f4fafc 0 72px,
+      #ffffff 72px
+    );
+}
+
+.ticks {
+  position: absolute;
+  inset:
+    20px auto 20px 0;
+
+  width: 86px;
+}
+
+.tick {
+  position: absolute;
+  left: 0;
+
+  width: 86px;
+  height: 1px;
+
+  background:
+    rgba(24, 63, 80, 0.2);
+}
+
+.tick.major {
+  width: 72px;
+
+  background:
+    rgba(24, 63, 80, 0.42);
+}
+
+.tick span {
+  position: absolute;
+  left: 8px;
+  top: -9px;
+
+  color: #6c838c;
+
+  font-size: 8px;
+  font-weight: 850;
+}
+
+.range-band {
+  position: absolute;
+  left: 102px;
+  right: 26px;
+
+  border:
+    1px solid rgba(120, 163, 44, 0.25);
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(184, 220, 99, 0.36),
+      rgba(86, 185, 159, 0.27)
+    );
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+}
+
+.range-band span {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+
+  padding:
+    5px 7px;
+
+  border-radius: 999px;
+
+  color: #607f1c;
+  background: #ffffff;
+
+  font-size: 8px;
+  font-weight: 950;
+}
+
+.height-marker {
+  position: absolute;
+  left: 90px;
+  right: 16px;
+
+  display: grid;
+
+  grid-template-columns:
+    1fr auto;
+
+  gap: 9px;
+  align-items: center;
+
+  transform:
+    translateY(-50%);
+}
+
+.height-marker::before {
+  content: "";
+
+  height: 3px;
+
+  border-radius: 999px;
+
+  background: currentColor;
+}
+
+.height-marker b {
+  padding:
+    6px 8px;
+
+  border:
+    1px solid currentColor;
+
+  border-radius: 10px;
+
+  color: inherit;
+  background: #ffffff;
+
+  box-shadow:
+    0 7px 15px rgba(24, 63, 80, 0.09);
+
+  font-size: 9px;
+  white-space: nowrap;
+}
+
+.height-marker.target {
+  color: var(--deep);
+}
+
+.height-marker.child {
+  color: var(--sky);
+}
+
+.height-marker.father {
+  color: #32596a;
+}
+
+.height-marker.mother {
+  color: var(--coral);
+}
+
+.ruler-note {
+  position: absolute;
+  left: 102px;
+  bottom: 12px;
+
+  color: var(--muted);
+
+  font-size: 8px;
+  font-weight: 740;
+}
+
+.family-cards {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 11px;
+}
+
+.family-result {
+  padding: 17px;
+
+  border:
+    1px solid rgba(24, 63, 80, 0.09);
+
+  border-radius: 19px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #ffffff,
+      #f8fbfc
+    );
+}
+
+.family-result span {
+  display: block;
+
+  color: var(--muted);
+
+  font-size: 9px;
+  font-weight: 850;
+}
+
+.family-result strong {
+  display: block;
+  margin-top: 7px;
+
+  font-size: 24px;
+  letter-spacing: -0.045em;
+}
+
+.family-result small {
+  display: block;
+  margin-top: 7px;
+
+  color: #89999f;
+
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.formula-box {
+  grid-column:
+    1 / -1;
+
+  padding: 17px;
+
+  border:
+    1px solid rgba(91, 168, 207, 0.16);
+
+  border-radius: 19px;
+
+  background:
+    linear-gradient(
+      145deg,
+      var(--sky-soft),
+      #ffffff,
+      var(--lime-soft)
+    );
+}
+
+.formula-box span {
+  display: block;
+
+  color: var(--muted);
+
+  font-size: 9px;
+  font-weight: 850;
+}
+
+.formula-box strong {
+  display: block;
+  margin-top: 7px;
+
+  font-size: 18px;
+  line-height: 1.5;
+  letter-spacing: -0.03em;
+}
+
+.formula-box small {
+  display: block;
+  margin-top: 7px;
+
+  color: #70848b;
+
+  font-size: 9px;
+  line-height: 1.65;
+}
+
+.formula-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 11px;
+
+  margin-top: 16px;
+}
+
+.formula-card {
+  padding: 17px;
+
+  border:
+    1px solid rgba(24, 63, 80, 0.09);
+
+  border-radius: 19px;
+
+  background: #ffffff;
+}
+
+.formula-card span {
+  display: block;
+
+  color: var(--muted);
+
+  font-size: 9px;
+  font-weight: 850;
+}
+
+.formula-card strong {
+  display: block;
+  margin-top: 7px;
+
+  font-size: 22px;
+}
+
+.formula-card small {
+  display: block;
+  margin-top: 7px;
+
+  color: #88989e;
+
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.velocity-grid {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr 1.1fr;
+
+  gap: 11px;
+
+  margin-top: 16px;
+}
+
+.velocity-card {
+  padding: 17px;
+
+  border:
+    1px solid rgba(24, 63, 80, 0.09);
+
+  border-radius: 19px;
+
+  background: #ffffff;
+}
+
+.velocity-card span {
+  display: block;
+
+  color: var(--muted);
+
+  font-size: 9px;
+  font-weight: 850;
+}
+
+.velocity-card strong {
+  display: block;
+  margin-top: 7px;
+
+  font-size: 22px;
+}
+
+.velocity-card small {
+  display: block;
+  margin-top: 7px;
+
+  color: #88989e;
+
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.velocity-card.note {
+  background:
+    linear-gradient(
+      145deg,
+      var(--sun-soft),
+      #ffffff
+    );
+}
+
+.status {
+  margin-top: 16px;
+
+  padding:
+    16px 18px;
+
+  border:
+    1px solid rgba(86, 185, 159, 0.2);
+
+  border-radius: 19px;
+
+  color: #306c59;
+  background: var(--mint-soft);
+
+  font-size: 12px;
+  line-height: 1.75;
+  font-weight: 820;
+}
+
+.status.warn {
+  border-color:
+    rgba(243, 200, 102, 0.27);
+
+  color: #745d2c;
+  background: var(--sun-soft);
+}
+
+.utility {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 11px;
+
+  margin-top: 16px;
+}
+
+.utility button {
+  min-height: 49px;
+
+  border:
+    1px solid rgba(24, 63, 80, 0.13);
+
+  border-radius: 16px;
+
+  color: #586d76;
+  background: #ffffff;
+
+  font-weight: 900;
+}
+
+.guides {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 15px;
+}
+
+.guide {
+  padding: 21px;
+
+  border:
+    1px solid rgba(24, 63, 80, 0.09);
+
+  border-radius: 23px;
+
+  background: #ffffff;
+
+  box-shadow:
+    var(--shadow-soft);
+}
+
+.guide h3 {
+  margin: 0;
+
+  font-size: 18px;
+  letter-spacing: -0.035em;
+}
+
+.guide p {
+  margin:
+    9px 0 0;
+
+  color: var(--muted);
+
+  font-size: 12px;
+  line-height: 1.78;
+  font-weight: 730;
+}
+
+.guide a {
+  color: var(--deep);
+
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.faq {
+  display: grid;
+  gap: 10px;
+
+  margin-top: 18px;
+}
+
+details {
+  padding:
+    0 18px;
+
+  border:
+    1px solid rgba(24, 63, 80, 0.09);
+
+  border-radius: 18px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 8px 24px rgba(24, 63, 80, 0.05);
+}
+
+summary {
+  padding:
+    16px 0;
+
+  cursor: pointer;
+
+  font-size: 13px;
+  font-weight: 900;
+
+  list-style: none;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+details p {
+  margin: 0;
+
+  padding:
+    0 0 16px;
+
+  color: var(--muted);
+
+  font-size: 12px;
+  line-height: 1.75;
+  font-weight: 730;
+}
+
+footer {
+  padding:
+    32px 0 40px;
+}
+
+.foot {
+  padding: 22px;
+
+  border-radius: 25px;
+
+  color:
+    rgba(255, 255, 255, 0.8);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--deep-2),
+      var(--deep),
+      #477f85
+    );
+}
+
+.foot strong {
+  color: #ffffff;
+}
+
+.foot p {
+  max-width: 950px;
+
+  margin:
+    8px 0 0;
+
+  font-size: 11px;
+  line-height: 1.75;
+}
+
+@media (max-width: 1050px) {
+  .family-stage {
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+  .family-console {
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+  .metric-grid {
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+  .guides {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 800px) {
+  .head {
+    min-height: auto;
+
+    padding:
+      13px 0;
+
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .wrap {
+    width:
+      min(
+        var(--max),
+        calc(100% - 20px)
+      );
+  }
+
+  .growth-wall {
+    padding:
+      36px 21px 24px;
+  }
+
+  h1 {
+    font-size: 39px;
+    line-height: 1.11;
+    letter-spacing: -0.056em;
+  }
+
+  .family-stage,
+  .family-console,
+  .option-bar,
+  .prediction-ticket,
+  .ruler-layout,
+  .metric-grid,
+  .formula-grid,
+  .velocity-grid,
+  .utility {
+    grid-template-columns: 1fr;
+  }
+
+  .ticket-number {
+    width: 100%;
+    text-align: left;
+  }
+
+  .shell-head,
+  .panel-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .vertical-ruler {
+    min-height: 590px;
+  }
+
+  .family-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .growth-wall,
+  .shell,
+  .console-card,
+  .prediction-ticket,
+  .ruler-panel,
+  .formula-panel,
+  .velocity-panel,
+  .guide,
+  .foot {
+    border-radius: 21px;
+  }
+
+  .family-stage,
+  .pair,
+  .action-row {
+    grid-template-columns: 1fr;
+  }
+
+  .person {
+    min-height: 170px;
+  }
+}
+
+@media print {
+  header,
+  .hero,
+  #calculator,
+  #guide,
+  footer,
+  .utility {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff;
+  }
+
+  .result-content {
+    display: block !important;
+  }
+
+  .results {
+    padding: 0;
+  }
+
+  .prediction-ticket,
+  .metric,
+  .ruler-panel,
+  .formula-panel,
+  .velocity-panel,
+  .status {
+    box-shadow: none;
+    break-inside: avoid;
+  }
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="wrap head">
+    <a
+      class="brand"
+      href="https://barohaegyeol-tools.pages.dev/"
+      aria-label="바로해결툴즈 홈"
+    >
+      <div class="logo">
+        B
+      </div>
+
+      <div>
+        바로해결툴즈
+
+        <small>
+          아이 성장 · 부모키 · 유전적 목표키 계산
+        </small>
+      </div>
+    </a>
+
+    <nav
+      class="nav"
+      aria-label="페이지 메뉴"
+    >
+      <a href="#calculator">
+        가족키 입력
+      </a>
+
+      <a href="#results">
+        예상키 결과
+      </a>
+
+      <a href="#guide">
+        계산 기준
+      </a>
+
+      <a href="https://barohaegyeol-tools.pages.dev/">
+        전체 도구
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <div class="growth-wall">
+      <div class="hero-copy">
+        <div class="chips">
+          <span class="chip primary">
+            ● 아빠키·엄마키·아이 성별로 계산
+          </span>
+
+          <span class="chip">
+            목표키 중심값 · 참고 범위 · 성장기록
+          </span>
+        </div>
+
+        <h1>
+          <span class="title-line">
+            우리 아이 성인키,
+          </span>
+
+          <span class="title-line title-accent">
+            부모키로 어느 정도 예상될까?
+          </span>
+        </h1>
+
+        <p>
+          부모의 키와 아이 성별을 입력하면
+          <strong>
+            중간부모키 공식에 따른 유전적 목표키 중심값과 참고 범위
+          </strong>
+          를 계산합니다.
+          현재 키와 이전 측정 기록이 있으면 키 차이와 연환산 성장속도도 함께 정리합니다.
+        </p>
+
+        <div class="actions">
+          <a
+            class="btn primary"
+            href="#calculator"
+          >
+            아이 예상키 계산하기
+          </a>
+
+          <a
+            class="btn secondary"
+            href="#guide"
+          >
+            공식과 한계 확인
+          </a>
+        </div>
+      </div>
+
+      <div class="family-stage">
+        <article class="person father">
+          <span>
+            아빠키 예시
+          </span>
+
+          <strong>
+            178cm
+          </strong>
+
+          <small>
+            생물학적 부모 키 입력
+          </small>
+
+          <b class="height-tag">
+            FATHER
+          </b>
+        </article>
+
+        <article class="person mother">
+          <span>
+            엄마키 예시
+          </span>
+
+          <strong>
+            163cm
+          </strong>
+
+          <small>
+            생물학적 부모 키 입력
+          </small>
+
+          <b class="height-tag">
+            MOTHER
+          </b>
+        </article>
+
+        <article class="person child">
+          <span>
+            현재 키 예시
+          </span>
+
+          <strong>
+            132cm
+          </strong>
+
+          <small>
+            성장 기록 비교용
+          </small>
+
+          <b class="height-tag">
+            NOW
+          </b>
+        </article>
+
+        <article class="person target">
+          <span>
+            남아 목표키 예시
+          </span>
+
+          <strong>
+            177cm
+          </strong>
+
+          <small>
+            공식 중심값·범위 별도 표시
+          </small>
+
+          <b class="height-tag">
+            TARGET
+          </b>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section
+  class="section"
+  id="calculator"
+>
+  <div class="wrap">
+    <div class="shell">
+      <div class="shell-head">
+        <div>
+          <h2>
+            가족 키 성장 측정실
+          </h2>
+
+          <p>
+            부모키를 먼저 입력하고 아이의 현재 성장 기록을 추가하세요.
+          </p>
+        </div>
+
+        <div class="badge">
+          PARENTS → TARGET HEIGHT → GROWTH RECORD
+        </div>
+      </div>
+
+      <div class="body">
+        <form id="calculatorForm">
+          <div class="family-console">
+            <section class="console-card">
+              <div class="console-top">
+                <div class="step">
+                  01
+                </div>
+
+                <h3>
+                  아이 정보
+                </h3>
+              </div>
+
+              <p>
+                성별에 따라 부모키 보정식이 달라집니다.
+              </p>
+
+              <div class="field">
+                <label for="sex">
+                  아이 성별
+                </label>
+
+                <select id="sex">
+                  <option
+                    value="boy"
+                    selected
+                  >
+                    남아
+                  </option>
+
+                  <option value="girl">
+                    여아
+                  </option>
+                </select>
+              </div>
+
+              <div class="pair">
+                <div class="field">
+                  <label for="ageYears">
+                    만 나이
+                  </label>
+
+                  <div class="input-wrap">
+                    <input
+                      id="ageYears"
+                      type="number"
+                      inputmode="numeric"
+                      min="0"
+                      max="20"
+                      step="1"
+                      value="9"
+                      required
+                    >
+
+                    <span class="unit">
+                      세
+                    </span>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="ageMonths">
+                    추가 개월
+                  </label>
+
+                  <div class="input-wrap">
+                    <input
+                      id="ageMonths"
+                      type="number"
+                      inputmode="numeric"
+                      min="0"
+                      max="11"
+                      step="1"
+                      value="0"
+                      required
+                    >
+
+                    <span class="unit">
+                      개월
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="currentHeight">
+                  현재 키
+                </label>
+
+                <div class="input-wrap">
+                  <input
+                    id="currentHeight"
+                    class="height-input"
+                    type="number"
+                    inputmode="decimal"
+                    min="30"
+                    max="250"
+                    step="0.1"
+                    value="132"
+                    required
+                  >
+
+                  <span class="unit height-unit">
+                    cm
+                  </span>
+                </div>
+              </div>
+            </section>
+
+            <section class="console-card">
+              <div class="console-top">
+                <div class="step">
+                  02
+                </div>
+
+                <h3>
+                  아빠 키
+                </h3>
+              </div>
+
+              <p>
+                가능하면 신발을 벗고 측정한 성인 키를 입력하세요.
+              </p>
+
+              <div class="field">
+                <label for="fatherHeight">
+                  아빠 키
+                </label>
+
+                <div class="input-wrap">
+                  <input
+                    id="fatherHeight"
+                    class="height-input"
+                    type="number"
+                    inputmode="decimal"
+                    min="100"
+                    max="250"
+                    step="0.1"
+                    value="178"
+                    required
+                  >
+
+                  <span class="unit height-unit">
+                    cm
+                  </span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="fatherSource">
+                  입력 기준
+                </label>
+
+                <select id="fatherSource">
+                  <option
+                    value="measured"
+                    selected
+                  >
+                    직접 측정값
+                  </option>
+
+                  <option value="record">
+                    건강검진·기록값
+                  </option>
+
+                  <option value="memory">
+                    기억하는 키
+                  </option>
+                </select>
+              </div>
+            </section>
+
+            <section class="console-card">
+              <div class="console-top">
+                <div class="step">
+                  03
+                </div>
+
+                <h3>
+                  엄마 키
+                </h3>
+              </div>
+
+              <p>
+                가능하면 신발을 벗고 측정한 성인 키를 입력하세요.
+              </p>
+
+              <div class="field">
+                <label for="motherHeight">
+                  엄마 키
+                </label>
+
+                <div class="input-wrap">
+                  <input
+                    id="motherHeight"
+                    class="height-input"
+                    type="number"
+                    inputmode="decimal"
+                    min="100"
+                    max="250"
+                    step="0.1"
+                    value="163"
+                    required
+                  >
+
+                  <span class="unit height-unit">
+                    cm
+                  </span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="motherSource">
+                  입력 기준
+                </label>
+
+                <select id="motherSource">
+                  <option
+                    value="measured"
+                    selected
+                  >
+                    직접 측정값
+                  </option>
+
+                  <option value="record">
+                    건강검진·기록값
+                  </option>
+
+                  <option value="memory">
+                    기억하는 키
+                  </option>
+                </select>
+              </div>
+            </section>
+
+            <section class="console-card">
+              <div class="console-top">
+                <div class="step">
+                  04
+                </div>
+
+                <h3>
+                  이전 성장 기록
+                </h3>
+              </div>
+
+              <p>
+                두 번의 측정값이 있으면 연환산 성장속도를 계산합니다.
+              </p>
+
+              <div class="field">
+                <label for="currentDate">
+                  현재 키 측정일
+                </label>
+
+                <input
+                  id="currentDate"
+                  type="date"
+                  required
+                >
+              </div>
+
+              <div class="pair">
+                <div class="field">
+                  <label for="previousHeight">
+                    이전 키
+
+                    <small>
+                      선택 입력
+                    </small>
+                  </label>
+
+                  <div class="input-wrap">
+                    <input
+                      id="previousHeight"
+                      class="height-input"
+                      type="number"
+                      inputmode="decimal"
+                      min="30"
+                      max="250"
+                      step="0.1"
+                      value="129"
+                    >
+
+                    <span class="unit height-unit">
+                      cm
+                    </span>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="previousDate">
+                    이전 측정일
+                  </label>
+
+                  <input
+                    id="previousDate"
+                    type="date"
+                  >
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <div class="option-bar">
+            <div class="option">
+              <label for="displayUnit">
+                입력·결과 단위
+              </label>
+
+              <select id="displayUnit">
+                <option
+                  value="cm"
+                  selected
+                >
+                  센티미터 cm
+                </option>
+
+                <option value="in">
+                  인치 in
+                </option>
+              </select>
+            </div>
+
+            <div class="option">
+              <label for="rangeMode">
+                목표키 범위
+              </label>
+
+              <select id="rangeMode">
+                <option
+                  value="aap"
+                  selected
+                >
+                  중심값 ±10.2cm
+                </option>
+
+                <option value="custom">
+                  직접 범위 설정
+                </option>
+              </select>
+            </div>
+
+            <div class="option formula-preview">
+              <div class="formula-icon">
+                ±
+              </div>
+
+              <div>
+                <span>
+                  현재 적용 범위
+                </span>
+
+                <strong id="rangePreview">
+                  목표키 중심값에서 위·아래 10.2cm
+                </strong>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="option"
+            id="customRangeBox"
+            style="display:none;margin-top:11px"
+          >
+            <label for="customRange">
+              직접 범위 폭
+            </label>
+
+            <div class="input-wrap">
+              <input
+                id="customRange"
+                type="number"
+                inputmode="decimal"
+                min="1"
+                max="30"
+                step="0.1"
+                value="10.2"
+              >
+
+              <span class="unit">
+                cm
+              </span>
+            </div>
+          </div>
+
+          <div class="action-row">
+            <button
+              class="calculate-button"
+              type="submit"
+            >
+              아이 예상키와 성장 기록 계산하기
+            </button>
+
+            <button
+              class="reset-button"
+              type="button"
+              id="resetButton"
+            >
+              입력값 초기화
+            </button>
+          </div>
+        </form>
+
+        <div class="notice">
+          이 결과는 부모키를 이용한 유전적 목표키 참고값입니다.
+          실제 성인키는 유전 외에도 출생 정보, 영양, 수면, 만성질환,
+          호르몬, 사춘기 시기와 치료 여부 등에 영향을 받습니다.
+          성장곡선에서 키 백분위가 지속적으로 떨어지거나 성장에 대한 우려가 있다면
+          소아청소년과 진료가 우선입니다.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section
+  class="results"
+  id="results"
+>
+  <div class="wrap">
+    <div
+      class="result-empty"
+      id="resultEmpty"
+    >
+      부모키와 아이 정보를 입력하면<br>
+      유전적 목표키 중심값과 참고 범위가 표시됩니다.
+    </div>
+
+    <div
+      class="result-content"
+      id="resultContent"
+    >
+      <section class="prediction-ticket">
+        <div class="ticket-copy">
+          <span>
+            GENETIC TARGET HEIGHT
+          </span>
+
+          <h2 id="resultTitle">
+            유전적 목표키는 <b>-</b>입니다
+          </h2>
+
+          <p id="resultMessage">
+            -
+          </p>
+        </div>
+
+        <div class="ticket-number">
+          <span>
+            목표키 중심값
+          </span>
+
+          <strong id="targetMain">
+            -
+          </strong>
+
+          <small id="targetRangeSmall">
+            -
+          </small>
+        </div>
+      </section>
+
+      <div class="metric-grid">
+        <article class="metric">
+          <span>
+            목표키 참고 범위
+          </span>
+
+          <strong id="rangeResult">
+            -
+          </strong>
+
+          <small id="rangeDetail">
+            -
+          </small>
+        </article>
+
+        <article class="metric">
+          <span>
+            부모 평균 키
+          </span>
+
+          <strong id="parentAverageResult">
+            -
+          </strong>
+
+          <small id="parentAverageDetail">
+            -
+          </small>
+        </article>
+
+        <article class="metric">
+          <span>
+            현재 키와 중심값 차이
+          </span>
+
+          <strong id="gapResult">
+            -
+          </strong>
+
+          <small id="gapDetail">
+            -
+          </small>
+        </article>
+
+        <article class="metric">
+          <span>
+            최근 연환산 성장속도
+          </span>
+
+          <strong id="velocityResult">
+            -
+          </strong>
+
+          <small id="velocityDetail">
+            -
+          </small>
+        </article>
+      </div>
+
+      <section class="ruler-panel">
+        <div class="panel-head">
+          <div>
+            <h3>
+              가족 키와 목표키 위치
+            </h3>
+
+            <p>
+              세로 눈금은 입력한 가족 키와 목표 범위를 함께 보기 위한 시각화입니다.
+            </p>
+          </div>
+
+          <span id="rulerSummary">
+            -
+          </span>
+        </div>
+
+        <div class="ruler-layout">
+          <div
+            class="vertical-ruler"
+            id="ruler"
+          >
+            <div
+              class="ticks"
+              id="ticks"
+            ></div>
+
+            <div
+              class="range-band"
+              id="rangeBand"
+            >
+              <span>
+                목표 범위
+              </span>
+            </div>
+
+            <div
+              class="height-marker target"
+              id="targetMarker"
+            >
+              <b>
+                목표 -
+              </b>
+            </div>
+
+            <div
+              class="height-marker child"
+              id="childMarker"
+            >
+              <b>
+                현재 -
+              </b>
+            </div>
+
+            <div
+              class="height-marker father"
+              id="fatherMarker"
+            >
+              <b>
+                아빠 -
+              </b>
+            </div>
+
+            <div
+              class="height-marker mother"
+              id="motherMarker"
+            >
+              <b>
+                엄마 -
+              </b>
+            </div>
+
+            <div class="ruler-note">
+              눈금 단위 cm · 위치 비교용
+            </div>
+          </div>
+
+          <div class="family-cards">
+            <article class="family-result">
+              <span>
+                아빠 키
+              </span>
+
+              <strong id="fatherResult">
+                -
+              </strong>
+
+              <small id="fatherSourceResult">
+                -
+              </small>
+            </article>
+
+            <article class="family-result">
+              <span>
+                엄마 키
+              </span>
+
+              <strong id="motherResult">
+                -
+              </strong>
+
+              <small id="motherSourceResult">
+                -
+              </small>
+            </article>
+
+            <article class="family-result">
+              <span>
+                아이 현재 키
+              </span>
+
+              <strong id="currentResult">
+                -
+              </strong>
+
+              <small id="ageResult">
+                -
+              </small>
+            </article>
+
+            <article class="family-result">
+              <span>
+                단순 수치 비율
+              </span>
+
+              <strong id="ratioResult">
+                -
+              </strong>
+
+              <small>
+                현재 키 ÷ 목표키이며 성장 완료율을 뜻하지 않습니다.
+              </small>
+            </article>
+
+            <div class="formula-box">
+              <span>
+                적용 계산식
+              </span>
+
+              <strong id="formulaResult">
+                -
+              </strong>
+
+              <small>
+                두 부모의 키와 아이 성별을 이용한 중간부모키 공식입니다.
+                범위 안에 반드시 들어간다는 뜻은 아닙니다.
+              </small>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="formula-panel">
+        <div class="panel-head">
+          <div>
+            <h3>
+              예상키 계산 내역
+            </h3>
+
+            <p>
+              보정 전 부모 평균과 성별 보정값을 분리해 보여줍니다.
+            </p>
+          </div>
+
+          <span id="formulaSummary">
+            -
+          </span>
+        </div>
+
+        <div class="formula-grid">
+          <article class="formula-card">
+            <span>
+              부모키 합계
+            </span>
+
+            <strong id="parentSumResult">
+              -
+            </strong>
+
+            <small>
+              아빠키 + 엄마키
+            </small>
+          </article>
+
+          <article class="formula-card">
+            <span>
+              성별 보정값
+            </span>
+
+            <strong id="sexAdjustmentResult">
+              -
+            </strong>
+
+            <small id="sexAdjustmentDetail">
+              -
+            </small>
+          </article>
+
+          <article class="formula-card">
+            <span>
+              최종 중심값
+            </span>
+
+            <strong id="finalCenterResult">
+              -
+            </strong>
+
+            <small>
+              보정된 부모키 합계 ÷ 2
+            </small>
+          </article>
+        </div>
+      </section>
+
+      <section class="velocity-panel">
+        <div class="panel-head">
+          <div>
+            <h3>
+              최근 성장 기록
+            </h3>
+
+            <p>
+              이전 키와 현재 키의 차이를 측정 간격으로 나눈 연환산 값입니다.
+            </p>
+          </div>
+
+          <span id="velocitySummary">
+            -
+          </span>
+        </div>
+
+        <div class="velocity-grid">
+          <article class="velocity-card">
+            <span>
+              측정 간격
+            </span>
+
+            <strong id="intervalResult">
+              -
+            </strong>
+
+            <small id="intervalDetail">
+              -
+            </small>
+          </article>
+
+          <article class="velocity-card">
+            <span>
+              키 변화
+            </span>
+
+            <strong id="changeResult">
+              -
+            </strong>
+
+            <small id="changeDetail">
+              -
+            </small>
+          </article>
+
+          <article class="velocity-card note">
+            <span>
+              해석 주의
+            </span>
+
+            <strong>
+              한 번보다 추세
+            </strong>
+
+            <small>
+              성장속도는 나이·사춘기 단계에 따라 달라지며 측정 오차도 영향을 줍니다.
+            </small>
+          </article>
+        </div>
+      </section>
+
+      <div
+        class="status"
+        id="statusBox"
+      >
+        -
+      </div>
+
+      <div class="utility">
+        <button
+          type="button"
+          id="copyButton"
+        >
+          결과 복사
+        </button>
+
+        <button
+          type="button"
+          id="printButton"
+        >
+          인쇄·PDF 저장
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section
+  class="section"
+  id="guide"
+>
+  <div class="wrap">
+    <div class="guides">
+      <article class="guide">
+        <h3>
+          중간부모키 공식
+        </h3>
+
+        <p>
+          남아는 엄마키에 13cm를 더한 뒤 아빠키와 평균하고,
+          여아는 아빠키에서 13cm를 뺀 뒤 엄마키와 평균합니다.
+          미국소아과학회 자료는 목표키 범위를 중심값 ±10.2cm로 안내합니다.
+
+          <a
+            href="https://eqipp.aap.org/courses/growth2/mn/clinical-guide/popups/mid-parental-height"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            AAP 공식 확인
+          </a>
+        </p>
+      </article>
+
+      <article class="guide">
+        <h3>
+          성장차트는 추세 도구
+        </h3>
+
+        <p>
+          성장차트는 같은 성별과 나이의 아이들 사이에서 현재 키 위치를 보는 도구입니다.
+          한 번의 측정치만으로 성장패턴을 판단하기보다
+          여러 시점의 기록을 이어서 확인해야 합니다.
+
+          <a
+            href="https://www.cdc.gov/growthcharts/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            CDC 성장차트 안내
+          </a>
+        </p>
+      </article>
+
+      <article class="guide">
+        <h3>
+          예상키가 확정값은 아님
+        </h3>
+
+        <p>
+          부모키 공식은 유전적 목표 범위를 빠르게 보는 참고 계산입니다.
+          사춘기 시작 시기, 질환, 영양과 수면,
+          약물·호르몬 상태에 따라 실제 성인키는 달라질 수 있습니다.
+        </p>
+      </article>
+    </div>
+
+    <div class="faq">
+      <details>
+        <summary>
+          부모키 평균만 내면 안 되나요?
+        </summary>
+
+        <p>
+          남녀의 평균 성인키 차이를 반영하기 위해
+          남아는 +13cm, 여아는 -13cm 보정을 적용합니다.
+          단순 부모 평균과는 결과가 다를 수 있습니다.
+        </p>
+      </details>
+
+      <details>
+        <summary>
+          목표키 범위 밖이면 이상한가요?
+        </summary>
+
+        <p>
+          아닙니다.
+          목표 범위는 통계적 참고값이며 모든 아이가 그 안에 들어가는 것은 아닙니다.
+          실제 평가는 현재 키, 성장속도, 사춘기 단계와 진료 기록을 함께 봐야 합니다.
+        </p>
+      </details>
+
+      <details>
+        <summary>
+          이전 키는 얼마나 간격을 두고 재야 하나요?
+        </summary>
+
+        <p>
+          짧은 기간에는 자세와 측정시간 차이가 크게 보일 수 있습니다.
+          같은 장소와 조건에서 반복 측정하고,
+          성장속도를 볼 때는 충분한 간격의 기록을 사용하는 편이 좋습니다.
+        </p>
+      </details>
+
+      <details>
+        <summary>
+          현재 키가 목표키보다 이미 크면 어떻게 표시되나요?
+        </summary>
+
+        <p>
+          현재 키와 목표 중심값의 차이를 그대로 표시합니다.
+          나이가 많아 성장이 거의 끝난 경우에도
+          부모키 공식은 유전적 참고값일 뿐 현재 성인키를 수정하지 않습니다.
+        </p>
+      </details>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <strong>
+        바로해결툴즈
+      </strong>
+
+      <p>
+        본 결과는 부모키를 이용한 유전적 목표키 참고 계산이며
+        성장장애 진단, 골연령 판독, 성장호르몬 치료 판단 또는 실제 성인키 확정을 대신하지 않습니다.
+        성장곡선 변화나 성장에 대한 우려가 있다면
+        소아청소년과에서 정확한 측정과 평가를 받으세요.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+"use strict";
+
+const STORAGE_KEY =
+  "childHeightPredictor";
+
+const AAP_RANGE =
+  10.2;
+
+const CM_PER_INCH =
+  2.54;
+
+const $ =
+  (id) =>
+    document.getElementById(id);
+
+const form =
+  $("calculatorForm");
+
+const inputs = {
+  sex:
+    $("sex"),
+
+  ageYears:
+    $("ageYears"),
+
+  ageMonths:
+    $("ageMonths"),
+
+  currentHeight:
+    $("currentHeight"),
+
+  fatherHeight:
+    $("fatherHeight"),
+
+  motherHeight:
+    $("motherHeight"),
+
+  fatherSource:
+    $("fatherSource"),
+
+  motherSource:
+    $("motherSource"),
+
+  currentDate:
+    $("currentDate"),
+
+  previousHeight:
+    $("previousHeight"),
+
+  previousDate:
+    $("previousDate"),
+
+  displayUnit:
+    $("displayUnit"),
+
+  rangeMode:
+    $("rangeMode"),
+
+  customRange:
+    $("customRange")
+};
+
+const sourceLabels = {
+  measured:
+    "직접 측정값",
+
+  record:
+    "건강검진·기록값",
+
+  memory:
+    "기억하는 키"
+};
+
+let previousUnit =
+  "cm";
+
+let lastResultText =
+  "";
+
+function numberValue(
+  element
+) {
+  const value =
+    element.value.trim();
+
+  if (
+    value ===
+    ""
+  ) {
+    return null;
+  }
+
+  return Number(
+    value
+  );
+}
+
+function dateValue(
+  date
+) {
+  return (
+    `${date.getFullYear()}-` +
+    `${String(
+      date.getMonth() + 1
+    ).padStart(
+      2,
+      "0"
+    )}-` +
+    `${String(
+      date.getDate()
+    ).padStart(
+      2,
+      "0"
+    )}`
+  );
+}
+
+function parseDate(
+  value
+) {
+  if (
+    !value
+  ) {
+    return null;
+  }
+
+  const [
+    year,
+    month,
+    day
+  ] =
+    value
+      .split("-")
+      .map(
+        Number
+      );
+
+  const result =
+    new Date(
+      year,
+      month - 1,
+      day,
+      12
+    );
+
+  if (
+    Number.isNaN(
+      result.getTime()
+    )
+  ) {
+    return null;
+  }
+
+  return result;
+}
+
+function dayDifference(
+  start,
+  end
+) {
+  const startUtc =
+    Date.UTC(
+      start.getFullYear(),
+      start.getMonth(),
+      start.getDate()
+    );
+
+  const endUtc =
+    Date.UTC(
+      end.getFullYear(),
+      end.getMonth(),
+      end.getDate()
+    );
+
+  return Math.round(
+    (
+      endUtc -
+      startUtc
+    ) /
+    86400000
+  );
+}
+
+function inputToCm(
+  value
+) {
+  return (
+    inputs.displayUnit.value ===
+    "in"
+      ? value *
+        CM_PER_INCH
+      : value
+  );
+}
+
+function feetAndInches(
+  cm
+) {
+  const totalInches =
+    cm /
+    CM_PER_INCH;
+
+  let feet =
+    Math.floor(
+      totalInches /
+      12
+    );
+
+  let inches =
+    Math.round(
+      (
+        totalInches -
+        feet *
+        12
+      ) *
+      10
+    ) /
+    10;
+
+  if (
+    inches >=
+    12
+  ) {
+    feet +=
+      1;
+
+    inches =
+      0;
+  }
+
+  return (
+    `${feet}ft ` +
+    `${inches.toFixed(1)}in`
+  );
+}
+
+function fullHeightText(
+  cm,
+  digits = 1
+) {
+  if (
+    inputs.displayUnit.value ===
+    "in"
+  ) {
+    return (
+      `${(
+        cm /
+        CM_PER_INCH
+      ).toFixed(
+        digits
+      )}in ` +
+      `(${cm.toFixed(1)}cm)`
+    );
+  }
+
+  return (
+    `${cm.toFixed(
+      digits
+    )}cm ` +
+    `(${feetAndInches(cm)})`
+  );
+}
+
+function shortHeightText(
+  cm
+) {
+  if (
+    inputs.displayUnit.value ===
+    "in"
+  ) {
+    return (
+      `${(
+        cm /
+        CM_PER_INCH
+      ).toFixed(1)}in`
+    );
+  }
+
+  return (
+    `${cm.toFixed(1)}cm`
+  );
+}
+
+function signedHeightText(
+  cm
+) {
+  const sign =
+    cm >
+    0
+      ? "+"
+      : "";
+
+  if (
+    inputs.displayUnit.value ===
+    "in"
+  ) {
+    return (
+      `${sign}${(
+        cm /
+        CM_PER_INCH
+      ).toFixed(1)}in`
+    );
+  }
+
+  return (
+    `${sign}${cm.toFixed(1)}cm`
+  );
+}
+
+function calculateTargetHeight(
+  fatherHeight,
+  motherHeight,
+  sex
+) {
+  if (
+    sex ===
+    "boy"
+  ) {
+    return (
+      fatherHeight +
+      motherHeight +
+      13
+    ) /
+    2;
+  }
+
+  return (
+    fatherHeight +
+    motherHeight -
+    13
+  ) /
+  2;
+}
+
+function updateRangeInterface() {
+  const custom =
+    inputs.rangeMode.value ===
+    "custom";
+
+  $("customRangeBox").style.display =
+    custom
+      ? "block"
+      : "none";
+
+  if (
+    custom
+  ) {
+    const customRange =
+      Number(
+        inputs.customRange.value ||
+        10.2
+      );
+
+    $("rangePreview").textContent =
+      `목표키 중심값에서 위·아래 ${customRange.toFixed(1)}cm`;
+  } else {
+    $("rangePreview").textContent =
+      "목표키 중심값에서 위·아래 10.2cm";
+  }
+
+  saveForm();
+}
+
+function updateFormulaPreview() {
+  const formula =
+    inputs.sex.value ===
+    "boy"
+      ? "남아: (아빠키 + 엄마키 + 13cm) ÷ 2"
+      : "여아: (아빠키 + 엄마키 - 13cm) ÷ 2";
+
+  $("rangePreview").title =
+    formula;
+}
+
+function convertHeightInputs() {
+  const nextUnit =
+    inputs.displayUnit.value;
+
+  if (
+    nextUnit ===
+    previousUnit
+  ) {
+    return;
+  }
+
+  document
+    .querySelectorAll(
+      ".height-input"
+    )
+    .forEach(
+      (element) => {
+        if (
+          element.value.trim() ===
+          ""
+        ) {
+          return;
+        }
+
+        const value =
+          Number(
+            element.value
+          );
+
+        const converted =
+          previousUnit ===
+            "cm" &&
+          nextUnit ===
+            "in"
+            ? value /
+              CM_PER_INCH
+            : value *
+              CM_PER_INCH;
+
+        element.value =
+          converted.toFixed(
+            1
+          );
+      }
+    );
+
+  document
+    .querySelectorAll(
+      ".height-unit"
+    )
+    .forEach(
+      (element) => {
+        element.textContent =
+          nextUnit;
+      }
+    );
+
+  previousUnit =
+    nextUnit;
+
+  saveForm();
+}
+
+function setHeightMarker(
+  id,
+  height,
+  minimum,
+  maximum,
+  label
+) {
+  const innerTop =
+    20;
+
+  const usableHeight =
+    550;
+
+  const ratio =
+    (
+      maximum -
+      height
+    ) /
+    (
+      maximum -
+      minimum
+    );
+
+  const top =
+    innerTop +
+    Math.min(
+      1,
+      Math.max(
+        0,
+        ratio
+      )
+    ) *
+    usableHeight;
+
+  const marker =
+    $(id);
+
+  marker.style.top =
+    `${top}px`;
+
+  marker
+    .querySelector(
+      "b"
+    )
+    .textContent =
+      label;
+}
+
+function renderRuler(
+  values
+) {
+  const allValues = [
+    values.father,
+    values.mother,
+    values.current,
+    values.low,
+    values.high,
+    values.target
+  ];
+
+  let minimum =
+    Math.floor(
+      (
+        Math.min(
+          ...allValues
+        ) -
+        15
+      ) /
+      5
+    ) *
+    5;
+
+  let maximum =
+    Math.ceil(
+      (
+        Math.max(
+          ...allValues
+        ) +
+        15
+      ) /
+      5
+    ) *
+    5;
+
+  minimum =
+    Math.max(
+      40,
+      minimum
+    );
+
+  maximum =
+    Math.min(
+      230,
+      maximum
+    );
+
+  if (
+    maximum -
+    minimum <
+    60
+  ) {
+    minimum =
+      Math.max(
+        40,
+        minimum -
+        20
+      );
+
+    maximum =
+      Math.min(
+        230,
+        maximum +
+        20
+      );
+  }
+
+  const ticks =
+    $("ticks");
+
+  ticks.innerHTML =
+    "";
+
+  for (
+    let value = minimum;
+    value <= maximum;
+    value += 5
+  ) {
+    const ratio =
+      (
+        maximum -
+        value
+      ) /
+      (
+        maximum -
+        minimum
+      );
+
+    const top =
+      20 +
+      ratio *
+      550;
+
+    const tick =
+      document.createElement(
+        "div"
+      );
+
+    tick.className =
+      `tick ${
+        value %
+        10 ===
+        0
+          ? "major"
+          : ""
+      }`;
+
+    tick.style.top =
+      `${top}px`;
+
+    tick.innerHTML =
+      value %
+      10 ===
+      0
+        ? `<span>${value}cm</span>`
+        : "";
+
+    ticks.appendChild(
+      tick
+    );
+  }
+
+  const rangeTop =
+    20 +
+    (
+      maximum -
+      values.high
+    ) /
+    (
+      maximum -
+      minimum
+    ) *
+    550;
+
+  const rangeBottom =
+    20 +
+    (
+      maximum -
+      values.low
+    ) /
+    (
+      maximum -
+      minimum
+    ) *
+    550;
+
+  const rangeBand =
+    $("rangeBand");
+
+  rangeBand.style.top =
+    `${rangeTop}px`;
+
+  rangeBand.style.height =
+    `${Math.max(
+      12,
+      rangeBottom -
+      rangeTop
+    )}px`;
+
+  setHeightMarker(
+    "targetMarker",
+    values.target,
+    minimum,
+    maximum,
+    `목표 ${values.target.toFixed(1)}cm`
+  );
+
+  setHeightMarker(
+    "childMarker",
+    values.current,
+    minimum,
+    maximum,
+    `현재 ${values.current.toFixed(1)}cm`
+  );
+
+  setHeightMarker(
+    "fatherMarker",
+    values.father,
+    minimum,
+    maximum,
+    `아빠 ${values.father.toFixed(1)}cm`
+  );
+
+  setHeightMarker(
+    "motherMarker",
+    values.mother,
+    minimum,
+    maximum,
+    `엄마 ${values.mother.toFixed(1)}cm`
+  );
+
+  $("rulerSummary").textContent =
+    `눈금 ${minimum}~${maximum}cm`;
+}
+
+function calculate(
+  event
+) {
+  event.preventDefault();
+
+  const rawFather =
+    numberValue(
+      inputs.fatherHeight
+    );
+
+  const rawMother =
+    numberValue(
+      inputs.motherHeight
+    );
+
+  const rawCurrent =
+    numberValue(
+      inputs.currentHeight
+    );
+
+  const rawPrevious =
+    numberValue(
+      inputs.previousHeight
+    );
+
+  const ageYears =
+    numberValue(
+      inputs.ageYears
+    );
+
+  const ageMonths =
+    numberValue(
+      inputs.ageMonths
+    );
+
+  const fatherHeight =
+    rawFather ===
+    null
+      ? NaN
+      : inputToCm(
+          rawFather
+        );
+
+  const motherHeight =
+    rawMother ===
+    null
+      ? NaN
+      : inputToCm(
+          rawMother
+        );
+
+  const currentHeight =
+    rawCurrent ===
+    null
+      ? NaN
+      : inputToCm(
+          rawCurrent
+        );
+
+  const previousHeight =
+    rawPrevious ===
+    null
+      ? null
+      : inputToCm(
+          rawPrevious
+        );
+
+  const invalid =
+    !Number.isFinite(
+      fatherHeight
+    ) ||
+    fatherHeight <
+      100 ||
+    fatherHeight >
+      250 ||
+    !Number.isFinite(
+      motherHeight
+    ) ||
+    motherHeight <
+      100 ||
+    motherHeight >
+      250 ||
+    !Number.isFinite(
+      currentHeight
+    ) ||
+    currentHeight <
+      30 ||
+    currentHeight >
+      250 ||
+    !Number.isInteger(
+      ageYears
+    ) ||
+    ageYears <
+      0 ||
+    ageYears >
+      20 ||
+    !Number.isInteger(
+      ageMonths
+    ) ||
+    ageMonths <
+      0 ||
+    ageMonths >
+      11;
+
+  if (
+    invalid
+  ) {
+    alert(
+      "아이 나이와 현재 키, 부모키 입력값을 확인해주세요."
+    );
+
+    return;
+  }
+
+  const range =
+    inputs.rangeMode.value ===
+    "custom"
+      ? Number(
+          inputs.customRange.value
+        )
+      : AAP_RANGE;
+
+  if (
+    !Number.isFinite(
+      range
+    ) ||
+    range <
+      1 ||
+    range >
+      30
+  ) {
+    alert(
+      "목표키 범위 폭을 확인해주세요."
+    );
+
+    return;
+  }
+
+  const targetHeight =
+    calculateTargetHeight(
+      fatherHeight,
+      motherHeight,
+      inputs.sex.value
+    );
+
+  const lowHeight =
+    targetHeight -
+    range;
+
+  const highHeight =
+    targetHeight +
+    range;
+
+  const parentAverage =
+    (
+      fatherHeight +
+      motherHeight
+    ) /
+    2;
+
+  const heightGap =
+    targetHeight -
+    currentHeight;
+
+  const currentRatio =
+    currentHeight /
+    targetHeight *
+    100;
+
+  const currentDate =
+    parseDate(
+      inputs.currentDate.value
+    );
+
+  const previousDate =
+    parseDate(
+      inputs.previousDate.value
+    );
+
+  let intervalDays =
+    null;
+
+  let heightChange =
+    null;
+
+  let annualVelocity =
+    null;
+
+  if (
+    previousHeight !==
+      null &&
+    previousDate &&
+    currentDate
+  ) {
+    intervalDays =
+      dayDifference(
+        previousDate,
+        currentDate
+      );
+
+    if (
+      intervalDays >
+      0
+    ) {
+      heightChange =
+        currentHeight -
+        previousHeight;
+
+      annualVelocity =
+        heightChange /
+        (
+          intervalDays /
+          365.2425
+        );
+    }
+  }
+
+  const childLabel =
+    inputs.sex.value ===
+    "boy"
+      ? "남아"
+      : "여아";
+
+  const totalAgeMonths =
+    ageYears *
+    12 +
+    ageMonths;
+
+  const formula =
+    inputs.sex.value ===
+    "boy"
+      ? `(${fatherHeight.toFixed(1)} + ${motherHeight.toFixed(1)} + 13) ÷ 2`
+      : `(${fatherHeight.toFixed(1)} + ${motherHeight.toFixed(1)} - 13) ÷ 2`;
+
+  $("resultTitle").innerHTML =
+    `${childLabel} 유전적 목표키는 <b>${shortHeightText(targetHeight)}</b>입니다`;
+
+  $("resultMessage").textContent =
+    `아빠키 ${fatherHeight.toFixed(1)}cm와 엄마키 ${motherHeight.toFixed(1)}cm를 중간부모키 공식에 적용했습니다. ` +
+    `중심값은 ${targetHeight.toFixed(1)}cm이며 참고 범위는 ` +
+    `${lowHeight.toFixed(1)}~${highHeight.toFixed(1)}cm입니다.`;
+
+  $("targetMain").textContent =
+    shortHeightText(
+      targetHeight
+    );
+
+  $("targetRangeSmall").textContent =
+    `참고 ${shortHeightText(lowHeight)}~${shortHeightText(highHeight)}`;
+
+  $("rangeResult").textContent =
+    `${shortHeightText(lowHeight)}~${shortHeightText(highHeight)}`;
+
+  $("rangeDetail").textContent =
+    `중심값 ±${range.toFixed(1)}cm`;
+
+  $("parentAverageResult").textContent =
+    shortHeightText(
+      parentAverage
+    );
+
+  $("parentAverageDetail").textContent =
+    "아빠키와 엄마키의 단순 평균";
+
+  $("gapResult").textContent =
+    signedHeightText(
+      heightGap
+    );
+
+  $("gapDetail").textContent =
+    heightGap >=
+    0
+      ? "현재 키에서 목표 중심값까지의 단순 차이"
+      : "현재 키가 목표 중심값보다 큰 상태";
+
+  $("velocityResult").textContent =
+    annualVelocity ===
+    null
+      ? "기록 부족"
+      : `${signedHeightText(annualVelocity)}/년`;
+
+  $("velocityDetail").textContent =
+    annualVelocity ===
+    null
+      ? "이전 키와 날짜를 모두 입력하세요"
+      : `최근 ${intervalDays}일 기록을 1년으로 환산`;
+
+  $("fatherResult").textContent =
+    fullHeightText(
+      fatherHeight
+    );
+
+  $("motherResult").textContent =
+    fullHeightText(
+      motherHeight
+    );
+
+  $("currentResult").textContent =
+    fullHeightText(
+      currentHeight
+    );
+
+  $("ageResult").textContent =
+    `만 ${ageYears}세 ${ageMonths}개월 · 총 ${totalAgeMonths}개월`;
+
+  $("ratioResult").textContent =
+    `${currentRatio.toFixed(1)}%`;
+
+  $("fatherSourceResult").textContent =
+    sourceLabels[
+      inputs.fatherSource.value
+    ];
+
+  $("motherSourceResult").textContent =
+    sourceLabels[
+      inputs.motherSource.value
+    ];
+
+  $("formulaResult").textContent =
+    `${formula} = ${targetHeight.toFixed(1)}cm`;
+
+  $("formulaSummary").textContent =
+    childLabel;
+
+  $("parentSumResult").textContent =
+    shortHeightText(
+      fatherHeight +
+      motherHeight
+    );
+
+  $("sexAdjustmentResult").textContent =
+    inputs.sex.value ===
+    "boy"
+      ? "+13cm"
+      : "-13cm";
+
+  $("sexAdjustmentDetail").textContent =
+    inputs.sex.value ===
+    "boy"
+      ? "엄마키에 13cm 보정"
+      : "아빠키에서 13cm 보정";
+
+  $("finalCenterResult").textContent =
+    fullHeightText(
+      targetHeight
+    );
+
+  if (
+    intervalDays !==
+    null
+  ) {
+    $("intervalResult").textContent =
+      `${intervalDays}일`;
+
+    $("intervalDetail").textContent =
+      intervalDays <
+      90
+        ? "측정 간격이 짧아 오차 영향이 클 수 있음"
+        : `${(
+            intervalDays /
+            30.44
+          ).toFixed(1)}개월 간격`;
+
+    if (
+      heightChange !==
+      null
+    ) {
+      $("changeResult").textContent =
+        signedHeightText(
+          heightChange
+        );
+
+      $("changeDetail").textContent =
+        `이전 ${shortHeightText(previousHeight)} → 현재 ${shortHeightText(currentHeight)}`;
+    } else {
+      $("changeResult").textContent =
+        "-";
+
+      $("changeDetail").textContent =
+        "계산 가능한 기록 없음";
+    }
+
+    $("velocitySummary").textContent =
+      annualVelocity ===
+      null
+        ? "계산 불가"
+        : `${signedHeightText(annualVelocity)}/년`;
+  } else {
+    $("intervalResult").textContent =
+      "기록 없음";
+
+    $("intervalDetail").textContent =
+      "이전 키와 측정일을 입력하세요";
+
+    $("changeResult").textContent =
+      "-";
+
+    $("changeDetail").textContent =
+      "두 시점 기록 필요";
+
+    $("velocitySummary").textContent =
+      "선택 입력";
+  }
+
+  const statusBox =
+    $("statusBox");
+
+  statusBox.className =
+    "status";
+
+  if (
+    intervalDays !==
+      null &&
+    intervalDays <=
+      0
+  ) {
+    statusBox.classList.add(
+      "warn"
+    );
+
+    statusBox.textContent =
+      "이전 측정일이 현재 측정일보다 같거나 늦습니다. 날짜를 다시 확인하세요.";
+  } else if (
+    intervalDays !==
+      null &&
+    intervalDays <
+      90
+  ) {
+    statusBox.classList.add(
+      "warn"
+    );
+
+    statusBox.textContent =
+      "측정 간격이 3개월보다 짧습니다. 자세, 측정시간과 기기 차이로 연환산 성장속도가 크게 흔들릴 수 있으므로 같은 조건에서 장기 추세를 확인하세요.";
+  } else if (
+    ageYears >=
+    18
+  ) {
+    statusBox.textContent =
+      "만 18세 이상 입력입니다. 현재 키가 성인키에 가까울 수 있지만 개인별 성장판과 사춘기 진행 상태는 다르므로 부모키 공식은 유전적 참고값으로만 보세요.";
+  } else {
+    statusBox.textContent =
+      "중간부모키는 유전적 목표 범위를 빠르게 보는 도구입니다. 한 번의 예상값보다 같은 조건에서 측정한 성장곡선과 연속된 키 기록을 함께 확인하세요.";
+  }
+
+  renderRuler({
+    father:
+      fatherHeight,
+
+    mother:
+      motherHeight,
+
+    current:
+      currentHeight,
+
+    target:
+      targetHeight,
+
+    low:
+      lowHeight,
+
+    high:
+      highHeight
+  });
+
+  $("resultEmpty").style.display =
+    "none";
+
+  $("resultContent").classList.add(
+    "show"
+  );
+
+  lastResultText =
+`[아이 예상키 계산기]
+
+아이: ${childLabel} · 만 ${ageYears}세 ${ageMonths}개월
+현재 키: ${fullHeightText(currentHeight)}
+아빠 키: ${fullHeightText(fatherHeight)}
+엄마 키: ${fullHeightText(motherHeight)}
+
+유전적 목표키 중심값: ${fullHeightText(targetHeight)}
+목표키 참고 범위: ${fullHeightText(lowHeight)} ~ ${fullHeightText(highHeight)}
+부모 평균 키: ${fullHeightText(parentAverage)}
+현재 키와 중심값 차이: ${signedHeightText(heightGap)}
+
+계산식: ${formula} = ${targetHeight.toFixed(1)}cm
+${
+  annualVelocity === null
+    ? "최근 성장속도: 이전 기록 부족"
+    : `측정 간격: ${intervalDays}일
+키 변화: ${signedHeightText(heightChange)}
+연환산 성장속도: ${signedHeightText(annualVelocity)}/년`
+}
+
+※ 부모키를 이용한 유전적 목표키 참고값이며 실제 성인키를 확정하지 않습니다.`;
+
+  saveForm();
+
+  $("results").scrollIntoView({
+    behavior:
+      "smooth",
+
+    block:
+      "start"
+  });
+}
+
+function saveForm() {
+  try {
+    const data = {
+      previousUnit
+    };
+
+    Object.entries(
+      inputs
+    ).forEach(
+      (
+        [
+          key,
+          element
+        ]
+      ) => {
+        data[
+          key
+        ] =
+          element.value;
+      }
+    );
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(
+        data
+      )
+    );
+  } catch (error) {
+    console.warn(
+      error
+    );
+  }
+}
+
+function setDefaultDates() {
+  const today =
+    new Date();
+
+  const previous =
+    new Date(
+      today
+    );
+
+  previous.setMonth(
+    previous.getMonth() -
+    6
+  );
+
+  inputs.currentDate.value =
+    dateValue(
+      today
+    );
+
+  inputs.previousDate.value =
+    dateValue(
+      previous
+    );
+}
+
+function restoreForm() {
+  setDefaultDates();
+
+  try {
+    const saved =
+      JSON.parse(
+        localStorage.getItem(
+          STORAGE_KEY
+        ) ||
+        "null"
+      );
+
+    if (
+      saved
+    ) {
+      Object.entries(
+        inputs
+      ).forEach(
+        (
+          [
+            key,
+            element
+          ]
+        ) => {
+          if (
+            saved[
+              key
+            ] !==
+              undefined &&
+            saved[
+              key
+            ] !==
+              ""
+          ) {
+            element.value =
+              saved[
+                key
+              ];
+          }
+        }
+      );
+
+      previousUnit =
+        saved.previousUnit ||
+        inputs.displayUnit.value;
+    }
+  } catch (error) {
+    console.warn(
+      error
+    );
+  }
+
+  document
+    .querySelectorAll(
+      ".height-unit"
+    )
+    .forEach(
+      (element) => {
+        element.textContent =
+          inputs.displayUnit.value;
+      }
+    );
+
+  updateRangeInterface();
+  updateFormulaPreview();
+}
+
+function resetCalculator() {
+  try {
+    localStorage.removeItem(
+      STORAGE_KEY
+    );
+  } catch (error) {
+    console.warn(
+      error
+    );
+  }
+
+  inputs.sex.value =
+    "boy";
+
+  inputs.ageYears.value =
+    "9";
+
+  inputs.ageMonths.value =
+    "0";
+
+  inputs.currentHeight.value =
+    "132";
+
+  inputs.fatherHeight.value =
+    "178";
+
+  inputs.motherHeight.value =
+    "163";
+
+  inputs.fatherSource.value =
+    "measured";
+
+  inputs.motherSource.value =
+    "measured";
+
+  inputs.previousHeight.value =
+    "129";
+
+  inputs.displayUnit.value =
+    "cm";
+
+  inputs.rangeMode.value =
+    "aap";
+
+  inputs.customRange.value =
+    "10.2";
+
+  previousUnit =
+    "cm";
+
+  setDefaultDates();
+
+  document
+    .querySelectorAll(
+      ".height-unit"
+    )
+    .forEach(
+      (element) => {
+        element.textContent =
+          "cm";
+      }
+    );
+
+  updateRangeInterface();
+
+  $("resultContent").classList.remove(
+    "show"
+  );
+
+  $("resultEmpty").style.display =
+    "grid";
+
+  lastResultText =
+    "";
+}
+
+async function copyResult() {
+  if (
+    !lastResultText
+  ) {
+    alert(
+      "먼저 계산해주세요."
+    );
+
+    return;
+  }
+
+  try {
+    await navigator.clipboard.writeText(
+      lastResultText
+    );
+  } catch (error) {
+    const textarea =
+      document.createElement(
+        "textarea"
+      );
+
+    textarea.value =
+      lastResultText;
+
+    textarea.style.position =
+      "fixed";
+
+    textarea.style.opacity =
+      "0";
+
+    document.body.appendChild(
+      textarea
+    );
+
+    textarea.select();
+
+    document.execCommand(
+      "copy"
+    );
+
+    textarea.remove();
+  }
+
+  const button =
+    $("copyButton");
+
+  const original =
+    button.textContent;
+
+  button.textContent =
+    "복사 완료";
+
+  setTimeout(
+    () => {
+      button.textContent =
+        original;
+    },
+    1200
+  );
+}
+
+inputs.displayUnit.addEventListener(
+  "change",
+  () => {
+    convertHeightInputs();
+    updateRangeInterface();
+  }
+);
+
+inputs.rangeMode.addEventListener(
+  "change",
+  updateRangeInterface
+);
+
+inputs.customRange.addEventListener(
+  "input",
+  updateRangeInterface
+);
+
+inputs.sex.addEventListener(
+  "change",
+  () => {
+    updateFormulaPreview();
+    saveForm();
+  }
+);
+
+Object.values(
+  inputs
+).forEach(
+  (element) => {
+    element.addEventListener(
+      "input",
+      saveForm
+    );
+
+    element.addEventListener(
+      "change",
+      saveForm
+    );
+  }
+);
+
+form.addEventListener(
+  "submit",
+  calculate
+);
+
+$("resetButton").addEventListener(
+  "click",
+  resetCalculator
+);
+
+$("copyButton").addEventListener(
+  "click",
+  copyResult
+);
+
+$("printButton").addEventListener(
+  "click",
+  () => {
+    window.print();
+  }
+);
+
+restoreForm();
+</script>
+
+<script
+  defer
+  src="https://static.cloudflareinsights.com/beacon.min.js"
+  data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'
+></script>
+</body>
+</html>
