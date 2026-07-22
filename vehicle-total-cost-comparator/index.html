@@ -1,0 +1,5368 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>전기차·하이브리드·가솔린 총비용 비교기 | 바로해결툴즈</title>
+
+  <meta
+    name="description"
+    content="전기차, 하이브리드, 가솔린 차량의 구매가격, 보조금, 충전비, 연료비, 보험료, 자동차세, 정비비와 중고차 가치를 반영해 보유기간 총비용을 비교합니다."
+  />
+
+  <meta
+    name="keywords"
+    content="전기차 하이브리드 가솔린 비교, 자동차 유지비 계산기, 차량 총비용 비교, 전기차 충전비, 하이브리드 연료비, 가솔린 유지비, 자동차 TCO 계산기, 바로해결툴즈"
+  />
+
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+
+  <link
+    rel="canonical"
+    href="https://barohaegyeol-tools.pages.dev/vehicle-total-cost-comparator/"
+  />
+
+  <meta name="theme-color" content="#35b98b" />
+
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:title"
+    content="전기차·하이브리드·가솔린 총비용 비교기 | 바로해결툴즈"
+  />
+  <meta
+    property="og:description"
+    content="차량 가격부터 에너지비, 보험, 세금, 정비비와 잔존가치까지 합산해 어떤 차가 가장 경제적인지 확인하세요."
+  />
+  <meta
+    property="og:url"
+    content="https://barohaegyeol-tools.pages.dev/vehicle-total-cost-comparator/"
+  />
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "전기차·하이브리드·가솔린 총비용 비교기",
+    "url": "https://barohaegyeol-tools.pages.dev/vehicle-total-cost-comparator/",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "All",
+    "description": "전기차, 하이브리드, 가솔린 차량의 구매비용, 에너지비용, 보험료, 자동차세, 정비비와 잔존가치를 비교하는 무료 웹 도구입니다.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "KRW"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --ink: #223037;
+      --text: #435259;
+      --muted: #78868b;
+
+      --line: rgba(55, 88, 82, 0.12);
+      --line-strong: rgba(55, 88, 82, 0.22);
+
+      --sage: #35b98b;
+      --sage-dark: #1f7f62;
+      --sage-soft: #e4f9f1;
+
+      --coral: #ff7156;
+      --coral-dark: #cf503b;
+      --coral-soft: #fff0eb;
+
+      --plum: #7662c9;
+      --plum-dark: #5644a6;
+      --plum-soft: #f0edff;
+
+      --gold: #f2bd54;
+      --gold-soft: #fff7dd;
+
+      --cream: #fffdf7;
+      --sky: #f1fbff;
+      --card: rgba(255, 255, 255, 0.88);
+      --card-solid: #ffffff;
+
+      --green: #188458;
+      --green-soft: #e7f9f0;
+
+      --red: #d95050;
+      --red-soft: #fff0f0;
+
+      --shadow:
+        0 24px 62px rgba(48, 87, 77, 0.12);
+
+      --shadow-soft:
+        0 12px 30px rgba(48, 87, 77, 0.08);
+
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --radius-sm: 14px;
+
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      min-width: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+
+      color: var(--ink);
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Pretendard",
+        "Noto Sans KR",
+        "Apple SD Gothic Neo",
+        system-ui,
+        sans-serif;
+
+      line-height: 1.65;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+
+      background:
+        radial-gradient(
+          circle at 5% 5%,
+          rgba(53, 185, 139, 0.18),
+          transparent 31%
+        ),
+        radial-gradient(
+          circle at 95% 8%,
+          rgba(255, 113, 86, 0.15),
+          transparent 29%
+        ),
+        radial-gradient(
+          circle at 75% 92%,
+          rgba(118, 98, 201, 0.11),
+          transparent 28%
+        ),
+        linear-gradient(
+          135deg,
+          #f4fffb 0%,
+          #f7fbff 48%,
+          #fffaf4 78%,
+          #fffdf8 100%
+        );
+    }
+
+    body::before {
+      content: "";
+
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+
+      pointer-events: none;
+
+      opacity: 0.26;
+
+      background-image:
+        linear-gradient(
+          rgba(53, 185, 139, 0.04) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(53, 185, 139, 0.04) 1px,
+          transparent 1px
+        );
+
+      background-size: 28px 28px;
+
+      mask-image:
+        linear-gradient(
+          to bottom,
+          #000,
+          transparent 88%
+        );
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .wrap {
+      width:
+        min(
+          var(--max),
+          calc(100% - 32px)
+        );
+
+      margin:
+        0 auto;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+
+      border-bottom:
+        1px solid rgba(53, 185, 139, 0.08);
+
+      background:
+        rgba(248, 255, 252, 0.78);
+
+      backdrop-filter:
+        blur(15px);
+    }
+
+    .header-inner {
+      min-height: 76px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      font-weight: 950;
+      letter-spacing: -0.04em;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 16px;
+
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--sage),
+          var(--plum),
+          var(--coral)
+        );
+
+      box-shadow:
+        0 12px 28px rgba(53, 185, 139, 0.24);
+
+      font-weight: 1000;
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 2px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+      font-weight: 750;
+      letter-spacing: 0;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 9px;
+    }
+
+    .nav a {
+      padding:
+        9px 13px;
+
+      border:
+        1px solid rgba(53, 185, 139, 0.09);
+
+      border-radius: 999px;
+
+      color: #526267;
+
+      background:
+        rgba(255, 255, 255, 0.78);
+
+      font-size: 12px;
+      font-weight: 850;
+
+      transition:
+        0.18s ease;
+    }
+
+    .nav a:hover {
+      color: var(--sage-dark);
+
+      border-color:
+        rgba(53, 185, 139, 0.24);
+
+      transform:
+        translateY(-1px);
+    }
+
+    .hero {
+      padding:
+        43px 0 28px;
+    }
+
+    .hero-grid {
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1.04fr)
+        minmax(330px, 0.96fr);
+
+      gap: 29px;
+      align-items: center;
+    }
+
+    .hero-copy {
+      padding:
+        14px 0;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+
+      margin-bottom: 18px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+
+      min-height: 34px;
+
+      padding:
+        8px 13px;
+
+      border:
+        1px solid rgba(53, 185, 139, 0.1);
+
+      border-radius: 999px;
+
+      color: #546468;
+
+      background:
+        rgba(255, 255, 255, 0.82);
+
+      box-shadow:
+        0 8px 22px rgba(48, 87, 77, 0.05);
+
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .chip.primary {
+      color: var(--sage-dark);
+      background: var(--sage-soft);
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 720px;
+
+      font-size:
+        clamp(41px, 5.6vw, 66px);
+
+      line-height: 1.07;
+      letter-spacing: -0.065em;
+
+      word-break: keep-all;
+      overflow-wrap: normal;
+    }
+
+    .title-line {
+      display: block;
+    }
+
+    .title-accent {
+      color: transparent;
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--sage-dark) 0%,
+          var(--plum) 48%,
+          var(--coral) 100%
+        );
+
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .hero-copy p {
+      max-width: 700px;
+
+      margin:
+        19px 0 0;
+
+      color: var(--muted);
+
+      font-size:
+        clamp(15px, 1.8vw, 18px);
+
+      line-height: 1.82;
+      font-weight: 720;
+    }
+
+    .hero-copy strong {
+      color: #35474c;
+      font-weight: 950;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 11px;
+
+      margin-top: 23px;
+    }
+
+    .btn {
+      min-height: 51px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      padding:
+        13px 19px;
+
+      border:
+        1px solid transparent;
+
+      border-radius: 16px;
+
+      font-weight: 920;
+
+      transition:
+        0.18s ease;
+    }
+
+    .btn:hover {
+      transform:
+        translateY(-2px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--sage),
+          var(--plum),
+          var(--coral)
+        );
+
+      box-shadow:
+        0 17px 36px rgba(53, 185, 139, 0.22);
+    }
+
+    .btn-secondary {
+      color: #44545a;
+
+      background:
+        rgba(255, 255, 255, 0.88);
+
+      border-color:
+        rgba(53, 185, 139, 0.11);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .hero-visual {
+      position: relative;
+
+      overflow: hidden;
+
+      padding: 25px;
+
+      border:
+        1px solid rgba(53, 185, 139, 0.1);
+
+      border-radius:
+        var(--radius-xl);
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.95),
+          rgba(248, 255, 252, 0.84)
+        );
+
+      box-shadow:
+        var(--shadow);
+    }
+
+    .hero-visual::before {
+      content: "";
+
+      position: absolute;
+      inset: 18px;
+
+      border:
+        1px dashed rgba(53, 185, 139, 0.15);
+
+      border-radius: 25px;
+
+      background:
+        radial-gradient(
+          circle at 84% 10%,
+          rgba(255, 189, 84, 0.21),
+          transparent 26%
+        ),
+        linear-gradient(
+          135deg,
+          rgba(228, 249, 241, 0.82),
+          rgba(244, 241, 255, 0.76),
+          rgba(255, 240, 235, 0.72)
+        );
+    }
+
+    .track-board {
+      position: relative;
+      z-index: 1;
+
+      display: grid;
+      gap: 12px;
+    }
+
+    .board-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 12px;
+
+      padding:
+        6px 3px 2px;
+    }
+
+    .board-head strong {
+      font-size: 16px;
+      letter-spacing: -0.035em;
+    }
+
+    .board-head span {
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 820;
+    }
+
+    .track-row {
+      position: relative;
+
+      min-height: 92px;
+
+      display: grid;
+      grid-template-columns:
+        76px 1fr auto;
+
+      gap: 12px;
+      align-items: center;
+
+      padding:
+        14px;
+
+      border:
+        1px solid rgba(53, 185, 139, 0.09);
+
+      border-radius: 20px;
+
+      background:
+        rgba(255, 255, 255, 0.9);
+
+      box-shadow:
+        0 10px 25px rgba(48, 87, 77, 0.07);
+    }
+
+    .track-row.ev {
+      border-left:
+        6px solid var(--sage);
+    }
+
+    .track-row.hybrid {
+      border-left:
+        6px solid var(--plum);
+    }
+
+    .track-row.gas {
+      border-left:
+        6px solid var(--coral);
+    }
+
+    .car-badge {
+      width: 62px;
+      height: 54px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 18px;
+
+      color: #ffffff;
+
+      font-size: 25px;
+    }
+
+    .ev .car-badge {
+      background:
+        linear-gradient(
+          135deg,
+          var(--sage),
+          #61d8ad
+        );
+    }
+
+    .hybrid .car-badge {
+      background:
+        linear-gradient(
+          135deg,
+          var(--plum),
+          #9a87e2
+        );
+    }
+
+    .gas .car-badge {
+      background:
+        linear-gradient(
+          135deg,
+          var(--coral),
+          #ff9a7e
+        );
+    }
+
+    .track-content span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      font-weight: 820;
+    }
+
+    .track-content strong {
+      display: block;
+      margin-top: 5px;
+
+      font-size: 18px;
+      line-height: 1.1;
+      letter-spacing: -0.035em;
+    }
+
+    .track-bar {
+      height: 8px;
+
+      margin-top: 9px;
+
+      overflow: hidden;
+
+      border-radius: 999px;
+
+      background: #edf2f0;
+    }
+
+    .track-bar i {
+      display: block;
+
+      height: 100%;
+
+      border-radius: inherit;
+    }
+
+    .ev .track-bar i {
+      width: 67%;
+      background: var(--sage);
+    }
+
+    .hybrid .track-bar i {
+      width: 78%;
+      background: var(--plum);
+    }
+
+    .gas .track-bar i {
+      width: 92%;
+      background: var(--coral);
+    }
+
+    .track-cost {
+      min-width: 78px;
+
+      text-align: right;
+    }
+
+    .track-cost small {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      font-weight: 780;
+    }
+
+    .track-cost strong {
+      display: block;
+      margin-top: 4px;
+
+      font-size: 18px;
+      letter-spacing: -0.04em;
+    }
+
+    .section {
+      padding:
+        14px 0 25px;
+    }
+
+    .tool-shell {
+      overflow: hidden;
+
+      border:
+        1px solid rgba(53, 185, 139, 0.09);
+
+      border-radius:
+        var(--radius-xl);
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.91),
+          rgba(249, 255, 252, 0.82)
+        );
+
+      box-shadow:
+        var(--shadow);
+    }
+
+    .shell-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      gap: 18px;
+
+      padding:
+        26px 26px 19px;
+
+      border-bottom:
+        1px solid rgba(53, 185, 139, 0.08);
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(232, 250, 244, 0.76),
+          rgba(255, 255, 255, 0.24)
+        );
+    }
+
+    .shell-head h2 {
+      margin: 0;
+
+      font-size:
+        clamp(26px, 3.5vw, 40px);
+
+      line-height: 1.15;
+      letter-spacing: -0.05em;
+    }
+
+    .shell-head p {
+      margin:
+        8px 0 0;
+
+      color: var(--muted);
+
+      font-size: 13px;
+      font-weight: 720;
+    }
+
+    .shell-badge {
+      min-height: 34px;
+
+      display: inline-flex;
+      align-items: center;
+
+      padding:
+        8px 12px;
+
+      border-radius: 999px;
+
+      color: var(--sage-dark);
+
+      background:
+        rgba(53, 185, 139, 0.1);
+
+      font-size: 11px;
+      font-weight: 900;
+
+      white-space: nowrap;
+    }
+
+    .calculator-body {
+      padding: 23px;
+    }
+
+    .common-panel {
+      padding: 20px;
+
+      border:
+        1px solid rgba(53, 185, 139, 0.09);
+
+      border-radius: 23px;
+
+      background:
+        rgba(255, 255, 255, 0.91);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .panel-title {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      gap: 14px;
+
+      margin-bottom: 15px;
+    }
+
+    .panel-title h3 {
+      margin: 0;
+
+      font-size: 21px;
+      letter-spacing: -0.04em;
+    }
+
+    .panel-title span {
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 780;
+      text-align: right;
+    }
+
+    .common-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      gap: 12px;
+    }
+
+    .field label {
+      display: block;
+
+      margin-bottom: 7px;
+
+      color: #44565b;
+
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .field label small {
+      display: block;
+      margin-top: 3px;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      line-height: 1.45;
+      font-weight: 720;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 52px;
+
+      padding:
+        13px 47px 13px 14px;
+
+      border:
+        1px solid rgba(53, 185, 139, 0.14);
+
+      border-radius: 16px;
+      outline: none;
+
+      color: var(--ink);
+
+      background:
+        rgba(255, 255, 255, 0.98);
+
+      font-size: 14px;
+      font-weight: 820;
+
+      transition:
+        0.17s ease;
+    }
+
+    select {
+      padding-right: 13px;
+    }
+
+    input:focus,
+    select:focus {
+      border-color:
+        rgba(53, 185, 139, 0.4);
+
+      box-shadow:
+        0 0 0 4px rgba(53, 185, 139, 0.08);
+    }
+
+    .unit {
+      position: absolute;
+      right: 13px;
+      top: 50%;
+
+      transform:
+        translateY(-50%);
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 900;
+
+      pointer-events: none;
+    }
+
+    .vehicle-input-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 16px;
+
+      margin-top: 18px;
+    }
+
+    .vehicle-card {
+      overflow: hidden;
+
+      border:
+        1px solid rgba(53, 185, 139, 0.09);
+
+      border-radius: 24px;
+
+      background:
+        rgba(255, 255, 255, 0.92);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .vehicle-head {
+      display: grid;
+
+      grid-template-columns:
+        auto 1fr;
+
+      gap: 12px;
+      align-items: center;
+
+      padding: 18px;
+    }
+
+    .vehicle-card.ev
+    .vehicle-head {
+      background:
+        linear-gradient(
+          135deg,
+          var(--sage-soft),
+          #f2fffa
+        );
+    }
+
+    .vehicle-card.hybrid
+    .vehicle-head {
+      background:
+        linear-gradient(
+          135deg,
+          var(--plum-soft),
+          #faf8ff
+        );
+    }
+
+    .vehicle-card.gas
+    .vehicle-head {
+      background:
+        linear-gradient(
+          135deg,
+          var(--coral-soft),
+          #fff9f5
+        );
+    }
+
+    .vehicle-icon {
+      width: 48px;
+      height: 48px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 16px;
+
+      color: #ffffff;
+
+      font-size: 22px;
+      font-weight: 1000;
+    }
+
+    .ev .vehicle-icon {
+      background:
+        linear-gradient(
+          135deg,
+          var(--sage),
+          #61d8ad
+        );
+    }
+
+    .hybrid .vehicle-icon {
+      background:
+        linear-gradient(
+          135deg,
+          var(--plum),
+          #9a87e2
+        );
+    }
+
+    .gas .vehicle-icon {
+      background:
+        linear-gradient(
+          135deg,
+          var(--coral),
+          #ff9a7e
+        );
+    }
+
+    .vehicle-head h3 {
+      margin: 0;
+
+      font-size: 20px;
+      letter-spacing: -0.04em;
+    }
+
+    .vehicle-head p {
+      margin:
+        3px 0 0;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      line-height: 1.5;
+      font-weight: 740;
+    }
+
+    .vehicle-body {
+      display: grid;
+      gap: 12px;
+
+      padding: 17px;
+    }
+
+    .two-col {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 10px;
+    }
+
+    .quick-fill {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+
+      margin-top: 3px;
+    }
+
+    .quick-btn {
+      min-height: 33px;
+
+      padding:
+        7px 10px;
+
+      border:
+        1px solid rgba(53, 185, 139, 0.12);
+
+      border-radius: 999px;
+
+      color: #56676b;
+
+      background: #ffffff;
+
+      font-size: 10px;
+      font-weight: 860;
+    }
+
+    .quick-btn:hover {
+      color: var(--sage-dark);
+      background: #f1fcf7;
+    }
+
+    .action-row {
+      display: grid;
+
+      grid-template-columns:
+        1fr 220px;
+
+      gap: 11px;
+
+      margin-top: 19px;
+    }
+
+    .calculate-btn,
+    .reset-btn {
+      min-height: 59px;
+
+      border:
+        1px solid transparent;
+
+      border-radius: 17px;
+
+      font-weight: 950;
+    }
+
+    .calculate-btn {
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--sage),
+          var(--plum),
+          var(--coral)
+        );
+
+      box-shadow:
+        0 17px 35px rgba(53, 185, 139, 0.21);
+    }
+
+    .reset-btn {
+      color: #506065;
+
+      background:
+        rgba(255, 255, 255, 0.95);
+
+      border-color:
+        rgba(53, 185, 139, 0.13);
+    }
+
+    .notice {
+      margin-top: 17px;
+
+      padding:
+        14px 16px;
+
+      border:
+        1px solid rgba(242, 189, 84, 0.23);
+
+      border-radius: 18px;
+
+      color: #725c2d;
+
+      background:
+        rgba(255, 247, 221, 0.78);
+
+      font-size: 11px;
+      line-height: 1.75;
+      font-weight: 760;
+    }
+
+    .results {
+      padding:
+        29px 0 18px;
+    }
+
+    .result-empty {
+      min-height: 220px;
+
+      display: grid;
+      place-items: center;
+
+      padding: 28px;
+
+      border:
+        1px dashed rgba(53, 185, 139, 0.26);
+
+      border-radius: 24px;
+
+      color: var(--muted);
+
+      background:
+        rgba(255, 255, 255, 0.68);
+
+      text-align: center;
+      font-weight: 850;
+    }
+
+    .result-content {
+      display: none;
+    }
+
+    .result-content.show {
+      display: block;
+    }
+
+    .winner-banner {
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1fr)
+        auto;
+
+      gap: 22px;
+      align-items: center;
+
+      padding: 25px;
+
+      border-radius: 27px;
+
+      color: #ffffff;
+
+      background:
+        radial-gradient(
+          circle at 90% 15%,
+          rgba(242, 189, 84, 0.23),
+          transparent 26%
+        ),
+        linear-gradient(
+          135deg,
+          #276e59,
+          var(--sage) 55%,
+          var(--plum)
+        );
+
+      box-shadow:
+        0 24px 50px rgba(53, 185, 139, 0.21);
+    }
+
+    .winner-banner span {
+      display: block;
+
+      color:
+        rgba(255, 255, 255, 0.7);
+
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.07em;
+    }
+
+    .winner-banner h2 {
+      margin:
+        7px 0 0;
+
+      font-size:
+        clamp(34px, 5vw, 58px);
+
+      line-height: 1.08;
+      letter-spacing: -0.06em;
+    }
+
+    .winner-banner p {
+      max-width: 780px;
+
+      margin:
+        10px 0 0;
+
+      color:
+        rgba(255, 255, 255, 0.82);
+
+      font-size: 12px;
+      line-height: 1.75;
+      font-weight: 770;
+    }
+
+    .winner-amount {
+      min-width: 180px;
+
+      padding: 18px;
+
+      border:
+        1px solid rgba(255, 255, 255, 0.2);
+
+      border-radius: 21px;
+
+      background:
+        rgba(255, 255, 255, 0.11);
+
+      text-align: right;
+
+      backdrop-filter:
+        blur(8px);
+    }
+
+    .winner-amount small {
+      display: block;
+
+      color:
+        rgba(255, 255, 255, 0.68);
+
+      font-size: 10px;
+      font-weight: 850;
+    }
+
+    .winner-amount strong {
+      display: block;
+      margin-top: 7px;
+
+      color: var(--gold);
+
+      font-size: 28px;
+      line-height: 1;
+      letter-spacing: -0.045em;
+    }
+
+    .ranking-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 14px;
+
+      margin-top: 18px;
+    }
+
+    .rank-card {
+      padding: 19px;
+
+      border:
+        1px solid rgba(53, 185, 139, 0.09);
+
+      border-radius: 22px;
+
+      background:
+        rgba(255, 255, 255, 0.93);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .rank-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      gap: 10px;
+    }
+
+    .rank-no {
+      width: 34px;
+      height: 34px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 12px;
+
+      color: #ffffff;
+      background: #6e7c80;
+
+      font-size: 12px;
+      font-weight: 1000;
+    }
+
+    .rank-card.first
+    .rank-no {
+      color: #644700;
+      background: var(--gold);
+    }
+
+    .rank-card.second
+    .rank-no {
+      background: var(--sage);
+    }
+
+    .rank-card.third
+    .rank-no {
+      background: var(--plum);
+    }
+
+    .rank-name {
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 820;
+    }
+
+    .rank-card h3 {
+      margin:
+        13px 0 0;
+
+      font-size: 21px;
+      letter-spacing: -0.04em;
+    }
+
+    .rank-total {
+      display: block;
+      margin-top: 8px;
+
+      font-size: 29px;
+      line-height: 1;
+      letter-spacing: -0.055em;
+    }
+
+    .rank-card p {
+      margin:
+        10px 0 0;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      line-height: 1.6;
+      font-weight: 740;
+    }
+
+    .cost-bars {
+      margin-top: 18px;
+
+      padding: 20px;
+
+      border:
+        1px solid rgba(53, 185, 139, 0.09);
+
+      border-radius: 23px;
+
+      background:
+        rgba(255, 255, 255, 0.92);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .cost-bars h3 {
+      margin: 0;
+
+      font-size: 18px;
+      letter-spacing: -0.035em;
+    }
+
+    .cost-bars p {
+      margin:
+        6px 0 15px;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 740;
+    }
+
+    .bar-list {
+      display: grid;
+      gap: 13px;
+    }
+
+    .bar-item {
+      display: grid;
+
+      grid-template-columns:
+        95px 1fr auto;
+
+      gap: 11px;
+      align-items: center;
+    }
+
+    .bar-label {
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .bar-track {
+      height: 16px;
+
+      overflow: hidden;
+
+      border-radius: 999px;
+
+      background: #edf2ef;
+    }
+
+    .bar-fill {
+      display: block;
+
+      height: 100%;
+
+      border-radius: inherit;
+
+      transition:
+        width 0.3s ease;
+    }
+
+    .bar-fill.ev {
+      background:
+        linear-gradient(
+          90deg,
+          var(--sage),
+          #6bd7b1
+        );
+    }
+
+    .bar-fill.hybrid {
+      background:
+        linear-gradient(
+          90deg,
+          var(--plum),
+          #9a87e2
+        );
+    }
+
+    .bar-fill.gas {
+      background:
+        linear-gradient(
+          90deg,
+          var(--coral),
+          #ff9a7e
+        );
+    }
+
+    .bar-value {
+      color: #53646a;
+
+      font-size: 10px;
+      font-weight: 900;
+
+      text-align: right;
+    }
+
+    .breakdown-wrap {
+      margin-top: 18px;
+
+      overflow: hidden;
+
+      border:
+        1px solid rgba(53, 185, 139, 0.09);
+
+      border-radius: 23px;
+
+      background:
+        rgba(255, 255, 255, 0.93);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .breakdown-head {
+      padding: 18px 20px;
+
+      border-bottom:
+        1px solid rgba(53, 185, 139, 0.08);
+    }
+
+    .breakdown-head h3 {
+      margin: 0;
+
+      font-size: 18px;
+      letter-spacing: -0.035em;
+    }
+
+    .breakdown-head p {
+      margin:
+        5px 0 0;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 740;
+    }
+
+    .breakdown-table {
+      overflow-x: auto;
+    }
+
+    .breakdown-row {
+      min-width: 690px;
+
+      display: grid;
+
+      grid-template-columns:
+        1.25fr
+        repeat(3, minmax(140px, 1fr));
+
+      border-bottom:
+        1px solid rgba(53, 185, 139, 0.07);
+    }
+
+    .breakdown-row:last-child {
+      border-bottom: 0;
+    }
+
+    .breakdown-row > div {
+      padding:
+        13px 16px;
+
+      font-size: 11px;
+      font-weight: 800;
+
+      text-align: right;
+    }
+
+    .breakdown-row > div:first-child {
+      color: #526267;
+      text-align: left;
+    }
+
+    .breakdown-row.head {
+      background: #f1f9f6;
+    }
+
+    .breakdown-row.head > div {
+      color: #45575c;
+
+      font-size: 10px;
+      font-weight: 930;
+    }
+
+    .breakdown-row.total {
+      background:
+        linear-gradient(
+          90deg,
+          rgba(53, 185, 139, 0.07),
+          rgba(118, 98, 201, 0.06),
+          rgba(255, 113, 86, 0.06)
+        );
+    }
+
+    .breakdown-row.total > div {
+      color: var(--ink);
+
+      font-size: 13px;
+      font-weight: 1000;
+    }
+
+    .insight-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 14px;
+
+      margin-top: 18px;
+    }
+
+    .insight-card {
+      padding: 18px;
+
+      border:
+        1px solid rgba(53, 185, 139, 0.09);
+
+      border-radius: 21px;
+
+      background:
+        rgba(255, 255, 255, 0.93);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .insight-card span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      font-weight: 850;
+    }
+
+    .insight-card strong {
+      display: block;
+      margin-top: 7px;
+
+      font-size: 23px;
+      line-height: 1.1;
+      letter-spacing: -0.045em;
+    }
+
+    .insight-card small {
+      display: block;
+      margin-top: 7px;
+
+      color: #7d898c;
+
+      font-size: 9px;
+      line-height: 1.55;
+      font-weight: 730;
+    }
+
+    .status-box {
+      margin-top: 18px;
+
+      padding:
+        16px 18px;
+
+      border:
+        1px solid rgba(24, 132, 88, 0.17);
+
+      border-radius: 19px;
+
+      color: #216044;
+
+      background: var(--green-soft);
+
+      font-size: 12px;
+      line-height: 1.75;
+      font-weight: 820;
+    }
+
+    .result-actions {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 11px;
+
+      margin-top: 16px;
+    }
+
+    .utility-btn {
+      min-height: 49px;
+
+      border:
+        1px solid rgba(53, 185, 139, 0.13);
+
+      border-radius: 16px;
+
+      color: #516166;
+      background:
+        rgba(255, 255, 255, 0.95);
+
+      font-weight: 900;
+    }
+
+    .guide-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 15px;
+    }
+
+    .guide-card {
+      padding: 21px;
+
+      border:
+        1px solid rgba(53, 185, 139, 0.09);
+
+      border-radius: 23px;
+
+      background:
+        rgba(255, 255, 255, 0.88);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .guide-card h3 {
+      margin: 0;
+
+      font-size: 18px;
+      letter-spacing: -0.035em;
+    }
+
+    .guide-card p {
+      margin:
+        9px 0 0;
+
+      color: var(--muted);
+
+      font-size: 12px;
+      line-height: 1.78;
+      font-weight: 730;
+    }
+
+    .faq {
+      display: grid;
+      gap: 10px;
+
+      margin-top: 18px;
+    }
+
+    details {
+      padding:
+        0 18px;
+
+      border:
+        1px solid rgba(53, 185, 139, 0.09);
+
+      border-radius: 18px;
+
+      background:
+        rgba(255, 255, 255, 0.88);
+
+      box-shadow:
+        0 8px 24px rgba(48, 87, 77, 0.05);
+    }
+
+    summary {
+      padding:
+        16px 0;
+
+      cursor: pointer;
+
+      font-size: 13px;
+      font-weight: 900;
+
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details p {
+      margin: 0;
+
+      padding:
+        0 0 16px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+      line-height: 1.75;
+      font-weight: 730;
+    }
+
+    footer {
+      padding:
+        32px 0 40px;
+    }
+
+    .footer-card {
+      padding: 22px;
+
+      border-radius: 25px;
+
+      color:
+        rgba(255, 255, 255, 0.8);
+
+      background:
+        linear-gradient(
+          135deg,
+          #245f4e,
+          #493e7f,
+          #7a4136
+        );
+    }
+
+    .footer-card strong {
+      display: block;
+
+      color: #ffffff;
+
+      font-size: 16px;
+    }
+
+    .footer-card p {
+      max-width: 920px;
+
+      margin:
+        8px 0 0;
+
+      font-size: 11px;
+      line-height: 1.75;
+      font-weight: 720;
+    }
+
+    @media print {
+      .header,
+      .hero,
+      #calculator,
+      #guide,
+      footer,
+      .result-actions {
+        display: none !important;
+      }
+
+      body {
+        background: #ffffff;
+      }
+
+      .results {
+        padding: 0;
+      }
+
+      .result-content {
+        display: block !important;
+      }
+
+      .winner-banner,
+      .rank-card,
+      .cost-bars,
+      .breakdown-wrap,
+      .insight-card,
+      .status-box {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+    }
+
+    @media (max-width: 1020px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .common-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .vehicle-input-grid,
+      .ranking-grid,
+      .guide-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .insight-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .header-inner {
+        min-height: auto;
+
+        padding:
+          13px 0;
+
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav {
+        justify-content: flex-start;
+      }
+
+      .wrap {
+        width:
+          min(
+            var(--max),
+            calc(100% - 20px)
+          );
+      }
+
+      .hero {
+        padding-top: 29px;
+      }
+
+      h1 {
+        font-size: 39px;
+        line-height: 1.12;
+        letter-spacing: -0.055em;
+      }
+
+      .shell-head,
+      .panel-title {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .panel-title span {
+        text-align: left;
+      }
+
+      .common-grid,
+      .insight-grid,
+      .action-row,
+      .result-actions {
+        grid-template-columns: 1fr;
+      }
+
+      .winner-banner {
+        grid-template-columns: 1fr;
+      }
+
+      .winner-amount {
+        width: 100%;
+        text-align: left;
+      }
+
+      .bar-item {
+        grid-template-columns: 72px 1fr;
+      }
+
+      .bar-value {
+        grid-column: 2;
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-visual,
+      .tool-shell,
+      .common-panel,
+      .vehicle-card,
+      .winner-banner,
+      .rank-card,
+      .cost-bars,
+      .breakdown-wrap,
+      .guide-card,
+      .footer-card {
+        border-radius: 21px;
+      }
+
+      .dash-top,
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+
+      .track-row {
+        grid-template-columns:
+          62px 1fr;
+
+        align-items: start;
+      }
+
+      .track-cost {
+        grid-column:
+          2;
+
+        text-align: left;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior:
+          auto !important;
+
+        transition-duration:
+          0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <div class="wrap header-inner">
+      <a
+        class="brand"
+        href="https://barohaegyeol-tools.pages.dev/"
+        aria-label="바로해결툴즈 홈"
+      >
+        <div class="brand-mark">
+          B
+        </div>
+
+        <div>
+          바로해결툴즈
+
+          <small>
+            자동차 · 유지비 · 총소유비용 비교
+          </small>
+        </div>
+      </a>
+
+      <nav
+        class="nav"
+        aria-label="페이지 메뉴"
+      >
+        <a href="#calculator">
+          조건 입력
+        </a>
+
+        <a href="#results">
+          비교 결과
+        </a>
+
+        <a href="#guide">
+          계산 기준
+        </a>
+
+        <a href="https://barohaegyeol-tools.pages.dev/">
+          전체 도구
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <div class="chips">
+            <span class="chip primary">
+              ● 구매비부터 중고차 가치까지 비교
+            </span>
+
+            <span class="chip">
+              전기차 · 하이브리드 · 가솔린
+            </span>
+          </div>
+
+          <h1>
+            <span class="title-line">
+              전기차부터 가솔린까지
+            </span>
+
+            <span class="title-line">
+              5년 총비용,
+            </span>
+
+            <span class="title-line title-accent">
+              누가 가장 쌀까?
+            </span>
+          </h1>
+
+          <p>
+            차량 가격만 비교하면 실제 부담을 놓치기 쉽습니다.
+            <strong>
+              보조금, 취득비용, 충전·연료비, 보험료, 자동차세,
+              정비비, 금융비용과 예상 중고차 가치
+            </strong>
+            를 합산해 보유기간의 실제 총비용을 계산합니다.
+          </p>
+
+          <div class="hero-actions">
+            <a
+              class="btn btn-primary"
+              href="#calculator"
+            >
+              차량 총비용 비교하기
+            </a>
+
+            <a
+              class="btn btn-secondary"
+              href="#guide"
+            >
+              계산 기준 확인
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="hero-visual"
+          aria-label="전기차 하이브리드 가솔린 총비용 비교 미리보기"
+        >
+          <div class="track-board">
+            <div class="board-head">
+              <strong>
+                5년 총비용 레이스
+              </strong>
+
+              <span>
+                예시 조건
+              </span>
+            </div>
+
+            <article class="track-row ev">
+              <div class="car-badge">
+                ⚡
+              </div>
+
+              <div class="track-content">
+                <span>
+                  ELECTRIC
+                </span>
+
+                <strong>
+                  전기차
+                </strong>
+
+                <div class="track-bar">
+                  <i></i>
+                </div>
+              </div>
+
+              <div class="track-cost">
+                <small>
+                  예상 총비용
+                </small>
+
+                <strong id="heroEvCost">
+                  4,180만
+                </strong>
+              </div>
+            </article>
+
+            <article class="track-row hybrid">
+              <div class="car-badge">
+                ♻
+              </div>
+
+              <div class="track-content">
+                <span>
+                  HYBRID
+                </span>
+
+                <strong>
+                  하이브리드
+                </strong>
+
+                <div class="track-bar">
+                  <i></i>
+                </div>
+              </div>
+
+              <div class="track-cost">
+                <small>
+                  예상 총비용
+                </small>
+
+                <strong id="heroHybridCost">
+                  4,610만
+                </strong>
+              </div>
+            </article>
+
+            <article class="track-row gas">
+              <div class="car-badge">
+                ⛽
+              </div>
+
+              <div class="track-content">
+                <span>
+                  GASOLINE
+                </span>
+
+                <strong>
+                  가솔린
+                </strong>
+
+                <div class="track-bar">
+                  <i></i>
+                </div>
+              </div>
+
+              <div class="track-cost">
+                <small>
+                  예상 총비용
+                </small>
+
+                <strong id="heroGasCost">
+                  5,120만
+                </strong>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="section"
+      id="calculator"
+    >
+      <div class="wrap">
+        <div class="tool-shell">
+          <div class="shell-head">
+            <div>
+              <h2>
+                차량 총소유비용 비교실
+              </h2>
+
+              <p>
+                동일한 운전거리와 보유기간을 기준으로 세 차종의 비용을 비교합니다.
+              </p>
+            </div>
+
+            <div class="shell-badge">
+              TCO · TOTAL COST OF OWNERSHIP
+            </div>
+          </div>
+
+          <div class="calculator-body">
+            <form id="calculatorForm">
+              <section class="common-panel">
+                <div class="panel-title">
+                  <h3>
+                    공통 운행 조건
+                  </h3>
+
+                  <span>
+                    세 차종에 동일하게 적용됩니다.
+                  </span>
+                </div>
+
+                <div class="common-grid">
+                  <div class="field">
+                    <label for="ownershipYears">
+                      보유기간
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="ownershipYears"
+                        type="number"
+                        inputmode="numeric"
+                        min="1"
+                        max="20"
+                        step="1"
+                        value="5"
+                        required
+                      />
+
+                      <span class="unit">
+                        년
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="annualKm">
+                      연간 주행거리
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="annualKm"
+                        type="number"
+                        inputmode="numeric"
+                        min="100"
+                        max="200000"
+                        step="100"
+                        value="15000"
+                        required
+                      />
+
+                      <span class="unit">
+                        km
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="gasPrice">
+                      휘발유 가격
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="gasPrice"
+                        type="number"
+                        inputmode="numeric"
+                        min="100"
+                        max="5000"
+                        step="10"
+                        value="1700"
+                        required
+                      />
+
+                      <span class="unit">
+                        원/L
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="electricPrice">
+                      평균 충전단가
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="electricPrice"
+                        type="number"
+                        inputmode="numeric"
+                        min="10"
+                        max="2000"
+                        step="10"
+                        value="330"
+                        required
+                      />
+
+                      <span class="unit">
+                        원/kWh
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="loanRatio">
+                      차량대출 비율
+
+                      <small>
+                        실구매가 대비
+                      </small>
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="loanRatio"
+                        type="number"
+                        inputmode="decimal"
+                        min="0"
+                        max="100"
+                        step="1"
+                        value="50"
+                        required
+                      />
+
+                      <span class="unit">
+                        %
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="loanRate">
+                      차량대출 금리
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="loanRate"
+                        type="number"
+                        inputmode="decimal"
+                        min="0"
+                        max="30"
+                        step="0.01"
+                        value="5.2"
+                        required
+                      />
+
+                      <span class="unit">
+                        연 %
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="loanYears">
+                      대출기간
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="loanYears"
+                        type="number"
+                        inputmode="numeric"
+                        min="1"
+                        max="10"
+                        step="1"
+                        value="5"
+                        required
+                      />
+
+                      <span class="unit">
+                        년
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="costMode">
+                      결과 표시 기준
+                    </label>
+
+                    <select id="costMode">
+                      <option
+                        value="total"
+                        selected
+                      >
+                        보유기간 총비용
+                      </option>
+
+                      <option value="annual">
+                        연평균 비용
+                      </option>
+
+                      <option value="perKm">
+                        1km당 비용
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </section>
+
+              <div class="vehicle-input-grid">
+                <section class="vehicle-card ev">
+                  <div class="vehicle-head">
+                    <div class="vehicle-icon">
+                      ⚡
+                    </div>
+
+                    <div>
+                      <h3>
+                        전기차
+                      </h3>
+
+                      <p>
+                        전비와 충전단가를 기준으로 계산합니다.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="vehicle-body">
+                    <div class="two-col">
+                      <div class="field">
+                        <label for="evPrice">
+                          차량가격
+                        </label>
+
+                        <div class="input-wrap">
+                          <input
+                            id="evPrice"
+                            type="number"
+                            inputmode="numeric"
+                            min="0"
+                            step="100"
+                            value="5200"
+                            required
+                          />
+
+                          <span class="unit">
+                            만원
+                          </span>
+                        </div>
+                      </div>
+
+                      <div class="field">
+                        <label for="evSupport">
+                          보조금·할인
+                        </label>
+
+                        <div class="input-wrap">
+                          <input
+                            id="evSupport"
+                            type="number"
+                            inputmode="numeric"
+                            min="0"
+                            step="10"
+                            value="650"
+                            required
+                          />
+
+                          <span class="unit">
+                            만원
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="two-col">
+                      <div class="field">
+                        <label for="evEfficiency">
+                          전비
+                        </label>
+
+                        <div class="input-wrap">
+                          <input
+                            id="evEfficiency"
+                            type="number"
+                            inputmode="decimal"
+                            min="0.1"
+                            step="0.1"
+                            value="5.2"
+                            required
+                          />
+
+                          <span class="unit">
+                            km/kWh
+                          </span>
+                        </div>
+                      </div>
+
+                      <div class="field">
+                        <label for="evInitial">
+                          충전기·취득비용
+                        </label>
+
+                        <div class="input-wrap">
+                          <input
+                            id="evInitial"
+                            type="number"
+                            inputmode="numeric"
+                            min="0"
+                            step="10"
+                            value="230"
+                            required
+                          />
+
+                          <span class="unit">
+                            만원
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="two-col">
+                      <div class="field">
+                        <label for="evInsurance">
+                          연 보험료
+                        </label>
+
+                        <div class="input-wrap">
+                          <input
+                            id="evInsurance"
+                            type="number"
+                            inputmode="numeric"
+                            min="0"
+                            step="1"
+                            value="110"
+                            required
+                          />
+
+                          <span class="unit">
+                            만원
+                          </span>
+                        </div>
+                      </div>
+
+                      <div class="field">
+                        <label for="evTax">
+                          연 자동차세
+                        </label>
+
+                        <div class="input-wrap">
+                          <input
+                            id="evTax"
+                            type="number"
+                            inputmode="numeric"
+                            min="0"
+                            step="1"
+                            value="13"
+                            required
+                          />
+
+                          <span class="unit">
+                            만원
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="two-col">
+                      <div class="field">
+                        <label for="evMaintenance">
+                          연 정비비
+                        </label>
+
+                        <div class="input-wrap">
+                          <input
+                            id="evMaintenance"
+                            type="number"
+                            inputmode="numeric"
+                            min="0"
+                            step="1"
+                            value="35"
+                            required
+                          />
+
+                          <span class="unit">
+                            만원
+                          </span>
+                        </div>
+                      </div>
+
+                      <div class="field">
+                        <label for="evBenefit">
+                          연 할인·혜택
+                        </label>
+
+                        <div class="input-wrap">
+                          <input
+                            id="evBenefit"
+                            type="number"
+                            inputmode="numeric"
+                            min="0"
+                            step="1"
+                            value="15"
+                            required
+                          />
+
+                          <span class="unit">
+                            만원
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="evResale">
+                        보유기간 후 예상 중고차 가치
+
+                        <small>
+                          보조금 차감 후 실구매가 대비
+                        </small>
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="evResale"
+                          type="number"
+                          inputmode="decimal"
+                          min="0"
+                          max="100"
+                          step="1"
+                          value="48"
+                          required
+                        />
+
+                        <span class="unit">
+                          %
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="quick-fill">
+                      <button
+                        class="quick-btn"
+                        type="button"
+                        data-preset="evCity"
+                      >
+                        도심형 예시
+                      </button>
+
+                      <button
+                        class="quick-btn"
+                        type="button"
+                        data-preset="evLong"
+                      >
+                        장거리형 예시
+                      </button>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="vehicle-card hybrid">
+                  <div class="vehicle-head">
+                    <div class="vehicle-icon">
+                      ♻
+                    </div>
+
+                    <div>
+                      <h3>
+                        하이브리드
+                      </h3>
+
+                      <p>
+                        연비와 휘발유 가격을 기준으로 계산합니다.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="vehicle-body">
+                    <div class="two-col">
+                      <div class="field">
+                        <label for="hybridPrice">
+                          차량가격
+                        </label>
+
+                        <div class="input-wrap">
+                          <input
+                            id="hybridPrice"
+                            type="number"
+                            inputmode="numeric"
+                            min="0"
+                            step="100"
+                            value="4200"
+                            required
+                          />
+
+                          <span class="unit">
+                            만원
+                          </span>
+                        </div>
+                      </div>
+
+                      <div class="field">
+                        <label for="hybridSupport">
+                          할인·혜택
+                        </label>
+
+                        <div class="input-wrap">
+                          <input
+                            id="hybridSupport"
+                            type="number"
+                            inputmode="numeric"
+                            min="0"
+                            step="10"
+                            value="150"
+                            required
+                          />
+
+                          <span class="unit">
+                            만원
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="two-col">
+                      <div class="field">
+                        <label for="hybridEfficiency">
+                          복합연비
+                        </label>
+
+                        <div class="input-wrap">
+                          <input
+                            id="hybridEfficiency"
+                            type="number"
+                            inputmode="decimal"
+                            min="0.1"
+                            step="0.1"
+                            value="18.5"
+                            required
+                          />
+
+                          <span class="unit">
+                            km/L
+                          </span>
+                        </div>
+                      </div>
+
+                      <div class="field">
+                        <label for="hybridInitial">
+                          취득·기타 초기비
+                        </label>
+
+                        <div class="input-wrap">
+                          <input
+                            id="hybridInitial"
+                            type="number"
+                            inputmode="numeric"
+                            min="0"
+                            step="10"
+                            value="280"
+                            required
+                          />
+
+                          <span class="unit">
+                            만원
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="two-col">
+                      <div class="field">
+                        <label for="hybridInsurance">
+                          연 보험료
+                        </label>
+
+                        <div class="input-wrap">
+                          <input
+                            id="hybridInsurance"
+                            type="number"
+                            inputmode="numeric"
+                            min="0"
+                            step="1"
+                            value="95"
+                            required
+                          />
+
+                          <span class="unit">
+                            만원
+                          </span>
+                        </div>
+                      </div>
+
+                      <div class="field">
+                        <label for="hybridTax">
+                          연 자동차세
+                        </label>
+
+                        <div class="input-wrap">
+                          <input
+                            id="hybridTax"
+                            type="number"
+                            inputmode="numeric"
+                            min="0"
+                            step="1"
+                            value="29"
+                            required
+                          />
+
+                          <span class="unit">
+                            만원
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="two-col">
+                      <div class="field">
+                        <label for="hybridMaintenance">
+                          연 정비비
+                        </label>
+
+                        <div class="input-wrap">
+                          <input
+                            id="hybridMaintenance"
+                            type="number"
+                            inputmode="numeric"
+                            min="0"
+                            step="1"
+                            value="55"
+                            required
+                          />
+
+                          <span class="unit">
+                            만원
+                          </span>
+                        </div>
+                      </div>
+
+                      <div class="field">
+                        <label for="hybridBenefit">
+                          연 할인·혜택
+                        </label>
+
+                        <div class="input-wrap">
+                          <input
+                            id="hybridBenefit"
+                            type="number"
+                            inputmode="numeric"
+                            min="0"
+                            step="1"
+                            value="5"
+                            required
+                          />
+
+                          <span class="unit">
+                            만원
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="hybridResale">
+                        보유기간 후 예상 중고차 가치
+
+                        <small>
+                          할인 차감 후 실구매가 대비
+                        </small>
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="hybridResale"
+                          type="number"
+                          inputmode="decimal"
+                          min="0"
+                          max="100"
+                          step="1"
+                          value="55"
+                          required
+                        />
+
+                        <span class="unit">
+                          %
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="quick-fill">
+                      <button
+                        class="quick-btn"
+                        type="button"
+                        data-preset="hybridCity"
+                      >
+                        도심형 예시
+                      </button>
+
+                      <button
+                        class="quick-btn"
+                        type="button"
+                        data-preset="hybridLarge"
+                      >
+                        중형 SUV 예시
+                      </button>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="vehicle-card gas">
+                  <div class="vehicle-head">
+                    <div class="vehicle-icon">
+                      ⛽
+                    </div>
+
+                    <div>
+                      <h3>
+                        가솔린
+                      </h3>
+
+                      <p>
+                        연비와 휘발유 가격을 기준으로 계산합니다.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="vehicle-body">
+                    <div class="two-col">
+                      <div class="field">
+                        <label for="gasCarPrice">
+                          차량가격
+                        </label>
+
+                        <div class="input-wrap">
+                          <input
+                            id="gasCarPrice"
+                            type="number"
+                            inputmode="numeric"
+                            min="0"
+                            step="100"
+                            value="3500"
+                            required
+                          />
+
+                          <span class="unit">
+                            만원
+                          </span>
+                        </div>
+                      </div>
+
+                      <div class="field">
+                        <label for="gasSupport">
+                          할인·혜택
+                        </label>
+
+                        <div class="input-wrap">
+                          <input
+                            id="gasSupport"
+                            type="number"
+                            inputmode="numeric"
+                            min="0"
+                            step="10"
+                            value="200"
+                            required
+                          />
+
+                          <span class="unit">
+                            만원
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="two-col">
+                      <div class="field">
+                        <label for="gasEfficiency">
+                          복합연비
+                        </label>
+
+                        <div class="input-wrap">
+                          <input
+                            id="gasEfficiency"
+                            type="number"
+                            inputmode="decimal"
+                            min="0.1"
+                            step="0.1"
+                            value="11.5"
+                            required
+                          />
+
+                          <span class="unit">
+                            km/L
+                          </span>
+                        </div>
+                      </div>
+
+                      <div class="field">
+                        <label for="gasInitial">
+                          취득·기타 초기비
+                        </label>
+
+                        <div class="input-wrap">
+                          <input
+                            id="gasInitial"
+                            type="number"
+                            inputmode="numeric"
+                            min="0"
+                            step="10"
+                            value="260"
+                            required
+                          />
+
+                          <span class="unit">
+                            만원
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="two-col">
+                      <div class="field">
+                        <label for="gasInsurance">
+                          연 보험료
+                        </label>
+
+                        <div class="input-wrap">
+                          <input
+                            id="gasInsurance"
+                            type="number"
+                            inputmode="numeric"
+                            min="0"
+                            step="1"
+                            value="85"
+                            required
+                          />
+
+                          <span class="unit">
+                            만원
+                          </span>
+                        </div>
+                      </div>
+
+                      <div class="field">
+                        <label for="gasTax">
+                          연 자동차세
+                        </label>
+
+                        <div class="input-wrap">
+                          <input
+                            id="gasTax"
+                            type="number"
+                            inputmode="numeric"
+                            min="0"
+                            step="1"
+                            value="29"
+                            required
+                          />
+
+                          <span class="unit">
+                            만원
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="two-col">
+                      <div class="field">
+                        <label for="gasMaintenance">
+                          연 정비비
+                        </label>
+
+                        <div class="input-wrap">
+                          <input
+                            id="gasMaintenance"
+                            type="number"
+                            inputmode="numeric"
+                            min="0"
+                            step="1"
+                            value="75"
+                            required
+                          />
+
+                          <span class="unit">
+                            만원
+                          </span>
+                        </div>
+                      </div>
+
+                      <div class="field">
+                        <label for="gasBenefit">
+                          연 할인·혜택
+                        </label>
+
+                        <div class="input-wrap">
+                          <input
+                            id="gasBenefit"
+                            type="number"
+                            inputmode="numeric"
+                            min="0"
+                            step="1"
+                            value="0"
+                            required
+                          />
+
+                          <span class="unit">
+                            만원
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="gasResale">
+                        보유기간 후 예상 중고차 가치
+
+                        <small>
+                          할인 차감 후 실구매가 대비
+                        </small>
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="gasResale"
+                          type="number"
+                          inputmode="decimal"
+                          min="0"
+                          max="100"
+                          step="1"
+                          value="52"
+                          required
+                        />
+
+                        <span class="unit">
+                          %
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="quick-fill">
+                      <button
+                        class="quick-btn"
+                        type="button"
+                        data-preset="gasCompact"
+                      >
+                        준중형 예시
+                      </button>
+
+                      <button
+                        class="quick-btn"
+                        type="button"
+                        data-preset="gasSuv"
+                      >
+                        중형 SUV 예시
+                      </button>
+                    </div>
+                  </div>
+                </section>
+              </div>
+
+              <div class="action-row">
+                <button
+                  class="calculate-btn"
+                  type="submit"
+                >
+                  세 차종 총비용 비교하기
+                </button>
+
+                <button
+                  class="reset-btn"
+                  type="button"
+                  id="resetBtn"
+                >
+                  입력값 초기화
+                </button>
+              </div>
+            </form>
+
+            <div class="notice">
+              기본값은 계산 예시이며 실제 차량별 가격·보조금·취득세·보험료·세금·연비·전비와
+              중고차 가격은 계약 시점, 지역, 차량 등급과 운전조건에 따라 달라집니다.
+              제조사 견적과 실제 보조금 확정액을 직접 입력해 비교하세요.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="results"
+      id="results"
+    >
+      <div class="wrap">
+        <div
+          class="result-empty"
+          id="resultEmpty"
+        >
+          세 차종의 조건을 입력한 뒤 계산하면<br />
+          총비용 순위와 비용 항목별 차이가 표시됩니다.
+        </div>
+
+        <div
+          class="result-content"
+          id="resultContent"
+        >
+          <section class="winner-banner">
+            <div>
+              <span>
+                TOTAL COST WINNER
+              </span>
+
+              <h2 id="winnerTitle">
+                -
+              </h2>
+
+              <p id="winnerMessage">
+                -
+              </p>
+            </div>
+
+            <div class="winner-amount">
+              <small>
+                보유기간 예상 총비용
+              </small>
+
+              <strong id="winnerCost">
+                -
+              </strong>
+            </div>
+          </section>
+
+          <div
+            class="ranking-grid"
+            id="rankingGrid"
+          ></div>
+
+          <section class="cost-bars">
+            <h3>
+              차종별 총비용 비교
+            </h3>
+
+            <p>
+              가장 비싼 차종을 100%로 환산한 상대 비교입니다.
+            </p>
+
+            <div class="bar-list">
+              <div class="bar-item">
+                <div class="bar-label">
+                  전기차
+                </div>
+
+                <div class="bar-track">
+                  <i
+                    class="bar-fill ev"
+                    id="evBar"
+                  ></i>
+                </div>
+
+                <div
+                  class="bar-value"
+                  id="evBarValue"
+                >
+                  -
+                </div>
+              </div>
+
+              <div class="bar-item">
+                <div class="bar-label">
+                  하이브리드
+                </div>
+
+                <div class="bar-track">
+                  <i
+                    class="bar-fill hybrid"
+                    id="hybridBar"
+                  ></i>
+                </div>
+
+                <div
+                  class="bar-value"
+                  id="hybridBarValue"
+                >
+                  -
+                </div>
+              </div>
+
+              <div class="bar-item">
+                <div class="bar-label">
+                  가솔린
+                </div>
+
+                <div class="bar-track">
+                  <i
+                    class="bar-fill gas"
+                    id="gasBar"
+                  ></i>
+                </div>
+
+                <div
+                  class="bar-value"
+                  id="gasBarValue"
+                >
+                  -
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="breakdown-wrap">
+            <div class="breakdown-head">
+              <h3>
+                비용 항목별 상세 비교
+              </h3>
+
+              <p>
+                구매비용에서 중고차 가치를 차감하고 보유기간 비용을 더합니다.
+              </p>
+            </div>
+
+            <div class="breakdown-table">
+              <div class="breakdown-row head">
+                <div>
+                  비용 항목
+                </div>
+
+                <div>
+                  전기차
+                </div>
+
+                <div>
+                  하이브리드
+                </div>
+
+                <div>
+                  가솔린
+                </div>
+              </div>
+
+              <div class="breakdown-row">
+                <div>
+                  보조금·할인 차감 실구매가
+                </div>
+
+                <div id="evPurchaseResult">
+                  -
+                </div>
+
+                <div id="hybridPurchaseResult">
+                  -
+                </div>
+
+                <div id="gasPurchaseResult">
+                  -
+                </div>
+              </div>
+
+              <div class="breakdown-row">
+                <div>
+                  초기 부대비용
+                </div>
+
+                <div id="evInitialResult">
+                  -
+                </div>
+
+                <div id="hybridInitialResult">
+                  -
+                </div>
+
+                <div id="gasInitialResult">
+                  -
+                </div>
+              </div>
+
+              <div class="breakdown-row">
+                <div>
+                  충전·연료비
+                </div>
+
+                <div id="evEnergyResult">
+                  -
+                </div>
+
+                <div id="hybridEnergyResult">
+                  -
+                </div>
+
+                <div id="gasEnergyResult">
+                  -
+                </div>
+              </div>
+
+              <div class="breakdown-row">
+                <div>
+                  보험료
+                </div>
+
+                <div id="evInsuranceResult">
+                  -
+                </div>
+
+                <div id="hybridInsuranceResult">
+                  -
+                </div>
+
+                <div id="gasInsuranceResult">
+                  -
+                </div>
+              </div>
+
+              <div class="breakdown-row">
+                <div>
+                  자동차세
+                </div>
+
+                <div id="evTaxResult">
+                  -
+                </div>
+
+                <div id="hybridTaxResult">
+                  -
+                </div>
+
+                <div id="gasTaxResult">
+                  -
+                </div>
+              </div>
+
+              <div class="breakdown-row">
+                <div>
+                  정비비
+                </div>
+
+                <div id="evMaintenanceResult">
+                  -
+                </div>
+
+                <div id="hybridMaintenanceResult">
+                  -
+                </div>
+
+                <div id="gasMaintenanceResult">
+                  -
+                </div>
+              </div>
+
+              <div class="breakdown-row">
+                <div>
+                  대출이자
+                </div>
+
+                <div id="evInterestResult">
+                  -
+                </div>
+
+                <div id="hybridInterestResult">
+                  -
+                </div>
+
+                <div id="gasInterestResult">
+                  -
+                </div>
+              </div>
+
+              <div class="breakdown-row">
+                <div>
+                  연간 할인·혜택 차감
+                </div>
+
+                <div id="evBenefitResult">
+                  -
+                </div>
+
+                <div id="hybridBenefitResult">
+                  -
+                </div>
+
+                <div id="gasBenefitResult">
+                  -
+                </div>
+              </div>
+
+              <div class="breakdown-row">
+                <div>
+                  예상 중고차 가치 차감
+                </div>
+
+                <div id="evResaleResult">
+                  -
+                </div>
+
+                <div id="hybridResaleResult">
+                  -
+                </div>
+
+                <div id="gasResaleResult">
+                  -
+                </div>
+              </div>
+
+              <div class="breakdown-row total">
+                <div>
+                  최종 총소유비용
+                </div>
+
+                <div id="evTotalResult">
+                  -
+                </div>
+
+                <div id="hybridTotalResult">
+                  -
+                </div>
+
+                <div id="gasTotalResult">
+                  -
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <div class="insight-grid">
+            <article class="insight-card">
+              <span>
+                1위와 3위 총비용 차이
+              </span>
+
+              <strong id="costGap">
+                -
+              </strong>
+
+              <small id="costGapDetail">
+                -
+              </small>
+            </article>
+
+            <article class="insight-card">
+              <span>
+                전기차 vs 가솔린 구매비 회수
+              </span>
+
+              <strong id="evBreakEven">
+                -
+              </strong>
+
+              <small>
+                연간 운영비 절감으로 초기 가격 차이를 회수하는 단순 추정치
+              </small>
+            </article>
+
+            <article class="insight-card">
+              <span>
+                가장 낮은 1km당 비용
+              </span>
+
+              <strong id="bestPerKm">
+                -
+              </strong>
+
+              <small id="bestPerKmDetail">
+                -
+              </small>
+            </article>
+          </div>
+
+          <div
+            class="status-box"
+            id="statusBox"
+          >
+            -
+          </div>
+
+          <div class="result-actions">
+            <button
+              class="utility-btn"
+              type="button"
+              id="copyBtn"
+            >
+              결과 복사
+            </button>
+
+            <button
+              class="utility-btn"
+              type="button"
+              id="printBtn"
+            >
+              인쇄·PDF 저장
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="section"
+      id="guide"
+    >
+      <div class="wrap">
+        <div class="guide-grid">
+          <article class="guide-card">
+            <h3>
+              차량가격보다 감가상각
+            </h3>
+
+            <p>
+              총소유비용에서는 처음 지불한 가격과 나중에 되파는 가격의 차이가 큰 비중을 차지합니다.
+              보유기간 후 예상 중고차 가치를 현실적으로 입력하는 것이 중요합니다.
+            </p>
+          </article>
+
+          <article class="guide-card">
+            <h3>
+              주행거리가 길수록 달라지는 결과
+            </h3>
+
+            <p>
+              연간 주행거리가 많을수록 전비와 연비 차이가 누적됩니다.
+              출퇴근 거리가 길거나 영업용으로 운행한다면 실제 예상 주행거리를 입력해 비교하세요.
+            </p>
+          </article>
+
+          <article class="guide-card">
+            <h3>
+              충전단가는 평균값으로
+            </h3>
+
+            <p>
+              전기차는 완속·급속·공용 충전 비중에 따라 평균 단가가 크게 달라집니다.
+              자주 사용하는 충전 방식의 비중을 고려해 평균 충전단가를 입력하세요.
+            </p>
+          </article>
+        </div>
+
+        <div class="faq">
+          <details>
+            <summary>
+              차량대출 원금도 총비용에 추가되나요?
+            </summary>
+
+            <p>
+              차량 원금은 실구매가격에 이미 포함되어 있으므로 다시 더하지 않습니다.
+              계산기에서는 대출을 사용하면서 추가로 발생한 이자만 총비용에 반영합니다.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              중고차 가치는 어떻게 입력해야 하나요?
+            </summary>
+
+            <p>
+              보유기간 후 예상 판매가격을 실구매가로 나눈 비율을 입력하세요.
+              비슷한 연식과 주행거리의 중고차 시세를 참고하면 비교 정확도가 높아집니다.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              전기차 배터리 교체비는 포함되나요?
+            </summary>
+
+            <p>
+              기본 계산에는 별도 배터리 교체비를 자동으로 포함하지 않습니다.
+              보유기간 중 발생 가능성이 있다고 판단하면 전기차의 초기 부대비용이나 연 정비비에 예상 비용을 나누어 추가하세요.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-card">
+        <strong>
+          바로해결툴즈
+        </strong>
+
+        <p>
+          본 결과는 사용자가 입력한 비용과 운행조건을 이용한 참고용 추정치입니다.
+          실제 구매 전에는 제조사 견적, 지역별 보조금, 취득세, 보험료, 금융상품 이자,
+          충전환경과 예상 중고차 시세를 별도로 확인하세요.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    "use strict";
+
+    const STORAGE_KEY =
+      "vehicleTotalCostComparator";
+
+    const form =
+      document.getElementById(
+        "calculatorForm"
+      );
+
+    const resultEmpty =
+      document.getElementById(
+        "resultEmpty"
+      );
+
+    const resultContent =
+      document.getElementById(
+        "resultContent"
+      );
+
+    const resetBtn =
+      document.getElementById(
+        "resetBtn"
+      );
+
+    const copyBtn =
+      document.getElementById(
+        "copyBtn"
+      );
+
+    const printBtn =
+      document.getElementById(
+        "printBtn"
+      );
+
+    const inputs = {
+      ownershipYears:
+        document.getElementById(
+          "ownershipYears"
+        ),
+
+      annualKm:
+        document.getElementById(
+          "annualKm"
+        ),
+
+      gasPrice:
+        document.getElementById(
+          "gasPrice"
+        ),
+
+      electricPrice:
+        document.getElementById(
+          "electricPrice"
+        ),
+
+      loanRatio:
+        document.getElementById(
+          "loanRatio"
+        ),
+
+      loanRate:
+        document.getElementById(
+          "loanRate"
+        ),
+
+      loanYears:
+        document.getElementById(
+          "loanYears"
+        ),
+
+      costMode:
+        document.getElementById(
+          "costMode"
+        ),
+
+      evPrice:
+        document.getElementById(
+          "evPrice"
+        ),
+
+      evSupport:
+        document.getElementById(
+          "evSupport"
+        ),
+
+      evEfficiency:
+        document.getElementById(
+          "evEfficiency"
+        ),
+
+      evInitial:
+        document.getElementById(
+          "evInitial"
+        ),
+
+      evInsurance:
+        document.getElementById(
+          "evInsurance"
+        ),
+
+      evTax:
+        document.getElementById(
+          "evTax"
+        ),
+
+      evMaintenance:
+        document.getElementById(
+          "evMaintenance"
+        ),
+
+      evBenefit:
+        document.getElementById(
+          "evBenefit"
+        ),
+
+      evResale:
+        document.getElementById(
+          "evResale"
+        ),
+
+      hybridPrice:
+        document.getElementById(
+          "hybridPrice"
+        ),
+
+      hybridSupport:
+        document.getElementById(
+          "hybridSupport"
+        ),
+
+      hybridEfficiency:
+        document.getElementById(
+          "hybridEfficiency"
+        ),
+
+      hybridInitial:
+        document.getElementById(
+          "hybridInitial"
+        ),
+
+      hybridInsurance:
+        document.getElementById(
+          "hybridInsurance"
+        ),
+
+      hybridTax:
+        document.getElementById(
+          "hybridTax"
+        ),
+
+      hybridMaintenance:
+        document.getElementById(
+          "hybridMaintenance"
+        ),
+
+      hybridBenefit:
+        document.getElementById(
+          "hybridBenefit"
+        ),
+
+      hybridResale:
+        document.getElementById(
+          "hybridResale"
+        ),
+
+      gasCarPrice:
+        document.getElementById(
+          "gasCarPrice"
+        ),
+
+      gasSupport:
+        document.getElementById(
+          "gasSupport"
+        ),
+
+      gasEfficiency:
+        document.getElementById(
+          "gasEfficiency"
+        ),
+
+      gasInitial:
+        document.getElementById(
+          "gasInitial"
+        ),
+
+      gasInsurance:
+        document.getElementById(
+          "gasInsurance"
+        ),
+
+      gasTax:
+        document.getElementById(
+          "gasTax"
+        ),
+
+      gasMaintenance:
+        document.getElementById(
+          "gasMaintenance"
+        ),
+
+      gasBenefit:
+        document.getElementById(
+          "gasBenefit"
+        ),
+
+      gasResale:
+        document.getElementById(
+          "gasResale"
+        )
+    };
+
+    const resultEls = {
+      winnerTitle:
+        document.getElementById(
+          "winnerTitle"
+        ),
+
+      winnerMessage:
+        document.getElementById(
+          "winnerMessage"
+        ),
+
+      winnerCost:
+        document.getElementById(
+          "winnerCost"
+        ),
+
+      rankingGrid:
+        document.getElementById(
+          "rankingGrid"
+        ),
+
+      evBar:
+        document.getElementById(
+          "evBar"
+        ),
+
+      hybridBar:
+        document.getElementById(
+          "hybridBar"
+        ),
+
+      gasBar:
+        document.getElementById(
+          "gasBar"
+        ),
+
+      evBarValue:
+        document.getElementById(
+          "evBarValue"
+        ),
+
+      hybridBarValue:
+        document.getElementById(
+          "hybridBarValue"
+        ),
+
+      gasBarValue:
+        document.getElementById(
+          "gasBarValue"
+        ),
+
+      costGap:
+        document.getElementById(
+          "costGap"
+        ),
+
+      costGapDetail:
+        document.getElementById(
+          "costGapDetail"
+        ),
+
+      evBreakEven:
+        document.getElementById(
+          "evBreakEven"
+        ),
+
+      bestPerKm:
+        document.getElementById(
+          "bestPerKm"
+        ),
+
+      bestPerKmDetail:
+        document.getElementById(
+          "bestPerKmDetail"
+        ),
+
+      statusBox:
+        document.getElementById(
+          "statusBox"
+        ),
+
+      heroEvCost:
+        document.getElementById(
+          "heroEvCost"
+        ),
+
+      heroHybridCost:
+        document.getElementById(
+          "heroHybridCost"
+        ),
+
+      heroGasCost:
+        document.getElementById(
+          "heroGasCost"
+        )
+    };
+
+    let lastResultText =
+      "";
+
+    function numberValue(input) {
+      return Number(
+        input.value || 0
+      );
+    }
+
+    function formatManwon(value) {
+      const rounded =
+        Math.round(value);
+
+      if (
+        Math.abs(rounded) >=
+        10000
+      ) {
+        const eok =
+          rounded / 10000;
+
+        return (
+          `${eok.toFixed(
+            Math.abs(eok) >= 10
+              ? 1
+              : 2
+          )}억원`
+        );
+      }
+
+      return (
+        `${rounded.toLocaleString(
+          "ko-KR"
+        )}만원`
+      );
+    }
+
+    function formatCompact(value) {
+      if (
+        Math.abs(value) >=
+        10000
+      ) {
+        return (
+          `${(
+            value /
+            10000
+          ).toFixed(1)}억`
+        );
+      }
+
+      return (
+        `${Math.round(
+          value
+        ).toLocaleString(
+          "ko-KR"
+        )}만`
+      );
+    }
+
+    function formatWon(value) {
+      return (
+        `${Math.round(
+          value
+        ).toLocaleString(
+          "ko-KR"
+        )}원`
+      );
+    }
+
+    function simulateLoanInterest(
+      principalManwon,
+      annualRate,
+      loanYears,
+      ownershipYears
+    ) {
+      if (
+        principalManwon <= 0 ||
+        annualRate <= 0 ||
+        loanYears <= 0
+      ) {
+        return 0;
+      }
+
+      const principal =
+        principalManwon *
+        10000;
+
+      const monthlyRate =
+        annualRate /
+        100 /
+        12;
+
+      const totalMonths =
+        loanYears *
+        12;
+
+      const monthsToSimulate =
+        Math.min(
+          ownershipYears * 12,
+          totalMonths
+        );
+
+      const monthlyPayment =
+        monthlyRate === 0
+          ? principal /
+            totalMonths
+          : principal *
+            monthlyRate *
+            Math.pow(
+              1 + monthlyRate,
+              totalMonths
+            ) /
+            (
+              Math.pow(
+                1 + monthlyRate,
+                totalMonths
+              ) -
+              1
+            );
+
+      let remaining =
+        principal;
+
+      let totalInterest =
+        0;
+
+      for (
+        let month = 0;
+        month < monthsToSimulate;
+        month += 1
+      ) {
+        const interest =
+          remaining *
+          monthlyRate;
+
+        const principalPaid =
+          Math.min(
+            remaining,
+            monthlyPayment -
+            interest
+          );
+
+        totalInterest +=
+          interest;
+
+        remaining =
+          Math.max(
+            0,
+            remaining -
+            principalPaid
+          );
+      }
+
+      return (
+        totalInterest /
+        10000
+      );
+    }
+
+    function calculateVehicle(
+      type,
+      common
+    ) {
+      const prefix =
+        type === "ev"
+          ? "ev"
+          : type === "hybrid"
+            ? "hybrid"
+            : "gas";
+
+      const label =
+        type === "ev"
+          ? "전기차"
+          : type === "hybrid"
+            ? "하이브리드"
+            : "가솔린";
+
+      const price =
+        numberValue(
+          inputs[
+            `${prefix}Price`
+          ] ||
+          inputs.gasCarPrice
+        );
+
+      const support =
+        numberValue(
+          inputs[
+            `${prefix}Support`
+          ]
+        );
+
+      const efficiency =
+        numberValue(
+          inputs[
+            `${prefix}Efficiency`
+          ]
+        );
+
+      const initial =
+        numberValue(
+          inputs[
+            `${prefix}Initial`
+          ]
+        );
+
+      const insurance =
+        numberValue(
+          inputs[
+            `${prefix}Insurance`
+          ]
+        );
+
+      const tax =
+        numberValue(
+          inputs[
+            `${prefix}Tax`
+          ]
+        );
+
+      const maintenance =
+        numberValue(
+          inputs[
+            `${prefix}Maintenance`
+          ]
+        );
+
+      const benefit =
+        numberValue(
+          inputs[
+            `${prefix}Benefit`
+          ]
+        );
+
+      const resaleRate =
+        numberValue(
+          inputs[
+            `${prefix}Resale`
+          ]
+        );
+
+      const purchase =
+        Math.max(
+          0,
+          price -
+          support
+        );
+
+      let annualEnergy =
+        0;
+
+      if (type === "ev") {
+        annualEnergy =
+          common.annualKm /
+          efficiency *
+          common.electricPrice /
+          10000;
+      } else {
+        annualEnergy =
+          common.annualKm /
+          efficiency *
+          common.gasPrice /
+          10000;
+      }
+
+      const energy =
+        annualEnergy *
+        common.ownershipYears;
+
+      const insuranceTotal =
+        insurance *
+        common.ownershipYears;
+
+      const taxTotal =
+        tax *
+        common.ownershipYears;
+
+      const maintenanceTotal =
+        maintenance *
+        common.ownershipYears;
+
+      const benefitTotal =
+        benefit *
+        common.ownershipYears;
+
+      const financedAmount =
+        purchase *
+        common.loanRatio /
+        100;
+
+      const loanInterest =
+        simulateLoanInterest(
+          financedAmount,
+          common.loanRate,
+          common.loanYears,
+          common.ownershipYears
+        );
+
+      const resale =
+        purchase *
+        resaleRate /
+        100;
+
+      const total =
+        purchase +
+        initial +
+        energy +
+        insuranceTotal +
+        taxTotal +
+        maintenanceTotal +
+        loanInterest -
+        benefitTotal -
+        resale;
+
+      const annualOperating =
+        annualEnergy +
+        insurance +
+        tax +
+        maintenance -
+        benefit;
+
+      const totalKm =
+        common.annualKm *
+        common.ownershipYears;
+
+      const perKmWon =
+        totalKm > 0
+          ? total *
+            10000 /
+            totalKm
+          : 0;
+
+      return {
+        type,
+        label,
+        price,
+        support,
+        purchase,
+        initial,
+        efficiency,
+        annualEnergy,
+        energy,
+        insuranceTotal,
+        taxTotal,
+        maintenanceTotal,
+        benefitTotal,
+        loanInterest,
+        resale,
+        total,
+        annualOperating,
+        perKmWon
+      };
+    }
+
+    function readCommon() {
+      return {
+        ownershipYears:
+          numberValue(
+            inputs.ownershipYears
+          ),
+
+        annualKm:
+          numberValue(
+            inputs.annualKm
+          ),
+
+        gasPrice:
+          numberValue(
+            inputs.gasPrice
+          ),
+
+        electricPrice:
+          numberValue(
+            inputs.electricPrice
+          ),
+
+        loanRatio:
+          numberValue(
+            inputs.loanRatio
+          ),
+
+        loanRate:
+          numberValue(
+            inputs.loanRate
+          ),
+
+        loanYears:
+          numberValue(
+            inputs.loanYears
+          ),
+
+        costMode:
+          inputs.costMode.value
+      };
+    }
+
+    function validate(common) {
+      const values =
+        Object.values(
+          inputs
+        )
+          .filter(
+            (input) =>
+              input.tagName !==
+              "SELECT"
+          )
+          .map(
+            numberValue
+          );
+
+      const allValid =
+        values.every(
+          (value) =>
+            Number.isFinite(
+              value
+            ) &&
+            value >= 0
+        );
+
+      return (
+        allValid &&
+        common.ownershipYears >= 1 &&
+        common.annualKm > 0 &&
+        common.gasPrice > 0 &&
+        common.electricPrice > 0 &&
+        common.loanRatio >= 0 &&
+        common.loanRatio <= 100 &&
+        common.loanRate >= 0 &&
+        common.loanYears >= 1 &&
+        numberValue(
+          inputs.evEfficiency
+        ) > 0 &&
+        numberValue(
+          inputs.hybridEfficiency
+        ) > 0 &&
+        numberValue(
+          inputs.gasEfficiency
+        ) > 0
+      );
+    }
+
+    function displayCost(
+      vehicle,
+      common
+    ) {
+      if (
+        common.costMode ===
+        "annual"
+      ) {
+        return (
+          formatManwon(
+            vehicle.total /
+            common.ownershipYears
+          )
+        );
+      }
+
+      if (
+        common.costMode ===
+        "perKm"
+      ) {
+        return (
+          formatWon(
+            vehicle.perKmWon
+          )
+        );
+      }
+
+      return (
+        formatManwon(
+          vehicle.total
+        )
+      );
+    }
+
+    function calculateBreakEvenYears(
+      ev,
+      gas
+    ) {
+      const initialGap =
+        (
+          ev.purchase +
+          ev.initial
+        ) -
+        (
+          gas.purchase +
+          gas.initial
+        );
+
+      const annualSaving =
+        gas.annualOperating -
+        ev.annualOperating;
+
+      if (initialGap <= 0) {
+        return {
+          text: "즉시 유리",
+          years: 0
+        };
+      }
+
+      if (annualSaving <= 0) {
+        return {
+          text: "회수 불가",
+          years: null
+        };
+      }
+
+      const years =
+        initialGap /
+        annualSaving;
+
+      return {
+        text:
+          `${years.toFixed(1)}년`,
+        years
+      };
+    }
+
+    function updateBreakdown(
+      ev,
+      hybrid,
+      gas
+    ) {
+      const map = {
+        evPurchaseResult:
+          ev.purchase,
+
+        hybridPurchaseResult:
+          hybrid.purchase,
+
+        gasPurchaseResult:
+          gas.purchase,
+
+        evInitialResult:
+          ev.initial,
+
+        hybridInitialResult:
+          hybrid.initial,
+
+        gasInitialResult:
+          gas.initial,
+
+        evEnergyResult:
+          ev.energy,
+
+        hybridEnergyResult:
+          hybrid.energy,
+
+        gasEnergyResult:
+          gas.energy,
+
+        evInsuranceResult:
+          ev.insuranceTotal,
+
+        hybridInsuranceResult:
+          hybrid.insuranceTotal,
+
+        gasInsuranceResult:
+          gas.insuranceTotal,
+
+        evTaxResult:
+          ev.taxTotal,
+
+        hybridTaxResult:
+          hybrid.taxTotal,
+
+        gasTaxResult:
+          gas.taxTotal,
+
+        evMaintenanceResult:
+          ev.maintenanceTotal,
+
+        hybridMaintenanceResult:
+          hybrid.maintenanceTotal,
+
+        gasMaintenanceResult:
+          gas.maintenanceTotal,
+
+        evInterestResult:
+          ev.loanInterest,
+
+        hybridInterestResult:
+          hybrid.loanInterest,
+
+        gasInterestResult:
+          gas.loanInterest,
+
+        evBenefitResult:
+          -ev.benefitTotal,
+
+        hybridBenefitResult:
+          -hybrid.benefitTotal,
+
+        gasBenefitResult:
+          -gas.benefitTotal,
+
+        evResaleResult:
+          -ev.resale,
+
+        hybridResaleResult:
+          -hybrid.resale,
+
+        gasResaleResult:
+          -gas.resale,
+
+        evTotalResult:
+          ev.total,
+
+        hybridTotalResult:
+          hybrid.total,
+
+        gasTotalResult:
+          gas.total
+      };
+
+      Object.entries(
+        map
+      ).forEach(
+        ([id, value]) => {
+          const element =
+            document.getElementById(
+              id
+            );
+
+          const sign =
+            value < 0
+              ? "-"
+              : "";
+
+          element.textContent =
+            `${sign}${formatManwon(
+              Math.abs(value)
+            )}`;
+        }
+      );
+    }
+
+    function renderRanking(
+      ranking,
+      common
+    ) {
+      const classNames = [
+        "first",
+        "second",
+        "third"
+      ];
+
+      resultEls.rankingGrid.innerHTML =
+        ranking
+          .map(
+            (vehicle, index) => {
+              const gap =
+                vehicle.total -
+                ranking[0].total;
+
+              return `
+                <article class="rank-card ${classNames[index]}">
+                  <div class="rank-head">
+                    <div class="rank-no">
+                      ${index + 1}
+                    </div>
+
+                    <div class="rank-name">
+                      ${index === 0 ? "가장 경제적" : `${index + 1}위`}
+                    </div>
+                  </div>
+
+                  <h3>
+                    ${vehicle.label}
+                  </h3>
+
+                  <strong class="rank-total">
+                    ${displayCost(vehicle, common)}
+                  </strong>
+
+                  <p>
+                    ${
+                      index === 0
+                        ? `${common.ownershipYears}년 기준 가장 낮은 총비용입니다.`
+                        : `1위보다 ${formatManwon(gap)} 더 듭니다.`
+                    }
+                  </p>
+                </article>
+              `;
+            }
+          )
+          .join("");
+    }
+
+    function updateBars(
+      ev,
+      hybrid,
+      gas
+    ) {
+      const maximum =
+        Math.max(
+          ev.total,
+          hybrid.total,
+          gas.total
+        );
+
+      const setBar = (
+        element,
+        value
+      ) => {
+        const width =
+          maximum > 0
+            ? value /
+              maximum *
+              100
+            : 0;
+
+        element.style.width =
+          `${Math.max(
+            3,
+            width
+          )}%`;
+      };
+
+      setBar(
+        resultEls.evBar,
+        ev.total
+      );
+
+      setBar(
+        resultEls.hybridBar,
+        hybrid.total
+      );
+
+      setBar(
+        resultEls.gasBar,
+        gas.total
+      );
+
+      resultEls.evBarValue.textContent =
+        formatManwon(
+          ev.total
+        );
+
+      resultEls.hybridBarValue.textContent =
+        formatManwon(
+          hybrid.total
+        );
+
+      resultEls.gasBarValue.textContent =
+        formatManwon(
+          gas.total
+        );
+    }
+
+    function calculate(event) {
+      event.preventDefault();
+
+      const common =
+        readCommon();
+
+      if (!validate(common)) {
+        alert(
+          "보유기간, 주행거리, 차량가격, 효율, 금리와 비용 입력값을 확인해주세요."
+        );
+
+        return;
+      }
+
+      const ev =
+        calculateVehicle(
+          "ev",
+          common
+        );
+
+      const hybrid =
+        calculateVehicle(
+          "hybrid",
+          common
+        );
+
+      const gas =
+        calculateVehicle(
+          "gas",
+          common
+        );
+
+      const ranking =
+        [
+          ev,
+          hybrid,
+          gas
+        ]
+          .sort(
+            (a, b) =>
+              a.total -
+              b.total
+          );
+
+      const winner =
+        ranking[0];
+
+      const last =
+        ranking[2];
+
+      const totalGap =
+        last.total -
+        winner.total;
+
+      const breakEven =
+        calculateBreakEvenYears(
+          ev,
+          gas
+        );
+
+      const bestPerKm =
+        [
+          ev,
+          hybrid,
+          gas
+        ]
+          .sort(
+            (a, b) =>
+              a.perKmWon -
+              b.perKmWon
+          )[0];
+
+      resultEls.winnerTitle.textContent =
+        `${winner.label}가 가장 경제적입니다`;
+
+      resultEls.winnerMessage.textContent =
+        `${common.ownershipYears}년 동안 연 ${common.annualKm.toLocaleString("ko-KR")}km를 주행하는 조건에서 ` +
+        `${last.label}보다 약 ${formatManwon(totalGap)} 적게 듭니다. ` +
+        "차량가격과 중고차 가치, 에너지비용을 함께 반영한 결과입니다.";
+
+      resultEls.winnerCost.textContent =
+        displayCost(
+          winner,
+          common
+        );
+
+      renderRanking(
+        ranking,
+        common
+      );
+
+      updateBars(
+        ev,
+        hybrid,
+        gas
+      );
+
+      updateBreakdown(
+        ev,
+        hybrid,
+        gas
+      );
+
+      resultEls.costGap.textContent =
+        formatManwon(
+          totalGap
+        );
+
+      resultEls.costGapDetail.textContent =
+        `${winner.label}와 ${last.label}의 ${common.ownershipYears}년 총비용 차이입니다.`;
+
+      resultEls.evBreakEven.textContent =
+        breakEven.text;
+
+      resultEls.bestPerKm.textContent =
+        formatWon(
+          bestPerKm.perKmWon
+        );
+
+      resultEls.bestPerKmDetail.textContent =
+        `${bestPerKm.label}가 1km당 비용이 가장 낮습니다.`;
+
+      if (
+        ranking[0].total ===
+        ranking[1].total
+      ) {
+        resultEls.statusBox.textContent =
+          "상위 두 차종의 총비용이 거의 같습니다. 충전환경, 실제 주행패턴, 정비 편의성과 중고차 가치 변동 가능성을 함께 비교하세요.";
+      } else if (
+        winner.type ===
+        "ev"
+      ) {
+        resultEls.statusBox.textContent =
+          "입력한 주행거리와 충전단가에서는 전기차의 낮은 에너지비와 세금·정비비가 높은 구매가격을 상쇄했습니다. 공용 급속충전 비중이 높다면 충전단가를 올려 다시 비교하세요.";
+      } else if (
+        winner.type ===
+        "hybrid"
+      ) {
+        resultEls.statusBox.textContent =
+          "하이브리드가 구매가격과 연료비, 중고차 가치의 균형에서 가장 유리하게 계산됐습니다. 충전환경이 불편하거나 주행거리가 중간 수준이라면 현실적인 선택이 될 수 있습니다.";
+      } else {
+        resultEls.statusBox.textContent =
+          "입력한 주행거리에서는 가솔린 차량의 낮은 초기 구매비용이 연료비 차이보다 크게 작용했습니다. 연간 주행거리를 늘려 장거리 운행 조건도 비교해보세요.";
+      }
+
+      resultEls.heroEvCost.textContent =
+        formatCompact(
+          ev.total
+        );
+
+      resultEls.heroHybridCost.textContent =
+        formatCompact(
+          hybrid.total
+        );
+
+      resultEls.heroGasCost.textContent =
+        formatCompact(
+          gas.total
+        );
+
+      resultEmpty.style.display =
+        "none";
+
+      resultContent.classList.add(
+        "show"
+      );
+
+      lastResultText =
+`[전기차·하이브리드·가솔린 총비용 비교기]
+
+보유기간: ${common.ownershipYears}년
+연간 주행거리: ${common.annualKm.toLocaleString("ko-KR")}km
+휘발유 가격: ${common.gasPrice.toLocaleString("ko-KR")}원/L
+평균 충전단가: ${common.electricPrice.toLocaleString("ko-KR")}원/kWh
+차량대출 비율: ${common.loanRatio.toFixed(0)}%
+차량대출 금리: 연 ${common.loanRate.toFixed(2)}%
+대출기간: ${common.loanYears}년
+
+[전기차]
+실구매가: ${formatManwon(ev.purchase)}
+충전비: ${formatManwon(ev.energy)}
+보험료: ${formatManwon(ev.insuranceTotal)}
+자동차세: ${formatManwon(ev.taxTotal)}
+정비비: ${formatManwon(ev.maintenanceTotal)}
+대출이자: ${formatManwon(ev.loanInterest)}
+예상 중고차 가치: ${formatManwon(ev.resale)}
+최종 총비용: ${formatManwon(ev.total)}
+1km당 비용: ${formatWon(ev.perKmWon)}
+
+[하이브리드]
+실구매가: ${formatManwon(hybrid.purchase)}
+연료비: ${formatManwon(hybrid.energy)}
+보험료: ${formatManwon(hybrid.insuranceTotal)}
+자동차세: ${formatManwon(hybrid.taxTotal)}
+정비비: ${formatManwon(hybrid.maintenanceTotal)}
+대출이자: ${formatManwon(hybrid.loanInterest)}
+예상 중고차 가치: ${formatManwon(hybrid.resale)}
+최종 총비용: ${formatManwon(hybrid.total)}
+1km당 비용: ${formatWon(hybrid.perKmWon)}
+
+[가솔린]
+실구매가: ${formatManwon(gas.purchase)}
+연료비: ${formatManwon(gas.energy)}
+보험료: ${formatManwon(gas.insuranceTotal)}
+자동차세: ${formatManwon(gas.taxTotal)}
+정비비: ${formatManwon(gas.maintenanceTotal)}
+대출이자: ${formatManwon(gas.loanInterest)}
+예상 중고차 가치: ${formatManwon(gas.resale)}
+최종 총비용: ${formatManwon(gas.total)}
+1km당 비용: ${formatWon(gas.perKmWon)}
+
+[최종 결과]
+1위: ${ranking[0].label} · ${formatManwon(ranking[0].total)}
+2위: ${ranking[1].label} · ${formatManwon(ranking[1].total)}
+3위: ${ranking[2].label} · ${formatManwon(ranking[2].total)}
+
+1위와 3위 총비용 차이: ${formatManwon(totalGap)}
+전기차 구매비 회수 예상: ${breakEven.text}
+가장 낮은 1km당 비용: ${bestPerKm.label} · ${formatWon(bestPerKm.perKmWon)}
+
+※ 실제 차량 견적과 보조금, 세금, 보험료, 충전환경 및 중고차 시세를 확인하세요.`;
+
+      saveForm();
+
+      document
+        .getElementById(
+          "results"
+        )
+        .scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+    }
+
+    function getSavedValues() {
+      const values =
+        {};
+
+      Object.entries(
+        inputs
+      ).forEach(
+        ([key, input]) => {
+          values[key] =
+            input.value;
+        }
+      );
+
+      return values;
+    }
+
+    function saveForm() {
+      try {
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify(
+            getSavedValues()
+          )
+        );
+      } catch (error) {
+        console.warn(error);
+      }
+    }
+
+    function restoreForm() {
+      try {
+        const saved =
+          JSON.parse(
+            localStorage.getItem(
+              STORAGE_KEY
+            ) || "null"
+          );
+
+        if (!saved) {
+          return;
+        }
+
+        Object.entries(
+          inputs
+        ).forEach(
+          ([key, input]) => {
+            if (
+              saved[key] !==
+              undefined
+            ) {
+              input.value =
+                saved[key];
+            }
+          }
+        );
+      } catch (error) {
+        console.warn(error);
+      }
+    }
+
+    function resetCalculator() {
+      localStorage.removeItem(
+        STORAGE_KEY
+      );
+
+      location.reload();
+    }
+
+    function applyPreset(
+      preset
+    ) {
+      const presets = {
+        evCity: {
+          evPrice: 4800,
+          evSupport: 700,
+          evEfficiency: 5.8,
+          evInitial: 210,
+          evInsurance: 105,
+          evTax: 13,
+          evMaintenance: 30,
+          evBenefit: 15,
+          evResale: 47
+        },
+
+        evLong: {
+          evPrice: 5900,
+          evSupport: 500,
+          evEfficiency: 4.6,
+          evInitial: 250,
+          evInsurance: 125,
+          evTax: 13,
+          evMaintenance: 42,
+          evBenefit: 18,
+          evResale: 50
+        },
+
+        hybridCity: {
+          hybridPrice: 3900,
+          hybridSupport: 100,
+          hybridEfficiency: 20.5,
+          hybridInitial: 250,
+          hybridInsurance: 92,
+          hybridTax: 27,
+          hybridMaintenance: 50,
+          hybridBenefit: 5,
+          hybridResale: 56
+        },
+
+        hybridLarge: {
+          hybridPrice: 4700,
+          hybridSupport: 120,
+          hybridEfficiency: 16.2,
+          hybridInitial: 320,
+          hybridInsurance: 105,
+          hybridTax: 32,
+          hybridMaintenance: 62,
+          hybridBenefit: 5,
+          hybridResale: 57
+        },
+
+        gasCompact: {
+          gasCarPrice: 3200,
+          gasSupport: 180,
+          gasEfficiency: 13.2,
+          gasInitial: 230,
+          gasInsurance: 82,
+          gasTax: 27,
+          gasMaintenance: 68,
+          gasBenefit: 0,
+          gasResale: 51
+        },
+
+        gasSuv: {
+          gasCarPrice: 4100,
+          gasSupport: 220,
+          gasEfficiency: 9.4,
+          gasInitial: 310,
+          gasInsurance: 98,
+          gasTax: 42,
+          gasMaintenance: 86,
+          gasBenefit: 0,
+          gasResale: 53
+        }
+      };
+
+      const selected =
+        presets[preset];
+
+      if (!selected) {
+        return;
+      }
+
+      Object.entries(
+        selected
+      ).forEach(
+        ([key, value]) => {
+          inputs[key].value =
+            value;
+        }
+      );
+
+      saveForm();
+    }
+
+    async function copyResult() {
+      if (!lastResultText) {
+        alert(
+          "먼저 계산해주세요."
+        );
+
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(
+          lastResultText
+        );
+      } catch (error) {
+        const textarea =
+          document.createElement(
+            "textarea"
+          );
+
+        textarea.value =
+          lastResultText;
+
+        textarea.style.position =
+          "fixed";
+
+        textarea.style.opacity =
+          "0";
+
+        document.body.appendChild(
+          textarea
+        );
+
+        textarea.select();
+
+        document.execCommand(
+          "copy"
+        );
+
+        textarea.remove();
+      }
+
+      const original =
+        copyBtn.textContent;
+
+      copyBtn.textContent =
+        "복사 완료";
+
+      setTimeout(
+        () => {
+          copyBtn.textContent =
+            original;
+        },
+        1300
+      );
+    }
+
+    document
+      .querySelectorAll(
+        ".quick-btn"
+      )
+      .forEach(
+        (button) => {
+          button.addEventListener(
+            "click",
+            () => {
+              applyPreset(
+                button.dataset.preset
+              );
+            }
+          );
+        }
+      );
+
+    Object.values(
+      inputs
+    ).forEach(
+      (input) => {
+        input.addEventListener(
+          "input",
+          saveForm
+        );
+
+        input.addEventListener(
+          "change",
+          saveForm
+        );
+      }
+    );
+
+    form.addEventListener(
+      "submit",
+      calculate
+    );
+
+    resetBtn.addEventListener(
+      "click",
+      resetCalculator
+    );
+
+    copyBtn.addEventListener(
+      "click",
+      copyResult
+    );
+
+    printBtn.addEventListener(
+      "click",
+      () => {
+        window.print();
+      }
+    );
+
+    restoreForm();
+  </script>
+
+  <script
+    defer
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'
+  ></script>
+</body>
+</html>
