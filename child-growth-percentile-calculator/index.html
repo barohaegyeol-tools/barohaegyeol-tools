@@ -1,0 +1,3664 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>소아·청소년 성장 백분위 계산기｜키·체중·BMI 확인｜바로해결툴즈</title>
+
+  <meta
+    name="description"
+    content="생년월일, 측정일, 성별, 키와 체중을 입력하면 만 나이와 월령을 계산하고 키·체중·BMI 참고 백분위, 성장 균형과 연령별 기준값을 확인합니다."
+  />
+
+  <meta
+    name="keywords"
+    content="성장 백분위 계산기, 어린이 키 백분위, 아이 체중 백분위, 소아 BMI 계산기, 청소년 성장 계산기, 성장도표 계산기, 키 백분위, 소아 비만도, 바로해결툴즈"
+  />
+
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+
+  <link
+    rel="canonical"
+    href="https://barohaegyeol-tools.pages.dev/child-growth-percentile-calculator/"
+  />
+
+  <meta name="theme-color" content="#f5f3ff" />
+
+  <meta property="og:type" content="website" />
+
+  <meta
+    property="og:title"
+    content="소아·청소년 성장 백분위 계산기｜바로해결툴즈"
+  />
+
+  <meta
+    property="og:description"
+    content="아이의 정확한 월령을 계산해 키·체중·BMI 참고 백분위와 성장 균형을 한 번에 확인하세요."
+  />
+
+  <meta
+    property="og:url"
+    content="https://barohaegyeol-tools.pages.dev/child-growth-percentile-calculator/"
+  />
+
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "소아·청소년 성장 백분위 계산기",
+    "url": "https://barohaegyeol-tools.pages.dev/child-growth-percentile-calculator/",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "All",
+    "description": "소아청소년의 만 나이와 월령을 계산하고 키, 체중, BMI 참고 백분위와 성장 균형을 확인하는 무료 웹 도구입니다.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "KRW"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --ink: #21163a;
+      --text: #4b4164;
+      --muted: #7d7395;
+      --line: rgba(58, 42, 92, 0.11);
+
+      --violet: #7c3aed;
+      --purple: #9333ea;
+      --indigo: #4f46e5;
+      --blue: #2563eb;
+      --cyan: #06b6d4;
+      --lime: #84cc16;
+      --yellow: #facc15;
+      --orange: #f97316;
+      --rose: #f43f5e;
+      --green: #16a34a;
+      --red: #dc2626;
+
+      --card: rgba(255, 255, 255, 0.92);
+
+      --shadow:
+        0 26px 76px rgba(91, 33, 182, 0.13);
+
+      --shadow-soft:
+        0 13px 34px rgba(30, 20, 55, 0.08);
+
+      --radius: 29px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+
+      color: var(--ink);
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Pretendard",
+        "Noto Sans KR",
+        "Apple SD Gothic Neo",
+        system-ui,
+        sans-serif;
+
+      line-height: 1.65;
+
+      background:
+        radial-gradient(
+          circle at 7% 8%,
+          rgba(124, 58, 237, 0.18),
+          transparent 24%
+        ),
+        radial-gradient(
+          circle at 93% 9%,
+          rgba(6, 182, 212, 0.17),
+          transparent 23%
+        ),
+        radial-gradient(
+          circle at 82% 91%,
+          rgba(132, 204, 22, 0.13),
+          transparent 24%
+        ),
+        linear-gradient(
+          135deg,
+          #f5f3ff 0%,
+          #eef2ff 45%,
+          #ecfeff 72%,
+          #f7fee7 100%
+        );
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.2;
+
+      background-image:
+        linear-gradient(
+          rgba(124, 58, 237, 0.045) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(124, 58, 237, 0.045) 1px,
+          transparent 1px
+        );
+
+      background-size: 34px 34px;
+
+      mask-image:
+        linear-gradient(
+          to bottom,
+          #000,
+          transparent 86%
+        );
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+
+      border-bottom:
+        1px solid rgba(58, 42, 92, 0.08);
+
+      background:
+        rgba(245, 243, 255, 0.86);
+
+      backdrop-filter:
+        blur(18px);
+    }
+
+    .nav {
+      min-height: 70px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+
+      font-weight: 950;
+      letter-spacing: -0.045em;
+    }
+
+    .brand-mark {
+      width: 43px;
+      height: 43px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 16px;
+
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--violet),
+          var(--indigo),
+          var(--cyan)
+        );
+
+      box-shadow:
+        0 14px 34px rgba(91, 33, 182, 0.25);
+
+      font-weight: 950;
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 1px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .nav-links a {
+      padding: 9px 13px;
+
+      border: 1px solid var(--line);
+      border-radius: 999px;
+
+      background:
+        rgba(255, 255, 255, 0.88);
+
+      color: #4b3b70;
+
+      font-size: 13px;
+      font-weight: 900;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .hero {
+      padding: 54px 0 24px;
+    }
+
+    .hero-grid {
+      display: grid;
+
+      grid-template-columns:
+        1.03fr 0.97fr;
+
+      align-items: center;
+      gap: 34px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+
+      margin-bottom: 17px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+
+      padding: 8px 12px;
+
+      border: 1px solid var(--line);
+      border-radius: 999px;
+
+      background:
+        rgba(255, 255, 255, 0.88);
+
+      color: #5b4d78;
+
+      font-size: 13px;
+      font-weight: 900;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .chip.hot {
+      color: #6d28d9;
+
+      background:
+        linear-gradient(
+          135deg,
+          #ede9fe,
+          #ffffff
+        );
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 780px;
+
+      font-size:
+        clamp(40px, 6vw, 72px);
+
+      line-height: 1.04;
+      letter-spacing: -0.078em;
+    }
+
+    .gradient {
+      color: transparent;
+
+      background:
+        linear-gradient(
+          90deg,
+          #7c3aed 0%,
+          #4f46e5 42%,
+          #06b6d4 72%,
+          #65a30d 100%
+        );
+
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .lead {
+      margin: 20px 0 0;
+      max-width: 700px;
+
+      color: #514768;
+
+      font-size:
+        clamp(16px, 2vw, 19px);
+
+      line-height: 1.82;
+      word-break: keep-all;
+    }
+
+    .lead strong {
+      color: #6d28d9;
+      font-weight: 950;
+    }
+
+    .hero-actions {
+      margin-top: 24px;
+
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn {
+      min-height: 49px;
+      padding: 13px 18px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+
+      border: 1px solid transparent;
+      border-radius: 16px;
+
+      font-weight: 950;
+      transition: 0.17s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--violet),
+          var(--indigo),
+          var(--cyan)
+        );
+
+      box-shadow:
+        0 17px 38px rgba(91, 33, 182, 0.23);
+    }
+
+    .btn-ghost {
+      color: var(--ink);
+
+      background:
+        rgba(255, 255, 255, 0.88);
+
+      border-color:
+        var(--line);
+    }
+
+    .visual {
+      position: relative;
+
+      min-height: 430px;
+      padding: 27px;
+
+      overflow: hidden;
+
+      border: 1px solid var(--line);
+      border-radius: 42px;
+
+      background:
+        radial-gradient(
+          circle at 84% 9%,
+          rgba(250, 204, 21, 0.23),
+          transparent 23%
+        ),
+        radial-gradient(
+          circle at 12% 87%,
+          rgba(6, 182, 212, 0.18),
+          transparent 25%
+        ),
+        linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.98),
+          rgba(237, 233, 254, 0.84)
+        );
+
+      box-shadow:
+        var(--shadow);
+    }
+
+    .visual::before {
+      content: "";
+
+      position: absolute;
+      inset: 20px;
+
+      border:
+        1px dashed rgba(109, 40, 217, 0.2);
+
+      border-radius: 32px;
+    }
+
+    .growth-orbit {
+      position: absolute;
+      left: 50%;
+      top: 48%;
+
+      width: 244px;
+      height: 244px;
+
+      transform:
+        translate(-50%, -50%);
+
+      border:
+        2px solid rgba(124, 58, 237, 0.17);
+
+      border-radius: 50%;
+    }
+
+    .growth-orbit::before,
+    .growth-orbit::after {
+      content: "";
+      position: absolute;
+
+      border-radius: 50%;
+    }
+
+    .growth-orbit::before {
+      inset: 22px;
+
+      border:
+        2px dashed rgba(6, 182, 212, 0.22);
+    }
+
+    .growth-orbit::after {
+      inset: 48px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #ffffff,
+          #f5f3ff
+        );
+
+      box-shadow:
+        0 24px 60px rgba(91, 33, 182, 0.16),
+        inset 0 0 0 1px var(--line);
+    }
+
+    .orbit-dot {
+      position: absolute;
+      z-index: 4;
+
+      width: 22px;
+      height: 22px;
+
+      border: 5px solid #ffffff;
+      border-radius: 50%;
+
+      box-shadow:
+        0 6px 16px rgba(30, 20, 55, 0.2);
+    }
+
+    .orbit-dot.one {
+      top: 14px;
+      left: 111px;
+      background: var(--yellow);
+    }
+
+    .orbit-dot.two {
+      right: 11px;
+      top: 117px;
+      background: var(--cyan);
+    }
+
+    .orbit-dot.three {
+      left: 25px;
+      bottom: 38px;
+      background: var(--lime);
+    }
+
+    .growth-center {
+      position: absolute;
+      z-index: 5;
+
+      left: 50%;
+      top: 48%;
+
+      transform:
+        translate(-50%, -50%);
+
+      width: 130px;
+
+      text-align: center;
+    }
+
+    .growth-center strong {
+      display: block;
+
+      color: #6d28d9;
+
+      font-size: 48px;
+      line-height: 1;
+      letter-spacing: -0.07em;
+    }
+
+    .growth-center span {
+      display: block;
+      margin-top: 7px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .float-card {
+      position: absolute;
+      z-index: 6;
+
+      min-width: 157px;
+      padding: 14px;
+
+      border: 1px solid var(--line);
+      border-radius: 20px;
+
+      background:
+        rgba(255, 255, 255, 0.96);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .float-card em {
+      display: inline-flex;
+      margin-bottom: 7px;
+
+      padding: 5px 8px;
+
+      border-radius: 999px;
+
+      color: #ffffff;
+
+      font-style: normal;
+      font-size: 10px;
+      font-weight: 950;
+    }
+
+    .float-card b {
+      display: block;
+
+      font-size: 16px;
+      letter-spacing: -0.04em;
+    }
+
+    .float-card span {
+      display: block;
+      margin-top: 4px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .float-card.one {
+      left: 26px;
+      top: 36px;
+    }
+
+    .float-card.two {
+      right: 25px;
+      top: 79px;
+    }
+
+    .float-card.three {
+      left: 31px;
+      bottom: 38px;
+    }
+
+    .float-card.four {
+      right: 31px;
+      bottom: 31px;
+    }
+
+    .float-card.height em {
+      background: var(--violet);
+    }
+
+    .float-card.weight em {
+      background: var(--cyan);
+    }
+
+    .float-card.bmi em {
+      background: var(--lime);
+    }
+
+    .float-card.age em {
+      background: var(--indigo);
+    }
+
+    .section {
+      padding: 24px 0;
+    }
+
+    .tool-grid {
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 0.93fr)
+        minmax(0, 1.07fr);
+
+      gap: 22px;
+      align-items: start;
+    }
+
+    .panel {
+      padding: 24px;
+
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+
+      background: var(--card);
+
+      box-shadow:
+        var(--shadow);
+
+      backdrop-filter:
+        blur(14px);
+    }
+
+    .panel h2 {
+      margin: 0 0 9px;
+
+      font-size: 28px;
+      line-height: 1.2;
+      letter-spacing: -0.052em;
+    }
+
+    .desc {
+      margin: 0 0 19px;
+
+      color: var(--muted);
+
+      font-size: 14px;
+      line-height: 1.75;
+
+      word-break: keep-all;
+    }
+
+    .form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .field label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+
+      margin-bottom: 7px;
+
+      color: #35264f;
+
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .field small {
+      color: var(--muted);
+
+      font-size: 11px;
+      font-weight: 780;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 54px;
+
+      padding:
+        13px 48px 13px 14px;
+
+      border: 1px solid var(--line);
+      border-radius: 16px;
+
+      outline: none;
+
+      background:
+        rgba(255, 255, 255, 0.98);
+
+      color: var(--ink);
+
+      font-size: 15px;
+      font-weight: 850;
+
+      transition: 0.16s ease;
+    }
+
+    select,
+    input[type="date"] {
+      padding-right: 14px;
+    }
+
+    input:focus,
+    select:focus {
+      border-color:
+        rgba(124, 58, 237, 0.44);
+
+      box-shadow:
+        0 0 0 4px rgba(124, 58, 237, 0.1);
+    }
+
+    .unit {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+
+      transform:
+        translateY(-50%);
+
+      color: var(--muted);
+
+      font-size: 13px;
+      font-weight: 900;
+
+      pointer-events: none;
+    }
+
+    .age-preview {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 8px;
+
+      padding: 13px;
+
+      border: 1px solid var(--line);
+      border-radius: 17px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #faf5ff,
+          #eef2ff
+        );
+    }
+
+    .age-preview div {
+      padding: 10px;
+
+      border-radius: 13px;
+
+      background:
+        rgba(255, 255, 255, 0.82);
+
+      text-align: center;
+    }
+
+    .age-preview span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .age-preview strong {
+      display: block;
+      margin-top: 3px;
+
+      color: #6d28d9;
+
+      font-size: 17px;
+      line-height: 1.15;
+    }
+
+    .measurement-help {
+      display: grid;
+      gap: 7px;
+
+      padding: 13px 14px;
+
+      border: 1px solid var(--line);
+      border-radius: 16px;
+
+      background:
+        #faf9ff;
+
+      color: #625775;
+
+      font-size: 11px;
+      line-height: 1.68;
+      font-weight: 760;
+    }
+
+    .measurement-help b {
+      color: #6d28d9;
+    }
+
+    .calc-btn {
+      width: 100%;
+      min-height: 59px;
+
+      margin-top: 3px;
+
+      border: 0;
+      border-radius: 18px;
+
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--violet),
+          var(--indigo),
+          var(--cyan)
+        );
+
+      box-shadow:
+        0 18px 38px rgba(91, 33, 182, 0.23);
+
+      font-size: 17px;
+      font-weight: 950;
+    }
+
+    .reset-btn {
+      width: 100%;
+      min-height: 48px;
+
+      border: 1px solid var(--line);
+      border-radius: 16px;
+
+      color: var(--ink);
+      background: #ffffff;
+
+      font-weight: 900;
+    }
+
+    .notice {
+      padding: 13px 14px;
+
+      border: 1px solid var(--line);
+      border-radius: 16px;
+
+      background:
+        #faf9ff;
+
+      color: #665d76;
+
+      font-size: 12px;
+      line-height: 1.7;
+      font-weight: 760;
+
+      word-break: keep-all;
+    }
+
+    .result-empty {
+      min-height: 430px;
+
+      display: grid;
+      place-items: center;
+
+      text-align: center;
+
+      color: var(--muted);
+
+      border:
+        1px dashed rgba(124, 58, 237, 0.28);
+
+      border-radius: 24px;
+
+      background:
+        rgba(245, 243, 255, 0.66);
+
+      font-weight: 850;
+    }
+
+    .result-box {
+      display: none;
+      gap: 14px;
+    }
+
+    .result-box.show {
+      display: grid;
+    }
+
+    .result-main {
+      padding: 24px;
+
+      border-radius: 27px;
+
+      color: #26143d;
+
+      background:
+        radial-gradient(
+          circle at 86% 17%,
+          rgba(255, 255, 255, 0.55),
+          transparent 27%
+        ),
+        linear-gradient(
+          135deg,
+          #c4b5fd,
+          #a5b4fc 45%,
+          #67e8f9 74%,
+          #bef264
+        );
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .result-main span {
+      display: block;
+
+      font-size: 14px;
+      font-weight: 900;
+
+      opacity: 0.82;
+    }
+
+    .result-main strong {
+      display: block;
+      margin-top: 7px;
+
+      font-size:
+        clamp(34px, 5vw, 56px);
+
+      line-height: 1.05;
+      letter-spacing: -0.06em;
+    }
+
+    .result-main em {
+      display: block;
+      margin-top: 10px;
+
+      font-style: normal;
+      font-size: 13px;
+      line-height: 1.72;
+      font-weight: 850;
+    }
+
+    .result-cards {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 10px;
+    }
+
+    .metric {
+      padding: 17px;
+
+      border: 1px solid var(--line);
+      border-radius: 19px;
+
+      background: #ffffff;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .metric span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .metric strong {
+      display: block;
+      margin-top: 5px;
+
+      font-size: 23px;
+      line-height: 1.12;
+      letter-spacing: -0.045em;
+    }
+
+    .metric small {
+      display: block;
+      margin-top: 6px;
+
+      color: #827793;
+
+      font-size: 10px;
+      line-height: 1.5;
+      font-weight: 760;
+    }
+
+    .metric.height strong {
+      color: #6d28d9;
+    }
+
+    .metric.weight strong {
+      color: #0891b2;
+    }
+
+    .metric.bmi strong {
+      color: #4d7c0f;
+    }
+
+    .status {
+      padding: 15px 16px;
+
+      border-radius: 18px;
+
+      font-size: 13px;
+      line-height: 1.72;
+      font-weight: 850;
+    }
+
+    .status.good {
+      color: #166534;
+      background: #dcfce7;
+      border: 1px solid #bbf7d0;
+    }
+
+    .status.warn {
+      color: #92400e;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+    }
+
+    .status.danger {
+      color: #991b1b;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+    }
+
+    .result-section {
+      padding: 18px;
+
+      border: 1px solid var(--line);
+      border-radius: 22px;
+
+      background: #ffffff;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .result-section h3 {
+      margin: 0;
+
+      font-size: 17px;
+      letter-spacing: -0.04em;
+    }
+
+    .result-section > p {
+      margin: 5px 0 14px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+      line-height: 1.6;
+      font-weight: 800;
+    }
+
+    .percentile-list {
+      display: grid;
+      gap: 13px;
+    }
+
+    .percentile-item {
+      padding: 14px;
+
+      border: 1px solid var(--line);
+      border-radius: 16px;
+
+      background:
+        #fcfbff;
+    }
+
+    .percentile-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 12px;
+
+      margin-bottom: 9px;
+    }
+
+    .percentile-head b {
+      font-size: 13px;
+    }
+
+    .percentile-head strong {
+      color: #6d28d9;
+      font-size: 15px;
+    }
+
+    .percentile-track {
+      position: relative;
+
+      height: 16px;
+
+      border-radius: 999px;
+
+      background:
+        linear-gradient(
+          90deg,
+          #fecaca 0 3%,
+          #fde68a 3% 10%,
+          #bbf7d0 10% 85%,
+          #a5f3fc 85% 97%,
+          #c4b5fd 97% 100%
+        );
+    }
+
+    .percentile-track i {
+      position: absolute;
+      top: 50%;
+
+      width: 21px;
+      height: 21px;
+
+      transform:
+        translate(-50%, -50%);
+
+      border: 4px solid #ffffff;
+      border-radius: 50%;
+
+      background: #21163a;
+
+      box-shadow:
+        0 4px 12px rgba(30, 20, 55, 0.28);
+
+      transition:
+        left 0.3s ease;
+    }
+
+    .track-labels {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+
+      margin-top: 7px;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    .balance-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 9px;
+    }
+
+    .balance-card {
+      padding: 14px;
+
+      border: 1px solid var(--line);
+      border-radius: 15px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #ffffff,
+          #faf9ff
+        );
+    }
+
+    .balance-card span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .balance-card strong {
+      display: block;
+      margin-top: 4px;
+
+      color: #5b21b6;
+
+      font-size: 18px;
+      line-height: 1.15;
+    }
+
+    .balance-card small {
+      display: block;
+      margin-top: 5px;
+
+      color: #887d98;
+
+      font-size: 9px;
+      line-height: 1.5;
+      font-weight: 750;
+    }
+
+    .reference-table {
+      width: 100%;
+
+      border-collapse: separate;
+      border-spacing: 0 7px;
+
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .reference-table th {
+      padding: 7px;
+
+      color: var(--muted);
+
+      font-weight: 900;
+    }
+
+    .reference-table td {
+      padding: 11px 7px;
+
+      background: #faf9ff;
+
+      font-weight: 850;
+    }
+
+    .reference-table td:first-child {
+      border-radius:
+        12px 0 0 12px;
+
+      color: #5b21b6;
+    }
+
+    .reference-table td:last-child {
+      border-radius:
+        0 12px 12px 0;
+    }
+
+    .utility-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .utility-btn {
+      min-height: 47px;
+
+      border: 1px solid var(--line);
+      border-radius: 15px;
+
+      background: #ffffff;
+      color: var(--ink);
+
+      font-weight: 900;
+    }
+
+    .info-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 14px;
+    }
+
+    .info-card {
+      padding: 22px;
+
+      border: 1px solid var(--line);
+      border-radius: 24px;
+
+      background:
+        rgba(255, 255, 255, 0.92);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .info-card h3 {
+      margin: 0;
+
+      font-size: 19px;
+      letter-spacing: -0.045em;
+    }
+
+    .info-card p {
+      margin: 9px 0 0;
+
+      color: #61566f;
+
+      font-size: 13px;
+      line-height: 1.75;
+      font-weight: 750;
+    }
+
+    .info-card a {
+      color: #6d28d9;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .faq {
+      display: grid;
+      gap: 10px;
+    }
+
+    details {
+      padding: 16px 18px;
+
+      border: 1px solid var(--line);
+      border-radius: 18px;
+
+      background:
+        rgba(255, 255, 255, 0.92);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 900;
+    }
+
+    details p {
+      margin: 10px 0 0;
+
+      color: #61566f;
+
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    footer {
+      margin-top: 24px;
+      padding: 30px 0 42px;
+
+      border-top:
+        1px solid var(--line);
+
+      color: var(--muted);
+    }
+
+    .footer-grid {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    .footer-grid b {
+      display: block;
+      color: var(--ink);
+    }
+
+    .footer-grid span {
+      display: block;
+
+      max-width: 760px;
+
+      margin-top: 6px;
+
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    @media print {
+      .topbar,
+      .hero,
+      .panel:first-child,
+      .utility-row,
+      .info-grid,
+      .faq,
+      footer {
+        display: none !important;
+      }
+
+      body {
+        background: #ffffff;
+      }
+
+      .tool-grid {
+        display: block;
+      }
+
+      .panel {
+        box-shadow: none;
+        border: 0;
+      }
+
+      .result-box {
+        display: grid !important;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .tool-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .visual {
+        min-height: 410px;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav {
+        padding: 12px 0;
+
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
+      .hero {
+        padding-top: 36px;
+      }
+
+      .row,
+      .result-cards,
+      .balance-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .visual {
+        min-height: 455px;
+      }
+
+      .growth-orbit {
+        width: 190px;
+        height: 190px;
+      }
+
+      .growth-orbit::after {
+        inset: 39px;
+      }
+
+      .orbit-dot.one {
+        left: 83px;
+      }
+
+      .orbit-dot.two {
+        top: 88px;
+      }
+
+      .growth-center {
+        width: 110px;
+      }
+
+      .growth-center strong {
+        font-size: 40px;
+      }
+
+      .float-card {
+        min-width: 140px;
+        padding: 12px;
+      }
+
+      .float-card.one {
+        left: 13px;
+        top: 25px;
+      }
+
+      .float-card.two {
+        right: 13px;
+        top: 89px;
+      }
+
+      .float-card.three {
+        left: 15px;
+        bottom: 72px;
+      }
+
+      .float-card.four {
+        right: 15px;
+        bottom: 20px;
+      }
+
+      .utility-row {
+        grid-template-columns: 1fr;
+      }
+
+      .reference-table {
+        min-width: 520px;
+      }
+
+      .result-section.table-section {
+        overflow-x: auto;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .wrap {
+        width:
+          min(var(--max), calc(100% - 22px));
+      }
+
+      h1 {
+        font-size: 41px;
+      }
+
+      .panel {
+        padding: 17px;
+        border-radius: 23px;
+      }
+
+      .visual {
+        min-height: 480px;
+        padding: 14px;
+      }
+
+      .float-card {
+        min-width: 128px;
+      }
+
+      .age-preview {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a
+        class="brand"
+        href="https://barohaegyeol-tools.pages.dev/"
+        aria-label="바로해결툴즈 홈"
+      >
+        <div class="brand-mark">B</div>
+
+        <div>
+          바로해결툴즈
+
+          <small>
+            성장 · 소아청소년 · 키·체중 분석
+          </small>
+        </div>
+      </a>
+
+      <nav
+        class="nav-links"
+        aria-label="페이지 메뉴"
+      >
+        <a href="#calculator">
+          계산하기
+        </a>
+
+        <a href="#guide">
+          백분위 안내
+        </a>
+
+        <a href="https://barohaegyeol-tools.pages.dev/">
+          전체 도구
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="chips">
+            <span class="chip hot">
+              📏 정확한 월령 자동 계산
+            </span>
+
+            <span class="chip">
+              📊 키·체중 백분위
+            </span>
+
+            <span class="chip">
+              ⚖️ 소아청소년 BMI
+            </span>
+          </div>
+
+          <h1>
+            우리 아이 성장은<br />
+
+            <span class="gradient">
+              또래 중 어느 위치일까?
+            </span>
+          </h1>
+
+          <p class="lead">
+            생년월일과 측정일, 키와 체중을 입력하면
+            <strong>
+              정확한 만 나이·월령, 키·체중·BMI 참고 백분위와
+              성장 균형
+            </strong>
+            을 한 번에 확인합니다.
+          </p>
+
+          <div class="hero-actions">
+            <a
+              class="btn btn-primary"
+              href="#calculator"
+            >
+              성장 백분위 계산하기
+            </a>
+
+            <a
+              class="btn btn-ghost"
+              href="#guide"
+            >
+              백분위 의미 보기
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="visual"
+          aria-label="소아청소년 성장 백분위 계산기 미리보기"
+        >
+          <div class="growth-orbit">
+            <i class="orbit-dot one"></i>
+            <i class="orbit-dot two"></i>
+            <i class="orbit-dot three"></i>
+          </div>
+
+          <div class="growth-center">
+            <strong>63.5</strong>
+            <span>키 참고 백분위</span>
+          </div>
+
+          <div class="float-card one height">
+            <em>키</em>
+            <b>연령별 위치</b>
+            <span>3·50·97백분위 비교</span>
+          </div>
+
+          <div class="float-card two weight">
+            <em>체중</em>
+            <b>또래 분포 확인</b>
+            <span>키 백분위와 균형 비교</span>
+          </div>
+
+          <div class="float-card three bmi">
+            <em>BMI</em>
+            <b>체중 상태 참고</b>
+            <span>5·85·95백분위 구분</span>
+          </div>
+
+          <div class="float-card four age">
+            <em>월령</em>
+            <b>나이 자동 계산</b>
+            <span>생년월일·측정일 기준</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="section"
+      id="calculator"
+    >
+      <div class="wrap tool-grid">
+        <section class="panel">
+          <h2>
+            아이 정보 입력
+          </h2>
+
+          <p class="desc">
+            만 2세부터 만 18세 11개월까지 계산할 수 있습니다.
+            성장 상태는 같은 성별과 월령을 기준으로 비교합니다.
+          </p>
+
+          <form
+            class="form"
+            id="calculatorForm"
+          >
+            <div class="field">
+              <label for="childName">
+                아이 이름
+
+                <small>
+                  선택 입력
+                </small>
+              </label>
+
+              <input
+                id="childName"
+                type="text"
+                maxlength="20"
+                placeholder="예: 바로"
+              />
+            </div>
+
+            <div class="field">
+              <label for="sex">
+                성별
+              </label>
+
+              <select id="sex">
+                <option value="male">
+                  남아
+                </option>
+
+                <option value="female">
+                  여아
+                </option>
+              </select>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="birthDate">
+                  생년월일
+                </label>
+
+                <input
+                  id="birthDate"
+                  type="date"
+                  required
+                />
+              </div>
+
+              <div class="field">
+                <label for="measureDate">
+                  측정일
+                </label>
+
+                <input
+                  id="measureDate"
+                  type="date"
+                  required
+                />
+              </div>
+            </div>
+
+            <div
+              class="age-preview"
+              id="agePreview"
+            >
+              <div>
+                <span>
+                  만 나이
+                </span>
+
+                <strong id="ageYearsPreview">
+                  -
+                </strong>
+              </div>
+
+              <div>
+                <span>
+                  총 월령
+                </span>
+
+                <strong id="ageMonthsPreview">
+                  -
+                </strong>
+              </div>
+
+              <div>
+                <span>
+                  기준 성별
+                </span>
+
+                <strong id="sexPreview">
+                  남아
+                </strong>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="height">
+                  현재 키
+                </label>
+
+                <div class="input-wrap">
+                  <input
+                    id="height"
+                    type="number"
+                    inputmode="decimal"
+                    min="70"
+                    max="220"
+                    step="0.1"
+                    value="138"
+                    required
+                  />
+
+                  <span class="unit">
+                    cm
+                  </span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="weight">
+                  현재 체중
+                </label>
+
+                <div class="input-wrap">
+                  <input
+                    id="weight"
+                    type="number"
+                    inputmode="decimal"
+                    min="7"
+                    max="200"
+                    step="0.1"
+                    value="34"
+                    required
+                  />
+
+                  <span class="unit">
+                    kg
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="measurement-help">
+              <div>
+                <b>키:</b>
+                신발을 벗고 발뒤꿈치·엉덩이·등을 곧게 세운 상태에서 측정하세요.
+              </div>
+
+              <div>
+                <b>체중:</b>
+                무거운 옷과 소지품을 제외하고 같은 시간대에 측정하면 변화 비교가 쉽습니다.
+              </div>
+
+              <div>
+                <b>비교:</b>
+                한 번의 백분위보다 일정 기간의 성장 곡선과 변화 방향이 더 중요합니다.
+              </div>
+            </div>
+
+            <button
+              class="calc-btn"
+              type="submit"
+            >
+              키·체중·BMI 백분위 계산하기
+            </button>
+
+            <button
+              class="reset-btn"
+              type="button"
+              id="resetBtn"
+            >
+              입력값 초기화
+            </button>
+
+            <div class="notice">
+              본 도구는 연령별 대표 기준값을 월령 단위로 보간한 참고용 계산기입니다.
+              진료용 공식 성장도표 산출 프로그램과 일부 수치가 다를 수 있으며,
+              성장 장애나 비만을 진단하지 않습니다.
+            </div>
+          </form>
+        </section>
+
+        <section class="panel">
+          <div
+            class="result-empty"
+            id="resultEmpty"
+          >
+            생년월일, 측정일과 신체 정보를 입력하면<br />
+            성장 백분위 결과가 표시됩니다.
+          </div>
+
+          <div
+            class="result-box"
+            id="resultBox"
+          >
+            <div class="result-main">
+              <span>
+                성장 백분위 종합 결과
+              </span>
+
+              <strong id="primaryResult">
+                -
+              </strong>
+
+              <em id="mainMessage">
+                -
+              </em>
+            </div>
+
+            <div class="result-cards">
+              <article class="metric height">
+                <span>
+                  키 참고 백분위
+                </span>
+
+                <strong id="heightPercentile">
+                  -
+                </strong>
+
+                <small id="heightStatus">
+                  -
+                </small>
+              </article>
+
+              <article class="metric weight">
+                <span>
+                  체중 참고 백분위
+                </span>
+
+                <strong id="weightPercentile">
+                  -
+                </strong>
+
+                <small id="weightStatus">
+                  -
+                </small>
+              </article>
+
+              <article class="metric bmi">
+                <span>
+                  BMI 참고 백분위
+                </span>
+
+                <strong id="bmiPercentile">
+                  -
+                </strong>
+
+                <small id="bmiStatus">
+                  -
+                </small>
+              </article>
+            </div>
+
+            <div
+              class="status good"
+              id="statusBox"
+            >
+              -
+            </div>
+
+            <section class="result-section">
+              <h3>
+                또래 중 현재 위치
+              </h3>
+
+              <p>
+                같은 성별과 월령의 100명을 낮은 순서로 세웠을 때의 참고 위치입니다.
+              </p>
+
+              <div class="percentile-list">
+                <div class="percentile-item">
+                  <div class="percentile-head">
+                    <b>
+                      키
+                    </b>
+
+                    <strong id="heightTrackValue">
+                      -
+                    </strong>
+                  </div>
+
+                  <div class="percentile-track">
+                    <i id="heightMarker"></i>
+                  </div>
+
+                  <div class="track-labels">
+                    <span>
+                      1
+                    </span>
+
+                    <span>
+                      3
+                    </span>
+
+                    <span>
+                      50
+                    </span>
+
+                    <span>
+                      97
+                    </span>
+
+                    <span>
+                      99
+                    </span>
+                  </div>
+                </div>
+
+                <div class="percentile-item">
+                  <div class="percentile-head">
+                    <b>
+                      체중
+                    </b>
+
+                    <strong id="weightTrackValue">
+                      -
+                    </strong>
+                  </div>
+
+                  <div class="percentile-track">
+                    <i id="weightMarker"></i>
+                  </div>
+
+                  <div class="track-labels">
+                    <span>
+                      1
+                    </span>
+
+                    <span>
+                      5
+                    </span>
+
+                    <span>
+                      50
+                    </span>
+
+                    <span>
+                      95
+                    </span>
+
+                    <span>
+                      99
+                    </span>
+                  </div>
+                </div>
+
+                <div class="percentile-item">
+                  <div class="percentile-head">
+                    <b>
+                      BMI
+                    </b>
+
+                    <strong id="bmiTrackValue">
+                      -
+                    </strong>
+                  </div>
+
+                  <div class="percentile-track">
+                    <i id="bmiMarker"></i>
+                  </div>
+
+                  <div class="track-labels">
+                    <span>
+                      1
+                    </span>
+
+                    <span>
+                      5
+                    </span>
+
+                    <span>
+                      50
+                    </span>
+
+                    <span>
+                      85
+                    </span>
+
+                    <span>
+                      95+
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="result-section">
+              <h3>
+                성장 균형 확인
+              </h3>
+
+              <p>
+                키와 체중 백분위의 차이, BMI와 정확한 월령을 함께 확인합니다.
+              </p>
+
+              <div class="balance-grid">
+                <div class="balance-card">
+                  <span>
+                    현재 BMI
+                  </span>
+
+                  <strong id="bmiValue">
+                    -
+                  </strong>
+
+                  <small>
+                    체중 ÷ 키(m)의 제곱
+                  </small>
+                </div>
+
+                <div class="balance-card">
+                  <span>
+                    키·체중 백분위 차이
+                  </span>
+
+                  <strong id="percentileGap">
+                    -
+                  </strong>
+
+                  <small id="gapDescription">
+                    -
+                  </small>
+                </div>
+
+                <div class="balance-card">
+                  <span>
+                    측정일 기준 나이
+                  </span>
+
+                  <strong id="exactAge">
+                    -
+                  </strong>
+
+                  <small id="ageDetail">
+                    -
+                  </small>
+                </div>
+              </div>
+            </section>
+
+            <section class="result-section table-section">
+              <h3>
+                현재 월령의 참고 기준값
+              </h3>
+
+              <p>
+                연령별 대표값을 현재 월령에 맞게 보간한 참고 수치입니다.
+              </p>
+
+              <table class="reference-table">
+                <thead>
+                  <tr>
+                    <th>
+                      지표
+                    </th>
+
+                    <th>
+                      낮은 기준
+                    </th>
+
+                    <th>
+                      중앙값
+                    </th>
+
+                    <th>
+                      높은 기준
+                    </th>
+
+                    <th>
+                      현재
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td>
+                      키
+                    </td>
+
+                    <td id="heightLow">
+                      -
+                    </td>
+
+                    <td id="heightMedian">
+                      -
+                    </td>
+
+                    <td id="heightHigh">
+                      -
+                    </td>
+
+                    <td id="heightCurrent">
+                      -
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      체중
+                    </td>
+
+                    <td id="weightLow">
+                      -
+                    </td>
+
+                    <td id="weightMedian">
+                      -
+                    </td>
+
+                    <td id="weightHigh">
+                      -
+                    </td>
+
+                    <td id="weightCurrent">
+                      -
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      BMI
+                    </td>
+
+                    <td id="bmiLow">
+                      -
+                    </td>
+
+                    <td id="bmiMedian">
+                      -
+                    </td>
+
+                    <td id="bmiHigh">
+                      -
+                    </td>
+
+                    <td id="bmiCurrent">
+                      -
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+
+            <div class="utility-row">
+              <button
+                class="utility-btn"
+                type="button"
+                id="copyBtn"
+              >
+                결과 복사
+              </button>
+
+              <button
+                class="utility-btn"
+                type="button"
+                id="printBtn"
+              >
+                인쇄·PDF 저장
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section
+      class="section"
+      id="guide"
+    >
+      <div class="wrap info-grid">
+        <article class="info-card">
+          <h3>
+            백분위란?
+          </h3>
+
+          <p>
+            같은 성별과 월령의 아이 100명을 측정값이 낮은 순서로 세웠을 때
+            어느 위치에 해당하는지를 나타내는 참고 지표입니다.
+            50백분위는 중앙에 가까운 위치입니다.
+          </p>
+        </article>
+
+        <article class="info-card">
+          <h3>
+            BMI 백분위 구분
+          </h3>
+
+          <p>
+            일반적으로 5백분위 미만은 저체중 범위,
+            5 이상 85 미만은 정상 범위,
+            85 이상 95 미만은 과체중 범위,
+            95 이상은 비만 범위로 참고합니다.
+          </p>
+        </article>
+
+        <article class="info-card">
+          <h3>
+            공식 성장도표 확인
+          </h3>
+
+          <p>
+            의료적 평가나 정확한 진료용 수치가 필요하다면
+            <a
+              href="https://knhanes.kdca.go.kr/knhanes/grtcht/main.do"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              질병관리청 소아청소년 성장도표
+            </a>
+            와 의료 전문가의 평가를 확인하세요.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="faq">
+          <details>
+            <summary>
+              키 백분위가 낮으면 성장 장애인가요?
+            </summary>
+
+            <p>
+              한 번의 측정값만으로 성장 장애를 판단할 수 없습니다.
+              부모의 키, 출생 정보, 사춘기 시기와 과거 성장 속도를 함께 확인해야 합니다.
+              백분위가 지속적으로 낮거나 성장 곡선이 크게 내려가면 진료 상담이 필요할 수 있습니다.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              체중 백분위가 높으면 비만인가요?
+            </summary>
+
+            <p>
+              체중 백분위만으로 비만을 판단하지 않습니다.
+              키와 체중을 함께 반영한 연령별 BMI 백분위와 성장 과정,
+              신체 구성 및 건강 상태를 함께 평가해야 합니다.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              백분위가 매번 달라져도 괜찮나요?
+            </summary>
+
+            <p>
+              측정 시간, 자세, 기기와 옷차림에 따라 값이 달라질 수 있습니다.
+              비슷한 조건에서 주기적으로 측정하고 장기간의 성장 곡선을 확인하는 것이 중요합니다.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <div>
+        <b>
+          바로해결툴즈
+        </b>
+
+        <span>
+          본 결과는 연령별 대표 기준값을 이용한 참고용 추정치입니다.
+          공식 성장도표 산출값, 의료 진단 또는 치료 판단을 대신하지 않습니다.
+          성장 속도 저하, 급격한 체중 변화 또는 건강 문제가 있다면 의료 전문가와 상담하세요.
+        </span>
+      </div>
+
+      <div class="footer-links">
+        <a href="#calculator">
+          계산하기
+        </a>
+
+        <a href="#guide">
+          백분위 안내
+        </a>
+
+        <a href="https://barohaegyeol-tools.pages.dev/">
+          전체 도구
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    "use strict";
+
+    const growthData = {
+      male: [
+        { age: 2,  height: { m: 87.1, sd: 3.4 }, weight: { m: 12.5, sd: 1.6 }, bmi: { m: 16.5, sd: 1.35 } },
+        { age: 3,  height: { m: 95.4, sd: 3.8 }, weight: { m: 14.4, sd: 1.8 }, bmi: { m: 15.8, sd: 1.30 } },
+        { age: 4,  height: { m: 102.7, sd: 4.1 }, weight: { m: 16.4, sd: 2.2 }, bmi: { m: 15.5, sd: 1.30 } },
+        { age: 5,  height: { m: 109.6, sd: 4.5 }, weight: { m: 18.6, sd: 2.8 }, bmi: { m: 15.4, sd: 1.40 } },
+        { age: 6,  height: { m: 116.1, sd: 4.9 }, weight: { m: 21.3, sd: 3.6 }, bmi: { m: 15.7, sd: 1.60 } },
+        { age: 7,  height: { m: 122.1, sd: 5.3 }, weight: { m: 24.4, sd: 4.6 }, bmi: { m: 16.2, sd: 1.80 } },
+        { age: 8,  height: { m: 127.9, sd: 5.8 }, weight: { m: 27.8, sd: 5.8 }, bmi: { m: 16.8, sd: 2.10 } },
+        { age: 9,  height: { m: 133.5, sd: 6.2 }, weight: { m: 31.3, sd: 7.0 }, bmi: { m: 17.4, sd: 2.30 } },
+        { age: 10, height: { m: 139.1, sd: 6.7 }, weight: { m: 35.5, sd: 8.4 }, bmi: { m: 18.1, sd: 2.50 } },
+        { age: 11, height: { m: 145.3, sd: 7.4 }, weight: { m: 40.0, sd: 9.8 }, bmi: { m: 18.8, sd: 2.70 } },
+        { age: 12, height: { m: 152.1, sd: 8.0 }, weight: { m: 45.3, sd: 10.9 }, bmi: { m: 19.5, sd: 2.80 } },
+        { age: 13, height: { m: 159.4, sd: 8.0 }, weight: { m: 51.7, sd: 11.4 }, bmi: { m: 20.2, sd: 2.80 } },
+        { age: 14, height: { m: 165.7, sd: 7.2 }, weight: { m: 58.2, sd: 11.0 }, bmi: { m: 21.0, sd: 2.80 } },
+        { age: 15, height: { m: 169.7, sd: 6.3 }, weight: { m: 63.2, sd: 10.6 }, bmi: { m: 21.8, sd: 2.80 } },
+        { age: 16, height: { m: 171.9, sd: 5.8 }, weight: { m: 66.5, sd: 10.5 }, bmi: { m: 22.4, sd: 2.90 } },
+        { age: 17, height: { m: 173.1, sd: 5.6 }, weight: { m: 68.7, sd: 10.6 }, bmi: { m: 22.8, sd: 3.00 } },
+        { age: 18, height: { m: 173.8, sd: 5.5 }, weight: { m: 70.3, sd: 10.8 }, bmi: { m: 23.1, sd: 3.10 } }
+      ],
+
+      female: [
+        { age: 2,  height: { m: 86.0, sd: 3.3 }, weight: { m: 11.8, sd: 1.5 }, bmi: { m: 16.0, sd: 1.30 } },
+        { age: 3,  height: { m: 94.3, sd: 3.7 }, weight: { m: 13.9, sd: 1.8 }, bmi: { m: 15.6, sd: 1.30 } },
+        { age: 4,  height: { m: 101.6, sd: 4.0 }, weight: { m: 15.9, sd: 2.1 }, bmi: { m: 15.4, sd: 1.30 } },
+        { age: 5,  height: { m: 108.4, sd: 4.4 }, weight: { m: 18.0, sd: 2.7 }, bmi: { m: 15.3, sd: 1.40 } },
+        { age: 6,  height: { m: 114.7, sd: 4.8 }, weight: { m: 20.7, sd: 3.5 }, bmi: { m: 15.7, sd: 1.60 } },
+        { age: 7,  height: { m: 120.8, sd: 5.3 }, weight: { m: 23.7, sd: 4.4 }, bmi: { m: 16.1, sd: 1.80 } },
+        { age: 8,  height: { m: 126.7, sd: 5.8 }, weight: { m: 27.1, sd: 5.5 }, bmi: { m: 16.7, sd: 2.10 } },
+        { age: 9,  height: { m: 132.4, sd: 6.3 }, weight: { m: 30.8, sd: 6.8 }, bmi: { m: 17.4, sd: 2.30 } },
+        { age: 10, height: { m: 138.3, sd: 6.7 }, weight: { m: 35.0, sd: 8.0 }, bmi: { m: 18.1, sd: 2.50 } },
+        { age: 11, height: { m: 144.7, sd: 6.8 }, weight: { m: 39.8, sd: 8.9 }, bmi: { m: 18.9, sd: 2.60 } },
+        { age: 12, height: { m: 151.2, sd: 6.4 }, weight: { m: 44.8, sd: 9.1 }, bmi: { m: 19.6, sd: 2.60 } },
+        { age: 13, height: { m: 155.7, sd: 5.8 }, weight: { m: 48.5, sd: 9.0 }, bmi: { m: 20.0, sd: 2.60 } },
+        { age: 14, height: { m: 158.2, sd: 5.4 }, weight: { m: 50.9, sd: 8.7 }, bmi: { m: 20.3, sd: 2.60 } },
+        { age: 15, height: { m: 159.7, sd: 5.2 }, weight: { m: 52.3, sd: 8.5 }, bmi: { m: 20.5, sd: 2.60 } },
+        { age: 16, height: { m: 160.5, sd: 5.1 }, weight: { m: 53.2, sd: 8.4 }, bmi: { m: 20.6, sd: 2.60 } },
+        { age: 17, height: { m: 160.9, sd: 5.0 }, weight: { m: 53.8, sd: 8.4 }, bmi: { m: 20.7, sd: 2.70 } },
+        { age: 18, height: { m: 161.1, sd: 5.0 }, weight: { m: 54.2, sd: 8.4 }, bmi: { m: 20.8, sd: 2.70 } }
+      ]
+    };
+
+    const form =
+      document.getElementById("calculatorForm");
+
+    const childNameInput =
+      document.getElementById("childName");
+
+    const sexInput =
+      document.getElementById("sex");
+
+    const birthDateInput =
+      document.getElementById("birthDate");
+
+    const measureDateInput =
+      document.getElementById("measureDate");
+
+    const heightInput =
+      document.getElementById("height");
+
+    const weightInput =
+      document.getElementById("weight");
+
+    const ageYearsPreview =
+      document.getElementById("ageYearsPreview");
+
+    const ageMonthsPreview =
+      document.getElementById("ageMonthsPreview");
+
+    const sexPreview =
+      document.getElementById("sexPreview");
+
+    const resultEmpty =
+      document.getElementById("resultEmpty");
+
+    const resultBox =
+      document.getElementById("resultBox");
+
+    const primaryResult =
+      document.getElementById("primaryResult");
+
+    const mainMessage =
+      document.getElementById("mainMessage");
+
+    const heightPercentile =
+      document.getElementById("heightPercentile");
+
+    const weightPercentile =
+      document.getElementById("weightPercentile");
+
+    const bmiPercentile =
+      document.getElementById("bmiPercentile");
+
+    const heightStatus =
+      document.getElementById("heightStatus");
+
+    const weightStatus =
+      document.getElementById("weightStatus");
+
+    const bmiStatus =
+      document.getElementById("bmiStatus");
+
+    const statusBox =
+      document.getElementById("statusBox");
+
+    const heightTrackValue =
+      document.getElementById("heightTrackValue");
+
+    const weightTrackValue =
+      document.getElementById("weightTrackValue");
+
+    const bmiTrackValue =
+      document.getElementById("bmiTrackValue");
+
+    const heightMarker =
+      document.getElementById("heightMarker");
+
+    const weightMarker =
+      document.getElementById("weightMarker");
+
+    const bmiMarker =
+      document.getElementById("bmiMarker");
+
+    const bmiValue =
+      document.getElementById("bmiValue");
+
+    const percentileGap =
+      document.getElementById("percentileGap");
+
+    const gapDescription =
+      document.getElementById("gapDescription");
+
+    const exactAge =
+      document.getElementById("exactAge");
+
+    const ageDetail =
+      document.getElementById("ageDetail");
+
+    const heightLow =
+      document.getElementById("heightLow");
+
+    const heightMedian =
+      document.getElementById("heightMedian");
+
+    const heightHigh =
+      document.getElementById("heightHigh");
+
+    const heightCurrent =
+      document.getElementById("heightCurrent");
+
+    const weightLow =
+      document.getElementById("weightLow");
+
+    const weightMedian =
+      document.getElementById("weightMedian");
+
+    const weightHigh =
+      document.getElementById("weightHigh");
+
+    const weightCurrent =
+      document.getElementById("weightCurrent");
+
+    const bmiLow =
+      document.getElementById("bmiLow");
+
+    const bmiMedian =
+      document.getElementById("bmiMedian");
+
+    const bmiHigh =
+      document.getElementById("bmiHigh");
+
+    const bmiCurrent =
+      document.getElementById("bmiCurrent");
+
+    const resetBtn =
+      document.getElementById("resetBtn");
+
+    const copyBtn =
+      document.getElementById("copyBtn");
+
+    const printBtn =
+      document.getElementById("printBtn");
+
+    let lastResultText =
+      "";
+
+    function toLocalDateString(date) {
+      const year =
+        date.getFullYear();
+
+      const month =
+        String(date.getMonth() + 1)
+          .padStart(2, "0");
+
+      const day =
+        String(date.getDate())
+          .padStart(2, "0");
+
+      return `${year}-${month}-${day}`;
+    }
+
+    function setDefaultDates() {
+      const today =
+        new Date();
+
+      const birth =
+        new Date(
+          today.getFullYear() - 10,
+          today.getMonth(),
+          today.getDate()
+        );
+
+      measureDateInput.value =
+        toLocalDateString(today);
+
+      birthDateInput.value =
+        toLocalDateString(birth);
+    }
+
+    function parseDate(value) {
+      if (!value) {
+        return null;
+      }
+
+      const parts =
+        value.split("-")
+          .map(Number);
+
+      return new Date(
+        parts[0],
+        parts[1] - 1,
+        parts[2]
+      );
+    }
+
+    function calculateAge() {
+      const birth =
+        parseDate(
+          birthDateInput.value
+        );
+
+      const measured =
+        parseDate(
+          measureDateInput.value
+        );
+
+      if (
+        !birth ||
+        !measured ||
+        measured < birth
+      ) {
+        return null;
+      }
+
+      let years =
+        measured.getFullYear() -
+        birth.getFullYear();
+
+      let months =
+        measured.getMonth() -
+        birth.getMonth();
+
+      let days =
+        measured.getDate() -
+        birth.getDate();
+
+      if (days < 0) {
+        months -= 1;
+
+        const previousMonth =
+          new Date(
+            measured.getFullYear(),
+            measured.getMonth(),
+            0
+          );
+
+        days +=
+          previousMonth.getDate();
+      }
+
+      if (months < 0) {
+        years -= 1;
+        months += 12;
+      }
+
+      const totalMonths =
+        years * 12 +
+        months +
+        days /
+        30.4375;
+
+      return {
+        years,
+        months,
+        days,
+        totalMonths,
+        decimalYears:
+          totalMonths / 12
+      };
+    }
+
+    function updateAgePreview() {
+      const age =
+        calculateAge();
+
+      sexPreview.textContent =
+        sexInput.value === "male"
+          ? "남아"
+          : "여아";
+
+      if (!age) {
+        ageYearsPreview.textContent =
+          "-";
+
+        ageMonthsPreview.textContent =
+          "-";
+
+        return;
+      }
+
+      ageYearsPreview.textContent =
+        `${age.years}세 ${age.months}개월`;
+
+      ageMonthsPreview.textContent =
+        `${Math.floor(age.totalMonths)}개월`;
+    }
+
+    function interpolate(
+      start,
+      end,
+      ratio
+    ) {
+      return (
+        start +
+        (
+          end -
+          start
+        ) *
+        ratio
+      );
+    }
+
+    function getReference(
+      sex,
+      decimalAge,
+      metric
+    ) {
+      const list =
+        growthData[sex];
+
+      if (decimalAge <= 2) {
+        return {
+          m: list[0][metric].m,
+          sd: list[0][metric].sd
+        };
+      }
+
+      if (decimalAge >= 18) {
+        const last =
+          list[list.length - 1];
+
+        return {
+          m: last[metric].m,
+          sd: last[metric].sd
+        };
+      }
+
+      const lowerAge =
+        Math.floor(decimalAge);
+
+      const upperAge =
+        Math.ceil(decimalAge);
+
+      const lower =
+        list.find(
+          (item) =>
+            item.age === lowerAge
+        );
+
+      const upper =
+        list.find(
+          (item) =>
+            item.age === upperAge
+        );
+
+      if (
+        !lower ||
+        !upper ||
+        lowerAge === upperAge
+      ) {
+        const target =
+          lower || upper;
+
+        return {
+          m: target[metric].m,
+          sd: target[metric].sd
+        };
+      }
+
+      const ratio =
+        decimalAge -
+        lowerAge;
+
+      return {
+        m:
+          interpolate(
+            lower[metric].m,
+            upper[metric].m,
+            ratio
+          ),
+
+        sd:
+          interpolate(
+            lower[metric].sd,
+            upper[metric].sd,
+            ratio
+          )
+      };
+    }
+
+    function erf(value) {
+      const sign =
+        value >= 0
+          ? 1
+          : -1;
+
+      const x =
+        Math.abs(value);
+
+      const a1 =
+        0.254829592;
+
+      const a2 =
+        -0.284496736;
+
+      const a3 =
+        1.421413741;
+
+      const a4 =
+        -1.453152027;
+
+      const a5 =
+        1.061405429;
+
+      const p =
+        0.3275911;
+
+      const t =
+        1 /
+        (
+          1 +
+          p * x
+        );
+
+      const y =
+        1 -
+        (
+          (
+            (
+              (
+                (
+                  a5 * t +
+                  a4
+                ) * t +
+                a3
+              ) * t +
+              a2
+            ) * t +
+            a1
+          ) *
+          t *
+          Math.exp(
+            -x * x
+          )
+        );
+
+      return sign * y;
+    }
+
+    function normalCdf(zScore) {
+      return (
+        0.5 *
+        (
+          1 +
+          erf(
+            zScore /
+            Math.sqrt(2)
+          )
+        )
+      );
+    }
+
+    function calculatePercentile(
+      value,
+      reference
+    ) {
+      const zScore =
+        (
+          value -
+          reference.m
+        ) /
+        reference.sd;
+
+      const percentile =
+        normalCdf(zScore) *
+        100;
+
+      return {
+        zScore,
+        percentile:
+          Math.min(
+            99.9,
+            Math.max(
+              0.1,
+              percentile
+            )
+          )
+      };
+    }
+
+    function formatOne(value) {
+      return Number(value)
+        .toFixed(1);
+    }
+
+    function formatPercentile(value) {
+      if (value < 1) {
+        return "1 미만";
+      }
+
+      if (value > 99) {
+        return "99 초과";
+      }
+
+      return `${value.toFixed(1)}`;
+    }
+
+    function percentileText(value) {
+      return `${formatPercentile(value)}백분위`;
+    }
+
+    function getHeightStatus(value) {
+      if (value < 3) {
+        return "3백분위 미만 · 작은 편";
+      }
+
+      if (value < 10) {
+        return "또래 중 작은 편";
+      }
+
+      if (value < 90) {
+        return "일반적인 참고 범위";
+      }
+
+      if (value < 97) {
+        return "또래 중 큰 편";
+      }
+
+      return "97백분위 이상 · 큰 편";
+    }
+
+    function getWeightStatus(value) {
+      if (value < 5) {
+        return "5백분위 미만 · 낮은 편";
+      }
+
+      if (value < 85) {
+        return "일반적인 참고 범위";
+      }
+
+      if (value < 95) {
+        return "또래 중 높은 편";
+      }
+
+      return "95백분위 이상 · 높은 편";
+    }
+
+    function getBmiStatus(value) {
+      if (value < 5) {
+        return "저체중 참고 범위";
+      }
+
+      if (value < 85) {
+        return "정상 참고 범위";
+      }
+
+      if (value < 95) {
+        return "과체중 참고 범위";
+      }
+
+      return "비만 참고 범위";
+    }
+
+    function setMarker(
+      element,
+      percentile
+    ) {
+      const position =
+        Math.min(
+          98,
+          Math.max(
+            2,
+            percentile
+          )
+        );
+
+      element.style.left =
+        `${position}%`;
+    }
+
+    function referenceValue(
+      reference,
+      zScore
+    ) {
+      return Math.max(
+        0,
+        reference.m +
+        reference.sd *
+        zScore
+      );
+    }
+
+    function setOverallStatus(
+      heightP,
+      weightP,
+      bmiP
+    ) {
+      const gap =
+        Math.abs(
+          heightP -
+          weightP
+        );
+
+      let className =
+        "good";
+
+      let title =
+        "성장 균형 양호";
+
+      let message =
+        "키와 체중 백분위가 크게 벌어지지 않고 BMI도 일반적인 참고 범위에 있습니다. 같은 조건에서 주기적으로 측정해 성장 흐름을 확인하세요.";
+
+      if (
+        bmiP < 5 ||
+        bmiP >= 95 ||
+        heightP < 3
+      ) {
+        className =
+          "danger";
+
+        title =
+          "추가 확인 권장";
+
+        message =
+          "키 또는 BMI가 주요 참고 경계값 밖에 있습니다. 한 번의 결과로 판단하지 말고 과거 성장 기록과 함께 소아청소년과 등 의료 전문가에게 확인하세요.";
+      } else if (
+        bmiP >= 85 ||
+        gap >= 25 ||
+        weightP < 5
+      ) {
+        className =
+          "warn";
+
+        title =
+          "성장 흐름 관찰";
+
+        message =
+          "키와 체중 백분위 차이가 있거나 BMI가 경계 범위에 있습니다. 최근 6개월에서 1년 동안의 키·체중 변화를 함께 확인하세요.";
+      }
+
+      primaryResult.textContent =
+        title;
+
+      statusBox.className =
+        `status ${className}`;
+
+      statusBox.textContent =
+        message;
+
+      return {
+        title,
+        message
+      };
+    }
+
+    function calculate(event) {
+      if (event) {
+        event.preventDefault();
+      }
+
+      const age =
+        calculateAge();
+
+      const sex =
+        sexInput.value;
+
+      const height =
+        Number(
+          heightInput.value
+        );
+
+      const weight =
+        Number(
+          weightInput.value
+        );
+
+      const name =
+        childNameInput.value
+          .trim();
+
+      if (!age) {
+        alert(
+          "생년월일과 측정일을 확인해주세요."
+        );
+
+        return;
+      }
+
+      if (
+        age.totalMonths < 24 ||
+        age.totalMonths >= 228
+      ) {
+        alert(
+          "이 계산기는 만 2세부터 만 18세 11개월까지 사용할 수 있습니다."
+        );
+
+        return;
+      }
+
+      if (
+        height < 70 ||
+        height > 220 ||
+        weight < 7 ||
+        weight > 200
+      ) {
+        alert(
+          "키와 체중 입력값을 확인해주세요."
+        );
+
+        return;
+      }
+
+      const bmi =
+        weight /
+        Math.pow(
+          height / 100,
+          2
+        );
+
+      const heightReference =
+        getReference(
+          sex,
+          age.decimalYears,
+          "height"
+        );
+
+      const weightReference =
+        getReference(
+          sex,
+          age.decimalYears,
+          "weight"
+        );
+
+      const bmiReference =
+        getReference(
+          sex,
+          age.decimalYears,
+          "bmi"
+        );
+
+      const heightResult =
+        calculatePercentile(
+          height,
+          heightReference
+        );
+
+      const weightResult =
+        calculatePercentile(
+          weight,
+          weightReference
+        );
+
+      const bmiResult =
+        calculatePercentile(
+          bmi,
+          bmiReference
+        );
+
+      const heightP =
+        heightResult.percentile;
+
+      const weightP =
+        weightResult.percentile;
+
+      const bmiP =
+        bmiResult.percentile;
+
+      const gap =
+        Math.abs(
+          heightP -
+          weightP
+        );
+
+      const overall =
+        setOverallStatus(
+          heightP,
+          weightP,
+          bmiP
+        );
+
+      const displayName =
+        name
+          ? `${name}님의`
+          : "아이의";
+
+      mainMessage.textContent =
+        `${displayName} 측정일 기준 나이는 만 ${age.years}세 ${age.months}개월입니다. ` +
+        `키는 ${percentileText(heightP)}, 체중은 ${percentileText(weightP)}, ` +
+        `BMI는 ${percentileText(bmiP)}로 추정됩니다.`;
+
+      heightPercentile.textContent =
+        percentileText(heightP);
+
+      weightPercentile.textContent =
+        percentileText(weightP);
+
+      bmiPercentile.textContent =
+        percentileText(bmiP);
+
+      heightStatus.textContent =
+        getHeightStatus(heightP);
+
+      weightStatus.textContent =
+        getWeightStatus(weightP);
+
+      bmiStatus.textContent =
+        getBmiStatus(bmiP);
+
+      heightTrackValue.textContent =
+        `${formatOne(height)}cm · ${percentileText(heightP)}`;
+
+      weightTrackValue.textContent =
+        `${formatOne(weight)}kg · ${percentileText(weightP)}`;
+
+      bmiTrackValue.textContent =
+        `BMI ${formatOne(bmi)} · ${percentileText(bmiP)}`;
+
+      setMarker(
+        heightMarker,
+        heightP
+      );
+
+      setMarker(
+        weightMarker,
+        weightP
+      );
+
+      setMarker(
+        bmiMarker,
+        bmiP
+      );
+
+      bmiValue.textContent =
+        formatOne(bmi);
+
+      percentileGap.textContent =
+        `${gap.toFixed(1)}p`;
+
+      if (gap < 15) {
+        gapDescription.textContent =
+          "키와 체중 위치가 비교적 비슷합니다.";
+      } else if (gap < 30) {
+        gapDescription.textContent =
+          "키와 체중 위치에 차이가 있습니다.";
+      } else {
+        gapDescription.textContent =
+          "키와 체중 위치 차이가 큰 편입니다.";
+      }
+
+      exactAge.textContent =
+        `${age.years}세 ${age.months}개월`;
+
+      ageDetail.textContent =
+        `총 ${Math.floor(age.totalMonths)}개월 ${age.days}일`;
+
+      heightLow.textContent =
+        `${formatOne(referenceValue(heightReference, -1.8808))}cm`;
+
+      heightMedian.textContent =
+        `${formatOne(heightReference.m)}cm`;
+
+      heightHigh.textContent =
+        `${formatOne(referenceValue(heightReference, 1.8808))}cm`;
+
+      heightCurrent.textContent =
+        `${formatOne(height)}cm`;
+
+      weightLow.textContent =
+        `${formatOne(referenceValue(weightReference, -1.6449))}kg`;
+
+      weightMedian.textContent =
+        `${formatOne(weightReference.m)}kg`;
+
+      weightHigh.textContent =
+        `${formatOne(referenceValue(weightReference, 1.6449))}kg`;
+
+      weightCurrent.textContent =
+        `${formatOne(weight)}kg`;
+
+      bmiLow.textContent =
+        formatOne(
+          referenceValue(
+            bmiReference,
+            -1.6449
+          )
+        );
+
+      bmiMedian.textContent =
+        formatOne(
+          bmiReference.m
+        );
+
+      bmiHigh.textContent =
+        formatOne(
+          referenceValue(
+            bmiReference,
+            1.6449
+          )
+        );
+
+      bmiCurrent.textContent =
+        formatOne(bmi);
+
+      resultEmpty.style.display =
+        "none";
+
+      resultBox.classList.add(
+        "show"
+      );
+
+      lastResultText =
+`[소아·청소년 성장 백분위 계산기]
+이름: ${name || "미입력"}
+성별: ${sex === "male" ? "남아" : "여아"}
+생년월일: ${birthDateInput.value}
+측정일: ${measureDateInput.value}
+측정일 기준 나이: 만 ${age.years}세 ${age.months}개월
+총 월령: ${Math.floor(age.totalMonths)}개월
+
+키: ${formatOne(height)}cm
+키 참고 백분위: ${percentileText(heightP)}
+키 상태: ${getHeightStatus(heightP)}
+
+체중: ${formatOne(weight)}kg
+체중 참고 백분위: ${percentileText(weightP)}
+체중 상태: ${getWeightStatus(weightP)}
+
+BMI: ${formatOne(bmi)}
+BMI 참고 백분위: ${percentileText(bmiP)}
+BMI 상태: ${getBmiStatus(bmiP)}
+
+종합 결과: ${overall.title}
+${overall.message}
+
+※ 연령별 대표값을 월령 단위로 보간한 참고용 결과이며 의료 진단을 대신하지 않습니다.`;
+
+      try {
+        localStorage.setItem(
+          "childGrowthPercentileCalculator",
+          JSON.stringify({
+            childName: name,
+            sex,
+            birthDate:
+              birthDateInput.value,
+            measureDate:
+              measureDateInput.value,
+            height,
+            weight
+          })
+        );
+      } catch (error) {
+        console.warn(error);
+      }
+    }
+
+    function restoreSaved() {
+      try {
+        const saved =
+          JSON.parse(
+            localStorage.getItem(
+              "childGrowthPercentileCalculator"
+            ) || "null"
+          );
+
+        if (!saved) {
+          setDefaultDates();
+          updateAgePreview();
+          return;
+        }
+
+        childNameInput.value =
+          saved.childName || "";
+
+        sexInput.value =
+          saved.sex || "male";
+
+        birthDateInput.value =
+          saved.birthDate || "";
+
+        measureDateInput.value =
+          saved.measureDate || "";
+
+        heightInput.value =
+          saved.height || 138;
+
+        weightInput.value =
+          saved.weight || 34;
+
+        if (
+          !birthDateInput.value ||
+          !measureDateInput.value
+        ) {
+          setDefaultDates();
+        }
+
+        updateAgePreview();
+      } catch (error) {
+        console.warn(error);
+        setDefaultDates();
+        updateAgePreview();
+      }
+    }
+
+    function resetCalculator() {
+      form.reset();
+
+      childNameInput.value =
+        "";
+
+      sexInput.value =
+        "male";
+
+      heightInput.value =
+        138;
+
+      weightInput.value =
+        34;
+
+      setDefaultDates();
+      updateAgePreview();
+
+      lastResultText =
+        "";
+
+      resultBox.classList.remove(
+        "show"
+      );
+
+      resultEmpty.style.display =
+        "grid";
+
+      try {
+        localStorage.removeItem(
+          "childGrowthPercentileCalculator"
+        );
+      } catch (error) {
+        console.warn(error);
+      }
+    }
+
+    async function copyResult() {
+      if (!lastResultText) {
+        alert(
+          "먼저 계산해주세요."
+        );
+
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(
+          lastResultText
+        );
+      } catch (error) {
+        const textarea =
+          document.createElement(
+            "textarea"
+          );
+
+        textarea.value =
+          lastResultText;
+
+        textarea.style.position =
+          "fixed";
+
+        textarea.style.opacity =
+          "0";
+
+        document.body.appendChild(
+          textarea
+        );
+
+        textarea.select();
+
+        document.execCommand(
+          "copy"
+        );
+
+        textarea.remove();
+      }
+
+      const original =
+        copyBtn.textContent;
+
+      copyBtn.textContent =
+        "복사 완료";
+
+      setTimeout(
+        () => {
+          copyBtn.textContent =
+            original;
+        },
+        1300
+      );
+    }
+
+    [
+      birthDateInput,
+      measureDateInput,
+      sexInput
+    ].forEach(
+      (element) => {
+        element.addEventListener(
+          "change",
+          updateAgePreview
+        );
+      }
+    );
+
+    form.addEventListener(
+      "submit",
+      calculate
+    );
+
+    resetBtn.addEventListener(
+      "click",
+      resetCalculator
+    );
+
+    copyBtn.addEventListener(
+      "click",
+      copyResult
+    );
+
+    printBtn.addEventListener(
+      "click",
+      () => {
+        window.print();
+      }
+    );
+
+    restoreSaved();
+  </script>
+
+  <script
+    defer
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'
+  ></script>
+</body>
+</html>
