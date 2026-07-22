@@ -1,0 +1,5489 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>운동별 소모칼로리 계산기 | 걷기·러닝·수영·근력운동 | 바로해결툴즈</title>
+
+  <meta
+    name="description"
+    content="체중, 운동 종류, 운동시간과 주당 횟수를 입력하면 총 소모칼로리, 순수 활동칼로리, 분당 소모량, 주간·월간 예상 소모량을 계산합니다."
+  />
+
+  <meta
+    name="keywords"
+    content="운동 칼로리 계산기, 소모칼로리 계산기, 걷기 칼로리, 러닝 칼로리, 수영 칼로리, 근력운동 칼로리, MET 계산기, 운동별 칼로리, 바로해결툴즈"
+  />
+
+  <meta name="author" content="바로해결툴즈" />
+  <meta name="robots" content="index, follow" />
+
+  <link
+    rel="canonical"
+    href="https://barohaegyeol-tools.pages.dev/exercise-calorie-burn-calculator/"
+  />
+
+  <meta name="theme-color" content="#19292f" />
+
+  <meta property="og:type" content="website" />
+
+  <meta
+    property="og:title"
+    content="운동별 소모칼로리 계산기 | 바로해결툴즈"
+  />
+
+  <meta
+    property="og:description"
+    content="같은 운동시간이라도 체중과 운동 강도에 따라 달라지는 소모칼로리를 계산하세요."
+  />
+
+  <meta
+    property="og:url"
+    content="https://barohaegyeol-tools.pages.dev/exercise-calorie-burn-calculator/"
+  />
+
+  <meta property="og:site_name" content="바로해결툴즈" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "운동별 소모칼로리 계산기",
+    "url": "https://barohaegyeol-tools.pages.dev/exercise-calorie-burn-calculator/",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "All",
+    "description": "체중, 운동 종류와 운동시간을 기준으로 총 소모칼로리와 순수 활동칼로리를 계산하는 무료 웹 도구입니다.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "KRW"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --ink: #18262c;
+      --ink-2: #23383f;
+      --text: #43565d;
+      --muted: #7c8b90;
+
+      --line: rgba(38, 73, 78, 0.12);
+      --line-strong: rgba(38, 73, 78, 0.22);
+
+      --lime: #baf34b;
+      --lime-dark: #6e9818;
+      --lime-soft: #f2ffd5;
+
+      --cyan: #31c7d4;
+      --cyan-dark: #137f8a;
+      --cyan-soft: #e3fbfd;
+
+      --amber: #ffb34f;
+      --amber-dark: #b96d10;
+      --amber-soft: #fff3df;
+
+      --coral: #ff735f;
+      --coral-soft: #fff0ed;
+
+      --blue: #5578e8;
+      --blue-soft: #edf1ff;
+
+      --green: #26845e;
+      --green-soft: #e8f8f1;
+
+      --red: #d75059;
+      --red-soft: #fff0f1;
+
+      --card: rgba(255, 255, 255, 0.9);
+      --card-solid: #ffffff;
+
+      --shadow:
+        0 24px 62px rgba(40, 74, 78, 0.12);
+
+      --shadow-soft:
+        0 12px 30px rgba(40, 74, 78, 0.08);
+
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --radius-sm: 14px;
+
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      min-width: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+
+      color: var(--ink);
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Pretendard",
+        "Noto Sans KR",
+        "Apple SD Gothic Neo",
+        system-ui,
+        sans-serif;
+
+      line-height: 1.65;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+
+      background:
+        radial-gradient(
+          circle at 4% 5%,
+          rgba(49, 199, 212, 0.18),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 96% 7%,
+          rgba(186, 243, 75, 0.17),
+          transparent 29%
+        ),
+        radial-gradient(
+          circle at 77% 94%,
+          rgba(255, 179, 79, 0.13),
+          transparent 27%
+        ),
+        linear-gradient(
+          135deg,
+          #f3fbfc 0%,
+          #f8fcf8 48%,
+          #fffaf2 78%,
+          #fbfcf9 100%
+        );
+    }
+
+    body::before {
+      content: "";
+
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+
+      pointer-events: none;
+
+      opacity: 0.25;
+
+      background-image:
+        linear-gradient(
+          120deg,
+          transparent 0 48%,
+          rgba(38, 73, 78, 0.035) 48% 50%,
+          transparent 50% 100%
+        );
+
+      background-size:
+        44px 44px;
+
+      mask-image:
+        linear-gradient(
+          to bottom,
+          #000,
+          transparent 90%
+        );
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .wrap {
+      width:
+        min(
+          var(--max),
+          calc(100% - 32px)
+        );
+
+      margin:
+        0 auto;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+
+      border-bottom:
+        1px solid rgba(38, 73, 78, 0.08);
+
+      background:
+        rgba(247, 252, 250, 0.8);
+
+      backdrop-filter:
+        blur(15px);
+    }
+
+    .header-inner {
+      min-height: 76px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      font-weight: 950;
+      letter-spacing: -0.04em;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 16px;
+
+      color: var(--ink);
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--lime),
+          var(--cyan),
+          var(--amber)
+        );
+
+      box-shadow:
+        0 12px 28px rgba(49, 199, 212, 0.22);
+
+      font-weight: 1000;
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 2px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+      font-weight: 750;
+      letter-spacing: 0;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 9px;
+    }
+
+    .nav a {
+      padding:
+        9px 13px;
+
+      border:
+        1px solid rgba(38, 73, 78, 0.09);
+
+      border-radius: 999px;
+
+      color: #52636a;
+
+      background:
+        rgba(255, 255, 255, 0.8);
+
+      font-size: 12px;
+      font-weight: 850;
+
+      transition:
+        0.18s ease;
+    }
+
+    .nav a:hover {
+      color: var(--cyan-dark);
+
+      border-color:
+        rgba(49, 199, 212, 0.28);
+
+      transform:
+        translateY(-1px);
+    }
+
+    .hero {
+      padding:
+        43px 0 28px;
+    }
+
+    .hero-grid {
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1.02fr)
+        minmax(340px, 0.98fr);
+
+      gap: 30px;
+      align-items: center;
+    }
+
+    .hero-copy {
+      padding:
+        14px 0;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+
+      margin-bottom: 18px;
+    }
+
+    .chip {
+      min-height: 34px;
+
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+
+      padding:
+        8px 13px;
+
+      border:
+        1px solid rgba(38, 73, 78, 0.1);
+
+      border-radius: 999px;
+
+      color: #596a70;
+
+      background:
+        rgba(255, 255, 255, 0.83);
+
+      box-shadow:
+        0 8px 22px rgba(40, 74, 78, 0.05);
+
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .chip.primary {
+      color: #486813;
+      background: var(--lime-soft);
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 760px;
+
+      font-size:
+        clamp(41px, 5.5vw, 67px);
+
+      line-height: 1.07;
+      letter-spacing: -0.064em;
+
+      word-break: keep-all;
+      overflow-wrap: normal;
+    }
+
+    .title-line {
+      display: block;
+    }
+
+    .title-accent {
+      color: transparent;
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--cyan-dark) 0%,
+          var(--cyan) 35%,
+          var(--lime-dark) 72%,
+          var(--amber-dark) 100%
+        );
+
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .hero-copy p {
+      max-width: 710px;
+
+      margin:
+        19px 0 0;
+
+      color: var(--muted);
+
+      font-size:
+        clamp(15px, 1.8vw, 18px);
+
+      line-height: 1.82;
+      font-weight: 720;
+    }
+
+    .hero-copy strong {
+      color: #405259;
+      font-weight: 950;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 11px;
+
+      margin-top: 23px;
+    }
+
+    .btn {
+      min-height: 51px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      padding:
+        13px 19px;
+
+      border:
+        1px solid transparent;
+
+      border-radius: 16px;
+
+      font-weight: 920;
+
+      transition:
+        0.18s ease;
+    }
+
+    .btn:hover {
+      transform:
+        translateY(-2px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--ink-2),
+          var(--cyan-dark),
+          var(--cyan)
+        );
+
+      box-shadow:
+        0 17px 36px rgba(49, 199, 212, 0.22);
+    }
+
+    .btn-secondary {
+      color: #485a60;
+
+      background:
+        rgba(255, 255, 255, 0.9);
+
+      border-color:
+        rgba(38, 73, 78, 0.11);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .hero-visual {
+      position: relative;
+
+      overflow: hidden;
+
+      min-height: 420px;
+
+      padding: 25px;
+
+      border:
+        1px solid rgba(38, 73, 78, 0.1);
+
+      border-radius:
+        var(--radius-xl);
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.96),
+          rgba(245, 252, 249, 0.85)
+        );
+
+      box-shadow:
+        var(--shadow);
+    }
+
+    .hero-visual::before {
+      content: "";
+
+      position: absolute;
+      inset: 18px;
+
+      border:
+        1px dashed rgba(38, 73, 78, 0.15);
+
+      border-radius: 25px;
+
+      background:
+        radial-gradient(
+          circle at 80% 9%,
+          rgba(186, 243, 75, 0.25),
+          transparent 27%
+        ),
+        linear-gradient(
+          145deg,
+          rgba(227, 251, 253, 0.78),
+          rgba(242, 255, 213, 0.67),
+          rgba(255, 243, 223, 0.68)
+        );
+    }
+
+    .fitness-board {
+      position: relative;
+      z-index: 1;
+
+      display: grid;
+
+      grid-template-columns:
+        minmax(190px, 0.9fr)
+        minmax(0, 1.1fr);
+
+      gap: 13px;
+
+      height: 100%;
+    }
+
+    .calorie-ring-card {
+      min-height: 344px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+
+      border-radius: 25px;
+
+      color: #ffffff;
+
+      background:
+        radial-gradient(
+          circle at 50% 20%,
+          rgba(186, 243, 75, 0.13),
+          transparent 30%
+        ),
+        linear-gradient(
+          155deg,
+          #17272d,
+          #25434a
+        );
+
+      box-shadow:
+        0 18px 38px rgba(24, 38, 44, 0.24);
+    }
+
+    .calorie-ring {
+      --progress: 72%;
+
+      width: 184px;
+      height: 184px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 50%;
+
+      background:
+        conic-gradient(
+          var(--lime) 0 var(--progress),
+          rgba(255, 255, 255, 0.1) var(--progress) 100%
+        );
+
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+        0 15px 36px rgba(0, 0, 0, 0.18);
+    }
+
+    .calorie-ring::before {
+      content: "";
+
+      position: absolute;
+    }
+
+    .ring-inner {
+      width: 142px;
+      height: 142px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 50%;
+
+      background:
+        linear-gradient(
+          145deg,
+          #192b31,
+          #243b42
+        );
+
+      text-align: center;
+    }
+
+    .ring-inner span {
+      display: block;
+
+      color:
+        rgba(255, 255, 255, 0.62);
+
+      font-size: 9px;
+      font-weight: 850;
+    }
+
+    .ring-inner strong {
+      display: block;
+      margin-top: 5px;
+
+      color: var(--lime);
+
+      font-size: 35px;
+      line-height: 1;
+      letter-spacing: -0.055em;
+    }
+
+    .ring-inner small {
+      display: block;
+      margin-top: 5px;
+
+      color:
+        rgba(255, 255, 255, 0.62);
+
+      font-size: 9px;
+      font-weight: 760;
+    }
+
+    .ring-caption {
+      margin-top: 18px;
+
+      text-align: center;
+    }
+
+    .ring-caption strong {
+      display: block;
+
+      font-size: 17px;
+      letter-spacing: -0.035em;
+    }
+
+    .ring-caption span {
+      display: block;
+      margin-top: 5px;
+
+      color:
+        rgba(255, 255, 255, 0.63);
+
+      font-size: 9px;
+      font-weight: 760;
+    }
+
+    .activity-lanes {
+      display: grid;
+      gap: 10px;
+    }
+
+    .lane-card {
+      display: grid;
+
+      grid-template-columns:
+        48px 1fr auto;
+
+      gap: 11px;
+      align-items: center;
+
+      padding: 15px;
+
+      border:
+        1px solid rgba(38, 73, 78, 0.09);
+
+      border-radius: 19px;
+
+      background:
+        rgba(255, 255, 255, 0.92);
+
+      box-shadow:
+        0 10px 24px rgba(40, 74, 78, 0.07);
+    }
+
+    .lane-card:nth-child(1) {
+      border-left:
+        5px solid var(--cyan);
+    }
+
+    .lane-card:nth-child(2) {
+      border-left:
+        5px solid var(--lime);
+    }
+
+    .lane-card:nth-child(3) {
+      border-left:
+        5px solid var(--amber);
+    }
+
+    .lane-card:nth-child(4) {
+      border-left:
+        5px solid var(--coral);
+    }
+
+    .lane-icon {
+      width: 44px;
+      height: 44px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 15px;
+
+      color: var(--ink);
+
+      background: var(--cyan-soft);
+
+      font-size: 21px;
+    }
+
+    .lane-card:nth-child(2)
+    .lane-icon {
+      background: var(--lime-soft);
+    }
+
+    .lane-card:nth-child(3)
+    .lane-icon {
+      background: var(--amber-soft);
+    }
+
+    .lane-card:nth-child(4)
+    .lane-icon {
+      background: var(--coral-soft);
+    }
+
+    .lane-content span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      font-weight: 820;
+    }
+
+    .lane-content strong {
+      display: block;
+      margin-top: 4px;
+
+      font-size: 15px;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+
+    .lane-value {
+      text-align: right;
+    }
+
+    .lane-value small {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 8px;
+      font-weight: 760;
+    }
+
+    .lane-value strong {
+      display: block;
+      margin-top: 4px;
+
+      font-size: 17px;
+      letter-spacing: -0.04em;
+    }
+
+    .section {
+      padding:
+        14px 0 25px;
+    }
+
+    .tool-shell {
+      overflow: hidden;
+
+      border:
+        1px solid rgba(38, 73, 78, 0.09);
+
+      border-radius:
+        var(--radius-xl);
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.92),
+          rgba(247, 252, 250, 0.83)
+        );
+
+      box-shadow:
+        var(--shadow);
+    }
+
+    .shell-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      gap: 18px;
+
+      padding:
+        26px 26px 19px;
+
+      border-bottom:
+        1px solid rgba(38, 73, 78, 0.08);
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(227, 251, 253, 0.65),
+          rgba(255, 255, 255, 0.25)
+        );
+    }
+
+    .shell-head h2 {
+      margin: 0;
+
+      font-size:
+        clamp(26px, 3.5vw, 40px);
+
+      line-height: 1.15;
+      letter-spacing: -0.05em;
+    }
+
+    .shell-head p {
+      margin:
+        8px 0 0;
+
+      color: var(--muted);
+
+      font-size: 13px;
+      font-weight: 720;
+    }
+
+    .shell-badge {
+      min-height: 34px;
+
+      display: inline-flex;
+      align-items: center;
+
+      padding:
+        8px 12px;
+
+      border-radius: 999px;
+
+      color: var(--cyan-dark);
+
+      background:
+        rgba(49, 199, 212, 0.11);
+
+      font-size: 11px;
+      font-weight: 900;
+
+      white-space: nowrap;
+    }
+
+    .calculator-body {
+      padding: 23px;
+    }
+
+    .input-layout {
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1.08fr)
+        minmax(330px, 0.92fr);
+
+      gap: 17px;
+      align-items: start;
+    }
+
+    .activity-panel,
+    .session-panel {
+      padding: 20px;
+
+      border:
+        1px solid rgba(38, 73, 78, 0.09);
+
+      border-radius: 23px;
+
+      background:
+        rgba(255, 255, 255, 0.93);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .panel-title {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      gap: 14px;
+
+      margin-bottom: 15px;
+    }
+
+    .panel-title h3 {
+      margin: 0;
+
+      font-size: 21px;
+      letter-spacing: -0.04em;
+    }
+
+    .panel-title span {
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 780;
+      text-align: right;
+    }
+
+    .category-tabs {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      gap: 8px;
+    }
+
+    .category-btn {
+      min-height: 47px;
+
+      padding:
+        9px 8px;
+
+      border:
+        1px solid rgba(38, 73, 78, 0.1);
+
+      border-radius: 15px;
+
+      color: #596a70;
+      background: #ffffff;
+
+      font-size: 11px;
+      font-weight: 880;
+
+      transition:
+        0.17s ease;
+    }
+
+    .category-btn:hover,
+    .category-btn.active {
+      color: var(--ink);
+
+      border-color:
+        rgba(49, 199, 212, 0.35);
+
+      background:
+        linear-gradient(
+          145deg,
+          var(--cyan-soft),
+          var(--lime-soft)
+        );
+
+      box-shadow:
+        0 8px 20px rgba(49, 199, 212, 0.1);
+    }
+
+    .activity-select-wrap {
+      margin-top: 14px;
+    }
+
+    .field label {
+      display: block;
+
+      margin-bottom: 7px;
+
+      color: #46585f;
+
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .field label small {
+      display: block;
+      margin-top: 3px;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      line-height: 1.45;
+      font-weight: 720;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 52px;
+
+      padding:
+        13px 47px 13px 14px;
+
+      border:
+        1px solid rgba(38, 73, 78, 0.14);
+
+      border-radius: 16px;
+      outline: none;
+
+      color: var(--ink);
+
+      background:
+        rgba(255, 255, 255, 0.99);
+
+      font-size: 14px;
+      font-weight: 820;
+
+      transition:
+        0.17s ease;
+    }
+
+    select {
+      padding-right: 13px;
+    }
+
+    input:focus,
+    select:focus {
+      border-color:
+        rgba(49, 199, 212, 0.45);
+
+      box-shadow:
+        0 0 0 4px rgba(49, 199, 212, 0.09);
+    }
+
+    input:disabled {
+      color: #9ba6a9;
+      background: #f0f4f3;
+      cursor: not-allowed;
+    }
+
+    .unit {
+      position: absolute;
+      right: 13px;
+      top: 50%;
+
+      transform:
+        translateY(-50%);
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 900;
+
+      pointer-events: none;
+    }
+
+    .activity-preview {
+      display: grid;
+
+      grid-template-columns:
+        auto 1fr auto;
+
+      gap: 14px;
+      align-items: center;
+
+      margin-top: 14px;
+
+      padding: 16px;
+
+      border:
+        1px solid rgba(49, 199, 212, 0.14);
+
+      border-radius: 19px;
+
+      background:
+        linear-gradient(
+          145deg,
+          var(--cyan-soft),
+          #ffffff,
+          var(--lime-soft)
+        );
+    }
+
+    .activity-preview-icon {
+      width: 52px;
+      height: 52px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 17px;
+
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--ink-2),
+          var(--cyan)
+        );
+
+      font-size: 24px;
+    }
+
+    .activity-preview span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      font-weight: 820;
+    }
+
+    .activity-preview strong {
+      display: block;
+      margin-top: 4px;
+
+      font-size: 17px;
+      letter-spacing: -0.035em;
+    }
+
+    .activity-preview p {
+      margin:
+        5px 0 0;
+
+      color: #708087;
+
+      font-size: 9px;
+      line-height: 1.5;
+      font-weight: 730;
+    }
+
+    .met-badge {
+      min-width: 70px;
+
+      padding:
+        11px;
+
+      border-radius: 15px;
+
+      color: var(--ink);
+
+      background:
+        rgba(255, 255, 255, 0.82);
+
+      text-align: center;
+    }
+
+    .met-badge small {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 8px;
+      font-weight: 800;
+    }
+
+    .met-badge strong {
+      display: block;
+      margin-top: 3px;
+
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .quick-title {
+      margin:
+        17px 0 9px;
+
+      color: #596a70;
+
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .quick-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .quick-btn {
+      min-height: 34px;
+
+      padding:
+        7px 11px;
+
+      border:
+        1px solid rgba(38, 73, 78, 0.11);
+
+      border-radius: 999px;
+
+      color: #5a6a70;
+      background: #ffffff;
+
+      font-size: 10px;
+      font-weight: 860;
+    }
+
+    .quick-btn:hover {
+      color: var(--cyan-dark);
+      background: var(--cyan-soft);
+    }
+
+    .session-grid {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 12px;
+    }
+
+    .custom-row {
+      margin-top: 14px;
+
+      padding: 14px;
+
+      border:
+        1px solid rgba(255, 179, 79, 0.19);
+
+      border-radius: 17px;
+
+      background: var(--amber-soft);
+    }
+
+    .toggle-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 14px;
+    }
+
+    .toggle-line label {
+      color: #665536;
+
+      font-size: 11px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .toggle {
+      position: relative;
+
+      width: 48px;
+      height: 27px;
+
+      flex:
+        0 0 auto;
+    }
+
+    .toggle input {
+      position: absolute;
+
+      width: 1px;
+      height: 1px;
+
+      opacity: 0;
+    }
+
+    .toggle-track {
+      position: absolute;
+      inset: 0;
+
+      border-radius: 999px;
+
+      background: #c9d1cf;
+
+      cursor: pointer;
+
+      transition:
+        0.18s ease;
+    }
+
+    .toggle-track::after {
+      content: "";
+
+      position: absolute;
+      left: 4px;
+      top: 4px;
+
+      width: 19px;
+      height: 19px;
+
+      border-radius: 50%;
+
+      background: #ffffff;
+
+      box-shadow:
+        0 3px 8px rgba(0, 0, 0, 0.15);
+
+      transition:
+        0.18s ease;
+    }
+
+    .toggle input:checked +
+    .toggle-track {
+      background: var(--cyan);
+    }
+
+    .toggle input:checked +
+    .toggle-track::after {
+      transform:
+        translateX(21px);
+    }
+
+    .custom-met-field {
+      margin-top: 11px;
+    }
+
+    .action-row {
+      display: grid;
+
+      grid-template-columns:
+        1fr 160px;
+
+      gap: 11px;
+
+      margin-top: 18px;
+    }
+
+    .calculate-btn,
+    .reset-btn {
+      min-height: 58px;
+
+      border:
+        1px solid transparent;
+
+      border-radius: 17px;
+
+      font-weight: 950;
+    }
+
+    .calculate-btn {
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--ink-2),
+          var(--cyan-dark),
+          var(--cyan)
+        );
+
+      box-shadow:
+        0 17px 35px rgba(49, 199, 212, 0.21);
+    }
+
+    .reset-btn {
+      color: #53646a;
+
+      background:
+        rgba(255, 255, 255, 0.96);
+
+      border-color:
+        rgba(38, 73, 78, 0.13);
+    }
+
+    .notice {
+      margin-top: 17px;
+
+      padding:
+        14px 16px;
+
+      border:
+        1px solid rgba(186, 243, 75, 0.28);
+
+      border-radius: 18px;
+
+      color: #526622;
+
+      background:
+        rgba(242, 255, 213, 0.75);
+
+      font-size: 11px;
+      line-height: 1.75;
+      font-weight: 760;
+    }
+
+    .results {
+      padding:
+        29px 0 19px;
+    }
+
+    .result-empty {
+      min-height: 220px;
+
+      display: grid;
+      place-items: center;
+
+      padding: 28px;
+
+      border:
+        1px dashed rgba(38, 73, 78, 0.25);
+
+      border-radius: 24px;
+
+      color: var(--muted);
+
+      background:
+        rgba(255, 255, 255, 0.7);
+
+      text-align: center;
+      font-weight: 850;
+    }
+
+    .result-content {
+      display: none;
+    }
+
+    .result-content.show {
+      display: block;
+    }
+
+    .result-hero {
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1fr)
+        auto;
+
+      gap: 22px;
+      align-items: center;
+
+      padding: 25px;
+
+      border-radius: 28px;
+
+      color: #ffffff;
+
+      background:
+        radial-gradient(
+          circle at 90% 15%,
+          rgba(186, 243, 75, 0.17),
+          transparent 27%
+        ),
+        linear-gradient(
+          140deg,
+          #17272d,
+          #25444b 62%,
+          #176f78
+        );
+
+      box-shadow:
+        0 24px 50px rgba(24, 38, 44, 0.23);
+    }
+
+    .result-hero span {
+      display: block;
+
+      color:
+        rgba(255, 255, 255, 0.66);
+
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.07em;
+    }
+
+    .result-hero h2 {
+      margin:
+        7px 0 0;
+
+      font-size:
+        clamp(42px, 7vw, 76px);
+
+      line-height: 1;
+      letter-spacing: -0.065em;
+    }
+
+    .result-hero h2 b {
+      color: var(--lime);
+    }
+
+    .result-hero p {
+      max-width: 760px;
+
+      margin:
+        12px 0 0;
+
+      color:
+        rgba(255, 255, 255, 0.78);
+
+      font-size: 12px;
+      line-height: 1.75;
+      font-weight: 760;
+    }
+
+    .intensity-stamp {
+      min-width: 168px;
+
+      padding: 18px;
+
+      border:
+        1px solid rgba(255, 255, 255, 0.17);
+
+      border-radius: 21px;
+
+      background:
+        rgba(255, 255, 255, 0.09);
+
+      text-align: center;
+
+      backdrop-filter:
+        blur(8px);
+    }
+
+    .intensity-stamp small {
+      display: block;
+
+      color:
+        rgba(255, 255, 255, 0.65);
+
+      font-size: 9px;
+      font-weight: 850;
+    }
+
+    .intensity-stamp strong {
+      display: block;
+      margin-top: 7px;
+
+      color: var(--amber);
+
+      font-size: 23px;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+    }
+
+    .intensity-stamp span {
+      margin-top: 6px;
+
+      color:
+        rgba(255, 255, 255, 0.67);
+
+      font-size: 9px;
+      letter-spacing: 0;
+    }
+
+    .metric-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      gap: 12px;
+
+      margin-top: 16px;
+    }
+
+    .metric-card {
+      padding: 17px;
+
+      border:
+        1px solid rgba(38, 73, 78, 0.09);
+
+      border-radius: 20px;
+
+      background:
+        rgba(255, 255, 255, 0.94);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .metric-card:nth-child(1) {
+      border-top:
+        5px solid var(--cyan);
+    }
+
+    .metric-card:nth-child(2) {
+      border-top:
+        5px solid var(--lime);
+    }
+
+    .metric-card:nth-child(3) {
+      border-top:
+        5px solid var(--amber);
+    }
+
+    .metric-card:nth-child(4) {
+      border-top:
+        5px solid var(--coral);
+    }
+
+    .metric-card span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      font-weight: 850;
+    }
+
+    .metric-card strong {
+      display: block;
+      margin-top: 7px;
+
+      font-size: 24px;
+      line-height: 1.08;
+      letter-spacing: -0.045em;
+    }
+
+    .metric-card small {
+      display: block;
+      margin-top: 7px;
+
+      color: #829094;
+
+      font-size: 9px;
+      line-height: 1.5;
+      font-weight: 730;
+    }
+
+    .projection-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 13px;
+
+      margin-top: 16px;
+    }
+
+    .projection-card {
+      padding: 19px;
+
+      border:
+        1px solid rgba(38, 73, 78, 0.09);
+
+      border-radius: 22px;
+
+      background:
+        rgba(255, 255, 255, 0.94);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .projection-card span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      font-weight: 850;
+    }
+
+    .projection-card strong {
+      display: block;
+      margin-top: 7px;
+
+      font-size: 26px;
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .projection-card p {
+      margin:
+        8px 0 0;
+
+      color: #819094;
+
+      font-size: 9px;
+      line-height: 1.55;
+      font-weight: 730;
+    }
+
+    .comparison-panel {
+      margin-top: 16px;
+
+      padding: 20px;
+
+      border:
+        1px solid rgba(38, 73, 78, 0.09);
+
+      border-radius: 24px;
+
+      background:
+        rgba(255, 255, 255, 0.94);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .comparison-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+
+      gap: 15px;
+    }
+
+    .comparison-head h3 {
+      margin: 0;
+
+      font-size: 19px;
+      letter-spacing: -0.035em;
+    }
+
+    .comparison-head p {
+      margin:
+        5px 0 0;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 740;
+    }
+
+    .comparison-head span {
+      color: var(--cyan-dark);
+
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    .comparison-list {
+      display: grid;
+      gap: 13px;
+
+      margin-top: 16px;
+    }
+
+    .comparison-row {
+      display: grid;
+
+      grid-template-columns:
+        145px 1fr 90px;
+
+      gap: 12px;
+      align-items: center;
+    }
+
+    .comparison-label {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .comparison-label i {
+      width: 32px;
+      height: 32px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 11px;
+
+      background: var(--cyan-soft);
+
+      font-style: normal;
+    }
+
+    .comparison-track {
+      height: 17px;
+
+      overflow: hidden;
+
+      border-radius: 999px;
+
+      background: #edf2f1;
+    }
+
+    .comparison-fill {
+      display: block;
+
+      width: 0;
+      height: 100%;
+
+      border-radius: inherit;
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--cyan),
+          var(--lime)
+        );
+
+      transition:
+        width 0.3s ease;
+    }
+
+    .comparison-row:nth-child(2)
+    .comparison-fill {
+      background:
+        linear-gradient(
+          90deg,
+          var(--lime-dark),
+          var(--lime)
+        );
+    }
+
+    .comparison-row:nth-child(3)
+    .comparison-fill {
+      background:
+        linear-gradient(
+          90deg,
+          var(--amber-dark),
+          var(--amber)
+        );
+    }
+
+    .comparison-row:nth-child(4)
+    .comparison-fill {
+      background:
+        linear-gradient(
+          90deg,
+          var(--coral),
+          var(--amber)
+        );
+    }
+
+    .comparison-value {
+      color: #506168;
+
+      font-size: 10px;
+      font-weight: 900;
+
+      text-align: right;
+    }
+
+    .detail-panel {
+      margin-top: 16px;
+
+      overflow: hidden;
+
+      border:
+        1px solid rgba(38, 73, 78, 0.09);
+
+      border-radius: 23px;
+
+      background:
+        rgba(255, 255, 255, 0.94);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .detail-head {
+      padding: 18px 20px;
+
+      border-bottom:
+        1px solid rgba(38, 73, 78, 0.08);
+    }
+
+    .detail-head h3 {
+      margin: 0;
+
+      font-size: 18px;
+      letter-spacing: -0.035em;
+    }
+
+    .detail-head p {
+      margin:
+        5px 0 0;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 740;
+    }
+
+    .detail-row {
+      display: grid;
+
+      grid-template-columns:
+        1fr auto;
+
+      gap: 15px;
+
+      padding:
+        14px 18px;
+
+      border-bottom:
+        1px solid rgba(38, 73, 78, 0.07);
+
+      font-size: 11px;
+      font-weight: 820;
+    }
+
+    .detail-row:last-child {
+      border-bottom: 0;
+    }
+
+    .detail-row span {
+      color: #56676d;
+    }
+
+    .detail-row strong {
+      text-align: right;
+    }
+
+    .detail-row.highlight {
+      background:
+        linear-gradient(
+          90deg,
+          var(--cyan-soft),
+          var(--lime-soft)
+        );
+    }
+
+    .status-box {
+      margin-top: 16px;
+
+      padding:
+        16px 18px;
+
+      border:
+        1px solid rgba(38, 132, 94, 0.17);
+
+      border-radius: 19px;
+
+      color: #25634c;
+
+      background: var(--green-soft);
+
+      font-size: 12px;
+      line-height: 1.75;
+      font-weight: 820;
+    }
+
+    .status-box.warn {
+      color: #735a25;
+      background: var(--amber-soft);
+      border-color:
+        rgba(255, 179, 79, 0.25);
+    }
+
+    .result-actions {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 11px;
+
+      margin-top: 16px;
+    }
+
+    .utility-btn {
+      min-height: 49px;
+
+      border:
+        1px solid rgba(38, 73, 78, 0.13);
+
+      border-radius: 16px;
+
+      color: #53646a;
+      background:
+        rgba(255, 255, 255, 0.96);
+
+      font-weight: 900;
+    }
+
+    .guide-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 15px;
+    }
+
+    .guide-card {
+      padding: 21px;
+
+      border:
+        1px solid rgba(38, 73, 78, 0.09);
+
+      border-radius: 23px;
+
+      background:
+        rgba(255, 255, 255, 0.9);
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .guide-card h3 {
+      margin: 0;
+
+      font-size: 18px;
+      letter-spacing: -0.035em;
+    }
+
+    .guide-card p {
+      margin:
+        9px 0 0;
+
+      color: var(--muted);
+
+      font-size: 12px;
+      line-height: 1.78;
+      font-weight: 730;
+    }
+
+    .guide-card a {
+      color: var(--cyan-dark);
+
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .faq {
+      display: grid;
+      gap: 10px;
+
+      margin-top: 18px;
+    }
+
+    details {
+      padding:
+        0 18px;
+
+      border:
+        1px solid rgba(38, 73, 78, 0.09);
+
+      border-radius: 18px;
+
+      background:
+        rgba(255, 255, 255, 0.9);
+
+      box-shadow:
+        0 8px 24px rgba(40, 74, 78, 0.05);
+    }
+
+    summary {
+      padding:
+        16px 0;
+
+      cursor: pointer;
+
+      font-size: 13px;
+      font-weight: 900;
+
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details p {
+      margin: 0;
+
+      padding:
+        0 0 16px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+      line-height: 1.75;
+      font-weight: 730;
+    }
+
+    footer {
+      padding:
+        32px 0 40px;
+    }
+
+    .footer-card {
+      padding: 22px;
+
+      border-radius: 25px;
+
+      color:
+        rgba(255, 255, 255, 0.8);
+
+      background:
+        linear-gradient(
+          135deg,
+          #17272d,
+          #24515a,
+          #4d641e
+        );
+    }
+
+    .footer-card strong {
+      display: block;
+
+      color: #ffffff;
+
+      font-size: 16px;
+    }
+
+    .footer-card p {
+      max-width: 940px;
+
+      margin:
+        8px 0 0;
+
+      font-size: 11px;
+      line-height: 1.75;
+      font-weight: 720;
+    }
+
+    @media print {
+      .header,
+      .hero,
+      #calculator,
+      #guide,
+      footer,
+      .result-actions {
+        display: none !important;
+      }
+
+      body {
+        background: #ffffff;
+      }
+
+      .results {
+        padding: 0;
+      }
+
+      .result-content {
+        display: block !important;
+      }
+
+      .result-hero,
+      .metric-card,
+      .projection-card,
+      .comparison-panel,
+      .detail-panel,
+      .status-box {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+    }
+
+    @media (max-width: 1020px) {
+      .hero-grid,
+      .input-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual {
+        min-height: auto;
+      }
+
+      .metric-grid {
+        grid-template-columns:
+          1fr 1fr;
+      }
+
+      .guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .header-inner {
+        min-height: auto;
+
+        padding:
+          13px 0;
+
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav {
+        justify-content: flex-start;
+      }
+
+      .wrap {
+        width:
+          min(
+            var(--max),
+            calc(100% - 20px)
+          );
+      }
+
+      .hero {
+        padding-top: 29px;
+      }
+
+      h1 {
+        font-size: 39px;
+        line-height: 1.11;
+        letter-spacing: -0.054em;
+      }
+
+      .fitness-board {
+        grid-template-columns: 1fr;
+      }
+
+      .calorie-ring-card {
+        min-height: 300px;
+      }
+
+      .shell-head,
+      .panel-title,
+      .comparison-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .panel-title span {
+        text-align: left;
+      }
+
+      .category-tabs {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+
+      .result-hero,
+      .metric-grid,
+      .projection-grid,
+      .result-actions {
+        grid-template-columns: 1fr;
+      }
+
+      .intensity-stamp {
+        width: 100%;
+        text-align: left;
+      }
+
+      .comparison-row {
+        grid-template-columns:
+          115px 1fr;
+      }
+
+      .comparison-value {
+        grid-column: 2;
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .hero-visual,
+      .tool-shell,
+      .activity-panel,
+      .session-panel,
+      .result-hero,
+      .comparison-panel,
+      .detail-panel,
+      .guide-card,
+      .footer-card {
+        border-radius: 21px;
+      }
+
+      .activity-preview,
+      .session-grid,
+      .action-row {
+        grid-template-columns: 1fr;
+      }
+
+      .activity-preview {
+        align-items: start;
+      }
+
+      .met-badge {
+        width: 100%;
+        text-align: left;
+      }
+
+      .lane-card {
+        grid-template-columns:
+          44px 1fr;
+      }
+
+      .lane-value {
+        grid-column: 2;
+        text-align: left;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior:
+          auto !important;
+
+        transition-duration:
+          0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <div class="wrap header-inner">
+      <a
+        class="brand"
+        href="https://barohaegyeol-tools.pages.dev/"
+        aria-label="바로해결툴즈 홈"
+      >
+        <div class="brand-mark">
+          B
+        </div>
+
+        <div>
+          바로해결툴즈
+
+          <small>
+            운동 · 활동량 · 소모에너지 계산
+          </small>
+        </div>
+      </a>
+
+      <nav
+        class="nav"
+        aria-label="페이지 메뉴"
+      >
+        <a href="#calculator">
+          운동 선택
+        </a>
+
+        <a href="#results">
+          계산 결과
+        </a>
+
+        <a href="#guide">
+          MET 안내
+        </a>
+
+        <a href="https://barohaegyeol-tools.pages.dev/">
+          전체 도구
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <div class="chips">
+            <span class="chip primary">
+              ● 2024 운동별 MET 기준 적용
+            </span>
+
+            <span class="chip">
+              총 칼로리 · 활동 칼로리 · 주간 누적
+            </span>
+          </div>
+
+          <h1>
+            <span class="title-line">
+              운동별 소모칼로리,
+            </span>
+
+            <span class="title-line title-accent">
+              같은 30분도 이렇게 다르다
+            </span>
+          </h1>
+
+          <p>
+            체중과 운동시간만 같아도 운동 종류와 강도에 따라 결과는 달라집니다.
+            <strong>
+              총 소모칼로리, 안정 시 소비량을 제외한 활동칼로리,
+              분당 소모량과 주간·월간 누적량
+            </strong>
+            을 함께 계산합니다.
+          </p>
+
+          <div class="hero-actions">
+            <a
+              class="btn btn-primary"
+              href="#calculator"
+            >
+              내 운동 칼로리 계산하기
+            </a>
+
+            <a
+              class="btn btn-secondary"
+              href="#guide"
+            >
+              MET 계산 기준 확인
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="hero-visual"
+          aria-label="운동별 소모칼로리 비교 미리보기"
+        >
+          <div class="fitness-board">
+            <section class="calorie-ring-card">
+              <div
+                class="calorie-ring"
+                id="heroRing"
+              >
+                <div class="ring-inner">
+                  <div>
+                    <span>
+                      30분 예상
+                    </span>
+
+                    <strong id="heroCalories">
+                      287
+                    </strong>
+
+                    <small>
+                      kcal
+                    </small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="ring-caption">
+                <strong id="heroActivity">
+                  빠른 걷기
+                </strong>
+
+                <span>
+                  체중 70kg · 4.8 MET 예시
+                </span>
+              </div>
+            </section>
+
+            <div class="activity-lanes">
+              <article class="lane-card">
+                <div class="lane-icon">
+                  🚶
+                </div>
+
+                <div class="lane-content">
+                  <span>
+                    WALKING
+                  </span>
+
+                  <strong>
+                    빠른 걷기
+                  </strong>
+                </div>
+
+                <div class="lane-value">
+                  <small>
+                    30분
+                  </small>
+
+                  <strong>
+                    176kcal
+                  </strong>
+                </div>
+              </article>
+
+              <article class="lane-card">
+                <div class="lane-icon">
+                  🚴
+                </div>
+
+                <div class="lane-content">
+                  <span>
+                    CYCLING
+                  </span>
+
+                  <strong>
+                    자전거 보통
+                  </strong>
+                </div>
+
+                <div class="lane-value">
+                  <small>
+                    30분
+                  </small>
+
+                  <strong>
+                    294kcal
+                  </strong>
+                </div>
+              </article>
+
+              <article class="lane-card">
+                <div class="lane-icon">
+                  🏃
+                </div>
+
+                <div class="lane-content">
+                  <span>
+                    RUNNING
+                  </span>
+
+                  <strong>
+                    시속 8km 러닝
+                  </strong>
+                </div>
+
+                <div class="lane-value">
+                  <small>
+                    30분
+                  </small>
+
+                  <strong>
+                    312kcal
+                  </strong>
+                </div>
+              </article>
+
+              <article class="lane-card">
+                <div class="lane-icon">
+                  🪢
+                </div>
+
+                <div class="lane-content">
+                  <span>
+                    CONDITIONING
+                  </span>
+
+                  <strong>
+                    줄넘기
+                  </strong>
+                </div>
+
+                <div class="lane-value">
+                  <small>
+                    30분
+                  </small>
+
+                  <strong>
+                    404kcal
+                  </strong>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="section"
+      id="calculator"
+    >
+      <div class="wrap">
+        <div class="tool-shell">
+          <div class="shell-head">
+            <div>
+              <h2>
+                운동 소모에너지 계산실
+              </h2>
+
+              <p>
+                운동 종목을 선택하고 체중·시간·주당 횟수를 입력하세요.
+              </p>
+            </div>
+
+            <div class="shell-badge">
+              2024 ADULT COMPENDIUM · MET
+            </div>
+          </div>
+
+          <div class="calculator-body">
+            <form id="calculatorForm">
+              <div class="input-layout">
+                <section class="activity-panel">
+                  <div class="panel-title">
+                    <h3>
+                      1. 운동 종류 선택
+                    </h3>
+
+                    <span>
+                      카테고리를 누르면 세부 운동이 변경됩니다.
+                    </span>
+                  </div>
+
+                  <div
+                    class="category-tabs"
+                    id="categoryTabs"
+                  ></div>
+
+                  <div class="activity-select-wrap field">
+                    <label for="activitySelect">
+                      세부 운동·강도
+                    </label>
+
+                    <select id="activitySelect"></select>
+                  </div>
+
+                  <div class="activity-preview">
+                    <div
+                      class="activity-preview-icon"
+                      id="activityPreviewIcon"
+                    >
+                      🚶
+                    </div>
+
+                    <div>
+                      <span id="activityCategoryResult">
+                        걷기·등산
+                      </span>
+
+                      <strong id="activityNameResult">
+                        빠른 걷기
+                      </strong>
+
+                      <p id="activityDescription">
+                        평지에서 시속 약 5.6~6.3km로 빠르게 걷는 운동입니다.
+                      </p>
+                    </div>
+
+                    <div class="met-badge">
+                      <small>
+                        MET
+                      </small>
+
+                      <strong id="activityMetResult">
+                        4.8
+                      </strong>
+                    </div>
+                  </div>
+
+                  <div class="quick-title">
+                    자주 찾는 운동
+                  </div>
+
+                  <div class="quick-list">
+                    <button
+                      class="quick-btn"
+                      type="button"
+                      data-activity="walk_brisk"
+                    >
+                      빠른 걷기
+                    </button>
+
+                    <button
+                      class="quick-btn"
+                      type="button"
+                      data-activity="run_8"
+                    >
+                      시속 8km 러닝
+                    </button>
+
+                    <button
+                      class="quick-btn"
+                      type="button"
+                      data-activity="cycle_general"
+                    >
+                      자전거 보통
+                    </button>
+
+                    <button
+                      class="quick-btn"
+                      type="button"
+                      data-activity="weight_general"
+                    >
+                      일반 근력운동
+                    </button>
+
+                    <button
+                      class="quick-btn"
+                      type="button"
+                      data-activity="swim_slow"
+                    >
+                      자유형 천천히
+                    </button>
+
+                    <button
+                      class="quick-btn"
+                      type="button"
+                      data-activity="rope"
+                    >
+                      줄넘기
+                    </button>
+                  </div>
+                </section>
+
+                <section class="session-panel">
+                  <div class="panel-title">
+                    <h3>
+                      2. 운동 조건 입력
+                    </h3>
+
+                    <span>
+                      결과는 입력한 한 번의 운동 기준입니다.
+                    </span>
+                  </div>
+
+                  <div class="session-grid">
+                    <div class="field">
+                      <label for="weight">
+                        현재 체중
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="weight"
+                          type="number"
+                          inputmode="decimal"
+                          min="25"
+                          max="300"
+                          step="0.1"
+                          value="70"
+                          required
+                        />
+
+                        <span class="unit">
+                          kg
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="duration">
+                        운동시간
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="duration"
+                          type="number"
+                          inputmode="numeric"
+                          min="1"
+                          max="1440"
+                          step="1"
+                          value="30"
+                          required
+                        />
+
+                        <span class="unit">
+                          분
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="weeklySessions">
+                        주당 운동 횟수
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="weeklySessions"
+                          type="number"
+                          inputmode="numeric"
+                          min="0"
+                          max="21"
+                          step="1"
+                          value="4"
+                          required
+                        />
+
+                        <span class="unit">
+                          회
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="calorieMode">
+                        대표 결과 기준
+                      </label>
+
+                      <select id="calorieMode">
+                        <option
+                          value="total"
+                          selected
+                        >
+                          총 소모칼로리
+                        </option>
+
+                        <option value="active">
+                          순수 활동칼로리
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="custom-row">
+                    <div class="toggle-line">
+                      <label for="customToggle">
+                        MET 값을 직접 입력해서 계산
+                      </label>
+
+                      <div class="toggle">
+                        <input
+                          id="customToggle"
+                          type="checkbox"
+                        />
+
+                        <label
+                          class="toggle-track"
+                          for="customToggle"
+                          aria-label="직접 MET 입력 사용"
+                        ></label>
+                      </div>
+                    </div>
+
+                    <div class="custom-met-field field">
+                      <label for="customMet">
+                        직접 입력할 MET
+
+                        <small>
+                          기기·수업에서 제공한 MET 값이 있을 때 사용
+                        </small>
+                      </label>
+
+                      <div class="input-wrap">
+                        <input
+                          id="customMet"
+                          type="number"
+                          inputmode="decimal"
+                          min="1"
+                          max="30"
+                          step="0.1"
+                          value="4.8"
+                          disabled
+                        />
+
+                        <span class="unit">
+                          MET
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="action-row">
+                    <button
+                      class="calculate-btn"
+                      type="submit"
+                    >
+                      소모칼로리 계산하기
+                    </button>
+
+                    <button
+                      class="reset-btn"
+                      type="button"
+                      id="resetBtn"
+                    >
+                      초기화
+                    </button>
+                  </div>
+                </section>
+              </div>
+            </form>
+
+            <div class="notice">
+              MET 기반 결과는 표준 성인의 평균적인 에너지 소비를 추정한 값입니다.
+              실제 소모량은 체력, 운동 숙련도, 속도, 경사, 휴식시간, 환경,
+              심박수와 개인별 안정대사량에 따라 달라질 수 있습니다.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="results"
+      id="results"
+    >
+      <div class="wrap">
+        <div
+          class="result-empty"
+          id="resultEmpty"
+        >
+          운동과 체중·시간을 입력하면<br />
+          한 번의 운동부터 월간 누적 소모량까지 표시됩니다.
+        </div>
+
+        <div
+          class="result-content"
+          id="resultContent"
+        >
+          <section class="result-hero">
+            <div>
+              <span>
+                ESTIMATED ENERGY EXPENDITURE
+              </span>
+
+              <h2>
+                <b id="mainCalories">
+                  -
+                </b>
+                kcal
+              </h2>
+
+              <p id="mainMessage">
+                -
+              </p>
+            </div>
+
+            <div class="intensity-stamp">
+              <small>
+                운동 강도
+              </small>
+
+              <strong id="intensityResult">
+                -
+              </strong>
+
+              <span id="metResult">
+                -
+              </span>
+            </div>
+          </section>
+
+          <div class="metric-grid">
+            <article class="metric-card">
+              <span>
+                총 소모칼로리
+              </span>
+
+              <strong id="totalCaloriesResult">
+                -
+              </strong>
+
+              <small>
+                안정 시 소비량을 포함한 전체 추정값
+              </small>
+            </article>
+
+            <article class="metric-card">
+              <span>
+                순수 활동칼로리
+              </span>
+
+              <strong id="activeCaloriesResult">
+                -
+              </strong>
+
+              <small>
+                같은 시간 안정 시 소비량을 차감한 값
+              </small>
+            </article>
+
+            <article class="metric-card">
+              <span>
+                분당 소모량
+              </span>
+
+              <strong id="perMinuteResult">
+                -
+              </strong>
+
+              <small id="perMinuteDetail">
+                -
+              </small>
+            </article>
+
+            <article class="metric-card">
+              <span>
+                추정 범위
+              </span>
+
+              <strong id="rangeResult">
+                -
+              </strong>
+
+              <small>
+                계산값의 ±15% 참고 범위
+              </small>
+            </article>
+          </div>
+
+          <div class="projection-grid">
+            <article class="projection-card">
+              <span>
+                주간 예상 소모량
+              </span>
+
+              <strong id="weeklyResult">
+                -
+              </strong>
+
+              <p id="weeklyDetail">
+                -
+              </p>
+            </article>
+
+            <article class="projection-card">
+              <span>
+                월간 예상 소모량
+              </span>
+
+              <strong id="monthlyResult">
+                -
+              </strong>
+
+              <p>
+                주간 패턴이 한 달간 동일하다고 가정
+              </p>
+            </article>
+
+            <article class="projection-card">
+              <span>
+                연간 예상 소모량
+              </span>
+
+              <strong id="yearlyResult">
+                -
+              </strong>
+
+              <p>
+                주간 운동 횟수가 52주간 유지되는 경우
+              </p>
+            </article>
+          </div>
+
+          <section class="comparison-panel">
+            <div class="comparison-head">
+              <div>
+                <h3>
+                  같은 시간·체중 운동별 비교
+                </h3>
+
+                <p>
+                  현재 입력한 체중과 운동시간을 동일하게 적용합니다.
+                </p>
+              </div>
+
+              <span id="comparisonCondition">
+                -
+              </span>
+            </div>
+
+            <div
+              class="comparison-list"
+              id="comparisonList"
+            ></div>
+          </section>
+
+          <section class="detail-panel">
+            <div class="detail-head">
+              <h3>
+                계산 상세
+              </h3>
+
+              <p>
+                적용된 운동 조건과 계산 기준을 확인하세요.
+              </p>
+            </div>
+
+            <div class="detail-row">
+              <span>
+                선택 운동
+              </span>
+
+              <strong id="detailActivity">
+                -
+              </strong>
+            </div>
+
+            <div class="detail-row">
+              <span>
+                체중 × 운동시간
+              </span>
+
+              <strong id="detailProfile">
+                -
+              </strong>
+            </div>
+
+            <div class="detail-row">
+              <span>
+                적용 MET
+              </span>
+
+              <strong id="detailMet">
+                -
+              </strong>
+            </div>
+
+            <div class="detail-row">
+              <span>
+                총 소모량 계산식
+              </span>
+
+              <strong id="detailFormula">
+                -
+              </strong>
+            </div>
+
+            <div class="detail-row highlight">
+              <span>
+                대표 표시 기준
+              </span>
+
+              <strong id="detailMode">
+                -
+              </strong>
+            </div>
+          </section>
+
+          <div
+            class="status-box"
+            id="statusBox"
+          >
+            -
+          </div>
+
+          <div class="result-actions">
+            <button
+              class="utility-btn"
+              type="button"
+              id="copyBtn"
+            >
+              결과 복사
+            </button>
+
+            <button
+              class="utility-btn"
+              type="button"
+              id="printBtn"
+            >
+              인쇄·PDF 저장
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="section"
+      id="guide"
+    >
+      <div class="wrap">
+        <div class="guide-grid">
+          <article class="guide-card">
+            <h3>
+              MET란?
+            </h3>
+
+            <p>
+              MET는 특정 활동의 에너지 소비가 안정 상태보다 몇 배 높은지를 나타내는 단위입니다.
+              1 MET는 약 1kcal/kg/시간에 해당하는 표준값으로 사용됩니다.
+
+              <a
+                href="https://pacompendium.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Compendium 안내
+              </a>
+            </p>
+          </article>
+
+          <article class="guide-card">
+            <h3>
+              총 칼로리와 활동 칼로리
+            </h3>
+
+            <p>
+              총 소모칼로리는 운동 중 신체가 소비한 전체 에너지를 의미합니다.
+              순수 활동칼로리는 같은 시간 가만히 있었을 때 소비했을 에너지를 제외해
+              운동으로 추가된 부분만 추정합니다.
+            </p>
+          </article>
+
+          <article class="guide-card">
+            <h3>
+              2024 운동별 기준
+            </h3>
+
+            <p>
+              운동별 기본 MET는 2024 Adult Compendium에 수록된 활동 강도를 참고했습니다.
+              직접 측정한 기기값이나 수업별 MET가 있다면 직접 입력 기능으로 수정할 수 있습니다.
+
+              <a
+                href="https://pacompendium.com/adult-compendium/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                운동별 MET 확인
+              </a>
+            </p>
+          </article>
+        </div>
+
+        <div class="faq">
+          <details>
+            <summary>
+              스마트워치의 칼로리와 왜 다르게 나오나요?
+            </summary>
+
+            <p>
+              스마트워치는 심박수, 움직임 센서, 나이, 성별과 개인 기록을 함께 사용할 수 있지만
+              이 계산기는 체중·시간·MET를 이용합니다.
+              기기의 알고리즘과 센서 정확도에 따라 두 값 모두 실제 측정값과 차이가 날 수 있습니다.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              쉬는 시간이 포함된 근력운동은 어떻게 계산하나요?
+            </summary>
+
+            <p>
+              운동시간에는 세트 사이 휴식시간까지 포함한 전체 시간을 입력하고
+              실제 운동 밀도에 맞는 강도를 선택하세요.
+              휴식이 긴 일반 웨이트는 낮은 MET, 서킷이나 고강도 훈련은 높은 MET가 적합합니다.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              순수 활동칼로리를 식사량에 그대로 더해도 되나요?
+            </summary>
+
+            <p>
+              계산된 운동 칼로리를 전부 추가 섭취해야 한다는 의미는 아닙니다.
+              체중 목표, 하루 총섭취량, 운동 빈도와 회복상태를 함께 고려해야 하며
+              체중 변화 추이를 보면서 식사량을 조정하는 편이 현실적입니다.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              어린이·임신부·질환자도 사용할 수 있나요?
+            </summary>
+
+            <p>
+              이 계산기의 기본 MET 값은 일반 빈도와 회복상태를 함께 고려해야 하며
+              체 성인을 위한 참고값입니다.
+              성장기 아동·청소년, 임신부, 고령자 또는 대사와 운동능력에 영향을 주는 질환이 있다면
+              개인 상태에 맞는 전문 지침을 우선하세요.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-card">
+        <strong>
+          바로해결툴즈
+        </strong>
+
+        <p>
+          본 결과는 표준 MET와 입력값을 이용한 참고용 추정치이며
+          실제 에너지 소비량을 직접 측정한 결과가 아닙니다.
+          운동 중 통증, 어지럼증, 흉통이나 비정상적인 호흡곤란이 나타나면 운동을 중단하고
+          필요한 경우 의료진의 평가를 받으세요.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    "use strict";
+
+    const STORAGE_KEY =
+      "exerciseCalorieBurnCalculator";
+
+    const CATEGORY_INFO = {
+      walking: {
+        label:
+          "걷기·등산",
+
+        icon:
+          "🚶"
+      },
+
+      running: {
+        label:
+          "러닝",
+
+        icon:
+          "🏃"
+      },
+
+      cycling: {
+        label:
+          "자전거",
+
+        icon:
+          "🚴"
+      },
+
+      strength: {
+        label:
+          "근력·HIIT",
+
+        icon:
+          "🏋"
+      },
+
+      cardio: {
+        label:
+          "유산소 기구",
+
+        icon:
+          "🔥"
+      },
+
+      water: {
+        label:
+          "수영·수중",
+
+        icon:
+          "🏊"
+      },
+
+      sports: {
+        label:
+          "구기·스포츠",
+
+        icon:
+          "🏀"
+      },
+
+      lifestyle: {
+        label:
+          "요가·생활",
+
+        icon:
+          "🧘"
+      }
+    };
+
+    const ACTIVITIES = {
+      walking: [
+        {
+          id:
+            "walk_dog",
+
+          label:
+            "반려견 산책",
+
+          met:
+            3.0,
+
+          icon:
+            "🐕",
+
+          description:
+            "평지에서 반려견과 함께 걷는 일반적인 산책입니다."
+        },
+
+        {
+          id:
+            "walk_slow",
+
+          label:
+            "천천히 걷기 · 시속 약 4km",
+
+          met:
+            3.0,
+
+          icon:
+            "🚶",
+
+          description:
+            "평지에서 시속 약 4km로 천천히 걷는 운동입니다."
+        },
+
+        {
+          id:
+            "walk_normal",
+
+          label:
+            "보통 걷기 · 시속 약 4.8~5.5km",
+
+          met:
+            3.8,
+
+          icon:
+            "🚶",
+
+          description:
+            "평지에서 자연스러운 보통 속도로 걷는 운동입니다."
+        },
+
+        {
+          id:
+            "walk_brisk",
+
+          label:
+            "빠른 걷기 · 시속 약 5.6~6.3km",
+
+          met:
+            4.8,
+
+          icon:
+            "🚶",
+
+          description:
+            "평지에서 시속 약 5.6~6.3km로 빠르게 걷는 운동입니다."
+        },
+
+        {
+          id:
+            "walk_very_brisk",
+
+          label:
+            "매우 빠른 걷기 · 시속 약 6.4~7km",
+
+          met:
+            5.5,
+
+          icon:
+            "🚶",
+
+          description:
+            "평지에서 시속 약 6.4~7km로 매우 빠르게 걷는 운동입니다."
+        },
+
+        {
+          id:
+            "hiking",
+
+          label:
+            "야외 등산·트레킹",
+
+          met:
+            6.0,
+
+          icon:
+            "🥾",
+
+          description:
+            "평탄하지 않은 야외 지형을 이동하는 일반적인 등산입니다."
+        }
+      ],
+
+      running: [
+        {
+          id:
+            "jog_slow",
+
+          label:
+            "가벼운 조깅 · 시속 약 6.4km",
+
+          met:
+            6.5,
+
+          icon:
+            "🏃",
+
+          description:
+            "시속 약 6.4~6.8km의 가벼운 조깅입니다."
+        },
+
+        {
+          id:
+            "run_8",
+
+          label:
+            "러닝 · 시속 약 8km",
+
+          met:
+            8.5,
+
+          icon:
+            "🏃",
+
+          description:
+            "1km를 약 7분 30초에 달리는 속도입니다."
+        },
+
+        {
+          id:
+            "run_9",
+
+          label:
+            "러닝 · 시속 약 9km",
+
+          met:
+            9.0,
+
+          icon:
+            "🏃",
+
+          description:
+            "1km를 약 6분 40초에 달리는 속도입니다."
+        },
+
+        {
+          id:
+            "run_10",
+
+          label:
+            "러닝 · 시속 약 10km",
+
+          met:
+            9.3,
+
+          icon:
+            "🏃",
+
+          description:
+            "1km를 약 6분에 달리는 속도입니다."
+        },
+
+        {
+          id:
+            "run_12",
+
+          label:
+            "러닝 · 시속 약 12km",
+
+          met:
+            11.8,
+
+          icon:
+            "🏃",
+
+          description:
+            "1km를 약 5분에 달리는 빠른 러닝입니다."
+        },
+
+        {
+          id:
+            "run_stairs",
+
+          label:
+            "계단 오르며 달리기",
+
+          met:
+            15.0,
+
+          icon:
+            "🪜",
+
+          description:
+            "계단을 달려 올라가는 매우 높은 강도의 운동입니다."
+        }
+      ],
+
+      cycling: [
+        {
+          id:
+            "cycle_leisure",
+
+          label:
+            "자전거 여유롭게 · 시속 16km 미만",
+
+          met:
+            4.0,
+
+          icon:
+km 미만",
+
+          met:
+            4.0,
+
+          icon:
+            "🚲",
+
+          description:
+            "출퇴근이나 여가 목적으로 가볍게 타는 자전거입니다."
+        },
+
+        {
+          id:
+            "cycle_general",
+
+          label:
+            "자전거 일반·보통 속도",
+
+          met:
+            7.0,
+
+          icon:
+            "🚴",
+
+          description:
+            "평지에서 지속적으로 페달을 밟는 일반적인 자전거 운동입니다."
+        },
+
+        {
+          id:
+            "cycle_moderate",
+
+          label:
+            "자전거 중강도 · 시속 약 19~22km",
+
+          met:
+            8.0,
+
+          icon:
+            "🚴",
+
+          description:
+            "여가 또는 훈련 목적으로 중간 강도로 타는 자전거입니다."
+        },
+
+        {
+          id:
+            "cycle_fast",
+
+          label:
+            "자전거 고강도 · 시속 약 23~25km",
+
+          met:
+            10.0,
+
+          icon:
+            "🚴",
+
+          description:
+            "빠르고 강한 페달링을 유지하는 고강도 자전거 운동입니다."
+        },
+
+        {
+          id:
+            "cycle_stationary",
+
+          label:
+            "실내 자전거 · 보통 강도",
+
+          met:
+            6.0,
+
+          icon:
+            "🚴",
+
+          description:
+            "약 90~100W 수준으로 진행하는 실내 자전거입니다."
+        },
+
+        {
+          id:
+            "cycle_spin",
+
+          label:
+            "스피닝 수업",
+
+          met:
+            9.0,
+
+          icon:
+            "🚴",
+
+          description:
+            "음악과 강도 변화가 포함된 실내 스핀바이크 수업입니다."
+        }
+      ],
+
+      strength: [
+        {
+          id:
+            "weight_general",
+
+          label:
+            "일반 근력운동 · 세트 휴식 포함",
+
+          met:
+            3.5,
+
+          icon:
+            "🏋",
+
+          description:
+            "여러 근력운동을 8~15회 반복하고 세트 사이 휴식하는 일반 운동입니다."
+        },
+
+        {
+          id:
+            "weight_compound",
+
+          label:
+            "스쿼트·데드리프트 중심",
+
+          met:
+            5.0,
+
+          icon:
+            "🏋",
+
+          description:
+            "스쿼트와 데드리프트 등 복합 근력운동을 지속하는 경우입니다."
+        },
+
+        {
+          id:
+            "weight_vigorous",
+
+          label:
+            "고강도 웨이트·보디빌딩",
+
+          met:
+            6.0,
+
+          icon:
+            "🏋",
+
+          description:
+            "높은 중량과 짧은 휴식으로 진행하는 고강도 웨이트입니다."
+        },
+
+        {
+          id:
+            "bodyweight",
+
+          label:
+            "맨몸운동 · 보통 강도",
+
+          met:
+            3.0,
+
+          icon:
+            "💪",
+
+          description:
+            "스쿼트, 런지, 푸시업과 크런치를 보통 강도로 진행합니다."
+        },
+
+        {
+          id:
+            "bodyweight_high",
+
+          label:
+            "맨몸운동 · 고강도",
+
+          met:
+            6.5,
+
+          icon:
+            "💪",
+
+          description:
+            "쉬는 시간을 줄이고 맨몸 동작을 빠르게 연결하는 운동입니다."
+        },
+
+        {
+          id:
+            "circuit",
+
+          label:
+            "서킷트레이닝 · 보통 강도",
+
+          met:
+            5.0,
+
+          icon:
+            "🔁",
+
+          description:
+            "여러 근력·유산소 동작을 순환하며 진행하는 운동입니다."
+        },
+
+        {
+          id:
+            "hiit",
+
+          label:
+            "HIIT·타바타 · 고강도",
+
+          met:
+            11.0,
+
+          icon:
+            "⚡",
+
+          description:
+            "버피, 마운틴클라이머와 점프 동작을 포함한 고강도 인터벌입니다."
+        }
+      ],
+
+      cardio: [
+        {
+          id:
+            "elliptical",
+
+          label:
+            "일립티컬 · 보통 강도",
+
+          met:
+            5.0,
+
+          icon:
+            "⭕",
+
+          description:
+            "일립티컬 머신을 일정한 보통 강도로 이용합니다."
+        },
+
+        {
+          id:
+            "elliptical_high",
+
+          label:
+            "일립티컬 · 고강도",
+
+          met:
+            9.0,
+
+          icon:
+            "⭕",
+
+          description:
+            "저항과 속도를 높여 강하게 진행하는 일립티컬 운동입니다."
+        },
+
+        {
+          id:
+            "rowing",
+
+          label:
+            "로잉머신 · 보통 강도",
+
+          met:
+            5.0,
+
+          icon:
+            "🚣",
+
+          description:
+            "100W 미만의 보통 강도로 진행하는 로잉머신입니다."
+        },
+
+        {
+          id:
+            "rowing_high",
+
+          label:
+            "로잉머신 · 고강도",
+
+          met:
+            7.3,
+
+          icon:
+            "🚣",
+
+          description:
+            "지속적으로 강하게 당기는 고강도 로잉머신 운동입니다."
+        },
+
+        {
+          id:
+            "stair_machine",
+
+          label:
+            "스텝밀·계단 머신",
+
+          met:
+            9.3,
+
+          icon:
+            "🪜",
+
+          description:
+            "계단 형태의 스텝밀을 지속적으로 오르는 운동입니다."
+        },
+
+        {
+          id:
+            "rope",
+
+          label:
+            "줄넘기 · 일반",
+
+          met:
+            11.0,
+
+          icon:
+            "🪢",
+
+          description:
+            "일정한 속도로 쉬지 않고 진행하는 일반 줄넘기입니다."
+        },
+
+        {
+          id:
+            "zumba",
+
+          label:
+            "줌바 그룹 수업",
+
+          met:
+            6.5,
+
+          icon:
+            "💃",
+
+          description:
+            "음악에 맞춰 전신을 움직이는 그룹 줌바 수업입니다."
+        }
+      ],
+
+      water: [
+        {
+          id:
+            "swim_leisure",
+
+          label:
+            "수영 여유롭게 · 영법 혼합",
+
+          met:
+            6.0,
+
+          icon:
+            "🏊",
+
+          description:
+            "기록 경쟁 없이 여유롭게 진행하는 일반 수영입니다."
+        },
+
+        {
+          id:
+            "swim_slow",
+
+          label:
+            "자유형 천천히",
+
+          met:
+            5.8,
+
+          icon:
+            "🏊",
+
+          description:
+            "레크리에이션 목적으로 천천히 자유형을 하는 경우입니다."
+        },
+
+        {
+          id:
+            "swim_fast",
+
+          label:
+            "자유형 빠르게",
+
+          met:
+            9.8,
+
+          icon:
+            "🏊",
+
+          description:
+            "빠른 속도로 지속해서 자유형을 하는 고강도 운동입니다."
+        },
+
+        {
+          id:
+            "breaststroke",
+
+          label:
+            "평영 · 레크리에이션",
+
+          met:
+            5.3,
+
+          icon:
+            "🏊",
+
+          description:
+            "기록 경쟁 없이 일반적인 속도로 평영을 합니다."
+        },
+
+        {
+          id:
+            "water_aerobics",
+
+          label:
+            "아쿠아로빅",
+
+          met:
+            5.5,
+
+          icon:
+            "🌊",
+
+          description:
+            "수중에서 진행하는 일반적인 에어로빅·체조 운동입니다."
+        },
+
+        {
+          id:
+            "water_walk",
+
+          label:
+            "수중 걷기 · 보통 강도",
+
+          met:
+            4.8,
+
+          icon:
+            "🌊",
+
+          description:
+            "물의 저항을 받으며 보통 속도로 걷는 운동입니다."
+        }
+      ],
+
+      sports: [
+        {
+          id:
+            "badminton_social",
+
+          label:
+            "배드민턴 · 취미 경기",
+
+          met:
+            5.5,
+
+          icon:
+            "🏸",
+
+          description:
+            "친목 목적의 단식 또는 복식 배드민턴입니다."
+        },
+
+        {
+          id:
+            "badminton_competitive",
+
+          label:
+            "배드민턴 · 경쟁 경기",
+
+          met:
+            7.0,
+
+          icon:
+            "🏸",
+
+          description:
+            "지속적인 움직임이 포함된 경쟁 수준의 배드민턴입니다."
+        },
+
+        {
+          id:
+            "basketball",
+
+          label:
+            "농구 경기",
+
+          met:
+            8.0,
+
+          icon:
+            "🏀",
+
+          description:
+            "정식 또는 유사한 방식으로 진행하는 농구 경기입니다."
+        },
+
+        {
+          id:
+            "soccer_casual",
+
+          label:
+            "축구 · 일반·친선 경기",
+
+          met:
+            7.0,
+
+          icon:
+            "⚽",
+
+          description:
+            "친선 또는 취미 수준으로 진행하는 일반적인 축구입니다."
+        },
+
+        {
+          id:
+            "soccer_competitive",
+
+          label:
+            "축구 · 경쟁 경기",
+
+          met:
+            9.5,
+
+          icon:
+            "⚽",
+
+          description:
+            "강한 움직임과 지속적인 공수 전환이 포함된 경쟁 경기입니다."
+        },
+
+        {
+          id:
+            "tennis",
+
+          label:
+            "테니스 · 보통 강도",
+
+          met:
+            6.8,
+
+          icon:
+            "🎾",
+
+          description:
+            "일반적인 보통 강도의 테니스 경기 또는 연습입니다."
+        },
+
+        {
+          id:
+            "table_tennis",
+
+          label:
+            "탁구",
+
+          met:
+            4.0,
+
+          icon:
+            "🏓",
+
+          description:
+            "일반적인 단식 또는 복식 탁구 경기입니다."
+        },
+
+        {
+          id:
+            "volleyball",
+
+          label:
+            "배구 · 일반 경기",
+
+          met:
+            4.0,
+
+          icon:
+            "🏐",
+
+          description:
+            "일반적인 실내 배구 경기 또는 연습입니다."
+        }
+      ],
+
+      lifestyle: [
+        {
+          id:
+            "stretching",
+
+          label:
+            "가벼운 스트레칭",
+
+          met:
+            2.3,
+
+          icon:
+            "🤸",
+
+          description:
+            "근육을 천천히 늘리는 가벼운 전신 스트레칭입니다."
+        },
+
+        {
+          id:
+            "pilates",
+
+          label:
+            "필라테스 · 일반",
+
+          met:
+            2.8,
+
+          icon:
+            "🧘",
+
+          description:
+            "매트 또는 일반적인 방식으로 진행하는 필라테스입니다."
+        },
+
+        {
+          id:
+            "yoga",
+
+          label:
+            "요가 · 일반",
+
+          met:
+            2.3,
+
+          icon:
+            "🧘",
+
+          description:
+            "일반적인 하타 요가와 유사한 낮은 강도의 요가입니다."
+        },
+
+        {
+          id:
+            "power_yoga",
+
+          label:
+            "파워요가",
+
+          met:
+            4.0,
+
+          icon:
+            "🧘",
+
+          description:
+            "동작 연결과 근력 사용이 많은 파워요가입니다."
+        },
+
+        {
+          id:
+            "cleaning",
+
+          label:
+            "집안 청소 · 보통 강도",
+
+          met:
+            3.3,
+
+          icon:
+            "🧹",
+
+          description:
+            "쓸기, 정리와 이동이 포함된 보통 강도의 집안 청소입니다."
+        },
+
+        {
+          id:
+            "vacuum",
+
+          label:
+            "진공청소기 사용",
+
+          met:
+            3.0,
+
+          icon:
+            "🧹",
+
+          description:
+            "서서 이동하며 일반적인 진공청소기를 사용하는 활동입니다."
+        },
+
+        {
+          id:
+            "gardening",
+
+          label:
+            "정원 가꾸기 · 보통 강도",
+
+          met:
+            3.8,
+
+          icon:
+            "🌱",
+
+          description:
+            "잡초 제거, 식물 관리와 가벼운 도구 사용이 포함된 활동입니다."
+        },
+
+        {
+          id:
+            "mowing",
+
+          label:
+            "잔디 깎기 · 보통 강도",
+
+          met:
+            5.5,
+
+          icon:
+            "🌿",
+
+          description:
+            "걸어서 이동하며 잔디를 깎는 보통 강도의 활동입니다."
+        }
+      ]
+    };
+
+    const form =
+      document.getElementById(
+        "calculatorForm"
+      );
+
+    const categoryTabs =
+      document.getElementById(
+        "categoryTabs"
+      );
+
+    const activitySelect =
+      document.getElementById(
+        "activitySelect"
+      );
+
+    const inputs = {
+      weight:
+        document.getElementById(
+          "weight"
+        ),
+
+      duration:
+        document.getElementById(
+          "duration"
+        ),
+
+      weeklySessions:
+        document.getElementById(
+          "weeklySessions"
+        ),
+
+      calorieMode:
+        document.getElementById(
+          "calorieMode"
+        ),
+
+      customToggle:
+        document.getElementById(
+          "customToggle"
+        ),
+
+      customMet:
+        document.getElementById(
+          "customMet"
+        )
+    };
+
+    const activityPreviewIcon =
+      document.getElementById(
+        "activityPreviewIcon"
+      );
+
+    const activityCategoryResult =
+      document.getElementById(
+        "activityCategoryResult"
+      );
+
+    const activityNameResult =
+      document.getElementById(
+        "activityNameResult"
+      );
+
+    const activityDescription =
+      document.getElementById(
+        "activityDescription"
+      );
+
+    const activityMetResult =
+      document.getElementById(
+        "activityMetResult"
+      );
+
+    const resultEmpty =
+      document.getElementById(
+        "resultEmpty"
+      );
+
+    const resultContent =
+      document.getElementById(
+        "resultContent"
+      );
+
+    const mainCalories =
+      document.getElementById(
+        "mainCalories"
+      );
+
+    const mainMessage =
+      document.getElementById(
+        "mainMessage"
+      );
+
+    const intensityResult =
+      document.getElementById(
+        "intensityResult"
+      );
+
+    const metResult =
+      document.getElementById(
+        "metResult"
+      );
+
+    const totalCaloriesResult =
+      document.getElementById(
+        "totalCaloriesResult"
+      );
+
+    const activeCaloriesResult =
+      document.getElementById(
+        "activeCaloriesResult"
+      );
+
+    const perMinuteResult =
+      document.getElementById(
+        "perMinuteResult"
+      );
+
+    const perMinuteDetail =
+      document.getElementById(
+        "perMinuteDetail"
+      );
+
+    const rangeResult =
+      document.getElementById(
+        "rangeResult"
+      );
+
+    const weeklyResult =
+      document.getElementById(
+        "weeklyResult"
+      );
+
+    const weeklyDetail =
+      document.getElementById(
+        "weeklyDetail"
+      );
+
+    const monthlyResult =
+      document.getElementById(
+        "monthlyResult"
+      );
+
+    const yearlyResult =
+      document.getElementById(
+        "yearlyResult"
+      );
+
+    const comparisonCondition =
+      document.getElementById(
+        "comparisonCondition"
+      );
+
+    const comparisonList =
+      document.getElementById(
+        "comparisonList"
+      );
+
+    const detailActivity =
+      document.getElementById(
+        "detailActivity"
+      );
+
+    const detailProfile =
+      document.getElementById(
+        "detailProfile"
+      );
+
+    const detailMet =
+      document.getElementById(
+        "detailMet"
+      );
+
+    const detailFormula =
+      document.getElementById(
+        "detailFormula"
+      );
+
+    const detailMode =
+      document.getElementById(
+        "detailMode"
+      );
+
+    const statusBox =
+      document.getElementById(
+        "statusBox"
+      );
+
+    const resetBtn =
+      document.getElementById(
+        "resetBtn"
+      );
+
+    const copyBtn =
+      document.getElementById(
+        "copyBtn"
+      );
+
+    const printBtn =
+      document.getElementById(
+        "printBtn"
+      );
+
+    let currentCategory =
+      "walking";
+
+    let currentActivityId =
+      "walk_brisk";
+
+    let lastResultText =
+      "";
+
+    function allActivities() {
+      return Object.values(
+        ACTIVITIES
+      ).flat();
+    }
+
+    function findActivity(
+      id
+    ) {
+      return (
+        allActivities().find(
+          (activity) =>
+            activity.id === id
+        ) ||
+        ACTIVITIES.walking[3]
+      );
+    }
+
+    function findCategoryByActivity(
+      id
+    ) {
+      return (
+        Object.keys(
+          ACTIVITIES
+        ).find(
+          (category) =>
+            ACTIVITIES[
+              category
+            ].some(
+              (activity) =>
+                activity.id === id
+            )
+        ) ||
+        "walking"
+      );
+    }
+
+    function numberValue(
+      input
+    ) {
+      return Number(
+        input.value || 0
+      );
+    }
+
+    function formatKcal(
+      value
+    ) {
+      return (
+        `${Math.round(
+          value
+        ).toLocaleString(
+          "ko-KR"
+        )}kcal`
+      );
+    }
+
+    function renderCategoryTabs() {
+      categoryTabs.innerHTML =
+        Object.entries(
+          CATEGORY_INFO
+        )
+          .map(
+            ([key, info]) => `
+              <button
+                class="category-btn ${key === currentCategory ? "active" : ""}"
+                type="button"
+                data-category="${key}"
+              >
+                ${info.icon} ${info.label}
+              </button>
+            `
+          )
+          .join("");
+
+      categoryTabs
+        .querySelectorAll(
+          ".category-btn"
+        )
+        .forEach(
+          (button) => {
+            button.addEventListener(
+              "click",
+              () => {
+                currentCategory =
+                  button.dataset.category;
+
+                currentActivityId =
+                  ACTIVITIES[
+                    currentCategory
+                  ][0].id;
+
+                renderCategoryTabs();
+                renderActivityOptions();
+                updateActivityPreview();
+                saveForm();
+              }
+            );
+          }
+        );
+    }
+
+    function renderActivityOptions() {
+      activitySelect.innerHTML =
+        ACTIVITIES[
+          currentCategory
+        ]
+          .map(
+            (activity) => `
+              <option
+                value="${activity.id}"
+                ${activity.id === currentActivityId ? "selected" : ""}
+              >
+                ${activity.label} · ${activity.met.toFixed(1)} MET
+              </option>
+            `
+          )
+          .join("");
+    }
+
+    function updateActivityPreview() {
+      const activity =
+        findActivity(
+          currentActivityId
+        );
+
+      const category =
+        findCategoryByActivity(
+          activity.id
+        );
+
+      const categoryInfo =
+        CATEGORY_INFO[
+          category
+        ];
+
+      activityPreviewIcon.textContent =
+        activity.icon;
+
+      activityCategoryResult.textContent =
+        categoryInfo.label;
+
+      activityNameResult.textContent =
+        activity.label;
+
+      activityDescription.textContent =
+        activity.description;
+
+      activityMetResult.textContent =
+        activity.met.toFixed(1);
+
+      if (
+        !inputs.customToggle.checked
+      ) {
+        inputs.customMet.value =
+          activity.met.toFixed(1);
+      }
+    }
+
+    function selectActivity(
+      id
+    ) {
+      const category =
+        findCategoryByActivity(
+          id
+        );
+
+      currentCategory =
+        category;
+
+      currentActivityId =
+        id;
+
+      renderCategoryTabs();
+      renderActivityOptions();
+      updateActivityPreview();
+      saveForm();
+    }
+
+    function calculateCalories(
+      met,
+      weight,
+      duration,
+      activeOnly
+    ) {
+      const appliedMet =
+        activeOnly
+          ? Math.max(
+              0,
+              met - 1
+            )
+          : met;
+
+      return (
+        appliedMet *
+        3.5 *
+        weight /
+        200 *
+        duration
+      );
+    }
+
+    function getIntensity(
+      met
+    ) {
+      if (met < 3) {
+        return {
+          label:
+            "낮은 강도",
+
+          description:
+            "3 MET 미만"
+        };
+      }
+
+      if (met < 6) {
+        return {
+          label:
+            "중간 강도",
+
+          description:
+            "3~5.9 MET"
+        };
+      }
+
+      return {
+        label:
+          "높은 강도",
+
+        description:
+          "6 MET 이상"
+      };
+    }
+
+    function renderComparison(
+      selected,
+      weight,
+      duration,
+      activeOnly
+    ) {
+      const comparisonIds = [
+        selected.id,
+        "walk_brisk",
+        "cycle_general",
+        "run_8",
+        "weight_general",
+        "swim_slow"
+      ];
+
+      const uniqueIds = [
+        ...new Set(
+          comparisonIds
+        )
+      ].slice(
+        0,
+        4
+      );
+
+      const items =
+        uniqueIds.map(
+          (id) => {
+            const activity =
+              findActivity(
+                id
+              );
+
+            return {
+              ...activity,
+
+              calories:
+                calculateCalories(
+                  activity.met,
+                  weight,
+                  duration,
+                  activeOnly
+                )
+            };
+          }
+        );
+
+      const maximum =
+        Math.max(
+          ...items.map(
+            (item) =>
+              item.calories
+          ),
+          1
+        );
+
+      comparisonList.innerHTML =
+        items
+          .map(
+            (item) => {
+              const width =
+                item.calories /
+                maximum *
+                100;
+
+              return `
+                <div class="comparison-row">
+                  <div class="comparison-label">
+                    <i>${item.icon}</i>
+
+                    <span>${item.label}</span>
+                  </div>
+
+                  <div class="comparison-track">
+                    <i
+                      class="comparison-fill"
+                      style="width:${Math.max(3, width).toFixed(1)}%"
+                    ></i>
+                  </div>
+
+                  <div class="comparison-value">
+                    ${formatKcal(item.calories)}
+                  </div>
+                </div>
+              `;
+            }
+          )
+          .join("");
+    }
+
+    function calculate(
+      event
+    ) {
+      event.preventDefault();
+
+      const weight =
+        numberValue(
+          inputs.weight
+        );
+
+      const duration =
+        numberValue(
+          inputs.duration
+        );
+
+      const weeklySessions =
+        numberValue(
+          inputs.weeklySessions
+        );
+
+      const customMode =
+        inputs.customToggle.checked;
+
+      const selected =
+        findActivity(
+          currentActivityId
+        );
+
+      const met =
+        customMode
+          ? numberValue(
+              inputs.customMet
+            )
+          : selected.met;
+
+      const invalid =
+        !Number.isFinite(
+          weight
+        ) ||
+        weight < 25 ||
+        weight > 300 ||
+        !Number.isFinite(
+          duration
+        ) ||
+        duration < 1 ||
+        duration > 1440 ||
+        !Number.isFinite(
+          weeklySessions
+        ) ||
+        weeklySessions < 0 ||
+        weeklySessions > 21 ||
+        !Number.isFinite(
+          met
+        ) ||
+        met < 1 ||
+        met > 30;
+
+      if (invalid) {
+        alert(
+          "체중, 운동시간, 주당 횟수와 MET 값을 확인해주세요."
+        );
+
+        return;
+      }
+
+      const totalCalories =
+        calculateCalories(
+          met,
+          weight,
+          duration,
+          false
+        );
+
+      const activeCalories =
+        calculateCalories(
+          met,
+          weight,
+          duration,
+          true
+        );
+
+      const activeMode =
+        inputs.calorieMode.value ===
+        "active";
+
+      const representative =
+        activeMode
+          ? activeCalories
+          : totalCalories;
+
+      const perMinute =
+        representative /
+        duration;
+
+      const weekly =
+        representative *
+        weeklySessions;
+
+      const monthly =
+        weekly *
+        4.345;
+
+      const yearly =
+        weekly *
+        52;
+
+      const lower =
+        representative *
+        0.85;
+
+      const upper =
+        representative *
+        1.15;
+
+      const intensity =
+        getIntensity(
+          met
+        );
+
+      mainCalories.textContent =
+        Math.round(
+          representative
+        ).toLocaleString(
+          "ko-KR"
+        );
+
+      mainMessage.textContent =
+        `${selected.label}을 ${duration}분 진행하면 ` +
+        `${activeMode ? "순수 활동칼로리" : "총 소모칼로리"}가 약 ` +
+        `${formatKcal(representative)}로 계산됩니다. ` +
+        `체중 ${weight.toFixed(1)}kg, ${met.toFixed(1)} MET 기준입니다.`;
+
+      intensityResult.textContent =
+        intensity.label;
+
+      metResult.textContent =
+        `${met.toFixed(1)} MET · ${intensity.description}`;
+
+      totalCaloriesResult.textContent =
+        formatKcal(
+          totalCalories
+        );
+
+      activeCaloriesResult.textContent =
+        formatKcal(
+          activeCalories
+        );
+
+      perMinuteResult.textContent =
+        `${perMinute.toFixed(1)}kcal`;
+
+      perMinuteDetail.textContent =
+        `1분당 ${perMinute.toFixed(1)}kcal · 10분당 ${formatKcal(perMinute * 10)}`;
+
+      rangeResult.textContent =
+        `${Math.round(lower).toLocaleString("ko-KR")}~${Math.round(upper).toLocaleString("ko-KR")}kcal`;
+
+      weeklyResult.textContent =
+        formatKcal(
+          weekly
+        );
+
+      weeklyDetail.textContent =
+        `1회 ${formatKcal(representative)} × 주 ${weeklySessions}회`;
+
+      monthlyResult.textContent =
+        formatKcal(
+          monthly
+        );
+
+      yearlyResult.textContent =
+        formatKcal(
+          yearly
+        );
+
+      comparisonCondition.textContent =
+        `${weight.toFixed(1)}kg · ${duration}분`;
+
+      renderComparison(
+        selected,
+        weight,
+        duration,
+        activeMode
+      );
+
+      detailActivity.textContent =
+        selected.label;
+
+      detailProfile.textContent =
+        `${weight.toFixed(1)}kg · ${duration}분 · 주 ${weeklySessions}회`;
+
+      detailMet.textContent =
+        `${met.toFixed(1)} MET${customMode ? " · 직접 입력" : " · 기본값"}`;
+
+      detailFormula.textContent =
+        `${met.toFixed(1)} × 3.5 × ${weight.toFixed(1)} ÷ 200 × ${duration}`;
+
+      detailMode.textContent =
+        activeMode
+          ? "순수 활동칼로리 · MET에서 1을 차감"
+          : "총 소모칼로리 · 전체 MET 적용";
+
+      statusBox.className =
+        "status-box";
+
+      if (
+        duration >= 180 &&
+        met >= 6
+      ) {
+        statusBox.classList.add(
+          "warn"
+        );
+
+        statusBox.textContent =
+          "높은 강도의 운동시간이 3시간 이상으로 입력됐습니다. 실제로 중간 휴식이 많았다면 전체 시간보다 실제 활동시간을 사용하거나 더 낮은 MET를 적용해 비교하세요.";
+      } else if (
+        met >= 10
+      ) {
+        statusBox.classList.add(
+          "warn"
+        );
+
+        statusBox.textContent =
+          "매우 높은 강도의 운동은 같은 속도를 전체 시간 동안 유지하기 어렵습니다. 인터벌 휴식이 포함됐다면 직접 MET 값을 낮추거나 운동 구간별로 나누어 계산하는 편이 현실적입니다.";
+      } else if (
+        customMode
+      ) {
+        statusBox.textContent =
+          "직접 입력한 MET 값으로 계산했습니다. 기기나 수업에서 제공한 MET가 평균값인지, 실제 운동구간만 반영한 값인지 확인하세요.";
+      } else {
+        statusBox.textContent =
+          "운동별 표준 MET를 적용한 추정값입니다. 실제 소모량은 심박수, 운동 효율, 경사, 저항, 휴식시간과 개인별 대사량에 따라 달라질 수 있습니다.";
+      }
+
+      const heroProgress =
+        Math.min(
+          100,
+          Math.max(
+            5,
+            representative /
+            600 *
+            100
+          )
+        );
+
+      document
+        .getElementById(
+          "heroRing"
+        )
+        .style
+        .setProperty(
+          "--progress",
+          `${heroProgress}%`
+        );
+
+      document
+        .getElementById(
+          "heroCalories"
+        )
+        .textContent =
+          Math.round(
+            representative
+          ).toLocaleString(
+            "ko-KR"
+          );
+
+      document
+        .getElementById(
+          "heroActivity"
+        )
+        .textContent =
+          selected.label;
+
+      resultEmpty.style.display =
+        "none";
+
+      resultContent.classList.add(
+        "show"
+      );
+
+      lastResultText =
+`[운동별 소모칼로리 계산기]
+
+선택 운동: ${selected.label}
+운동 카테고리: ${CATEGORY_INFO[findCategoryByActivity(selected.id)].label}
+체중: ${weight.toFixed(1)}kg
+운동시간: ${duration}분
+주당 운동 횟수: ${weeklySessions}회
+적용 MET: ${met.toFixed(1)}${customMode ? " · 직접 입력" : ""}
+운동 강도: ${intensity.label}
+
+총 소모칼로리: ${formatKcal(totalCalories)}
+순수 활동칼로리: ${formatKcal(activeCalories)}
+대표 표시 기준: ${activeMode ? "순수 활동칼로리" : "총 소모칼로리"}
+대표 결과: ${formatKcal(representative)}
+분당 소모량: ${perMinute.toFixed(1)}kcal
+추정 범위: ${formatKcal(lower)}~${formatKcal(upper)}
+
+주간 예상 소모량: ${formatKcal(weekly)}
+월간 예상 소모량: ${formatKcal(monthly)}
+연간 예상 소모량: ${formatKcal(yearly)}
+
+계산식:
+MET × 3.5 × 체중kg ÷ 200 × 운동시간(분)
+
+※ 표준 MET와 입력값을 이용한 참고용 추정치입니다.`;
+
+      saveForm();
+
+      document
+        .getElementById(
+          "results"
+        )
+        .scrollIntoView({
+          behavior:
+            "smooth",
+
+          block:
+            "start"
+        });
+    }
+
+    function getSavedValues() {
+      return {
+        category:
+          currentCategory,
+
+        activityId:
+          currentActivityId,
+
+        weight:
+          inputs.weight.value,
+
+        duration:
+          inputs.duration.value,
+
+        weeklySessions:
+          inputs.weeklySessions.value,
+
+        calorieMode:
+          inputs.calorieMode.value,
+
+        customToggle:
+          inputs.customToggle.checked,
+
+        customMet:
+          inputs.customMet.value
+      };
+    }
+
+    function saveForm() {
+      try {
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify(
+            getSavedValues()
+          )
+        );
+      } catch (error) {
+        console.warn(
+          error
+        );
+      }
+    }
+
+    function restoreForm() {
+      try {
+        const saved =
+          JSON.parse(
+            localStorage.getItem(
+              STORAGE_KEY
+            ) || "null"
+          );
+
+        if (!saved) {
+          renderCategoryTabs();
+          renderActivityOptions();
+          updateActivityPreview();
+
+          return;
+        }
+
+        currentCategory =
+          ACTIVITIES[
+            saved.category
+          ]
+            ? saved.category
+            : "walking";
+
+        currentActivityId =
+          findActivity(
+            saved.activityId
+          ).id;
+
+        inputs.weight.value =
+          saved.weight ||
+          "70";
+
+        inputs.duration.value =
+          saved.duration ||
+          "30";
+
+        inputs.weeklySessions.value =
+          saved.weeklySessions ||
+          "4";
+
+        inputs.calorieMode.value =
+          saved.calorieMode ||
+          "total";
+
+        inputs.customToggle.checked =
+          Boolean(
+            saved.customToggle
+          );
+
+        inputs.customMet.value =
+          saved.customMet ||
+          findActivity(
+            currentActivityId
+          ).met.toFixed(1);
+
+        inputs.customMet.disabled =
+          !inputs.customToggle.checked;
+
+        renderCategoryTabs();
+        renderActivityOptions();
+        updateActivityPreview();
+      } catch (error) {
+        console.warn(
+          error
+        );
+
+        renderCategoryTabs();
+        renderActivityOptions();
+        updateActivityPreview();
+      }
+    }
+
+    function resetCalculator() {
+      try {
+        localStorage.removeItem(
+          STORAGE_KEY
+        );
+      } catch (error) {
+        console.warn(
+          error
+        );
+      }
+
+      currentCategory =
+        "walking";
+
+      currentActivityId =
+        "walk_brisk";
+
+      inputs.weight.value =
+        "70";
+
+      inputs.duration.value =
+        "30";
+
+      inputs.weeklySessions.value =
+        "4";
+
+      inputs.calorieMode.value =
+        "total";
+
+      inputs.customToggle.checked =
+        false;
+
+      inputs.customMet.value =
+        "4.8";
+
+      inputs.customMet.disabled =
+        true;
+
+      renderCategoryTabs();
+      renderActivityOptions();
+      updateActivityPreview();
+
+      resultContent.classList.remove(
+        "show"
+      );
+
+      resultEmpty.style.display =
+        "grid";
+
+      lastResultText =
+        "";
+    }
+
+    async function copyResult() {
+      if (!lastResultText) {
+        alert(
+          "먼저 계산해주세요."
+        );
+
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(
+          lastResultText
+        );
+      } catch (error) {
+        const textarea =
+          document.createElement(
+            "textarea"
+          );
+
+        textarea.value =
+          lastResultText;
+
+        textarea.style.position =
+          "fixed";
+
+        textarea.style.opacity =
+          "0";
+
+        document.body.appendChild(
+          textarea
+        );
+
+        textarea.select();
+
+        document.execCommand(
+          "copy"
+        );
+
+        textarea.remove();
+      }
+
+      const original =
+        copyBtn.textContent;
+
+      copyBtn.textContent =
+        "복사 완료";
+
+      setTimeout(
+        () => {
+          copyBtn.textContent =
+            original;
+        },
+        1300
+      );
+    }
+
+    activitySelect.addEventListener(
+      "change",
+      () => {
+        currentActivityId =
+          activitySelect.value;
+
+        updateActivityPreview();
+        saveForm();
+      }
+    );
+
+    document
+      .querySelectorAll(
+        ".quick-btn"
+      )
+      .forEach(
+        (button) => {
+          button.addEventListener(
+            "click",
+            () => {
+              selectActivity(
+                button.dataset.activity
+              );
+            }
+          );
+        }
+      );
+
+    inputs.customToggle.addEventListener(
+      "change",
+      () => {
+        inputs.customMet.disabled =
+          !inputs.customToggle.checked;
+
+        if (
+          !inputs.customToggle.checked
+        ) {
+          inputs.customMet.value =
+            findActivity(
+              currentActivityId
+            ).met.toFixed(1);
+        }
+
+        saveForm();
+      }
+    );
+
+    [
+      inputs.weight,
+      inputs.duration,
+      inputs.weeklySessions,
+      inputs.calorieMode,
+      inputs.customMet
+    ].forEach(
+      (input) => {
+        input.addEventListener(
+          "input",
+          saveForm
+        );
+
+        input.addEventListener(
+          "change",
+          saveForm
+        );
+      }
+    );
+
+    form.addEventListener(
+      "submit",
+      calculate
+    );
+
+    resetBtn.addEventListener(
+      "click",
+      resetCalculator
+    );
+
+    copyBtn.addEventListener(
+      "click",
+      copyResult
+    );
+
+    printBtn.addEventListener(
+      "click",
+      () => {
+        window.print();
+      }
+    );
+
+    restoreForm();
+  </script>
+
+  <script
+    defer
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+   data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'
+  ></script>
+</body>
+</html>
