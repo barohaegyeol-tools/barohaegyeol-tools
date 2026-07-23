@@ -1,0 +1,7750 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>구구단 몬스터 디펜스 | 초등 곱셈 학습게임 | 바로수학 놀이터</title>
+  <meta name="description" content="12개 스테이지를 돌파하며 강해지는 몬스터와 보스를 물리치고, 어려운 구구단 문제로 캐릭터를 레벨업·진화시키는 무료 초등 수학게임입니다.">
+  <meta name="keywords" content="구구단 게임, 곱셈 게임, 초등 수학게임, 구구단 연습, 어린이 수학게임, 곱셈 학습, 바로수학 놀이터">
+  <meta name="author" content="바로해결툴즈">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://barohaegyeol-tools.pages.dev/multiplication-monster-defense-game/">
+  <meta name="theme-color" content="#0b1730">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="구구단 몬스터 디펜스 | 바로수학 놀이터">
+  <meta property="og:description" content="정답을 맞혀 공격하고 레벨업·진화하며 12개 스테이지와 최종보스를 돌파하는 초등 구구단 학습게임입니다.">
+  <meta property="og:url" content="https://barohaegyeol-tools.pages.dev/multiplication-monster-defense-game/">
+  <meta property="og:site_name" content="바로수학 놀이터">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Game",
+    "name": "구구단 몬스터 디펜스",
+    "url": "https://barohaegyeol-tools.pages.dev/multiplication-monster-defense-game/",
+    "description": "2단부터 9단까지 곱셈을 연습하는 초등학생용 캐릭터 디펜스 수학게임",
+    "genre": ["Educational", "Math", "Defense"],
+    "playMode": "SinglePlayer",
+    "applicationCategory": "EducationalGame",
+    "operatingSystem": "All",
+    "isAccessibleForFree": true,
+    "publisher": {
+      "@type": "Organization",
+      "name": "바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg-0: #f3fbff;
+      --bg-1: #e7f8ff;
+      --bg-2: #fff2fb;
+      --panel: rgba(255, 255, 255, 0.72);
+      --panel-strong: rgba(255, 255, 255, 0.92);
+      --line: rgba(74, 135, 196, 0.14);
+      --line-strong: rgba(74, 135, 196, 0.26);
+      --text: #18365a;
+      --muted: #5c7796;
+      --cyan: #40d8ff;
+      --blue: #5b8cff;
+      --purple: #8c72ff;
+      --pink: #ff7eb6;
+      --yellow: #ffd76a;
+      --green: #77df97;
+      --red: #ff6b7c;
+      --orange: #ffad63;
+      --shadow: 0 26px 80px rgba(55, 112, 175, 0.14);
+      --shadow-soft: 0 14px 40px rgba(55, 112, 175, 0.10);
+      --radius: 24px;
+      --max: 1240px;
+    }
+
+    * {
+      box-sizing: border-box;
+      min-width: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 5%, rgba(91, 140, 255, 0.16), transparent 24%),
+        radial-gradient(circle at 86% 9%, rgba(255, 126, 182, 0.12), transparent 25%),
+        radial-gradient(circle at 45% 0%, rgba(64, 216, 255, 0.14), transparent 30%),
+        linear-gradient(180deg, var(--bg-0), var(--bg-1) 52%, var(--bg-2));
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Pretendard",
+        "Noto Sans KR",
+        "Apple SD Gothic Neo",
+        system-ui,
+        sans-serif;
+      line-height: 1.5;
+      word-break: keep-all;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image:
+        linear-gradient(rgba(109, 168, 225, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(109, 168, 225, 0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: linear-gradient(to bottom, #000, transparent 95%);
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 28px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      border-bottom: 1px solid rgba(183, 216, 255, 0.12);
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(18px);
+    }
+
+    .topbar-inner {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 950;
+      letter-spacing: -0.04em;
+    }
+
+    .brand-mark {
+      position: relative;
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      border-radius: 15px 15px 6px 15px;
+      background: linear-gradient(145deg, var(--cyan), var(--blue) 55%, var(--purple));
+      box-shadow:
+        0 0 0 5px rgba(97, 228, 255, 0.07),
+        0 12px 28px rgba(91, 140, 255, 0.35);
+      color: #071126;
+      font-size: 21px;
+      font-weight: 1000;
+    }
+
+    .brand-mark::after {
+      content: "×";
+      position: absolute;
+      right: -5px;
+      top: -7px;
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #0b1730;
+      background: var(--yellow);
+      font-size: 13px;
+      box-shadow: 0 4px 14px rgba(255, 215, 106, 0.35);
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 720;
+      letter-spacing: 0;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-btn,
+    .ghost-btn,
+    .primary-btn,
+    .answer-btn,
+    .mode-card,
+    .hero-card,
+    .chip-btn {
+      border: 0;
+      color: inherit;
+    }
+
+    .icon-btn {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: rgba(255, 255, 255, 0.55);
+      color: var(--muted);
+      transition: 0.18s ease;
+    }
+
+    .icon-btn:hover {
+      color: var(--text);
+      border-color: var(--line-strong);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .hero {
+      padding: 28px 0 18px;
+    }
+
+    .hero-shell {
+      position: relative;
+      overflow: hidden;
+      min-height: 420px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.06fr) minmax(420px, 0.94fr);
+      gap: 30px;
+      align-items: center;
+      padding: 42px;
+      border: 1px solid rgba(183, 216, 255, 0.18);
+      border-radius: 32px;
+      background:
+        radial-gradient(circle at 85% 15%, rgba(64, 216, 255, 0.16), transparent 28%),
+        radial-gradient(circle at 10% 90%, rgba(255, 126, 182, 0.12), transparent 30%),
+        linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.96),
+          rgba(236, 247, 255, 0.92) 48%,
+          rgba(251, 240, 255, 0.96)
+        );
+      box-shadow: var(--shadow);
+    }
+
+    .hero-shell::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.12;
+      background-image:
+        radial-gradient(circle, rgba(255, 255, 255, 0.5) 1px, transparent 1.5px);
+      background-size: 34px 34px;
+      mask-image: linear-gradient(90deg, transparent, #000 35%, #000 100%);
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 2;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid rgba(97, 228, 255, 0.28);
+      border-radius: 999px;
+      color: var(--cyan);
+      background: rgba(97, 228, 255, 0.08);
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 16px var(--cyan);
+    }
+
+    h1 {
+      margin: 18px 0 0;
+      max-width: 700px;
+      font-size: clamp(44px, 6.2vw, 78px);
+      line-height: 1.02;
+      letter-spacing: -0.07em;
+    }
+
+    .gradient-text {
+      color: transparent;
+      background:
+        linear-gradient(
+          90deg,
+          var(--cyan),
+          #9fd6ff 35%,
+          var(--purple) 68%,
+          var(--pink)
+        );
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+
+    .hero-copy p {
+      max-width: 690px;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.8;
+      font-weight: 650;
+    }
+
+    .hero-copy strong {
+      color: var(--text);
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 11px;
+      margin-top: 24px;
+    }
+
+    .primary-btn,
+    .ghost-btn {
+      min-height: 52px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 13px 18px;
+      border-radius: 14px;
+      font-weight: 900;
+      transition: 0.18s ease;
+    }
+
+    .primary-btn {
+      color: #071126;
+      background: linear-gradient(135deg, var(--cyan), #8fe7ff);
+      box-shadow: 0 15px 34px rgba(97, 228, 255, 0.26);
+    }
+
+    .primary-btn:hover,
+    .ghost-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .ghost-btn {
+      border: 1px solid var(--line);
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.65);
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .hero-stat {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.55);
+    }
+
+    .hero-stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 760;
+    }
+
+    .hero-stat strong {
+      display: block;
+      margin-top: 5px;
+      font-size: 18px;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-showcase {
+      position: relative;
+      z-index: 2;
+      min-height: 330px;
+    }
+
+    .showcase-orb {
+      position: absolute;
+      inset: 50% auto auto 50%;
+      width: 270px;
+      height: 270px;
+      border-radius: 50%;
+      background:
+        radial-gradient(
+          circle,
+          rgba(97, 228, 255, 0.18),
+          rgba(91, 140, 255, 0.04) 55%,
+          transparent 72%
+        );
+      transform: translate(-50%, -50%);
+      filter: blur(1px);
+    }
+
+    .showcase-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .section {
+      padding: 18px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 14px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 42px);
+      letter-spacing: -0.05em;
+    }
+
+    .section-head p {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .profile-strip {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) repeat(4, minmax(0, 0.55fr));
+      gap: 10px;
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--panel);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .profile-main,
+    .profile-stat {
+      min-height: 90px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      border: 1px solid rgba(183, 216, 255, 0.12);
+      border-radius: 17px;
+      background: rgba(255, 255, 255, 0.58);
+    }
+
+    .profile-avatar {
+      width: 58px;
+      height: 58px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      border-radius: 18px 18px 8px 18px;
+      background: linear-gradient(145deg, var(--blue), var(--purple));
+      box-shadow: 0 10px 26px rgba(91, 140, 255, 0.23);
+      font-size: 30px;
+    }
+
+    .profile-main span,
+    .profile-stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 720;
+    }
+
+    .profile-main strong,
+    .profile-stat strong {
+      display: block;
+      margin-top: 4px;
+      font-size: 17px;
+      letter-spacing: -0.03em;
+    }
+
+    .profile-stat {
+      display: block;
+    }
+
+    .xp-track {
+      height: 9px;
+      overflow: hidden;
+      margin-top: 8px;
+      border-radius: 999px;
+      background: rgba(24, 54, 90, 0.08);
+    }
+
+    .xp-fill {
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      transition: width 0.35s ease;
+    }
+
+    .setup-panel {
+      margin-top: 12px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--panel);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .setup-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(240px, 0.55fr);
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .setup-block {
+      padding: 16px;
+      border: 1px solid rgba(183, 216, 255, 0.12);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.56);
+    }
+
+    .setup-block h3 {
+      margin: 0;
+      font-size: 15px;
+      letter-spacing: -0.03em;
+    }
+
+    .setup-block p {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .hero-card {
+      padding: 12px 8px;
+      border: 1px solid rgba(74, 135, 196, 0.15);
+      border-radius: 15px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.7);
+      text-align: center;
+      transition: 0.18s ease;
+    }
+
+    .hero-card.active {
+      color: var(--text);
+      border-color: rgba(97, 228, 255, 0.65);
+      background: rgba(97, 228, 255, 0.16);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(64, 216, 255, 0.15);
+    }
+
+    .hero-card b {
+      display: block;
+      font-size: 30px;
+    }
+
+    .hero-card span {
+      display: block;
+      margin-top: 5px;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .hero-card small {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 750;
+    }
+
+    .start-box {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+      text-align: center;
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.88),
+          rgba(223, 246, 255, 0.94)
+        );
+    }
+
+    .start-box .primary-btn {
+      width: 100%;
+      min-height: 62px;
+      font-size: 17px;
+    }
+
+    .sound-ready-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .game-section {
+      padding: 24px 0 58px;
+    }
+
+    .game-shell {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(183, 216, 255, 0.2);
+      border-radius: 28px;
+      background: linear-gradient(180deg, #fffdfd, #edf7ff);
+      box-shadow: var(--shadow);
+    }
+
+    .game-top {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 12px;
+      align-items: center;
+      padding: 13px 16px;
+      border-bottom: 1px solid rgba(183, 216, 255, 0.12);
+      background: rgba(255, 255, 255, 0.82);
+    }
+
+    .game-top-left,
+    .game-top-right {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .game-top-right {
+      justify-content: flex-end;
+    }
+
+    .hud-pill {
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 11px;
+      border: 1px solid rgba(74, 135, 196, 0.13);
+      border-radius: 12px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.7);
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .hud-pill strong {
+      color: var(--text);
+      font-size: 13px;
+    }
+
+    .health-pill {
+      min-width: 152px;
+      padding: 8px 11px;
+      border: 1px solid rgba(74, 135, 196, 0.13);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+    }
+
+    .health-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    .health-top strong {
+      color: var(--text);
+      font-size: 13px;
+    }
+
+    .health-track {
+      height: 10px;
+      margin-top: 6px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(24, 54, 90, 0.1);
+    }
+
+    .health-fill {
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #ff6b7c, #ffb463 55%, #ffe174);
+      transition: width 0.2s ease;
+    }
+
+    .stage-name {
+      color: #4577bd;
+      font-size: 12px;
+      font-weight: 950;
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+
+    .canvas-wrap {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      min-height: 360px;
+      background: linear-gradient(180deg, #dff7ff, #fef3ff);
+    }
+
+    #gameCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      touch-action: none;
+    }
+
+    .game-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(194, 228, 249, 0.42);
+      backdrop-filter: blur(8px);
+    }
+
+    .game-overlay.show {
+      display: flex;
+    }
+
+    .overlay-card {
+      width: min(560px, 100%);
+      padding: 26px;
+      border: 1px solid rgba(183, 216, 255, 0.22);
+      border-radius: 24px;
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.98),
+          rgba(237, 247, 255, 0.98)
+        );
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .overlay-emoji {
+      font-size: 54px;
+    }
+
+    .overlay-card h2 {
+      margin: 12px 0 0;
+      font-size: 30px;
+      letter-spacing: -0.05em;
+    }
+
+    .overlay-card p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 13px;
+    }
+
+    .overlay-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 9px;
+      margin-top: 18px;
+    }
+
+    .tutorial-steps {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 9px;
+      margin-top: 18px;
+      text-align: left;
+    }
+
+    .tutorial-step {
+      padding: 13px;
+      border: 1px solid rgba(74, 135, 196, 0.12);
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.58);
+    }
+
+    .tutorial-step b {
+      display: block;
+      color: #4577bd;
+      font-size: 11px;
+    }
+
+    .tutorial-step span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.5;
+    }
+
+    .question-zone {
+      position: relative;
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 14px;
+      padding: 15px;
+      border-top: 1px solid rgba(183, 216, 255, 0.12);
+      background: rgba(255, 255, 255, 0.82);
+    }
+
+    .question-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      border: 1px solid rgba(74, 135, 196, 0.16);
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(97, 228, 255, 0.18), transparent 45%),
+        rgba(255, 255, 255, 0.72);
+      text-align: center;
+    }
+
+    .question-card.challenge {
+      border-color: rgba(255, 126, 182, 0.55);
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255, 126, 182, 0.24), transparent 48%),
+        rgba(255, 255, 255, 0.78);
+    }
+
+    .question-card.boss-question {
+      border-color: rgba(255, 95, 119, 0.7);
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255, 95, 119, 0.3), transparent 52%),
+        rgba(255, 255, 255, 0.8);
+    }
+
+    .question-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle, rgba(74, 135, 196, 0.08) 1px, transparent 1.3px);
+      background-size: 24px 24px;
+      opacity: 0.35;
+    }
+
+    .question-inner {
+      position: relative;
+      z-index: 2;
+    }
+
+    .question-label {
+      color: #4577bd;
+      font-size: 10px;
+      font-weight: 950;
+      letter-spacing: 0.09em;
+    }
+
+    .equation {
+      margin-top: 6px;
+      font-size: clamp(42px, 7vw, 72px);
+      line-height: 1;
+      font-weight: 1000;
+      letter-spacing: -0.06em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .question-tip {
+      margin-top: 9px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 650;
+    }
+
+    .answer-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .answer-btn {
+      position: relative;
+      min-height: 70px;
+      overflow: hidden;
+      border: 1px solid rgba(74, 135, 196, 0.16);
+      border-radius: 17px;
+      color: var(--text);
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.92),
+          rgba(235, 247, 255, 0.95)
+        );
+      font-size: 24px;
+      font-weight: 1000;
+      transition: 0.16s ease;
+      box-shadow: 0 10px 24px rgba(55, 112, 175, 0.1);
+    }
+
+    .answer-btn::before {
+      content: attr(data-key);
+      position: absolute;
+      left: 9px;
+      top: 9px;
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(74, 135, 196, 0.18);
+      border-radius: 7px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.8);
+      font-size: 9px;
+    }
+
+    .answer-btn:hover {
+      transform: translateY(-2px);
+      border-color: rgba(97, 228, 255, 0.68);
+      background: rgba(97, 228, 255, 0.15);
+    }
+
+    .answer-btn.correct {
+      color: #071126;
+      border-color: transparent;
+      background: linear-gradient(135deg, var(--green), #b7f8d0);
+    }
+
+    .answer-btn.wrong {
+      color: #fff;
+      border-color: transparent;
+      background: linear-gradient(135deg, var(--red), #ff9ca8);
+      animation: shake 0.35s ease;
+    }
+
+    .answer-btn:disabled {
+      cursor: default;
+    }
+
+    .spell-bar {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 15px 14px;
+      background: rgba(255, 255, 255, 0.82);
+    }
+
+    .spell-label {
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 820;
+    }
+
+    .spell-track {
+      height: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(74, 135, 196, 0.14);
+      border-radius: 999px;
+      background: rgba(24, 54, 90, 0.07);
+    }
+
+    .spell-fill {
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background:
+        linear-gradient(
+          90deg,
+          var(--cyan),
+          var(--blue),
+          var(--purple),
+          var(--pink)
+        );
+      box-shadow: 0 0 18px rgba(97, 228, 255, 0.35);
+      transition: width 0.25s ease;
+    }
+
+    .spell-btn {
+      min-height: 38px;
+      padding: 8px 12px;
+      border: 1px solid rgba(74, 135, 196, 0.16);
+      border-radius: 12px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.7);
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    .spell-btn.ready {
+      color: #071126;
+      border-color: transparent;
+      background: linear-gradient(135deg, var(--yellow), #fff2ad);
+      box-shadow: 0 10px 24px rgba(255, 215, 106, 0.2);
+      animation: pulse 1.2s infinite;
+    }
+
+    .record-grid {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 12px;
+    }
+
+    .record-panel {
+      padding: 19px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--panel);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .record-panel h3 {
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: -0.04em;
+    }
+
+    .record-panel p {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .record-cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .record-card {
+      padding: 14px;
+      border: 1px solid rgba(74, 135, 196, 0.12);
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.62);
+    }
+
+    .record-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 720;
+    }
+
+    .record-card strong {
+      display: block;
+      margin-top: 5px;
+      font-size: 20px;
+      letter-spacing: -0.04em;
+    }
+
+    .mastery-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .mastery-row {
+      display: grid;
+      grid-template-columns: 44px 1fr 55px;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .mastery-row b {
+      font-size: 11px;
+    }
+
+    .mastery-track {
+      height: 10px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(24, 54, 90, 0.08);
+    }
+
+    .mastery-fill {
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--cyan), var(--blue));
+      transition: width 0.35s ease;
+    }
+
+    .mastery-row span {
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 800;
+      text-align: right;
+    }
+
+    .footer {
+      padding: 34px 0 46px;
+      border-top: 1px solid rgba(183, 216, 255, 0.1);
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.65;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .footer strong {
+      display: block;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .footer p {
+      max-width: 820px;
+      margin: 7px 0 0;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      z-index: 100;
+      max-width: min(520px, calc(100% - 28px));
+      padding: 13px 16px;
+      border: 1px solid rgba(183, 216, 255, 0.18);
+      border-radius: 14px;
+      color: #fff;
+      background: rgba(7, 17, 38, 0.94);
+      box-shadow: var(--shadow);
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 16px);
+      transition: 0.22s ease;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    @keyframes shake {
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      25% {
+        transform: translateX(-6px);
+      }
+
+      50% {
+        transform: translateX(6px);
+      }
+
+      75% {
+        transform: translateX(-3px);
+      }
+    }
+
+    @keyframes pulse {
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.035);
+      }
+    }
+
+    @media (max-width: 1040px) {
+      .hero-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-showcase {
+        min-height: 300px;
+      }
+
+      .profile-strip {
+        grid-template-columns: 1.2fr 1fr 1fr;
+      }
+
+      .setup-grid,
+      .record-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 820px) {
+      .topbar-inner {
+        min-height: 64px;
+      }
+
+      .brand small {
+        display: none;
+      }
+
+      .hero-shell {
+        padding: 28px 20px;
+      }
+
+      h1 {
+        font-size: clamp(40px, 12vw, 62px);
+      }
+
+      .profile-strip {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .profile-main {
+        grid-column: 1 / -1;
+      }
+
+      .game-top {
+        grid-template-columns: 1fr auto;
+      }
+
+      .stage-name {
+        grid-column: 1 / -1;
+        grid-row: 2;
+      }
+
+      .question-zone {
+        grid-template-columns: 1fr;
+      }
+
+      .question-card {
+        min-height: 120px;
+      }
+
+      .canvas-wrap {
+        min-height: 310px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .wrap {
+        width: min(var(--max), calc(100% - 18px));
+      }
+
+      .top-actions .icon-btn:nth-child(2) {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 16px;
+      }
+
+      .hero-shell {
+        min-height: auto;
+        padding: 24px 16px;
+        border-radius: 24px;
+      }
+
+      .hero-copy p {
+        font-size: 14px;
+      }
+
+      .hero-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-showcase {
+        min-height: 250px;
+      }
+
+      .profile-strip {
+        grid-template-columns: 1fr 1fr;
+        padding: 10px;
+      }
+
+      .profile-main {
+        grid-column: 1 / -1;
+      }
+
+      .profile-stat {
+        min-height: 78px;
+      }
+
+      .setup-panel {
+        padding: 12px;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .game-shell {
+        border-radius: 20px;
+      }
+
+      .game-top {
+        padding: 9px;
+      }
+
+      .health-pill {
+        min-width: 128px;
+      }
+
+      .hud-pill {
+        min-height: 34px;
+        padding: 6px 8px;
+        font-size: 9px;
+      }
+
+      .hud-pill.hide-mobile {
+        display: none;
+      }
+
+      .canvas-wrap {
+        aspect-ratio: 4 / 3;
+        min-height: 300px;
+      }
+
+      .question-zone {
+        padding: 10px;
+      }
+
+      .equation {
+        font-size: 50px;
+      }
+
+      .answer-btn {
+        min-height: 62px;
+        font-size: 21px;
+      }
+
+      .spell-bar {
+        grid-template-columns: 1fr auto;
+      }
+
+      .spell-label {
+        display: none;
+      }
+
+      .record-cards {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+      }
+
+      .tutorial-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a
+        class="brand"
+        href="https://barohaegyeol-tools.pages.dev/"
+        aria-label="바로해결툴즈 홈"
+      >
+        <div class="brand-mark">B</div>
+        <div>
+          바로수학 놀이터
+          <small>아이들이 직접 움직이고 해결하는 무료 수학게임</small>
+        </div>
+      </a>
+
+      <div class="top-actions">
+        <button
+          class="icon-btn"
+          id="soundBtn"
+          type="button"
+          aria-label="효과음 켜기 또는 끄기"
+        >
+          🔊
+        </button>
+
+        <button
+          class="icon-btn"
+          id="recordJumpBtn"
+          type="button"
+          aria-label="학습기록 보기"
+        >
+          📊
+        </button>
+
+        <a
+          class="icon-btn"
+          href="https://barohaegyeol-tools.pages.dev/"
+          aria-label="전체 도구 보기"
+        >
+          ⌂
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero-shell">
+          <div class="hero-copy">
+            <span class="eyebrow">바로수학 놀이터 · 첫 번째 게임</span>
+
+            <h1>
+              구구단으로 지키는<br>
+              <span class="gradient-text">별빛 왕국</span>
+            </h1>
+
+            <p>
+              답을 맞히면 캐릭터가 실제로 마법을 발사하고 몬스터를
+              물리칩니다. 더 강한 몬스터와 보스를 만나고 어려운 문제를
+              풀어 캐릭터를 레벨업하고 진화시키세요. 정확도와 최고기록은
+              이 기기에 저장됩니다.
+            </p>
+
+            <div class="hero-cta">
+              <button class="primary-btn" id="heroStartBtn" type="button">
+                ⚔️ 게임 시작하기
+              </button>
+
+              <button class="ghost-btn" id="heroRecordBtn" type="button">
+                📈 내 학습기록 보기
+              </button>
+            </div>
+
+            <div class="hero-stats">
+              <article class="hero-stat">
+                <span>권장 학년</span>
+                <strong>초등 2~4학년</strong>
+              </article>
+
+              <article class="hero-stat">
+                <span>게임 방식</span>
+                <strong>구구단 모험</strong>
+              </article>
+
+              <article class="hero-stat">
+                <span>개인정보</span>
+                <strong>수집하지 않음</strong>
+              </article>
+            </div>
+          </div>
+
+          <div class="hero-showcase" aria-hidden="true">
+            <div class="showcase-orb"></div>
+            <canvas class="showcase-canvas" id="showcaseCanvas"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="playSetup">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>플레이 준비</h2>
+            <p>캐릭터 하나를 고르고 별빛 왕국 모험을 시작하세요.</p>
+          </div>
+
+          <span class="status-chip" id="saveStatus">
+            기록은 이 기기에만 저장됩니다
+          </span>
+        </div>
+
+        <div class="profile-strip">
+          <article class="profile-main">
+            <div class="profile-avatar" id="profileAvatar">🪄</div>
+
+            <div>
+              <span>나의 모험가</span>
+              <strong id="profileName">별빛 수호자</strong>
+
+              <div class="xp-track">
+                <div class="xp-fill" id="xpFill"></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="profile-stat">
+            <span>레벨</span>
+            <strong id="profileLevel">1</strong>
+          </article>
+
+          <article class="profile-stat">
+            <span>모은 별</span>
+            <strong id="profileStars">0</strong>
+          </article>
+
+          <article class="profile-stat">
+            <span>최고 점수</span>
+            <strong id="profileBestScore">0</strong>
+          </article>
+
+          <article class="profile-stat">
+            <span>최고 콤보</span>
+            <strong id="profileBestCombo">0</strong>
+          </article>
+        </div>
+
+        <div class="setup-panel">
+          <div class="setup-grid">
+            <section class="setup-block">
+              <h3>캐릭터 선택</h3>
+              <p>레벨이 오르면 외형과 오라가 단계별로 진화합니다.</p>
+
+              <div class="hero-grid">
+                <button
+                  class="hero-card active"
+                  type="button"
+                  data-hero="lumi"
+                >
+                  <b>🪄</b>
+                  <span>루미</span>
+                  <small>별빛 마도사</small>
+                </button>
+
+                <button
+                  class="hero-card"
+                  type="button"
+                  data-hero="arin"
+                >
+                  <b>👑</b>
+                  <span>아린</span>
+                  <small>태양 수호자</small>
+                </button>
+
+                <button
+                  class="hero-card"
+                  type="button"
+                  data-hero="piko"
+                >
+                  <b>🤖</b>
+                  <span>피코</span>
+                  <small>메카 탐험가</small>
+                </button>
+              </div>
+            </section>
+
+            <section class="setup-block start-box">
+              <button
+                class="primary-btn"
+                id="startGameBtn"
+                type="button"
+              >
+                별빛 왕국 모험 시작
+              </button>
+
+              <div class="sound-ready-note">
+                <span>🔊</span>
+                배경음악과 전투 효과음이 함께 재생됩니다.
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="game-section" id="gameArea">
+      <div class="wrap">
+        <div class="game-shell">
+          <div class="game-top">
+            <div class="game-top-left">
+              <div class="health-pill">
+                <div class="health-top">
+                  <span>❤️ 생명력</span>
+                  <strong id="hpValue">100%</strong>
+                </div>
+
+                <div class="health-track">
+                  <div class="health-fill" id="hpFill"></div>
+                </div>
+              </div>
+
+              <div class="hud-pill hide-mobile">
+                <span>⚡</span>
+                <strong id="comboValue">0</strong>
+                콤보
+              </div>
+            </div>
+
+            <div class="stage-name" id="stageName">
+              게임을 시작해주세요
+            </div>
+
+            <div class="game-top-right">
+              <div class="hud-pill">
+                <span>⭐</span>
+                <strong id="scoreValue">0</strong>
+              </div>
+
+              <div class="hud-pill">
+                <span>🧬</span>
+                <strong id="levelValue">Lv.1</strong>
+              </div>
+
+              <button
+                class="icon-btn"
+                id="pauseBtn"
+                type="button"
+                aria-label="게임 일시정지"
+              >
+                ⏸
+              </button>
+            </div>
+          </div>
+
+          <div class="canvas-wrap" id="canvasWrap">
+            <canvas
+              id="gameCanvas"
+              width="1280"
+              height="720"
+              aria-label="구구단 몬스터 디펜스 게임 화면"
+            ></canvas>
+
+            <div class="game-overlay show" id="introOverlay">
+              <div class="overlay-card">
+                <div class="overlay-emoji">✨</div>
+                <h2>별빛 왕국이 기다리고 있어요</h2>
+                <p>
+                  캐릭터를 고른 뒤 모험 시작 버튼을 누르세요.
+                  몬스터를 물리치고 끝까지 전진하세요.
+                </p>
+
+                <div class="tutorial-steps">
+                  <article class="tutorial-step">
+                    <b>1. 문제 확인</b>
+                    <span>화면 아래에 나오는 곱셈식을 봅니다.</span>
+                  </article>
+
+                  <article class="tutorial-step">
+                    <b>2. 답 선택</b>
+                    <span>정답 버튼을 누르면 캐릭터가 공격합니다.</span>
+                  </article>
+
+                  <article class="tutorial-step">
+                    <b>3. 성장과 진화</b>
+                    <span>정답 경험치로 레벨이 오르고 캐릭터가 진화합니다.</span>
+                  </article>
+                </div>
+              </div>
+            </div>
+
+            <div class="game-overlay" id="pauseOverlay">
+              <div class="overlay-card">
+                <div class="overlay-emoji">⏸️</div>
+                <h2>잠시 쉬는 중</h2>
+                <p>준비되면 다시 시작하세요.</p>
+
+                <div class="overlay-actions">
+                  <button
+                    class="primary-btn"
+                    id="resumeBtn"
+                    type="button"
+                  >
+                    계속하기
+                  </button>
+
+                  <button
+                    class="ghost-btn"
+                    id="quitBtn"
+                    type="button"
+                  >
+                    게임 종료
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="game-overlay" id="resultOverlay">
+              <div class="overlay-card">
+                <div class="overlay-emoji" id="resultEmoji">🏆</div>
+                <h2 id="resultTitle">모험 완료!</h2>
+                <p id="resultSummary">결과가 여기에 표시됩니다.</p>
+
+                <div class="record-cards" style="margin-top: 18px;">
+                  <article class="record-card">
+                    <span>이번 점수</span>
+                    <strong id="resultScore">0</strong>
+                  </article>
+
+                  <article class="record-card">
+                    <span>정확도</span>
+                    <strong id="resultAccuracy">0%</strong>
+                  </article>
+
+                  <article class="record-card">
+                    <span>도달 스테이지</span>
+                    <strong id="resultStage">1</strong>
+                  </article>
+
+                  <article class="record-card">
+                    <span>캐릭터 레벨</span>
+                    <strong id="resultLevel">Lv.1</strong>
+                  </article>
+                </div>
+
+                <div class="overlay-actions">
+                  <button
+                    class="primary-btn"
+                    id="replayBtn"
+                    type="button"
+                  >
+                    다시 도전
+                  </button>
+
+                  <button
+                    class="ghost-btn"
+                    id="recordBtn"
+                    type="button"
+                  >
+                    학습기록 보기
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="question-zone">
+            <div class="question-card" id="questionCard">
+              <div class="question-inner">
+                <div class="question-label" id="questionLabel">
+                  STAR KINGDOM BATTLE
+                </div>
+
+                <div class="equation" id="equation">? × ?</div>
+
+                <div class="question-tip" id="questionTip">
+                  게임을 시작하면 문제가 나옵니다.
+                </div>
+              </div>
+            </div>
+
+            <div class="answer-grid" id="answerGrid">
+              <button
+                class="answer-btn"
+                type="button"
+                data-key="1"
+                disabled
+              >
+                ?
+              </button>
+
+              <button
+                class="answer-btn"
+                type="button"
+                data-key="2"
+                disabled
+              >
+                ?
+              </button>
+
+              <button
+                class="answer-btn"
+                type="button"
+                data-key="3"
+                disabled
+              >
+                ?
+              </button>
+
+              <button
+                class="answer-btn"
+                type="button"
+                data-key="4"
+                disabled
+              >
+                ?
+              </button>
+            </div>
+          </div>
+
+          <div class="spell-bar">
+            <div class="spell-label">진화 필살기</div>
+
+            <div class="spell-track">
+              <div class="spell-fill" id="spellFill"></div>
+            </div>
+
+            <button
+              class="spell-btn"
+              id="spellBtn"
+              type="button"
+              disabled
+            >
+              정답 5개로 충전
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="records">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>나의 학습기록</h2>
+            <p>
+              회원가입 없이 이 기기에서만 저장됩니다.
+              부모님과 함께 단별 정확도를 확인해보세요.
+            </p>
+          </div>
+
+          <button
+            class="ghost-btn"
+            id="resetRecordsBtn"
+            type="button"
+          >
+            기록 초기화
+          </button>
+        </div>
+
+        <div class="record-grid">
+          <section class="record-panel">
+            <h3>전체 기록</h3>
+            <p>지금까지의 플레이와 성장 기록입니다.</p>
+
+            <div class="record-cards">
+              <article class="record-card">
+                <span>총 플레이</span>
+                <strong id="recordPlays">0</strong>
+              </article>
+
+              <article class="record-card">
+                <span>푼 문제</span>
+                <strong id="recordQuestions">0</strong>
+              </article>
+
+              <article class="record-card">
+                <span>전체 정확도</span>
+                <strong id="recordAccuracy">0%</strong>
+              </article>
+
+              <article class="record-card">
+                <span>연속 학습일</span>
+                <strong id="recordStreak">0일</strong>
+              </article>
+
+              <article class="record-card">
+                <span>최고 점수</span>
+                <strong id="recordBestScore">0</strong>
+              </article>
+
+              <article class="record-card">
+                <span>최고 콤보</span>
+                <strong id="recordBestCombo">0</strong>
+              </article>
+
+              <article class="record-card">
+                <span>최고 스테이지</span>
+                <strong id="recordBestStage">1</strong>
+              </article>
+
+              <article class="record-card">
+                <span>캐릭터 최고 레벨</span>
+                <strong id="recordHeroLevel">1</strong>
+              </article>
+            </div>
+          </section>
+
+          <section class="record-panel">
+            <h3>단별 숙련도</h3>
+            <p>정답률과 풀이량을 함께 반영해 숙련도를 표시합니다.</p>
+            <div class="mastery-list" id="masteryList"></div>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div>
+        <strong>바로수학 놀이터</strong>
+        <p>
+          본 게임은 구구단 반복 연습을 돕는 무료 학습 콘텐츠입니다.
+          이름·이메일·사진 등 아동 개인정보를 수집하지 않으며,
+          학습기록은 사용 중인 브라우저에만 저장됩니다.
+        </p>
+      </div>
+
+      <a
+        class="ghost-btn"
+        href="https://barohaegyeol-tools.pages.dev/"
+      >
+        전체 도구 보기
+      </a>
+    </div>
+  </footer>
+
+  <div
+    class="toast"
+    id="toast"
+    role="status"
+    aria-live="polite"
+  ></div>
+
+  <script>
+    "use strict";
+
+    const STORAGE_KEY =
+      "baromath_multiplication_monster_defense_v1";
+
+    const $ = (id) => document.getElementById(id);
+
+    const heroMeta = {
+      lumi: {
+        name: "루미",
+        emoji: "🪄",
+        color: "#61e4ff",
+        accent: "#9a74ff",
+        evolutions: [
+          "별빛 견습생",
+          "성운 마도사",
+          "천공의 마법사",
+          "별의 대현자"
+        ]
+      },
+
+      arin: {
+        name: "아린",
+        emoji: "👑",
+        color: "#ffd76a",
+        accent: "#ff9e5c",
+        evolutions: [
+          "햇살 수호자",
+          "황금 기사",
+          "태양의 날개",
+          "왕국의 성기사"
+        ]
+      },
+
+      piko: {
+        name: "피코",
+        emoji: "🤖",
+        color: "#78e6a6",
+        accent: "#5b8cff",
+        evolutions: [
+          "탐험 로봇",
+          "메카 가디언",
+          "제트 커맨더",
+          "스타 타이탄"
+        ]
+      }
+    };
+
+    const stageThemes = [
+      {
+        name: "무지개 초원",
+        skyTop: "#bff2ff",
+        skyMid: "#e7fbff",
+        skyBottom: "#fff7ef",
+        sun: "#ffe36e",
+        glow: "rgba(255,227,110,0.28)",
+        hillFar: "#b8e8d8",
+        hillNear: "#7fd6b0",
+        groundTop: "#8be298",
+        groundBottom: "#57b57a",
+        path: "#f7dcb0",
+        flowerA: "#ff9dc6",
+        flowerB: "#7bd6ff",
+        rainbow: true,
+        darkness: 0,
+        fog: 0,
+        moon: false,
+        lightning: false,
+        embers: false
+      },
+
+      {
+        name: "솜사탕 언덕",
+        skyTop: "#d9f4ff",
+        skyMid: "#eef9ff",
+        skyBottom: "#fff2fa",
+        sun: "#ffd88c",
+        glow: "rgba(255,216,140,0.24)",
+        hillFar: "#cbe3ff",
+        hillNear: "#98c6ff",
+        groundTop: "#9ce19f",
+        groundBottom: "#63c47e",
+        path: "#f2d3a6",
+        flowerA: "#ff8bc1",
+        flowerB: "#8e84ff",
+        rainbow: false,
+        darkness: 0.03,
+        fog: 0,
+        moon: false,
+        lightning: false,
+        embers: false
+      },
+
+      {
+        name: "속삭이는 숲",
+        skyTop: "#c8ebee",
+        skyMid: "#dcefee",
+        skyBottom: "#e8f0dc",
+        sun: "#e8d990",
+        glow: "rgba(232,217,144,0.18)",
+        hillFar: "#9ec9b5",
+        hillNear: "#5c9e7e",
+        groundTop: "#67b97a",
+        groundBottom: "#347358",
+        path: "#c9b78f",
+        flowerA: "#d08cc4",
+        flowerB: "#79c7c6",
+        rainbow: false,
+        darkness: 0.11,
+        fog: 0.05,
+        moon: false,
+        lightning: false,
+        embers: false
+      },
+
+      {
+        name: "안개 늪지",
+        skyTop: "#a9c7ca",
+        skyMid: "#bfcfd0",
+        skyBottom: "#ccd2c5",
+        sun: "#d6d5bb",
+        glow: "rgba(214,213,187,0.12)",
+        hillFar: "#819b91",
+        hillNear: "#526f64",
+        groundTop: "#65886c",
+        groundBottom: "#354d43",
+        path: "#948b73",
+        flowerA: "#9c79a9",
+        flowerB: "#6ba7a0",
+        rainbow: false,
+        darkness: 0.18,
+        fog: 0.18,
+        moon: false,
+        lightning: false,
+        embers: false
+      },
+
+      {
+        name: "유령 공동묘지",
+        skyTop: "#8293ad",
+        skyMid: "#9ba5b4",
+        skyBottom: "#aca8ae",
+        sun: "#d6dcf0",
+        glow: "rgba(214,220,240,0.16)",
+        hillFar: "#697486",
+        hillNear: "#4b5363",
+        groundTop: "#5f6d67",
+        groundBottom: "#343b42",
+        path: "#827b7c",
+        flowerA: "#9271b8",
+        flowerB: "#7096ad",
+        rainbow: false,
+        darkness: 0.28,
+        fog: 0.25,
+        moon: true,
+        lightning: false,
+        embers: false
+      },
+
+      {
+        name: "검은 달 성문",
+        skyTop: "#4e5874",
+        skyMid: "#62677d",
+        skyBottom: "#77737c",
+        sun: "#d7d9e7",
+        glow: "rgba(215,217,231,0.12)",
+        hillFar: "#4d5261",
+        hillNear: "#343743",
+        groundTop: "#4d5a53",
+        groundBottom: "#252a2c",
+        path: "#686064",
+        flowerA: "#715887",
+        flowerB: "#527386",
+        rainbow: false,
+        darkness: 0.39,
+        fog: 0.18,
+        moon: true,
+        lightning: true,
+        embers: false
+      },
+
+      {
+        name: "붉은 협곡",
+        skyTop: "#60495f",
+        skyMid: "#79515a",
+        skyBottom: "#9c665b",
+        sun: "#ffb168",
+        glow: "rgba(255,177,104,0.18)",
+        hillFar: "#62414a",
+        hillNear: "#49313a",
+        groundTop: "#754f45",
+        groundBottom: "#382b2b",
+        path: "#8d6757",
+        flowerA: "#b25168",
+        flowerB: "#b07860",
+        rainbow: false,
+        darkness: 0.42,
+        fog: 0.05,
+        moon: false,
+        lightning: false,
+        embers: true
+      },
+
+      {
+        name: "용암 요새",
+        skyTop: "#3d344a",
+        skyMid: "#5b3b48",
+        skyBottom: "#8b4b42",
+        sun: "#ff825c",
+        glow: "rgba(255,130,92,0.22)",
+        hillFar: "#4a3038",
+        hillNear: "#2e252d",
+        groundTop: "#5f3c38",
+        groundBottom: "#231c21",
+        path: "#765249",
+        flowerA: "#d45454",
+        flowerB: "#e18a4f",
+        rainbow: false,
+        darkness: 0.52,
+        fog: 0,
+        moon: false,
+        lightning: false,
+        embers: true
+      },
+
+      {
+        name: "악마의 첨탑",
+        skyTop: "#29283c",
+        skyMid: "#3d3043",
+        skyBottom: "#5b3641",
+        sun: "#d96a68",
+        glow: "rgba(217,106,104,0.16)",
+        hillFar: "#34303c",
+        hillNear: "#211f29",
+        groundTop: "#453438",
+        groundBottom: "#19171c",
+        path: "#554047",
+        flowerA: "#8b405b",
+        flowerB: "#7a506d",
+        rainbow: false,
+        darkness: 0.61,
+        fog: 0.08,
+        moon: true,
+        lightning: true,
+        embers: true
+      },
+
+      {
+        name: "심연의 다리",
+        skyTop: "#171b2f",
+        skyMid: "#23243a",
+        skyBottom: "#35283d",
+        sun: "#af8fe8",
+        glow: "rgba(175,143,232,0.17)",
+        hillFar: "#252638",
+        hillNear: "#171823",
+        groundTop: "#30313a",
+        groundBottom: "#101116",
+        path: "#40374a",
+        flowerA: "#72519e",
+        flowerB: "#52688d",
+        rainbow: false,
+        darkness: 0.69,
+        fog: 0.12,
+        moon: true,
+        lightning: true,
+        embers: false
+      },
+
+      {
+        name: "어둠왕의 성",
+        skyTop: "#101526",
+        skyMid: "#17192b",
+        skyBottom: "#292038",
+        sun: "#8a72cc",
+        glow: "rgba(138,114,204,0.18)",
+        hillFar: "#1b1e2e",
+        hillNear: "#11131d",
+        groundTop: "#24272d",
+        groundBottom: "#090a0e",
+        path: "#342d3e",
+        flowerA: "#5f3d7b",
+        flowerB: "#3e5575",
+        rainbow: false,
+        darkness: 0.76,
+        fog: 0.1,
+        moon: true,
+        lightning: true,
+        embers: false
+      },
+
+      {
+        name: "최종 심연성",
+        skyTop: "#080b16",
+        skyMid: "#10101d",
+        skyBottom: "#211326",
+        sun: "#d04b74",
+        glow: "rgba(208,75,116,0.18)",
+        hillFar: "#11131d",
+        hillNear: "#08090e",
+        groundTop: "#1d1b22",
+        groundBottom: "#050507",
+        path: "#2e2331",
+        flowerA: "#7b2f55",
+        flowerB: "#354766",
+        rainbow: false,
+        darkness: 0.84,
+        fog: 0.06,
+        moon: true,
+        lightning: true,
+        embers: true
+      }
+    ];
+
+    const monsterCatalog = [
+      {
+        kind: "slime",
+        unlock: 1,
+        color: "#76e0c4",
+        accent: "#2f9d88",
+        hp: 1,
+        speed: 1,
+        size: 1
+      },
+
+      {
+        kind: "mush",
+        unlock: 1,
+        color: "#ff8fbe",
+        accent: "#9e3d6a",
+        hp: 1,
+        speed: 1.08,
+        size: 1
+      },
+
+      {
+        kind: "rock",
+        unlock: 2,
+        color: "#9fb0c4",
+        accent: "#55677e",
+        hp: 2,
+        speed: 0.84,
+        size: 1.08
+      },
+
+      {
+        kind: "bat",
+        unlock: 3,
+        color: "#7f6dc8",
+        accent: "#402d74",
+        hp: 1,
+        speed: 1.34,
+        size: 0.95
+      },
+
+      {
+        kind: "ghost",
+        unlock: 4,
+        color: "#d7f1ff",
+        accent: "#7492bf",
+        hp: 2,
+        speed: 1.12,
+        size: 1.05
+      },
+
+      {
+        kind: "wolf",
+        unlock: 5,
+        color: "#7e8799",
+        accent: "#394454",
+        hp: 3,
+        speed: 1.25,
+        size: 1.12
+      },
+
+      {
+        kind: "ogre",
+        unlock: 6,
+        color: "#7fa56d",
+        accent: "#3f5d38",
+        hp: 4,
+        speed: 0.84,
+        size: 1.28
+      },
+
+      {
+        kind: "eye",
+        unlock: 7,
+        color: "#bd5d78",
+        accent: "#5b2441",
+        hp: 3,
+        speed: 1.2,
+        size: 1.12
+      },
+
+      {
+        kind: "reaper",
+        unlock: 8,
+        color: "#3a334f",
+        accent: "#a683d9",
+        hp: 4,
+        speed: 1.04,
+        size: 1.2
+      },
+
+      {
+        kind: "dragon",
+        unlock: 9,
+        color: "#a8464e",
+        accent: "#ef9c54",
+        hp: 5,
+        speed: 1,
+        size: 1.34
+      },
+
+      {
+        kind: "abyss",
+        unlock: 10,
+        color: "#251d38",
+        accent: "#d04b91",
+        hp: 6,
+        speed: 1.08,
+        size: 1.38
+      }
+    ];
+
+    const bossCatalog = [
+      {
+        stage: 1,
+        kind: "boss",
+        color: "#8c72ff",
+        accent: "#ff7eb6",
+        hp: 3,
+        speed: 0.72,
+        size: 1.48
+      },
+
+      {
+        stage: 4,
+        kind: "ogre",
+        color: "#6b8e5d",
+        accent: "#324b2e",
+        hp: 4,
+        speed: 0.68,
+        size: 1.62
+      },
+
+      {
+        stage: 7,
+        kind: "dragon",
+        color: "#9e3547",
+        accent: "#ff9b4e",
+        hp: 5,
+        speed: 0.7,
+        size: 1.72
+      },
+
+      {
+        stage: 10,
+        kind: "abyss",
+        color: "#1d152d",
+        accent: "#e0529c",
+        hp: 6,
+        speed: 0.74,
+        size: 1.82
+      }
+    ];
+
+    const defaultStats = () => ({
+      totalPlays: 0,
+      totalQuestions: 0,
+      totalCorrect: 0,
+      bestScore: 0,
+      bestCombo: 0,
+      bestStage: 1,
+      bestHeroLevel: 1,
+      stars: 0,
+      xp: 0,
+      lastPlayDate: "",
+      streak: 0,
+      mastery: Object.fromEntries(
+        Array.from(
+          { length: 8 },
+          (_, index) => [
+            index + 2,
+            {
+              attempts: 0,
+              correct: 0
+            }
+          ]
+        )
+      )
+    });
+
+    const state = {
+      mode: "adventure",
+      hero: "lumi",
+      sound: true,
+      running: false,
+      paused: false,
+      ended: false,
+      score: 0,
+      combo: 0,
+      bestComboRun: 0,
+      hp: 100,
+      maxHp: 100,
+      spell: 0,
+      spellAnim: 0,
+      stageLevel: 1,
+      stageQuestion: 0,
+      stageGoal: 7,
+      bossSpawned: false,
+      stageTransition: false,
+      heroLevel: 1,
+      earnedXp: 0,
+      evolutionTier: 1,
+      evolutionClock: 0,
+      questionCount: 0,
+      correctCount: 0,
+      currentQuestion: null,
+      answersLocked: false,
+      monsters: [],
+      projectiles: [],
+      particles: [],
+      bursts: [],
+      elapsed: 0,
+      lastFrame: 0,
+      spawnClock: 0,
+      feedbackClock: 0,
+      feedbackText: "",
+      feedbackColor: "#61e4ff",
+      sessionAnswered: [],
+      sessionStart: 0,
+      heroAttackTime: 0,
+      screenShake: 0,
+      backgroundOffset: 0,
+      stats: loadStats()
+    };
+
+    const canvas = $("gameCanvas");
+    const ctx = canvas.getContext("2d");
+
+    const showcaseCanvas = $("showcaseCanvas");
+    const showcaseContext = showcaseCanvas.getContext("2d");
+
+    const answerButtons = [
+      ...document.querySelectorAll(".answer-btn")
+    ];
+
+    let audioContext = null;
+    let animationId = null;
+    let showcaseFrame = null;
+    let toastTimer = null;
+    let musicTimer = null;
+    let musicStep = 0;
+
+    function loadStats() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+
+        if (!raw) {
+          return defaultStats();
+        }
+
+        const parsed = JSON.parse(raw);
+        const base = defaultStats();
+
+        return {
+          ...base,
+          ...parsed,
+          mastery: {
+            ...base.mastery,
+            ...(parsed.mastery || {})
+          }
+        };
+      } catch (error) {
+        console.warn(error);
+        return defaultStats();
+      }
+    }
+
+    function saveStats() {
+      try {
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify(state.stats)
+        );
+      } catch (error) {
+        console.warn(error);
+      }
+
+      updateProfileUI();
+      renderRecords();
+    }
+
+    function formatNumber(value) {
+      return Math.round(value).toLocaleString("ko-KR");
+    }
+
+    function clamp(value, min, max) {
+      return Math.min(max, Math.max(min, value));
+    }
+
+    function lerp(a, b, amount) {
+      return a + (b - a) * amount;
+    }
+
+    function randomChoice(items) {
+      return items[Math.floor(Math.random() * items.length)];
+    }
+
+    function shuffle(items) {
+      const copy = [...items];
+
+      for (let index = copy.length - 1; index > 0; index -= 1) {
+        const randomIndex = Math.floor(Math.random() * (index + 1));
+
+        [copy[index], copy[randomIndex]] = [
+          copy[randomIndex],
+          copy[index]
+        ];
+      }
+
+      return copy;
+    }
+
+    function todayKey() {
+      const now = new Date();
+
+      return [
+        now.getFullYear(),
+        String(now.getMonth() + 1).padStart(2, "0"),
+        String(now.getDate()).padStart(2, "0")
+      ].join("-");
+    }
+
+    function updateStreak() {
+      const today = todayKey();
+
+      if (state.stats.lastPlayDate === today) {
+        return;
+      }
+
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+
+      const yesterdayKey = [
+        yesterday.getFullYear(),
+        String(yesterday.getMonth() + 1).padStart(2, "0"),
+        String(yesterday.getDate()).padStart(2, "0")
+      ].join("-");
+
+      state.stats.streak =
+        state.stats.lastPlayDate === yesterdayKey
+          ? state.stats.streak + 1
+          : 1;
+
+      state.stats.lastPlayDate = today;
+    }
+
+    function showToast(message) {
+      const toast = $("toast");
+
+      toast.textContent = message;
+      toast.classList.add("show");
+
+      clearTimeout(toastTimer);
+
+      toastTimer = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 1800);
+    }
+
+    function ensureAudio() {
+      if (!state.sound) {
+        return null;
+      }
+
+      if (!audioContext) {
+        audioContext = new (
+          window.AudioContext ||
+          window.webkitAudioContext
+        )();
+      }
+
+      if (audioContext.state === "suspended") {
+        audioContext.resume().catch(() => {});
+      }
+
+      return audioContext;
+    }
+
+    function createTone(
+      frequency,
+      duration,
+      options = {}
+    ) {
+      const context = ensureAudio();
+
+      if (!context) {
+        return;
+      }
+
+      const now = context.currentTime;
+      const oscillator = context.createOscillator();
+      const gain = context.createGain();
+
+      oscillator.type = options.wave || "sine";
+      oscillator.frequency.setValueAtTime(frequency, now);
+
+      if (options.endFrequency) {
+        oscillator.frequency.exponentialRampToValueAtTime(
+          Math.max(30, options.endFrequency),
+          now + duration
+        );
+      }
+
+      oscillator.connect(gain);
+      gain.connect(context.destination);
+
+      gain.gain.setValueAtTime(0.0001, now);
+      gain.gain.exponentialRampToValueAtTime(
+        options.volume || 0.05,
+        now + 0.015
+      );
+      gain.gain.exponentialRampToValueAtTime(
+        0.0001,
+        now + duration
+      );
+
+      oscillator.start(now);
+      oscillator.stop(now + duration + 0.03);
+    }
+
+    function playTone(type) {
+      if (!state.sound) {
+        return;
+      }
+
+      const presets = {
+        click: {
+          frequency: 420,
+          endFrequency: 560,
+          duration: 0.08,
+          wave: "sine",
+          volume: 0.025
+        },
+
+        correct: {
+          frequency: 520,
+          endFrequency: 880,
+          duration: 0.18,
+          wave: "sine",
+          volume: 0.07
+        },
+
+        wrong: {
+          frequency: 190,
+          endFrequency: 110,
+          duration: 0.24,
+          wave: "square",
+          volume: 0.04
+        },
+
+        attack: {
+          frequency: 300,
+          endFrequency: 720,
+          duration: 0.14,
+          wave: "triangle",
+          volume: 0.05
+        },
+
+        hit: {
+          frequency: 120,
+          endFrequency: 65,
+          duration: 0.16,
+          wave: "sawtooth",
+          volume: 0.035
+        },
+
+        spell: {
+          frequency: 360,
+          endFrequency: 1300,
+          duration: 0.6,
+          wave: "sine",
+          volume: 0.07
+        },
+
+        win: {
+          frequency: 520,
+          endFrequency: 1100,
+          duration: 0.52,
+          wave: "triangle",
+          volume: 0.06
+        },
+
+        boss: {
+          frequency: 100,
+          endFrequency: 55,
+          duration: 0.7,
+          wave: "sawtooth",
+          volume: 0.045
+        },
+
+        level: {
+          frequency: 440,
+          endFrequency: 1050,
+          duration: 0.38,
+          wave: "triangle",
+          volume: 0.06
+        }
+      };
+
+      const preset = presets[type] || presets.click;
+
+      createTone(
+        preset.frequency,
+        preset.duration,
+        preset
+      );
+
+      if (type === "correct") {
+        setTimeout(() => {
+          createTone(760, 0.12, {
+            endFrequency: 980,
+            wave: "sine",
+            volume: 0.045
+          });
+        }, 80);
+      }
+
+      if (type === "spell") {
+        setTimeout(() => {
+          createTone(650, 0.5, {
+            endFrequency: 1500,
+            wave: "triangle",
+            volume: 0.05
+          });
+        }, 80);
+      }
+    }
+
+    function getMusicNotes() {
+      const stage = state.stageLevel;
+
+      if (stage <= 3) {
+        return [261.63, 329.63, 392, 523.25, 392, 329.63];
+      }
+
+      if (stage <= 6) {
+        return [220, 261.63, 311.13, 293.66, 246.94, 220];
+      }
+
+      if (stage <= 9) {
+        return [174.61, 207.65, 233.08, 196, 174.61, 155.56];
+      }
+
+      return [130.81, 155.56, 146.83, 116.54, 130.81, 103.83];
+    }
+
+    function playMusicStep() {
+      if (
+        !state.sound ||
+        !state.running ||
+        state.paused ||
+        state.ended
+      ) {
+        return;
+      }
+
+      const notes = getMusicNotes();
+      const frequency = notes[musicStep % notes.length];
+
+      createTone(frequency, 0.33, {
+        endFrequency: frequency * 1.01,
+        wave: state.stageLevel >= 7 ? "triangle" : "sine",
+        volume: state.stageLevel >= 7 ? 0.014 : 0.018
+      });
+
+      if (musicStep % 2 === 0) {
+        createTone(frequency / 2, 0.45, {
+          endFrequency: frequency / 2,
+          wave: "sine",
+          volume: 0.007
+        });
+      }
+
+      musicStep += 1;
+    }
+
+    function startMusic() {
+      stopMusic();
+      musicStep = 0;
+
+      musicTimer = window.setInterval(
+        playMusicStep,
+        430
+      );
+    }
+
+    function stopMusic() {
+      if (musicTimer) {
+        window.clearInterval(musicTimer);
+        musicTimer = null;
+      }
+    }
+
+    function getHeroLevel(totalXp) {
+      return Math.floor(Math.max(0, totalXp) / 320) + 1;
+    }
+
+    function getEvolutionTier(level) {
+      if (level >= 10) {
+        return 4;
+      }
+
+      if (level >= 7) {
+        return 3;
+      }
+
+      if (level >= 4) {
+        return 2;
+      }
+
+      return 1;
+    }
+
+    function getEvolutionName(hero, tier) {
+      return heroMeta[hero].evolutions[
+        clamp(tier - 1, 0, 3)
+      ];
+    }
+
+    function updateProfileUI() {
+      const totalXp =
+        state.stats.xp +
+        (state.running ? state.earnedXp : 0);
+
+      const level = getHeroLevel(totalXp);
+      const levelXp = totalXp % 320;
+      const tier = getEvolutionTier(level);
+
+      $("profileAvatar").textContent =
+        heroMeta[state.hero].emoji;
+
+      $("profileName").textContent =
+        `${heroMeta[state.hero].name} · ` +
+        getEvolutionName(state.hero, tier);
+
+      $("profileLevel").textContent = level;
+      $("profileStars").textContent =
+        formatNumber(state.stats.stars);
+
+      $("profileBestScore").textContent =
+        formatNumber(state.stats.bestScore);
+
+      $("profileBestCombo").textContent =
+        formatNumber(state.stats.bestCombo);
+
+      $("xpFill").style.width =
+        `${(levelXp / 320) * 100}%`;
+    }
+
+    function renderRecords() {
+      const attempts = state.stats.totalQuestions;
+
+      const accuracy = attempts
+        ? (state.stats.totalCorrect / attempts) * 100
+        : 0;
+
+      $("recordPlays").textContent =
+        formatNumber(state.stats.totalPlays);
+
+      $("recordQuestions").textContent =
+        formatNumber(attempts);
+
+      $("recordAccuracy").textContent =
+        `${accuracy.toFixed(0)}%`;
+
+      $("recordStreak").textContent =
+        `${state.stats.streak}일`;
+
+      $("recordBestScore").textContent =
+        formatNumber(state.stats.bestScore);
+
+      $("recordBestCombo").textContent =
+        formatNumber(state.stats.bestCombo);
+
+      $("recordBestStage").textContent =
+        `${state.stats.bestStage || 1}단계`;
+
+      $("recordHeroLevel").textContent =
+        `Lv.${Math.max(
+          state.stats.bestHeroLevel || 1,
+          getHeroLevel(state.stats.xp)
+        )}`;
+
+      const masteryList = $("masteryList");
+      masteryList.innerHTML = "";
+
+      for (let table = 2; table <= 9; table += 1) {
+        const item = state.stats.mastery[table] || {
+          attempts: 0,
+          correct: 0
+        };
+
+        const accuracyValue = item.attempts
+          ? (item.correct / item.attempts) * 100
+          : 0;
+
+        const volumeFactor =
+          Math.min(1, item.attempts / 30);
+
+        const mastery = Math.round(
+          accuracyValue *
+          (0.55 + 0.45 * volumeFactor)
+        );
+
+        const row = document.createElement("div");
+        row.className = "mastery-row";
+
+        row.innerHTML = `
+          <b>${table}단</b>
+          <div class="mastery-track">
+            <div
+              class="mastery-fill"
+              style="width:${mastery}%"
+            ></div>
+          </div>
+          <span>${item.correct}/${item.attempts}</span>
+        `;
+
+        masteryList.appendChild(row);
+      }
+    }
+
+    function setHero(hero) {
+      state.hero = hero;
+
+      document
+        .querySelectorAll(".hero-card")
+        .forEach((card) => {
+          card.classList.toggle(
+            "active",
+            card.dataset.hero === hero
+          );
+        });
+
+      updateProfileUI();
+      playTone("click");
+      showToast(`${heroMeta[hero].name} 캐릭터를 선택했어요`);
+    }
+
+    function getDifficultyConfig() {
+      return {
+        monsterSpeed: 22,
+        answerDelay: 620,
+        maxMonsters: 2,
+        spawnInterval: 2.9
+      };
+    }
+
+    function getStageTheme() {
+      return stageThemes[
+        (Math.max(1, state.stageLevel) - 1) %
+        stageThemes.length
+      ];
+    }
+
+    function getLiveDifficulty() {
+      const base = getDifficultyConfig();
+      const stageBoost =
+        Math.max(0, state.stageLevel - 1);
+
+      return {
+        monsterSpeed:
+          base.monsterSpeed +
+          stageBoost * 4.8,
+
+        answerDelay:
+          Math.max(
+            250,
+            base.answerDelay -
+            stageBoost * 24
+          ),
+
+        maxMonsters:
+          Math.min(
+            7,
+            base.maxMonsters +
+            Math.floor(stageBoost / 2)
+          ),
+
+        spawnInterval:
+          Math.max(
+            0.9,
+            base.spawnInterval -
+            stageBoost * 0.15
+          ),
+
+        bonusHpChance:
+          Math.min(
+            0.5,
+            stageBoost * 0.055
+          )
+      };
+    }
+
+    function getAdventureTables() {
+      const stage = state.stageLevel;
+
+      if (stage <= 1) {
+        return [2, 3];
+      }
+
+      if (stage === 2) {
+        return [2, 3, 4];
+      }
+
+      if (stage === 3) {
+        return [3, 4, 5];
+      }
+
+      if (stage === 4) {
+        return [4, 5, 6];
+      }
+
+      if (stage === 5) {
+        return [5, 6, 7];
+      }
+
+      if (stage === 6) {
+        return [6, 7, 8];
+      }
+
+      if (stage === 7) {
+        return [7, 8, 9];
+      }
+
+      return [2, 3, 4, 5, 6, 7, 8, 9];
+    }
+
+    function generateQuestion() {
+      const tables = getAdventureTables();
+      const table = randomChoice(tables);
+      const stage = state.stageLevel;
+
+      const bossQuestion =
+        state.stageQuestion === state.stageGoal - 1;
+
+      const challengeChance =
+        Math.min(0.52, 0.08 + stage * 0.035);
+
+      const challenge =
+        bossQuestion ||
+        (
+          stage >= 2 &&
+          Math.random() < challengeChance
+        );
+
+      const multiplierMin =
+        stage >= 5 ? 3 : 1;
+
+      const multiplier =
+        Math.floor(
+          Math.random() *
+          (10 - multiplierMin)
+        ) + multiplierMin;
+
+      const product = table * multiplier;
+
+      let answer = product;
+      let display = `${table} × ${multiplier}`;
+      let type = "basic";
+
+      if (challenge) {
+        const types =
+          stage >= 8
+            ? [
+                "missing",
+                "division",
+                "plus",
+                "minus",
+                "double"
+              ]
+            : stage >= 4
+              ? [
+                  "missing",
+                  "division",
+                  "plus",
+                  "minus"
+                ]
+              : [
+                  "missing",
+                  "division"
+                ];
+
+        type = randomChoice(types);
+
+        if (type === "missing") {
+          answer = multiplier;
+          display = `${table} × □ = ${product}`;
+        }
+
+        if (type === "division") {
+          answer = multiplier;
+          display = `${product} ÷ ${table}`;
+        }
+
+        if (type === "plus") {
+          const extra = Math.min(12, stage + 2);
+          answer = product + extra;
+          display = `${table} × ${multiplier} + ${extra}`;
+        }
+
+        if (type === "minus") {
+          const extra = Math.min(
+            product - 1,
+            Math.max(2, stage)
+          );
+
+          answer = product - extra;
+          display = `${table} × ${multiplier} − ${extra}`;
+        }
+
+        if (type === "double") {
+          const secondTable = randomChoice(tables);
+          const secondMultiplier =
+            Math.floor(Math.random() * 4) + 2;
+
+          answer =
+            product +
+            secondTable * secondMultiplier;
+
+          display =
+            `${table} × ${multiplier} + ` +
+            `${secondTable} × ${secondMultiplier}`;
+        }
+      }
+
+      const wrong = new Set();
+
+      const offsets = [
+        table,
+        multiplier,
+        2,
+        3,
+        5,
+        7,
+        Math.max(
+          1,
+          Math.floor(answer * 0.1)
+        )
+      ];
+
+      for (const offset of shuffle(offsets)) {
+        for (const sign of [1, -1]) {
+          const value =
+            answer +
+            offset * sign;
+
+          if (
+            value > 0 &&
+            value !== answer
+          ) {
+            wrong.add(value);
+          }
+
+          if (wrong.size >= 3) {
+            break;
+          }
+        }
+
+        if (wrong.size >= 3) {
+          break;
+        }
+      }
+
+      while (wrong.size < 3) {
+        const value = Math.max(
+          1,
+          answer +
+          Math.floor(Math.random() * 23) -
+          11
+        );
+
+        if (value !== answer) {
+          wrong.add(value);
+        }
+      }
+
+      const choices = shuffle([
+        answer,
+        ...wrong
+      ]);
+
+      state.currentQuestion = {
+        table,
+        multiplier,
+        answer,
+        choices,
+        challenge,
+        bossQuestion,
+        type
+      };
+
+      state.answersLocked = false;
+
+      $("equation").textContent = display;
+
+      $("questionCard").classList.toggle(
+        "challenge",
+        challenge && !bossQuestion
+      );
+
+      $("questionCard").classList.toggle(
+        "boss-question",
+        bossQuestion
+      );
+
+      $("questionLabel").textContent =
+        bossQuestion
+          ? "BOSS CHALLENGE"
+          : challenge
+            ? "CHALLENGE PROBLEM"
+            : "STAR KINGDOM BATTLE";
+
+      $("questionTip").textContent =
+        bossQuestion
+          ? "보스를 쓰러뜨릴 마지막 문제입니다!"
+          : challenge
+            ? "도전 문제! 경험치를 더 많이 얻을 수 있어요."
+            : state.combo >= 3
+              ? `${state.combo}연속 정답! 공격력이 상승했어요.`
+              : "정답을 고르면 캐릭터가 공격합니다.";
+
+      if (
+        bossQuestion &&
+        !state.bossSpawned
+      ) {
+        state.bossSpawned = true;
+        spawnMonster(true);
+        playTone("boss");
+      }
+
+      answerButtons.forEach(
+        (button, index) => {
+          button.disabled = false;
+
+          button.classList.remove(
+            "correct",
+            "wrong"
+          );
+
+          button.textContent =
+            choices[index];
+
+          button.dataset.value =
+            choices[index];
+        }
+      );
+    }
+
+    function spawnMonster(forceBoss = false) {
+      const config = getLiveDifficulty();
+
+      if (
+        state.monsters.length >=
+          config.maxMonsters &&
+        !forceBoss
+      ) {
+        return;
+      }
+
+      let base;
+
+      if (forceBoss) {
+        const options =
+          bossCatalog.filter(
+            (item) =>
+              item.stage <= state.stageLevel
+          );
+
+        base = {
+          ...options[options.length - 1]
+        };
+      } else {
+        const unlocked =
+          monsterCatalog.filter(
+            (item) =>
+              item.unlock <= state.stageLevel
+          );
+
+        const recent = unlocked.slice(
+          Math.max(0, unlocked.length - 4)
+        );
+
+        base = {
+          ...randomChoice(
+            Math.random() < 0.72
+              ? recent
+              : unlocked
+          )
+        };
+      }
+
+      const extraHp =
+        !forceBoss &&
+        state.stageLevel >= 4 &&
+        Math.random() <
+          config.bonusHpChance
+          ? 1
+          : 0;
+
+      const stageHp =
+        forceBoss
+          ? Math.floor(
+              (state.stageLevel - 1) / 4
+            )
+          : Math.floor(
+              (state.stageLevel - 1) / 5
+            );
+
+      const y =
+        555 + Math.random() * 40;
+
+      state.monsters.push({
+        id: `${Date.now()}_${Math.random()}`,
+        x: forceBoss
+          ? 1380
+          : 1320 + Math.random() * 150,
+        y,
+        hp: base.hp + extraHp + stageHp,
+        maxHp: base.hp + extraHp + stageHp,
+        kind: base.kind,
+        color: base.color,
+        accent: base.accent,
+        speed:
+          base.speed *
+          (
+            1 +
+            Math.max(
+              0,
+              state.stageLevel - 1
+            ) * 0.025
+          ),
+        size:
+          base.size +
+          Math.min(
+            0.16,
+            Math.max(
+              0,
+              state.stageLevel - 3
+            ) * 0.012
+          ),
+        bob:
+          Math.random() *
+          Math.PI *
+          2,
+        hitFlash: 0,
+        boss: forceBoss,
+        dead: false
+      });
+    }
+
+    function chooseTarget() {
+      const alive =
+        state.monsters.filter(
+          (monster) => !monster.dead
+        );
+
+      if (!alive.length) {
+        spawnMonster();
+        return state.monsters[
+          state.monsters.length - 1
+        ];
+      }
+
+      return alive.reduce(
+        (closest, monster) =>
+          monster.x < closest.x
+            ? monster
+            : closest,
+        alive[0]
+      );
+    }
+
+    function answerQuestion(value, button) {
+      if (
+        !state.running ||
+        state.paused ||
+        state.ended ||
+        state.answersLocked ||
+        !state.currentQuestion
+      ) {
+        return;
+      }
+
+      state.answersLocked = true;
+
+      answerButtons.forEach((item) => {
+        item.disabled = true;
+      });
+
+      const question =
+        state.currentQuestion;
+
+      const correct =
+        Number(value) === question.answer;
+
+      state.questionCount += 1;
+      state.stats.totalQuestions += 1;
+
+      state.stats.mastery[
+        question.table
+      ].attempts += 1;
+
+      state.sessionAnswered.push({
+        table: question.table,
+        multiplier:
+          question.multiplier,
+        correct
+      });
+
+      if (correct) {
+        state.correctCount += 1;
+
+        if (!question.bossQuestion) {
+          state.stageQuestion += 1;
+        }
+
+        state.stats.totalCorrect += 1;
+
+        state.stats.mastery[
+          question.table
+        ].correct += 1;
+
+        state.combo += 1;
+
+        state.bestComboRun =
+          Math.max(
+            state.bestComboRun,
+            state.combo
+          );
+
+        state.spell =
+          Math.min(
+            5,
+            state.spell + 1
+          );
+
+        const comboBonus =
+          Math.min(
+            130,
+            (state.combo - 1) * 12
+          );
+
+        const gained =
+          110 +
+          comboBonus +
+          (
+            question.challenge
+              ? 85
+              : 0
+          ) +
+          (
+            question.bossQuestion
+              ? 120
+              : 0
+          );
+
+        const xpGain =
+          34 +
+          (
+            question.challenge
+              ? 34
+              : 0
+          ) +
+          (
+            question.bossQuestion
+              ? 48
+              : 0
+          );
+
+        const previousLevel =
+          state.heroLevel;
+
+        const previousTier =
+          state.evolutionTier;
+
+        state.score += gained;
+        state.earnedXp += xpGain;
+
+        state.heroLevel =
+          getHeroLevel(
+            state.stats.xp +
+            state.earnedXp
+          );
+
+        state.evolutionTier =
+          getEvolutionTier(
+            state.heroLevel
+          );
+
+        button.classList.add("correct");
+
+        state.feedbackText =
+          question.bossQuestion
+            ? `보스 타격! +${gained}`
+            : question.challenge
+              ? `도전 성공! +${gained}`
+              : `정답! +${gained}`;
+
+        state.feedbackColor =
+          question.challenge
+            ? "#ff7eb6"
+            : "#ffd76a";
+
+        state.feedbackClock = 0.95;
+        state.heroAttackTime = 0.45;
+
+        playTone("correct");
+        playTone("attack");
+
+        fireProjectile(
+          chooseTarget()
+        );
+
+        if (
+          state.heroLevel >
+          previousLevel
+        ) {
+          state.feedbackText =
+            `레벨 업! Lv.${state.heroLevel}`;
+
+          state.feedbackColor =
+            "#61e4ff";
+
+          state.feedbackClock = 1.4;
+          playTone("level");
+        }
+
+        if (
+          state.evolutionTier >
+          previousTier
+        ) {
+          state.evolutionClock = 2;
+
+          state.feedbackText =
+            `${getEvolutionName(
+              state.hero,
+              state.evolutionTier
+            )}로 진화!`;
+
+          state.feedbackColor =
+            "#ff7eb6";
+
+          state.feedbackClock = 1.8;
+          state.screenShake = 0.25;
+
+          playTone("spell");
+        }
+
+        updateProfileUI();
+        updateSpellUI();
+      } else {
+        state.combo = 0;
+        button.classList.add("wrong");
+
+        const correctButton =
+          answerButtons.find(
+            (item) =>
+              Number(item.dataset.value) ===
+              question.answer
+          );
+
+        if (correctButton) {
+          correctButton.classList.add(
+            "correct"
+          );
+        }
+
+        state.feedbackText =
+          `정답은 ${question.answer}`;
+
+        state.feedbackColor =
+          "#ff6178";
+
+        state.feedbackClock = 1.15;
+
+        state.hp = Math.max(
+          0,
+          state.hp -
+          (
+            question.challenge
+              ? 15
+              : 12
+          )
+        );
+
+        state.screenShake = 0.45;
+
+        playTone("wrong");
+
+        monstersAdvance(
+          question.bossQuestion
+            ? 58
+            : 45
+        );
+      }
+
+      updateHud();
+      saveStats();
+
+      if (state.hp <= 0) {
+        setTimeout(() => {
+          endGame(false);
+        }, 700);
+
+        return;
+      }
+
+      const delay =
+        getLiveDifficulty().answerDelay;
+
+      setTimeout(() => {
+        if (
+          state.running &&
+          !state.ended &&
+          !state.stageTransition
+        ) {
+          generateQuestion();
+        }
+      }, delay);
+    }
+
+    function fireProjectile(target) {
+      if (!target) {
+        return;
+      }
+
+      state.projectiles.push({
+        x: 235,
+        y: 405,
+        tx: target.x,
+        ty: target.y - 80,
+        targetId: target.id,
+        speed: 930,
+        life: 1.5,
+        color:
+          heroMeta[state.hero].color,
+        trail: []
+      });
+    }
+
+    function monstersAdvance(amount) {
+      state.monsters.forEach(
+        (monster) => {
+          monster.x -= amount;
+          monster.hitFlash = 0.16;
+        }
+      );
+    }
+
+    function castSpell() {
+      if (
+        !state.running ||
+        state.paused ||
+        state.spell < 5
+      ) {
+        return;
+      }
+
+      state.spell = 0;
+      state.spellAnim = 1.55;
+
+      const spellNames = [
+        "별빛 폭발",
+        "각성 폭발",
+        "천공 강림",
+        "전설의 심판"
+      ];
+
+      state.feedbackText =
+        spellNames[
+          state.evolutionTier - 1
+        ];
+
+      state.feedbackColor =
+        "#ff7eb6";
+
+      state.feedbackClock = 1.45;
+      state.screenShake = 0.55;
+
+      playTone("spell");
+
+      state.bursts.push({
+        x: 760,
+        y: 220,
+        radius: 0,
+        alpha: 1.1,
+        mega: true
+      });
+
+      state.bursts.push({
+        x: 910,
+        y: 260,
+        radius: 0,
+        alpha: 0.9,
+        mega: true
+      });
+
+      for (
+        const monster of
+        state.monsters
+      ) {
+        monster.hp = 0;
+        monster.dead = true;
+
+        createParticles(
+          monster.x,
+          monster.y - 60,
+          monster.color,
+          24
+        );
+
+        createParticles(
+          monster.x,
+          monster.y - 80,
+          "#ffffff",
+          12
+        );
+
+        state.score +=
+          monster.boss
+            ? 1000
+            : 240;
+      }
+
+      state.monsters =
+        state.monsters.filter(
+          (monster) => !monster.dead
+        );
+
+      setTimeout(() => {
+        if (
+          state.running &&
+          !state.ended
+        ) {
+          spawnMonster();
+        }
+      }, 260);
+
+      updateSpellUI();
+      updateHud();
+    }
+
+    function updateSpellUI() {
+      $("spellFill").style.width =
+        `${(state.spell / 5) * 100}%`;
+
+      const ready =
+        state.spell >= 5;
+
+      $("spellBtn").disabled =
+        !ready;
+
+      $("spellBtn").classList.toggle(
+        "ready",
+        ready
+      );
+
+      const names = [
+        "별빛 폭발",
+        "각성 폭발",
+        "천공 강림",
+        "전설의 심판"
+      ];
+
+      $("spellBtn").textContent =
+        ready
+          ? `✨ ${names[
+              state.evolutionTier - 1
+            ]} 사용`
+          : `${state.spell}/5 충전`;
+    }
+
+    function updateHud() {
+      $("hpValue").textContent =
+        `${Math.max(
+          0,
+          Math.round(state.hp)
+        )}%`;
+
+      $("hpFill").style.width =
+        `${clamp(
+          (
+            state.hp /
+            state.maxHp
+          ) * 100,
+          0,
+          100
+        )}%`;
+
+      $("comboValue").textContent =
+        state.combo;
+
+      $("scoreValue").textContent =
+        formatNumber(state.score);
+
+      $("levelValue").textContent =
+        `Lv.${state.heroLevel}`;
+
+      const theme = getStageTheme();
+
+      const stageProgress =
+        state.bossSpawned
+          ? "BOSS"
+          : `${state.stageQuestion}/` +
+            `${Math.max(
+              1,
+              state.stageGoal - 1
+            )}`;
+
+      $("stageName").textContent =
+        `${theme.name} · ` +
+        `스테이지 ${state.stageLevel}/12 · ` +
+        stageProgress;
+    }
+
+    function startGame(
+      skipScroll = false
+    ) {
+      state.mode = "adventure";
+      state.running = true;
+      state.paused = false;
+      state.ended = false;
+      state.score = 0;
+      state.combo = 0;
+      state.bestComboRun = 0;
+      state.hp = state.maxHp;
+      state.spell = 0;
+      state.spellAnim = 0;
+      state.stageLevel = 1;
+      state.stageQuestion = 0;
+      state.stageGoal = 7;
+      state.bossSpawned = false;
+      state.stageTransition = false;
+      state.earnedXp = 0;
+
+      state.heroLevel =
+        getHeroLevel(
+          state.stats.xp
+        );
+
+      state.evolutionTier =
+        getEvolutionTier(
+          state.heroLevel
+        );
+
+      state.evolutionClock = 0;
+      state.questionCount = 0;
+      state.correctCount = 0;
+      state.currentQuestion = null;
+      state.answersLocked = false;
+      state.monsters = [];
+      state.projectiles = [];
+      state.particles = [];
+      state.bursts = [];
+      state.elapsed = 0;
+      state.lastFrame =
+        performance.now();
+      state.spawnClock = 0;
+      state.feedbackClock = 0;
+      state.sessionAnswered = [];
+      state.sessionStart =
+        Date.now();
+      state.heroAttackTime = 0;
+      state.screenShake = 0;
+      state.backgroundOffset = 0;
+
+      updateStreak();
+
+      $("introOverlay").classList.remove(
+        "show"
+      );
+
+      $("pauseOverlay").classList.remove(
+        "show"
+      );
+
+      $("resultOverlay").classList.remove(
+        "show"
+      );
+
+      spawnMonster();
+      generateQuestion();
+      updateProfileUI();
+      updateHud();
+      updateSpellUI();
+
+      if (!skipScroll) {
+        $("gameArea").scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }
+
+      ensureAudio();
+      startMusic();
+
+      if (!animationId) {
+        animationId =
+          requestAnimationFrame(
+            gameLoop
+          );
+      }
+    }
+
+    function pauseGame() {
+      if (
+        !state.running ||
+        state.ended
+      ) {
+        return;
+      }
+
+      state.paused = true;
+      stopMusic();
+
+      $("pauseOverlay").classList.add(
+        "show"
+      );
+    }
+
+    function resumeGame() {
+      if (
+        !state.running ||
+        state.ended
+      ) {
+        return;
+      }
+
+      state.paused = false;
+      state.lastFrame =
+        performance.now();
+
+      $("pauseOverlay").classList.remove(
+        "show"
+      );
+
+      startMusic();
+    }
+
+    function quitGame() {
+      if (!state.running) {
+        return;
+      }
+
+      endGame(false, true);
+    }
+
+    function advanceStage() {
+      state.stageLevel += 1;
+      state.stageQuestion = 0;
+
+      state.stageGoal =
+        Math.min(
+          10,
+          7 +
+          Math.floor(
+            (state.stageLevel - 1) / 3
+          )
+        );
+
+      state.bossSpawned = false;
+      state.stageTransition = false;
+
+      state.hp =
+        Math.min(
+          state.maxHp,
+          state.hp + 18
+        );
+
+      state.spell =
+        Math.min(
+          5,
+          state.spell + 1
+        );
+
+      state.score +=
+        350 +
+        state.stageLevel * 70;
+
+      state.monsters.forEach(
+        (monster) => {
+          createParticles(
+            monster.x,
+            monster.y - 60,
+            monster.color,
+            14
+          );
+        }
+      );
+
+      state.monsters = [];
+      state.projectiles = [];
+
+      state.feedbackText =
+        `스테이지 ${state.stageLevel} · ` +
+        getStageTheme().name;
+
+      state.feedbackColor =
+        state.stageLevel >= 7
+          ? "#ff8b9f"
+          : "#40d8ff";
+
+      state.feedbackClock = 1.75;
+
+      state.screenShake =
+        state.stageLevel >= 7
+          ? 0.28
+          : 0.12;
+
+      playTone("win");
+      updateHud();
+      updateSpellUI();
+      startMusic();
+
+      setTimeout(() => {
+        if (
+          !state.running ||
+          state.ended
+        ) {
+          return;
+        }
+
+        spawnMonster();
+        generateQuestion();
+      }, 850);
+    }
+
+    function endGame(
+      success,
+      quit = false
+    ) {
+      if (state.ended) {
+        return;
+      }
+
+      state.ended = true;
+      state.running = false;
+      state.paused = false;
+
+      stopMusic();
+
+      answerButtons.forEach(
+        (button) => {
+          button.disabled = true;
+        }
+      );
+
+      const accuracy =
+        state.questionCount
+          ? (
+              state.correctCount /
+              state.questionCount
+            ) * 100
+          : 0;
+
+      const starsEarned =
+        quit
+          ? 0
+          : success
+            ? 5
+            : state.stageLevel >= 9
+              ? 4
+              : state.stageLevel >= 6
+                ? 3
+                : state.stageLevel >= 3
+                  ? 2
+                  : 1;
+
+      const xpEarned =
+        state.earnedXp;
+
+      state.stats.totalPlays += 1;
+
+      state.stats.bestScore =
+        Math.max(
+          state.stats.bestScore,
+          state.score
+        );
+
+      state.stats.bestCombo =
+        Math.max(
+          state.stats.bestCombo,
+          state.bestComboRun
+        );
+
+      state.stats.bestStage =
+        Math.max(
+          state.stats.bestStage || 1,
+          state.stageLevel
+        );
+
+      state.stats.stars +=
+        starsEarned;
+
+      state.stats.xp +=
+        xpEarned;
+
+      state.stats.bestHeroLevel =
+        Math.max(
+          state.stats.bestHeroLevel || 1,
+          getHeroLevel(
+            state.stats.xp
+          )
+        );
+
+      state.heroLevel =
+        getHeroLevel(
+          state.stats.xp
+        );
+
+      state.evolutionTier =
+        getEvolutionTier(
+          state.heroLevel
+        );
+
+      saveStats();
+
+      $("resultEmoji").textContent =
+        quit
+          ? "🌙"
+          : success
+            ? "👑"
+            : state.hp <= 0
+              ? "💫"
+              : "🛡️";
+
+      $("resultTitle").textContent =
+        quit
+          ? "모험을 마쳤어요"
+          : success
+            ? "어둠왕을 물리쳤어요!"
+            : state.hp <= 0
+              ? "앗! 수호자가 쓰러졌어요"
+              : "조금만 더 연습하면 돼요";
+
+      $("resultSummary").textContent =
+        quit
+          ? "지금까지의 기록은 저장됐어요. 준비되면 별빛 왕국으로 다시 돌아오세요."
+          : success
+            ? `모든 스테이지를 돌파했습니다. ${heroMeta[state.hero].name}는 ${getEvolutionName(state.hero, state.evolutionTier)}로 성장했어요.`
+            : `총 ${state.questionCount}문제 중 ${state.correctCount}문제를 맞히고 스테이지 ${state.stageLevel}까지 도달했어요. 경험치 ${xpEarned}점을 얻었습니다.`;
+
+      $("resultScore").textContent =
+        formatNumber(state.score);
+
+      $("resultAccuracy").textContent =
+        `${accuracy.toFixed(0)}%`;
+
+      $("resultStage").textContent =
+        `${state.stageLevel}/12`;
+
+      $("resultLevel").textContent =
+        `Lv.${state.heroLevel}`;
+
+      $("resultOverlay").classList.add(
+        "show"
+      );
+
+      $("pauseOverlay").classList.remove(
+        "show"
+      );
+
+      updateProfileUI();
+
+      if (success) {
+        playTone("win");
+      }
+    }
+
+    function gameLoop(timestamp) {
+      const deltaTime =
+        Math.min(
+          0.033,
+          Math.max(
+            0,
+            (
+              timestamp -
+              state.lastFrame
+            ) / 1000
+          )
+        );
+
+      state.lastFrame = timestamp;
+
+      if (
+        state.running &&
+        !state.paused &&
+        !state.ended
+      ) {
+        updateGame(deltaTime);
+      }
+
+      drawGame(timestamp / 1000);
+
+      animationId =
+        requestAnimationFrame(
+          gameLoop
+        );
+    }
+
+    function updateGame(deltaTime) {
+      state.elapsed += deltaTime;
+
+      state.backgroundOffset +=
+        deltaTime * 34;
+
+      state.spawnClock +=
+        deltaTime;
+
+      state.feedbackClock =
+        Math.max(
+          0,
+          state.feedbackClock -
+          deltaTime
+        );
+
+      state.heroAttackTime =
+        Math.max(
+          0,
+          state.heroAttackTime -
+          deltaTime
+        );
+
+      state.screenShake =
+        Math.max(
+          0,
+          state.screenShake -
+          deltaTime
+        );
+
+      state.spellAnim =
+        Math.max(
+          0,
+          state.spellAnim -
+          deltaTime
+        );
+
+      state.evolutionClock =
+        Math.max(
+          0,
+          state.evolutionClock -
+          deltaTime
+        );
+
+      const config =
+        getLiveDifficulty();
+
+      if (
+        state.spawnClock >
+          config.spawnInterval &&
+        state.monsters.length <
+          config.maxMonsters
+      ) {
+        state.spawnClock = 0;
+        spawnMonster();
+      }
+
+      for (
+        const monster of
+        state.monsters
+      ) {
+        if (monster.dead) {
+          continue;
+        }
+
+        monster.bob +=
+          deltaTime * 4.2;
+
+        monster.hitFlash =
+          Math.max(
+            0,
+            monster.hitFlash -
+            deltaTime
+          );
+
+        monster.x -=
+          config.monsterSpeed *
+          monster.speed *
+          deltaTime;
+
+        if (monster.x < 245) {
+          monster.dead = true;
+
+          const damage =
+            monster.boss
+              ? 34
+              : Math.min(
+                  26,
+                  15 +
+                  state.stageLevel
+                );
+
+          state.hp =
+            Math.max(
+              0,
+              state.hp - damage
+            );
+
+          state.combo = 0;
+          state.screenShake = 0.55;
+
+          state.feedbackText =
+            monster.boss
+              ? "보스가 성문을 강타했어요!"
+              : "몬스터가 성문에 도착했어요!";
+
+          state.feedbackColor =
+            "#ff8f9d";
+
+          state.feedbackClock = 1.2;
+
+          playTone("hit");
+          updateHud();
+
+          if (state.hp <= 0) {
+            endGame(false);
+            return;
+          }
+        }
+      }
+
+      state.monsters =
+        state.monsters.filter(
+          (monster) => !monster.dead
+        );
+
+      if (
+        !state.monsters.length &&
+        state.running &&
+        !state.stageTransition
+      ) {
+        spawnMonster();
+      }
+
+      for (
+        const projectile of
+        state.projectiles
+      ) {
+        const target =
+          state.monsters.find(
+            (monster) =>
+              monster.id ===
+                projectile.targetId &&
+              !monster.dead
+          );
+
+        if (target) {
+          projectile.tx = target.x;
+          projectile.ty =
+            target.y - 85;
+        }
+
+        const deltaX =
+          projectile.tx -
+          projectile.x;
+
+        const deltaY =
+          projectile.ty -
+          projectile.y;
+
+        const distance =
+          Math.hypot(
+            deltaX,
+            deltaY
+          );
+
+        const step =
+          projectile.speed *
+          deltaTime;
+
+        projectile.trail.push({
+          x: projectile.x,
+          y: projectile.y,
+          life: 0.26
+        });
+
+        if (
+          projectile.trail.length > 10
+        ) {
+          projectile.trail.shift();
+        }
+
+        projectile.trail.forEach(
+          (point) => {
+            point.life -= deltaTime;
+          }
+        );
+
+        if (
+          distance <=
+          step + 12
+        ) {
+          projectile.life = 0;
+
+          if (target) {
+            hitMonster(target);
+          }
+        } else {
+          projectile.x +=
+            (
+              deltaX /
+              distance
+            ) * step;
+
+          projectile.y +=
+            (
+              deltaY /
+              distance
+            ) * step;
+
+          projectile.life -=
+            deltaTime;
+        }
+      }
+
+      state.projectiles =
+        state.projectiles.filter(
+          (projectile) =>
+            projectile.life > 0
+        );
+
+      for (
+        const particle of
+        state.particles
+      ) {
+        particle.life -= deltaTime;
+        particle.x +=
+          particle.vx * deltaTime;
+        particle.y +=
+          particle.vy * deltaTime;
+
+        particle.vy +=
+          140 * deltaTime;
+
+        particle.rotation +=
+          particle.spin * deltaTime;
+      }
+
+      state.particles =
+        state.particles.filter(
+          (particle) =>
+            particle.life > 0
+        );
+
+      for (
+        const burst of
+        state.bursts
+      ) {
+        burst.radius +=
+          deltaTime *
+          (
+            burst.mega
+              ? 1220
+              : 900
+          );
+
+        burst.alpha -=
+          deltaTime *
+          (
+            burst.mega
+              ? 1
+              : 1.4
+          );
+      }
+
+      state.bursts =
+        state.bursts.filter(
+          (burst) =>
+            burst.alpha > 0
+        );
+
+      updateHud();
+    }
+
+    function hitMonster(monster) {
+      monster.hp -= 1;
+      monster.hitFlash = 0.22;
+
+      createParticles(
+        monster.x,
+        monster.y - 70,
+        monster.color,
+        monster.boss
+          ? 18
+          : 10
+      );
+
+      playTone("hit");
+
+      if (monster.hp > 0) {
+        return;
+      }
+
+      monster.dead = true;
+
+      const bonus =
+        monster.boss
+          ? 900 +
+            state.stageLevel * 90
+          : 140;
+
+      state.score += bonus;
+
+      createParticles(
+        monster.x,
+        monster.y - 70,
+        "#ffd76a",
+        monster.boss
+          ? 40
+          : 18
+      );
+
+      state.feedbackText =
+        monster.boss
+          ? `스테이지 보스 격파! +${bonus}`
+          : `몬스터 격파! +${bonus}`;
+
+      state.feedbackColor =
+        "#ffd76a";
+
+      state.feedbackClock =
+        monster.boss
+          ? 1.4
+          : 0.8;
+
+      if (
+        monster.boss &&
+        !state.stageTransition
+      ) {
+        state.stageTransition = true;
+
+        answerButtons.forEach(
+          (button) => {
+            button.disabled = true;
+          }
+        );
+
+        if (
+          state.stageLevel >= 12
+        ) {
+          setTimeout(() => {
+            endGame(true);
+          }, 1050);
+        } else {
+          setTimeout(
+            advanceStage,
+            950
+          );
+        }
+      }
+    }
+
+    function createParticles(
+      x,
+      y,
+      color,
+      count
+    ) {
+      for (
+        let index = 0;
+        index < count;
+        index += 1
+      ) {
+        const angle =
+          Math.random() *
+          Math.PI *
+          2;
+
+        const speed =
+          80 +
+          Math.random() * 240;
+
+        state.particles.push({
+          x,
+          y,
+          vx:
+            Math.cos(angle) *
+            speed,
+          vy:
+            Math.sin(angle) *
+            speed -
+            60,
+          life:
+            0.45 +
+            Math.random() *
+            0.55,
+          maxLife: 1,
+          size:
+            2 +
+            Math.random() * 5,
+          color,
+          rotation:
+            Math.random() *
+            Math.PI,
+          spin:
+            (
+              Math.random() -
+              0.5
+            ) * 7
+        });
+      }
+    }
+
+    function roundedRect(
+      context,
+      x,
+      y,
+      width,
+      height,
+      radius
+    ) {
+      const safeRadius =
+        Math.min(
+          radius,
+          width / 2,
+          height / 2
+        );
+
+      context.beginPath();
+
+      context.moveTo(
+        x + safeRadius,
+        y
+      );
+
+      context.arcTo(
+        x + width,
+        y,
+        x + width,
+        y + height,
+        safeRadius
+      );
+
+      context.arcTo(
+        x + width,
+        y + height,
+        x,
+        y + height,
+        safeRadius
+      );
+
+      context.arcTo(
+        x,
+        y + height,
+        x,
+        y,
+        safeRadius
+      );
+
+      context.arcTo(
+        x,
+        y,
+        x + width,
+        y,
+        safeRadius
+      );
+
+      context.closePath();
+    }
+
+    function drawGame(time) {
+      const width = canvas.width;
+      const height = canvas.height;
+
+      ctx.save();
+      ctx.clearRect(
+        0,
+        0,
+        width,
+        height
+      );
+
+      if (state.screenShake > 0) {
+        const power =
+          state.screenShake * 11;
+
+        ctx.translate(
+          (
+            Math.random() -
+            0.5
+          ) * power,
+          (
+            Math.random() -
+            0.5
+          ) * power
+        );
+      }
+
+      drawBackground(
+        ctx,
+        width,
+        height,
+        time
+      );
+
+      if (state.spellAnim > 0) {
+        drawSpellSky(
+          ctx,
+          width,
+          height,
+          time
+        );
+      }
+
+      drawCastle(
+        ctx,
+        175,
+        438,
+        time
+      );
+
+      drawHero(
+        ctx,
+        245,
+        508,
+        time,
+        heroMeta[state.hero],
+        state.heroAttackTime > 0
+      );
+
+      state.monsters.forEach(
+        (monster) => {
+          drawMonster(
+            ctx,
+            monster,
+            time
+          );
+        }
+      );
+
+      state.projectiles.forEach(
+        (projectile) => {
+          drawProjectile(
+            ctx,
+            projectile
+          );
+        }
+      );
+
+      state.particles.forEach(
+        (particle) => {
+          drawParticle(
+            ctx,
+            particle
+          );
+        }
+      );
+
+      state.bursts.forEach(
+        (burst) => {
+          drawBurst(
+            ctx,
+            burst
+          );
+        }
+      );
+
+      if (state.spellAnim > 0) {
+        drawSpellFinisher(
+          ctx,
+          width,
+          height,
+          time
+        );
+      }
+
+      drawForeground(
+        ctx,
+        width,
+        height,
+        time
+      );
+
+      if (state.feedbackClock > 0) {
+        drawFeedback(
+          ctx,
+          state.feedbackText,
+          state.feedbackColor,
+          state.feedbackClock
+        );
+      }
+
+      ctx.restore();
+    }
+
+    function drawBackground(
+      context,
+      width,
+      height,
+      time
+    ) {
+      const theme = getStageTheme();
+
+      const gradient =
+        context.createLinearGradient(
+          0,
+          0,
+          0,
+          height
+        );
+
+      gradient.addColorStop(
+        0,
+        theme.skyTop
+      );
+
+      gradient.addColorStop(
+        0.55,
+        theme.skyMid
+      );
+
+      gradient.addColorStop(
+        1,
+        theme.skyBottom
+      );
+
+      context.fillStyle = gradient;
+
+      context.fillRect(
+        0,
+        0,
+        width,
+        height
+      );
+
+      context.fillStyle =
+        theme.glow;
+
+      context.beginPath();
+
+      context.arc(
+        1060,
+        110,
+        88,
+        0,
+        Math.PI * 2
+      );
+
+      context.fill();
+
+      context.fillStyle =
+        theme.sun;
+
+      context.beginPath();
+
+      context.arc(
+        1060,
+        110,
+        52,
+        0,
+        Math.PI * 2
+      );
+
+      context.fill();
+
+      for (
+        let index = 0;
+        index < 8;
+        index += 1
+      ) {
+        const x =
+          (
+            (
+              index * 190 -
+              state.backgroundOffset *
+              0.6
+            ) %
+            (width + 220)
+          ) -
+          120;
+
+        const y =
+          82 +
+          (index % 3) * 36 +
+          Math.sin(
+            time * 0.8 +
+            index
+          ) * 5;
+
+        context.fillStyle =
+          "rgba(255,255,255,0.82)";
+
+        context.beginPath();
+        context.arc(x, y, 26, 0, Math.PI * 2);
+        context.arc(x + 30, y - 10, 24, 0, Math.PI * 2);
+        context.arc(x + 56, y, 22, 0, Math.PI * 2);
+        context.fill();
+      }
+
+      if (theme.rainbow) {
+        context.save();
+        context.lineCap = "round";
+
+        const bands = [
+          "#ff8fb6",
+          "#ffb15f",
+          "#ffe06e",
+          "#8adf9a",
+          "#73d2ff",
+          "#9c88ff"
+        ];
+
+        bands.forEach(
+          (color, index) => {
+            context.strokeStyle = color;
+            context.lineWidth = 10;
+            context.beginPath();
+
+            context.arc(
+              910,
+              350,
+              145 - index * 10,
+              Math.PI * 1.03,
+              Math.PI * 1.82
+            );
+
+            context.stroke();
+          }
+        );
+
+        context.restore();
+      }
+
+      const farOffset =
+        -(
+          state.backgroundOffset *
+          0.22
+        ) % 260;
+
+      context.fillStyle =
+        theme.hillFar;
+
+      for (
+        let index = -2;
+        index < 8;
+        index += 1
+      ) {
+        const x =
+          farOffset +
+          index * 260;
+
+        context.beginPath();
+
+        context.moveTo(
+          x,
+          470
+        );
+
+        context.quadraticCurveTo(
+          x + 120,
+          290 +
+          (index % 2) * 45,
+          x + 260,
+          470
+        );
+
+        context.closePath();
+        context.fill();
+      }
+
+      const nearOffset =
+        -(
+          state.backgroundOffset *
+          0.45
+        ) % 220;
+
+      context.fillStyle =
+        theme.hillNear;
+
+      for (
+        let index = -2;
+        index < 9;
+        index += 1
+      ) {
+        const x =
+          nearOffset +
+          index * 220;
+
+        context.beginPath();
+
+        context.moveTo(
+          x,
+          540
+        );
+
+        context.quadraticCurveTo(
+          x + 110,
+          350 +
+          (index % 3) * 22,
+          x + 220,
+          540
+        );
+
+        context.closePath();
+        context.fill();
+      }
+
+      const ground =
+        context.createLinearGradient(
+          0,
+          500,
+          0,
+          height
+        );
+
+      ground.addColorStop(
+        0,
+        theme.groundTop
+      );
+
+      ground.addColorStop(
+        1,
+        theme.groundBottom
+      );
+
+      context.fillStyle =
+        ground;
+
+      context.fillRect(
+        0,
+        500,
+        width,
+        height - 500
+      );
+
+      context.fillStyle =
+        theme.path;
+
+      context.beginPath();
+      context.moveTo(0, 720);
+      context.lineTo(180, 560);
+      context.lineTo(1280, 560);
+      context.lineTo(1280, 720);
+      context.closePath();
+      context.fill();
+
+      for (
+        let index = 0;
+        index < 18;
+        index += 1
+      ) {
+        const x =
+          (
+            (
+              index * 84 -
+              state.backgroundOffset *
+              1.5
+            ) %
+            (width + 100)
+          ) -
+          50;
+
+        const y =
+          598 +
+          Math.sin(
+            time * 2 +
+            index
+          ) * 8;
+
+        context.fillStyle =
+          index % 2 === 0
+            ? theme.flowerA
+            : theme.flowerB;
+
+        context.beginPath();
+        context.arc(x, y, 5, 0, Math.PI * 2);
+        context.arc(x - 4, y + 5, 4, 0, Math.PI * 2);
+        context.arc(x + 4, y + 5, 4, 0, Math.PI * 2);
+        context.fill();
+
+        context.fillStyle =
+          "#52a36c";
+
+        context.fillRect(
+          x - 1,
+          y + 3,
+          2,
+          14
+        );
+      }
+
+      if (theme.moon) {
+        context.fillStyle =
+          "rgba(238,240,255,0.78)";
+
+        context.beginPath();
+
+        context.arc(
+          1055,
+          108,
+          47,
+          0,
+          Math.PI * 2
+        );
+
+        context.fill();
+
+        context.fillStyle =
+          `rgba(20,22,39,${0.45 + theme.darkness * 0.35})`;
+
+        context.beginPath();
+
+        context.arc(
+          1074,
+          96,
+          43,
+          0,
+          Math.PI * 2
+        );
+
+        context.fill();
+      }
+
+      if (theme.fog > 0) {
+        context.save();
+        context.globalAlpha =
+          theme.fog;
+
+        context.fillStyle =
+          "#edf3f5";
+
+        for (
+          let index = 0;
+          index < 7;
+          index += 1
+        ) {
+          const x =
+            (
+              (
+                index * 240 +
+                time * 24
+              ) %
+              (width + 300)
+            ) -
+            150;
+
+          const y =
+            410 +
+            (index % 3) * 70;
+
+          context.beginPath();
+
+          context.ellipse(
+            x,
+            y,
+            180,
+            34,
+            0,
+            0,
+            Math.PI * 2
+          );
+
+          context.fill();
+        }
+
+        context.restore();
+      }
+
+      if (theme.embers) {
+        context.fillStyle =
+          "rgba(255,133,77,0.72)";
+
+        for (
+          let index = 0;
+          index < 22;
+          index += 1
+        ) {
+          const x =
+            (
+              index * 93 +
+              time * 55
+            ) % width;
+
+          const y =
+            height -
+            (
+              (
+                index * 57 +
+                time * 75
+              ) % 430
+            );
+
+          context.beginPath();
+
+          context.arc(
+            x,
+            y,
+            2 + (index % 3),
+            0,
+            Math.PI * 2
+          );
+
+          context.fill();
+        }
+      }
+
+      if (
+        theme.lightning &&
+        Math.sin(
+          time * 2.7 +
+          state.stageLevel
+        ) > 0.965
+      ) {
+        context.save();
+
+        context.strokeStyle =
+          "rgba(226,220,255,0.9)";
+
+        context.lineWidth = 6;
+        context.shadowColor =
+          "#ffffff";
+
+        context.shadowBlur = 18;
+
+        context.beginPath();
+        context.moveTo(930, 0);
+        context.lineTo(885, 110);
+        context.lineTo(925, 108);
+        context.lineTo(868, 235);
+        context.stroke();
+        context.restore();
+      }
+
+      if (theme.darkness > 0) {
+        context.fillStyle =
+          `rgba(8,10,22,${theme.darkness * 0.48})`;
+
+        context.fillRect(
+          0,
+          0,
+          width,
+          height
+        );
+      }
+    }
+
+    function drawCastle(
+      context,
+      x,
+      y,
+      time
+    ) {
+      context.save();
+      context.translate(x, y);
+
+      const pulse =
+        0.5 +
+        Math.sin(time * 2.3) *
+        0.12;
+
+      context.fillStyle =
+        "rgba(255,255,255,0.35)";
+
+      context.beginPath();
+
+      context.arc(
+        0,
+        -72,
+        108 + pulse * 10,
+        0,
+        Math.PI * 2
+      );
+
+      context.fill();
+
+      context.fillStyle =
+        "#ffffff";
+
+      roundedRect(
+        context,
+        -74,
+        -114,
+        148,
+        126,
+        20
+      );
+
+      context.fill();
+
+      context.fillStyle =
+        "#a7dcff";
+
+      roundedRect(
+        context,
+        -98,
+        -152,
+        50,
+        164,
+        14
+      );
+
+      context.fill();
+
+      roundedRect(
+        context,
+        48,
+        -152,
+        50,
+        164,
+        14
+      );
+
+      context.fill();
+
+      context.fillStyle =
+        "#8d78ff";
+
+      context.beginPath();
+      context.moveTo(-99, -152);
+      context.lineTo(-73, -190);
+      context.lineTo(-48, -152);
+      context.fill();
+
+      context.beginPath();
+      context.moveTo(49, -152);
+      context.lineTo(74, -190);
+      context.lineTo(99, -152);
+      context.fill();
+
+      context.fillStyle =
+        "#61e4ff";
+
+      roundedRect(
+        context,
+        -30,
+        -50,
+        60,
+        60,
+        23
+      );
+
+      context.fill();
+
+      context.fillStyle =
+        "#ffcf5f";
+
+      context.beginPath();
+
+      context.arc(
+        0,
+        -165,
+        26 + pulse * 4,
+        0,
+        Math.PI * 2
+      );
+
+      context.fill();
+
+      context.fillStyle =
+        "#ffffff";
+
+      context.beginPath();
+
+      context.arc(
+        0,
+        -165,
+        11,
+        0,
+        Math.PI * 2
+      );
+
+      context.fill();
+      context.restore();
+    }
+
+    function drawHero(
+      context,
+      x,
+      y,
+      time,
+      meta,
+      attacking
+    ) {
+      context.save();
+      context.translate(x, y);
+
+      const bob =
+        Math.sin(time * 5.2) * 4;
+
+      const swing =
+        attacking
+          ? Math.sin(
+              (
+                0.45 -
+                state.heroAttackTime
+              ) * 15
+            ) * 16
+          : Math.sin(time * 7) * 4;
+
+      const legSwing =
+        Math.sin(time * 8) * 6;
+
+      const hero =
+        state.hero;
+
+      const tier =
+        state.evolutionTier || 1;
+
+      context.scale(
+        1 +
+        (tier - 1) * 0.035,
+        1 +
+        (tier - 1) * 0.035
+      );
+
+      const spellLift =
+        state.spellAnim > 0
+          ? Math.sin(
+              (
+                1 -
+                state.spellAnim /
+                1.55
+              ) *
+              Math.PI
+            ) *
+            170 +
+            36
+          : 0;
+
+      context.translate(
+        0,
+        bob - spellLift
+      );
+
+      if (state.spellAnim > 0) {
+        context.fillStyle =
+          "rgba(255,255,255,0.75)";
+
+        context.beginPath();
+
+        context.ellipse(
+          0,
+          64,
+          70,
+          18,
+          0,
+          0,
+          Math.PI * 2
+        );
+
+        context.fill();
+
+        context.strokeStyle =
+          hero === "arin"
+            ? "#ffd76a"
+            : meta.color;
+
+        context.lineWidth = 6;
+
+        for (
+          let index = 0;
+          index < 3;
+          index += 1
+        ) {
+          context.globalAlpha =
+            0.35 -
+            index * 0.08;
+
+          context.beginPath();
+
+          context.arc(
+            0,
+            -24,
+            54 +
+            index * 15 +
+            Math.sin(
+              time * 9 +
+              index
+            ) * 4,
+            0,
+            Math.PI * 2
+          );
+
+          context.stroke();
+        }
+
+        context.globalAlpha = 1;
+      }
+
+      if (
+        tier >= 2 ||
+        state.evolutionClock > 0
+      ) {
+        context.save();
+
+        context.globalAlpha =
+          state.evolutionClock > 0
+            ? 0.75
+            : 0.26;
+
+        context.strokeStyle =
+          tier >= 4
+            ? "#ffd76a"
+            : meta.color;
+
+        context.lineWidth =
+          tier >= 4
+            ? 8
+            : 5;
+
+        context.shadowColor =
+          meta.color;
+
+        context.shadowBlur = 24;
+
+        context.beginPath();
+
+        context.arc(
+          0,
+          -35,
+          60 +
+          Math.sin(time * 5) * 5,
+          0,
+          Math.PI * 2
+        );
+
+        context.stroke();
+
+        if (tier >= 3) {
+          context.fillStyle =
+            tier >= 4
+              ? "rgba(255,215,106,0.34)"
+              : "rgba(190,230,255,0.34)";
+
+          context.beginPath();
+          context.moveTo(-24, -48);
+          context.quadraticCurveTo(-86, -90, -72, -6);
+          context.quadraticCurveTo(-46, -24, -18, -12);
+          context.closePath();
+          context.fill();
+
+          context.beginPath();
+          context.moveTo(24, -48);
+          context.quadraticCurveTo(86, -90, 72, -6);
+          context.quadraticCurveTo(46, -24, 18, -12);
+          context.closePath();
+          context.fill();
+        }
+
+        if (tier >= 4) {
+          for (
+            let index = 0;
+            index < 4;
+            index += 1
+          ) {
+            const angle =
+              time * 2 +
+              index *
+              Math.PI /
+              2;
+
+            const starX =
+              Math.cos(angle) *
+              72;
+
+            const starY =
+              -40 +
+              Math.sin(angle) *
+              34;
+
+            context.fillStyle =
+              "#fff4a8";
+
+            context.beginPath();
+
+            context.arc(
+              starX,
+              starY,
+              6,
+              0,
+              Math.PI * 2
+            );
+
+            context.fill();
+          }
+        }
+
+        context.restore();
+      }
+
+      context.fillStyle =
+        "rgba(0,0,0,0.18)";
+
+      context.beginPath();
+
+      context.ellipse(
+        0,
+        34,
+        58,
+        16,
+        0,
+        0,
+        Math.PI * 2
+      );
+
+      context.fill();
+
+      if (hero === "lumi") {
+        context.fillStyle =
+          "#8d7eff";
+
+        context.beginPath();
+        context.moveTo(-16, -24);
+        context.lineTo(-44, 26);
+        context.lineTo(0, 10);
+        context.lineTo(44, 26);
+        context.lineTo(16, -24);
+        context.closePath();
+        context.fill();
+
+        context.strokeStyle =
+          "#7f5cff";
+
+        context.lineWidth = 10;
+        context.lineCap = "round";
+
+        context.beginPath();
+        context.moveTo(-12, 8);
+        context.lineTo(
+          -16 - legSwing,
+          40
+        );
+
+        context.moveTo(12, 8);
+        context.lineTo(
+          16 + legSwing,
+          40
+        );
+
+        context.stroke();
+
+        context.fillStyle =
+          "#ffdbc9";
+
+        context.beginPath();
+
+        context.arc(
+          0,
+          -82,
+          32,
+          0,
+          Math.PI * 2
+        );
+
+        context.fill();
+
+        context.fillStyle =
+          "#5b48da";
+
+        context.beginPath();
+
+        context.arc(
+          0,
+          -95,
+          31,
+          Math.PI,
+          Math.PI * 2
+        );
+
+        context.fill();
+
+        context.beginPath();
+        context.moveTo(-18, -104);
+        context.lineTo(0, -135);
+        context.lineTo(18, -104);
+        context.closePath();
+        context.fill();
+
+        context.fillStyle =
+          "#ffcf5f";
+
+        context.beginPath();
+        context.moveTo(0, -130);
+        context.lineTo(4, -120);
+        context.lineTo(15, -120);
+        context.lineTo(6, -114);
+        context.lineTo(10, -104);
+        context.lineTo(0, -111);
+        context.lineTo(-10, -104);
+        context.lineTo(-6, -114);
+        context.lineTo(-15, -120);
+        context.lineTo(-4, -120);
+        context.closePath();
+        context.fill();
+
+        context.fillStyle =
+          meta.accent;
+
+        roundedRect(
+          context,
+          -28,
+          -56,
+          56,
+          68,
+          22
+        );
+
+        context.fill();
+
+        context.fillStyle =
+          "#c9baff";
+
+        roundedRect(
+          context,
+          -18,
+          -42,
+          36,
+          24,
+          12
+        );
+
+        context.fill();
+
+        const shoulderX = 18;
+        const shoulderY = -42;
+
+        const handX =
+          39 + swing * 0.34;
+
+        const handY =
+          -28 - swing * 0.2;
+
+        context.strokeStyle =
+          meta.accent;
+
+        context.lineWidth = 8;
+        context.lineCap = "round";
+
+        context.beginPath();
+
+        context.moveTo(
+          -18,
+          -42
+        );
+
+        context.lineTo(
+          -38 -
+          swing * 0.3,
+          -10
+        );
+
+        context.moveTo(
+          shoulderX,
+          shoulderY
+        );
+
+        context.lineTo(
+          handX,
+          handY
+        );
+
+        context.stroke();
+
+        context.fillStyle =
+          "#ffdbc9";
+
+        context.beginPath();
+
+        context.arc(
+          handX,
+          handY,
+          7,
+          0,
+          Math.PI * 2
+        );
+
+        context.fill();
+
+        const wandLength = 48;
+
+        const wandAngle =
+          -0.82 -
+          swing * 0.006;
+
+        const wandEndX =
+          handX +
+          Math.cos(wandAngle) *
+          wandLength;
+
+        const wandEndY =
+          handY +
+          Math.sin(wandAngle) *
+          wandLength;
+
+        context.strokeStyle =
+          "#6f4ba8";
+
+        context.lineWidth = 7;
+        context.lineCap = "round";
+
+        context.beginPath();
+
+        context.moveTo(
+          handX,
+          handY
+        );
+
+        context.lineTo(
+          wandEndX,
+          wandEndY
+        );
+
+        context.stroke();
+
+        context.fillStyle =
+          "#ffd76a";
+
+        context.beginPath();
+
+        context.arc(
+          wandEndX,
+          wandEndY,
+          15,
+          0,
+          Math.PI * 2
+        );
+
+        context.fill();
+
+        context.fillStyle =
+          "#ffffff";
+
+        context.beginPath();
+
+        context.arc(
+          wandEndX,
+          wandEndY,
+          6,
+          0,
+          Math.PI * 2
+        );
+
+        context.fill();
+      }
+
+      if (hero === "arin") {
+        context.strokeStyle =
+          "#ffb36b";
+
+        context.lineWidth = 10;
+        context.lineCap = "round";
+
+        context.beginPath();
+        context.moveTo(-12, 8);
+        context.lineTo(
+          -16 - legSwing,
+          40
+        );
+
+        context.moveTo(12, 8);
+        context.lineTo(
+          16 + legSwing,
+          40
+        );
+
+        context.stroke();
+
+        context.fillStyle =
+          meta.color;
+
+        roundedRect(
+          context,
+          -30,
+          -56,
+          60,
+          68,
+          24
+        );
+
+        context.fill();
+
+        context.fillStyle =
+          "#ffffff";
+
+        roundedRect(
+          context,
+          -12,
+          -28,
+          24,
+          34,
+          12
+        );
+
+        context.fill();
+
+        context.fillStyle =
+          "#ffdbc9";
+
+        context.beginPath();
+
+        context.arc(
+          0,
+          -82,
+          31,
+          0,
+          Math.PI * 2
+        );
+
+        context.fill();
+
+        context.fillStyle =
+          "#ffb36b";
+
+        context.beginPath();
+
+        context.arc(
+          0,
+          -95,
+          31,
+          Math.PI,
+          Math.PI * 2
+        );
+
+        context.fill();
+
+        context.fillStyle =
+          "#f4f8ff";
+
+        roundedRect(
+          context,
+          -28,
+          -106,
+          56,
+          20,
+          10
+        );
+
+        context.fill();
+
+        context.fillStyle =
+          "#ffd76a";
+
+        context.beginPath();
+        context.moveTo(-8, -106);
+        context.lineTo(0, -120);
+        context.lineTo(8, -106);
+        context.closePath();
+        context.fill();
+
+        context.fillStyle =
+          "#ff7eb6";
+
+        context.beginPath();
+        context.moveTo(-24, -50);
+        context.lineTo(-52, -20);
+        context.lineTo(-22, -12);
+        context.closePath();
+        context.fill();
+
+        context.fillStyle =
+          "#8cc7ff";
+
+        context.beginPath();
+
+        context.arc(
+          -44,
+          -26,
+          20,
+          0,
+          Math.PI * 2
+        );
+
+        context.fill();
+
+        context.fillStyle =
+          "#ffffff";
+
+        context.beginPath();
+
+        context.arc(
+          -44,
+          -26,
+          10,
+          0,
+          Math.PI * 2
+        );
+
+        context.fill();
+
+        context.strokeStyle =
+          meta.accent;
+
+        context.lineWidth = 8;
+
+        context.beginPath();
+        context.moveTo(22, -42);
+
+        context.lineTo(
+          52 + swing,
+          -72 -
+          swing * 0.3
+        );
+
+        context.stroke();
+
+        context.fillStyle =
+          "#ffe8a8";
+
+        context.beginPath();
+
+        context.arc(
+          58 + swing,
+          -77 -
+          swing * 0.3,
+          12,
+          0,
+          Math.PI * 2
+        );
+
+        context.fill();
+      }
+
+      if (hero === "piko") {
+        context.fillStyle =
+          "#66c792";
+
+        roundedRect(
+          context,
+          -30,
+          -52,
+          60,
+          66,
+          20
+        );
+
+        context.fill();
+
+        context.strokeStyle =
+          "#5b8cff";
+
+        context.lineWidth = 9;
+        context.lineCap = "round";
+
+        context.beginPath();
+        context.moveTo(-12, 10);
+
+        context.lineTo(
+          -16 - legSwing,
+          39
+        );
+
+        context.moveTo(12, 10);
+
+        context.lineTo(
+          16 + legSwing,
+          39
+        );
+
+        context.stroke();
+
+        context.fillStyle =
+          "#d8f5ff";
+
+        roundedRect(
+          context,
+          -28,
+          -96,
+          56,
+          48,
+          18
+        );
+
+        context.fill();
+
+        context.fillStyle =
+          "#61e4ff";
+
+        roundedRect(
+          context,
+          -18,
+          -84,
+          36,
+          18,
+          9
+        );
+
+        context.fill();
+
+        context.fillStyle =
+          "#0b2442";
+
+        context.beginPath();
+        context.arc(-8, -75, 4, 0, Math.PI * 2);
+        context.arc(8, -75, 4, 0, Math.PI * 2);
+        context.fill();
+
+        context.strokeStyle =
+          "#0b2442";
+
+        context.lineWidth = 4;
+
+        context.beginPath();
+
+        context.arc(
+          0,
+          -64,
+          8,
+          0.2,
+          Math.PI - 0.2
+        );
+
+        context.stroke();
+
+        context.strokeStyle =
+          meta.accent;
+
+        context.lineWidth = 6;
+
+        context.beginPath();
+        context.moveTo(0, -96);
+        context.lineTo(0, -118);
+        context.stroke();
+
+        context.fillStyle =
+          "#ff7eb6";
+
+        context.beginPath();
+
+        context.arc(
+          0,
+          -124,
+          9,
+          0,
+          Math.PI * 2
+        );
+
+        context.fill();
+
+        context.strokeStyle =
+          meta.color;
+
+        context.lineWidth = 8;
+
+        context.beginPath();
+        context.moveTo(24, -36);
+
+        context.lineTo(
+          52 + swing,
+          -66 -
+          swing * 0.3
+        );
+
+        context.stroke();
+
+        context.fillStyle =
+          "#5b8cff";
+
+        roundedRect(
+          context,
+          48 + swing,
+          -82 -
+          swing * 0.3,
+          26,
+          26,
+          8
+        );
+
+        context.fill();
+
+        context.fillStyle =
+          "#ffffff";
+
+        context.beginPath();
+
+        context.arc(
+          61 + swing,
+          -69 -
+          swing * 0.3,
+          4,
+          0,
+          Math.PI * 2
+        );
+
+        context.fill();
+      }
+
+      context.fillStyle =
+        "#0a2442";
+
+      context.beginPath();
+      context.arc(-11, -84, 3.5, 0, Math.PI * 2);
+      context.arc(11, -84, 3.5, 0, Math.PI * 2);
+      context.fill();
+
+      context.strokeStyle =
+        "#0a2442";
+
+      context.lineWidth = 3;
+
+      context.beginPath();
+
+      context.arc(
+        0,
+        -71,
+        8,
+        0.15,
+        Math.PI - 0.15
+      );
+
+      context.stroke();
+      context.restore();
+    }
+
+    function drawMonster(
+      context,
+      monster,
+      time
+    ) {
+      context.save();
+
+      context.translate(
+        monster.x,
+        monster.y +
+        Math.sin(monster.bob) *
+        7
+      );
+
+      context.scale(
+        monster.size,
+        monster.size
+      );
+
+      context.globalAlpha =
+        monster.dead ? 0.4 : 1;
+
+      context.fillStyle =
+        "rgba(0,0,0,0.28)";
+
+      context.beginPath();
+
+      context.ellipse(
+        0,
+        14,
+        monster.boss ? 58 : 44,
+        13,
+        0,
+        0,
+        Math.PI * 2
+      );
+
+      context.fill();
+
+      const flash =
+        monster.hitFlash > 0
+          ? "#ffffff"
+          : null;
+
+      if (monster.kind === "slime") {
+        context.fillStyle =
+          flash || monster.color;
+
+        context.beginPath();
+        context.moveTo(-44, 5);
+        context.quadraticCurveTo(-48, -55, 0, -72);
+        context.quadraticCurveTo(48, -55, 44, 5);
+        context.quadraticCurveTo(24, 28, 0, 14);
+        context.quadraticCurveTo(-24, 28, -44, 5);
+        context.closePath();
+        context.fill();
+      }
+
+      if (monster.kind === "mush") {
+        context.fillStyle =
+          flash || "#e8d6c4";
+
+        roundedRect(
+          context,
+          -24,
+          -35,
+          48,
+          55,
+          18
+        );
+
+        context.fill();
+
+        context.fillStyle =
+          flash || monster.color;
+
+        context.beginPath();
+        context.arc(0, -48, 47, Math.PI, 0);
+        context.quadraticCurveTo(36, -10, 0, -8);
+        context.quadraticCurveTo(-36, -10, -47, -48);
+        context.fill();
+
+        context.fillStyle =
+          "rgba(255,255,255,0.7)";
+
+        context.beginPath();
+        context.arc(-16, -48, 7, 0, Math.PI * 2);
+        context.arc(15, -55, 5, 0, Math.PI * 2);
+        context.fill();
+      }
+
+      if (monster.kind === "rock") {
+        context.fillStyle =
+          flash || monster.color;
+
+        context.beginPath();
+        context.moveTo(-44, 5);
+        context.lineTo(-50, -33);
+        context.lineTo(-25, -72);
+        context.lineTo(20, -76);
+        context.lineTo(48, -38);
+        context.lineTo(42, 8);
+        context.lineTo(10, 22);
+        context.lineTo(-25, 18);
+        context.closePath();
+        context.fill();
+
+        context.strokeStyle =
+          monster.accent;
+
+        context.lineWidth = 5;
+
+        context.beginPath();
+        context.moveTo(-20, -58);
+        context.lineTo(4, -25);
+        context.lineTo(18, -48);
+        context.stroke();
+      }
+
+      if (monster.kind === "bat") {
+        context.fillStyle =
+          flash || monster.color;
+
+        context.beginPath();
+        context.moveTo(-8, -40);
+        context.quadraticCurveTo(-55, -88, -70, -36);
+        context.lineTo(-42, -48);
+        context.lineTo(-30, -12);
+        context.closePath();
+        context.fill();
+
+        context.beginPath();
+        context.moveTo(8, -40);
+        context.quadraticCurveTo(55, -88, 70, -36);
+        context.lineTo(42, -48);
+        context.lineTo(30, -12);
+        context.closePath();
+        context.fill();
+
+        roundedRect(
+          context,
+          -25,
+          -66,
+          50,
+          76,
+          24
+        );
+
+        context.fill();
+
+        context.fillStyle =
+          "#ffd1df";
+
+        context.beginPath();
+        context.moveTo(-18, -64);
+        context.lineTo(-10, -92);
+        context.lineTo(0, -65);
+        context.moveTo(18, -64);
+        context.lineTo(10, -92);
+        context.lineTo(0, -65);
+        context.fill();
+      }
+
+      if (monster.kind === "ghost") {
+        context.fillStyle =
+          flash || monster.color;
+
+        context.beginPath();
+        context.arc(0, -50, 42, Math.PI, 0);
+        context.lineTo(42, 12);
+        context.lineTo(22, 1);
+        context.lineTo(5, 18);
+        context.lineTo(-12, 2);
+        context.lineTo(-28, 17);
+        context.lineTo(-42, 4);
+        context.closePath();
+        context.fill();
+
+        context.globalAlpha *= 0.88;
+      }
+
+      if (monster.kind === "wolf") {
+        context.fillStyle =
+          flash || monster.color;
+
+        roundedRect(
+          context,
+          -48,
+          -62,
+          90,
+          62,
+          24
+        );
+
+        context.fill();
+
+        context.beginPath();
+        context.arc(28, -58, 33, 0, Math.PI * 2);
+        context.fill();
+
+        context.beginPath();
+        context.moveTo(5, -78);
+        context.lineTo(10, -108);
+        context.lineTo(27, -80);
+        context.moveTo(38, -80);
+        context.lineTo(55, -106);
+        context.lineTo(58, -70);
+        context.fill();
+
+        context.strokeStyle =
+          monster.accent;
+
+        context.lineWidth = 9;
+
+        context.beginPath();
+        context.moveTo(-34, -4);
+        context.lineTo(-42, 24);
+        context.moveTo(12, -3);
+        context.lineTo(18, 24);
+        context.stroke();
+      }
+
+      if (monster.kind === "ogre") {
+        context.fillStyle =
+          flash || monster.color;
+
+        roundedRect(
+          context,
+          -54,
+          -92,
+          108,
+          105,
+          32
+        );
+
+        context.fill();
+
+        context.fillStyle =
+          "#e8d8a1";
+
+        context.beginPath();
+        context.moveTo(-39, -82);
+        context.lineTo(-62, -121);
+        context.lineTo(-18, -96);
+        context.moveTo(39, -82);
+        context.lineTo(62, -121);
+        context.lineTo(18, -96);
+        context.fill();
+
+        context.fillStyle =
+          monster.accent;
+
+        roundedRect(
+          context,
+          -60,
+          -28,
+          120,
+          28,
+          11
+        );
+
+        context.fill();
+      }
+
+      if (monster.kind === "eye") {
+        context.fillStyle =
+          flash || monster.color;
+
+        context.beginPath();
+
+        context.arc(
+          0,
+          -42,
+          51,
+          0,
+          Math.PI * 2
+        );
+
+        context.fill();
+
+        context.fillStyle =
+          "#fff1e9";
+
+        context.beginPath();
+
+        context.ellipse(
+          0,
+          -42,
+          34,
+          22,
+          0,
+          0,
+          Math.PI * 2
+        );
+
+        context.fill();
+
+        context.fillStyle =
+          monster.accent;
+
+        context.beginPath();
+
+        context.arc(
+          0,
+          -42,
+          13,
+          0,
+          Math.PI * 2
+        );
+
+        context.fill();
+
+        context.fillStyle =
+          "#11131d";
+
+        context.beginPath();
+
+        context.arc(
+          0,
+          -42,
+          5,
+          0,
+          Math.PI * 2
+        );
+
+        context.fill();
+
+        context.strokeStyle =
+          monster.accent;
+
+        context.lineWidth = 6;
+
+        for (
+          let index = 0;
+          index < 8;
+          index += 1
+        ) {
+          const angle =
+            index *
+            Math.PI /
+            4;
+
+          context.beginPath();
+
+          context.moveTo(
+            Math.cos(angle) * 46,
+            -42 +
+            Math.sin(angle) * 46
+          );
+
+          context.lineTo(
+            Math.cos(angle) * 66,
+            -42 +
+            Math.sin(angle) * 66
+          );
+
+          context.stroke();
+        }
+      }
+
+      if (monster.kind === "reaper") {
+        context.fillStyle =
+          flash || monster.color;
+
+        context.beginPath();
+        context.moveTo(0, -105);
+        context.quadraticCurveTo(58, -82, 50, 10);
+        context.lineTo(22, -2);
+        context.lineTo(0, 19);
+        context.lineTo(-22, -2);
+        context.lineTo(-50, 10);
+        context.quadraticCurveTo(-58, -82, 0, -105);
+        context.fill();
+
+        context.fillStyle =
+          "#0d0c14";
+
+        context.beginPath();
+
+        context.arc(
+          0,
+          -63,
+          24,
+          0,
+          Math.PI * 2
+        );
+
+        context.fill();
+
+        context.strokeStyle =
+          "#d8d6e8";
+
+        context.lineWidth = 6;
+
+        context.beginPath();
+        context.moveTo(35, -45);
+        context.lineTo(76, -103);
+        context.lineTo(91, -94);
+        context.stroke();
+
+        context.beginPath();
+
+        context.arc(
+          78,
+          -99,
+          27,
+          -1.2,
+          1.2
+        );
+
+        context.stroke();
+      }
+
+      if (monster.kind === "dragon") {
+        context.fillStyle =
+          flash || monster.color;
+
+        roundedRect(
+          context,
+          -55,
+          -70,
+          100,
+          78,
+          30
+        );
+
+        context.fill();
+
+        context.beginPath();
+
+        context.arc(
+          36,
+          -70,
+          35,
+          0,
+          Math.PI * 2
+        );
+
+        context.fill();
+
+        context.beginPath();
+        context.moveTo(-15, -62);
+        context.lineTo(-72, -108);
+        context.lineTo(-60, -35);
+        context.closePath();
+        context.fill();
+
+        context.beginPath();
+        context.moveTo(5, -62);
+        context.lineTo(72, -112);
+        context.lineTo(62, -28);
+        context.closePath();
+        context.fill();
+
+        context.fillStyle =
+          monster.accent;
+
+        context.beginPath();
+        context.moveTo(18, -98);
+        context.lineTo(28, -126);
+        context.lineTo(38, -98);
+        context.moveTo(44, -96);
+        context.lineTo(58, -119);
+        context.lineTo(62, -87);
+        context.fill();
+      }
+
+      if (
+        ![
+          "slime",
+          "mush",
+          "rock",
+          "bat",
+          "ghost",
+          "wolf",
+          "ogre",
+          "eye",
+          "reaper",
+          "dragon"
+        ].includes(monster.kind)
+      ) {
+        context.fillStyle =
+          "rgba(208,75,145,0.20)";
+
+        context.beginPath();
+
+        context.arc(
+          0,
+          -42,
+          72 +
+          Math.sin(time * 3) *
+          5,
+          0,
+          Math.PI * 2
+        );
+
+        context.fill();
+
+        context.fillStyle =
+          flash || monster.color;
+
+        roundedRect(
+          context,
+          -52,
+          -92,
+          104,
+          106,
+          35
+        );
+
+        context.fill();
+
+        context.fillStyle =
+          monster.accent;
+
+        context.beginPath();
+        context.moveTo(-42, -84);
+        context.lineTo(-65, -128);
+        context.lineTo(-18, -99);
+        context.moveTo(42, -84);
+        context.lineTo(65, -128);
+        context.lineTo(18, -99);
+        context.fill();
+
+        context.fillStyle =
+          "#e7b4ff";
+
+        context.beginPath();
+        context.moveTo(-28, -98);
+        context.lineTo(0, -132);
+        context.lineTo(28, -98);
+        context.closePath();
+        context.fill();
+      }
+
+      if (
+        !["eye", "reaper"].includes(
+          monster.kind
+        )
+      ) {
+        context.fillStyle =
+          "#111526";
+
+        context.beginPath();
+        context.arc(-14, -34, 5, 0, Math.PI * 2);
+        context.arc(14, -34, 5, 0, Math.PI * 2);
+        context.fill();
+
+        context.strokeStyle =
+          monster.accent;
+
+        context.lineWidth = 4;
+
+        context.beginPath();
+
+        context.arc(
+          0,
+          -17,
+          12,
+          0.1,
+          Math.PI - 0.1
+        );
+
+        context.stroke();
+      }
+
+      if (monster.maxHp > 1) {
+        context.fillStyle =
+          "rgba(0,0,0,0.46)";
+
+        roundedRect(
+          context,
+          -42,
+          -115,
+          84,
+          10,
+          5
+        );
+
+        context.fill();
+
+        context.fillStyle =
+          monster.boss
+            ? "#ff6178"
+            : "#78e6a6";
+
+        roundedRect(
+          context,
+          -42,
+          -115,
+          84 *
+          (
+            monster.hp /
+            monster.maxHp
+          ),
+          10,
+          5
+        );
+
+        context.fill();
+      }
+
+      if (monster.boss) {
+        context.fillStyle =
+          "#ffd76a";
+
+        context.font =
+          "900 12px Pretendard, sans-serif";
+
+        context.textAlign =
+          "center";
+
+        context.fillText(
+          "BOSS",
+          0,
+          -128
+        );
+      }
+
+      context.restore();
+    }
+
+    function drawProjectile(
+      context,
+      projectile
+    ) {
+      context.save();
+
+      for (
+        let index = 0;
+        index <
+          projectile.trail.length;
+        index += 1
+      ) {
+        const point =
+          projectile.trail[index];
+
+        const alpha =
+          Math.max(
+            0,
+            point.life / 0.26
+          ) *
+          (
+            index /
+            projectile.trail.length
+          );
+
+        context.fillStyle =
+          `rgba(97,228,255,${alpha * 0.55})`;
+
+        context.beginPath();
+
+        context.arc(
+          point.x,
+          point.y,
+          3 + index * 0.45,
+          0,
+          Math.PI * 2
+        );
+
+        context.fill();
+      }
+
+      context.shadowColor =
+        projectile.color;
+
+      context.shadowBlur = 24;
+      context.fillStyle =
+        projectile.color;
+
+      context.beginPath();
+
+      context.arc(
+        projectile.x,
+        projectile.y,
+        12,
+        0,
+        Math.PI * 2
+      );
+
+      context.fill();
+
+      context.fillStyle =
+        "rgba(255,255,255,0.9)";
+
+      context.beginPath();
+
+      context.arc(
+        projectile.x,
+        projectile.y,
+        5,
+        0,
+        Math.PI * 2
+      );
+
+      context.fill();
+      context.restore();
+    }
+
+    function drawParticle(
+      context,
+      particle
+    ) {
+      context.save();
+
+      const alpha =
+        clamp(
+          particle.life /
+          particle.maxLife,
+          0,
+          1
+        );
+
+      context.globalAlpha =
+        alpha;
+
+      context.translate(
+        particle.x,
+        particle.y
+      );
+
+      context.rotate(
+        particle.rotation
+      );
+
+      context.fillStyle =
+        particle.color;
+
+      context.fillRect(
+        -particle.size / 2,
+        -particle.size / 2,
+        particle.size,
+        particle.size
+      );
+
+      context.restore();
+    }
+
+    function drawBurst(
+      context,
+      burst
+    ) {
+      context.save();
+
+      context.globalAlpha =
+        burst.alpha;
+
+      context.strokeStyle =
+        burst.mega
+          ? "#ff7eb6"
+          : "#ffd76a";
+
+      context.lineWidth =
+        burst.mega
+          ? 24
+          : 18;
+
+      context.shadowColor =
+        burst.mega
+          ? "#ff7eb6"
+          : "#ffd76a";
+
+      context.shadowBlur =
+        burst.mega
+          ? 34
+          : 26;
+
+      context.beginPath();
+
+      context.arc(
+        burst.x,
+        burst.y,
+        burst.radius,
+        0,
+        Math.PI * 2
+      );
+
+      context.stroke();
+      context.restore();
+    }
+
+    function drawSpellSky(
+      context,
+      width,
+      height,
+      time
+    ) {
+      const power =
+        clamp(
+          state.spellAnim / 1.55,
+          0,
+          1
+        );
+
+      context.save();
+
+      context.globalAlpha =
+        0.18 +
+        power * 0.22;
+
+      const overlay =
+        context.createLinearGradient(
+          0,
+          0,
+          0,
+          height
+        );
+
+      overlay.addColorStop(
+        0,
+        "#d46fff"
+      );
+
+      overlay.addColorStop(
+        0.5,
+        "#8bd8ff"
+      );
+
+      overlay.addColorStop(
+        1,
+        "#ffffff"
+      );
+
+      context.fillStyle =
+        overlay;
+
+      context.fillRect(
+        0,
+        0,
+        width,
+        height
+      );
+
+      for (
+        let index = 0;
+        index < 24;
+        index += 1
+      ) {
+        const x =
+          (
+            index * 77 +
+            time * 160
+          ) %
+          (width + 160) -
+          80;
+
+        const y =
+          40 +
+          (index % 6) * 52;
+
+        context.strokeStyle =
+          index % 2 === 0
+            ? "rgba(255,255,255,0.7)"
+            : "rgba(255,215,106,0.55)";
+
+        context.lineWidth = 3;
+
+        context.beginPath();
+        context.moveTo(x, y);
+        context.lineTo(x - 32, y + 90);
+        context.stroke();
+      }
+
+      context.restore();
+    }
+
+    function drawSpellFinisher(
+      context,
+      width,
+      height,
+      time
+    ) {
+      const power =
+        clamp(
+          state.spellAnim / 1.55,
+          0,
+          1
+        );
+
+      context.save();
+
+      context.globalAlpha =
+        0.45 +
+        power * 0.2;
+
+      for (
+        let index = 0;
+        index < 5;
+        index += 1
+      ) {
+        const x =
+          420 +
+          index * 140;
+
+        context.strokeStyle =
+          index % 2 === 0
+            ? "rgba(255,126,182,0.9)"
+            : "rgba(97,228,255,0.9)";
+
+        context.lineWidth =
+          16 -
+          index * 2;
+
+        context.shadowColor =
+          "rgba(255,255,255,0.9)";
+
+        context.shadowBlur = 24;
+
+        context.beginPath();
+
+        context.moveTo(
+          x,
+          140 +
+          Math.sin(
+            time * 8 +
+            index
+          ) * 12
+        );
+
+        context.lineTo(
+          x - 36,
+          270
+        );
+
+        context.lineTo(
+          x - 6,
+          460
+        );
+
+        context.stroke();
+      }
+
+      context.restore();
+    }
+
+    function drawForeground(
+      context,
+      width,
+      height,
+      time
+    ) {
+      const gradient =
+        context.createLinearGradient(
+          0,
+          590,
+          0,
+          height
+        );
+
+      gradient.addColorStop(
+        0,
+        "rgba(255,255,255,0)"
+      );
+
+      gradient.addColorStop(
+        1,
+        "rgba(125,191,157,0.22)"
+      );
+
+      context.fillStyle =
+        gradient;
+
+      context.fillRect(
+        0,
+        590,
+        width,
+        height - 590
+      );
+
+      context.fillStyle =
+        "rgba(255,255,255,0.45)";
+
+      for (
+        let index = 0;
+        index < 14;
+        index += 1
+      ) {
+        const x =
+          (
+            (
+              index * 110 -
+              state.backgroundOffset *
+              1.8
+            ) %
+            (width + 180)
+          ) -
+          90;
+
+        const y =
+          640 +
+          Math.sin(
+            time * 2 +
+            index
+          ) * 8;
+
+        context.beginPath();
+
+        context.arc(
+          x,
+          y,
+          3 + (index % 3),
+          0,
+          Math.PI * 2
+        );
+
+        context.fill();
+      }
+    }
+
+    function drawFeedback(
+      context,
+      text,
+      color,
+      clock
+    ) {
+      context.save();
+
+      const alpha =
+        clamp(
+          clock / 0.35,
+          0,
+          1
+        );
+
+      context.globalAlpha =
+        alpha;
+
+      context.font =
+        "900 34px Pretendard, Noto Sans KR, sans-serif";
+
+      context.textAlign =
+        "center";
+
+      context.fillStyle =
+        color;
+
+      context.shadowColor =
+        "rgba(0,0,0,0.55)";
+
+      context.shadowBlur = 14;
+
+      context.fillText(
+        text,
+        700,
+        180 -
+        (
+          1.2 -
+          clock
+        ) * 18
+      );
+
+      context.restore();
+    }
+
+    function resizeShowcase() {
+      const rectangle =
+        showcaseCanvas.getBoundingClientRect();
+
+      const ratio =
+        Math.min(
+          window.devicePixelRatio || 1,
+          2
+        );
+
+      showcaseCanvas.width =
+        Math.max(
+          1,
+          Math.floor(
+            rectangle.width *
+            ratio
+          )
+        );
+
+      showcaseCanvas.height =
+        Math.max(
+          1,
+          Math.floor(
+            rectangle.height *
+            ratio
+          )
+        );
+
+      showcaseContext.setTransform(
+        ratio,
+        0,
+        0,
+        ratio,
+        0,
+        0
+      );
+    }
+
+    function drawShowcase() {
+      const width =
+        showcaseCanvas.clientWidth;
+
+      const height =
+        showcaseCanvas.clientHeight;
+
+      if (
+        !width ||
+        !height
+      ) {
+        showcaseFrame =
+          requestAnimationFrame(
+            drawShowcase
+          );
+
+        return;
+      }
+
+      showcaseContext.clearRect(
+        0,
+        0,
+        width,
+        height
+      );
+
+      const time =
+        performance.now() / 1000;
+
+      showcaseContext.save();
+
+      showcaseContext.translate(
+        width / 2,
+        height / 2 + 30
+      );
+
+      const scale =
+        Math.min(
+          width / 520,
+          height / 360
+        );
+
+      showcaseContext.scale(
+        scale,
+        scale
+      );
+
+      showcaseContext.fillStyle =
+        "rgba(97,228,255,0.08)";
+
+      showcaseContext.beginPath();
+
+      showcaseContext.arc(
+        0,
+        -10,
+        150 +
+        Math.sin(time * 2) * 6,
+        0,
+        Math.PI * 2
+      );
+
+      showcaseContext.fill();
+
+      drawHero(
+        showcaseContext,
+        -90,
+        90,
+        time,
+        heroMeta.lumi,
+        Math.sin(time * 2.8) >
+        0.55
+      );
+
+      drawMonster(
+        showcaseContext,
+        {
+          x: 85,
+          y: 92,
+          size: 1.18,
+          bob: time * 3.7,
+          color: "#ff8fbe",
+          accent: "#9e3d6a",
+          kind: "mush",
+          maxHp: 1,
+          hp: 1,
+          hitFlash: 0,
+          dead: false
+        },
+        time
+      );
+
+      drawMonster(
+        showcaseContext,
+        {
+          x: 180,
+          y: 105,
+          size: 0.9,
+          bob: time * 4.2 + 2,
+          color: "#76e0c4",
+          accent: "#2f9d88",
+          kind: "slime",
+          maxHp: 1,
+          hp: 1,
+          hitFlash: 0,
+          dead: false
+        },
+        time
+      );
+
+      const projectileX =
+        lerp(
+          -35,
+          75,
+          (
+            Math.sin(time * 2.8) +
+            1
+          ) / 2
+        );
+
+      showcaseContext.shadowColor =
+        "#61e4ff";
+
+      showcaseContext.shadowBlur =
+        22;
+
+      showcaseContext.fillStyle =
+        "#61e4ff";
+
+      showcaseContext.beginPath();
+
+      showcaseContext.arc(
+        projectileX,
+        20,
+        10,
+        0,
+        Math.PI * 2
+      );
+
+      showcaseContext.fill();
+      showcaseContext.restore();
+
+      showcaseFrame =
+        requestAnimationFrame(
+          drawShowcase
+        );
+    }
+
+    function scrollToRecords() {
+      $("records").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+
+    function resetRecords() {
+      const confirmed =
+        window.confirm(
+          "이 기기에 저장된 구구단 학습기록을 모두 지울까요?"
+        );
+
+      if (!confirmed) {
+        return;
+      }
+
+      state.stats =
+        defaultStats();
+
+      try {
+        localStorage.removeItem(
+          STORAGE_KEY
+        );
+      } catch (error) {
+        console.warn(error);
+      }
+
+      saveStats();
+      showToast("학습기록을 초기화했어요");
+    }
+
+    document
+      .querySelectorAll(".hero-card")
+      .forEach((card) => {
+        card.addEventListener(
+          "click",
+          () => {
+            setHero(
+              card.dataset.hero
+            );
+          }
+        );
+      });
+
+    answerButtons.forEach(
+      (button) => {
+        button.addEventListener(
+          "click",
+          () => {
+            answerQuestion(
+              button.dataset.value,
+              button
+            );
+          }
+        );
+      }
+    );
+
+    window.addEventListener(
+      "keydown",
+      (event) => {
+        if (
+          ["1", "2", "3", "4"].includes(
+            event.key
+          ) &&
+          state.running &&
+          !state.paused
+        ) {
+          const button =
+            answerButtons[
+              Number(event.key) - 1
+            ];
+
+          if (
+            button &&
+            !button.disabled
+          ) {
+            answerQuestion(
+              button.dataset.value,
+              button
+            );
+          }
+        }
+
+        if (
+          event.key === " " &&
+          state.running
+        ) {
+          event.preventDefault();
+
+          if (state.paused) {
+            resumeGame();
+          } else {
+            pauseGame();
+          }
+        }
+
+        if (
+          event.key.toLowerCase() ===
+          "q"
+        ) {
+          castSpell();
+        }
+      }
+    );
+
+    $("startGameBtn").addEventListener(
+      "click",
+      () => {
+        playTone("click");
+        startGame();
+      }
+    );
+
+    $("heroStartBtn").addEventListener(
+      "click",
+      () => {
+        playTone("click");
+
+        $("playSetup").scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }
+    );
+
+    $("heroRecordBtn").addEventListener(
+      "click",
+      scrollToRecords
+    );
+
+    $("recordJumpBtn").addEventListener(
+      "click",
+      scrollToRecords
+    );
+
+    $("pauseBtn").addEventListener(
+      "click",
+      () => {
+        if (state.paused) {
+          resumeGame();
+        } else {
+          pauseGame();
+        }
+      }
+    );
+
+    $("resumeBtn").addEventListener(
+      "click",
+      resumeGame
+    );
+
+    $("quitBtn").addEventListener(
+      "click",
+      quitGame
+    );
+
+    $("replayBtn").addEventListener(
+      "click",
+      () => {
+        startGame(true);
+      }
+    );
+
+    $("recordBtn").addEventListener(
+      "click",
+      scrollToRecords
+    );
+
+    $("spellBtn").addEventListener(
+      "click",
+      castSpell
+    );
+
+    $("resetRecordsBtn").addEventListener(
+      "click",
+      resetRecords
+    );
+
+    $("soundBtn").addEventListener(
+      "click",
+      () => {
+        state.sound = !state.sound;
+
+        $("soundBtn").textContent =
+          state.sound
+            ? "🔊"
+            : "🔇";
+
+        showToast(
+          state.sound
+            ? "배경음악과 효과음을 켰어요"
+            : "사운드를 껐어요"
+        );
+
+        if (state.sound) {
+          ensureAudio();
+          playTone("click");
+
+          if (
+            state.running &&
+            !state.paused &&
+            !state.ended
+          ) {
+            startMusic();
+          }
+        } else {
+          stopMusic();
+        }
+      }
+    );
+
+    window.addEventListener(
+      "blur",
+      () => {
+        if (
+          state.running &&
+          !state.paused &&
+          !state.ended
+        ) {
+          pauseGame();
+        }
+      }
+    );
+
+    window.addEventListener(
+      "resize",
+      resizeShowcase
+    );
+
+    updateProfileUI();
+    renderRecords();
+    updateHud();
+    updateSpellUI();
+    resizeShowcase();
+    drawShowcase();
+    drawGame(0);
+  </script>
+
+  <script
+    defer
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'
+  ></script>
+</body>
+</html>
