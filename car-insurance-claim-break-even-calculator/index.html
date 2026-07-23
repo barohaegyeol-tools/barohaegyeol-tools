@@ -1,0 +1,5554 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>자동차보험 사고 보험처리·현금수리 손익분기 계산기 | 자기부담금·보험료 인상 비교 | 바로해결툴즈</title>
+
+  <meta
+    name="description"
+    content="차량 수리비, 대물비용, 자기부담금, 현재 자동차보험료와 예상 보험료 인상률을 입력하면 보험처리와 현금수리의 총비용, 예상 보험금과 손익분기 사고금액을 비교합니다."
+  >
+
+  <meta
+    name="keywords"
+    content="자동차보험 사고 계산기, 보험처리 현금수리 비교, 자차보험 자기부담금 계산기, 자동차보험 할증 계산, 보험처리 손익분기, 사고 수리비 보험처리, 자동차보험료 인상, 바로해결툴즈"
+  >
+
+  <meta name="author" content="바로해결툴즈">
+  <meta name="robots" content="index, follow">
+
+  <link
+    rel="canonical"
+    href="https://barohaegyeol-tools.pages.dev/car-insurance-claim-break-even-calculator/"
+  >
+
+  <meta name="theme-color" content="#1d252b">
+
+  <meta property="og:type" content="website">
+
+  <meta
+    property="og:title"
+    content="자동차보험 사고 보험처리·현금수리 손익분기 계산기 | 바로해결툴즈"
+  >
+
+  <meta
+    property="og:description"
+    content="지금 내는 자기부담금과 향후 보험료 증가분을 합산해 현금수리보다 보험처리가 유리한지 비교하세요."
+  >
+
+  <meta
+    property="og:url"
+    content="https://barohaegyeol-tools.pages.dev/car-insurance-claim-break-even-calculator/"
+  >
+
+  <meta
+    property="og:site_name"
+    content="바로해결툴즈"
+  >
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "자동차보험 사고 보험처리·현금수리 손익분기 계산기",
+    "url": "https://barohaegyeol-tools.pages.dev/car-insurance-claim-break-even-calculator/",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "All",
+    "description": "자동차 사고비용, 자기부담금과 예상 보험료 증가분을 이용해 보험처리와 현금수리의 총비용을 비교하는 무료 웹 도구입니다.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "KRW"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "바로해결툴즈"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --ink: #1d252b;
+      --ink-2: #2d3941;
+      --text: #58666e;
+      --muted: #8d989e;
+
+      --yellow: #ffd84d;
+      --yellow-dark: #a87800;
+      --yellow-soft: #fff8d5;
+
+      --blue: #4387f4;
+      --blue-dark: #2459b4;
+      --blue-soft: #eaf2ff;
+
+      --orange: #ff784b;
+      --orange-dark: #bf4928;
+      --orange-soft: #fff0ea;
+
+      --teal: #43c7b6;
+      --teal-dark: #197e72;
+      --teal-soft: #e6faf6;
+
+      --green: #33946c;
+      --green-soft: #e8f7ef;
+
+      --red: #d55665;
+      --red-soft: #fff0f2;
+
+      --paper: #f7f8f4;
+      --white: #ffffff;
+
+      --line: rgba(29, 37, 43, 0.11);
+      --line-strong: rgba(29, 37, 43, 0.24);
+
+      --shadow:
+        0 28px 76px rgba(29, 37, 43, 0.15);
+
+      --shadow-soft:
+        0 12px 31px rgba(29, 37, 43, 0.08);
+
+      --max: 1220px;
+    }
+
+    * {
+      box-sizing: border-box;
+      min-width: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+
+      color: var(--ink);
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Pretendard",
+        "Noto Sans KR",
+        "Apple SD Gothic Neo",
+        system-ui,
+        sans-serif;
+
+      line-height: 1.65;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+
+      background:
+        radial-gradient(
+          circle at 7% 3%,
+          rgba(255, 216, 77, 0.28),
+          transparent 29%
+        ),
+        radial-gradient(
+          circle at 95% 4%,
+          rgba(67, 135, 244, 0.18),
+          transparent 29%
+        ),
+        radial-gradient(
+          circle at 82% 96%,
+          rgba(255, 120, 75, 0.14),
+          transparent 30%
+        ),
+        linear-gradient(
+          180deg,
+          #faf9ef 0%,
+          #f4f8fa 48%,
+          #f2fbf8 100%
+        );
+    }
+
+    body::before {
+      content: "";
+
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+
+      pointer-events: none;
+      opacity: 0.22;
+
+      background-image:
+        repeating-linear-gradient(
+          90deg,
+          transparent 0 68px,
+          rgba(29, 37, 43, 0.055) 68px 70px,
+          transparent 70px 138px
+        );
+
+      mask-image:
+        linear-gradient(
+          to bottom,
+          #000,
+          transparent 94%
+        );
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .wrap {
+      width:
+        min(
+          var(--max),
+          calc(100% - 32px)
+        );
+
+      margin:
+        0 auto;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 80;
+
+      border-bottom:
+        1px solid rgba(29, 37, 43, 0.08);
+
+      background:
+        rgba(250, 249, 240, 0.88);
+
+      backdrop-filter:
+        blur(17px);
+    }
+
+    .header-inner {
+      min-height: 76px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      font-weight: 950;
+      letter-spacing: -0.045em;
+    }
+
+    .brand-mark {
+      position: relative;
+
+      width: 45px;
+      height: 45px;
+
+      display: grid;
+      place-items: center;
+
+      overflow: hidden;
+
+      border:
+        2px solid var(--ink);
+
+      border-radius:
+        13px 13px 4px 13px;
+
+      color: var(--ink);
+
+      background: var(--yellow);
+
+      box-shadow:
+        6px 6px 0 var(--ink);
+
+      font-weight: 1000;
+    }
+
+    .brand-mark::before,
+    .brand-mark::after {
+      content: "";
+
+      position: absolute;
+      left: 50%;
+
+      width: 4px;
+      height: 13px;
+
+      background: #ffffff;
+
+      transform:
+        translateX(-50%);
+    }
+
+    .brand-mark::before {
+      top: 3px;
+    }
+
+    .brand-mark::after {
+      bottom: 3px;
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 2px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+      font-weight: 760;
+      letter-spacing: 0;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+
+      gap: 8px;
+    }
+
+    .nav a {
+      padding:
+        9px 13px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 8px;
+
+      color: #657178;
+
+      background:
+        rgba(255, 255, 255, 0.88);
+
+      font-size: 12px;
+      font-weight: 870;
+
+      transition:
+        0.18s ease;
+    }
+
+    .nav a:hover {
+      color: var(--blue-dark);
+
+      border-color:
+        rgba(67, 135, 244, 0.34);
+
+      transform:
+        translateY(-1px);
+    }
+
+    .hero {
+      padding:
+        40px 0 29px;
+    }
+
+    .hero-shell {
+      position: relative;
+      overflow: hidden;
+
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1.08fr)
+        minmax(400px, 0.92fr);
+
+      gap: 35px;
+      align-items: center;
+
+      padding:
+        49px 47px;
+
+      border:
+        2px solid var(--ink);
+
+      border-radius:
+        36px 36px 10px 36px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.99),
+          rgba(255, 249, 217, 0.97) 46%,
+          rgba(234, 242, 255, 0.98)
+        );
+
+      box-shadow:
+        12px 12px 0 var(--ink),
+        var(--shadow);
+    }
+
+    .hero-shell::before {
+      content: "CLAIM OR CASH REPAIR";
+
+      position: absolute;
+      right: 24px;
+      top: 18px;
+
+      color:
+        rgba(29, 37, 43, 0.23);
+
+      font-size: 9px;
+      font-weight: 1000;
+      letter-spacing: 0.14em;
+    }
+
+    .hero-shell::after {
+      content: "";
+
+      position: absolute;
+      left: -87px;
+      bottom: -118px;
+
+      width: 290px;
+      height: 290px;
+
+      border:
+        48px solid rgba(255, 120, 75, 0.07);
+
+      border-radius: 50%;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-chips {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 8px;
+
+      margin-bottom: 19px;
+    }
+
+    .hero-chip {
+      min-height: 34px;
+
+      display: inline-flex;
+      align-items: center;
+
+      padding:
+        8px 12px;
+
+      border:
+        1px solid var(--ink);
+
+      border-radius: 7px;
+
+      color: var(--ink);
+      background: #ffffff;
+
+      box-shadow:
+        4px 4px 0 rgba(29, 37, 43, 0.11);
+
+      font-size: 10px;
+      font-weight: 920;
+    }
+
+    .hero-chip.primary {
+      color: #ffffff;
+      background: var(--ink);
+    }
+
+    h1 {
+      margin: 0;
+
+      max-width: 740px;
+
+      font-size:
+        clamp(
+          42px,
+          5.8vw,
+          72px
+        );
+
+      line-height: 1.04;
+      letter-spacing: -0.071em;
+    }
+
+    .title-line {
+      display: block;
+    }
+
+    .title-accent {
+      position: relative;
+      display: inline-block;
+
+      color: var(--ink);
+      z-index: 1;
+    }
+
+    .title-accent::before {
+      content: "";
+
+      position: absolute;
+      inset:
+        6px -11px 2px;
+
+      z-index: -1;
+
+      background: var(--yellow);
+
+      transform:
+        rotate(-1.2deg);
+    }
+
+    .title-blue {
+      color: var(--blue-dark);
+    }
+
+    .hero-copy p {
+      max-width: 690px;
+
+      margin:
+        21px 0 0;
+
+      color: var(--text);
+
+      font-size:
+        clamp(
+          15px,
+          1.7vw,
+          18px
+        );
+
+      line-height: 1.82;
+      font-weight: 720;
+    }
+
+    .hero-copy strong {
+      color: var(--ink);
+      font-weight: 950;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 11px;
+
+      margin-top: 25px;
+    }
+
+    .btn {
+      min-height: 52px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      padding:
+        13px 19px;
+
+      border:
+        2px solid var(--ink);
+
+      border-radius: 8px;
+
+      font-weight: 950;
+
+      transition:
+        0.18s ease;
+    }
+
+    .btn:hover {
+      transform:
+        translateY(-2px);
+    }
+
+    .btn-primary {
+      color: var(--ink);
+      background: var(--yellow);
+
+      box-shadow:
+        6px 6px 0 var(--ink);
+    }
+
+    .btn-secondary {
+      color: #ffffff;
+      background: var(--blue);
+
+      box-shadow:
+        6px 6px 0 rgba(29, 37, 43, 0.25);
+    }
+
+    .road-board {
+      position: relative;
+      z-index: 2;
+
+      overflow: hidden;
+
+      padding: 22px;
+
+      border:
+        2px solid var(--ink);
+
+      border-radius:
+        26px 26px 8px 26px;
+
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          155deg,
+          var(--ink),
+          #343f46
+        );
+
+      box-shadow:
+        8px 8px 0 var(--yellow);
+    }
+
+    .road-board::before {
+      content: "";
+
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+
+      width: 6px;
+
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          var(--yellow) 0 24px,
+          transparent 24px 43px
+        );
+
+      transform:
+        translateX(-50%);
+    }
+
+    .road-head {
+      position: relative;
+      z-index: 2;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 12px;
+
+      padding-bottom: 15px;
+
+      border-bottom:
+        1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .road-head span {
+      color:
+        rgba(255, 255, 255, 0.59);
+
+      font-size: 9px;
+      font-weight: 1000;
+      letter-spacing: 0.1em;
+    }
+
+    .road-head b {
+      padding:
+        6px 9px;
+
+      border-radius: 999px;
+
+      color: var(--ink);
+      background: var(--yellow);
+
+      font-size: 8px;
+    }
+
+    .route-grid {
+      position: relative;
+      z-index: 2;
+
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 34px;
+
+      margin-top: 20px;
+    }
+
+    .route-card {
+      min-height: 275px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      padding: 18px;
+
+      border:
+        1px solid rgba(255, 255, 255, 0.21);
+
+      border-radius:
+        17px 17px 5px 17px;
+
+      background:
+        rgba(255, 255, 255, 0.08);
+
+      backdrop-filter:
+        blur(5px);
+    }
+
+    .route-card.cash {
+      border-color:
+        rgba(255, 216, 77, 0.59);
+    }
+
+    .route-card.claim {
+      border-color:
+        rgba(67, 135, 244, 0.64);
+    }
+
+    .route-code {
+      display: inline-flex;
+      align-self: flex-start;
+
+      padding:
+        5px 8px;
+
+      border-radius: 999px;
+
+      color: var(--ink);
+      background: var(--yellow);
+
+      font-size: 8px;
+      font-weight: 1000;
+    }
+
+    .route-card.claim
+    .route-code {
+      color: #ffffff;
+      background: var(--blue);
+    }
+
+    .route-card h3 {
+      margin:
+        11px 0 0;
+
+      font-size: 21px;
+      line-height: 1.12;
+      letter-spacing: -0.045em;
+    }
+
+    .route-card p {
+      margin:
+        8px 0 0;
+
+      color:
+        rgba(255, 255, 255, 0.64);
+
+      font-size: 9px;
+      line-height: 1.55;
+      font-weight: 730;
+    }
+
+    .route-cost {
+      margin-top: 17px;
+
+      padding:
+        13px;
+
+      border:
+        1px solid rgba(255, 255, 255, 0.14);
+
+      border-radius: 11px;
+
+      background:
+        rgba(255, 255, 255, 0.07);
+    }
+
+    .route-cost span {
+      display: block;
+
+      color:
+        rgba(255, 255, 255, 0.59);
+
+      font-size: 8px;
+      font-weight: 850;
+    }
+
+    .route-cost strong {
+      display: block;
+
+      margin-top: 6px;
+
+      color: var(--yellow);
+
+      font-size: 18px;
+      line-height: 1.15;
+      letter-spacing: -0.04em;
+    }
+
+    .route-card.claim
+    .route-cost strong {
+      color: #83b2ff;
+    }
+
+    .section {
+      padding:
+        15px 0 27px;
+    }
+
+    .tool-shell {
+      overflow: hidden;
+
+      border:
+        2px solid var(--ink);
+
+      border-radius:
+        30px 30px 9px 30px;
+
+      background:
+        rgba(255, 255, 255, 0.96);
+
+      box-shadow:
+        10px 10px 0 rgba(29, 37, 43, 0.1),
+        var(--shadow);
+    }
+
+    .shell-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      gap: 18px;
+
+      padding:
+        27px 27px 20px;
+
+      border-bottom:
+        2px solid var(--ink);
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--yellow) 0 13px,
+          #ffffff 13px 100%
+        );
+    }
+
+    .shell-head h2 {
+      margin: 0;
+
+      font-size:
+        clamp(
+          28px,
+          3.7vw,
+          41px
+        );
+
+      line-height: 1.15;
+      letter-spacing: -0.052em;
+    }
+
+    .shell-head p {
+      margin:
+        8px 0 0;
+
+      color: var(--muted);
+
+      font-size: 13px;
+      font-weight: 730;
+    }
+
+    .shell-badge {
+      min-height: 34px;
+
+      display: inline-flex;
+      align-items: center;
+
+      padding:
+        8px 12px;
+
+      border:
+        1px solid var(--ink);
+
+      border-radius: 7px;
+
+      color: #ffffff;
+      background: var(--ink);
+
+      font-size: 9px;
+      font-weight: 1000;
+      white-space: nowrap;
+    }
+
+    .calculator-body {
+      padding: 23px;
+    }
+
+    .base-strip {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      gap: 10px;
+
+      padding: 17px;
+
+      border:
+        1px solid var(--ink);
+
+      border-radius:
+        19px 19px 6px 19px;
+
+      background:
+        linear-gradient(
+          105deg,
+          var(--yellow-soft),
+          #ffffff,
+          var(--blue-soft)
+        );
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .field label {
+      display: block;
+
+      margin-bottom: 7px;
+
+      color: #5d696f;
+
+      font-size: 11px;
+      font-weight: 910;
+    }
+
+    .field label small {
+      display: block;
+
+      margin-top: 3px;
+
+      color: var(--muted);
+
+      font-size: 8px;
+      line-height: 1.45;
+      font-weight: 720;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 51px;
+
+      padding:
+        13px 53px 13px 14px;
+
+      border:
+        1px solid rgba(29, 37, 43, 0.18);
+
+      border-radius: 8px;
+      outline: none;
+
+      color: var(--ink);
+      background: #ffffff;
+
+      font-size: 13px;
+      font-weight: 840;
+
+      transition:
+        0.17s ease;
+    }
+
+    select {
+      padding-right: 14px;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--blue);
+
+      box-shadow:
+        0 0 0 4px rgba(67, 135, 244, 0.09);
+    }
+
+    .unit {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+
+      transform:
+        translateY(-50%);
+
+      color: var(--muted);
+
+      font-size: 9px;
+      font-weight: 900;
+
+      pointer-events: none;
+    }
+
+    .cost-zone {
+      display: grid;
+
+      grid-template-columns:
+        1.03fr 0.97fr;
+
+      gap: 13px;
+
+      margin-top: 16px;
+    }
+
+    .cost-panel,
+    .insurance-panel {
+      position: relative;
+      overflow: hidden;
+
+      padding: 20px;
+
+      border:
+        1px solid var(--ink);
+
+      border-radius:
+        21px 21px 7px 21px;
+
+      box-shadow:
+        5px 5px 0 rgba(29, 37, 43, 0.09);
+    }
+
+    .cost-panel {
+      background:
+        linear-gradient(
+          150deg,
+          var(--orange-soft),
+          #ffffff 58%
+        );
+    }
+
+    .insurance-panel {
+      background:
+        linear-gradient(
+          150deg,
+          var(--blue-soft),
+          #ffffff 58%
+        );
+    }
+
+    .cost-panel::after,
+    .insurance-panel::after {
+      content: "";
+
+      position: absolute;
+      right: -39px;
+      bottom: -39px;
+
+      width: 125px;
+      height: 125px;
+
+      border:
+        23px solid rgba(29, 37, 43, 0.045);
+
+      border-radius: 50%;
+    }
+
+    .panel-head,
+    .field-grid {
+      position: relative;
+      z-index: 1;
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+
+      gap: 12px;
+
+      margin-bottom: 16px;
+    }
+
+    .panel-head span {
+      display: block;
+
+      color: var(--orange-dark);
+
+      font-size: 8px;
+      font-weight: 1000;
+      letter-spacing: 0.1em;
+    }
+
+    .insurance-panel
+    .panel-head span {
+      color: var(--blue-dark);
+    }
+
+    .panel-head h3 {
+      margin:
+        5px 0 0;
+
+      font-size: 21px;
+      letter-spacing: -0.045em;
+    }
+
+    .panel-head p {
+      margin:
+        5px 0 0;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      line-height: 1.5;
+      font-weight: 730;
+    }
+
+    .panel-code {
+      min-width: 38px;
+      height: 32px;
+
+      display: grid;
+      place-items: center;
+
+      padding:
+        0 8px;
+
+      border:
+        1px solid var(--ink);
+
+      border-radius: 999px;
+
+      background: #ffffff;
+
+      font-size: 8px;
+      font-weight: 1000;
+    }
+
+    .field-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 10px;
+    }
+
+    .field.full {
+      grid-column:
+        1 / -1;
+    }
+
+    .premium-zone {
+      display: grid;
+
+      grid-template-columns:
+        0.78fr 1.22fr;
+
+      gap: 13px;
+
+      margin-top: 16px;
+    }
+
+    .premium-intro,
+    .premium-fields {
+      border:
+        1px solid var(--ink);
+
+      border-radius:
+        21px 21px 7px 21px;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .premium-intro {
+      position: relative;
+      overflow: hidden;
+
+      min-height: 250px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      padding: 22px;
+
+      color: #ffffff;
+
+      background:
+        linear-gradient(
+          145deg,
+          var(--ink),
+          var(--ink-2)
+        );
+    }
+
+    .premium-intro::after {
+      content: "+%";
+
+      position: absolute;
+      right: -16px;
+      bottom: -55px;
+
+      color:
+        rgba(255, 216, 77, 0.12);
+
+      font-size: 130px;
+      font-weight: 1000;
+      letter-spacing: -0.1em;
+    }
+
+    .premium-intro span,
+    .premium-intro h3,
+    .premium-intro p,
+    .premium-formula {
+      position: relative;
+      z-index: 1;
+    }
+
+    .premium-intro span {
+      color: var(--yellow);
+
+      font-size: 8px;
+      font-weight: 1000;
+      letter-spacing: 0.11em;
+    }
+
+    .premium-intro h3 {
+      margin:
+        8px 0 0;
+
+      font-size: 25px;
+      line-height: 1.15;
+      letter-spacing: -0.05em;
+    }
+
+    .premium-intro p {
+      margin:
+        10px 0 0;
+
+      color:
+        rgba(255, 255, 255, 0.68);
+
+      font-size: 9px;
+      line-height: 1.65;
+      font-weight: 730;
+    }
+
+    .premium-formula {
+      padding: 13px;
+
+      border:
+        1px solid rgba(255, 255, 255, 0.18);
+
+      border-radius: 12px;
+
+      background:
+        rgba(255, 255, 255, 0.07);
+
+      color:
+        rgba(255, 255, 255, 0.82);
+
+      font-size: 9px;
+      line-height: 1.65;
+      font-weight: 800;
+    }
+
+    .premium-fields {
+      padding: 18px;
+
+      background:
+        repeating-linear-gradient(
+          -45deg,
+          rgba(29, 37, 43, 0.024) 0 8px,
+          transparent 8px 16px
+        ),
+        #ffffff;
+    }
+
+    .premium-field-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 10px;
+    }
+
+    .preview-strip {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      gap: 9px;
+
+      margin-top: 16px;
+    }
+
+    .preview-cell {
+      padding: 14px;
+
+      border:
+        1px solid var(--ink);
+
+      border-radius:
+        14px 14px 4px 14px;
+
+      background: #ffffff;
+
+      text-align: center;
+    }
+
+    .preview-cell:nth-child(1) {
+      background: var(--orange-soft);
+    }
+
+    .preview-cell:nth-child(2) {
+      background: var(--blue-soft);
+    }
+
+    .preview-cell:nth-child(3) {
+      background: var(--yellow-soft);
+    }
+
+    .preview-cell:nth-child(4) {
+      background: var(--teal-soft);
+    }
+
+    .preview-cell span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 8px;
+      font-weight: 850;
+    }
+
+    .preview-cell strong {
+      display: block;
+
+      margin-top: 5px;
+
+      font-size: 14px;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+    }
+
+    .action-row {
+      display: grid;
+
+      grid-template-columns:
+        1fr 190px;
+
+      gap: 11px;
+
+      margin-top: 18px;
+    }
+
+    .calculate-btn,
+    .reset-btn {
+      min-height: 60px;
+
+      border:
+        2px solid var(--ink);
+
+      border-radius: 8px;
+
+      font-weight: 950;
+    }
+
+    .calculate-btn {
+      color: var(--ink);
+      background: var(--yellow);
+
+      box-shadow:
+        7px 7px 0 var(--ink);
+    }
+
+    .reset-btn {
+      color: #ffffff;
+      background: var(--blue);
+
+      box-shadow:
+        5px 5px 0 rgba(29, 37, 43, 0.23);
+    }
+
+    .notice {
+      margin-top: 18px;
+
+      padding:
+        15px 17px;
+
+      border:
+        1px solid var(--ink);
+
+      border-left:
+        9px solid var(--orange);
+
+      border-radius:
+        0 13px 13px 0;
+
+      color: #705146;
+      background: var(--orange-soft);
+
+      font-size: 11px;
+      line-height: 1.76;
+      font-weight: 760;
+    }
+
+    .results {
+      padding:
+        30px 0 20px;
+    }
+
+    .result-empty {
+      min-height: 220px;
+
+      display: grid;
+      place-items: center;
+
+      padding: 28px;
+
+      border:
+        2px dashed rgba(29, 37, 43, 0.27);
+
+      border-radius:
+        23px 23px 8px 23px;
+
+      color: var(--muted);
+
+      background:
+        rgba(255, 255, 255, 0.75);
+
+      text-align: center;
+      font-weight: 850;
+    }
+
+    .result-content {
+      display: none;
+    }
+
+    .result-content.show {
+      display: block;
+    }
+
+    .result-banner {
+      position: relative;
+      overflow: hidden;
+
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1fr)
+        auto;
+
+      gap: 24px;
+      align-items: center;
+
+      padding: 31px;
+
+      border:
+        2px solid var(--ink);
+
+      border-radius:
+        29px 29px 9px 29px;
+
+      color: #ffffff;
+
+      background:
+        radial-gradient(
+          circle at 88% 112%,
+          rgba(255, 216, 77, 0.28),
+          transparent 29%
+        ),
+        linear-gradient(
+          112deg,
+          var(--ink) 0 69%,
+          var(--blue) 69% 100%
+        );
+
+      box-shadow:
+        10px 10px 0 var(--yellow),
+        0 25px 58px rgba(29, 37, 43, 0.24);
+    }
+
+    .result-banner::before {
+      content: "VS";
+
+      position: absolute;
+      right: 28px;
+      top: -41px;
+
+      color:
+        rgba(255, 255, 255, 0.09);
+
+      font-size: 151px;
+      font-weight: 1000;
+      letter-spacing: -0.12em;
+    }
+
+    .result-copy,
+    .winner-card {
+      position: relative;
+      z-index: 1;
+    }
+
+    .result-copy > span {
+      display: block;
+
+      color: var(--yellow);
+
+      font-size: 9px;
+      font-weight: 1000;
+      letter-spacing: 0.11em;
+    }
+
+    .result-copy h2 {
+      margin:
+        8px 0 0;
+
+      max-width: 850px;
+
+      font-size:
+        clamp(
+          34px,
+          5.1vw,
+          58px
+        );
+
+      line-height: 1.07;
+      letter-spacing: -0.061em;
+    }
+
+    .result-copy h2 b {
+      color: var(--yellow);
+    }
+
+    .result-copy p {
+      max-width: 790px;
+
+      margin:
+        12px 0 0;
+
+      color:
+        rgba(255, 255, 255, 0.75);
+
+      font-size: 12px;
+      line-height: 1.75;
+      font-weight: 750;
+    }
+
+    .winner-card {
+      min-width: 229px;
+
+      padding: 20px;
+
+      border:
+        2px solid rgba(255, 255, 255, 0.53);
+
+      border-radius:
+        15px 15px 5px 15px;
+
+      background:
+        rgba(255, 255, 255, 0.11);
+
+      text-align: center;
+
+      backdrop-filter:
+        blur(8px);
+    }
+
+    .winner-card span {
+      display: block;
+
+      color:
+        rgba(255, 255, 255, 0.65);
+
+      font-size: 8px;
+      font-weight: 850;
+    }
+
+    .winner-card strong {
+      display: block;
+
+      margin-top: 8px;
+
+      color: var(--yellow);
+
+      font-size: 27px;
+      line-height: 1.08;
+      letter-spacing: -0.05em;
+    }
+
+    .winner-card small {
+      display: block;
+
+      margin-top: 8px;
+
+      color:
+        rgba(255, 255, 255, 0.68);
+
+      font-size: 8px;
+      line-height: 1.5;
+      font-weight: 730;
+    }
+
+    .route-result-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 13px;
+
+      margin-top: 17px;
+    }
+
+    .route-result {
+      position: relative;
+      overflow: hidden;
+
+      padding: 22px;
+
+      border:
+        1px solid var(--ink);
+
+      border-radius:
+        20px 20px 6px 20px;
+
+      box-shadow:
+        5px 5px 0 rgba(29, 37, 43, 0.09);
+    }
+
+    .route-result.cash {
+      background:
+        linear-gradient(
+          145deg,
+          var(--yellow-soft),
+          #ffffff 61%
+        );
+    }
+
+    .route-result.claim {
+      background:
+        linear-gradient(
+          145deg,
+          var(--blue-soft),
+          #ffffff 61%
+        );
+    }
+
+    .route-result::after {
+      content: "";
+
+      position: absolute;
+      right: -38px;
+      bottom: -38px;
+
+      width: 128px;
+      height: 128px;
+
+      border:
+        23px solid rgba(29, 37, 43, 0.05);
+
+      border-radius: 50%;
+    }
+
+    .route-result-head,
+    .route-result-amount,
+    .route-metrics {
+      position: relative;
+      z-index: 1;
+    }
+
+    .route-result-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 12px;
+    }
+
+    .route-result-head h3 {
+      margin: 0;
+
+      font-size: 21px;
+      letter-spacing: -0.045em;
+    }
+
+    .route-tag {
+      padding:
+        6px 9px;
+
+      border-radius: 999px;
+
+      color: var(--ink);
+      background: var(--yellow);
+
+      font-size: 8px;
+      font-weight: 1000;
+    }
+
+    .route-result.claim
+    .route-tag {
+      color: #ffffff;
+      background: var(--blue);
+    }
+
+    .route-result-amount {
+      display: block;
+
+      margin-top: 15px;
+
+      font-size:
+        clamp(
+          30px,
+          4vw,
+          43px
+        );
+
+      line-height: 1;
+      letter-spacing: -0.06em;
+    }
+
+    .route-result-amount small {
+      display: block;
+
+      margin-top: 7px;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      line-height: 1.5;
+      letter-spacing: 0;
+      font-weight: 740;
+    }
+
+    .route-metrics {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 8px;
+
+      margin-top: 17px;
+    }
+
+    .route-metric {
+      padding: 11px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 11px;
+
+      background:
+        rgba(255, 255, 255, 0.81);
+    }
+
+    .route-metric span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 7px;
+      font-weight: 850;
+    }
+
+    .route-metric strong {
+      display: block;
+
+      margin-top: 4px;
+
+      font-size: 11px;
+      line-height: 1.28;
+      letter-spacing: -0.025em;
+    }
+
+    .analysis-grid {
+      display: grid;
+
+      grid-template-columns:
+        0.9fr 1.1fr;
+
+      gap: 13px;
+
+      margin-top: 16px;
+    }
+
+    .break-even-panel,
+    .premium-chart-panel,
+    .stress-panel,
+    .guide-card {
+      border:
+        1px solid var(--ink);
+
+      border-radius:
+        21px 21px 7px 21px;
+
+      background: #ffffff;
+
+      box-shadow:
+        var(--shadow-soft);
+    }
+
+    .break-even-panel {
+      padding: 21px;
+
+      background:
+        linear-gradient(
+          150deg,
+          var(--teal-soft),
+          #ffffff 62%
+        );
+    }
+
+    .panel-kicker {
+      display: block;
+
+      color: var(--blue-dark);
+
+      font-size: 8px;
+      font-weight: 1000;
+      letter-spacing: 0.1em;
+    }
+
+    .break-even-panel h3,
+    .premium-chart-panel h3,
+    .stress-panel h3,
+    .guide-card h3 {
+      margin:
+        7px 0 0;
+
+      font-size: 21px;
+      letter-spacing: -0.043em;
+    }
+
+    .break-even-main {
+      margin-top: 15px;
+
+      padding: 18px;
+
+      border:
+        1px solid var(--ink);
+
+      border-radius:
+        15px 15px 5px 15px;
+
+      color: #ffffff;
+      background: var(--ink);
+    }
+
+    .break-even-main span {
+      display: block;
+
+      color:
+        rgba(255, 255, 255, 0.65);
+
+      font-size: 8px;
+      font-weight: 850;
+    }
+
+    .break-even-main strong {
+      display: block;
+
+      margin-top: 7px;
+
+      color: var(--yellow);
+
+      font-size: 27px;
+      line-height: 1.1;
+      letter-spacing: -0.052em;
+    }
+
+    .break-even-main p {
+      margin:
+        8px 0 0;
+
+      color:
+        rgba(255, 255, 255, 0.71);
+
+      font-size: 9px;
+      line-height: 1.6;
+      font-weight: 730;
+    }
+
+    .break-even-list {
+      display: grid;
+      gap: 8px;
+
+      margin-top: 12px;
+    }
+
+    .break-even-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 11px;
+
+      padding:
+        11px 12px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 11px;
+
+      background:
+        rgba(255, 255, 255, 0.84);
+    }
+
+    .break-even-row span {
+      color: var(--muted);
+
+      font-size: 8px;
+      font-weight: 850;
+    }
+
+    .break-even-row strong {
+      font-size: 10px;
+      text-align: right;
+    }
+
+    .premium-chart-panel {
+      padding: 21px;
+
+      background:
+        linear-gradient(
+          150deg,
+          var(--blue-soft),
+          #ffffff 61%
+        );
+    }
+
+    .chart-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      gap: 13px;
+    }
+
+    .chart-head p {
+      margin:
+        6px 0 0;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      font-weight: 730;
+    }
+
+    .chart-legend {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+
+      gap: 10px;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+
+      gap: 5px;
+
+      color: var(--muted);
+
+      font-size: 8px;
+      font-weight: 850;
+    }
+
+    .legend-dot {
+      width: 9px;
+      height: 9px;
+
+      border-radius: 3px;
+    }
+
+    .legend-dot.base {
+      background: var(--teal);
+    }
+
+    .legend-dot.claim {
+      background: var(--blue);
+    }
+
+    .chart-shell {
+      margin-top: 17px;
+
+      overflow-x: auto;
+
+      padding: 16px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 15px;
+
+      background: #ffffff;
+    }
+
+    .chart-area {
+      min-width: 470px;
+      height: 260px;
+
+      display: flex;
+      align-items: flex-end;
+
+      gap: 12px;
+    }
+
+    .year-column {
+      flex: 1;
+      height: 100%;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .year-bar-wrap {
+      width: 100%;
+      height: 211px;
+
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+
+      gap: 5px;
+
+      border-bottom:
+        1px solid var(--line-strong);
+    }
+
+    .year-bar {
+      width: 24px;
+      min-height: 3px;
+
+      border-radius:
+        6px 6px 2px 2px;
+    }
+
+    .year-bar.base {
+      background:
+        linear-gradient(
+          180deg,
+          #82e1d4,
+          var(--teal)
+        );
+    }
+
+    .year-bar.claim {
+      background:
+        linear-gradient(
+          180deg,
+          #8fb7fa,
+          var(--blue)
+        );
+    }
+
+    .year-label {
+      display: block;
+
+      margin-top: 7px;
+
+      color: var(--muted);
+
+      font-size: 8px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .stress-panel {
+      margin-top: 16px;
+
+      padding: 21px;
+
+      background:
+        linear-gradient(
+          150deg,
+          var(--orange-soft),
+          #ffffff 58%
+        );
+    }
+
+    .stress-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      gap: 13px;
+    }
+
+    .stress-head p {
+      margin:
+        6px 0 0;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      font-weight: 730;
+    }
+
+    .stress-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 10px;
+
+      margin-top: 16px;
+    }
+
+    .stress-card {
+      padding: 16px;
+
+      border:
+        1px solid var(--ink);
+
+      border-radius:
+        15px 15px 5px 15px;
+
+      background: #ffffff;
+    }
+
+    .stress-card.base {
+      color: #ffffff;
+      background: var(--ink);
+    }
+
+    .stress-card span {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 8px;
+      font-weight: 900;
+    }
+
+    .stress-card.base span {
+      color:
+        rgba(255, 255, 255, 0.63);
+    }
+
+    .stress-card strong {
+      display: block;
+
+      margin-top: 7px;
+
+      font-size: 21px;
+      line-height: 1.15;
+      letter-spacing: -0.042em;
+    }
+
+    .stress-card.base strong {
+      color: var(--yellow);
+    }
+
+    .stress-card small {
+      display: block;
+
+      margin-top: 7px;
+
+      color: var(--muted);
+
+      font-size: 8px;
+      line-height: 1.5;
+      font-weight: 730;
+    }
+
+    .stress-card.base small {
+      color:
+        rgba(255, 255, 255, 0.67);
+    }
+
+    .status-box {
+      margin-top: 16px;
+
+      padding:
+        16px 18px;
+
+      border:
+        1px solid rgba(51, 148, 108, 0.22);
+
+      border-left:
+        9px solid var(--green);
+
+      border-radius:
+        0 14px 14px 0;
+
+      color: #34684f;
+      background: var(--green-soft);
+
+      font-size: 12px;
+      line-height: 1.76;
+      font-weight: 800;
+    }
+
+    .status-box.warn {
+      color: #795f2c;
+
+      border-color:
+        rgba(255, 216, 77, 0.29);
+
+      border-left-color: var(--yellow);
+      background: var(--yellow-soft);
+    }
+
+    .status-box.danger {
+      color: #854852;
+
+      border-color:
+        rgba(213, 86, 101, 0.22);
+
+      border-left-color: var(--red);
+      background: var(--red-soft);
+    }
+
+    .result-actions {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 9px;
+
+      margin-top: 16px;
+    }
+
+    .result-actions button {
+      min-height: 47px;
+
+      padding:
+        11px 15px;
+
+      border:
+        1px solid var(--ink);
+
+      border-radius: 8px;
+
+      color: var(--ink);
+      background: #ffffff;
+
+      font-size: 11px;
+      font-weight: 920;
+    }
+
+    .result-actions button:first-child {
+      color: #ffffff;
+      background: var(--ink);
+    }
+
+    .guide-section {
+      padding:
+        10px 0 50px;
+    }
+
+    .guide-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 13px;
+    }
+
+    .guide-card {
+      padding: 22px;
+    }
+
+    .guide-card:nth-child(1) {
+      background:
+        linear-gradient(
+          150deg,
+          var(--yellow-soft),
+          #ffffff 63%
+        );
+    }
+
+    .guide-card:nth-child(2) {
+      background:
+        linear-gradient(
+          150deg,
+          var(--blue-soft),
+          #ffffff 63%
+        );
+    }
+
+    .guide-card:nth-child(3) {
+      background:
+        linear-gradient(
+          150deg,
+          var(--teal-soft),
+          #ffffff 63%
+        );
+    }
+
+    .guide-card p {
+      margin:
+        9px 0 0;
+
+      color: var(--text);
+
+      font-size: 11px;
+      line-height: 1.76;
+      font-weight: 720;
+    }
+
+    details {
+      margin-top: 16px;
+
+      border-top:
+        1px solid var(--line);
+    }
+
+    details + details {
+      margin-top: 0;
+    }
+
+    summary {
+      padding:
+        14px 0;
+
+      cursor: pointer;
+
+      list-style: none;
+
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      content: "+";
+
+      float: right;
+
+      color: var(--blue);
+
+      font-size: 17px;
+      line-height: 1;
+    }
+
+    details[open]
+    summary::after {
+      content: "−";
+    }
+
+    details p {
+      margin:
+        -2px 0 15px;
+
+      color: var(--muted);
+
+      font-size: 9px;
+      line-height: 1.65;
+    }
+
+    footer {
+      border-top:
+        1px solid var(--line);
+
+      background:
+        rgba(255, 255, 255, 0.74);
+    }
+
+    .footer-inner {
+      min-height: 120px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 20px;
+    }
+
+    .footer-inner strong {
+      display: block;
+
+      font-size: 16px;
+    }
+
+    .footer-inner p {
+      max-width: 780px;
+
+      margin:
+        6px 0 0;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      line-height: 1.6;
+      font-weight: 720;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+
+      gap: 8px;
+    }
+
+    .footer-links a {
+      padding:
+        8px 10px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 8px;
+
+      background: #ffffff;
+
+      color: var(--text);
+
+      font-size: 10px;
+      font-weight: 870;
+    }
+
+    @media (max-width: 1060px) {
+      .hero-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .road-board {
+        max-width: 780px;
+      }
+
+      .premium-zone,
+      .analysis-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .guide-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 820px) {
+      .header-inner {
+        min-height: auto;
+
+        padding:
+          13px 0;
+
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav {
+        justify-content: flex-start;
+      }
+
+      .hero {
+        padding-top: 24px;
+      }
+
+      .hero-shell {
+        padding:
+          37px 22px 27px;
+
+        border-radius:
+          28px 28px 9px 28px;
+
+        box-shadow:
+          7px 7px 0 var(--ink),
+          var(--shadow-soft);
+      }
+
+      h1 {
+        font-size:
+          clamp(
+            39px,
+            11vw,
+            58px
+          );
+
+        line-height: 1.09;
+      }
+
+      .base-strip,
+      .premium-field-grid,
+      .preview-strip {
+        grid-template-columns:
+          1fr 1fr;
+      }
+
+      .cost-zone,
+      .route-result-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .shell-head,
+      .chart-head,
+      .stress-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .result-banner {
+        grid-template-columns: 1fr;
+
+        background: var(--ink);
+      }
+
+      .winner-card {
+        min-width: 0;
+        text-align: left;
+      }
+
+      .stress-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+
+        padding:
+          26px 0;
+      }
+
+      .footer-links {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .wrap {
+        width:
+          min(
+            var(--max),
+            calc(100% - 20px)
+          );
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .hero-shell {
+        padding:
+          29px 17px 20px;
+      }
+
+      .hero-shell::before {
+        display: none;
+      }
+
+      .road-board {
+        padding: 14px;
+      }
+
+      .road-board::before {
+        display: none;
+      }
+
+      .route-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .route-card {
+        min-height: auto;
+      }
+
+      .base-strip,
+      .field-grid,
+      .premium-field-grid,
+      .preview-strip,
+      .route-metrics,
+      .action-row {
+        grid-template-columns: 1fr;
+      }
+
+      .calculator-body {
+        padding: 16px;
+      }
+
+      .break-even-row {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .break-even-row strong {
+        text-align: left;
+      }
+    }
+
+    @media print {
+      .header,
+      .hero,
+      #calculator,
+      .result-actions,
+      .guide-section,
+      footer {
+        display: none !important;
+      }
+
+      body {
+        background: #ffffff;
+      }
+
+      .results {
+        padding: 0;
+      }
+
+      .result-content {
+        display: block !important;
+      }
+
+      .result-banner,
+      .route-result,
+      .break-even-panel,
+      .premium-chart-panel,
+      .stress-panel,
+      .status-box {
+        box-shadow: none !important;
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <div class="wrap header-inner">
+      <a
+        class="brand"
+        href="https://barohaegyeol-tools.pages.dev/"
+        aria-label="바로해결툴즈 홈"
+      >
+        <div class="brand-mark">
+          B
+        </div>
+
+        <div>
+          바로해결툴즈
+
+          <small>
+            자동차 사고 · 자기부담금 · 보험료 증가 · 현금수리 비교
+          </small>
+        </div>
+      </a>
+
+      <nav
+        class="nav"
+        aria-label="페이지 메뉴"
+      >
+        <a href="#calculator">
+          사고비용 입력
+        </a>
+
+        <a href="#results">
+          손익분기 분석
+        </a>
+
+        <a href="#guide">
+          계산 기준
+        </a>
+
+        <a href="https://barohaegyeol-tools.pages.dev/">
+          전체 도구
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero-shell">
+          <div class="hero-copy">
+            <div class="hero-chips">
+              <span class="hero-chip primary">
+                지금 내는 돈과 향후 보험료 증가를 함께 계산
+              </span>
+
+              <span class="hero-chip">
+                보험처리·현금수리 손익분기 비교
+              </span>
+            </div>
+
+            <h1>
+              <span class="title-line">
+                사고 수리비,
+              </span>
+
+              <span class="title-line">
+                보험처리가
+
+                <span class="title-accent">
+                  정말 유리할까?
+                </span>
+              </span>
+            </h1>
+
+            <p>
+              차량 수리비와 대물비용, 자차 자기부담금,
+              현재 보험료와 예상 보험료 증가 조건을 입력하면
+
+              <strong>
+                보험사 예상 지급액, 당장 내는 돈,
+                향후 보험료 증가분, 현금수리 총비용과
+                손익분기 사고금액
+              </strong>
+
+              을 비교합니다.
+            </p>
+
+            <div class="hero-actions">
+              <a
+                class="btn btn-primary"
+                href="#calculator"
+              >
+                보험처리 실익 계산하기
+              </a>
+
+              <a
+                class="btn btn-secondary"
+                href="#guide"
+              >
+                계산 방식 확인
+              </a>
+            </div>
+          </div>
+
+          <div class="road-board">
+            <div class="road-head">
+              <span>
+                ACCIDENT COST ROUTE
+              </span>
+
+              <b>
+                두 가지 선택
+              </b>
+            </div>
+
+            <div class="route-grid">
+              <article class="route-card cash">
+                <div>
+                  <span class="route-code">
+                    CASH
+                  </span>
+
+                  <h3>
+                    현금수리
+                  </h3>
+
+                  <p>
+                    사고비용을 직접 부담하고 보험금 청구에 따른 보험료 변동을 피하는 방식입니다.
+                  </p>
+                </div>
+
+                <div class="route-cost">
+                  <span>
+                    총비용 구성
+                  </span>
+
+                  <strong>
+                    수리비 − 현금할인
+                  </strong>
+                </div>
+              </article>
+
+              <article class="route-card claim">
+                <div>
+                  <span class="route-code">
+                    CLAIM
+                  </span>
+
+                  <h3>
+                    보험처리
+                  </h3>
+
+                  <p>
+                    자기부담금과 보장 제외비용에 향후 보험료 증가분을 더해 비교합니다.
+                  </p>
+                </div>
+
+                <div class="route-cost">
+                  <span>
+                    총비용 구성
+                  </span>
+
+                  <strong>
+                    현재부담 + 보험료 증가
+                  </strong>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="section"
+      id="calculator"
+    >
+      <div class="wrap">
+        <div class="tool-shell">
+          <div class="shell-head">
+            <div>
+              <h2>
+                사고비용·보험조건 입력
+              </h2>
+
+              <p>
+                보험회사 안내자료나 갱신 견적에서 확인한 값을 직접 입력하는 방식입니다.
+              </p>
+            </div>
+
+            <div class="shell-badge">
+              CASH COST VS CLAIM TOTAL COST
+            </div>
+          </div>
+
+          <form
+            class="calculator-body"
+            id="calculatorForm"
+          >
+            <section class="base-strip">
+              <div class="field">
+                <label for="accidentDate">
+                  사고 기준일
+                </label>
+
+                <input
+                  id="accidentDate"
+                  type="date"
+                  required
+                >
+              </div>
+
+              <div class="field">
+                <label for="claimType">
+                  사고비용 유형
+                </label>
+
+                <select id="claimType">
+                  <option value="own">
+                    내 차량 수리 중심
+                  </option>
+
+                  <option value="mixed">
+                    내 차량·상대 피해 혼합
+                  </option>
+
+                  <option value="property">
+                    대물비용 중심
+                  </option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="comparisonYears">
+                  보험료 비교기간
+                </label>
+
+                <div class="input-wrap">
+                  <input
+                    id="comparisonYears"
+                    type="number"
+                    inputmode="numeric"
+                    min="1"
+                    max="10"
+                    step="1"
+                    value="3"
+                    required
+                  >
+
+                  <span class="unit">
+                    년
+                  </span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="coverageLimit">
+                  이번 사고 적용 가능 한도
+
+                  <small>
+                    충분히 크면 한도 영향 없음
+                  </small>
+                </label>
+
+                <div class="input-wrap">
+                  <input
+                    id="coverageLimit"
+                    type="number"
+                    inputmode="decimal"
+                    min="0"
+                    max="100000"
+                    step="10"
+                    value="5000"
+                  >
+
+                  <span class="unit">
+                    만원
+                  </span>
+                </div>
+              </div>
+            </section>
+
+            <div class="cost-zone">
+              <section class="cost-panel">
+                <div class="panel-head">
+                  <div>
+                    <span>
+                      ACCIDENT COST
+                    </span>
+
+                    <h3>
+                      이번 사고 예상비용
+                    </h3>
+
+                    <p>
+                      보험으로 처리하지 않으면 직접 부담해야 하는 금액을 기준으로 입력합니다.
+                    </p>
+                  </div>
+
+                  <div class="panel-code">
+                    01
+                  </div>
+                </div>
+
+                <div class="field-grid">
+                  <div class="field">
+                    <label for="repairCost">
+                      내 차량 수리비
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="repairCost"
+                        type="number"
+                        inputmode="decimal"
+                        min="0"
+                        max="100000"
+                        step="10"
+                        value="280"
+                      >
+
+                      <span class="unit">
+                        만원
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="otherDamage">
+                      상대 차량·대물 부담액
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="otherDamage"
+                        type="number"
+                        inputmode="decimal"
+                        min="0"
+                        max="100000"
+                        step="10"
+                        value="70"
+                      >
+
+                      <span class="unit">
+                        만원
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="ancillaryCost">
+                      견인·렌트·기타 사고비용
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="ancillaryCost"
+                        type="number"
+                        inputmode="decimal"
+                        min="0"
+                        max="100000"
+                        step="10"
+                        value="20"
+                      >
+
+                      <span class="unit">
+                        만원
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="uncoveredCost">
+                      보험 보장 제외비용
+
+                      <small>
+                        어느 선택에서도 직접 부담
+                      </small>
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="uncoveredCost"
+                        type="number"
+                        inputmode="decimal"
+                        min="0"
+                        max="100000"
+                        step="10"
+                        value="0"
+                      >
+
+                      <span class="unit">
+                        만원
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field full">
+                    <label for="cashDiscountRate">
+                      현금수리 예상 할인율
+
+                      <small>
+                        현금견적이 보험수리 견적보다 낮은 경우에만 입력
+                      </small>
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="cashDiscountRate"
+                        type="number"
+                        inputmode="decimal"
+                        min="0"
+                        max="80"
+                        step="0.1"
+                        value="7"
+                      >
+
+                      <span class="unit">
+                        %
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="insurance-panel">
+                <div class="panel-head">
+                  <div>
+                    <span>
+                      CLAIM CONDITIONS
+                    </span>
+
+                    <h3>
+                      보험금·자기부담 조건
+                    </h3>
+
+                    <p>
+                      자차 자기부담금은 비율과 최저·최고한도를 함께 적용합니다.
+                    </p>
+                  </div>
+
+                  <div class="panel-code">
+                    02
+                  </div>
+                </div>
+
+                <div class="field-grid">
+                  <div class="field">
+                    <label for="deductibleRate">
+                      자차 자기부담률
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="deductibleRate"
+                        type="number"
+                        inputmode="decimal"
+                        min="0"
+                        max="100"
+                        step="0.1"
+                        value="20"
+                      >
+
+                      <span class="unit">
+                        %
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="deductibleMin">
+                      최저 자기부담금
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="deductibleMin"
+                        type="number"
+                        inputmode="decimal"
+                        min="0"
+                        max="10000"
+                        step="1"
+                        value="20"
+                      >
+
+                      <span class="unit">
+                        만원
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="deductibleMax">
+                      최고 자기부담금
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="deductibleMax"
+                        type="number"
+                        inputmode="decimal"
+                        min="0"
+                        max="10000"
+                        step="1"
+                        value="50"
+                      >
+
+                      <span class="unit">
+                        만원
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="claimPaymentOverride">
+                      보험사 예상 지급액 직접 입력
+
+                      <small>
+                        0 입력 시 자동 계산
+                      </small>
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="claimPaymentOverride"
+                        type="number"
+                        inputmode="decimal"
+                        min="0"
+                        max="100000"
+                        step="10"
+                        value="0"
+                      >
+
+                      <span class="unit">
+                        만원
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field full">
+                    <label for="claimExtraCost">
+                      보험처리 추가비용
+
+                      <small>
+                        접수·서류·교통 등 별도로 잡을 비용
+                      </small>
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="claimExtraCost"
+                        type="number"
+                        inputmode="decimal"
+                        min="0"
+                        max="10000"
+                        step="1"
+                        value="0"
+                      >
+
+                      <span class="unit">
+                        만원
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+
+            <section class="premium-zone">
+              <div class="premium-intro">
+                <div>
+                  <span>
+                    FUTURE PREMIUM IMPACT
+                  </span>
+
+                  <h3>
+                    보험처리 후 예상 보험료 증가분
+                  </h3>
+
+                  <p>
+                    실제 인상률을 확정하지 않고 사용자가 입력한 가정값으로 비교합니다.
+                  </p>
+                </div>
+
+                <div class="premium-formula">
+                  정상 갱신 예상보험료 ×
+                  <br>
+                  보험처리 증가율·할인손실률 × 적용기간
+                </div>
+              </div>
+
+              <div class="premium-fields">
+                <div class="premium-field-grid">
+                  <div class="field">
+                    <label for="annualPremium">
+                      현재 연간 자동차보험료
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="annualPremium"
+                        type="number"
+                        inputmode="decimal"
+                        min="0"
+                        max="10000"
+                        step="1"
+                        value="120"
+                      >
+
+                      <span class="unit">
+                        만원
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="surchargeRate">
+                      예상 보험료 증가율
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="surchargeRate"
+                        type="number"
+                        inputmode="decimal"
+                        min="0"
+                        max="300"
+                        step="0.1"
+                        value="15"
+                      >
+
+                      <span class="unit">
+                        %
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="lostDiscountRate">
+                      무사고 할인손실 가정
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="lostDiscountRate"
+                        type="number"
+                        inputmode="decimal"
+                        min="0"
+                        max="100"
+                        step="0.1"
+                        value="5"
+                      >
+
+                      <span class="unit">
+                        %
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="impactYears">
+                      증가 영향 적용기간
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="impactYears"
+                        type="number"
+                        inputmode="numeric"
+                        min="1"
+                        max="10"
+                        step="1"
+                        value="3"
+                      >
+
+                      <span class="unit">
+                        년
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="basePremiumIncrease">
+                      정상 보험료 연변동률
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="basePremiumIncrease"
+                        type="number"
+                        inputmode="decimal"
+                        min="-50"
+                        max="100"
+                        step="0.1"
+                        value="3"
+                      >
+
+                      <span class="unit">
+                        %
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="stressWidth">
+                      스트레스 비교폭
+                    </label>
+
+                    <div class="input-wrap">
+                      <input
+                        id="stressWidth"
+                        type="number"
+                        inputmode="decimal"
+                        min="0"
+                        max="100"
+                        step="0.1"
+                        value="10"
+                      >
+
+                      <span class="unit">
+                        %p
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <div class="preview-strip">
+              <article class="preview-cell">
+                <span>
+                  전체 사고비용
+                </span>
+
+                <strong id="totalCostPreview">
+                  -
+                </strong>
+              </article>
+
+              <article class="preview-cell">
+                <span>
+                  예상 자기부담금
+                </span>
+
+                <strong id="deductiblePreview">
+                  -
+                </strong>
+              </article>
+
+              <article class="preview-cell">
+                <span>
+                  보험사 예상 지급액
+                </span>
+
+                <strong id="claimPreview">
+                  -
+                </strong>
+              </article>
+
+              <article class="preview-cell">
+                <span>
+                  미래 보험료 증가분
+                </span>
+
+                <strong id="premiumImpactPreview">
+                  -
+                </strong>
+              </article>
+            </div>
+
+            <div class="action-row">
+              <button
+                class="calculate-btn"
+                type="submit"
+              >
+                보험처리·현금수리 손익 계산하기
+              </button>
+
+              <button
+                class="reset-btn"
+                type="button"
+                id="resetBtn"
+              >
+                입력값 초기화
+              </button>
+            </div>
+
+            <div class="notice">
+              실제 보험금, 자기부담금, 갱신보험료와 할인·할증 여부는 사고유형,
+              과실, 담보, 사고건수, 보험회사 심사와 계약조건에 따라 달라질 수 있습니다.
+              이 계산기는 사용자가 입력한 예상 보험료 증가율과 비용을 적용한 참고용 손익 비교이며,
+              보험접수 여부를 확정하거나 실제 보험료를 예측하는 도구가 아닙니다.
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="results"
+      id="results"
+    >
+      <div class="wrap">
+        <div
+          class="result-empty"
+          id="resultEmpty"
+        >
+          사고비용과 보험조건을 입력하면<br>
+          보험처리·현금수리 총비용과 손익분기 금액이 표시됩니다.
+        </div>
+
+        <div
+          class="result-content"
+          id="resultContent"
+        >
+          <section class="result-banner">
+            <div class="result-copy">
+              <span>
+                CLAIM VS CASH RESULT
+              </span>
+
+              <h2 id="resultTitle">
+                계산 결과는 <b>-</b>입니다
+              </h2>
+
+              <p id="resultMessage">
+                -
+              </p>
+            </div>
+
+            <div class="winner-card">
+              <span>
+                입력조건 기준 비용 우위
+              </span>
+
+              <strong id="winnerResult">
+                -
+              </strong>
+
+              <small id="winnerDetail">
+                -
+              </small>
+            </div>
+          </section>
+
+          <div class="route-result-grid">
+            <article class="route-result cash">
+              <div class="route-result-head">
+                <h3>
+                  현금수리
+                </h3>
+
+                <span class="route-tag">
+                  CASH
+                </span>
+              </div>
+
+              <strong
+                class="route-result-amount"
+                id="cashTotalResult"
+              >
+                -
+              </strong>
+
+              <div class="route-metrics">
+                <article class="route-metric">
+                  <span>
+                    수리비 할인액
+                  </span>
+
+                  <strong id="cashDiscountResult">
+                    -
+                  </strong>
+                </article>
+
+                <article class="route-metric">
+                  <span>
+                    보험료 증가
+                  </span>
+
+                  <strong>
+                    0원
+                  </strong>
+                </article>
+
+                <article class="route-metric">
+                  <span>
+                    즉시 현금부담
+                  </span>
+
+                  <strong id="cashImmediateResult">
+                    -
+                  </strong>
+                </article>
+              </div>
+            </article>
+
+            <article class="route-result claim">
+              <div class="route-result-head">
+                <h3>
+                  보험처리
+                </h3>
+
+                <span class="route-tag">
+                  CLAIM
+                </span>
+              </div>
+
+              <strong
+                class="route-result-amount"
+                id="claimTotalResult"
+              >
+                -
+              </strong>
+
+              <div class="route-metrics">
+                <article class="route-metric">
+                  <span>
+                    예상 보험금
+                  </span>
+
+                  <strong id="insurerPaymentResult">
+                    -
+                  </strong>
+                </article>
+
+                <article class="route-metric">
+                  <span>
+                    현재 직접부담
+                  </span>
+
+                  <strong id="claimImmediateResult">
+                    -
+                  </strong>
+                </article>
+
+                <article class="route-metric">
+                  <span>
+                    보험료 증가분
+                  </span>
+
+                  <strong id="premiumIncreaseResult">
+                    -
+                  </strong>
+                </article>
+              </div>
+            </article>
+          </div>
+
+          <div class="analysis-grid">
+            <section class="break-even-panel">
+              <span class="panel-kicker">
+                BREAK-EVEN ANALYSIS
+              </span>
+
+              <h3>
+                보험처리 손익분기 분석
+              </h3>
+
+              <div class="break-even-main">
+                <span>
+                  보험처리가 현금수리보다 유리해지는 사고비용
+                </span>
+
+                <strong id="breakEvenResult">
+                  -
+                </strong>
+
+                <p id="breakEvenMessage">
+                  -
+                </p>
+              </div>
+
+              <div class="break-even-list">
+                <div class="break-even-row">
+                  <span>
+                    입력 사고비용
+                  </span>
+
+                  <strong id="inputAccidentCostResult">
+                    -
+                  </strong>
+                </div>
+
+                <div class="break-even-row">
+                  <span>
+                    보험처리 비용 차이
+                  </span>
+
+                  <strong id="costDifferenceResult">
+                    -
+                  </strong>
+                </div>
+
+                <div class="break-even-row">
+                  <span>
+                    자차 자기부담금
+                  </span>
+
+                  <strong id="deductibleResult">
+                    -
+                  </strong>
+                </div>
+
+                <div class="break-even-row">
+                  <span>
+                    보장한도 초과·미지급액
+                  </span>
+
+                  <strong id="unpaidResult">
+                    -
+                  </strong>
+                </div>
+
+                <div class="break-even-row">
+                  <span>
+                    적용 보험료 영향기간
+                  </span>
+
+                  <strong id="impactPeriodResult">
+                    -
+                  </strong>
+                </div>
+              </div>
+            </section>
+
+            <section class="premium-chart-panel">
+              <div class="chart-head">
+                <div>
+                  <span class="panel-kicker">
+                    PREMIUM TIMELINE
+                  </span>
+
+                  <h3>
+                    연도별 예상 보험료 비교
+                  </h3>
+
+                  <p>
+                    사고가 없다고 가정한 보험료와 보험처리 후 보험료를 비교합니다.
+                  </p>
+                </div>
+
+                <div class="chart-legend">
+                  <span class="legend-item">
+                    <i class="legend-dot base"></i>
+                    정상 갱신
+                  </span>
+
+                  <span class="legend-item">
+                    <i class="legend-dot claim"></i>
+                    보험처리 후
+                  </span>
+                </div>
+              </div>
+
+              <div class="chart-shell">
+                <div
+                  class="chart-area"
+                  id="chartArea"
+                ></div>
+              </div>
+            </section>
+          </div>
+
+          <section class="stress-panel">
+            <div class="stress-head">
+              <div>
+                <span class="panel-kicker">
+                  SURCHARGE STRESS TEST
+                </span>
+
+                <h3>
+                  보험료 증가율 스트레스 테스트
+                </h3>
+
+                <p>
+                  입력한 보험료 증가율보다 낮거나 높을 때 보험처리 총비용을 비교합니다.
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="stress-grid"
+              id="stressGrid"
+            ></div>
+          </section>
+
+          <div
+            class="status-box"
+            id="statusBox"
+          >
+            -
+          </div>
+
+          <div class="result-actions">
+            <button
+              type="button"
+              id="copyBtn"
+            >
+              결과 복사
+            </button>
+
+            <button
+              type="button"
+              id="printBtn"
+            >
+              결과 인쇄
+            </button>
+
+            <button
+              type="button"
+              id="editBtn"
+            >
+              입력값 수정
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="guide-section"
+      id="guide"
+    >
+      <div class="wrap guide-grid">
+        <article class="guide-card">
+          <span class="panel-kicker">
+            CASH ESTIMATE
+          </span>
+
+          <h3>
+            현금수리 견적은 별도로 확인
+          </h3>
+
+          <p>
+            보험수리 견적과 현금수리 견적이 다르면 실제 현금견적을 기준으로 입력하는 것이 정확합니다.
+            예상 할인율을 입력하면 내 차량 수리비에만 할인율을 적용하고 대물·기타비용은 그대로 계산합니다.
+          </p>
+        </article>
+
+        <article class="guide-card">
+          <span class="panel-kicker">
+            PREMIUM IMPACT
+          </span>
+
+          <h3>
+            보험료 증가율은 직접 입력
+          </h3>
+
+          <p>
+            사고 접수만으로 동일한 보험료가 적용되는 것은 아닙니다.
+            갱신 예상보험료나 보험회사 안내를 확인한 뒤 현재 보험료 대비 증가할 것으로 보는 비율과 적용기간을 직접 입력하세요.
+          </p>
+        </article>
+
+        <article class="guide-card">
+          <span class="panel-kicker">
+            FAQ
+          </span>
+
+          <h3>
+            자주 묻는 질문
+          </h3>
+
+          <details open>
+            <summary>
+              보험처리하면 무조건 보험료가 오르나요?
+            </summary>
+
+            <p>
+              이 계산기는 실제 인상 여부를 판단하지 않습니다.
+              사고내용과 계약조건에 따라 결과가 달라질 수 있으므로 확인한 예상 증가율만 입력해 비교해야 합니다.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              보험사 지급액을 이미 안내받았다면 어떻게 입력하나요?
+            </summary>
+
+            <p>
+              보험사 예상 지급액 직접 입력란에 안내받은 금액을 입력하면 자기부담금 자동 계산보다 해당 금액을 우선 적용합니다.
+              이 경우 손익분기 사고비용은 동일비율 자동 계산이 어려워 별도로 표시하지 않습니다.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              자기부담금은 어떻게 계산하나요?
+            </summary>
+
+            <p>
+              내 차량 수리비에 입력한 자기부담률을 곱한 뒤 최저금액보다 작으면 최저금액,
+              최고금액보다 크면 최고금액을 적용합니다.
+              실제 계약의 자기부담 조건과 다른 경우 반드시 수정해야 합니다.
+            </p>
+          </details>
+
+          <details>
+            <summary>
+              대인사고도 이 계산기로 판단할 수 있나요?
+            </summary>
+
+            <p>
+              치료비, 합의금과 장기 손해가 포함되는 대인사고를 단순 비용만으로 판단하기에는 적합하지 않습니다.
+              이 도구는 차량수리비와 대물비용 중심의 재무 비교용입니다.
+            </p>
+          </details>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <div>
+        <strong>
+          바로해결툴즈
+        </strong>
+
+        <p>
+          본 결과는 사용자가 입력한 사고비용, 자기부담금, 예상 보험금과 보험료 증가율을 이용한 참고용 시뮬레이션입니다.
+          실제 보상금, 보험료, 할인·할증 여부와 사고처리 결과는 보험계약과 보험회사 심사를 기준으로 확인해야 합니다.
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <a href="#calculator">
+          계산하기
+        </a>
+
+        <a href="#guide">
+          계산 기준
+        </a>
+
+        <a href="https://barohaegyeol-tools.pages.dev/">
+          전체 도구
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    "use strict";
+
+    const STORAGE_KEY =
+      "carInsuranceClaimBreakEvenCalculator";
+
+    const $ =
+      (id) =>
+        document.getElementById(id);
+
+    const form =
+      $("calculatorForm");
+
+    const inputs = {
+      accidentDate:
+        $("accidentDate"),
+
+      claimType:
+        $("claimType"),
+
+      comparisonYears:
+        $("comparisonYears"),
+
+      coverageLimit:
+        $("coverageLimit"),
+
+      repairCost:
+        $("repairCost"),
+
+      otherDamage:
+        $("otherDamage"),
+
+      ancillaryCost:
+        $("ancillaryCost"),
+
+      uncoveredCost:
+        $("uncoveredCost"),
+
+      cashDiscountRate:
+        $("cashDiscountRate"),
+
+      deductibleRate:
+        $("deductibleRate"),
+
+      deductibleMin:
+        $("deductibleMin"),
+
+      deductibleMax:
+        $("deductibleMax"),
+
+      claimPaymentOverride:
+        $("claimPaymentOverride"),
+
+      claimExtraCost:
+        $("claimExtraCost"),
+
+      annualPremium:
+        $("annualPremium"),
+
+      surchargeRate:
+        $("surchargeRate"),
+
+      lostDiscountRate:
+        $("lostDiscountRate"),
+
+      impactYears:
+        $("impactYears"),
+
+      basePremiumIncrease:
+        $("basePremiumIncrease"),
+
+      stressWidth:
+        $("stressWidth")
+    };
+
+    const claimTypeNames = {
+      own:
+        "내 차량 수리 중심",
+
+      mixed:
+        "내 차량·상대 피해 혼합",
+
+      property:
+        "대물비용 중심"
+    };
+
+    let lastResultText =
+      "";
+
+    function numberValue(
+      input
+    ) {
+      const value =
+        input.value.trim();
+
+      return value ===
+        ""
+        ? 0
+        : Number(value);
+    }
+
+    function toInputDate(
+      date
+    ) {
+      return (
+        `${date.getFullYear()}-` +
+        `${String(
+          date.getMonth() + 1
+        ).padStart(2, "0")}-` +
+        `${String(
+          date.getDate()
+        ).padStart(2, "0")}`
+      );
+    }
+
+    function formatMoney(
+      value,
+      digits = 1
+    ) {
+      if (
+        !Number.isFinite(value)
+      ) {
+        return "계산 불가";
+      }
+
+      const absolute =
+        Math.abs(value);
+
+      const sign =
+        value < 0
+          ? "-"
+          : "";
+
+      if (
+        absolute >= 10000
+      ) {
+        const amount =
+          absolute / 10000;
+
+        return (
+          `${sign}${amount.toLocaleString(
+            "ko-KR",
+            {
+              minimumFractionDigits:
+                0,
+
+              maximumFractionDigits:
+                2
+            }
+          )}억원`
+        );
+      }
+
+      return (
+        `${sign}${absolute.toLocaleString(
+          "ko-KR",
+          {
+            minimumFractionDigits:
+              absolute < 100
+                ? Math.min(
+                    digits,
+                    1
+                  )
+                : 0,
+
+            maximumFractionDigits:
+              absolute < 100
+                ? 1
+                : 0
+          }
+        )}만원`
+      );
+    }
+
+    function formatPercent(
+      value,
+      digits = 1
+    ) {
+      if (
+        !Number.isFinite(value)
+      ) {
+        return "-";
+      }
+
+      return (
+        `${value.toFixed(digits)}%`
+      );
+    }
+
+    function clamp(
+      value,
+      minimum,
+      maximum
+    ) {
+      return Math.min(
+        maximum,
+        Math.max(
+          minimum,
+          value
+        )
+      );
+    }
+
+    function getValues() {
+      if (
+        !inputs.accidentDate.value
+      ) {
+        throw new Error(
+          "사고 기준일을 입력해주세요."
+        );
+      }
+
+      const values = {
+        accidentDate:
+          inputs.accidentDate.value,
+
+        claimType:
+          inputs.claimType.value,
+
+        comparisonYears:
+          numberValue(
+            inputs.comparisonYears
+          ),
+
+        coverageLimit:
+          numberValue(
+            inputs.coverageLimit
+          ),
+
+        repairCost:
+          numberValue(
+            inputs.repairCost
+          ),
+
+        otherDamage:
+          numberValue(
+            inputs.otherDamage
+          ),
+
+        ancillaryCost:
+          numberValue(
+            inputs.ancillaryCost
+          ),
+
+        uncoveredCost:
+          numberValue(
+            inputs.uncoveredCost
+          ),
+
+        cashDiscountRate:
+          numberValue(
+            inputs.cashDiscountRate
+          ),
+
+        deductibleRate:
+          numberValue(
+            inputs.deductibleRate
+          ),
+
+        deductibleMin:
+          numberValue(
+            inputs.deductibleMin
+          ),
+
+        deductibleMax:
+          numberValue(
+            inputs.deductibleMax
+          ),
+
+        claimPaymentOverride:
+          numberValue(
+            inputs.claimPaymentOverride
+          ),
+
+        claimExtraCost:
+          numberValue(
+            inputs.claimExtraCost
+          ),
+
+        annualPremium:
+          numberValue(
+            inputs.annualPremium
+          ),
+
+        surchargeRate:
+          numberValue(
+            inputs.surchargeRate
+          ),
+
+        lostDiscountRate:
+          numberValue(
+            inputs.lostDiscountRate
+          ),
+
+        impactYears:
+          numberValue(
+            inputs.impactYears
+          ),
+
+        basePremiumIncrease:
+          numberValue(
+            inputs.basePremiumIncrease
+          ),
+
+        stressWidth:
+          numberValue(
+            inputs.stressWidth
+          )
+      };
+
+      const numericValues =
+        Object.values(
+          values
+        ).filter(
+          (value) =>
+            typeof value ===
+            "number"
+        );
+
+      if (
+        numericValues.some(
+          (value) =>
+            !Number.isFinite(value)
+        )
+      ) {
+        throw new Error(
+          "숫자 입력값을 확인해주세요."
+        );
+      }
+
+      if (
+        values.comparisonYears < 1 ||
+        values.comparisonYears > 10
+      ) {
+        throw new Error(
+          "보험료 비교기간은 1년부터 10년 사이로 입력해주세요."
+        );
+      }
+
+      if (
+        values.impactYears < 1 ||
+        values.impactYears > 10
+      ) {
+        throw new Error(
+          "보험료 증가 영향기간은 1년부터 10년 사이로 입력해주세요."
+        );
+      }
+
+      if (
+        [
+          values.coverageLimit,
+          values.repairCost,
+          values.otherDamage,
+          values.ancillaryCost,
+          values.uncoveredCost,
+          values.deductibleMin,
+          values.deductibleMax,
+          values.claimPaymentOverride,
+          values.claimExtraCost,
+          values.annualPremium,
+          values.surchargeRate,
+          values.lostDiscountRate,
+          values.stressWidth
+        ].some(
+          (value) =>
+            value < 0
+        )
+      ) {
+        throw new Error(
+          "금액과 증가율은 0 이상으로 입력해주세요."
+        );
+      }
+
+      if (
+        values.cashDiscountRate < 0 ||
+        values.cashDiscountRate > 80
+      ) {
+        throw new Error(
+          "현금수리 할인율은 0%부터 80% 사이로 입력해주세요."
+        );
+      }
+
+      if (
+        values.deductibleRate < 0 ||
+        values.deductibleRate > 100
+      ) {
+        throw new Error(
+          "자기부담률은 0%부터 100% 사이로 입력해주세요."
+        );
+      }
+
+      if (
+        values.deductibleMax <
+        values.deductibleMin
+      ) {
+        throw new Error(
+          "최고 자기부담금은 최저 자기부담금보다 작을 수 없습니다."
+        );
+      }
+
+      if (
+        values.surchargeRate > 300 ||
+        values.lostDiscountRate > 100
+      ) {
+        throw new Error(
+          "보험료 증가율 입력값을 확인해주세요."
+        );
+      }
+
+      if (
+        values.basePremiumIncrease <=
+        -100 ||
+        values.basePremiumIncrease >
+        100
+      ) {
+        throw new Error(
+          "정상 보험료 연변동률은 -100% 초과, 100% 이하로 입력해주세요."
+        );
+      }
+
+      values.coveredAccidentCost =
+        values.repairCost +
+        values.otherDamage +
+        values.ancillaryCost;
+
+      values.totalAccidentCost =
+        values.coveredAccidentCost +
+        values.uncoveredCost;
+
+      if (
+        values.totalAccidentCost <= 0
+      ) {
+        throw new Error(
+          "사고비용을 한 항목 이상 입력해주세요."
+        );
+      }
+
+      return values;
+    }
+
+    function calculateDeductible(
+      repairCost,
+      values
+    ) {
+      if (
+        repairCost <= 0
+      ) {
+        return 0;
+      }
+
+      const rateAmount =
+        repairCost *
+        values.deductibleRate /
+        100;
+
+      return Math.min(
+        repairCost,
+        clamp(
+          rateAmount,
+          values.deductibleMin,
+          values.deductibleMax
+        )
+      );
+    }
+
+    function calculatePremiumImpact(
+      values,
+      surchargeOverride = null
+    ) {
+      const surchargeRate =
+        surchargeOverride ===
+        null
+          ? values.surchargeRate
+          : surchargeOverride;
+
+      const years =
+        Math.max(
+          values.comparisonYears,
+          values.impactYears
+        );
+
+      const timeline =
+        [];
+
+      let totalIncrease =
+        0;
+
+      for (
+        let year = 1;
+        year <= years;
+        year += 1
+      ) {
+        const basePremium =
+          values.annualPremium *
+          Math.pow(
+            1 +
+            values.basePremiumIncrease /
+            100,
+            year - 1
+          );
+
+        const impactActive =
+          year <=
+          values.impactYears;
+
+        const combinedRate =
+          impactActive
+            ? surchargeRate +
+              values.lostDiscountRate
+            : 0;
+
+        const claimPremium =
+          basePremium *
+          (
+            1 +
+            combinedRate /
+            100
+          );
+
+        const increase =
+          Math.max(
+            0,
+            claimPremium -
+            basePremium
+          );
+
+        totalIncrease +=
+          increase;
+
+        timeline.push({
+          year,
+          basePremium,
+          claimPremium,
+          increase,
+          impactActive
+        });
+      }
+
+      return {
+        surchargeRate,
+        totalIncrease,
+        timeline
+      };
+    }
+
+    function calculateRoutes(
+      values,
+      surchargeOverride = null,
+      scale = 1,
+      ignoreOverride = false
+    ) {
+      const repairCost =
+        values.repairCost *
+        scale;
+
+      const otherDamage =
+        values.otherDamage *
+        scale;
+
+      const ancillaryCost =
+        values.ancillaryCost *
+        scale;
+
+      const coveredCost =
+        repairCost +
+        otherDamage +
+        ancillaryCost;
+
+      const totalAccidentCost =
+        coveredCost +
+        values.uncoveredCost;
+
+      const deductible =
+        calculateDeductible(
+          repairCost,
+          values
+        );
+
+      const automaticPayment =
+        Math.max(
+          0,
+          repairCost -
+          deductible +
+          otherDamage +
+          ancillaryCost
+        );
+
+      const requestedPayment =
+        !ignoreOverride &&
+        values.claimPaymentOverride >
+        0
+          ? values.claimPaymentOverride
+          : automaticPayment;
+
+      const insurerPayment =
+        Math.min(
+          requestedPayment,
+          values.coverageLimit
+        );
+
+      const unpaidCovered =
+        Math.max(
+          0,
+          coveredCost -
+          insurerPayment
+        );
+
+      const claimImmediateCost =
+        Math.max(
+          0,
+          totalAccidentCost -
+          insurerPayment
+        ) +
+        values.claimExtraCost;
+
+      const premiumImpact =
+        calculatePremiumImpact(
+          values,
+          surchargeOverride
+        );
+
+      const claimTotalCost =
+        claimImmediateCost +
+        premiumImpact.totalIncrease;
+
+      const repairDiscount =
+        repairCost *
+        values.cashDiscountRate /
+        100;
+
+      const cashTotalCost =
+        Math.max(
+          0,
+          repairCost -
+          repairDiscount
+        ) +
+        otherDamage +
+        ancillaryCost +
+        values.uncoveredCost;
+
+      return {
+        repairCost,
+        otherDamage,
+        ancillaryCost,
+        coveredCost,
+        totalAccidentCost,
+        deductible,
+        automaticPayment,
+        insurerPayment,
+        unpaidCovered,
+        claimImmediateCost,
+        premiumImpact,
+        claimTotalCost,
+        repairDiscount,
+        cashTotalCost,
+        difference:
+          cashTotalCost -
+          claimTotalCost
+      };
+    }
+
+    function findBreakEven(
+      values
+    ) {
+      if (
+        values.claimPaymentOverride >
+        0
+      ) {
+        return null;
+      }
+
+      const lowResult =
+        calculateRoutes(
+          values,
+          null,
+          0,
+          true
+        );
+
+      const highScale =
+        100;
+
+      const highResult =
+        calculateRoutes(
+          values,
+          null,
+          highScale,
+          true
+        );
+
+      if (
+        lowResult.difference >= 0
+      ) {
+        return 0;
+      }
+
+      if (
+        highResult.difference < 0
+      ) {
+        return Infinity;
+      }
+
+      let low = 0;
+      let high =
+        highScale;
+
+      for (
+        let index = 0;
+        index < 80;
+        index += 1
+      ) {
+        const middle =
+          (
+            low + high
+          ) / 2;
+
+        const result =
+          calculateRoutes(
+            values,
+            null,
+            middle,
+            true
+          );
+
+        if (
+          result.difference <
+          0
+        ) {
+          low =
+            middle;
+        } else {
+          high =
+            middle;
+        }
+      }
+
+      const scale =
+        (
+          low + high
+        ) / 2;
+
+      const result =
+        calculateRoutes(
+          values,
+          null,
+          scale,
+          true
+        );
+
+      return {
+        scale,
+        totalAccidentCost:
+          result.totalAccidentCost,
+        coveredCost:
+          result.coveredCost
+      };
+    }
+
+    function updatePreview() {
+      try {
+        const values =
+          getValues();
+
+        const result =
+          calculateRoutes(
+            values
+          );
+
+        $("totalCostPreview")
+          .textContent =
+            formatMoney(
+              result.totalAccidentCost
+            );
+
+        $("deductiblePreview")
+          .textContent =
+            formatMoney(
+              result.deductible
+            );
+
+        $("claimPreview")
+          .textContent =
+            formatMoney(
+              result.insurerPayment
+            );
+
+        $("premiumImpactPreview")
+          .textContent =
+            formatMoney(
+              result
+                .premiumImpact
+                .totalIncrease
+            );
+      } catch (error) {
+        $("totalCostPreview")
+          .textContent =
+            "-";
+
+        $("deductiblePreview")
+          .textContent =
+            "-";
+
+        $("claimPreview")
+          .textContent =
+            "-";
+
+        $("premiumImpactPreview")
+          .textContent =
+            "-";
+      }
+    }
+
+    function renderChart(
+      result
+    ) {
+      const chartArea =
+        $("chartArea");
+
+      chartArea.innerHTML =
+        "";
+
+      const visibleTimeline =
+        result
+          .premiumImpact
+          .timeline;
+
+      const maximum =
+        Math.max(
+          1,
+          ...visibleTimeline.flatMap(
+            (item) => [
+              item.basePremium,
+              item.claimPremium
+            ]
+          )
+        );
+
+      visibleTimeline.forEach(
+        (item) => {
+          const column =
+            document.createElement(
+              "div"
+            );
+
+          column.className =
+            "year-column";
+
+          const bars =
+            document.createElement(
+              "div"
+            );
+
+          bars.className =
+            "year-bar-wrap";
+
+          const baseBar =
+            document.createElement(
+              "div"
+            );
+
+          baseBar.className =
+            "year-bar base";
+
+          baseBar.style.height =
+            `${
+              Math.max(
+                2,
+                item.basePremium /
+                maximum *
+                100
+              )
+            }%`;
+
+          baseBar.title =
+            `${item.year}년차 정상 보험료 ${formatMoney(item.basePremium)}`;
+
+          const claimBar =
+            document.createElement(
+              "div"
+            );
+
+          claimBar.className =
+            "year-bar claim";
+
+          claimBar.style.height =
+            `${
+              Math.max(
+                2,
+                item.claimPremium /
+                maximum *
+                100
+              )
+            }%`;
+
+          claimBar.title =
+            `${item.year}년차 보험처리 후 ${formatMoney(item.claimPremium)}`;
+
+          const label =
+            document.createElement(
+              "span"
+            );
+
+          label.className =
+            "year-label";
+
+          label.textContent =
+            `${item.year}년차`;
+
+          bars.append(
+            baseBar,
+            claimBar
+          );
+
+          column.append(
+            bars,
+            label
+          );
+
+          chartArea.appendChild(
+            column
+          );
+        }
+      );
+    }
+
+    function renderStress(
+      values
+    ) {
+      const width =
+        values.stressWidth;
+
+      const scenarios = [
+        {
+          label:
+            "낮은 증가",
+
+          rate:
+            Math.max(
+              0,
+              values.surchargeRate -
+              width
+            ),
+
+          className:
+            ""
+        },
+
+        {
+          label:
+            "입력 기준",
+
+          rate:
+            values.surchargeRate,
+
+          className:
+            "base"
+        },
+
+        {
+          label:
+            "높은 증가",
+
+          rate:
+            values.surchargeRate +
+            width,
+
+          className:
+            ""
+        }
+      ];
+
+      $("stressGrid")
+        .innerHTML =
+          scenarios
+            .map(
+              (scenario) => {
+                const result =
+                  calculateRoutes(
+                    values,
+                    scenario.rate
+                  );
+
+                const advantage =
+                  result.difference >
+                  0
+                    ? `보험처리가 ${formatMoney(result.difference)} 낮음`
+                    : result.difference <
+                      0
+                      ? `현금수리가 ${formatMoney(Math.abs(result.difference))} 낮음`
+                      : "두 방식 비용 동일";
+
+                return `
+                  <article class="stress-card ${scenario.className}">
+                    <span>
+                      ${scenario.label} · 보험료 증가 ${formatPercent(scenario.rate)}
+                    </span>
+
+                    <strong>
+                      ${formatMoney(result.claimTotalCost)}
+                    </strong>
+
+                    <small>
+                      미래 보험료 증가 ${formatMoney(result.premiumImpact.totalIncrease)}
+                      · ${advantage}
+                    </small>
+                  </article>
+                `;
+              }
+            )
+            .join("");
+    }
+
+    function renderStatus(
+      values,
+      result,
+      breakEven
+    ) {
+      const status =
+        $("statusBox");
+
+      status.className =
+        "status-box";
+
+      if (
+        result.insurerPayment <= 0
+      ) {
+        status.classList.add(
+          "danger"
+        );
+
+        status.textContent =
+          "입력한 보장한도와 보험금 조건에서는 예상 보험사 지급액이 없습니다. " +
+          "담보 적용 여부, 자기부담금과 보장한도 입력값을 다시 확인하세요.";
+
+        return;
+      }
+
+      if (
+        result.unpaidCovered >
+        0 &&
+        result.unpaidCovered >=
+        result.coveredCost *
+        0.3
+      ) {
+        status.classList.add(
+          "danger"
+        );
+
+        status.textContent =
+          `보장대상으로 입력한 사고비용 중 ${formatMoney(result.unpaidCovered)}이 보험금으로 충당되지 않는 것으로 계산됐습니다. ` +
+          "보장한도와 보험사 예상 지급액을 다시 확인해야 합니다.";
+
+        return;
+      }
+
+      if (
+        result.difference >
+        0
+      ) {
+        status.textContent =
+          `입력한 조건에서는 보험처리 총비용이 현금수리보다 ${formatMoney(result.difference)} 낮습니다. ` +
+          `다만 보험료 증가율 ${formatPercent(values.surchargeRate)}과 영향기간 ${values.impactYears}년이 실제 갱신조건과 맞는지 확인하세요.`;
+
+        return;
+      }
+
+      if (
+        result.difference <
+        0
+      ) {
+        status.classList.add(
+          "warn"
+        );
+
+        status.textContent =
+          `입력한 조건에서는 현금수리 총비용이 보험처리보다 ${formatMoney(Math.abs(result.difference))} 낮습니다. ` +
+          "현금견적, 상대 피해금액과 추가 사고비용이 확정되기 전에는 단순 계산 결과만으로 결정하지 마세요.";
+
+        return;
+      }
+
+      status.classList.add(
+        "warn"
+      );
+
+      status.textContent =
+        "입력한 조건에서는 보험처리와 현금수리의 총비용이 거의 같습니다. " +
+        "실제 보험사 지급액과 갱신보험료 견적을 확인한 뒤 비금전적 처리 편의까지 함께 비교하세요.";
+    }
+
+    function calculate(
+      event
+    ) {
+      event.preventDefault();
+
+      let values;
+
+      try {
+        values =
+          getValues();
+      } catch (error) {
+        alert(
+          error.message
+        );
+
+        return;
+      }
+
+      const result =
+        calculateRoutes(
+          values
+        );
+
+      const breakEven =
+        findBreakEven(
+          values
+        );
+
+      let winner =
+        "비용 동일";
+
+      if (
+        result.difference >
+        0.01
+      ) {
+        winner =
+          "보험처리";
+      } else if (
+        result.difference <
+        -0.01
+      ) {
+        winner =
+          "현금수리";
+      }
+
+      const advantage =
+        Math.abs(
+          result.difference
+        );
+
+      $("resultTitle")
+        .innerHTML =
+          winner ===
+          "비용 동일"
+            ? `두 선택의 총비용이 <b>거의 같습니다</b>`
+            : `입력조건에서는 <b>${winner}</b>가 더 낮습니다`;
+
+      $("resultMessage")
+        .textContent =
+          `${claimTypeNames[values.claimType]} 사고비용 ${formatMoney(result.totalAccidentCost)}을 기준으로 ` +
+          `보험금, 자기부담금과 향후 ${values.impactYears}년의 예상 보험료 증가분을 합산했습니다.`;
+
+      $("winnerResult")
+        .textContent =
+          winner;
+
+      $("winnerDetail")
+        .textContent =
+          winner ===
+          "비용 동일"
+            ? "두 총비용의 차이가 거의 없습니다."
+            : `${formatMoney(advantage)} 낮게 계산`;
+
+      $("cashTotalResult")
+        .innerHTML =
+          `${formatMoney(result.cashTotalCost)}<small>현금수리 할인 적용 후 직접 부담하는 사고비용</small>`;
+
+      $("cashDiscountResult")
+        .textContent =
+          formatMoney(
+            result.repairDiscount
+          );
+
+      $("cashImmediateResult")
+        .textContent =
+          formatMoney(
+            result.cashTotalCost
+          );
+
+      $("claimTotalResult")
+        .innerHTML =
+          `${formatMoney(result.claimTotalCost)}<small>현재 직접부담과 미래 보험료 증가분의 합계</small>`;
+
+      $("insurerPaymentResult")
+        .textContent =
+          formatMoney(
+            result.insurerPayment
+          );
+
+      $("claimImmediateResult")
+        .textContent =
+          formatMoney(
+            result.claimImmediateCost
+          );
+
+      $("premiumIncreaseResult")
+        .textContent =
+          formatMoney(
+            result
+              .premiumImpact
+              .totalIncrease
+          );
+
+      if (
+        breakEven ===
+        null
+      ) {
+        $("breakEvenResult")
+          .textContent =
+            "직접입력 시 계산 제외";
+
+        $("breakEvenMessage")
+          .textContent =
+            "보험사 지급액을 직접 입력했기 때문에 사고비용 증가에 따른 보험금 변화를 자동 추정할 수 없습니다.";
+      } else if (
+        breakEven ===
+        Infinity
+      ) {
+        $("breakEvenResult")
+          .textContent =
+            "계산범위 내 없음";
+
+        $("breakEvenMessage")
+          .textContent =
+            "현재 비용구성과 보험조건에서는 사고비용을 크게 늘려도 보험처리가 현금수리보다 낮아지는 지점을 찾지 못했습니다.";
+      } else if (
+        breakEven === 0
+      ) {
+        $("breakEvenResult")
+          .textContent =
+            "현재부터 보험처리 우위";
+
+        $("breakEvenMessage")
+          .textContent =
+            "입력한 보험료 영향과 자기부담 조건에서는 낮은 사고금액부터 보험처리 비용이 더 낮게 계산됩니다.";
+      } else {
+        $("breakEvenResult")
+          .textContent =
+            formatMoney(
+              breakEven
+                .totalAccidentCost
+            );
+
+        $("breakEvenMessage")
+          .textContent =
+            `현재 입력한 수리비·대물비용 구성비가 유지된다고 가정하면 총 사고비용이 약 ${formatMoney(breakEven.totalAccidentCost)}을 넘는 구간부터 보험처리가 낮아집니다.`;
+      }
+
+      $("inputAccidentCostResult")
+        .textContent =
+          formatMoney(
+            result.totalAccidentCost
+          );
+
+      $("costDifferenceResult")
+        .textContent =
+          winner ===
+          "비용 동일"
+            ? "거의 동일"
+            : `${winner} ${formatMoney(advantage)} 우위`;
+
+      $("deductibleResult")
+        .textContent =
+          formatMoney(
+            result.deductible
+          );
+
+      $("unpaidResult")
+        .textContent =
+          formatMoney(
+            result.unpaidCovered
+          );
+
+      $("impactPeriodResult")
+        .textContent =
+          `${values.impactYears}년`;
+
+      renderChart(
+        result
+      );
+
+      renderStress(
+        values
+      );
+
+      renderStatus(
+        values,
+        result,
+        breakEven
+      );
+
+      lastResultText =
+`[자동차보험 사고 보험처리·현금수리 손익분기 계산기]
+
+사고 기준일: ${values.accidentDate}
+사고비용 유형: ${claimTypeNames[values.claimType]}
+
+내 차량 수리비: ${formatMoney(values.repairCost)}
+상대 차량·대물 부담액: ${formatMoney(values.otherDamage)}
+견인·렌트·기타비용: ${formatMoney(values.ancillaryCost)}
+보험 보장 제외비용: ${formatMoney(values.uncoveredCost)}
+전체 사고비용: ${formatMoney(result.totalAccidentCost)}
+
+현금수리 예상 할인율: ${formatPercent(values.cashDiscountRate)}
+현금수리 할인액: ${formatMoney(result.repairDiscount)}
+현금수리 총비용: ${formatMoney(result.cashTotalCost)}
+
+자차 자기부담률: ${formatPercent(values.deductibleRate)}
+자차 자기부담금: ${formatMoney(result.deductible)}
+보험사 예상 지급액: ${formatMoney(result.insurerPayment)}
+보험처리 현재 직접부담: ${formatMoney(result.claimImmediateCost)}
+
+현재 연간 보험료: ${formatMoney(values.annualPremium)}
+예상 보험료 증가율: ${formatPercent(values.surchargeRate)}
+무사고 할인손실 가정: ${formatPercent(values.lostDiscountRate)}
+보험료 영향기간: ${values.impactYears}년
+미래 보험료 증가분: ${formatMoney(result.premiumImpact.totalIncrease)}
+
+보험처리 총비용: ${formatMoney(result.claimTotalCost)}
+비용이 낮은 선택: ${winner}
+비용 차이: ${formatMoney(advantage)}
+
+보험처리 손익분기 사고비용: ${
+  breakEven === null
+    ? "보험금 직접입력으로 계산 제외"
+    : breakEven === Infinity
+      ? "계산범위 내 없음"
+      : breakEven === 0
+        ? "현재부터 보험처리 우위"
+        : formatMoney(
+            breakEven.totalAccidentCost
+          )
+}
+
+※ 사용자가 입력한 예상 보험금과 보험료 증가율을 이용한 참고용 비교이며 실제 보상과 갱신보험료를 보장하지 않습니다.`;
+
+      $("resultEmpty")
+        .style
+        .display =
+          "none";
+
+      $("resultContent")
+        .classList
+        .add(
+          "show"
+        );
+
+      saveForm();
+
+      $("results")
+        .scrollIntoView({
+          behavior:
+            "smooth",
+
+          block:
+            "start"
+        });
+    }
+
+    function saveForm() {
+      try {
+        const data =
+          {};
+
+        Object.entries(
+          inputs
+        ).forEach(
+          (
+            [
+              key,
+              input
+            ]
+          ) => {
+            data[key] =
+              input.value;
+          }
+        );
+
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify(data)
+        );
+      } catch (error) {
+        console.warn(error);
+      }
+    }
+
+    function setDefaultDate() {
+      inputs.accidentDate.value =
+        toInputDate(
+          new Date()
+        );
+    }
+
+    function restoreForm() {
+      setDefaultDate();
+
+      try {
+        const saved =
+          JSON.parse(
+            localStorage.getItem(
+              STORAGE_KEY
+            ) ||
+            "null"
+          );
+
+        if (
+          saved
+        ) {
+          Object.entries(
+            inputs
+          ).forEach(
+            (
+              [
+                key,
+                input
+              ]
+            ) => {
+              if (
+                saved[key] !==
+                undefined &&
+                saved[key] !==
+                ""
+              ) {
+                input.value =
+                  saved[key];
+              }
+            }
+          );
+        }
+      } catch (error) {
+        console.warn(error);
+      }
+
+      updatePreview();
+    }
+
+    function resetCalculator() {
+      const defaults = {
+        claimType:
+          "own",
+
+        comparisonYears:
+          "3",
+
+        coverageLimit:
+          "5000",
+
+        repairCost:
+          "280",
+
+        otherDamage:
+          "70",
+
+        ancillaryCost:
+          "20",
+
+        uncoveredCost:
+          "0",
+
+        cashDiscountRate:
+          "7",
+
+        deductibleRate:
+          "20",
+
+        deductibleMin:
+          "20",
+
+        deductibleMax:
+          "50",
+
+        claimPaymentOverride:
+          "0",
+
+        claimExtraCost:
+          "0",
+
+        annualPremium:
+          "120",
+
+        surchargeRate:
+          "15",
+
+        lostDiscountRate:
+          "5",
+
+        impactYears:
+          "3",
+
+        basePremiumIncrease:
+          "3",
+
+        stressWidth:
+          "10"
+      };
+
+      try {
+        localStorage.removeItem(
+          STORAGE_KEY
+        );
+      } catch (error) {
+        console.warn(error);
+      }
+
+      Object.entries(
+        defaults
+      ).forEach(
+        (
+          [
+            key,
+            value
+          ]
+        ) => {
+          inputs[key].value =
+            value;
+        }
+      );
+
+      setDefaultDate();
+
+      $("resultContent")
+        .classList
+        .remove(
+          "show"
+        );
+
+      $("resultEmpty")
+        .style
+        .display =
+          "grid";
+
+      lastResultText =
+        "";
+
+      updatePreview();
+    }
+
+    async function copyResult() {
+      if (
+        !lastResultText
+      ) {
+        alert(
+          "먼저 계산해주세요."
+        );
+
+        return;
+      }
+
+      try {
+        await navigator
+          .clipboard
+          .writeText(
+            lastResultText
+          );
+      } catch (error) {
+        const textarea =
+          document.createElement(
+            "textarea"
+          );
+
+        textarea.value =
+          lastResultText;
+
+        textarea.style.position =
+          "fixed";
+
+        textarea.style.opacity =
+          "0";
+
+        document.body.appendChild(
+          textarea
+        );
+
+        textarea.select();
+
+        document.execCommand(
+          "copy"
+        );
+
+        textarea.remove();
+      }
+
+      const original =
+        $("copyBtn")
+          .textContent;
+
+      $("copyBtn")
+        .textContent =
+          "복사 완료";
+
+      setTimeout(
+        () => {
+          $("copyBtn")
+            .textContent =
+              original;
+        },
+        1200
+      );
+    }
+
+    Object.values(
+      inputs
+    ).forEach(
+      (input) => {
+        input.addEventListener(
+          "input",
+          () => {
+            updatePreview();
+            saveForm();
+          }
+        );
+
+        input.addEventListener(
+          "change",
+          () => {
+            updatePreview();
+            saveForm();
+          }
+        );
+      }
+    );
+
+    form.addEventListener(
+      "submit",
+      calculate
+    );
+
+    $("resetBtn")
+      .addEventListener(
+        "click",
+        resetCalculator
+      );
+
+    $("copyBtn")
+      .addEventListener(
+        "click",
+        copyResult
+      );
+
+    $("printBtn")
+      .addEventListener(
+        "click",
+        () => {
+          window.print();
+        }
+      );
+
+    $("editBtn")
+      .addEventListener(
+        "click",
+        () => {
+          $("calculator")
+            .scrollIntoView({
+              behavior:
+                "smooth",
+
+              block:
+                "start"
+            });
+        }
+      );
+
+    restoreForm();
+  </script>
+
+  <script
+    defer
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon='{"token":"ee1ebb7c6cac4c3c8f71cce2ad6bf28f"}'
+  ></script>
+</body>
+</html>
